@@ -7,8 +7,8 @@ services:
   data_portal_ui_svc:
     image: ghga/data-portal-ui-v1:dev
     environment:
-      DATA_PORTAL_UI_V0_HOST: 0.0.0.0
-      DATA_PORTAL_UI_V0_PORT: 8080
+      DATA_PORTAL_UI_V1_HOST: 0.0.0.0
+      DATA_PORTAL_UI_V1_PORT: 8080
     ports:
       - 8000:8080
     depends_on:

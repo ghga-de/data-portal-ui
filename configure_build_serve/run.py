@@ -28,7 +28,7 @@ ROOT_DIR = Path(__file__).parent.parent.resolve()
 IGNORE_PARAMS_FOR_REACT_APP = ["host", "port"]
 
 
-@config_from_yaml(prefix="data_portal_ui_v0")
+@config_from_yaml(prefix="data_portal_ui_v1")
 class Config(BaseSettings):
     """Config parameters and their defaults."""
     host: str = "localhost"
@@ -36,6 +36,7 @@ class Config(BaseSettings):
     welcome_info: Optional[str]
     svc_search_url: str = "https://dataportal.api.ghga-dev.de/metadata-search"
     svc_repository_url: str = "https://dataportal.api.ghga-dev.de/metadata"
+
 
 def simplelog(text: str):
     print(f"\n>>> {text}\n")
@@ -62,17 +63,17 @@ def build():
 
     simplelog("Executing `yarn build`")
     cmd_build = [
-        "yarn", 
+        "yarn",
         "--cwd",
         str(ROOT_DIR),
         "build"
     ]
     exit_code_build = Popen(cmd_build).wait()
-    
+
     if exit_code_build != 0:
         raise RuntimeError(
             f"`yarn` terminated with non-zero exit code: {exit_code_build}."
-        ) 
+        )
 
 
 def serve(config: Config):
@@ -80,13 +81,13 @@ def serve(config: Config):
 
     simplelog("Making the `serve` package globally available:")
     cmd_add_serve = [
-        "yarn", 
+        "yarn",
         "global",
         "add",
         "serve",
     ]
     exit_code_add_serve = Popen(cmd_add_serve).wait()
-    
+
     if exit_code_add_serve != 0:
         raise RuntimeError(
             f"`yarn` terminated with non-zero exit code: {exit_code_add_serve}."
@@ -110,7 +111,7 @@ def serve(config: Config):
 
 def dev_serve(config: Config):
     """Runs the web app using a development server"""
-    
+
     # set environment variables for dev server:
     os.environ["HOST"] = config.host
     os.environ["PORT"] = str(config.port)
@@ -122,13 +123,13 @@ def dev_serve(config: Config):
         "Do not use for production!\n"
     )
     cmd_start = [
-        "yarn", 
+        "yarn",
         "--cwd",
         str(ROOT_DIR),
         "start"
     ]
     exit_code_start = Popen(cmd_start).wait()
-    
+
     raise RuntimeError(
         f"Serving of app was interupted: {exit_code_start}."
     )
