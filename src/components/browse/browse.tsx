@@ -4,7 +4,7 @@ import { Col, Row, Container } from 'react-bootstrap'
 import Sidebar from './sidebar/sidebar';
 import { searchResponseModel, hitModel } from '../../models/dataset'
 import { facetFilterModel, facetModel } from '../../models/facets'
-import { getDatasetsSearchResp } from './browseBackendCalls'
+import { getDatasetsSearchResp } from '../../api/browse'
 
 const Browse = () => {
   const [filterDict, setFilterDict] = React.useState<facetFilterModel[]>([]);

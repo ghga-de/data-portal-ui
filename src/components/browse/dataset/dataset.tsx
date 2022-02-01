@@ -1,7 +1,7 @@
 import React from 'react';
 import { Accordion } from 'react-bootstrap';
 import { hitModel, datasetModel } from '../../../models/dataset';
-import { getDatasetDetails } from '../browseBackendCalls'
+import { getDatasetDetails } from '../../../api/browse'
 
 interface dataSetListProps {
     dsList: hitModel[];

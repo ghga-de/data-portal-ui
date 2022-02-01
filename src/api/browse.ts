@@ -1,5 +1,5 @@
-import { searchResponseModel, datasetModel } from '../../models/dataset'
-import { facetFilterModel } from '../../models/facets'
+import { searchResponseModel, datasetModel } from '../models/dataset'
+import { facetFilterModel } from '../models/facets'
 
 type getDatasetsSearchRespType = (
     callbackFunc: (hits: searchResponseModel) => void,
