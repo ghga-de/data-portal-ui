@@ -14,26 +14,26 @@ const HeaderNavbar = () => {
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="ms-auto">
             <NavDropdown className="fw-bold" title="ABOUT US" id="collasible-nav-dropdown">
-              <NavDropdown.Item href="">MISSION</NavDropdown.Item>
-              <NavDropdown.Item href="">WORKSTREAMS</NavDropdown.Item>
-              <NavDropdown.Item href="">TEAM</NavDropdown.Item>
-              <NavDropdown.Item href="https://ghga.dkfz.de/">INSTITUTIONS</NavDropdown.Item>
-              <NavDropdown.Item href="">PARTNERS</NavDropdown.Item>
-              <NavDropdown.Item href="">JOBS</NavDropdown.Item>
-              <NavDropdown.Item href="">CONTACT</NavDropdown.Item>
+              <NavDropdown.Item href="">Mission</NavDropdown.Item>
+              <NavDropdown.Item href="">Workstreams</NavDropdown.Item>
+              <NavDropdown.Item href="">Team</NavDropdown.Item>
+              <NavDropdown.Item href="https://ghga.dkfz.de/">Institutions</NavDropdown.Item>
+              <NavDropdown.Item href="">Partners</NavDropdown.Item>
+              <NavDropdown.Item href="">Jobs</NavDropdown.Item>
+              <NavDropdown.Item href="">Contact</NavDropdown.Item>
             </NavDropdown>
             <NavDropdown className="fw-bold" title="COMMUNITY" id="collasible-nav-dropdown">
-              <NavDropdown.Item href="">CANCER</NavDropdown.Item>
-              <NavDropdown.Item href="">RARE DISEASE</NavDropdown.Item>
+              <NavDropdown.Item href="">Cancer</NavDropdown.Item>
+              <NavDropdown.Item href="">Rare Disease</NavDropdown.Item>
             </NavDropdown>
             <NavDropdown className="fw-bold" title="NEWS & EVENTS" id="collasible-nav-dropdown">
-              <NavDropdown.Item href="">NEWS</NavDropdown.Item>
-              <NavDropdown.Item href="">EVENTS</NavDropdown.Item>
+              <NavDropdown.Item href="">News</NavDropdown.Item>
+              <NavDropdown.Item href="">Events</NavDropdown.Item>
             </NavDropdown>
             <NavDropdown className="fw-bold" title="RESOURCES" id="collasible-nav-dropdown">
-              <NavDropdown.Item href="https://ghga.dkfz.de/">GHGA WEBSITE</NavDropdown.Item>
-              <NavDropdown.Item href="">PUBLICATIONS</NavDropdown.Item>
-              <NavDropdown.Item href="">BIOINFORMATICS</NavDropdown.Item>
+              <NavDropdown.Item href="https://ghga.dkfz.de/">GHGA Website</NavDropdown.Item>
+              <NavDropdown.Item href="">Publications</NavDropdown.Item>
+              <NavDropdown.Item href="">Bioinformatics</NavDropdown.Item>
             </NavDropdown>
           </Nav>
           <HeaderIcons />

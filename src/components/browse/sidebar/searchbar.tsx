@@ -8,11 +8,10 @@ const Searchbar = () => {
             <Form onSubmit={() => null}>
                 <Form.Group>
                     <div className='input-group p-1'>
-                    <Button type="submit" className="bg-primary">
+                        <Button type="submit" className="bg-light border-3 border-light text-muted border-right-0">
                             <Search />
                         </Button>
-                        <Form.Control type="text" placeholder="Search datasets" />
-                        
+                        <Form.Control type="text" placeholder="Search datasets" className="border-3 border-light border-left-0" />
                     </div>
                 </Form.Group>
             </Form>
