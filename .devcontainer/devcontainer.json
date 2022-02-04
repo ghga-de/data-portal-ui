@@ -31,7 +31,8 @@
 	"extensions": [
 		"dbaeumer.vscode-eslint",
 		"paulshen.paul-typescript-toolkit",
-		"EditorConfig.EditorConfig"
+		"EditorConfig.EditorConfig",
+		"esbenp.prettier-vscode"
 	],
 
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.

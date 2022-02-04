@@ -1,7 +1,6 @@
 import React from 'react';
 import { Accordion } from 'react-bootstrap';
-import { hitModel, datasetModel } from '../../../models/dataset';
-import { getDatasetDetails } from '../../../api/browse'
+import { hitModel } from '../../../models/dataset';
 
 interface dataSetListProps {
     dsList: hitModel[];
@@ -14,7 +13,7 @@ const Dataset = (props: dataSetListProps) => {
             <Accordion alwaysOpen className="mb-3">
                 {
                     props.dsList.map((hit, index) => (
-                        <Accordion.Item eventKey={index.toString()} className="mb-3 border border-1 rounded">
+                        <Accordion.Item key={index} eventKey={index.toString()} className="mb-3 border border-1 rounded">
                             <Accordion.Button className='bg-light align-items-start'>
                                 Dataset ID:&nbsp;
                                 {hit.id}
@@ -23,7 +22,7 @@ const Dataset = (props: dataSetListProps) => {
                                 {hit.content.title}
                             </Accordion.Button>
                             <Accordion.Body>
-                                Description: <br/>
+                                Description: <br />
                                 {hit.content.description}
                             </Accordion.Body>
                         </Accordion.Item>

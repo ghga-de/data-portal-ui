@@ -1,25 +1,25 @@
 import { facetModel } from './facets'
 
 export interface datasetSampleModel {
-    id: string;
+    id: string,
     tissue: string,
 }
 
 export interface datasetFileModel {
-    accession: string;
+    accession: string,
     format: string,
 }
 
 export interface datasetPublicationModel {
     id: string,
-    title: string
+    title: string,
 }
 
 export interface datasetExperimentModel {
     id: string,
     type: string,
-    has_sample: datasetSampleModel[]
-    has_file: datasetFileModel[]
+    has_sample: datasetSampleModel[],
+    has_file: datasetFileModel[],
 }
 
 export interface datasetModel {
@@ -31,11 +31,11 @@ export interface datasetModel {
     type: string[],
     has_file: datasetFileModel[]
     has_study: string,
-    has_publication: datasetPublicationModel[]
-    has_experiment: datasetExperimentModel[]
-    status: string
-    creation_date: string
-    update_date: string
+    has_publication: datasetPublicationModel[],
+    has_experiment: datasetExperimentModel[],
+    status: string,
+    creation_date: string,
+    update_date: string,
 };
 
 
@@ -77,13 +77,14 @@ export interface hitContentModel {
 };
 
 export interface hitModel {
-    document_type: string;
+    document_type: string,
     id: string,
     context: string | null,
     content: hitContentModel,
 };
 
 export interface searchResponseModel {
-    hits: hitModel[];
+    count: number,
+    hits: hitModel[],
     facets: facetModel[],
 };
