@@ -1,6 +1,6 @@
 import React from "react";
-import DatasetList from "./dataset/datasetList";
 import { Col, Row, Container } from "react-bootstrap";
+import DatasetList from "./dataset/datasetList";
 import Sidebar from "./sidebar/sidebar";
 import { searchResponseModel, hitModel } from "../../models/dataset";
 import { facetFilterModel, facetModel } from "../../models/facets";
@@ -9,14 +9,14 @@ import { getDatasetsSearchResp } from "../../api/browse";
 const Browse = () => {
   const [filterDict, setFilterDict] = React.useState<facetFilterModel[]>([]);
   const [limit, setLimit] = React.useState(10);
-  const [searchKeyword, setSearchKeyword] = React.useState("");
+  const [searchKeyword, setSearchKeyword] = React.useState('*');
 
   const [searchResults, setSearchResp] =
     React.useState<searchResponseModel | null>(null);
 
   React.useEffect(
-    () => getDatasetsSearchResp(setSearchResp, filterDict, "*", 0, 10),
-    [filterDict]
+    () => getDatasetsSearchResp(setSearchResp, filterDict, searchKeyword, 0, limit),
+    [searchKeyword, limit]
   );
 
   var dsList: hitModel[] | null;
@@ -46,7 +46,9 @@ const Browse = () => {
             facetList={facetList}
             searchKeyword={searchKeyword}
             setSearchResp={setSearchResp}
-            setFilterDict={setFilterDict} />
+            setFilterDict={setFilterDict}
+            filterDict={filterDict}
+            limit={limit} />
         </Col>
         <Col xs md lg={9}>
           <DatasetList searchKeyword={searchKeyword}
@@ -54,6 +56,7 @@ const Browse = () => {
             dsCount={dsCount}
             dsList={dsList}
             limit={limit}
+            filterDict={filterDict}
             setLimit={setLimit} />
         </Col>
       </Row>

@@ -1,16 +1,31 @@
-import React from "react";
+import React, { Dispatch, SetStateAction } from "react";
 import { Form, Col, Container } from "react-bootstrap";
-import { facetModel } from "../../../models/facets";
+import { facetModel, facetFilterModel } from "../../../models/facets";
 
 interface filterProps {
   facet: facetModel;
-  check: boolean;
-  setCheck: any;
+  check: Map<string, boolean>;
+  setCheck: Dispatch<SetStateAction<Map<string, boolean>>>;
+  setFilterDict: Dispatch<SetStateAction<facetFilterModel[]>>;
+  searchKeyword: string;
+  filterDict: facetFilterModel[];
 }
 
 const Filter = (props: filterProps) => {
-  const handleCheck = () => {
-    props.setCheck(!props.check)
+
+
+  const handleCheck = (key: string, event: React.ChangeEvent<HTMLInputElement>) => {
+    const facetFilter: facetFilterModel = { 'key': key.split(':')[0], 'value': key.split(':')[1] }
+    if (event.target.checked) {
+      console.log(event.target.checked)
+      props.setFilterDict(props.filterDict.concat(facetFilter))
+      console.log(props.filterDict)
+    } else {
+      console.log(event.target.checked)
+      props.setFilterDict(props.filterDict.filter(item => item.key !== key.split(':')[0]))
+      console.log(props.filterDict)
+    }
+    props.setCheck(props.check.set(key, event.target.checked))
   }
 
   return (
@@ -18,34 +33,37 @@ const Filter = (props: filterProps) => {
       <Form>
         <Form.Label className="mt-2">{props.facet.key}</Form.Label>
         <hr className="m-0" />
-        {props.facet.options.map((option) => (
-          <div key={props.facet.key + ":" + option.option} className="p-1">
-            <Form.Check
-              id={props.facet.key + ":" + option.option}
-              className="d-inline-block"
-              checked={props.check}
-              onChange={handleCheck}
-            />
-            <Form.Label
-              className="p-0 m-0 w-100 d-inline"
-              htmlFor={props.facet.key + ":" + option.option}
-            >
-              <Col xs md lg={10} className="d-inline-block">
-                <span className="px-1 d-block">{option.option}</span>
-              </Col>
-              <Col xs md lg={1} className="d-inline-block">
-                <Form.Label
-                  className="p-0 m-0"
-                  htmlFor={props.facet.key + ":" + option.option}
-                >
-                  {option.count}
-                </Form.Label>
-              </Col>
-            </Form.Label>
-          </div>
-        ))}
+        {props.facet.options.map((option) => {
+          let key: string = props.facet.key + ":" + option.option;
+          return (
+            < div key={key} className="p-1" >
+              <Form.Check
+                className="d-inline-block"
+                checked={props.check.get(key)}
+                value={key}
+                onChange={(event) => handleCheck(key, event)}
+              />
+              <Form.Label
+                className="p-0 m-0 w-100 d-inline"
+                htmlFor={key}
+              >
+                <Col xs md lg={10} className="d-inline-block">
+                  <span className="px-1 d-block">{option.option}</span>
+                </Col>
+                <Col xs md lg={1} className="d-inline-block">
+                  <Form.Label
+                    className="p-0 m-0"
+                    htmlFor={key}
+                  >
+                    {option.count}
+                  </Form.Label>
+                </Col>
+              </Form.Label>
+            </div>
+          )
+        })}
       </Form>
-    </Container>
+    </Container >
   );
 };
 

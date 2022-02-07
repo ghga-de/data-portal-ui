@@ -2,8 +2,8 @@ import React, { Dispatch, SetStateAction } from "react";
 import DatasetListHeader from './datasetListHeader';
 import DatasetPagination from './datasetPagination';
 import Dataset from './dataset';
-import { hitModel } from '../../../models/dataset';
-import { searchResponseModel } from "../../../models/dataset";
+import { hitModel, searchResponseModel } from '../../../models/dataset';
+import { facetFilterModel } from '../../../models/facets'
 
 
 interface dataSetProps {
@@ -13,6 +13,7 @@ interface dataSetProps {
   searchKeyword: string;
   limit: number;
   setLimit: any;
+  filterDict: facetFilterModel[];
 };
 
 const DatasetList = (props: dataSetProps) => {
@@ -26,7 +27,8 @@ const DatasetList = (props: dataSetProps) => {
         searchKeyword={props.searchKeyword}
         limit={props.limit}
         setLimit={props.setLimit}
-        dsCount={dsCount} />
+        dsCount={dsCount}
+        filterDict={props.filterDict} />
       {
         props.dsList === null ?
           null :

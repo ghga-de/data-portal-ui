@@ -8,12 +8,13 @@ interface searchbarProps {
   setSearchResp: Dispatch<SetStateAction<searchResponseModel | null>>;
   setSearchKeyword: any;
   searchKeyword: string;
+  limit: number;
 }
 
 const Searchbar = (props: searchbarProps) => {
 
   const handleSearch = () => {
-    getDatasetsSearchResp(props.setSearchResp, [], props.searchKeyword, 0, 0);
+    getDatasetsSearchResp(props.setSearchResp, [], props.searchKeyword, 0, props.limit);
   };
 
   return (

@@ -2,6 +2,7 @@ import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
 import ReactPaginate from 'react-paginate'
 import { searchResponseModel } from "../../../models/dataset";
 import { getDatasetsSearchResp } from "../../../api/browse";
+import { facetFilterModel } from '../../../models/facets'
 
 interface dataSetPaginationProps {
   dsCount: number;
@@ -9,19 +10,19 @@ interface dataSetPaginationProps {
   searchKeyword: string;
   limit: number;
   setLimit: any;
+  filterDict: facetFilterModel[];
 };
 
 const DatasetPagination = (props: dataSetPaginationProps) => {
   const [pageCount, setpageCount] = useState(0);
 
   useEffect(() => {
-    getDatasetsSearchResp(props.setSearchResp, [], props.searchKeyword, 0, props.limit)
     setpageCount(Math.ceil(props.dsCount / props.limit))
-  }, [props.setSearchResp, props.searchKeyword, props.limit, props.dsCount]);
+  }, [props.dsCount, props.limit]);
 
   const handlePageClick = async (data: any) => {
     let skip = (data.selected) * props.limit;
-    getDatasetsSearchResp(props.setSearchResp, [], props.searchKeyword, skip, props.limit)
+    getDatasetsSearchResp(props.setSearchResp, props.filterDict, props.searchKeyword, skip, props.limit)
   };
 
   return (
@@ -40,9 +41,9 @@ const DatasetPagination = (props: dataSetPaginationProps) => {
         previousLinkClassName={"page-link"}
         nextClassName={"page-item"}
         nextLinkClassName={"page-link"}
-        //breakLabel={"..."}
-        //breakClassName={"page-item"}
-        //breakLinkClassName={"page-link"}
+        breakLabel={"..."}
+        breakClassName={"page-item"}
+        breakLinkClassName={"page-link"}
         activeClassName={"active"}
       />
     </div>
