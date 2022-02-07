@@ -17,13 +17,9 @@ const Filter = (props: filterProps) => {
   const handleCheck = (key: string, event: React.ChangeEvent<HTMLInputElement>) => {
     const facetFilter: facetFilterModel = { 'key': key.split(':')[0], 'value': key.split(':')[1] }
     if (event.target.checked) {
-      console.log(event.target.checked)
       props.setFilterDict(props.filterDict.concat(facetFilter))
-      console.log(props.filterDict)
     } else {
-      console.log(event.target.checked)
       props.setFilterDict(props.filterDict.filter(item => item.key !== key.split(':')[0]))
-      console.log(props.filterDict)
     }
     props.setCheck(props.check.set(key, event.target.checked))
   }
