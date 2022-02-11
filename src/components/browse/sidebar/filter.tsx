@@ -1,5 +1,5 @@
 import React, { Dispatch, SetStateAction } from "react";
-import { Form, Col, Container, Row } from "react-bootstrap";
+import { Form, Col, Container } from "react-bootstrap";
 import { facetModel, facetFilterModel } from "../../../models/facets";
 
 
