@@ -14,21 +14,9 @@
 .github/workflows/dev_cd.yaml
 .github/workflows/unit_and_int_tests.yaml
 
-db_migration
-
 docs/README.md
-
-example_data
-
-scripts
-
-tests/fixtures/__init__.py
-tests/integration/fixtures/__init__.py
-tests/unit/fixtures/__init__.py
-tests/integration/__init__.py
-tests/unit/__init__.py
 
 Dockerfile
 example-config.yaml
 README.md
-setup.py
+
