@@ -1,5 +1,5 @@
 import React, { Dispatch, SetStateAction } from "react";
-import { Form, Col, Container } from "react-bootstrap";
+import { Form, Col, Container, Row } from "react-bootstrap";
 import { facetModel, facetFilterModel } from "../../../models/facets";
 
 
@@ -33,7 +33,7 @@ const Filter = (props: filterProps) => {
         {props.facet.options.map((option) => {
           let key: string = props.facet.key + ":" + option.option;
           return (
-              <div key={key} className="p-1 d-flex align-top">
+            <div key={key} className="p-1 d-flex align-top">
               <Form.Check
                 className="d-inline-block"
                 checked={props.check.get(key)}
@@ -42,19 +42,16 @@ const Filter = (props: filterProps) => {
               />
               <Form.Label
                 className="p-0 m-0 w-100"
-                htmlFor={key}
-              >
-                <Row>
-              <Col xs md lg={10}>
-                <p className='px-2 my-0'>{option.option}</p>
-              </Col>
-              <Col xs md lg={2} className="h-100">
-                <Form.Label className="p-0 m-0" 
-                  htmlFor={key}>
-                  {option.count}
-                </Form.Label>
-              </Col>
-              </Row>
+                htmlFor={key}>
+                <Col xs md lg={10}>
+                  <p className='px-2 my-0'>{option.option}</p>
+                </Col>
+                <Col xs md lg={2} className="h-100">
+                  <Form.Label className="p-0 m-0"
+                    htmlFor={key}>
+                    {option.count}
+                  </Form.Label>
+                </Col>
               </Form.Label>
             </div>
           )
