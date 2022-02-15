@@ -18,8 +18,9 @@ interface sidebarProps {
 
 const Sidebar = (props: sidebarProps) => {
   const [check, setCheck] = useState<Map<string, boolean>>(new Map<string, boolean>());
+  const skip = 0;
   const handleClear = () => {
-    getDatasetsSearchResp(props.setSearchResp, [], '*', 0, props.limit);
+    getDatasetsSearchResp(props.setSearchResp, [], '*', skip, props.limit);
     check.forEach((value: boolean, key: string) => {
       setCheck(check.set(key, false))
     })
@@ -27,7 +28,7 @@ const Sidebar = (props: sidebarProps) => {
   };
 
   const handleFilter = () => {
-    getDatasetsSearchResp(props.setSearchResp, props.filterDict, props.searchKeyword, 0, props.limit);
+    getDatasetsSearchResp(props.setSearchResp, props.filterDict, props.searchKeyword, skip, props.limit);
   };
 
   return (

@@ -31,8 +31,8 @@ const DatasetPagination = (props: dataSetPaginationProps) => {
         previousLabel={"<"}
         nextLabel={">"}
         pageCount={pageCount}
-        marginPagesDisplayed={4}
-        pageRangeDisplayed={4}
+        marginPagesDisplayed={3}
+        pageRangeDisplayed={2}
         onPageChange={handlePageClick}
         containerClassName={"pagination justify-content-left"}
         pageClassName={"page-item"}

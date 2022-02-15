@@ -13,9 +13,10 @@ const Browse = () => {
 
   const [searchResults, setSearchResp] =
     React.useState<searchResponseModel | null>(null);
+  const skip = 0;
 
   React.useEffect(
-    () => getDatasetsSearchResp(setSearchResp, filterDict, searchKeyword, 0, limit),
+    () => getDatasetsSearchResp(setSearchResp, filterDict, searchKeyword, skip, limit),
     [searchKeyword, limit]
   );
 

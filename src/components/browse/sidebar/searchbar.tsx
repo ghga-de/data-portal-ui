@@ -13,8 +13,9 @@ interface searchbarProps {
 
 const Searchbar = (props: searchbarProps) => {
 
+  const skip = 0;
   const handleSearch = () => {
-    getDatasetsSearchResp(props.setSearchResp, [], props.searchKeyword, 0, props.limit);
+    getDatasetsSearchResp(props.setSearchResp, [], props.searchKeyword, skip, props.limit);
   };
 
   return (
