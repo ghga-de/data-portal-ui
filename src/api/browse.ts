@@ -1,10 +1,12 @@
-import { searchResponseModel, datasetModel } from '../../models/dataset'
-import { facetFilterModel } from '../../models/facets'
+import { searchResponseModel, datasetModel } from '../models/dataset'
+import { facetFilterModel } from '../models/facets'
 
 type getDatasetsSearchRespType = (
     callbackFunc: (hits: searchResponseModel) => void,
     filterQuery: facetFilterModel[],
-    searchKeyword: string
+    searchKeyword: string,
+    skip: number,
+    limit: number
 ) => void;
 
 const postHeaders = {
@@ -13,9 +15,14 @@ const postHeaders = {
     'Origin': 'http://localhost:8000/',
 }
 
-export const getDatasetsSearchResp: getDatasetsSearchRespType = (callbackFunc, filterQuery, searchKeyword = "*") => {
+export const getDatasetsSearchResp: getDatasetsSearchRespType = (
+    callbackFunc, 
+    filterQuery, 
+    searchKeyword = "*", 
+    skip, 
+    limit) => {
     fetch(
-        `${process.env.REACT_APP_SVC_SEARCH_URL}/rpc/search?document_type=Dataset&return_facets=true&skip=0&limit=1000`,
+        `${process.env.REACT_APP_SVC_SEARCH_URL}/rpc/search?document_type=Dataset&return_facets=true&skip=${skip}&limit=${limit}`,
         {
             method: 'POST',
             headers: postHeaders,

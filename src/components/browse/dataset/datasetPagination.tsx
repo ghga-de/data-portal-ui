@@ -1,30 +1,53 @@
-import React from 'react';
-import { Pagination } from 'react-bootstrap';
+import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
+import ReactPaginate from 'react-paginate'
+import { searchResponseModel } from "../../../models/dataset";
+import { getDatasetsSearchResp } from "../../../api/browse";
+import { facetFilterModel } from '../../../models/facets'
 
 interface dataSetPaginationProps {
-  dsCount : number
-  active : number
-  setActive: React.Dispatch<React.SetStateAction<number>>
+  dsCount: number;
+  setSearchResp: Dispatch<SetStateAction<searchResponseModel | null>>;
+  searchKeyword: string;
+  limit: number;
+  setLimit: Dispatch<SetStateAction<number>>;
+  filterDict: facetFilterModel[];
 };
 
 const DatasetPagination = (props: dataSetPaginationProps) => {
+  const [pageCount, setpageCount] = useState(0);
 
-  const PaginationGenerator = (active : number = 1) => {
-    var items = []
-    for (let i = 1; i <= props.dsCount/10; i++) {
-      items.push(<Pagination.Item key={i} active={i === active} onClick={()=> props.setActive(i)}>{i}</Pagination.Item>)
-    }
+  useEffect(() => {
+    setpageCount(Math.ceil(props.dsCount / props.limit))
+  }, [props.dsCount, props.limit]);
 
-  return items
-}
+  const handlePageClick = (data: any) => {
+    let skip = (data.selected) * props.limit;
+    getDatasetsSearchResp(props.setSearchResp, props.filterDict, props.searchKeyword, skip, props.limit)
+  };
 
   return (
-    <div>
-        <Pagination>
-            {PaginationGenerator(props.active)}
-        </Pagination>
+    <div className="container">
+      <ReactPaginate
+        previousLabel={"<"}
+        nextLabel={">"}
+        pageCount={pageCount}
+        marginPagesDisplayed={3}
+        pageRangeDisplayed={2}
+        onPageChange={handlePageClick}
+        containerClassName={"pagination justify-content-left"}
+        pageClassName={"page-item"}
+        pageLinkClassName={"page-link"}
+        previousClassName={"page-item"}
+        previousLinkClassName={"page-link"}
+        nextClassName={"page-item"}
+        nextLinkClassName={"page-link"}
+        breakLabel={"..."}
+        breakClassName={"page-item"}
+        breakLinkClassName={"page-link"}
+        activeClassName={"active"}
+      />
     </div>
-  )
+  );
 }
 
 export default DatasetPagination;

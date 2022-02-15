@@ -1,47 +1,64 @@
-import React from 'react';
-import { Form, Col, Container, Row } from 'react-bootstrap';
-import { facetModel } from '../../../models/facets'
+import React, { Dispatch, SetStateAction } from "react";
+import { Form, Col, Container } from "react-bootstrap";
+import { facetModel, facetFilterModel } from "../../../models/facets";
+
 
 interface filterProps {
-  facet: facetModel
-};
+  facet: facetModel;
+  check: Map<string, boolean>;
+  setCheck: Dispatch<SetStateAction<Map<string, boolean>>>;
+  setFilterDict: Dispatch<SetStateAction<facetFilterModel[]>>;
+  searchKeyword: string;
+  filterDict: facetFilterModel[];
+}
 
 const Filter = (props: filterProps) => {
 
-  const facetDisplayText = (key: string) => {
-    // const displayText = {
-    //   "type": "Type",
-    //   "has_study.type": "Has study of type"
-    // }
-    return key
+
+  const handleCheck = (key: string, event: React.ChangeEvent<HTMLInputElement>) => {
+    const facetFilter: facetFilterModel = { 'key': key.split(':')[0], 'value': key.split(':')[1] }
+    if (event.target.checked) {
+      props.setFilterDict(props.filterDict.concat(facetFilter))
+    } else {
+      props.setFilterDict(props.filterDict.filter(item => item.key !== key.split(':')[0]))
+    }
+    props.setCheck(props.check.set(key, event.target.checked))
   }
 
   return (
     <Container className="bg-white border col-11 mb-3 pb-3 rounded fs-7">
       <Form>
-        <Form.Label className='mt-2'>{facetDisplayText(props.facet.key)}</Form.Label>
+        <Form.Label className="mt-2">{props.facet.key}</Form.Label>
         <hr className="m-0" />
-
-        {props.facet.options.map((option) => (
-          <div className="p-1 d-flex align-top">
-            <Form.Check id={props.facet.key + ":" + option.option} className="d-inline-block" />
-            <Form.Label className="p-0 m-0 w-100" htmlFor={props.facet.key + ":" + option.option}>
-              <Row>
-              <Col xs md lg={10}>
-                <p className='px-2 my-0'>{option.option}</p>
-              </Col>
-              <Col xs md lg={2} className="h-100">
-                <Form.Label className="p-0 m-0" htmlFor={props.facet.key + ":" + option.option}>
-                  {option.count}
-                </Form.Label>
-              </Col>
-              </Row>
-            </Form.Label>
-          </div>
-        ))}
+        {props.facet.options.map((option) => {
+          let key: string = props.facet.key + ":" + option.option;
+          return (
+            <div key={key} className="p-1 d-flex align-top">
+              <Form.Check
+                className="d-inline-block"
+                checked={props.check.get(key)}
+                value={key}
+                onChange={(event) => handleCheck(key, event)}
+              />
+              <Form.Label
+                className="p-0 m-0 w-100"
+                htmlFor={key}>
+                <Col xs md lg={10}>
+                  <p className='px-2 my-0'>{option.option}</p>
+                </Col>
+                <Col xs md lg={2} className="h-100">
+                  <Form.Label className="p-0 m-0"
+                    htmlFor={key}>
+                    {option.count}
+                  </Form.Label>
+                </Col>
+              </Form.Label>
+            </div>
+          )
+        })}
       </Form>
-    </Container>
-  )
-}
+    </Container >
+  );
+};
 
 export default Filter;

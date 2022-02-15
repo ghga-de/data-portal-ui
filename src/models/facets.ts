@@ -1,14 +1,14 @@
 export interface facetOptionsModel {
-    option: string;
+    option: string,
     count: number,
 };
 
 export interface facetModel {
-    key: string;
+    key: string,
     options: facetOptionsModel[],
 };
 
 export interface facetFilterModel {
-    key: string;
-    value: string
+    key: string,
+    value: string,
 };
