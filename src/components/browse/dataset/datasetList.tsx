@@ -12,7 +12,7 @@ interface dataSetProps {
   setSearchResp: Dispatch<SetStateAction<searchResponseModel | null>>;
   searchKeyword: string;
   limit: number;
-  setLimit: any;
+  setLimit: Dispatch<SetStateAction<number>>;
   filterDict: facetFilterModel[];
 };
 

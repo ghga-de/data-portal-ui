@@ -19,12 +19,9 @@ const Browse = () => {
     [searchKeyword, limit]
   );
 
-  var dsList: hitModel[] | null;
-  var facetList: facetModel[] | null;
+  var dsList: hitModel[] | null = null;
+  var facetList: facetModel[] | null = null;
   var dsCount: number = 0;
-
-  dsList = null;
-  facetList = null;
 
   if (searchResults !== null) {
     if (searchResults.hits.length > 0) {

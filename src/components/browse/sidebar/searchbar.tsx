@@ -6,7 +6,7 @@ import { getDatasetsSearchResp } from "../../../api/browse";
 
 interface searchbarProps {
   setSearchResp: Dispatch<SetStateAction<searchResponseModel | null>>;
-  setSearchKeyword: any;
+  setSearchKeyword: Dispatch<SetStateAction<string>>;
   searchKeyword: string;
   limit: number;
 }
@@ -28,7 +28,7 @@ const Searchbar = (props: searchbarProps) => {
             <Form.Control
               id="searchInput"
               type="text"
-              placeholder="search datasets"
+              placeholder="Search datasets"
               onChange={(event) => props.setSearchKeyword(event.target.value)}
             />
           </div>

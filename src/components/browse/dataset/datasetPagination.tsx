@@ -9,7 +9,7 @@ interface dataSetPaginationProps {
   setSearchResp: Dispatch<SetStateAction<searchResponseModel | null>>;
   searchKeyword: string;
   limit: number;
-  setLimit: any;
+  setLimit: Dispatch<SetStateAction<number>>;
   filterDict: facetFilterModel[];
 };
 
@@ -20,7 +20,7 @@ const DatasetPagination = (props: dataSetPaginationProps) => {
     setpageCount(Math.ceil(props.dsCount / props.limit))
   }, [props.dsCount, props.limit]);
 
-  const handlePageClick = async (data: any) => {
+  const handlePageClick = (data: any) => {
     let skip = (data.selected) * props.limit;
     getDatasetsSearchResp(props.setSearchResp, props.filterDict, props.searchKeyword, skip, props.limit)
   };
