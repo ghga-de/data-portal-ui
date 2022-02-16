@@ -11,7 +11,7 @@ const Dataset = (props: dataSetListProps) => {
 
     return (
         <div>
-            <Accordion alwaysOpen className="mb-3 fs-7">
+            <Accordion alwaysOpen className="mt-1 fs-7 me-3">
                 {
                     props.dsList.map((hit, index) => (
                         <Accordion.Item key={index} eventKey={index.toString()} className="mb-3 border border-1 rounded">

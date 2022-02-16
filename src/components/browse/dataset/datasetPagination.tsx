@@ -26,7 +26,7 @@ const DatasetPagination = (props: dataSetPaginationProps) => {
   };
 
   return (
-    <div className="container">
+    <div className="p-1 mb-2 mt-4">
       <ReactPaginate
         previousLabel={"<"}
         nextLabel={">"}
@@ -34,7 +34,7 @@ const DatasetPagination = (props: dataSetPaginationProps) => {
         marginPagesDisplayed={3}
         pageRangeDisplayed={2}
         onPageChange={handlePageClick}
-        containerClassName={"pagination justify-content-left"}
+        containerClassName={"pagination justify-content-left my-0"}
         pageClassName={"page-item"}
         pageLinkClassName={"page-link"}
         previousClassName={"page-item"}

@@ -5,43 +5,56 @@ import { Row, Col, Button } from "react-bootstrap";
 import { facetModel, facetFilterModel } from "../../../models/facets";
 import { searchResponseModel } from "../../../models/dataset";
 import { getDatasetsSearchResp } from "../../../api/browse";
+import PerfectScrollbar from 'react-perfect-scrollbar'
+import 'react-perfect-scrollbar/dist/css/styles.css';
 
 interface sidebarProps {
   facetList: facetModel[] | null;
   setSearchResp: Dispatch<SetStateAction<searchResponseModel | null>>;
-  searchKeyword: string
-  limit: number
-  setSearchKeyword: Dispatch<SetStateAction<string>>
+  searchKeyword: string;
+  limit: number;
+  setSearchKeyword: Dispatch<SetStateAction<string>>;
   setFilterDict: Dispatch<SetStateAction<facetFilterModel[]>>;
   filterDict: facetFilterModel[];
 }
 
 const Sidebar = (props: sidebarProps) => {
-  const [check, setCheck] = useState<Map<string, boolean>>(new Map<string, boolean>());
+  const [check, setCheck] = useState<Map<string, boolean>>(
+    new Map<string, boolean>()
+  );
   const skip = 0;
   const handleClear = () => {
-    getDatasetsSearchResp(props.setSearchResp, [], '*', skip, props.limit);
+    getDatasetsSearchResp(props.setSearchResp, [], "*", skip, props.limit);
     check.forEach((value: boolean, key: string) => {
-      setCheck(check.set(key, false))
-    })
-    props.setFilterDict([])
+      setCheck(check.set(key, false));
+    });
+    props.setFilterDict([]);
   };
 
   const handleFilter = () => {
-    getDatasetsSearchResp(props.setSearchResp, props.filterDict, props.searchKeyword, skip, props.limit);
+    getDatasetsSearchResp(
+      props.setSearchResp,
+      props.filterDict,
+      props.searchKeyword,
+      skip,
+      props.limit
+    );
   };
 
   return (
     <div>
       <Row>
-        <Search searchKeyword={props.searchKeyword}
+        <Search
+          searchKeyword={props.searchKeyword}
           setSearchKeyword={props.setSearchKeyword}
           setSearchResp={props.setSearchResp}
-          limit={props.limit} />
+          limit={props.limit}
+        />
       </Row>
       {props.facetList === null || props.facetList.length < 1 ? null : (
-        <div className="bg-light border p-2 rounded-3">
-          <Row>
+        <div className="bg-light border p-2 rounded-3 pt-3">
+          <Row style={{height: "65vh"}} className="position-relative w-100 px-0 mx-0">
+          <PerfectScrollbar>
             {props.facetList.map((facet, index) => (
               <Filter
                 facet={facet}
@@ -53,23 +66,22 @@ const Sidebar = (props: sidebarProps) => {
                 filterDict={props.filterDict}
               />
             ))}
+            </PerfectScrollbar>
           </Row>
-        </div>)}
-      <div className="bg-light border p-2 rounded-3">
-        <Row className="mb-2">
-          <Col className="offset-2" xs md lg={4}>
-            <Button className="btn-warning w-100" onClick={handleClear}>
-              Clear
-            </Button>
-          </Col>
-          <Col xs md lg={6} className="">
-            <Button className="btn-success w-100" onClick={handleFilter}>
-              Filter
-            </Button>
-          </Col>
-        </Row>
-      </div>
-
+          <Row className="mb-2 mt-3">
+            <Col className="offset-2" xs md lg={4}>
+              <Button className="btn-warning w-100" onClick={handleClear}>
+                Clear
+              </Button>
+            </Col>
+            <Col xs md lg={6} className="">
+              <Button className="btn-success w-100" onClick={handleFilter}>
+                Filter
+              </Button>
+            </Col>
+          </Row>
+        </div>
+      )}
     </div>
   );
 };

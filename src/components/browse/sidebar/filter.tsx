@@ -1,5 +1,5 @@
 import React, { Dispatch, SetStateAction } from "react";
-import { Form, Col, Container } from "react-bootstrap";
+import { Form, Col, Container, Row } from "react-bootstrap";
 import { facetModel, facetFilterModel } from "../../../models/facets";
 
 
@@ -26,7 +26,7 @@ const Filter = (props: filterProps) => {
   }
 
   return (
-    <Container className="bg-white border col-11 mb-3 pb-3 rounded fs-7">
+    <Container className="bg-white border col-11 mb-3 pb-3 rounded fs-7 mx-0 w-100 px-2">
       <Form>
         <Form.Label className="mt-2">{props.facet.key}</Form.Label>
         <hr className="m-0" />
@@ -43,8 +43,9 @@ const Filter = (props: filterProps) => {
               <Form.Label
                 className="p-0 m-0 w-100"
                 htmlFor={key}>
+                <Row>
                 <Col xs md lg={10}>
-                  <p className='px-2 my-0'>{option.option}</p>
+                  <p className='ps-2 my-0'>{option.option}</p>
                 </Col>
                 <Col xs md lg={2} className="h-100">
                   <Form.Label className="p-0 m-0"
@@ -52,6 +53,7 @@ const Filter = (props: filterProps) => {
                     {option.count}
                   </Form.Label>
                 </Col>
+              </Row>
               </Form.Label>
             </div>
           )
