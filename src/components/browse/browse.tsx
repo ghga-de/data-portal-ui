@@ -38,7 +38,7 @@ const Browse = () => {
 
   return (
     <Container>
-      <Row>
+      <Row className="align-items-stretch">
         <Col xs md lg={3}>
           <Sidebar setSearchKeyword={setSearchKeyword}
             facetList={facetList}

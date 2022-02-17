@@ -8,7 +8,7 @@ interface dataSetListHeaderProps {
 const DatasetListHeader = (props: dataSetListHeaderProps) => {
   return (
     <div>
-      <Badge className='float-top p-3 m-3 bg-secondary'>Total Datasets: {props.dsCount}</Badge>
+      <Badge className='float-end p-3 m-3 bg-secondary'>Total Datasets: {props.dsCount}</Badge>
     </div>
   )
 }
