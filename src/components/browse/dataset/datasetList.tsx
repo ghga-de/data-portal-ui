@@ -21,7 +21,7 @@ const DatasetList = (props: dataSetProps) => {
   var dsCount: number = props.dsCount;
 
   return (
-    <div className="bg-white border p-2 ps-3 rounded">
+    <div className="bg-white border p-2 ps-3 rounded h-100">
       <DatasetListHeader dsCount={dsCount} />
       <DatasetPagination
         setSearchResp={props.setSearchResp}
