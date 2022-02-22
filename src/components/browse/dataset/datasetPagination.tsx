@@ -11,6 +11,8 @@ interface dataSetPaginationProps {
   limit: number;
   setLimit: Dispatch<SetStateAction<number>>;
   filterDict: facetFilterModel[];
+  currentPage: number;
+  setCurrentPage: Dispatch<SetStateAction<number>>
 };
 
 const DatasetPagination = (props: dataSetPaginationProps) => {
@@ -22,6 +24,7 @@ const DatasetPagination = (props: dataSetPaginationProps) => {
 
   const handlePageClick = (data: any) => {
     let skip = (data.selected) * props.limit;
+    props.setCurrentPage(data.selected)
     getDatasetsSearchResp(props.setSearchResp, props.filterDict, props.searchKeyword, skip, props.limit)
   };
 
@@ -45,6 +48,7 @@ const DatasetPagination = (props: dataSetPaginationProps) => {
         breakClassName={"page-item"}
         breakLinkClassName={"page-link"}
         activeClassName={"active"}
+        forcePage={props.currentPage}
       />
     </div>
   );
