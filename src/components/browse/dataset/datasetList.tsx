@@ -32,20 +32,12 @@ const DatasetList = (props: dataSetProps) => {
         filterDict={props.filterDict}
       />
       {props.dsList === null ? null : (
-        <div style={{ height: "60vh"}} className="mb-2 position-relative w-100">
-        <PerfectScrollbar>
-          <Dataset dsList={props.dsList} />
-        </PerfectScrollbar>
+        <div style={{ height: "60vh" }} className="mb-2 position-relative w-100">
+          <PerfectScrollbar>
+            <Dataset dsList={props.dsList} />
+          </PerfectScrollbar>
         </div>
       )}
-      <DatasetPagination
-        setSearchResp={props.setSearchResp}
-        searchKeyword={props.searchKeyword}
-        limit={props.limit}
-        setLimit={props.setLimit}
-        dsCount={dsCount}
-        filterDict={props.filterDict}
-      />
     </div>
   );
 };
