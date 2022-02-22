@@ -16,7 +16,7 @@ interface dataSetPaginationProps {
 };
 
 const DatasetPagination = (props: dataSetPaginationProps) => {
-  const [pageCount, setpageCount] = useState(0);
+  const [pageCount, setpageCount] = useState(1);
 
   useEffect(() => {
     setpageCount(Math.ceil(props.dsCount / props.limit))
