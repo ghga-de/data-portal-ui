@@ -35,7 +35,7 @@ const Filter = (props: filterProps) => {
       <Form>
         <Form.Label className="mt-2">{props.facet.key}</Form.Label>
         <hr className="m-0" />
-        {props.facet.options.map((option) => {
+        {props.facet.options.sort((a, b) => b.option < a.option ? 1 : -1).map((option) => {
           let key: string = props.facet.key + ":" + option.option;
           return (
             <div className="p-1 d-flex align-top">

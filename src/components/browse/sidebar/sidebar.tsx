@@ -55,7 +55,7 @@ const Sidebar = (props: sidebarProps) => {
         <div className="bg-light border p-2 rounded-3 pt-3">
           <Row style={{height: "65vh"}} className="position-relative w-100 px-0 mx-0">
           <PerfectScrollbar>
-            {props.facetList.map((facet, index) => (
+            {props.facetList.sort((a, b) => b.key < a.key ? 1 : -1).map((facet, index) => (
               <Filter
                 facet={facet}
                 key={index}
