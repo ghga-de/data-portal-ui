@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - "dev"
+      - "main"
       # you may add other branches to
       # activate deployment for them, too.
 
