@@ -1,7 +1,7 @@
 import React from 'react';
 import { Accordion, Row, Col, Badge } from 'react-bootstrap';
 import { hitModel } from '../../../models/dataset';
-import { BoxArrowUpRight } from 'react-bootstrap-icons'
+import { Link } from 'react-router-dom'
 
 interface dataSetListProps {
     dsList: hitModel[];
@@ -18,8 +18,7 @@ const Dataset = (props: dataSetListProps) => {
                             <Accordion.Button className='bg-light align-items-start fs-7'>
                                 <p className="my-0">
                                     <span className="fw-bold">Dataset ID:&nbsp;</span>
-                                    <a href="#action" title={hit.id}>{hit.id} <sup className="text-dark"><BoxArrowUpRight /></sup></a>
-
+                                    <Link to={`/browse/dataset/${hit.id}`}>{hit.id}</Link>
                                     <br />
                                     <span className="fw-bold">Title: </span>
                                     {hit.content.title}

@@ -7,6 +7,7 @@ import { searchResponseModel } from "../../../models/dataset";
 import { getDatasetsSearchResp } from "../../../api/browse";
 import PerfectScrollbar from 'react-perfect-scrollbar'
 import 'react-perfect-scrollbar/dist/css/styles.css';
+import { useNavigate } from 'react-router-dom'
 
 interface sidebarProps {
   facetList: facetModel[] | null;
@@ -19,16 +20,19 @@ interface sidebarProps {
 }
 
 const Sidebar = (props: sidebarProps) => {
+  let navigate = useNavigate();
   const [check, setCheck] = useState<Map<string, boolean>>(
     new Map<string, boolean>()
   );
   const skip = 0;
+
   const handleClear = () => {
     getDatasetsSearchResp(props.setSearchResp, [], "*", skip, props.limit);
     check.forEach((value: boolean, key: string) => {
       setCheck(check.set(key, false));
     });
     props.setFilterDict([]);
+    navigate(`/`)
   };
 
   const handleFilter = () => {
@@ -39,6 +43,7 @@ const Sidebar = (props: sidebarProps) => {
       skip,
       props.limit
     );
+    navigate(`/browse/?skip=${skip}&limit=${props.limit}`)
   };
 
   return (
@@ -53,19 +58,19 @@ const Sidebar = (props: sidebarProps) => {
       </Row>
       {props.facetList === null || props.facetList.length < 1 ? null : (
         <div className="bg-light border p-2 rounded-3 pt-3">
-          <Row style={{height: "65vh"}} className="position-relative w-100 px-0 mx-0">
-          <PerfectScrollbar>
-            {props.facetList.sort((a, b) => b.key < a.key ? 1 : -1).map((facet, index) => (
-              <Filter
-                facet={facet}
-                key={index}
-                check={check}
-                setCheck={setCheck}
-                setFilterDict={props.setFilterDict}
-                searchKeyword={props.searchKeyword}
-                filterDict={props.filterDict}
-              />
-            ))}
+          <Row style={{ height: "65vh" }} className="position-relative w-100 px-0 mx-0">
+            <PerfectScrollbar>
+              {props.facetList.sort((a, b) => b.key < a.key ? 1 : -1).map((facet, index) => (
+                <Filter
+                  facet={facet}
+                  key={index}
+                  check={check}
+                  setCheck={setCheck}
+                  setFilterDict={props.setFilterDict}
+                  searchKeyword={props.searchKeyword}
+                  filterDict={props.filterDict}
+                />
+              ))}
             </PerfectScrollbar>
           </Row>
           <Row className="mb-2 mt-3">
