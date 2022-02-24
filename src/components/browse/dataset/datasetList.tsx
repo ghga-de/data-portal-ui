@@ -19,6 +19,7 @@ interface dataSetProps {
 
 const DatasetList = (props: dataSetProps) => {
   var dsCount: number = props.dsCount;
+  const [currentPage, setCurrentPage] = React.useState(0)
 
   return (
     <div className="bg-white border p-2 ps-3 rounded h-100">
@@ -30,12 +31,14 @@ const DatasetList = (props: dataSetProps) => {
         setLimit={props.setLimit}
         dsCount={dsCount}
         filterDict={props.filterDict}
+        currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
       />
       {props.dsList === null ? null : (
-        <div style={{ height: "60vh"}} className="mb-2 position-relative w-100">
-        <PerfectScrollbar>
-          <Dataset dsList={props.dsList} />
-        </PerfectScrollbar>
+        <div style={{ height: "60vh" }} className="mb-2 position-relative w-100">
+          <PerfectScrollbar>
+            <Dataset dsList={props.dsList} />
+          </PerfectScrollbar>
         </div>
       )}
       <DatasetPagination
@@ -45,6 +48,8 @@ const DatasetList = (props: dataSetProps) => {
         setLimit={props.setLimit}
         dsCount={dsCount}
         filterDict={props.filterDict}
+        currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
       />
     </div>
   );
