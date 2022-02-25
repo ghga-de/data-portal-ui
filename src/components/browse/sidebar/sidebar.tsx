@@ -32,6 +32,7 @@ const Sidebar = (props: sidebarProps) => {
       setCheck(check.set(key, false));
     });
     props.setFilterDict([]);
+    props.setSearchKeyword("*");
     navigate(`/`)
   };
 
@@ -43,7 +44,6 @@ const Sidebar = (props: sidebarProps) => {
       skip,
       props.limit
     );
-    navigate(`/browse/?skip=${skip}&limit=${props.limit}`)
   };
 
   return (
@@ -53,6 +53,7 @@ const Sidebar = (props: sidebarProps) => {
           searchKeyword={props.searchKeyword}
           setSearchKeyword={props.setSearchKeyword}
           setSearchResp={props.setSearchResp}
+          filterDict={props.filterDict}
           limit={props.limit}
         />
       </Row>

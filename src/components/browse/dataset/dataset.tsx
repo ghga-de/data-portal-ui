@@ -27,12 +27,17 @@ const Dataset = (props: dataSetListProps) => {
                             <Accordion.Body>
                                 <p className="my-0">
                                     <span className="fw-bold">Description:&nbsp;</span>
-
                                     {hit.content.description}
                                 </p>
                                 <hr />
                                 <Row>
                                     <Col xs md lg={8}>
+                                        <Row className="mb-2">
+                                            <Col>
+                                                <span className="fw-bold">Title:&nbsp; </span>
+                                                <span>{hit.content.title}</span>
+                                            </Col>
+                                        </Row>
                                         <Row className="mb-2">
                                             <Col>
                                                 <span className="fw-bold">Access:&nbsp;</span>

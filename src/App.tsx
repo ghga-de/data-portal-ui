@@ -12,6 +12,7 @@ function App() {
       <Header />
       <Routes>
         <Route path="/" element={<Browse />} />
+        <Route path="/query=:keyword" element={<Browse />} />
         <Route path="/browse/dataset/:id" />
         <Route path="/browse/?skip=:skip&limit=:limit" />
         <Route path="*" element={<PageNotFound />} />
