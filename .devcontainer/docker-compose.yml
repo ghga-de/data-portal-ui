@@ -1,11 +1,10 @@
-version: '3'
+version: "3"
 
 services:
-
   # data portal ui
 
   data_portal_ui_svc:
-    image: ghga/data-portal-ui-v1:dev
+    image: ghga/data-portal-ui:dev
     environment:
       DATA_PORTAL_UI_V1_HOST: 0.0.0.0
       DATA_PORTAL_UI_V1_PORT: 8080
@@ -110,4 +109,3 @@ services:
 
 volumes:
   metadata_db_fs: {}
-  

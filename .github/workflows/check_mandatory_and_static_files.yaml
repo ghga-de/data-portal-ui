@@ -13,7 +13,7 @@ jobs:
           python-version: 3.9
       - name: Check mandatory and static files
         run: |
-          if [ "${{ github.event.repository.name }}" == "data-portal-ui-v1" ]
+          if [ "${{ github.event.repository.name }}" == "data-portal-ui" ]
           then
             echo "Skipping this test as operating on the template repo."
           else
