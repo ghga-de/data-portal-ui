@@ -57,7 +57,6 @@ services:
       METADATA_REPOSITORY_SERVICE_LOG_LEVEL: debug
       METADATA_REPOSITORY_SERVICE_DB_URL: mongodb://metadata_db:27017
       METADATA_REPOSITORY_SERVICE_DB_NAME: metadata
-      METADATA_REPOSITORY_SERVICE_DATA_LOAD_URL: https://GoHa8boo:aequ3eeV@tue.blobfish.ghga-dev.de/data.zip
 
     entrypoint: ["bash", "-c"]
     command: |
@@ -79,10 +78,8 @@ services:
 
         # Convert the data to GHGA format
         python scripts/transform_ega_to_ghga.py \
-          --ega-dac-json data/original/dacs.json \
-          --ega-dataset-json data/original/datasets.json \
-          --ega-studies-json data/original/studies.json \
-          --output /tmp/example_dir
+          --output /tmp/example_dir \
+          blobfish-transform.yml
 
         # Populate the database
         /service/scripts/populate_metadata_store.py --example-dir /tmp/example_dir \
