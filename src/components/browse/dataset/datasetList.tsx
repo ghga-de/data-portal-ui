@@ -4,7 +4,6 @@ import DatasetPagination from "./datasetPagination";
 import Dataset from "./dataset";
 import { hitModel, searchResponseModel } from "../../../models/dataset";
 import { facetFilterModel } from "../../../models/facets";
-import 'react-perfect-scrollbar/dist/css/styles.css';
 
 interface dataSetProps {
   dsCount: number;
@@ -35,7 +34,7 @@ const DatasetList = (props: dataSetProps) => {
       />
       {props.dsList === null ? null : (
         <div className="w-100 mt-4">
-            <Dataset dsList={props.dsList} />
+          <Dataset dsList={props.dsList} />
         </div>
       )}
       <DatasetPagination
