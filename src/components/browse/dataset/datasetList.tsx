@@ -4,7 +4,6 @@ import DatasetPagination from "./datasetPagination";
 import Dataset from "./dataset";
 import { hitModel, searchResponseModel } from "../../../models/dataset";
 import { facetFilterModel } from "../../../models/facets";
-import PerfectScrollbar from 'react-perfect-scrollbar'
 import 'react-perfect-scrollbar/dist/css/styles.css';
 
 interface dataSetProps {
@@ -35,10 +34,8 @@ const DatasetList = (props: dataSetProps) => {
         setCurrentPage={setCurrentPage}
       />
       {props.dsList === null ? null : (
-        <div style={{ height: "60vh" }} className="mb-2 position-relative w-100">
-          <PerfectScrollbar>
+        <div className="w-100 mt-4">
             <Dataset dsList={props.dsList} />
-          </PerfectScrollbar>
         </div>
       )}
       <DatasetPagination
