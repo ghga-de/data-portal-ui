@@ -5,7 +5,6 @@ import { Row, Col, Button } from "react-bootstrap";
 import { facetModel, facetFilterModel } from "../../../models/facets";
 import { searchResponseModel } from "../../../models/dataset";
 import { getDatasetsSearchResp } from "../../../api/browse";
-import 'react-perfect-scrollbar/dist/css/styles.css';
 
 interface sidebarProps {
   facetList: facetModel[] | null;
@@ -28,6 +27,7 @@ const Sidebar = (props: sidebarProps) => {
       setCheck(check.set(key, false));
     });
     props.setFilterDict([]);
+    props.setSearchKeyword("")
   };
 
   const handleFilter = () => {

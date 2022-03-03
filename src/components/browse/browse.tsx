@@ -9,7 +9,7 @@ import { getDatasetsSearchResp } from "../../api/browse";
 const Browse = () => {
   const [filterDict, setFilterDict] = React.useState<facetFilterModel[]>([]);
   const [limit, setLimit] = React.useState(10);
-  const [searchKeyword, setSearchKeyword] = React.useState('*');
+  const [searchKeyword, setSearchKeyword] = React.useState('');
 
   const [searchResults, setSearchResp] =
     React.useState<searchResponseModel | null>(null);
@@ -17,7 +17,7 @@ const Browse = () => {
 
   React.useEffect(
     () => getDatasetsSearchResp(setSearchResp, filterDict, searchKeyword, skip, limit),
-    [searchKeyword, limit]
+    [limit]
   );
 
   var dsList: hitModel[] | null = null;

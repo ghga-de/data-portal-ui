@@ -14,19 +14,21 @@ interface searchbarProps {
 const Searchbar = (props: searchbarProps) => {
 
   const skip = 0;
-  const handleSearch = () => {
+  const handleSearch = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
     getDatasetsSearchResp(props.setSearchResp, [], props.searchKeyword, skip, props.limit);
   };
 
   return (
     <Container className="mb-3">
-      <Form>
+      <Form onSubmit={(event) => { handleSearch(event) }}>
         <Form.Group>
           <div className="input-group p-1">
-            <Button onClick={handleSearch} className="bg-primary">
+            <Button type="submit" className="bg-primary">
               <Search />
             </Button>
             <Form.Control
+              value={props.searchKeyword}
               id="searchInput"
               type="text"
               placeholder="Search datasets"
