@@ -5,7 +5,6 @@ import { Row, Col, Button } from "react-bootstrap";
 import { facetModel, facetFilterModel } from "../../../models/facets";
 import { searchResponseModel } from "../../../models/dataset";
 import { getDatasetsSearchResp } from "../../../api/browse";
-import PerfectScrollbar from 'react-perfect-scrollbar'
 import 'react-perfect-scrollbar/dist/css/styles.css';
 
 interface sidebarProps {
@@ -53,8 +52,7 @@ const Sidebar = (props: sidebarProps) => {
       </Row>
       {props.facetList === null || props.facetList.length < 1 ? null : (
         <div className="bg-light border p-2 rounded-3 pt-3">
-          <Row style={{height: "65vh"}} className="position-relative w-100 px-0 mx-0">
-          <PerfectScrollbar>
+          <Row className="position-relative w-100 px-0 mx-0">
             {props.facetList.sort((a, b) => b.key < a.key ? 1 : -1).map((facet, index) => (
               <Filter
                 facet={facet}
@@ -66,7 +64,6 @@ const Sidebar = (props: sidebarProps) => {
                 filterDict={props.filterDict}
               />
             ))}
-            </PerfectScrollbar>
           </Row>
           <Row className="mb-2 mt-3">
             <Col className="offset-2" xs md lg={4}>
