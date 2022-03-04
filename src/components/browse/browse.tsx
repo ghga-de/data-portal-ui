@@ -18,7 +18,7 @@ const Browse = () => {
 
   if (searchParams !== undefined && searchParams.get("p") !== undefined) {
     page = parseInt(searchParams.get("p") || "1")
-    skip = (page - 1) * 10;
+    skip = (page - 1) * limit;
   }
 
   React.useEffect(
