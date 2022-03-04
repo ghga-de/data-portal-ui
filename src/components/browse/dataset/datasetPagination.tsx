@@ -3,6 +3,7 @@ import ReactPaginate from 'react-paginate'
 import { searchResponseModel } from "../../../models/dataset";
 import { getDatasetsSearchResp } from "../../../api/browse";
 import { facetFilterModel } from '../../../models/facets'
+import { useNavigate } from 'react-router-dom'
 
 interface dataSetPaginationProps {
   dsCount: number;
@@ -13,10 +14,13 @@ interface dataSetPaginationProps {
   filterDict: facetFilterModel[];
   currentPage: number;
   setCurrentPage: Dispatch<SetStateAction<number>>
+  searchParams: any
+  setSearchParams: any
 };
 
 const DatasetPagination = (props: dataSetPaginationProps) => {
   const [pageCount, setpageCount] = useState(1);
+  let navigate = useNavigate();
 
   useEffect(() => {
     setpageCount(Math.ceil(props.dsCount / props.limit))
@@ -24,8 +28,15 @@ const DatasetPagination = (props: dataSetPaginationProps) => {
 
   const handlePageClick = (data: any) => {
     let skip = (data.selected) * props.limit;
+    console.log(data.selected)
     props.setCurrentPage(data.selected)
     getDatasetsSearchResp(props.setSearchResp, props.filterDict, props.searchKeyword, skip, props.limit)
+    if (props.searchParams.p === undefined) {
+      props.setSearchParams({ p: data.selected + 1 })
+      navigate(`?p=${data.selected + 1}`)
+    } else {
+      navigate(`?p=${props.searchParams.p}`)
+    }
   };
 
   return (
