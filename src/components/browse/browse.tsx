@@ -10,11 +10,11 @@ import { useSearchParams } from "react-router-dom";
 const Browse = () => {
   let [searchParams, setSearchParams] = useSearchParams();
   let page = 1
+  let skip = 0;
   const [filterDict, setFilterDict] = React.useState<facetFilterModel[]>([]);
   const [limit, setLimit] = React.useState(10);
   const [searchKeyword, setSearchKeyword] = React.useState('');
   const [searchResults, setSearchResp] = React.useState<searchResponseModel | null>(null);
-  let skip = 0;
 
   if (searchParams !== undefined && searchParams.get("p") !== undefined) {
     page = parseInt(searchParams.get("p") || "1")

@@ -28,7 +28,6 @@ const DatasetPagination = (props: dataSetPaginationProps) => {
 
   const handlePageClick = (data: any) => {
     let skip = (data.selected) * props.limit;
-    console.log(data.selected)
     props.setCurrentPage(data.selected)
     getDatasetsSearchResp(props.setSearchResp, props.filterDict, props.searchKeyword, skip, props.limit)
     if (props.searchParams.p === undefined) {
