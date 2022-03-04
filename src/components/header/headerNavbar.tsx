@@ -2,13 +2,14 @@ import React from 'react';
 import logo from "../../assets/ghga.png"
 import HeaderIcons from './headerIcons';
 import { Navbar, Container, Nav, NavDropdown } from 'react-bootstrap';
+import { Link } from 'react-router-dom'
 
 const HeaderNavbar = () => {
   return (
     <Navbar collapseOnSelect expand="lg" bg="white">
       <Container className="align-items-start">
         <Navbar.Brand>
-          <img src={logo} alt='GHGA logo' height="70px" />
+          <Link to="/"><img src={logo} alt='GHGA logo' height="70px" /></Link>
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" className="border-2" />
         <Navbar.Collapse id="responsive-navbar-nav">

@@ -13,15 +13,17 @@ interface dataSetProps {
   limit: number;
   setLimit: Dispatch<SetStateAction<number>>;
   filterDict: facetFilterModel[];
+  searchParams: any
+  setSearchParams: any
+  page: number
 }
 
 const DatasetList = (props: dataSetProps) => {
   var dsCount: number = props.dsCount;
-  const [currentPage, setCurrentPage] = React.useState(0)
+  const [currentPage, setCurrentPage] = React.useState(props.page - 1)
 
-  return (
-    <div className="bg-white border p-2 ps-3 rounded h-100">
-      <DatasetListHeader dsCount={dsCount} />
+  const PaginatedDataset = () => {
+    return (
       <DatasetPagination
         setSearchResp={props.setSearchResp}
         searchKeyword={props.searchKeyword}
@@ -31,22 +33,22 @@ const DatasetList = (props: dataSetProps) => {
         filterDict={props.filterDict}
         currentPage={currentPage}
         setCurrentPage={setCurrentPage}
+        searchParams={props.searchParams}
+        setSearchParams={props.setSearchParams}
       />
+    )
+  }
+
+  return (
+    <div className="bg-white border p-2 ps-3 rounded h-100">
+      <DatasetListHeader dsCount={dsCount} />
+      <PaginatedDataset />
       {props.dsList === null ? null : (
         <div className="w-100 mt-4">
           <Dataset dsList={props.dsList} />
         </div>
       )}
-      <DatasetPagination
-        setSearchResp={props.setSearchResp}
-        searchKeyword={props.searchKeyword}
-        limit={props.limit}
-        setLimit={props.setLimit}
-        dsCount={dsCount}
-        filterDict={props.filterDict}
-        currentPage={currentPage}
-        setCurrentPage={setCurrentPage}
-      />
+      <PaginatedDataset />
     </div>
   );
 };

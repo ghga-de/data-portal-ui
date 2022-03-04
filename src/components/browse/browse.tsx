@@ -5,19 +5,25 @@ import Sidebar from "./sidebar/sidebar";
 import { searchResponseModel, hitModel } from "../../models/dataset";
 import { facetFilterModel, facetModel } from "../../models/facets";
 import { getDatasetsSearchResp } from "../../api/browse";
+import { useSearchParams } from "react-router-dom";
 
 const Browse = () => {
+  let [searchParams, setSearchParams] = useSearchParams();
+  let page = 1
+  let skip = 0;
   const [filterDict, setFilterDict] = React.useState<facetFilterModel[]>([]);
   const [limit, setLimit] = React.useState(10);
   const [searchKeyword, setSearchKeyword] = React.useState('');
+  const [searchResults, setSearchResp] = React.useState<searchResponseModel | null>(null);
 
-  const [searchResults, setSearchResp] =
-    React.useState<searchResponseModel | null>(null);
-  const skip = 0;
+  if (searchParams !== undefined && searchParams.get("p") !== undefined) {
+    page = parseInt(searchParams.get("p") || "1")
+    skip = (page - 1) * limit;
+  }
 
   React.useEffect(
     () => getDatasetsSearchResp(setSearchResp, filterDict, searchKeyword, skip, limit),
-    [limit]
+    []
   );
 
   var dsList: hitModel[] | null = null;
@@ -55,7 +61,11 @@ const Browse = () => {
             dsList={dsList}
             limit={limit}
             filterDict={filterDict}
-            setLimit={setLimit} />
+            setLimit={setLimit}
+            searchParams={searchParams}
+            setSearchParams={setSearchParams}
+            page={page}
+          />
         </Col>
       </Row>
     </Container>
