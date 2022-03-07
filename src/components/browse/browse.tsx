@@ -23,7 +23,7 @@ const Browse = () => {
 
   React.useEffect(
     () => getDatasetsSearchResp(setSearchResp, filterDict, searchKeyword, skip, limit),
-    []
+    [filterDict, limit, searchKeyword, skip]
   );
 
   var dsList: hitModel[] | null = null;
