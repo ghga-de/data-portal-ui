@@ -1,7 +1,6 @@
-version: '3'
+version: "3"
 
 services:
-
   # data portal ui
 
   data_portal_ui_svc:
@@ -58,7 +57,6 @@ services:
       METADATA_REPOSITORY_SERVICE_LOG_LEVEL: debug
       METADATA_REPOSITORY_SERVICE_DB_URL: mongodb://metadata_db:27017
       METADATA_REPOSITORY_SERVICE_DB_NAME: metadata
-      METADATA_REPOSITORY_SERVICE_DATA_LOAD_URL: https://GoHa8boo:aequ3eeV@tue.blobfish.ghga-dev.de/data.zip
 
     entrypoint: ["bash", "-c"]
     command: |
@@ -110,4 +108,3 @@ services:
 
 volumes:
   metadata_db_fs: {}
-  
