@@ -9,22 +9,32 @@ import { useSearchParams } from "react-router-dom";
 
 const Browse = () => {
   let [searchParams, setSearchParams] = useSearchParams();
-  let page = 1
-  let skip = 0;
+  const [page, setPage] = React.useState(1)
+  const [skip, setSkip] = React.useState(0);
   const [filterDict, setFilterDict] = React.useState<facetFilterModel[]>([]);
   const [limit, setLimit] = React.useState(10);
   const [searchKeyword, setSearchKeyword] = React.useState('');
   const [searchResults, setSearchResp] = React.useState<searchResponseModel | null>(null);
 
-  if (searchParams !== undefined && searchParams.get("p") !== undefined) {
-    page = parseInt(searchParams.get("p") || "1")
-    skip = (page - 1) * limit;
+  if (searchParams !== undefined) {
+    if (searchParams.get("p") !== undefined) {
+      setPage(parseInt(searchParams.get("p") || "1"))
+      setSkip((page - 1) * limit)
+    }
+    if (searchParams.get("q") !== undefined) {
+      console.log(searchParams.get("q"))
+      setSearchKeyword(searchParams.get("q") || '')
+      console.log("search " + searchKeyword)
+    }
   }
-
-  React.useEffect(
-    () => getDatasetsSearchResp(setSearchResp, filterDict, searchKeyword, skip, limit),
-    []
-  );
+  React.useEffect(() => {
+    const getData = () => {
+      console.log(searchKeyword)
+      getDatasetsSearchResp(setSearchResp, filterDict, searchKeyword, skip, limit);
+    };
+    getData();
+  }// eslint-disable-next-line react-hooks/exhaustive-deps
+    , [])
 
   var dsList: hitModel[] | null = null;
   var facetList: facetModel[] | null = null;
@@ -52,7 +62,9 @@ const Browse = () => {
             setSearchResp={setSearchResp}
             setFilterDict={setFilterDict}
             filterDict={filterDict}
-            limit={limit} />
+            limit={limit}
+            searchParams={searchParams}
+            setSearchParams={setSearchParams} />
         </Col>
         <Col xs md lg={9}>
           <DatasetList searchKeyword={searchKeyword}

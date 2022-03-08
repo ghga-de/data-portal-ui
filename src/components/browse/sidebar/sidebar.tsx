@@ -14,6 +14,8 @@ interface sidebarProps {
   setSearchKeyword: Dispatch<SetStateAction<string>>;
   setFilterDict: Dispatch<SetStateAction<facetFilterModel[]>>;
   filterDict: facetFilterModel[];
+  searchParams: any
+  setSearchParams: any
 }
 
 const Sidebar = (props: sidebarProps) => {
@@ -48,6 +50,8 @@ const Sidebar = (props: sidebarProps) => {
           setSearchKeyword={props.setSearchKeyword}
           setSearchResp={props.setSearchResp}
           limit={props.limit}
+          searchParams={props.searchParams}
+          setSearchParams={props.setSearchParams}
         />
       </Row>
       {props.facetList === null || props.facetList.length < 1 ? null : (

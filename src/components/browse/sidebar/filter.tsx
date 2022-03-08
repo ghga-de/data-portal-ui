@@ -38,14 +38,14 @@ const Filter = (props: filterProps) => {
         {props.facet.options.sort((a, b) => b.option < a.option ? 1 : -1).map((option) => {
           let key: string = props.facet.key + ":" + option.option;
           return (
-            <div className="p-1 d-flex align-top">
+            <div className="p-1 d-flex align-top" key={key}>
               <Form.Check
                 id={key}
                 className="d-inline-block"
                 checked={props.check.get(key)}
                 value={key}
                 onChange={(event) => handleCheck(key, event)}
-                style={{zIndex: 100}}
+                style={{ zIndex: 100 }}
               />
               <Form.Label className="p-0 m-0 w-100" htmlFor={key}>
                 <Row>
