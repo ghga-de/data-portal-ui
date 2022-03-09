@@ -9,27 +9,17 @@ import { useSearchParams } from "react-router-dom";
 
 const Browse = () => {
   let [searchParams, setSearchParams] = useSearchParams();
-  const [page, setPage] = React.useState(1)
-  const [skip, setSkip] = React.useState(0);
-  const [filterDict, setFilterDict] = React.useState<facetFilterModel[]>([]);
+  const page: number = parseInt(searchParams.get("p") || "1")
   const [limit, setLimit] = React.useState(10);
-  const [searchKeyword, setSearchKeyword] = React.useState('');
+  const [skip, setSkip] = React.useState((page - 1) * limit);
+  const [filterDict, setFilterDict] = React.useState<facetFilterModel[]>([]);
+
+  const [searchKeyword, setSearchKeyword] = React.useState(searchParams.get("q") || '');
   const [searchResults, setSearchResp] = React.useState<searchResponseModel | null>(null);
 
-  if (searchParams !== undefined) {
-    if (searchParams.get("p") !== undefined) {
-      setPage(parseInt(searchParams.get("p") || "1"))
-      setSkip((page - 1) * limit)
-    }
-    if (searchParams.get("q") !== undefined) {
-      console.log(searchParams.get("q"))
-      setSearchKeyword(searchParams.get("q") || '')
-      console.log("search " + searchKeyword)
-    }
-  }
   React.useEffect(() => {
+
     const getData = () => {
-      console.log(searchKeyword)
       getDatasetsSearchResp(setSearchResp, filterDict, searchKeyword, skip, limit);
     };
     getData();
@@ -74,6 +64,7 @@ const Browse = () => {
             limit={limit}
             filterDict={filterDict}
             setLimit={setLimit}
+            setSkip={setSkip}
             searchParams={searchParams}
             setSearchParams={setSearchParams}
             page={page}

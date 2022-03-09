@@ -22,9 +22,14 @@ const Searchbar = (props: searchbarProps) => {
     getDatasetsSearchResp(props.setSearchResp, [], props.searchKeyword, skip, props.limit);
     if (props.searchParams.q === undefined) {
       props.setSearchParams({ q: props.searchKeyword })
-      navigate(`?q=${props.searchKeyword}`)
+      if (props.searchParams.p === undefined) {
+        props.setSearchParams({ q: 1 })
+        navigate(`?q=${props.searchKeyword}`)
+      } else {
+        navigate(`?q=${props.searchKeyword}&p=${props.searchParams.p}`)
+      }
     } else {
-      navigate(`?p=${props.searchParams.q}`)
+      navigate(`?q=${props.searchParams.q}&p=${props.searchParams.p}`)
     }
   };
 

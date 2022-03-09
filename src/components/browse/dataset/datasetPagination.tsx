@@ -32,9 +32,13 @@ const DatasetPagination = (props: dataSetPaginationProps) => {
     getDatasetsSearchResp(props.setSearchResp, props.filterDict, props.searchKeyword, skip, props.limit)
     if (props.searchParams.p === undefined) {
       props.setSearchParams({ p: data.selected + 1 })
-      navigate(`?p=${data.selected + 1}`)
+      if (props.searchKeyword === '') {
+        navigate(`?p=${data.selected + 1}`)
+      } else {
+        navigate(`?q=${props.searchKeyword}&p=${data.selected + 1}`)
+      }
     } else {
-      navigate(`?p=${props.searchParams.p}`)
+      navigate(`?q=${props.searchKeyword}&p=${props.searchParams.p}`)
     }
   };
 

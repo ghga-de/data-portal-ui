@@ -9,7 +9,7 @@ const HeaderNavbar = () => {
     <Navbar collapseOnSelect expand="lg" bg="white">
       <Container className="align-items-start">
         <Navbar.Brand>
-          <Link to="/"><img src={logo} alt='GHGA logo' height="70px" /></Link>
+          <Link to="/browse"><img src={logo} alt='GHGA logo' height="70px" /></Link>
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" className="border-2" />
         <Navbar.Collapse id="responsive-navbar-nav">
