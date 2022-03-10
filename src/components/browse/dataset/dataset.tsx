@@ -1,7 +1,6 @@
 import React from 'react';
 import { Accordion, Row, Col, Badge } from 'react-bootstrap';
 import { hitModel } from '../../../models/dataset';
-import { BoxArrowUpRight } from 'react-bootstrap-icons'
 
 interface dataSetListProps {
     dsList: hitModel[];
