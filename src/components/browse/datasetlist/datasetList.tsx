@@ -1,7 +1,7 @@
 import React, { Dispatch, SetStateAction } from "react";
 import DatasetListHeader from "./datasetListHeader";
 import DatasetPagination from "./datasetPagination";
-import Dataset from "./dataset";
+import DatasetHeader from "./datasetHeader";
 import { hitModel, searchResponseModel } from "../../../models/dataset";
 import { facetFilterModel } from "../../../models/facets";
 
@@ -45,7 +45,7 @@ const DatasetList = (props: dataSetProps) => {
       <PaginatedDataset />
       {props.dsList === null ? null : (
         <div className="w-100 mt-4">
-          <Dataset dsList={props.dsList} />
+          <DatasetHeader dsList={props.dsList} />
         </div>
       )}
       <PaginatedDataset />
