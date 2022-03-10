@@ -17,11 +17,11 @@ interface dataSetProps {
   searchParams: any
   setSearchParams: any
   page: number
+  setPage: Dispatch<SetStateAction<number>>;
 }
 
 const DatasetList = (props: dataSetProps) => {
   var dsCount: number = props.dsCount;
-  const [currentPage, setCurrentPage] = React.useState(props.page - 1)
 
   const PaginatedDataset = () => {
     return (
@@ -32,8 +32,8 @@ const DatasetList = (props: dataSetProps) => {
         setLimit={props.setLimit}
         dsCount={dsCount}
         filterDict={props.filterDict}
-        currentPage={currentPage}
-        setCurrentPage={setCurrentPage}
+        page={props.page}
+        setPage={props.setPage}
         searchParams={props.searchParams}
         setSearchParams={props.setSearchParams}
       />
