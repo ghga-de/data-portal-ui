@@ -9,17 +9,14 @@ import { useSearchParams } from "react-router-dom";
 
 const Browse = () => {
   let [searchParams, setSearchParams] = useSearchParams();
-  //const page: number = parseInt(searchParams.get("p") || "1")
   const [page, setPage] = React.useState(parseInt(searchParams.get("p") || "0"))
   const [limit, setLimit] = React.useState(10);
   const [skip, setSkip] = React.useState((page) * limit);
   const [filterDict, setFilterDict] = React.useState<facetFilterModel[]>([]);
-
   const [searchKeyword, setSearchKeyword] = React.useState(searchParams.get("q") || '');
   const [searchResults, setSearchResp] = React.useState<searchResponseModel | null>(null);
 
   React.useEffect(() => {
-
     const getData = () => {
       getDatasetsSearchResp(setSearchResp, filterDict, searchKeyword, skip, limit);
     };
