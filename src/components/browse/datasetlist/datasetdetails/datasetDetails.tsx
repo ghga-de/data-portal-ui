@@ -1,10 +1,10 @@
 import React from "react";
 import { Row, Col } from "react-bootstrap";
-import { hitModel } from "../../../models/dataset";
-import DatasetExperiments from "./components/datasetExperiments";
-import DatasetFiles from "./components/datasetFiles";
-import DatasetSamples from "./components/datasetSamples";
-import DatasetStudies from "./components/datasetStudies";
+import { hitModel } from "../../../../models/dataset";
+import DatasetExperiments from "./datasetExperiments";
+import DatasetFiles from "./datasetFiles";
+import DatasetSamples from "./datasetSamples";
+import DatasetStudies from "./datasetStudies";
 
 interface dataSetDetailsProps {
   hit: hitModel;
