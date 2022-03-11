@@ -1,7 +1,7 @@
 import React, { Dispatch, SetStateAction } from "react";
 import DatasetListHeader from "./datasetListHeader";
 import DatasetPagination from "./datasetPagination";
-import DatasetHeader from "./datasetHeader";
+import DatasetHeader from "./datasetheader/datasetHeader";
 import { hitModel, searchResponseModel } from "../../../models/dataset";
 import { facetFilterModel } from "../../../models/facets";
 
