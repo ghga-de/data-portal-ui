@@ -1,7 +1,7 @@
 import React from "react";
 import { Row } from "react-bootstrap";
-import { studyModel } from "../../../../models/dataset";
-import DatasetDetailsLayout from "./datasetDetailsLayout";
+import { studyModel } from "../../../../../models/dataset";
+import DatasetDetailsLayout from "./datasetdetailslayout/datasetDetailsLayout";
 import { JournalMedical } from "react-bootstrap-icons";
 
 interface dataSetStudiesProps {

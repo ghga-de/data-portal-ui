@@ -1,6 +1,6 @@
 import React from "react";
 import { Row } from "react-bootstrap";
-import DatasetDetailsLayout from "./datasetDetailsLayout";
+import DatasetDetailsLayout from "./datasetdetailslayout/datasetDetailsLayout";
 import { Droplet } from "react-bootstrap-icons";
 
 interface dataSetSamplesProps {

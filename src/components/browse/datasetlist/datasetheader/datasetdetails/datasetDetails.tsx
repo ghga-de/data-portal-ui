@@ -1,6 +1,6 @@
 import React from "react";
 import { Row, Col } from "react-bootstrap";
-import { hitModel } from "../../../../models/dataset";
+import { hitModel } from "../../../../../models/dataset";
 import DatasetExperiments from "./datasetExperiments";
 import DatasetFiles from "./datasetFiles";
 import DatasetSamples from "./datasetSamples";
