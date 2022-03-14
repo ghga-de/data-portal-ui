@@ -1,7 +1,7 @@
 import React from "react";
-import { Accordion} from "react-bootstrap";
+import { Accordion, Col } from "react-bootstrap";
 import { hitModel } from "../../../../models/dataset";
-import DatasetDetails from "./datasetdetails/datasetDetails"
+import DatasetDetails from "./datasetdetails/datasetDetails";
 
 interface dataSetListProps {
   dsList: hitModel[];
@@ -16,21 +16,20 @@ const DatasetHeader = (props: dataSetListProps) => {
             key={index}
             eventKey={hit.id}
             className="mb-3 border border-1 rounded"
+            title={hit.content.title}
           >
             <Accordion.Button className="bg-light align-items-start fs-7">
-              <p className="my-0">
+              <Col lg md sm xl xs xxl="3">
                 <span className="fw-bold">Dataset ID:&nbsp;</span>
                 {hit.content.accession}
-
-                <br />
-                <span className="fw-bold">Title: </span>
-                {hit.content.title}
-              </p>
+              </Col>
+              <Col className="overflow-hidden pe-2" style={{whiteSpace: "nowrap", textOverflow: "ellipsis"}}>
+                  <span className="fw-bold">Title:&nbsp;</span>
+                  {hit.content.title}
+              </Col>
             </Accordion.Button>
             <Accordion.Body>
-                <DatasetDetails 
-                hit={hit}
-                />
+              <DatasetDetails hit={hit} />
             </Accordion.Body>
           </Accordion.Item>
         ))}

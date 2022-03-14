@@ -1,5 +1,5 @@
 import React from "react";
-import { Row, Col } from "react-bootstrap";
+import { Row, Col, Button } from "react-bootstrap";
 import { hitModel } from "../../../../../models/dataset";
 import DatasetExperiments from "./datasetExperiments";
 import DatasetFiles from "./datasetFiles";
@@ -14,21 +14,30 @@ const DatasetDetails = (props: dataSetDetailsProps) => {
   let hit = props.hit;
 
   return (
-    <div className="fs-8">
+    <div className="fs-9">
       <Row>
-        <Col lg md sm xl xs xxl="10">
+        <Row className="pe-0">
+          <Col>
           <p className="my-0">
             <span className="fw-bold">Dataset ID:&nbsp;</span>
-            {hit.content.accession}
-
-            <br />
-            <span className="fw-bold">Description:&nbsp;</span>
-            {hit.content.description}
+            <span style={{userSelect: "all"}}>{hit.content.accession}</span>
           </p>
-        </Col>
+          <p>
+            <span className="fw-bold">Full title:&nbsp;</span>
+            <span style={{userSelect: "all"}}>{hit.content.title}</span>
+          </p>
+          </Col>
+          <Col lg md sm xl xs xxl="1" className="text-end px-0">
+          <Button className="fs-8 w-100">Request Access</Button>
+          </Col>
+        </Row>
+        <p className="fs-8">
+          <span className="fw-bold">Description:&nbsp;</span>
+          {hit.content.description}
+        </p>
       </Row>
       <hr />
-      <Row className="my-4 pt-3">
+      <Row className="my-4 pt-3 fs-8">
         <DatasetStudies studiesList={hit.content.has_study} />
         <DatasetFiles filesList={hit.content.has_file} />
       </Row>
