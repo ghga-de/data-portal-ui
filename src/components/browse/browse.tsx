@@ -11,7 +11,7 @@ const Browse = () => {
   let [searchParams, setSearchParams] = useSearchParams();
   const [page, setPage] = React.useState(parseInt(searchParams.get("p") || "0"))
   const [limit, setLimit] = React.useState(10);
-  const [skip, setSkip] = React.useState((page) * limit);
+  let skip = page === 0 ? page * limit : (page - 1) * limit;
   const [filterDict, setFilterDict] = React.useState<facetFilterModel[]>([]);
   const [searchKeyword, setSearchKeyword] = React.useState(searchParams.get("q") || '');
   const [searchResults, setSearchResp] = React.useState<searchResponseModel | null>(null);
@@ -44,25 +44,26 @@ const Browse = () => {
     <Container>
       <Row>
         <Col xs md lg={3}>
-          <Sidebar setSearchKeyword={setSearchKeyword}
+          <Sidebar searchKeyword={searchKeyword}
+            setSearchKeyword={setSearchKeyword}
             facetList={facetList}
-            searchKeyword={searchKeyword}
             setSearchResp={setSearchResp}
             setFilterDict={setFilterDict}
             filterDict={filterDict}
             limit={limit}
             searchParams={searchParams}
-            setSearchParams={setSearchParams} />
+            setSearchParams={setSearchParams}
+            page={page}
+            setPage={setPage} />
         </Col>
         <Col xs md lg={9}>
           <DatasetList searchKeyword={searchKeyword}
             setSearchResp={setSearchResp}
             dsCount={dsCount}
             dsList={dsList}
-            limit={limit}
             filterDict={filterDict}
+            limit={limit}
             setLimit={setLimit}
-            setSkip={setSkip}
             searchParams={searchParams}
             setSearchParams={setSearchParams}
             page={page}

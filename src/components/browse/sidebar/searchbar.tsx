@@ -12,6 +12,7 @@ interface searchbarProps {
   limit: number;
   searchParams: any
   setSearchParams: any
+  setPage: Dispatch<SetStateAction<number>>;
 }
 
 const Searchbar = (props: searchbarProps) => {
@@ -22,11 +23,12 @@ const Searchbar = (props: searchbarProps) => {
     getDatasetsSearchResp(props.setSearchResp, [], props.searchKeyword, skip, props.limit);
     if (props.searchParams.q === undefined) {
       props.setSearchParams({ q: props.searchKeyword })
-      if (props.searchParams.p === undefined) {
-        props.setSearchParams({ q: 1 })
-        navigate(`?q=${props.searchKeyword}`)
-      } else {
-        navigate(`?q=${props.searchKeyword}&p=${props.searchParams.p}`)
+      props.setSearchParams({ p: 1 })
+      props.setPage(0)
+      if(!props.searchKeyword){
+        navigate(`?p=1`)
+      }else{
+        navigate(`?q=${props.searchKeyword}&p=1`)
       }
     } else {
       navigate(`?q=${props.searchParams.q}&p=${props.searchParams.p}`)

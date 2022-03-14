@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
+import React, { Dispatch, SetStateAction, } from "react";
 import ReactPaginate from 'react-paginate'
 import { searchResponseModel } from "../../../models/dataset";
 import { getDatasetsSearchResp } from "../../../api/browse";
@@ -19,16 +19,12 @@ interface dataSetPaginationProps {
 };
 
 const DatasetPagination = (props: dataSetPaginationProps) => {
-  const [pageCount, setpageCount] = useState(1);
+  let pageCount = Math.ceil(props.dsCount / props.limit);
   let navigate = useNavigate();
 
-  useEffect(() => {
-    setpageCount(Math.ceil(props.dsCount / props.limit))
-  }, [props.dsCount, props.limit]);
-
   const handlePageClick = (data: any) => {
-    let skip = (data.selected) * props.limit;
-    props.setPage(data.selected)
+    let skip = data.selected * props.limit;
+    props.setPage(data.selected + 1)
     getDatasetsSearchResp(props.setSearchResp, props.filterDict, props.searchKeyword, skip, props.limit)
     if (props.searchParams.p === undefined) {
       props.setSearchParams({ p: data.selected + 1 })
@@ -62,7 +58,7 @@ const DatasetPagination = (props: dataSetPaginationProps) => {
         breakClassName={"page-item"}
         breakLinkClassName={"page-link"}
         activeClassName={"active"}
-        forcePage={props.page}
+        forcePage={props.page === 0? props.page: props.page -1}
       />
     </div>
   );

@@ -5,6 +5,7 @@ import { Row, Col, Button } from "react-bootstrap";
 import { facetModel, facetFilterModel } from "../../../models/facets";
 import { searchResponseModel } from "../../../models/dataset";
 import { getDatasetsSearchResp } from "../../../api/browse";
+import { useNavigate } from 'react-router-dom'
 
 interface sidebarProps {
   facetList: facetModel[] | null;
@@ -16,9 +17,12 @@ interface sidebarProps {
   filterDict: facetFilterModel[];
   searchParams: any
   setSearchParams: any
+  page: number
+  setPage: Dispatch<SetStateAction<number>>;
 }
 
 const Sidebar = (props: sidebarProps) => {
+  let navigate = useNavigate();
   const [check, setCheck] = useState<Map<string, boolean>>(
     new Map<string, boolean>()
   );
@@ -30,6 +34,8 @@ const Sidebar = (props: sidebarProps) => {
     });
     props.setFilterDict([]);
     props.setSearchKeyword("")
+    props.setPage(0)
+    navigate(`?p=1`)
   };
 
   const handleFilter = () => {
@@ -52,6 +58,7 @@ const Sidebar = (props: sidebarProps) => {
           limit={props.limit}
           searchParams={props.searchParams}
           setSearchParams={props.setSearchParams}
+          setPage={props.setPage}
         />
       </Row>
       {props.facetList === null || props.facetList.length < 1 ? null : (
