@@ -17,7 +17,7 @@ const DatasetStudies = (props: dataSetStudiesProps) => {
           <div>
             {props.studiesList.map((study, index) => {
               return (
-                <Row>
+                <Row key={index}>
                   <p className="mb-0">
                     <strong>
                       Part of study:&nbsp;
