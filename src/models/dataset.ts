@@ -53,6 +53,7 @@ export interface fileModel {
 export interface studyModel {
     id: string;
     title: string,
+    accession: string,
     abstract: string,
 };
 
@@ -63,7 +64,7 @@ export interface datasetEmbeddedModel {
     description: string,
     type: string,
     files: fileModel[],
-    has_study: studyModel,
+    has_study: studyModel[],
     creation_date: string,
 };
 
@@ -73,7 +74,10 @@ export interface hitContentModel {
     title: string,
     description: string,
     type: string[],
-    has_study: string,
+    has_study: studyModel[],
+    has_file: string[],
+    has_sample: string[],
+    has_experiment: string[],
 };
 
 export interface hitModel {

@@ -1,6 +1,6 @@
 import React from "react";
 import { Col, Row, Container } from "react-bootstrap";
-import DatasetList from "./dataset/datasetList";
+import DatasetList from "./datasetlist/datasetList";
 import Sidebar from "./sidebar/sidebar";
 import { searchResponseModel, hitModel } from "../../models/dataset";
 import { facetFilterModel, facetModel } from "../../models/facets";
