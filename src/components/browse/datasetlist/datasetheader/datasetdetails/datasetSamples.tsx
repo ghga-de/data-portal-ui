@@ -1,7 +1,7 @@
 import React from "react";
 import { Row } from "react-bootstrap";
 import DatasetDetailsLayout from "./datasetdetailslayout/datasetDetailsLayout";
-import { Droplet } from "react-bootstrap-icons";
+import { DropletHalf } from "react-bootstrap-icons";
 
 interface dataSetSamplesProps {
   samplesList: string[];
@@ -10,7 +10,7 @@ interface dataSetSamplesProps {
 const DatasetSamples = (props: dataSetSamplesProps) => {
   return (
     <DatasetDetailsLayout
-      icon={<Droplet size={32} />}
+      icon={<DropletHalf size={32} />}
       content={
         <Row>
           <p className="mb-0">

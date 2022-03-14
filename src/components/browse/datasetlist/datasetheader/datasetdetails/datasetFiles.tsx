@@ -1,7 +1,7 @@
 import React from "react";
 import { Row } from "react-bootstrap";
 import DatasetDetailsLayout from "./datasetdetailslayout/datasetDetailsLayout";
-import { FileEarmark } from "react-bootstrap-icons";
+import { FileEarmarkMedical } from "react-bootstrap-icons";
 
 interface dataSetFilesProps {
   filesList: string[];
@@ -10,7 +10,7 @@ interface dataSetFilesProps {
 const DatasetFiles = (props: dataSetFilesProps) => {
   return (
     <DatasetDetailsLayout
-      icon={<FileEarmark size={32} />}
+      icon={<FileEarmarkMedical size={32} />}
       content={
         <Row>
           <p className="mb-0">

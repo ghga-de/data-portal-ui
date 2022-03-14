@@ -22,10 +22,6 @@ const DatasetDetails = (props: dataSetDetailsProps) => {
             {hit.content.accession}
 
             <br />
-            <span className="fw-bold">Full title:&nbsp;</span>
-            {hit.content.title}
-
-            <br />
             <span className="fw-bold">Description:&nbsp;</span>
             {hit.content.description}
           </p>

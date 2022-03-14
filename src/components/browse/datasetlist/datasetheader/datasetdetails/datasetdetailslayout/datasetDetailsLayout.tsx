@@ -9,11 +9,11 @@ interface dataSetDetailsLayoutProps {
 const DatasetDetailsLayout = (props: dataSetDetailsLayoutProps) => {
   return (
     <Col>
-    <Row className="text-dark">
-      <Col lg md sm xl xs xxl="auto" className="text-dark pe-0 pt-2">
+    <Row>
+      <Col lg md sm xl xs xxl="auto" className="pe-0 pt-2 text-muted">
         {props.icon}
       </Col>
-      <Col>
+      <Col className="text-dark">
         {props.content}
       </Col>
     </Row>
