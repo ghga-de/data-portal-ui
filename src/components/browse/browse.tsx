@@ -11,7 +11,7 @@ const Browse = () => {
   let [searchParams, setSearchParams] = useSearchParams();
   const [page, setPage] = React.useState(parseInt(searchParams.get("p") || "0"))
   const [limit, setLimit] = React.useState(10);
-  let skip = page === 0 ? page * limit : (page - 1) * limit;
+  let skip = page === 0 ? 0 : (page - 1) * limit;
   const [filterDict, setFilterDict] = React.useState<facetFilterModel[]>([]);
   const [searchKeyword, setSearchKeyword] = React.useState(searchParams.get("q") || '');
   const [searchResults, setSearchResp] = React.useState<searchResponseModel | null>(null);

@@ -58,7 +58,7 @@ const DatasetPagination = (props: dataSetPaginationProps) => {
         breakClassName={"page-item"}
         breakLinkClassName={"page-link"}
         activeClassName={"active"}
-        forcePage={props.page === 0? props.page: props.page -1}
+        forcePage={props.page === 0? 0: props.page -1}
       />
     </div>
   );
