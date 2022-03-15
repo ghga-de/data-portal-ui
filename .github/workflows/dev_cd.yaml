@@ -77,8 +77,7 @@ jobs:
             "https://api.github.com/repos/${DEPLOYMENT_CONFIG_REPO}/dispatches" \
             -H 'Accept: application/vnd.github.everest-preview+json' \           
             -u '${{ secrets.DEPLOYMENT_UPDATE_TOKEN }}' \
-            --data '{
-              "ref":"refs/heads/${{ needs.get_commit_version.outputs.branch }}",
+            --data '{              
               "event_type": "new_app_version",          
               "client_payload": {
                 "app_name": "${{ github.event.repository.name }}",
