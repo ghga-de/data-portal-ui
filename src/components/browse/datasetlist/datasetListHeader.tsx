@@ -27,7 +27,7 @@ const DatasetListHeader = (props: dataSetListHeaderProps) => {
       </Col>
       <Col lg md sm xl xs xxl="6">
         {getFilterParamsList().map((item) => 
-          <Badge className='p-2 bg-secondary'>{item}</Badge>
+          <Badge key={item} className='p-2 bg-secondary'>{item}</Badge>
         )}
       </Col>
       <Col className='text-end'>
