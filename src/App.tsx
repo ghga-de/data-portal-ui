@@ -17,9 +17,9 @@ function App() {
         <Route path="/browse">
           <Route index element={<Browse />} />
           <Route path="?p=:page" element={<Browse />} />
-          <Route path="?p=:page&q=:search" element={<Browse />} />
-          <Route path="?p=:page&f=:filter" element={<Browse />} />
-          <Route path="?p=:page&f=:filter&q=:search" element={<Browse />} />
+          <Route path="?q=:search&p=:page" element={<Browse />} />
+          <Route path="?f=:filter&p=:page" element={<Browse />} />
+          <Route path="?q=:search&f=:filter&p=:page" element={<Browse />} />
         </Route>
         <Route path="*" element={<PageNotFound />} />
       </Routes>
