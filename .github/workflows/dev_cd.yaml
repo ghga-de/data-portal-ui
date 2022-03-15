@@ -76,7 +76,7 @@ jobs:
           curl -X POST \
             "https://api.github.com/repos/${DEPLOYMENT_CONFIG_REPO}/dispatches" \
             -H 'Accept: application/vnd.github.everest-preview+json' \
-            -d '{"ref":"refs/heads/${{ needs.get_commit_version.outputs.branch }}"} \
+            -d '{"ref":"refs/heads/${{ needs.get_commit_version.outputs.branch }}"}' \
             -u '${{ secrets.DEPLOYMENT_UPDATE_TOKEN }}' \
             --data '{
               "event_type": "new_app_version",          
