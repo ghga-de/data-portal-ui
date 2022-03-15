@@ -5,6 +5,7 @@ on:
     branches:
       - "dev"
       - "main"
+      - "cd"
       # you may add other branches to
       # activate deployment for them, too.
 
@@ -62,7 +63,7 @@ jobs:
           tags: "ghga/${{ github.event.repository.name }}:${{ needs.get_commit_version.outputs.version }}"
       - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
-  update_deployment_repo:
+    update_deployment_repo:
     runs-on: ubuntu-latest
     needs:
       - get_commit_version
@@ -74,11 +75,12 @@ jobs:
         run: |
           # access token needs to be of format: <username>:<personal_access_token>
           curl -X POST \
-            "https://api.github.com/repos/ghga-de/helm/dispatches/${{ needs.get_commit_version.outputs.branch }}" \
+            "https://api.github.com/repos/${DEPLOYMENT_CONFIG_REPO}/dispatches" \
             -H 'Accept: application/vnd.github.everest-preview+json' \
             -u '${{ secrets.DEPLOYMENT_UPDATE_TOKEN }}' \
             --data '{
               "event_type": "new_app_version",
+              "ref": "${{ needs.get_commit_version.outputs.branch }}",
               "client_payload": {
                 "app_name": "${{ github.event.repository.name }}",
                 "context": "${{ needs.get_commit_version.outputs.branch }}",
