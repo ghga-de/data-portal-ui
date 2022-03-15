@@ -38,6 +38,14 @@ const Sidebar = (props: sidebarProps) => {
     navigate(`?p=1`)
   };
 
+  const getFilterString = () => {
+    let filterString = ''
+    for(var item of props.filterDict){
+      filterString += (item.key + ":" + item.value + ";")
+    }
+    return filterString.slice(0, -1)
+  }
+
   const handleFilter = () => {
     getDatasetsSearchResp(
       props.setSearchResp,
@@ -46,6 +54,18 @@ const Sidebar = (props: sidebarProps) => {
       skip,
       props.limit
     );
+    if (props.searchParams.f === undefined) {
+      props.setSearchParams({ f: getFilterString() })
+      props.setSearchParams({ p: 1 })
+      props.setPage(0)
+      if(!props.searchKeyword){
+        navigate(`?f=${getFilterString()}&p=1`)
+      }else{
+        navigate(`?q=${props.searchKeyword}&f=${getFilterString()}&p=1`)
+      }
+    } else {
+      navigate(`?q=${props.searchParams.q}&f=${getFilterString()}&p=${props.searchParams.p}`)
+    }
   };
 
   return (
