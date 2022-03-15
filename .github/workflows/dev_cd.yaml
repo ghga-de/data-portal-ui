@@ -74,11 +74,12 @@ jobs:
         run: |
           # access token needs to be of format: <username>:<personal_access_token>
           curl -X POST \
-            "https://api.github.com/repos/ghga-de/helm/dispatches/${{ needs.get_commit_version.outputs.branch }}" \
+            "https://api.github.com/repos/${DEPLOYMENT_CONFIG_REPO}/dispatches" \
             -H 'Accept: application/vnd.github.everest-preview+json' \
             -u '${{ secrets.DEPLOYMENT_UPDATE_TOKEN }}' \
             --data '{
               "event_type": "new_app_version",
+              "ref": "${{ needs.get_commit_version.outputs.branch }}",
               "client_payload": {
                 "app_name": "${{ github.event.repository.name }}",
                 "context": "${{ needs.get_commit_version.outputs.branch }}",
