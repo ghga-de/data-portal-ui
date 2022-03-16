@@ -41,7 +41,7 @@ const DatasetList = (props: dataSetProps) => {
 
   return (
     <div className="bg-white border p-2 ps-3 rounded h-100">
-      <DatasetListHeader dsCount={dsCount} />
+      <DatasetListHeader dsCount={dsCount} searchParams={props.searchParams} />
       <PaginatedDataset />
       {props.dsList === null ? null : (
         <div className="w-100 mt-4">
