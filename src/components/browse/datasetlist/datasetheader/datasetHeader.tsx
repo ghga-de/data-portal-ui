@@ -23,9 +23,20 @@ const DatasetHeader = (props: dataSetListProps) => {
                 <span className="fw-bold">Dataset ID:&nbsp;</span>
                 {hit.content.accession}
               </Col>
-              <Col className="overflow-hidden pe-2" style={{whiteSpace: "nowrap", textOverflow: "ellipsis"}}>
+              <Col className="pe-2">
+                <div
+                  className="overflow-hidden"
+                  style={{
+                    textOverflow: "ellipsis",
+                    display: "-webkit-box",
+                    WebkitLineClamp: "2",
+                    lineClamp: "2",
+                    WebkitBoxOrient: "vertical"
+                  }}
+                >
                   <span className="fw-bold">Title:&nbsp;</span>
                   {hit.content.title}
+                </div>
               </Col>
             </Accordion.Button>
             <Accordion.Body>
