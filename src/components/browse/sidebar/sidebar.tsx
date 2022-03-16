@@ -5,6 +5,7 @@ import { Row, Col, Button } from "react-bootstrap";
 import { facetModel, facetFilterModel } from "../../../models/facets";
 import { searchResponseModel } from "../../../models/dataset";
 import { getDatasetsSearchResp } from "../../../api/browse";
+import { getFilterString } from "../../../utils/utils";
 import { useNavigate } from 'react-router-dom'
 
 interface sidebarProps {
@@ -38,14 +39,6 @@ const Sidebar = (props: sidebarProps) => {
     navigate(`?p=1`)
   };
 
-  const getFilterString = () => {
-    let filterString = ''
-    for (var item of props.filterDict) {
-      filterString += (item.key + ":" + item.value + ";")
-    }
-    return filterString.slice(0, -1)
-  }
-
   const handleFilter = () => {
     getDatasetsSearchResp(
       props.setSearchResp,
@@ -55,34 +48,34 @@ const Sidebar = (props: sidebarProps) => {
       props.limit
     );
     if (props.searchParams.f === undefined) {
-      props.setSearchParams({ f: getFilterString() })
+      props.setSearchParams({ f: getFilterString(props.filterDict) })
       props.setSearchParams({ p: 1 })
       props.setPage(0)
       if (props.searchKeyword === '') {
-        if (getFilterString() === '') {
+        if (getFilterString(props.filterDict) === '') {
           navigate(`?p=1`)
         } else {
-          navigate(`?f=${getFilterString()}&p=1`)
+          navigate(`?f=${getFilterString(props.filterDict)}&p=1`)
         }
       } else {
-        if (getFilterString() === '') {
+        if (getFilterString(props.filterDict) === '') {
           navigate(`?q=${props.searchKeyword}&p=1`)
         } else {
-          navigate(`?q=${props.searchKeyword}&f=${getFilterString()}&p=1`)
+          navigate(`?q=${props.searchKeyword}&f=${getFilterString(props.filterDict)}&p=1`)
         }
       }
     } else {
       if (props.searchParams.q === '') {
-        if (getFilterString() === '') {
+        if (getFilterString(props.filterDict) === '') {
           navigate(`?p=${props.searchParams.p}`)
         } else {
-          navigate(`?f=${getFilterString()}&p=${props.searchParams.p}`)
+          navigate(`?f=${getFilterString(props.filterDict)}&p=${props.searchParams.p}`)
         }
       } else {
-        if (getFilterString() === '') {
+        if (getFilterString(props.filterDict) === '') {
           navigate(`?q=${props.searchParams.q}&p=${props.searchParams.p}`)
         } else {
-          navigate(`?q=${props.searchParams.q}&f=${getFilterString()}&p=${props.searchParams.p}`)
+          navigate(`?q=${props.searchParams.q}&f=${getFilterString(props.filterDict)}&p=${props.searchParams.p}`)
         }
 
       }

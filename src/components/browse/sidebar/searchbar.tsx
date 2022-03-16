@@ -4,6 +4,7 @@ import { Search } from "react-bootstrap-icons";
 import { searchResponseModel } from "../../../models/dataset";
 import { facetFilterModel } from "../../../models/facets";
 import { getDatasetsSearchResp } from "../../../api/browse";
+import { getFilterString } from "../../../utils/utils";
 import { useNavigate } from 'react-router-dom'
 
 interface searchbarProps {
@@ -21,23 +22,15 @@ const Searchbar = (props: searchbarProps) => {
   let navigate = useNavigate();
   const skip = 0;
 
-  const getFilterString = () => {
-    let filterString = ''
-    for (var item of props.filterDict) {
-      filterString += (item.key + ":" + item.value + ";")
-    }
-    return filterString.slice(0, -1)
-  }
-
   const handleSearch = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     getDatasetsSearchResp(props.setSearchResp, props.filterDict, props.searchKeyword, skip, props.limit);
     if (props.searchParams.q === undefined) {
       props.setSearchParams({ q: props.searchKeyword })
       props.setSearchParams({ p: 1 })
-      props.setSearchParams({ f: getFilterString() })
+      //props.setSearchParams({ f: getFilterString(props.filterDict) })
       props.setPage(0)
-      if (getFilterString() === '') {
+      if (getFilterString(props.filterDict) === '') {
         if (props.searchKeyword === '') {
           navigate(`?p=1`)
         } else {
@@ -45,13 +38,13 @@ const Searchbar = (props: searchbarProps) => {
         }
       } else {
         if (props.searchKeyword === '') {
-          navigate(`?f=${getFilterString()}&p=1`)
+          navigate(`?f=${getFilterString(props.filterDict)}&p=1`)
         } else {
-          navigate(`?q=${props.searchKeyword}&f=${getFilterString()}&p=1`)
+          navigate(`?q=${props.searchKeyword}&f=${getFilterString(props.filterDict)}&p=1`)
         }
       }
     } else {
-      if (getFilterString() === '') {
+      if (getFilterString(props.filterDict) === '') {
         if (props.searchParams.q === null) {
           navigate(`?p=${props.searchParams.p}`)
         } else {
@@ -59,9 +52,9 @@ const Searchbar = (props: searchbarProps) => {
         }
       } else {
         if (props.searchParams.q === null) {
-          navigate(`?f=${getFilterString()}&p=${props.searchParams.p}`)
+          navigate(`?f=${getFilterString(props.filterDict)}&p=${props.searchParams.p}`)
         } else {
-          navigate(`?q=${props.searchParams.q}&f=${getFilterString()}&p=${props.searchParams.p}`)
+          navigate(`?q=${props.searchParams.q}&f=${getFilterString(props.filterDict)}&p=${props.searchParams.p}`)
         }
       }
     }

@@ -3,6 +3,7 @@ import ReactPaginate from 'react-paginate'
 import { searchResponseModel } from "../../../models/dataset";
 import { getDatasetsSearchResp } from "../../../api/browse";
 import { facetFilterModel } from '../../../models/facets'
+import { getFilterString } from "../../../utils/utils";
 import { useNavigate } from 'react-router-dom'
 
 interface dataSetPaginationProps {
@@ -22,21 +23,13 @@ const DatasetPagination = (props: dataSetPaginationProps) => {
   let pageCount = Math.ceil(props.dsCount / props.limit);
   let navigate = useNavigate();
 
-  const getFilterString = () => {
-    let filterString = ''
-    for (var item of props.filterDict) {
-      filterString += (item.key + ":" + item.value + ";")
-    }
-    return filterString.slice(0, -1)
-  }
-
   const handlePageClick = (data: any) => {
     let skip = data.selected * props.limit;
     props.setPage(data.selected + 1)
     getDatasetsSearchResp(props.setSearchResp, props.filterDict, props.searchKeyword, skip, props.limit)
     if (props.searchParams.p === undefined) {
       props.setSearchParams({ p: data.selected + 1 })
-      if (getFilterString() === '') {
+      if (getFilterString(props.filterDict) === '') {
         if (props.searchKeyword === '') {
           navigate(`?p=${data.selected + 1}`)
         } else {
@@ -44,13 +37,13 @@ const DatasetPagination = (props: dataSetPaginationProps) => {
         }
       } else {
         if (props.searchKeyword === '') {
-          navigate(`?f=${getFilterString()}&p=${data.selected + 1}`)
+          navigate(`?f=${getFilterString(props.filterDict)}&p=${data.selected + 1}`)
         } else {
-          navigate(`?q=${props.searchKeyword}&f=${getFilterString()}&p=${data.selected + 1}`)
+          navigate(`?q=${props.searchKeyword}&f=${getFilterString(props.filterDict)}&p=${data.selected + 1}`)
         }
       }
     } else {
-      if (getFilterString() === '') {
+      if (getFilterString(props.filterDict) === '') {
         if (props.searchParams.q === null) {
           navigate(`?p=${props.searchParams.p}`)
         } else {
@@ -58,9 +51,9 @@ const DatasetPagination = (props: dataSetPaginationProps) => {
         }
       } else {
         if (props.searchParams.q === null) {
-          navigate(`?f=${getFilterString()}&p=${props.searchParams.p}`)
+          navigate(`?f=${getFilterString(props.filterDict)}&p=${props.searchParams.p}`)
         } else {
-          navigate(`?q=${props.searchParams.q}&f=${getFilterString()}&p=${props.searchParams.p}`)
+          navigate(`?q=${props.searchParams.q}&f=${getFilterString(props.filterDict)}&p=${props.searchParams.p}`)
         }
       }
     }
