@@ -31,10 +31,11 @@ const Searchbar = (props: searchbarProps) => {
 
   const handleSearch = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
-    getDatasetsSearchResp(props.setSearchResp, [], props.searchKeyword, skip, props.limit);
+    getDatasetsSearchResp(props.setSearchResp, props.filterDict, props.searchKeyword, skip, props.limit);
     if (props.searchParams.q === undefined) {
       props.setSearchParams({ q: props.searchKeyword })
       props.setSearchParams({ p: 1 })
+      props.setSearchParams({ f: getFilterString() })
       props.setPage(0)
       if (getFilterString() === '') {
         if (props.searchKeyword === '') {

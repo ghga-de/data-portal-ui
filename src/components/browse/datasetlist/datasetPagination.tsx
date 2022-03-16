@@ -22,19 +22,47 @@ const DatasetPagination = (props: dataSetPaginationProps) => {
   let pageCount = Math.ceil(props.dsCount / props.limit);
   let navigate = useNavigate();
 
+  const getFilterString = () => {
+    let filterString = ''
+    for (var item of props.filterDict) {
+      filterString += (item.key + ":" + item.value + ";")
+    }
+    return filterString.slice(0, -1)
+  }
+
   const handlePageClick = (data: any) => {
     let skip = data.selected * props.limit;
     props.setPage(data.selected + 1)
     getDatasetsSearchResp(props.setSearchResp, props.filterDict, props.searchKeyword, skip, props.limit)
     if (props.searchParams.p === undefined) {
       props.setSearchParams({ p: data.selected + 1 })
-      if (props.searchKeyword === '') {
-        navigate(`?p=${data.selected + 1}`)
+      if (getFilterString() === '') {
+        if (props.searchKeyword === '') {
+          navigate(`?p=${data.selected + 1}`)
+        } else {
+          navigate(`?q=${props.searchKeyword}&p=${data.selected + 1}`)
+        }
       } else {
-        navigate(`?q=${props.searchKeyword}&p=${data.selected + 1}`)
+        if (props.searchKeyword === '') {
+          navigate(`?f=${getFilterString()}&p=${data.selected + 1}`)
+        } else {
+          navigate(`?q=${props.searchKeyword}&f=${getFilterString()}&p=${data.selected + 1}`)
+        }
       }
     } else {
-      navigate(`?q=${props.searchKeyword}&p=${props.searchParams.p}`)
+      if (getFilterString() === '') {
+        if (props.searchParams.q === null) {
+          navigate(`?p=${props.searchParams.p}`)
+        } else {
+          navigate(`?q=${props.searchParams.q}&p=${props.searchParams.p}`)
+        }
+      } else {
+        if (props.searchParams.q === null) {
+          navigate(`?f=${getFilterString()}&p=${props.searchParams.p}`)
+        } else {
+          navigate(`?q=${props.searchParams.q}&f=${getFilterString()}&p=${props.searchParams.p}`)
+        }
+      }
     }
   };
 
@@ -58,7 +86,7 @@ const DatasetPagination = (props: dataSetPaginationProps) => {
         breakClassName={"page-item"}
         breakLinkClassName={"page-link"}
         activeClassName={"active"}
-        forcePage={props.page === 0? 0: props.page -1}
+        forcePage={props.page === 0 ? 0 : props.page - 1}
       />
     </div>
   );
