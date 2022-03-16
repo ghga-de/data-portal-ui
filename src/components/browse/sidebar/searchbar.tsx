@@ -28,7 +28,6 @@ const Searchbar = (props: searchbarProps) => {
     if (props.searchParams.q === undefined) {
       props.setSearchParams({ q: props.searchKeyword })
       props.setSearchParams({ p: 1 })
-      //props.setSearchParams({ f: getFilterString(props.filterDict) })
       props.setPage(0)
       if (getFilterString(props.filterDict) === '') {
         if (props.searchKeyword === '') {
