@@ -99,8 +99,8 @@ const Sidebar = (props: sidebarProps) => {
                 />
               ))}
           </Row>
-          <Row className="mb-2 mt-3">
-            <Col className="offset-2" xs md lg={4}>
+          <Row className="mb-2 mt-3 justify-content-end">
+            <Col xs md lg={4}>
               <Button
                 className="btn-warning w-100"
                 onClick={() => {
@@ -111,7 +111,7 @@ const Sidebar = (props: sidebarProps) => {
                 Clear
               </Button>
             </Col>
-            <Col xs md lg={6} className="">
+            <Col xs md lg={4} className="me-2">
               <Button
                 className="btn-success w-100"
                 onClick={() => {

@@ -41,7 +41,7 @@ const DatasetDetails = (props: dataSetDetailsProps) => {
         <DatasetStudies studiesList={hit.content.has_study} />
         <DatasetFiles filesList={hit.content.has_file} />
       </Row>
-      <Row className="pb-4 pt-2">
+      <Row className="pb-4 pt-2 fs-8">
         <DatasetSamples samplesList={hit.content.has_sample} />
         <DatasetExperiments experimentsList={hit.content.has_experiment} />
       </Row>

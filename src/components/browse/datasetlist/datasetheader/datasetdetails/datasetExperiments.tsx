@@ -17,6 +17,10 @@ const DatasetExperiments = (props: dataSetExperimentsProps) => {
             <strong>Experiment info</strong>
             <br />
             Experiments: {props.experimentsList !== undefined ? props.experimentsList.length : "0"} total
+            <br/>
+            Dataset type: PLACEHOLDER
+            <br/>
+            Technology: PLACEHOLDER
           </p>
         </Row>
       }
