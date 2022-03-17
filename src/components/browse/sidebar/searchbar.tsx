@@ -4,6 +4,7 @@ import { Search } from "react-bootstrap-icons";
 import { searchResponseModel } from "../../../models/dataset";
 import { getDatasetsSearchResp } from "../../../api/browse";
 import { useNavigate } from 'react-router-dom'
+import { scrollUp } from "../../../utils/utils";
 
 interface searchbarProps {
   setSearchResp: Dispatch<SetStateAction<searchResponseModel | null>>;
@@ -33,11 +34,12 @@ const Searchbar = (props: searchbarProps) => {
     } else {
       navigate(`?q=${props.searchParams.q}&p=${props.searchParams.p}`)
     }
+    
   };
 
   return (
     <Container className="mb-3">
-      <Form onSubmit={(event) => { handleSearch(event) }}>
+      <Form onSubmit={(event) => { scrollUp(); handleSearch(event); }}>
         <Form.Group>
           <div className="input-group p-1">
             <Button type="submit" className="bg-primary">
