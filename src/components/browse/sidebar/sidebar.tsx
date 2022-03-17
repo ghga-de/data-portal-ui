@@ -5,7 +5,8 @@ import { Row, Col, Button } from "react-bootstrap";
 import { facetModel, facetFilterModel } from "../../../models/facets";
 import { searchResponseModel } from "../../../models/dataset";
 import { getDatasetsSearchResp } from "../../../api/browse";
-import { useNavigate } from "react-router-dom";
+import { getFilterString } from "../../../utils/utils";
+import { useNavigate } from 'react-router-dom'
 import { scrollUp } from "../../../utils/utils";
 
 interface sidebarProps {
@@ -39,14 +40,6 @@ const Sidebar = (props: sidebarProps) => {
     navigate(`?p=1`);
   };
 
-  const getFilterString = () => {
-    let filterString = ''
-    for(var item of props.filterDict){
-      filterString += (item.key + ":" + item.value + ";")
-    }
-    return filterString.slice(0, -1)
-  }
-
   const handleFilter = () => {
     getDatasetsSearchResp(
       props.setSearchResp,
@@ -55,17 +48,21 @@ const Sidebar = (props: sidebarProps) => {
       skip,
       props.limit
     );
-    if (props.searchParams.f === undefined) {
-      props.setSearchParams({ f: getFilterString() })
-      props.setSearchParams({ p: 1 })
-      props.setPage(0)
-      if(!props.searchKeyword){
-        navigate(`?f=${getFilterString()}&p=1`)
-      }else{
-        navigate(`?q=${props.searchKeyword}&f=${getFilterString()}&p=1`)
+    props.setSearchParams({ f: getFilterString(props.filterDict) })
+    props.setSearchParams({ p: 1 })
+    props.setPage(0)
+    if (getFilterString(props.filterDict) === '') {
+      if (props.searchKeyword === '' || props.searchKeyword === null) {
+        navigate(`?p=1`)
+      } else {
+        navigate(`?q=${props.searchKeyword}&p=1`)
       }
     } else {
-      navigate(`?q=${props.searchParams.q}&f=${getFilterString()}&p=${props.searchParams.p}`)
+      if (props.searchKeyword === '' || props.searchKeyword === null) {
+        navigate(`?f=${getFilterString(props.filterDict)}&p=1`)
+      } else {
+        navigate(`?q=${props.searchKeyword}&f=${getFilterString(props.filterDict)}&p=1`)
+      }
     }
   };
 
@@ -80,6 +77,7 @@ const Sidebar = (props: sidebarProps) => {
           searchParams={props.searchParams}
           setSearchParams={props.setSearchParams}
           setPage={props.setPage}
+          filterDict={props.filterDict}
         />
       </Row>
       {props.facetList === null || props.facetList.length < 1 ? null : (

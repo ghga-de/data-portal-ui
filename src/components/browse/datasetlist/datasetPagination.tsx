@@ -2,9 +2,11 @@ import React, { Dispatch, SetStateAction } from "react";
 import ReactPaginate from "react-paginate";
 import { searchResponseModel } from "../../../models/dataset";
 import { getDatasetsSearchResp } from "../../../api/browse";
-import { facetFilterModel } from "../../../models/facets";
-import { useNavigate } from "react-router-dom";
+import { facetFilterModel } from '../../../models/facets'
+import { getFilterString } from "../../../utils/utils";
+import { useNavigate } from 'react-router-dom'
 import { scrollUp } from "../../../utils/utils";
+
 
 interface dataSetPaginationProps {
   dsCount: number;
@@ -33,15 +35,19 @@ const DatasetPagination = (props: dataSetPaginationProps) => {
       skip,
       props.limit
     );
-    if (props.searchParams.p === undefined) {
-      props.setSearchParams({ p: data.selected + 1 });
-      if (props.searchKeyword === "") {
-        navigate(`?p=${data.selected + 1}`);
+    props.setSearchParams({ p: data.selected + 1 })
+    if (getFilterString(props.filterDict) === '' || getFilterString(props.filterDict) === null) {
+      if (props.searchKeyword === '' || props.searchKeyword === null) {
+        navigate(`?p=${data.selected + 1}`)
       } else {
-        navigate(`?q=${props.searchKeyword}&p=${data.selected + 1}`);
+        navigate(`?q=${props.searchKeyword}&p=${data.selected + 1}`)
       }
     } else {
-      navigate(`?q=${props.searchKeyword}&p=${props.searchParams.p}`);
+      if (props.searchKeyword === '' || props.searchKeyword === null) {
+        navigate(`?f=${getFilterString(props.filterDict)}&p=${data.selected + 1}`)
+      } else {
+        navigate(`?q=${props.searchKeyword}&f=${getFilterString(props.filterDict)}&p=${data.selected + 1}`)
+      }
     }
   };
 
