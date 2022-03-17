@@ -5,7 +5,7 @@ import { DropletHalf } from "react-bootstrap-icons";
 import { sampleModel } from "../../../../../models/dataset";
 
 interface dataSetSamplesProps {
-  samplesList: sampleModel[];
+  samplesList: sampleModel[] | null;
 }
 
 const DatasetSamples = (props: dataSetSamplesProps) => {

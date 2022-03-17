@@ -5,7 +5,7 @@ import DatasetDetailsLayout from "./datasetdetailslayout/datasetDetailsLayout";
 import { JournalMedical } from "react-bootstrap-icons";
 
 interface dataSetStudiesProps {
-  studiesList: studyModel[];
+  studiesList: studyModel[] | null;
 }
 
 const DatasetStudies = (props: dataSetStudiesProps) => {

@@ -5,7 +5,7 @@ import { FileEarmark } from "react-bootstrap-icons";
 import { fileModel } from "../../../../../models/dataset";
 
 interface dataSetFilesProps {
-  filesList: fileModel[];
+  filesList: fileModel[] | null;
 }
 
 const DatasetFiles = (props: dataSetFilesProps) => {

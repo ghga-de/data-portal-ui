@@ -5,7 +5,7 @@ import { ClipboardData } from "react-bootstrap-icons";
 import { experimentModel } from "../../../../../models/dataset";
 
 interface dataSetExperimentsProps {
-  experimentsList: experimentModel[];
+  experimentsList: experimentModel[] | null;
 }
 
 const DatasetExperiments = (props: dataSetExperimentsProps) => {

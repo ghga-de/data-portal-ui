@@ -13,19 +13,31 @@ interface dataSetDetailsProps {
 
 const DatasetDetails = React.forwardRef(
   (props: dataSetDetailsProps, ref: any) => {
+    const [datasetId, setDatasetId] = React.useState<string>("");
     const [details, setDetails] = React.useState<datasetEmbeddedModel | null>(
       null
     );
 
     React.useImperativeHandle(ref, () => ({
-      getDatasetData: (datasetId: string) => {
-        if (details === null || details?.id !== datasetId) {
-          getDatasetDetails(datasetId, setDetails);
-        }
+      setDatasetIdFunc: (dsId: string) => {
+        if (datasetId !== dsId)
+        setDatasetId(dsId);
+        console.log(datasetId)
       },
-    }));
+    }), [datasetId]);
 
     let hit = props.hit;
+
+    React.useEffect(() => {
+      const getData = () => {
+        if (datasetId !== "") {
+          getDatasetDetails(datasetId, setDetails);
+        }
+      };
+      getData();
+    }, [datasetId]);
+
+    console.log(details)
 
     return (
       <div className="fs-9">

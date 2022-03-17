@@ -12,7 +12,7 @@ const DatasetHeader = (props: dataSetListProps) => {
 
   const handleOnClick = (datasetId: string) => {
     if (inputRef.current) {
-      inputRef.current.getDatasetData(datasetId)
+      inputRef.current.setDatasetIdFunc(datasetId)
     }
   }
 
