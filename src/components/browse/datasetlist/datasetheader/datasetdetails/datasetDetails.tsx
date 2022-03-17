@@ -1,6 +1,7 @@
 import React from "react";
 import { Row, Col, Button } from "react-bootstrap";
-import { hitModel } from "../../../../../models/dataset";
+import { getDatasetDetails } from "../../../../../api/browse";
+import { datasetEmbeddedModel, hitModel } from "../../../../../models/dataset";
 import DatasetExperiments from "./datasetExperiments";
 import DatasetFiles from "./datasetFiles";
 import DatasetSamples from "./datasetSamples";
@@ -10,43 +11,65 @@ interface dataSetDetailsProps {
   hit: hitModel;
 }
 
-const DatasetDetails = (props: dataSetDetailsProps) => {
-  let hit = props.hit;
+const DatasetDetails = React.forwardRef(
+  (props: dataSetDetailsProps, ref: any) => {
+    const [details, setDetails] = React.useState<datasetEmbeddedModel | null>(
+      null
+    );
 
-  return (
-    <div className="fs-9">
-      <Row>
-        <Row className="pe-0">
-          <Col>
-          <p className="my-0">
-            <span className="fw-bold">Dataset ID:&nbsp;</span>
-            <span style={{userSelect: "all"}}>{hit.content.accession}</span>
+    React.useImperativeHandle(ref, () => ({
+      getDatasetData: (datasetId: string) => {
+        if (details === null || details?.id !== datasetId) {
+          getDatasetDetails(datasetId, setDetails);
+        }
+      },
+    }));
+
+    let hit = props.hit;
+
+    return (
+      <div className="fs-9">
+        <Row>
+          <Row className="pe-0">
+            <Col className="pe-3">
+              <p className="mb-1">
+                <span className="fw-bold">Dataset ID:&nbsp;</span>
+                <span style={{ userSelect: "all" }}>
+                  {hit.content.accession}
+                </span>
+              </p>
+              <p>
+                <span className="fw-bold">Full title:&nbsp;</span>
+                <span style={{ userSelect: "all" }}>{hit.content.title}</span>
+              </p>
+            </Col>
+            <Col lg md sm xl xs xxl="1" className="text-end px-0">
+              <Button className="fs-8 w-100">Request Access</Button>
+            </Col>
+          </Row>
+          <p className="fs-8">
+            <span className="fw-bold">Description:&nbsp;</span>
+            {hit.content.description}
           </p>
-          <p>
-            <span className="fw-bold">Full title:&nbsp;</span>
-            <span style={{userSelect: "all"}}>{hit.content.title}</span>
-          </p>
-          </Col>
-          <Col lg md sm xl xs xxl="1" className="text-end px-0">
-          <Button className="fs-8 w-100">Request Access</Button>
-          </Col>
         </Row>
-        <p className="fs-8">
-          <span className="fw-bold">Description:&nbsp;</span>
-          {hit.content.description}
-        </p>
-      </Row>
-      <hr />
-      <Row className="my-4 pt-3 fs-8">
-        <DatasetStudies studiesList={hit.content.has_study} />
-        <DatasetFiles filesList={hit.content.has_file} />
-      </Row>
-      <Row className="pb-4 pt-2 fs-8">
-        <DatasetSamples samplesList={hit.content.has_sample} />
-        <DatasetExperiments experimentsList={hit.content.has_experiment} />
-      </Row>
-    </div>
-  );
-};
+        <hr />
+        {details !== null ? (
+          <div>
+            <Row className="my-4 pt-3 fs-8">
+              <DatasetStudies studiesList={details.has_study} />
+              <DatasetFiles filesList={details.has_file} />
+            </Row>
+            <Row className="pb-4 pt-2 fs-8">
+              <DatasetSamples samplesList={details.has_sample} />
+              <DatasetExperiments experimentsList={details.has_experiment} />
+            </Row>
+          </div>
+        ) : (
+          <div>Dataset details loading, please wait.</div>
+        )}
+      </div>
+    );
+  }
+);
 
 export default DatasetDetails;

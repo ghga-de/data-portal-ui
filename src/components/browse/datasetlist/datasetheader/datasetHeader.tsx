@@ -8,6 +8,14 @@ interface dataSetListProps {
 }
 
 const DatasetHeader = (props: dataSetListProps) => {
+  let inputRef = React.useRef<any>();
+
+  const handleOnClick = (datasetId: string) => {
+    if (inputRef.current) {
+      inputRef.current.getDatasetData(datasetId)
+    }
+  }
+
   return (
     <div>
       <Accordion alwaysOpen className="mt-1 fs-7 me-3">
@@ -18,12 +26,15 @@ const DatasetHeader = (props: dataSetListProps) => {
             className="mb-3 border border-1 rounded"
             title={hit.content.title}
           >
-            <Accordion.Button className="bg-light align-items-start fs-7">
+            <Accordion.Button
+              className="bg-light align-items-start fs-7"
+              onClick={() => handleOnClick(hit.id)}
+            >
               <Col lg md sm xl xs xxl="3">
                 <span className="fw-bold">Dataset ID:&nbsp;</span>
                 {hit.content.accession}
               </Col>
-              <Col className="pe-2">
+              <Col className="pe-2" style={{ height: "42px" }}>
                 <div
                   className="overflow-hidden"
                   style={{
@@ -31,7 +42,7 @@ const DatasetHeader = (props: dataSetListProps) => {
                     display: "-webkit-box",
                     WebkitLineClamp: "2",
                     lineClamp: "2",
-                    WebkitBoxOrient: "vertical"
+                    WebkitBoxOrient: "vertical",
                   }}
                 >
                   <span className="fw-bold">Title:&nbsp;</span>
@@ -40,7 +51,7 @@ const DatasetHeader = (props: dataSetListProps) => {
               </Col>
             </Accordion.Button>
             <Accordion.Body>
-              <DatasetDetails hit={hit} />
+              <DatasetDetails hit={hit} ref={inputRef} />
             </Accordion.Body>
           </Accordion.Item>
         ))}

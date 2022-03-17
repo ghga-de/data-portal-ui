@@ -13,7 +13,7 @@ const DatasetStudies = (props: dataSetStudiesProps) => {
     <DatasetDetailsLayout
       icon={<JournalMedical size={32} />}
       content={
-        props.studiesList !== undefined ? (
+        props.studiesList !== null ? (
           <div>
             {props.studiesList.map((study, index) => {
               return (

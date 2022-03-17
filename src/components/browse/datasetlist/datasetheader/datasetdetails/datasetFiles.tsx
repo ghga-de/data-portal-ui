@@ -2,9 +2,10 @@ import React from "react";
 import { Row } from "react-bootstrap";
 import DatasetDetailsLayout from "./datasetdetailslayout/datasetDetailsLayout";
 import { FileEarmark } from "react-bootstrap-icons";
+import { fileModel } from "../../../../../models/dataset";
 
 interface dataSetFilesProps {
-  filesList: string[];
+  filesList: fileModel[];
 }
 
 const DatasetFiles = (props: dataSetFilesProps) => {
@@ -17,7 +18,7 @@ const DatasetFiles = (props: dataSetFilesProps) => {
             <strong>File summary</strong>
             <br />
           </p>
-          {props.filesList !== undefined ? (
+          {props.filesList !== null ? (
             <div>
               <p className="mb-0">{props.filesList.length} Files</p>
               <ul className="mb-1 ps-4 ms-3">

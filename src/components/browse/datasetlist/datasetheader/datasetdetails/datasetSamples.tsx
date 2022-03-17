@@ -2,9 +2,10 @@ import React from "react";
 import { Row } from "react-bootstrap";
 import DatasetDetailsLayout from "./datasetdetailslayout/datasetDetailsLayout";
 import { DropletHalf } from "react-bootstrap-icons";
+import { sampleModel } from "../../../../../models/dataset";
 
 interface dataSetSamplesProps {
-  samplesList: string[];
+  samplesList: sampleModel[];
 }
 
 const DatasetSamples = (props: dataSetSamplesProps) => {
@@ -17,7 +18,7 @@ const DatasetSamples = (props: dataSetSamplesProps) => {
             <strong>Sample info</strong>
             <br />
           </p>
-          {props.samplesList !== undefined ? (
+          {props.samplesList !== null ? (
             <div>
               <p className="mb-0">
                 Samples: {props.samplesList.length} total (X male / Y female / Z
