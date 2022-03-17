@@ -35,34 +35,18 @@ const DatasetPagination = (props: dataSetPaginationProps) => {
       skip,
       props.limit
     );
-    if (props.searchParams.p === undefined) {
-      props.setSearchParams({ p: data.selected + 1 })
-      if (getFilterString(props.filterDict) === '') {
-        if (props.searchKeyword === '') {
-          navigate(`?p=${data.selected + 1}`)
-        } else {
-          navigate(`?q=${props.searchKeyword}&p=${data.selected + 1}`)
-        }
+    props.setSearchParams({ p: data.selected + 1 })
+    if (getFilterString(props.filterDict) === '' || getFilterString(props.filterDict) === null) {
+      if (props.searchKeyword === '' || props.searchKeyword === null) {
+        navigate(`?p=${data.selected + 1}`)
       } else {
-        if (props.searchKeyword === '') {
-          navigate(`?f=${getFilterString(props.filterDict)}&p=${data.selected + 1}`)
-        } else {
-          navigate(`?q=${props.searchKeyword}&f=${getFilterString(props.filterDict)}&p=${data.selected + 1}`)
-        }
+        navigate(`?q=${props.searchKeyword}&p=${data.selected + 1}`)
       }
     } else {
-      if (getFilterString(props.filterDict) === '') {
-        if (props.searchParams.q === null) {
-          navigate(`?p=${props.searchParams.p}`)
-        } else {
-          navigate(`?q=${props.searchParams.q}&p=${props.searchParams.p}`)
-        }
+      if (props.searchKeyword === '' || props.searchKeyword === null) {
+        navigate(`?f=${getFilterString(props.filterDict)}&p=${data.selected + 1}`)
       } else {
-        if (props.searchParams.q === null) {
-          navigate(`?f=${getFilterString(props.filterDict)}&p=${props.searchParams.p}`)
-        } else {
-          navigate(`?q=${props.searchParams.q}&f=${getFilterString(props.filterDict)}&p=${props.searchParams.p}`)
-        }
+        navigate(`?q=${props.searchKeyword}&f=${getFilterString(props.filterDict)}&p=${data.selected + 1}`)
       }
     }
   };

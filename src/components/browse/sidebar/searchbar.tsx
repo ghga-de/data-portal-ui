@@ -26,39 +26,21 @@ const Searchbar = (props: searchbarProps) => {
   const handleSearch = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     getDatasetsSearchResp(props.setSearchResp, props.filterDict, props.searchKeyword, skip, props.limit);
-    if (props.searchParams.q === undefined) {
-      props.setSearchParams({ q: props.searchKeyword })
-      props.setSearchParams({ p: 1 })
-      props.setPage(0)
+    props.setSearchParams({ p: 1 })
+    props.setPage(0)
+    if (props.searchKeyword === '' || props.searchKeyword === null) {
       if (getFilterString(props.filterDict) === '') {
-        if (props.searchKeyword === '') {
-          navigate(`?p=1`)
-        } else {
-          navigate(`?q=${props.searchKeyword}&p=1`)
-        }
+        navigate(`?p=1`)
       } else {
-        if (props.searchKeyword === '') {
-          navigate(`?f=${getFilterString(props.filterDict)}&p=1`)
-        } else {
-          navigate(`?q=${props.searchKeyword}&f=${getFilterString(props.filterDict)}&p=1`)
-        }
+        navigate(`?f=${getFilterString(props.filterDict)}&p=1`)
       }
     } else {
       if (getFilterString(props.filterDict) === '') {
-        if (props.searchParams.q === null) {
-          navigate(`?p=${props.searchParams.p}`)
-        } else {
-          navigate(`?q=${props.searchParams.q}&p=${props.searchParams.p}`)
-        }
+        navigate(`?q=${props.searchKeyword}&p=1`)
       } else {
-        if (props.searchParams.q === null) {
-          navigate(`?f=${getFilterString(props.filterDict)}&p=${props.searchParams.p}`)
-        } else {
-          navigate(`?q=${props.searchParams.q}&f=${getFilterString(props.filterDict)}&p=${props.searchParams.p}`)
-        }
+        navigate(`?q=${props.searchKeyword}&f=${getFilterString(props.filterDict)}&p=1`)
       }
     }
-    
   };
 
   return (

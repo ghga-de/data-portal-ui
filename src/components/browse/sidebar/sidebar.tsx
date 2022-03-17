@@ -48,37 +48,20 @@ const Sidebar = (props: sidebarProps) => {
       skip,
       props.limit
     );
-    if (props.searchParams.f === undefined) {
-      props.setSearchParams({ f: getFilterString(props.filterDict) })
-      props.setSearchParams({ p: 1 })
-      props.setPage(0)
-      if (props.searchKeyword === '') {
-        if (getFilterString(props.filterDict) === '') {
-          navigate(`?p=1`)
-        } else {
-          navigate(`?f=${getFilterString(props.filterDict)}&p=1`)
-        }
+    props.setSearchParams({ f: getFilterString(props.filterDict) })
+    props.setSearchParams({ p: 1 })
+    props.setPage(0)
+    if (getFilterString(props.filterDict) === '') {
+      if (props.searchKeyword === '' || props.searchKeyword === null) {
+        navigate(`?p=1`)
       } else {
-        if (getFilterString(props.filterDict) === '') {
-          navigate(`?q=${props.searchKeyword}&p=1`)
-        } else {
-          navigate(`?q=${props.searchKeyword}&f=${getFilterString(props.filterDict)}&p=1`)
-        }
+        navigate(`?q=${props.searchKeyword}&p=1`)
       }
     } else {
-      if (props.searchParams.q === '') {
-        if (getFilterString(props.filterDict) === '') {
-          navigate(`?p=${props.searchParams.p}`)
-        } else {
-          navigate(`?f=${getFilterString(props.filterDict)}&p=${props.searchParams.p}`)
-        }
+      if (props.searchKeyword === '' || props.searchKeyword === null) {
+        navigate(`?f=${getFilterString(props.filterDict)}&p=1`)
       } else {
-        if (getFilterString(props.filterDict) === '') {
-          navigate(`?q=${props.searchParams.q}&p=${props.searchParams.p}`)
-        } else {
-          navigate(`?q=${props.searchParams.q}&f=${getFilterString(props.filterDict)}&p=${props.searchParams.p}`)
-        }
-
+        navigate(`?q=${props.searchKeyword}&f=${getFilterString(props.filterDict)}&p=1`)
       }
     }
   };
