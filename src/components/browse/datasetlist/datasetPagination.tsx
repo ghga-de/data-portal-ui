@@ -1,10 +1,12 @@
-import React, { Dispatch, SetStateAction, } from "react";
-import ReactPaginate from 'react-paginate'
+import React, { Dispatch, SetStateAction } from "react";
+import ReactPaginate from "react-paginate";
 import { searchResponseModel } from "../../../models/dataset";
 import { getDatasetsSearchResp } from "../../../api/browse";
 import { facetFilterModel } from '../../../models/facets'
 import { getFilterString } from "../../../utils/utils";
 import { useNavigate } from 'react-router-dom'
+import { scrollUp } from "../../../utils/utils";
+
 
 interface dataSetPaginationProps {
   dsCount: number;
@@ -14,10 +16,10 @@ interface dataSetPaginationProps {
   setLimit: Dispatch<SetStateAction<number>>;
   filterDict: facetFilterModel[];
   page: number;
-  setPage: Dispatch<SetStateAction<number>>
-  searchParams: any
-  setSearchParams: any
-};
+  setPage: Dispatch<SetStateAction<number>>;
+  searchParams: any;
+  setSearchParams: any;
+}
 
 const DatasetPagination = (props: dataSetPaginationProps) => {
   let pageCount = Math.ceil(props.dsCount / props.limit);
@@ -25,8 +27,14 @@ const DatasetPagination = (props: dataSetPaginationProps) => {
 
   const handlePageClick = (data: any) => {
     let skip = data.selected * props.limit;
-    props.setPage(data.selected + 1)
-    getDatasetsSearchResp(props.setSearchResp, props.filterDict, props.searchKeyword, skip, props.limit)
+    props.setPage(data.selected + 1);
+    getDatasetsSearchResp(
+      props.setSearchResp,
+      props.filterDict,
+      props.searchKeyword,
+      skip,
+      props.limit
+    );
     if (props.searchParams.p === undefined) {
       props.setSearchParams({ p: data.selected + 1 })
       if (getFilterString(props.filterDict) === '') {
@@ -60,7 +68,7 @@ const DatasetPagination = (props: dataSetPaginationProps) => {
   };
 
   return (
-    <div className="p-1 mb-2 mt-4">
+    <div className="p-1 mb-2 mt-4" onClick={scrollUp}>
       <ReactPaginate
         previousLabel={"<"}
         nextLabel={">"}
@@ -83,6 +91,6 @@ const DatasetPagination = (props: dataSetPaginationProps) => {
       />
     </div>
   );
-}
+};
 
 export default DatasetPagination;

@@ -8,3 +8,10 @@ export const getFilterString = (filterDict: facetFilterModel[]) => {
     }
     return filterString.slice(0, -1)
   }
+
+export const scrollUp = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
