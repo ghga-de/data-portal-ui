@@ -13,22 +13,35 @@ interface dataSetDetailsProps {
 const DatasetDetails = (props: dataSetDetailsProps) => {
   let hit = props.hit;
 
+
+  const requestAccess = (datasetId: string, topic: string) => {
+    const mailId: string = "dac-ghga@ghga.de"
+    const subject: string = "request access for Dataset " + datasetId
+    const body: string = `Hello DAC team, 
+
+          Since I am interested in the topic ${topic}, I would like to request access to the Dataset ${datasetId}.
+          Kindly grant the accesses for the requested dataset.
+
+          Thank you`
+    window.open(`mailto:${mailId}?subject=${subject}&body=${body}`)
+  }
+
   return (
     <div className="fs-9">
       <Row>
         <Row className="pe-0">
           <Col>
-          <p className="my-0">
-            <span className="fw-bold">Dataset ID:&nbsp;</span>
-            <span style={{userSelect: "all"}}>{hit.content.accession}</span>
-          </p>
-          <p>
-            <span className="fw-bold">Full title:&nbsp;</span>
-            <span style={{userSelect: "all"}}>{hit.content.title}</span>
-          </p>
+            <p className="my-0">
+              <span className="fw-bold">Dataset ID:&nbsp;</span>
+              <span style={{ userSelect: "all" }}>{hit.content.accession}</span>
+            </p>
+            <p>
+              <span className="fw-bold">Full title:&nbsp;</span>
+              <span style={{ userSelect: "all" }}>{hit.content.title}</span>
+            </p>
           </Col>
           <Col lg md sm xl xs xxl="1" className="text-end px-0">
-          <Button className="fs-8 w-100">Request Access</Button>
+            <Button className="fs-8 w-100" onClick={() => requestAccess(hit.content.accession, hit.content.title)}>Request Access</Button>
           </Col>
         </Row>
         <p className="fs-8">
