@@ -1,7 +1,8 @@
 import React from "react";
 import { Row } from "react-bootstrap";
 import DatasetDetailsLayout from "./datasetdetailslayout/datasetDetailsLayout";
-import { FileEarmark } from "react-bootstrap-icons";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faFileLines } from '@fortawesome/free-regular-svg-icons';
 import { fileModel } from "../../../../../models/dataset";
 
 interface dataSetFilesProps {
@@ -11,7 +12,7 @@ interface dataSetFilesProps {
 const DatasetFiles = (props: dataSetFilesProps) => {
   return (
     <DatasetDetailsLayout
-      icon={<FileEarmark size={32} />}
+      icon={<FontAwesomeIcon icon={faFileLines}/>}
       content={
         <Row>
           <p className="mb-0">

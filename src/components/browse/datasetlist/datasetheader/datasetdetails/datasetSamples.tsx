@@ -1,7 +1,8 @@
 import React from "react";
 import { Row } from "react-bootstrap";
 import DatasetDetailsLayout from "./datasetdetailslayout/datasetDetailsLayout";
-import { DropletHalf } from "react-bootstrap-icons";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faVial } from '@fortawesome/free-solid-svg-icons';
 import { sampleModel } from "../../../../../models/dataset";
 
 interface dataSetSamplesProps {
@@ -11,7 +12,7 @@ interface dataSetSamplesProps {
 const DatasetSamples = (props: dataSetSamplesProps) => {
   return (
     <DatasetDetailsLayout
-      icon={<DropletHalf size={32} />}
+      icon={<FontAwesomeIcon icon={faVial}/>}
       content={
         <Row>
           <p className="mb-0">
