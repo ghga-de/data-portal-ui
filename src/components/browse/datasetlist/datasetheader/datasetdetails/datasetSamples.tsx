@@ -1,8 +1,13 @@
 import React from "react";
 import { Row } from "react-bootstrap";
 import DatasetDetailsLayout from "./datasetdetailslayout/datasetDetailsLayout";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faVial } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faVial,
+  faMars,
+  faVenus,
+  faGenderless,
+} from "@fortawesome/free-solid-svg-icons";
 import { sampleModel } from "../../../../../models/dataset";
 
 interface dataSetSamplesProps {
@@ -53,7 +58,7 @@ const DatasetSamples = (props: dataSetSamplesProps) => {
 
   return (
     <DatasetDetailsLayout
-      icon={<FontAwesomeIcon icon={faVial}/>}
+      icon={<FontAwesomeIcon icon={faVial} />}
       content={
         <Row>
           <p className="mb-0">
@@ -63,15 +68,32 @@ const DatasetSamples = (props: dataSetSamplesProps) => {
           {samples !== null ? (
             <div>
               <p className="mb-0">
-                Samples: {samples.length} total ({countFemale}&nbsp;XY /{" "}
-                {countMale}&nbsp;XX / {countUnknown}&nbsp;Unknown )
+                <strong>{samples.length}</strong>&nbsp;Samples (Sex:{" "}
+                <span title={countFemale + " Female"}>
+                  {countFemale}
+                  &nbsp;
+                  <FontAwesomeIcon icon={faVenus} />
+                </span>{" "}
+                /{" "}
+                <span title={countMale + " Male"}>
+                  {countMale}
+                  &nbsp;
+                  <FontAwesomeIcon icon={faMars} />
+                </span>{" "}
+                /{" "}
+                <span title={countUnknown + " Unknown"}>
+                  {countUnknown}
+                  &nbsp;
+                  <FontAwesomeIcon icon={faGenderless} />
+                </span>{" "}
+                )
                 <br />
-                Tissues:{" "}
+                <strong>{sampleTissues.length}</strong>&nbsp;Tissues:{" "}
                 {sampleTissues.length > 0
                   ? sampleTissues.map((tissues) => tissues)
                   : "N/A"}
                 <br />
-                Phenotypes:{" "}
+                <strong>{samplePhenotypes.length}</strong>&nbsp;Phenotypes:{" "}
                 {samplePhenotypes.length > 0
                   ? samplePhenotypes.map((phenotypes) => phenotypes)
                   : "N/A"}
