@@ -90,7 +90,7 @@ const DatasetDetails = (props: dataSetDetailsProps) => {
             </Row>
             <Row className="pb-4 pt-2 fs-8">
               <DatasetSamples samplesList={props.details.has_sample} />
-              <DatasetExperiments experimentsList={props.details.has_experiment} />
+              <DatasetExperiments experimentsList={props.details.has_experiment} hit={props.hit} />
             </Row>
           </div>
         ) : (
