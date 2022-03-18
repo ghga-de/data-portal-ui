@@ -26,7 +26,18 @@ const DatasetStudies = (props: dataSetStudiesProps) => {
                     <br />
                     {study.title}
                     <br />
-                    Publication: PLACEHOLDER
+                    {study.has_publication !== null
+                      ? study.has_publication.map((publication) => {
+                          return (
+                            <span>
+                              Publication:&nbsp;
+                              {publication.xref.map((xref) => {
+                                return xref;
+                              })}
+                            </span>
+                          );
+                        })
+                      : "Publications: None"}
                   </p>
                 </Row>
               );
