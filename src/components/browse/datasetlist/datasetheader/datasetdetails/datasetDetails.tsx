@@ -17,13 +17,11 @@ const DatasetDetails = (props: dataSetDetailsProps) => {
   const requestAccess = (datasetId: string, topic: string) => {
     const mailId: string = "dac-ghga@ghga.de"
     const subject: string = "Request access for dataset " + datasetId
-    const body: string = `Hello DAC team, 
-
-          Since I am interested in the topic ${topic}, I would like to request access to the Dataset ${datasetId}.
-          Kindly grant the access for the requested dataset.
-
-          Thank you`
-    window.open(`mailto:${mailId}?subject=${subject}&body=${body}`)
+    const body: string = `Hello DAC team,%0D%0A%0D%0A` +
+      `Since I am interested in the topic ${topic}, I would like to request access to the Dataset ${datasetId}.%0D%0A%0D%0A` +
+      `Kindly grant the access for the requested dataset.%0D%0A%0D%0A%0D%0A` +
+      `Thank you`
+    window.location.assign(`mailto:${mailId}?subject=${subject}&body=${body}`)
   }
 
   return (
