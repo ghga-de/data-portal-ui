@@ -8,13 +8,6 @@ interface dataSetListProps {
 }
 
 const DatasetHeader = (props: dataSetListProps) => {
-  let inputRef = React.useRef<any>();
-
-  const handleOnClick = (datasetId: string) => {
-    if (inputRef.current) {
-      inputRef.current.setDatasetIdFunc(datasetId)
-    }
-  }
 
   return (
     <div>
@@ -28,7 +21,6 @@ const DatasetHeader = (props: dataSetListProps) => {
           >
             <Accordion.Button
               className="bg-light align-items-start fs-7"
-              onClick={() => handleOnClick(hit.id)}
             >
               <Col lg md sm xl xs xxl="3">
                 <span className="fw-bold">Dataset ID:&nbsp;</span>
@@ -51,7 +43,7 @@ const DatasetHeader = (props: dataSetListProps) => {
               </Col>
             </Accordion.Button>
             <Accordion.Body>
-              <DatasetDetails hit={hit} ref={inputRef} />
+              <DatasetDetails hit={hit} />
             </Accordion.Body>
           </Accordion.Item>
         ))}
