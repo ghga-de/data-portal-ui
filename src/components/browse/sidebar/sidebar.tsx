@@ -11,7 +11,7 @@ import { scrollUp } from "../../../utils/utils";
 
 interface sidebarProps {
   facetList: facetModel[] | null;
-  setSearchResp: Dispatch<SetStateAction<searchResponseModel | null>>;
+  setSearchResults: Dispatch<SetStateAction<searchResponseModel | null>>;
   searchKeyword: string;
   limit: number;
   setSearchKeyword: Dispatch<SetStateAction<string>>;
@@ -30,7 +30,7 @@ const Sidebar = (props: sidebarProps) => {
   );
   const skip = 0;
   const handleClear = () => {
-    getDatasetsSearchResp(props.setSearchResp, [], "*", skip, props.limit);
+    getDatasetsSearchResp(props.setSearchResults, [], "*", skip, props.limit);
     check.forEach((value: boolean, key: string) => {
       setCheck(check.set(key, false));
     });
@@ -42,7 +42,7 @@ const Sidebar = (props: sidebarProps) => {
 
   const handleFilter = () => {
     getDatasetsSearchResp(
-      props.setSearchResp,
+      props.setSearchResults,
       props.filterDict,
       props.searchKeyword,
       skip,
@@ -72,7 +72,7 @@ const Sidebar = (props: sidebarProps) => {
         <Search
           searchKeyword={props.searchKeyword}
           setSearchKeyword={props.setSearchKeyword}
-          setSearchResp={props.setSearchResp}
+          setSearchResults={props.setSearchResults}
           limit={props.limit}
           searchParams={props.searchParams}
           setSearchParams={props.setSearchParams}

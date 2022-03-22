@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Row, Col, Button } from "react-bootstrap";
-import { getDatasetDetails } from "../../../../../api/browse";
 import { datasetEmbeddedModel, hitModel } from "../../../../../models/dataset";
 import DatasetExperiments from "./datasetExperiments";
 import DatasetFiles from "./datasetFiles";
@@ -9,18 +8,10 @@ import DatasetStudies from "./datasetStudies";
 
 interface dataSetDetailsProps {
   hit: hitModel;
+  details: datasetEmbeddedModel | null
 }
 
 const DatasetDetails = (props: dataSetDetailsProps) => {
-  const [details, setDetails] = useState<datasetEmbeddedModel | null>(null)
-
-  useEffect(() => {
-    const getDetails = () => {
-      getDatasetDetails(props.hit.id, setDetails);
-    };
-    getDetails();
-  }// eslint-disable-next-line react-hooks/exhaustive-deps
-    , [])
 
   const requestAccess = (datasetId: string, topic: string) => {
     const mailId: string = "dac-ghga@ghga.de"
@@ -58,15 +49,15 @@ const DatasetDetails = (props: dataSetDetailsProps) => {
         </p>
       </Row>
       <hr />
-      {details !== null ? (
+      {props.details !== null ? (
         <div>
           <Row className="my-4 pt-3 fs-8">
-            <DatasetStudies studiesList={details.has_study} />
-            <DatasetFiles filesList={details.has_file} />
+            <DatasetStudies studiesList={props.details.has_study} />
+            <DatasetFiles filesList={props.details.has_file} />
           </Row>
           <Row className="pb-4 pt-2 fs-8">
-            <DatasetSamples samplesList={details.has_sample} />
-            <DatasetExperiments experimentsList={details.has_experiment} />
+            <DatasetSamples samplesList={props.details.has_sample} />
+            <DatasetExperiments experimentsList={props.details.has_experiment} />
           </Row>
         </div>
       ) : (

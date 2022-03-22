@@ -8,7 +8,7 @@ import { facetFilterModel } from "../../../models/facets";
 interface dataSetProps {
   dsCount: number;
   dsList: hitModel[] | null;
-  setSearchResp: Dispatch<SetStateAction<searchResponseModel | null>>;
+  setSearchResults: Dispatch<SetStateAction<searchResponseModel | null>>;
   searchKeyword: string;
   limit: number;
   setLimit: Dispatch<SetStateAction<number>>;
@@ -25,7 +25,7 @@ const DatasetList = (props: dataSetProps) => {
   const PaginatedDataset = () => {
     return (
       <DatasetPagination
-        setSearchResp={props.setSearchResp}
+        setSearchResults={props.setSearchResults}
         searchKeyword={props.searchKeyword}
         limit={props.limit}
         setLimit={props.setLimit}

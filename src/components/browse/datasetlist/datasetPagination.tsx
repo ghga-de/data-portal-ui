@@ -10,7 +10,7 @@ import { scrollUp } from "../../../utils/utils";
 
 interface dataSetPaginationProps {
   dsCount: number;
-  setSearchResp: Dispatch<SetStateAction<searchResponseModel | null>>;
+  setSearchResults: Dispatch<SetStateAction<searchResponseModel | null>>;
   searchKeyword: string;
   limit: number;
   setLimit: Dispatch<SetStateAction<number>>;
@@ -29,7 +29,7 @@ const DatasetPagination = (props: dataSetPaginationProps) => {
     let skip = data.selected * props.limit;
     props.setPage(data.selected + 1);
     getDatasetsSearchResp(
-      props.setSearchResp,
+      props.setSearchResults,
       props.filterDict,
       props.searchKeyword,
       skip,
