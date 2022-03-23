@@ -8,7 +8,7 @@ import DatasetStudies from "./datasetStudies";
 
 interface dataSetDetailsProps {
   hit: hitModel;
-  details: datasetEmbeddedModel | null
+  details: datasetEmbeddedModel | null | undefined
 }
 
 const DatasetDetails = (props: dataSetDetailsProps) => {
@@ -49,7 +49,7 @@ const DatasetDetails = (props: dataSetDetailsProps) => {
         </p>
       </Row>
       <hr />
-      {props.details !== null ? (
+      {props.details !== null && props.details !== undefined ? (
         <div>
           <Row className="my-4 pt-3 fs-8">
             <DatasetStudies studiesList={props.details.has_study} />

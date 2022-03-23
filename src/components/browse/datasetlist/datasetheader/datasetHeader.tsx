@@ -9,10 +9,20 @@ interface dataSetListProps {
 }
 
 const DatasetHeader = (props: dataSetListProps) => {
-  const [details, setDetails] = useState<datasetEmbeddedModel | null>(null)
+  const [details, setDetails] = useState<datasetEmbeddedModel | null | undefined>(null)
+  const [detailsMap, setDetailsMap] = useState<Map<string, datasetEmbeddedModel | null | undefined>>(
+    new Map<string, datasetEmbeddedModel | null>())
   const getDetails = (datasetId: string) => {
-    getDatasetDetails(datasetId, setDetails);
+    if(detailsMap.get(datasetId) === undefined){
+      getDatasetDetails(datasetId, setDetails);
+      setDetailsMap(detailsMap.set(datasetId, null))
+    }
   };
+
+  if(details !== null && details !== undefined && detailsMap.get(details.id) === null) {
+    setDetailsMap(detailsMap.set(details.id, details))
+  }
+
   return (
     <div>
       <Accordion alwaysOpen className="mt-1 fs-7 me-3">
@@ -48,7 +58,7 @@ const DatasetHeader = (props: dataSetListProps) => {
               </Col>
             </Accordion.Button>
             <Accordion.Body>
-              <DatasetDetails hit={hit} details={details} />
+                <DatasetDetails hit={hit} details={detailsMap.get(hit.id)} />
             </Accordion.Body>
           </Accordion.Item>
         ))}
