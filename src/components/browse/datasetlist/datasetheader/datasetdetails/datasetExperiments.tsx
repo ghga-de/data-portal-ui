@@ -2,9 +2,10 @@ import React from "react";
 import { Row } from "react-bootstrap";
 import DatasetDetailsLayout from "./datasetdetailslayout/datasetDetailsLayout";
 import { ClipboardData } from "react-bootstrap-icons";
+import { experimentModel } from "../../../../../models/dataset";
 
 interface dataSetExperimentsProps {
-  experimentsList: string[];
+  experimentsList: experimentModel[] | null;
 }
 
 const DatasetExperiments = (props: dataSetExperimentsProps) => {
@@ -16,7 +17,7 @@ const DatasetExperiments = (props: dataSetExperimentsProps) => {
           <p className="mb-0">
             <strong>Experiment info</strong>
             <br />
-            Experiments: {props.experimentsList !== undefined ? props.experimentsList.length : "0"} total
+            Experiments: {props.experimentsList !== null ? props.experimentsList.length : "0"} total
             <br/>
             Dataset type: PLACEHOLDER
             <br/>

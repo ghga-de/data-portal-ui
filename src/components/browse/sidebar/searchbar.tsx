@@ -9,7 +9,7 @@ import { useNavigate } from 'react-router-dom'
 import { scrollUp } from "../../../utils/utils";
 
 interface searchbarProps {
-  setSearchResp: Dispatch<SetStateAction<searchResponseModel | null>>;
+  setSearchResults: Dispatch<SetStateAction<searchResponseModel | null>>;
   setSearchKeyword: Dispatch<SetStateAction<string>>;
   searchKeyword: string;
   limit: number;
@@ -25,7 +25,7 @@ const Searchbar = (props: searchbarProps) => {
 
   const handleSearch = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
-    getDatasetsSearchResp(props.setSearchResp, props.filterDict, props.searchKeyword, skip, props.limit);
+    getDatasetsSearchResp(props.setSearchResults, props.filterDict, props.searchKeyword, skip, props.limit);
     props.setSearchParams({ p: 1 })
     props.setPage(0)
     if (props.searchKeyword === '' || props.searchKeyword === null) {

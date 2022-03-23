@@ -1,4 +1,4 @@
-import { searchResponseModel, datasetModel } from '../models/dataset'
+import { searchResponseModel, datasetEmbeddedModel } from '../models/dataset'
 import { facetFilterModel } from '../models/facets'
 
 type getDatasetsSearchRespType = (
@@ -42,7 +42,7 @@ export const getDatasetsSearchResp: getDatasetsSearchRespType = (
 
 type getDatasetDetailsType = (
     datasetId: string,
-    callbackFunc: (dataset: datasetModel) => void
+    callbackFunc: (dataset: datasetEmbeddedModel) => void
 ) => void;
 
 export const getDatasetDetails: getDatasetDetailsType = (datasetId, callbackFunc) => {

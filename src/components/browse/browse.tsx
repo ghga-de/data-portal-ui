@@ -1,39 +1,28 @@
 import React from "react";
 import { Col, Row, Container } from "react-bootstrap";
+import { useSearchParams } from "react-router-dom";
 import DatasetList from "./datasetlist/datasetList";
 import Sidebar from "./sidebar/sidebar";
 import { searchResponseModel, hitModel } from "../../models/dataset";
 import { facetFilterModel, facetModel } from "../../models/facets";
 import { getDatasetsSearchResp } from "../../api/browse";
-import { useSearchParams } from "react-router-dom";
+import { getFilterParams } from "../../utils/utils";
+
 
 const Browse = () => {
   let [searchParams, setSearchParams] = useSearchParams();
   const [page, setPage] = React.useState(parseInt(searchParams.get("p") || "0"))
   const [limit, setLimit] = React.useState(10);
   let skip = page === 0 ? 0 : (page - 1) * limit;
-  const getFilterParams = (filterString: string | null) => {
-    let facetFilterModelList: facetFilterModel[] = []
-    if (filterString != null){
-      let filterStringList = filterString.split(';')
-      for (var item of filterStringList){
-        let filterItem: facetFilterModel = {
-          key: item.split(':')[0],
-          value: item.split(':')[1]
-        }
-        facetFilterModelList.push(filterItem)
-      }
-    }
-    return facetFilterModelList
-  }
+
   let filterParams = getFilterParams(searchParams.get("f")) || []
   const [filterDict, setFilterDict] = React.useState<facetFilterModel[]>(filterParams);
   const [searchKeyword, setSearchKeyword] = React.useState(searchParams.get("q") || '');
-  const [searchResults, setSearchResp] = React.useState<searchResponseModel | null>(null);
+  const [searchResults, setSearchResults] = React.useState<searchResponseModel | null>(null);
 
   React.useEffect(() => {
     const getData = () => {
-      getDatasetsSearchResp(setSearchResp, filterDict, searchKeyword, skip, limit);
+      getDatasetsSearchResp(setSearchResults, filterDict, searchKeyword, skip, limit);
     };
     getData();
   }// eslint-disable-next-line react-hooks/exhaustive-deps
@@ -62,7 +51,7 @@ const Browse = () => {
           <Sidebar searchKeyword={searchKeyword}
             setSearchKeyword={setSearchKeyword}
             facetList={facetList}
-            setSearchResp={setSearchResp}
+            setSearchResults={setSearchResults}
             setFilterDict={setFilterDict}
             filterDict={filterDict}
             limit={limit}
@@ -73,7 +62,7 @@ const Browse = () => {
         </Col>
         <Col xs md lg={9}>
           <DatasetList searchKeyword={searchKeyword}
-            setSearchResp={setSearchResp}
+            setSearchResults={setSearchResults}
             dsCount={dsCount}
             dsList={dsList}
             filterDict={filterDict}

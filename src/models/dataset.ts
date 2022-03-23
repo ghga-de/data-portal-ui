@@ -49,12 +49,40 @@ export interface fileModel {
     creation_date: string,
 };
 
+export interface experimentModel {
+    title: string,
+    has_technology: [
+        id: string,
+        name: string,
+    ]
+};
+
+export interface publicationModel {
+    title: string,
+    abstract: string,
+    alias: string,
+};
+
+export interface sampleModel {
+    name: string,
+    has_individual: [
+        gender: string,
+        sex: string,
+        has_phenotypic_feature: [
+            id: string,
+            name: string,
+        ]
+    ],
+    tissue: string,
+
+};
 
 export interface studyModel {
     id: string;
     title: string,
     accession: string,
     abstract: string,
+    has_publication: publicationModel[],
 };
 
 
@@ -63,7 +91,9 @@ export interface datasetEmbeddedModel {
     title: string,
     description: string,
     type: string,
-    files: fileModel[],
+    has_experiment: experimentModel[],
+    has_file: fileModel[],
+    has_sample: sampleModel[],
     has_study: studyModel[],
     creation_date: string,
 };

@@ -5,7 +5,7 @@ import DatasetDetailsLayout from "./datasetdetailslayout/datasetDetailsLayout";
 import { JournalMedical } from "react-bootstrap-icons";
 
 interface dataSetStudiesProps {
-  studiesList: studyModel[];
+  studiesList: studyModel[] | null;
 }
 
 const DatasetStudies = (props: dataSetStudiesProps) => {
@@ -13,7 +13,7 @@ const DatasetStudies = (props: dataSetStudiesProps) => {
     <DatasetDetailsLayout
       icon={<JournalMedical size={32} />}
       content={
-        props.studiesList !== undefined ? (
+        props.studiesList !== null ? (
           <div>
             {props.studiesList.map((study, index) => {
               return (

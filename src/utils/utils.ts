@@ -15,3 +15,18 @@ export const scrollUp = () => {
       behavior: "smooth",
     });
   };
+
+export const getFilterParams = (filterString: string | null) => {
+    let facetFilterModelList: facetFilterModel[] = []
+    if (filterString != null){
+      let filterStringList = filterString.split(';')
+      for (var item of filterStringList){
+        let filterItem: facetFilterModel = {
+          key: item.split(':')[0],
+          value: item.split(':')[1]
+        }
+        facetFilterModelList.push(filterItem)
+      }
+    }
+    return facetFilterModelList
+  }
