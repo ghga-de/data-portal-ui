@@ -1,5 +1,5 @@
-import React from "react";
-import { Row, Col, Button } from "react-bootstrap";
+import React, { useState } from "react";
+import { Row, Col, Button, Modal } from "react-bootstrap";
 import { datasetEmbeddedModel, hitModel } from "../../../../../models/dataset";
 import DatasetExperiments from "./datasetExperiments";
 import DatasetFiles from "./datasetFiles";
@@ -12,14 +12,19 @@ interface dataSetDetailsProps {
 }
 
 const DatasetDetails = (props: dataSetDetailsProps) => {
+  const mailId: string = "dac-ghga@ghga.de"
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+
 
   const requestAccess = (datasetId: string, topic: string) => {
-    const mailId: string = "dac-ghga@ghga.de"
     const subject: string = "Request access for dataset " + datasetId
     const body: string = `Hello DAC team,%0D%0A%0D%0A` +
       `Since I am interested in the topic ${topic}, I would like to request access to the Dataset ${datasetId}.%0D%0A%0D%0A` +
       `Kindly grant the access for the requested dataset.%0D%0A%0D%0A%0D%0A` +
       `Thank you`
+    setShow(true)
     window.location.assign(`mailto:${mailId}?subject=${subject}&body=${body}`)
   }
 
@@ -42,6 +47,26 @@ const DatasetDetails = (props: dataSetDetailsProps) => {
           <Col lg md sm xl xs xxl="1" className="text-end px-0">
             <Button className="fs-8 w-100" onClick={() => requestAccess(props.hit.content.accession, props.hit.content.title)}>Request Access</Button>
           </Col>
+          <Modal size="lg" centered
+            show={show} onHide={handleClose}>
+            <Modal.Header closeButton>
+              <Modal.Title>Request access for dataset {props.hit.content.title}</Modal.Title>
+            </Modal.Header>
+
+            <Modal.Body>
+              <p>Please copy the following message and send us a mail to {mailId}. If configured, the
+                message opens in your email client. Please provide any additional details if needed.
+              </p>
+              <hr />
+              <p>Hello DAC team,
+                <br /><br />
+                Since I am interested in the topic {props.hit.content.title}, I would like to request access to the Dataset {props.hit.content.accession}.
+                Kindly grant the access for the requested dataset.
+                <br /><br />
+                Thank you
+              </p>
+            </Modal.Body>
+          </Modal>
         </Row>
         <p className="fs-8">
           <span className="fw-bold">Description:&nbsp;</span>
