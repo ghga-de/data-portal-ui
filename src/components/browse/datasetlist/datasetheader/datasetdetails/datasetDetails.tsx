@@ -16,7 +16,7 @@ const DatasetDetails = (props: dataSetDetailsProps) => {
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
-
+  const handleOpen = () => setShow(true)
 
   const requestAccess = (datasetId: string, topic: string) => {
     const subject: string = "Request access for dataset " + datasetId
@@ -24,7 +24,6 @@ const DatasetDetails = (props: dataSetDetailsProps) => {
       `Since I am interested in the topic ${topic}, I would like to request access to the Dataset ${datasetId}.%0D%0A%0D%0A` +
       `Kindly grant the access for the requested dataset.%0D%0A%0D%0A%0D%0A` +
       `Thank you`
-    setShow(true)
     window.location.assign(`mailto:${mailId}?subject=${subject}&body=${body}`)
   }
 
@@ -45,12 +44,17 @@ const DatasetDetails = (props: dataSetDetailsProps) => {
             </p>
           </Col>
           <Col lg md sm xl xs xxl="1" className="text-end px-0">
-            <Button className="fs-8 w-100" onClick={() => requestAccess(props.hit.content.accession, props.hit.content.title)}>Request Access</Button>
+            {props.details !== null && props.details !== undefined ?
+              <Button className="fs-8 w-100"
+                onClick={() => handleOpen()}>Request Access</Button> :
+              <Button className="fs-8 w-100" disabled
+                onClick={() => handleOpen()}>Request Access</Button>
+            }
           </Col>
           <Modal size="lg" centered
             show={show} onHide={handleClose}>
             <Modal.Header closeButton>
-              <Modal.Title>Request access for dataset {props.hit.content.title}</Modal.Title>
+              <Modal.Title>Request access for dataset {props.hit.content.accession}</Modal.Title>
             </Modal.Header>
 
             <Modal.Body>
@@ -66,6 +70,9 @@ const DatasetDetails = (props: dataSetDetailsProps) => {
                 Thank you
               </p>
             </Modal.Body>
+            <Modal.Footer>
+              <Button onClick={() => requestAccess(props.hit.content.accession, props.hit.content.title)}>Open Mail Client</Button>
+            </Modal.Footer>
           </Modal>
         </Row>
         <p className="fs-8">
@@ -74,20 +81,22 @@ const DatasetDetails = (props: dataSetDetailsProps) => {
         </p>
       </Row>
       <hr />
-      {props.details !== null && props.details !== undefined ? (
-        <div>
-          <Row className="my-4 pt-3 fs-8">
-            <DatasetStudies studiesList={props.details.has_study} />
-            <DatasetFiles filesList={props.details.has_file} />
-          </Row>
-          <Row className="pb-4 pt-2 fs-8">
-            <DatasetSamples samplesList={props.details.has_sample} />
-            <DatasetExperiments experimentsList={props.details.has_experiment} />
-          </Row>
-        </div>
-      ) : (
-        <div>Dataset details loading, please wait.</div>
-      )}
+      {
+        props.details !== null && props.details !== undefined ? (
+          <div>
+            <Row className="my-4 pt-3 fs-8">
+              <DatasetStudies studiesList={props.details.has_study} />
+              <DatasetFiles filesList={props.details.has_file} />
+            </Row>
+            <Row className="pb-4 pt-2 fs-8">
+              <DatasetSamples samplesList={props.details.has_sample} />
+              <DatasetExperiments experimentsList={props.details.has_experiment} />
+            </Row>
+          </div>
+        ) : (
+          <div>Dataset details loading, please wait.</div>
+        )
+      }
     </div >
   );
 };
