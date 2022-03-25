@@ -50,8 +50,6 @@ const DatasetSamples = (props: dataSetSamplesProps) => {
     });
   }
 
-  console.log(sampleTissues);
-
   return (
     <DatasetDetailsLayout
       icon={<DropletHalf size={32} />}

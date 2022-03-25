@@ -44,7 +44,7 @@ const DatasetFiles = (props: dataSetFilesProps) => {
                     (file) => (formatSize = formatSize + Number(file.size))
                   );
                   return (
-                    <li>
+                    <li key={filteredFiles.length}>
                       {filteredFiles.length}&nbsp;{format.toUpperCase()}
                       &nbsp;files&nbsp;({parseBytes(formatSize)})
                     </li>
