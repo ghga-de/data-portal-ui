@@ -9,6 +9,47 @@ interface dataSetSamplesProps {
 }
 
 const DatasetSamples = (props: dataSetSamplesProps) => {
+  const samples = props.samplesList;
+  const sexes = { female: "XY", male: "XX" };
+  var countFemale: number = 0;
+  var countMale: number = 0;
+  var countUnknown: number = 0;
+
+  const sampleTissues: string[] = [];
+  const samplePhenotypes: string[] = [];
+
+  if (samples !== null) {
+    countFemale += samples.filter(
+      (sample) => sample.has_individual.sex === sexes.female
+    ).length;
+    countMale += samples.filter(
+      (sample) => sample.has_individual.sex === sexes.male
+    ).length;
+    countUnknown += samples.filter(
+      (sample) =>
+        sample.has_individual.sex !== sexes.male &&
+        sample.has_individual.sex !== sexes.female
+    ).length;
+    samples.map((sample) => {
+      if (sample.tissue !== null) {
+        var sampleTissue = sampleTissues.find((x) => x === sample.tissue);
+        if (!sampleTissue) sampleTissues.push(sample.tissue);
+      }
+      if (sample.has_individual.has_phenotypic_feature !== null) {
+        sample.has_individual.has_phenotypic_feature.map((feature) => {
+          if (feature.name !== null) {
+            var samplePhenotype = samplePhenotypes.find(
+              (x) => x === feature.name
+            );
+            if (!samplePhenotype) samplePhenotypes.push(feature.name);
+          }
+          return null;
+        });
+      }
+      return null;
+    });
+  }
+
   return (
     <DatasetDetailsLayout
       icon={<DropletHalf size={32} />}
@@ -18,15 +59,21 @@ const DatasetSamples = (props: dataSetSamplesProps) => {
             <strong>Sample info</strong>
             <br />
           </p>
-          {props.samplesList !== null ? (
+          {samples !== null ? (
             <div>
               <p className="mb-0">
-                Samples: {props.samplesList.length} total (X male / Y female / Z
-                unknown)
+                Samples: {samples.length} total ({countFemale}&nbsp;XY /{" "}
+                {countMale}&nbsp;XX / {countUnknown}&nbsp;Unknown )
                 <br />
-                Tissues: PLACEHOLDER, PLACEHOLDER
+                Tissues:{" "}
+                {sampleTissues.length > 0
+                  ? sampleTissues.map((tissues) => tissues)
+                  : "N/A"}
                 <br />
-                Phenotypes: PLACEHOLDER, PLACEHOLDER
+                Phenotypes:{" "}
+                {samplePhenotypes.length > 0
+                  ? samplePhenotypes.map((phenotypes) => phenotypes)
+                  : "N/A"}
               </p>
             </div>
           ) : (
