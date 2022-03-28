@@ -1,8 +1,10 @@
 import React from "react";
 import { Row } from "react-bootstrap";
 import DatasetDetailsLayout from "./datasetdetailslayout/datasetDetailsLayout";
-import { ClipboardData } from "react-bootstrap-icons";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faFlask } from '@fortawesome/free-solid-svg-icons';
 import { experimentModel, hitModel } from "../../../../../models/dataset";
+
 
 interface dataSetExperimentsProps {
   experimentsList: experimentModel[] | null;
@@ -28,7 +30,7 @@ const DatasetExperiments = (props: dataSetExperimentsProps) => {
   }
   return (
     <DatasetDetailsLayout
-      icon={<ClipboardData size={32} />}
+      icon={<FontAwesomeIcon icon={faFlask} />}
       content={
         <Row>
           <p className="mb-0">
@@ -42,8 +44,8 @@ const DatasetExperiments = (props: dataSetExperimentsProps) => {
             {experiments !== null
               ? expTechs.length > 0
                 ? expTechs.map((tech) => {
-                    return <span>{tech}, </span>;
-                  })
+                  return <span>{tech}, </span>;
+                })
                 : "N/A"
               : "N/A"}
           </p>

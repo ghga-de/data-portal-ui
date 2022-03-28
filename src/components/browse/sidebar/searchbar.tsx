@@ -1,6 +1,7 @@
 import React, { Dispatch, SetStateAction } from "react";
 import { Form, Button, Container } from "react-bootstrap";
-import { Search } from "react-bootstrap-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { searchResponseModel } from "../../../models/dataset";
 import { facetFilterModel } from "../../../models/facets";
 import { getDatasetsSearchResp } from "../../../api/browse";
@@ -49,7 +50,7 @@ const Searchbar = (props: searchbarProps) => {
         <Form.Group>
           <div className="input-group p-1">
             <Button type="submit" className="bg-primary">
-              <Search />
+              <FontAwesomeIcon icon={faMagnifyingGlass} />
             </Button>
             <Form.Control
               value={props.searchKeyword}

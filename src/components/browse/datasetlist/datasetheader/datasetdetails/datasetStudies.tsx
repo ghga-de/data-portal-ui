@@ -2,7 +2,8 @@ import React from "react";
 import { Row } from "react-bootstrap";
 import { studyModel } from "../../../../../models/dataset";
 import DatasetDetailsLayout from "./datasetdetailslayout/datasetDetailsLayout";
-import { JournalMedical } from "react-bootstrap-icons";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBook } from '@fortawesome/free-solid-svg-icons';
 
 interface dataSetStudiesProps {
   studiesList: studyModel[] | null;
@@ -11,7 +12,7 @@ interface dataSetStudiesProps {
 const DatasetStudies = (props: dataSetStudiesProps) => {
   return (
     <DatasetDetailsLayout
-      icon={<JournalMedical size={32} />}
+      icon={<FontAwesomeIcon icon={faBook}/>}
       content={
         props.studiesList !== null ? (
           <div>
