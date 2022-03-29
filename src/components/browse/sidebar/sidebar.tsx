@@ -23,8 +23,6 @@ interface sidebarProps {
   setPage: Dispatch<SetStateAction<number>>;
 }
 
-
-
 const Sidebar = (props: sidebarProps) => {
   let navigate = useNavigate();
   const [check, setCheck] = useState<Map<string, boolean>>(
