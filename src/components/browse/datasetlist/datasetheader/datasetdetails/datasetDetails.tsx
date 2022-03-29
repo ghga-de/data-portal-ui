@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Row, Col, Button, Modal } from "react-bootstrap";
+import { Row, Col, Button, Modal, Spinner } from "react-bootstrap";
 import { datasetEmbeddedModel, hitModel } from "../../../../../models/dataset";
 import DatasetExperiments from "./datasetExperiments";
 import DatasetFiles from "./datasetFiles";
@@ -94,7 +94,10 @@ const DatasetDetails = (props: dataSetDetailsProps) => {
             </Row>
           </div>
         ) : (
-          <div>Dataset details loading, please wait.</div>
+          <div>
+            <p>Dataset details loading, please wait.</p><br />
+            <Spinner animation="border" variant="success" />
+          </div>
         )
       }
     </div >
