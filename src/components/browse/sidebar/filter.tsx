@@ -6,9 +6,9 @@ interface filterProps {
   facet: facetModel;
   check: Map<string, boolean>;
   setCheck: Dispatch<SetStateAction<Map<string, boolean>>>;
-  setFilterDict: Dispatch<SetStateAction<facetFilterModel[]>>;
   searchKeyword: string;
-  filterDict: facetFilterModel[];
+  appliedFilterDict: facetFilterModel[];
+  setAppliedFilterDict: Dispatch<SetStateAction<facetFilterModel[]>>;
 }
 
 const Filter = (props: filterProps) => {
@@ -21,10 +21,10 @@ const Filter = (props: filterProps) => {
       value: key.split(":")[1],
     };
     if (event.target.checked) {
-      props.setFilterDict(props.filterDict.concat(facetFilter));
+      props.setAppliedFilterDict(props.appliedFilterDict.concat(facetFilter));
     } else {
-      props.setFilterDict(
-        props.filterDict.filter((item) => item.key !== key.split(":")[0])
+      props.setAppliedFilterDict(
+        props.appliedFilterDict.filter((item) => item.value !== key.split(":")[1])
       );
     }
     props.setCheck(props.check.set(key, event.target.checked));

@@ -25,6 +25,7 @@ interface sidebarProps {
 
 const Sidebar = (props: sidebarProps) => {
   let navigate = useNavigate();
+  const [appliedFilterDict, setAppliedFilterDict] = useState<facetFilterModel[]>([])
   const [check, setCheck] = useState<Map<string, boolean>>(
     new Map<string, boolean>()
   );
@@ -43,15 +44,16 @@ const Sidebar = (props: sidebarProps) => {
   const handleFilter = () => {
     getDatasetsSearchResp(
       props.setSearchResults,
-      props.filterDict,
+      appliedFilterDict,
       props.searchKeyword,
       skip,
       props.limit
     );
+    props.setFilterDict([...appliedFilterDict])
     props.setSearchParams({ f: getFilterString(props.filterDict) })
     props.setSearchParams({ p: 1 })
     props.setPage(0)
-    if (getFilterString(props.filterDict) === '') {
+    if (getFilterString(appliedFilterDict) === '') {
       if (props.searchKeyword === '' || props.searchKeyword === null) {
         navigate(`?p=1`)
       } else {
@@ -59,9 +61,9 @@ const Sidebar = (props: sidebarProps) => {
       }
     } else {
       if (props.searchKeyword === '' || props.searchKeyword === null) {
-        navigate(`?f=${getFilterString(props.filterDict)}&p=1`)
+        navigate(`?f=${getFilterString(appliedFilterDict)}&p=1`)
       } else {
-        navigate(`?q=${props.searchKeyword}&f=${getFilterString(props.filterDict)}&p=1`)
+        navigate(`?q=${props.searchKeyword}&f=${getFilterString(appliedFilterDict)}&p=1`)
       }
     }
   };
@@ -91,9 +93,9 @@ const Sidebar = (props: sidebarProps) => {
                   key={index}
                   check={check}
                   setCheck={setCheck}
-                  setFilterDict={props.setFilterDict}
                   searchKeyword={props.searchKeyword}
-                  filterDict={props.filterDict}
+                  appliedFilterDict={appliedFilterDict}
+                  setAppliedFilterDict={setAppliedFilterDict}
                 />
               ))}
           </Row>
