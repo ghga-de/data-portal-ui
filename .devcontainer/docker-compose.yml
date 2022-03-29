@@ -57,7 +57,7 @@ services:
       METADATA_REPOSITORY_SERVICE_LOG_LEVEL: debug
       METADATA_REPOSITORY_SERVICE_DB_URL: mongodb://metadata_db:27017
       METADATA_REPOSITORY_SERVICE_DB_NAME: metadata
-
+      METADATA_REPOSITORY_SERVICE_DATA_LOAD_URL: https://AhHei4looYee:aleiK3keX9so@tue.blobfish.ghga-dev.de/data.zip
     entrypoint: ["bash", "-c"]
     command: |
       '''
@@ -94,8 +94,6 @@ services:
       - 8002:8080
     depends_on:
       - metadata_db
-    env_file:
-      - .env.local
 
   # mongo db
 
