@@ -24,7 +24,7 @@ const Filter = (props: filterProps) => {
       props.setFilterDict(props.filterDict.concat(facetFilter));
     } else {
       props.setFilterDict(
-        props.filterDict.filter((item) => item.key !== key.split(":")[0])
+        props.filterDict.filter((item) => item.value !== key.split(":")[1])
       );
     }
     props.setCheck(props.check.set(key, event.target.checked));
