@@ -33,8 +33,10 @@ const Sidebar = (props: sidebarProps) => {
 
   React.useEffect(() => {
     const displayFilters = () => {
-      for (var item of props.filterDict) {
-        setCheck(check.set(item.key + ":" + item.value, true));
+      if (check.size === 0) {
+        for (var item of props.filterDict) {
+          setCheck(check.set(item.key + ":" + item.value, true));
+        }
       }
     };
     displayFilters();
