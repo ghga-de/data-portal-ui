@@ -166,10 +166,8 @@ const DatasetDetails = (props: dataSetDetailsProps) => {
         </div>
       ) : (
         <div>
-          <p>
-            <Spinner animation="border" variant="primary" size="sm" />
-            &nbsp;Dataset details loading, please wait...
-          </p>
+          <Spinner animation="border" variant="primary" size="sm" />
+          &nbsp;Dataset details loading, please wait...
         </div>
       )}
     </div>
