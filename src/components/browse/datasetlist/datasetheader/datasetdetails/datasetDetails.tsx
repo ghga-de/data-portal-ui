@@ -17,7 +17,7 @@ interface dataSetDetailsProps {
 }
 
 const DatasetDetails = (props: dataSetDetailsProps) => {
-  const mailId: string = "dac-ghga@ghga.de";
+  const mailId: string = "helpdesk@ghga.de";
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
