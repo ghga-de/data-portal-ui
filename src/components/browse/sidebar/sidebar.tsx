@@ -29,6 +29,15 @@ const Sidebar = (props: sidebarProps) => {
     new Map<string, boolean>()
   );
   const skip = 0;
+
+  React.useEffect(() => {
+    const displayFilters = () => {
+      for (var item of props.filterDict) {
+        setCheck(check.set(item.key + ":" + item.value, true));
+      }
+    };
+    displayFilters();
+  })
   const handleClear = () => {
     getDatasetsSearchResp(props.setSearchResults, [], "*", skip, props.limit);
     check.forEach((value: boolean, key: string) => {
