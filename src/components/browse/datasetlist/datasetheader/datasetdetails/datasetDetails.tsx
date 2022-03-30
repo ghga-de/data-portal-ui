@@ -52,7 +52,8 @@ const DatasetDetails = (props: dataSetDetailsProps) => {
                   as="span"
                   animation="border"
                   size="sm"
-                  role="status" />
+                  role="status"
+                  aria-hidden="true" />
               </Button>
             }
           </Col>
@@ -100,8 +101,7 @@ const DatasetDetails = (props: dataSetDetailsProps) => {
           </div>
         ) : (
           <div>
-            <p>Dataset details loading, please wait.</p>
-            <Spinner animation="border" variant="primary" size="sm" />
+            <p><Spinner animation="border" variant="primary" size="sm" />&nbsp;Dataset details loading, please wait...</p>
           </div>
         )
       }
