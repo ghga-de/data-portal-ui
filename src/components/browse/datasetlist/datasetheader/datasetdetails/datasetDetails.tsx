@@ -29,7 +29,8 @@ const DatasetDetails = (props: dataSetDetailsProps) => {
       `Dear  DAC team,%0D%0A%0D%0A` +
       `I am interested in accessing the Dataset%20` +
       `${props.hit.content.accession}, which is listed in the GHGA%20` +
-      `Metadata Catalogue. Please could you reply to me as soon as you%20` +
+      `Metadata Catalogue. %0D%0A` +
+      `Please could you reply to me as soon as you%20` +
       `are able to discuss my proposed project? Thank you.%0D%0A%0D%0A%0D%0A` +
       `Kind regards`;
     window.location.assign(`mailto:${mailId}?subject=${subject}&body=${body}`);
@@ -110,8 +111,7 @@ const DatasetDetails = (props: dataSetDetailsProps) => {
                 <br />
                 <br />I am interested in accessing the Dataset{" "}
                 {props.hit.content.accession}, which is listed in the GHGA
-                Metadata Catalogue.
-                <br />Please could you reply to me as soon as you
+                Metadata Catalogue. Please could you reply to me as soon as you
                 are able to discuss my proposed project? Thank you.
                 <br />
                 <br />
