@@ -23,7 +23,7 @@ const DatasetDetails = (props: dataSetDetailsProps) => {
   const handleClose = () => setShow(false);
   const handleOpen = () => setShow(true);
 
-  const requestAccess = (datasetId: string, topic: string) => {
+  const requestAccess = (datasetId: string) => {
     const subject: string = "Request access for dataset " + datasetId;
     const body: string =
       `Dear  DAC team,%0D%0A%0D%0A` +
@@ -110,7 +110,8 @@ const DatasetDetails = (props: dataSetDetailsProps) => {
                 <br />
                 <br />I am interested in accessing the Dataset{" "}
                 {props.hit.content.accession}, which is listed in the GHGA
-                Metadata Catalogue. Please could you reply to me as soon as you
+                Metadata Catalogue.
+                <br />Please could you reply to me as soon as you
                 are able to discuss my proposed project? Thank you.
                 <br />
                 <br />
@@ -135,8 +136,7 @@ const DatasetDetails = (props: dataSetDetailsProps) => {
                   className="w-100"
                   onClick={() =>
                     requestAccess(
-                      props.hit.content.accession,
-                      props.hit.content.title
+                      props.hit.content.accession
                     )
                   }
                 >
