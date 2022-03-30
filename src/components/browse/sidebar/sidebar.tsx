@@ -6,7 +6,7 @@ import { facetModel, facetFilterModel } from "../../../models/facets";
 import { searchResponseModel } from "../../../models/dataset";
 import { getDatasetsSearchResp } from "../../../api/browse";
 import { getFilterString } from "../../../utils/utils";
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from "react-router-dom";
 import { scrollUp } from "../../../utils/utils";
 
 interface sidebarProps {
@@ -48,20 +48,22 @@ const Sidebar = (props: sidebarProps) => {
       skip,
       props.limit
     );
-    props.setSearchParams({ f: getFilterString(props.filterDict) })
-    props.setSearchParams({ p: 1 })
-    props.setPage(0)
-    if (getFilterString(props.filterDict) === '') {
-      if (props.searchKeyword === '' || props.searchKeyword === null) {
-        navigate(`?p=1`)
+    props.setSearchParams({ f: getFilterString(props.filterDict) });
+    props.setSearchParams({ p: 1 });
+    props.setPage(0);
+    if (getFilterString(props.filterDict) === "") {
+      if (props.searchKeyword === "" || props.searchKeyword === null) {
+        navigate(`?p=1`);
       } else {
-        navigate(`?q=${props.searchKeyword}&p=1`)
+        navigate(`?q=${props.searchKeyword}&p=1`);
       }
     } else {
-      if (props.searchKeyword === '' || props.searchKeyword === null) {
-        navigate(`?f=${getFilterString(props.filterDict)}&p=1`)
+      if (props.searchKeyword === "" || props.searchKeyword === null) {
+        navigate(`?f=${getFilterString(props.filterDict)}&p=1`);
       } else {
-        navigate(`?q=${props.searchKeyword}&f=${getFilterString(props.filterDict)}&p=1`)
+        navigate(
+          `?q=${props.searchKeyword}&f=${getFilterString(props.filterDict)}&p=1`
+        );
       }
     }
   };
@@ -98,7 +100,7 @@ const Sidebar = (props: sidebarProps) => {
               ))}
           </Row>
           <Row className="mb-2 mt-3 justify-content-end">
-            <Col xs md lg={4}>
+            <Col lg md sm xl xs xxl={4}>
               <Button
                 className="btn-warning w-100"
                 onClick={() => {

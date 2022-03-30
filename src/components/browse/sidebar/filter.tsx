@@ -35,33 +35,35 @@ const Filter = (props: filterProps) => {
       <Form>
         <Form.Label className="mt-2">{props.facet.key}</Form.Label>
         <hr className="m-0" />
-        {props.facet.options.sort((a, b) => b.option < a.option ? 1 : -1).map((option) => {
-          let key: string = props.facet.key + ":" + option.option;
-          return (
-            <div className="p-1 d-flex align-top" key={key}>
-              <Form.Check
-                id={key}
-                className="d-inline-block"
-                checked={props.check.get(key)}
-                value={key}
-                onChange={(event) => handleCheck(key, event)}
-                style={{ zIndex: 100 }}
-              />
-              <Form.Label className="p-0 m-0 w-100" htmlFor={key}>
-                <Row>
-                  <Col xs md lg={10}>
-                    <p className="ps-2 my-0">{option.option}</p>
-                  </Col>
-                  <Col xs md lg={2} className="h-100">
-                    <Form.Label className="p-0 m-0" htmlFor={key}>
-                      {option.count}
-                    </Form.Label>
-                  </Col>
-                </Row>
-              </Form.Label>
-            </div>
-          );
-        })}
+        {props.facet.options
+          .sort((a, b) => (b.option < a.option ? 1 : -1))
+          .map((option) => {
+            let key: string = props.facet.key + ":" + option.option;
+            return (
+              <div className="p-1 d-flex align-top" key={key}>
+                <Form.Check
+                  id={key}
+                  className="d-inline-block"
+                  checked={props.check.get(key)}
+                  value={key}
+                  onChange={(event) => handleCheck(key, event)}
+                  style={{ zIndex: 100 }}
+                />
+                <Form.Label className="p-0 m-0 w-100" htmlFor={key}>
+                  <Row>
+                    <Col lg md sm xl xs xxl={10}>
+                      <p className="ps-2 my-0">{option.option}</p>
+                    </Col>
+                    <Col lg md sm xl xs xxl={2} className="h-100">
+                      <Form.Label className="p-0 m-0" htmlFor={key}>
+                        {option.count}
+                      </Form.Label>
+                    </Col>
+                  </Row>
+                </Form.Label>
+              </div>
+            );
+          })}
       </Form>
     </Container>
   );

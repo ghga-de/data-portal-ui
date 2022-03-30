@@ -8,25 +8,38 @@ import { facetFilterModel, facetModel } from "../../models/facets";
 import { getDatasetsSearchResp } from "../../api/browse";
 import { getFilterParams } from "../../utils/utils";
 
-
 const Browse = () => {
   let [searchParams, setSearchParams] = useSearchParams();
-  const [page, setPage] = React.useState(parseInt(searchParams.get("p") || "0"))
+  const [page, setPage] = React.useState(
+    parseInt(searchParams.get("p") || "0")
+  );
   const [limit, setLimit] = React.useState(10);
   let skip = page === 0 ? 0 : (page - 1) * limit;
 
-  let filterParams = getFilterParams(searchParams.get("f")) || []
-  const [filterDict, setFilterDict] = React.useState<facetFilterModel[]>(filterParams);
-  const [searchKeyword, setSearchKeyword] = React.useState(searchParams.get("q") || '');
-  const [searchResults, setSearchResults] = React.useState<searchResponseModel | null>(null);
+  let filterParams = getFilterParams(searchParams.get("f")) || [];
+  const [filterDict, setFilterDict] =
+    React.useState<facetFilterModel[]>(filterParams);
+  const [searchKeyword, setSearchKeyword] = React.useState(
+    searchParams.get("q") || ""
+  );
+  const [searchResults, setSearchResults] =
+    React.useState<searchResponseModel | null>(null);
 
-  React.useEffect(() => {
-    const getData = () => {
-      getDatasetsSearchResp(setSearchResults, filterDict, searchKeyword, skip, limit);
-    };
-    getData();
-  }// eslint-disable-next-line react-hooks/exhaustive-deps
-    , [])
+  React.useEffect(
+    () => {
+      const getData = () => {
+        getDatasetsSearchResp(
+          setSearchResults,
+          filterDict,
+          searchKeyword,
+          skip,
+          limit
+        );
+      };
+      getData();
+    }, // eslint-disable-next-line react-hooks/exhaustive-deps
+    []
+  );
 
   var dsList: hitModel[] | null = null;
   var facetList: facetModel[] | null = null;
@@ -47,8 +60,9 @@ const Browse = () => {
   return (
     <Container>
       <Row>
-        <Col xs md lg={3}>
-          <Sidebar searchKeyword={searchKeyword}
+        <Col lg md sm xl xs xxl={3}>
+          <Sidebar
+            searchKeyword={searchKeyword}
             setSearchKeyword={setSearchKeyword}
             facetList={facetList}
             setSearchResults={setSearchResults}
@@ -58,10 +72,12 @@ const Browse = () => {
             searchParams={searchParams}
             setSearchParams={setSearchParams}
             page={page}
-            setPage={setPage} />
+            setPage={setPage}
+          />
         </Col>
-        <Col xs md lg={9}>
-          <DatasetList searchKeyword={searchKeyword}
+        <Col lg md sm xl xs xxl={9}>
+          <DatasetList
+            searchKeyword={searchKeyword}
             setSearchResults={setSearchResults}
             dsCount={dsCount}
             dsList={dsList}
