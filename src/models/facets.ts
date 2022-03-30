@@ -5,6 +5,7 @@ export interface facetOptionsModel {
 
 export interface facetModel {
     key: string,
+    name: string,
     options: facetOptionsModel[],
 };
 

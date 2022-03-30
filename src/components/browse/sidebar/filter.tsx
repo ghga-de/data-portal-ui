@@ -33,7 +33,7 @@ const Filter = (props: filterProps) => {
   return (
     <Container className="bg-white border col-11 mb-3 pb-3 rounded fs-7 mx-0 w-100 px-2">
       <Form>
-        <Form.Label className="mt-2">{props.facet.key}</Form.Label>
+        <Form.Label className="mt-2">{props.facet.name}</Form.Label>
         <hr className="m-0" />
         {props.facet.options.sort((a, b) => b.option < a.option ? 1 : -1).map((option) => {
           let key: string = props.facet.key + ":" + option.option;
