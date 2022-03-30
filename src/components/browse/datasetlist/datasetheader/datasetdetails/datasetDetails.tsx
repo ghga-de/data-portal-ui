@@ -26,10 +26,12 @@ const DatasetDetails = (props: dataSetDetailsProps) => {
   const requestAccess = (datasetId: string, topic: string) => {
     const subject: string = "Request access for dataset " + datasetId;
     const body: string =
-      `Hello DAC team,%0D%0A%0D%0A` +
-      `Since I am interested in the topic ${topic}, I would like to request access to the Dataset ${datasetId}.%0D%0A%0D%0A` +
-      `Kindly grant the access for the requested dataset.%0D%0A%0D%0A%0D%0A` +
-      `Thank you`;
+      `Dear  DAC team,%0D%0A%0D%0A` +
+      `I am interested in accessing the Dataset` +
+      `{props.hit.content.accession}, which is listed in the GHGA` +
+      `Metadata Catalogue. Please could you reply to me as soon as you` +
+      `are able to discuss my proposed project? Thank you.%0D%0A%0D%0A%0D%0A` +
+      `Kind regards`;
     window.location.assign(`mailto:${mailId}?subject=${subject}&body=${body}`);
   };
 
@@ -81,7 +83,7 @@ const DatasetDetails = (props: dataSetDetailsProps) => {
             </Modal.Header>
 
             <Modal.Body className="px-4">
-              <Row className="mb-3 p-3 bg-warning align-items-center">
+              <Row className="mb-3 p-3 bg-lgray align-items-center">
                 <Col lg md sm xl xs xxl={1}>
                   <FontAwesomeIcon
                     icon={faCircleExclamation}
@@ -90,23 +92,31 @@ const DatasetDetails = (props: dataSetDetailsProps) => {
                   />
                 </Col>
                 <Col>
-                  Please copy the following message and send us a mail to{" "}
-                  <a href={"mailto:" + mailId}>{mailId}</a>. If configured, the
-                  message will open in your email client. Please provide any
-                  additional details if needed.
+                  To request access, you will need to contact to Data Access
+                  Committee (DAC) who are responsible for approving applications
+                  for this dataset. Please copy the message below and send it
+                  via email to{" "}
+                  <a href={"mailto:" + mailId}>{mailId}</a>. If
+                  configured, you can click on ‘Open Mail Client’ to open the
+                  message in your preferred email client. Please add any
+                  additional details if necessary.
+                  <br />
+                  GHGA does not receive a copy of your email or any other
+                  personal data from you if you open this message in your email
+                  client. GHGA has no role in approving or rejecting data access
+                  requests.
                 </Col>
               </Row>
               <p className="user-select-all mb-4">
                 Dear DAC team,
                 <br />
+                <br />I am interested in accessing the Dataset{" "}
+                {props.hit.content.accession}, which is listed in the GHGA
+                Metadata Catalogue. Please could you reply to me as soon as you
+                are able to discuss my proposed project? Thank you.
                 <br />
-                Since I am interested in the topic {props.hit.content.title}, I
-                would like to request access to the Dataset{" "}
-                {props.hit.content.accession}. Kindly grant the access for the
-                requested dataset.
                 <br />
-                <br />
-                Thank you
+                Kind regards
               </p>
               <p className="mb-0 fs-7">
                 <strong>* I accept the privacy policy</strong>
@@ -122,7 +132,7 @@ const DatasetDetails = (props: dataSetDetailsProps) => {
                   Cancel
                 </Button>
               </Col>
-              <Col  className="pe-4">
+              <Col className="pe-4">
                 <Button
                   className="w-100"
                   onClick={() =>
