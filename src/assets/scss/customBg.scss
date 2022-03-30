@@ -1,5 +1,7 @@
 $custom-colors: (
-  "lgray": $gray-400,
+  "gray": $gray-400,
+  "white": $white,
+  "black": $black
 );
 
 $theme-colors: map-merge($theme-colors, $custom-colors);
