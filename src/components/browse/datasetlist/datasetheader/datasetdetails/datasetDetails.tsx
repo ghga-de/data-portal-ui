@@ -27,9 +27,9 @@ const DatasetDetails = (props: dataSetDetailsProps) => {
     const subject: string = "Request access for dataset " + datasetId;
     const body: string =
       `Dear  DAC team,%0D%0A%0D%0A` +
-      `I am interested in accessing the Dataset` +
-      `{props.hit.content.accession}, which is listed in the GHGA` +
-      `Metadata Catalogue. Please could you reply to me as soon as you` +
+      `I am interested in accessing the Dataset%20` +
+      `${props.hit.content.accession}, which is listed in the GHGA%20` +
+      `Metadata Catalogue. Please could you reply to me as soon as you%20` +
       `are able to discuss my proposed project? Thank you.%0D%0A%0D%0A%0D%0A` +
       `Kind regards`;
     window.location.assign(`mailto:${mailId}?subject=${subject}&body=${body}`);
