@@ -47,8 +47,13 @@ const DatasetDetails = (props: dataSetDetailsProps) => {
             {props.details !== null && props.details !== undefined ?
               <Button className="fs-8 w-100"
                 onClick={() => handleOpen()}>Request Access</Button> :
-              <Button className="fs-8 w-100" disabled
-                onClick={() => handleOpen()}>Request Access</Button>
+              <Button className="fs-8 w-100" disabled>
+                <Spinner
+                  as="span"
+                  animation="border"
+                  size="sm"
+                  role="status" />
+              </Button>
             }
           </Col>
           <Modal size="lg" centered
@@ -95,8 +100,8 @@ const DatasetDetails = (props: dataSetDetailsProps) => {
           </div>
         ) : (
           <div>
-            <p>Dataset details loading, please wait.</p><br />
-            <Spinner animation="border" variant="success" />
+            <p>Dataset details loading, please wait.</p>
+            <Spinner animation="border" variant="primary" size="sm" />
           </div>
         )
       }
