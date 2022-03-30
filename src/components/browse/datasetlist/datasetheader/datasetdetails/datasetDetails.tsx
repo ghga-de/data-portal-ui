@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Row, Col, Button, Modal } from "react-bootstrap";
+import { Row, Col, Button, Modal, Spinner } from "react-bootstrap";
 import { datasetEmbeddedModel, hitModel } from "../../../../../models/dataset";
 import DatasetExperiments from "./datasetExperiments";
 import DatasetFiles from "./datasetFiles";
@@ -60,12 +60,14 @@ const DatasetDetails = (props: dataSetDetailsProps) => {
                 Request Access
               </Button>
             ) : (
-              <Button
-                className="fs-8 w-100"
-                disabled
-                onClick={() => handleOpen()}
-              >
-                Request Access
+              <Button className="fs-8 w-100" disabled>
+                <Spinner
+                  as="span"
+                  animation="border"
+                  size="sm"
+                  role="status"
+                  aria-hidden="true"
+                />
               </Button>
             )}
           </Col>
@@ -134,11 +136,7 @@ const DatasetDetails = (props: dataSetDetailsProps) => {
               <Col className="pe-4">
                 <Button
                   className="w-100"
-                  onClick={() =>
-                    requestAccess(
-                      props.hit.content.accession
-                    )
-                  }
+                  onClick={() => requestAccess(props.hit.content.accession)}
                 >
                   Open Mail Client
                 </Button>
@@ -167,7 +165,10 @@ const DatasetDetails = (props: dataSetDetailsProps) => {
           </Row>
         </div>
       ) : (
-        <div>Dataset details loading, please wait.</div>
+        <div>
+          <Spinner animation="border" variant="primary" size="sm" />
+          &nbsp;Dataset details loading, please wait...
+        </div>
       )}
     </div>
   );
