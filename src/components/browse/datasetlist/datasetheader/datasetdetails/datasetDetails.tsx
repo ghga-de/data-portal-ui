@@ -95,11 +95,9 @@ const DatasetDetails = (props: dataSetDetailsProps) => {
                   To request access, you will need to contact to Data Access
                   Committee (DAC) who are responsible for approving applications
                   for this dataset. Please copy the message below and send it
-                  via email to{" "}
-                  <a href={"mailto:" + mailId}>{mailId}</a>. If
-                  configured, you can click on ‘Open Mail Client’ to open the
-                  message in your preferred email client. Please add any
-                  additional details if necessary.
+                  via email to {mailId}. If configured, you can click on ‘Open
+                  Mail Client’ to open the message in your preferred email
+                  client. Please add any additional details if necessary.
                   <br />
                   GHGA does not receive a copy of your email or any other
                   personal data from you if you open this message in your email
