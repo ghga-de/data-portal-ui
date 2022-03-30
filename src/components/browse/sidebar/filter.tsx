@@ -6,9 +6,9 @@ interface filterProps {
   facet: facetModel;
   check: Map<string, boolean>;
   setCheck: Dispatch<SetStateAction<Map<string, boolean>>>;
-  setFilterDict: Dispatch<SetStateAction<facetFilterModel[]>>;
   searchKeyword: string;
-  filterDict: facetFilterModel[];
+  appliedFilterDict: facetFilterModel[];
+  setAppliedFilterDict: Dispatch<SetStateAction<facetFilterModel[]>>;
 }
 
 const Filter = (props: filterProps) => {
@@ -21,10 +21,10 @@ const Filter = (props: filterProps) => {
       value: key.split(":")[1],
     };
     if (event.target.checked) {
-      props.setFilterDict(props.filterDict.concat(facetFilter));
+      props.setAppliedFilterDict(props.appliedFilterDict.concat(facetFilter));
     } else {
-      props.setFilterDict(
-        props.filterDict.filter((item) => item.value !== key.split(":")[1])
+      props.setAppliedFilterDict(
+        props.appliedFilterDict.filter((item) => item.value !== key.split(":")[1])
       );
     }
     props.setCheck(props.check.set(key, event.target.checked));
@@ -33,7 +33,7 @@ const Filter = (props: filterProps) => {
   return (
     <Container className="bg-white border col-11 mb-3 pb-3 rounded fs-7 mx-0 w-100 px-2">
       <Form>
-        <Form.Label className="mt-2">{props.facet.key}</Form.Label>
+        <Form.Label className="mt-2">{props.facet.name}</Form.Label>
         <hr className="m-0" />
         {props.facet.options
           .sort((a, b) => (b.option < a.option ? 1 : -1))
