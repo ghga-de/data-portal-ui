@@ -84,7 +84,7 @@ const DatasetDetails = (props: dataSetDetailsProps) => {
             </Modal.Header>
 
             <Modal.Body className="px-4">
-              <Row className="mb-3 p-3 bg-lgray align-items-center">
+              <Row className="mb-3 p-3 bg-gray align-items-center">
                 <Col lg md sm xl xs xxl={1}>
                   <FontAwesomeIcon
                     icon={faCircleExclamation}
