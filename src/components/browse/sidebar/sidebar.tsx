@@ -6,7 +6,7 @@ import { facetModel, facetFilterModel } from "../../../models/facets";
 import { searchResponseModel } from "../../../models/dataset";
 import { getDatasetsSearchResp } from "../../../api/browse";
 import { getFilterString } from "../../../utils/utils";
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from "react-router-dom";
 import { scrollUp } from "../../../utils/utils";
 
 interface sidebarProps {
@@ -30,6 +30,15 @@ const Sidebar = (props: sidebarProps) => {
     new Map<string, boolean>()
   );
   const skip = 0;
+
+  React.useEffect(() => {
+    const displayFilters = () => {
+      for (var item of props.filterDict) {
+        setCheck(check.set(item.key + ":" + item.value, true));
+      }
+    };
+    displayFilters();
+  })
   const handleClear = () => {
     getDatasetsSearchResp(props.setSearchResults, [], "*", skip, props.limit);
     check.forEach((value: boolean, key: string) => {
@@ -57,7 +66,7 @@ const Sidebar = (props: sidebarProps) => {
       if (props.searchKeyword === '' || props.searchKeyword === null) {
         navigate(`?p=1`)
       } else {
-        navigate(`?q=${props.searchKeyword}&p=1`)
+        navigate(`?q=${props.searchKeyword}&p=1`);
       }
     } else {
       if (props.searchKeyword === '' || props.searchKeyword === null) {
@@ -100,7 +109,7 @@ const Sidebar = (props: sidebarProps) => {
               ))}
           </Row>
           <Row className="mb-2 mt-3 justify-content-end">
-            <Col xs md lg={4}>
+            <Col lg md sm xl xs xxl={4}>
               <Button
                 className="btn-warning w-100"
                 onClick={() => {
