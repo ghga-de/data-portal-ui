@@ -34,11 +34,10 @@ const DatasetHeader = (props: dataSetListProps) => {
             title={hit.content.title}
           >
             <Accordion.Button
-              className="bg-light align-items-start fs-7"
+              className="bg-light align-items-start fs-7 text-break"
               onClick={() => getDetails(hit.id)}
             >
-              <Col lg md sm xl xs xxl="3">
-                <span className="fw-bold">Dataset ID:&nbsp;</span>
+              <Col lg={3} md={3} sm={3} xl={3} xs={3} xxl={3}>
                 {hit.content.accession}
               </Col>
               <Col className="pe-2" style={{ height: "42px" }}>
@@ -52,7 +51,6 @@ const DatasetHeader = (props: dataSetListProps) => {
                     WebkitBoxOrient: "vertical",
                   }}
                 >
-                  <span className="fw-bold">Title:&nbsp;</span>
                   {hit.content.title}
                 </div>
               </Col>

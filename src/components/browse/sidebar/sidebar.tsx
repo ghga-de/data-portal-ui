@@ -25,7 +25,9 @@ interface sidebarProps {
 
 const Sidebar = (props: sidebarProps) => {
   let navigate = useNavigate();
-  const [appliedFilterDict, setAppliedFilterDict] = useState<facetFilterModel[]>([])
+  const [appliedFilterDict, setAppliedFilterDict] = useState<
+    facetFilterModel[]
+  >([]);
   const [check, setCheck] = useState<Map<string, boolean>>(
     new Map<string, boolean>()
   );
@@ -40,14 +42,14 @@ const Sidebar = (props: sidebarProps) => {
       }
     };
     displayFilters();
-  })
+  });
   const handleClear = () => {
     getDatasetsSearchResp(props.setSearchResults, [], "*", skip, props.limit);
     check.forEach((value: boolean, key: string) => {
       setCheck(check.set(key, false));
     });
     props.setFilterDict([]);
-    setAppliedFilterDict([])
+    setAppliedFilterDict([]);
     props.setSearchKeyword("");
     props.setPage(0);
     navigate(`?p=1`);
@@ -61,21 +63,25 @@ const Sidebar = (props: sidebarProps) => {
       skip,
       props.limit
     );
-    props.setFilterDict([...appliedFilterDict])
-    props.setSearchParams({ f: getFilterString(props.filterDict) })
-    props.setSearchParams({ p: 1 })
-    props.setPage(0)
-    if (getFilterString(appliedFilterDict) === '') {
-      if (props.searchKeyword === '' || props.searchKeyword === null) {
-        navigate(`?p=1`)
+    props.setFilterDict([...appliedFilterDict]);
+    props.setSearchParams({ f: getFilterString(props.filterDict) });
+    props.setSearchParams({ p: 1 });
+    props.setPage(0);
+    if (getFilterString(appliedFilterDict) === "") {
+      if (props.searchKeyword === "" || props.searchKeyword === null) {
+        navigate(`?p=1`);
       } else {
         navigate(`?q=${props.searchKeyword}&p=1`);
       }
     } else {
-      if (props.searchKeyword === '' || props.searchKeyword === null) {
-        navigate(`?f=${getFilterString(appliedFilterDict)}&p=1`)
+      if (props.searchKeyword === "" || props.searchKeyword === null) {
+        navigate(`?f=${getFilterString(appliedFilterDict)}&p=1`);
       } else {
-        navigate(`?q=${props.searchKeyword}&f=${getFilterString(appliedFilterDict)}&p=1`)
+        navigate(
+          `?q=${props.searchKeyword}&f=${getFilterString(
+            appliedFilterDict
+          )}&p=1`
+        );
       }
     }
   };
@@ -94,8 +100,8 @@ const Sidebar = (props: sidebarProps) => {
           filterDict={props.filterDict}
         />
       </Row>
-      {props.facetList === null || props.facetList.length < 1 ? null : (
-        <div className="bg-light border p-2 rounded-3 pt-3">
+      <div className="bg-light border p-2 rounded-3 pt-3">
+        {props.facetList === null || props.facetList.length === 0 ? null : (
           <Row className="position-relative w-100 px-0 mx-0">
             {props.facetList
               .sort((a, b) => (b.key < a.key ? 1 : -1))
@@ -111,18 +117,20 @@ const Sidebar = (props: sidebarProps) => {
                 />
               ))}
           </Row>
-          <Row className="mb-2 mt-3 justify-content-end">
-            <Col lg md sm xl xs xxl={4}>
-              <Button
-                className="btn-warning w-100"
-                onClick={() => {
-                  handleClear();
-                  scrollUp();
-                }}
-              >
-                Clear
-              </Button>
-            </Col>
+        )}
+        <Row className="mb-2 mt-3 justify-content-end">
+          <Col lg={4} md={4} sm={4} xl={4} xs={4} xxl={4}>
+            <Button
+              className="btn-warning w-100"
+              onClick={() => {
+                handleClear();
+                scrollUp();
+              }}
+            >
+              Clear
+            </Button>
+          </Col>
+          {props.facetList === null || props.facetList.length === 0 ? null : (
             <Col xs md lg={4} className="me-2">
               <Button
                 className="btn-success w-100"
@@ -134,9 +142,9 @@ const Sidebar = (props: sidebarProps) => {
                 Filter
               </Button>
             </Col>
-          </Row>
-        </div>
-      )}
+          )}
+        </Row>
+      </div>
     </div>
   );
 };

@@ -24,7 +24,9 @@ const Filter = (props: filterProps) => {
       props.setAppliedFilterDict(props.appliedFilterDict.concat(facetFilter));
     } else {
       props.setAppliedFilterDict(
-        props.appliedFilterDict.filter((item) => item.value !== key.split(":")[1])
+        props.appliedFilterDict.filter(
+          (item) => item.value !== key.split(":")[1]
+        )
       );
     }
     props.setCheck(props.check.set(key, event.target.checked));
@@ -39,30 +41,31 @@ const Filter = (props: filterProps) => {
           .sort((a, b) => (b.option < a.option ? 1 : -1))
           .map((option) => {
             let key: string = props.facet.key + ":" + option.option;
-            return (
-              <div className="p-1 d-flex align-top" key={key}>
-                <Form.Check
-                  id={key}
-                  className="d-inline-block"
-                  checked={props.check.get(key)}
-                  value={key}
-                  onChange={(event) => handleCheck(key, event)}
-                  style={{ zIndex: 100 }}
-                />
-                <Form.Label className="p-0 m-0 w-100" htmlFor={key}>
-                  <Row>
-                    <Col lg md sm xl xs xxl={10}>
-                      <p className="ps-2 my-0">{option.option}</p>
-                    </Col>
-                    <Col lg md sm xl xs xxl={2} className="h-100">
-                      <Form.Label className="p-0 m-0" htmlFor={key}>
-                        {option.count}
-                      </Form.Label>
-                    </Col>
-                  </Row>
-                </Form.Label>
-              </div>
-            );
+              return (
+                <div className="p-1 d-flex align-top" key={key}>
+                  <Form.Check
+                    id={key}
+                    className="d-inline-block"
+                    checked={props.check.get(key)}
+                    value={key}
+                    onChange={(event) => handleCheck(key, event)}
+                    style={{ zIndex: 100 }}
+                    name={props.facet.key}
+                  />
+                  <Form.Label className="p-0 m-0 w-100" htmlFor={key}>
+                    <Row>
+                      <Col lg={10} md={10} sm={10} xl={10} xs={10} xxl={10}>
+                        <p className="ps-2 my-0">{option.option}</p>
+                      </Col>
+                      <Col lg={2} md={2} sm={2} xl={2} xs={2} xxl={2} className="h-100">
+                        <Form.Label className="p-0 m-0" htmlFor={key}>
+                          {option.count}
+                        </Form.Label>
+                      </Col>
+                    </Row>
+                  </Form.Label>
+                </div>
+              );
           })}
       </Form>
     </Container>
