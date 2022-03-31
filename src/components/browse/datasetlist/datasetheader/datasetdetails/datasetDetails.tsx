@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Row, Col, Button, Modal, Spinner } from "react-bootstrap";
-import { datasetEmbeddedModel, hitModel } from "../../../../../models/dataset";
+import { datasetEmbeddedModel, hitModel, dataAccessCommitteeModel, dataAccessPolicyModel } from "../../../../../models/dataset";
 import DatasetExperiments from "./datasetExperiments";
 import DatasetFiles from "./datasetFiles";
 import DatasetSamples from "./datasetSamples";
@@ -17,7 +17,6 @@ interface dataSetDetailsProps {
 }
 
 const DatasetDetails = (props: dataSetDetailsProps) => {
-  const mailId: string = "helpdesk@ghga.de";
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
@@ -33,8 +32,27 @@ const DatasetDetails = (props: dataSetDetailsProps) => {
       `Please could you reply to me as soon as you%20` +
       `are able to discuss my proposed project? Thank you.%0D%0A%0D%0A%0D%0A` +
       `Kind regards`;
-    window.location.assign(`mailto:${mailId}?subject=${subject}&body=${body}`);
+    window.location.assign(`mailto:${getEmailId()}?subject=${subject}&body=${body}`);
   };
+
+  const getEmailId = () => {
+    let mailId: string = "helpdesk@ghga.de";
+    if (props.details !== null && props.details !== undefined) {
+      const dataAccessPolicy: dataAccessPolicyModel = props.details.has_data_access_policy
+      const dataAccessCommittee: dataAccessCommitteeModel = dataAccessPolicy.has_data_access_committee
+      const main_contact = dataAccessCommittee.main_contact;
+      for (var item of dataAccessCommittee.has_member) {
+        if (main_contact === null) {
+          return item.email === null ? mailId : item.email
+        }
+        if (item.id === main_contact) {
+          return item.email
+        }
+      }
+    } else {
+      return mailId
+    }
+  }
 
   return (
     <div className="fs-9">
@@ -98,7 +116,7 @@ const DatasetDetails = (props: dataSetDetailsProps) => {
                   To request access, you will need to contact to Data Access
                   Committee (DAC) who are responsible for approving applications
                   for this dataset. Please copy the message below and send it
-                  via email to {mailId}. If configured, you can click on ‘Open
+                  via email to <strong>{getEmailId()}</strong>. If configured, you can click on ‘Open
                   Mail Client’ to open the message in your preferred email
                   client. Please add any additional details if necessary.
                   <br />
@@ -109,6 +127,11 @@ const DatasetDetails = (props: dataSetDetailsProps) => {
                 </Col>
               </Row>
               <p className="user-select-all mb-4">
+                To: {getEmailId()}
+                <br />
+                Subject: Request access for dataset {props.hit.content.accession}
+                <br />
+                <br />
                 Dear DAC team,
                 <br />
                 <br />I am interested in accessing the Dataset{" "}
@@ -118,9 +141,6 @@ const DatasetDetails = (props: dataSetDetailsProps) => {
                 <br />
                 <br />
                 Kind regards
-              </p>
-              <p className="mb-0 fs-7">
-                <strong>* I accept the privacy policy</strong>
               </p>
             </Modal.Body>
             <Modal.Footer className="border-0">

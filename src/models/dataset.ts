@@ -88,6 +88,25 @@ export interface studyModel {
   has_publication: publicationModel[];
 }
 
+export interface dataAccessPolicyModel {
+  id: string;
+  accession: string;
+  has_data_access_committee: dataAccessCommitteeModel;
+}
+
+export interface dataAccessCommitteeModel {
+  name: string;
+  main_contact: string;
+  accession: string;
+  has_member: dataAccessCommitteeMemberModel[];
+}
+
+export interface dataAccessCommitteeMemberModel {
+  email: string;
+  id: string;
+  organization: string;
+}
+
 export interface datasetEmbeddedModel {
   id: string;
   title: string;
@@ -97,6 +116,7 @@ export interface datasetEmbeddedModel {
   has_file: fileModel[];
   has_sample: sampleModel[];
   has_study: studyModel[];
+  has_data_access_policy: dataAccessPolicyModel;
   creation_date: string;
 }
 
