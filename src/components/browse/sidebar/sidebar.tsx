@@ -47,6 +47,7 @@ const Sidebar = (props: sidebarProps) => {
       setCheck(check.set(key, false));
     });
     props.setFilterDict([]);
+    setAppliedFilterDict([])
     props.setSearchKeyword("");
     props.setPage(0);
     navigate(`?p=1`);
