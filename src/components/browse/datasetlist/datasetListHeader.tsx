@@ -17,7 +17,7 @@ const DatasetListHeader = (props: dataSetListHeaderProps) => {
     ) {
       let searchParamsList = props.searchParams.get("f").split(";");
       for (var item of searchParamsList) {
-        filterParamsList.push(item.replace(":", ": "));
+        filterParamsList.push(item.replace(":", " | "));
       }
     }
     return filterParamsList;
