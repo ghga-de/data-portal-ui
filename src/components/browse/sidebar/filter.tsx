@@ -41,7 +41,6 @@ const Filter = (props: filterProps) => {
           .sort((a, b) => (b.option < a.option ? 1 : -1))
           .map((option) => {
             let key: string = props.facet.key + ":" + option.option;
-            if (option.option.includes(",") !== true) {
               return (
                 <div className="p-1 d-flex align-top" key={key}>
                   <Form.Check
@@ -67,7 +66,6 @@ const Filter = (props: filterProps) => {
                   </Form.Label>
                 </div>
               );
-            } else return null;
           })}
       </Form>
     </Container>
