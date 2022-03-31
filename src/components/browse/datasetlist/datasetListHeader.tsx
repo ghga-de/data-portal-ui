@@ -17,7 +17,7 @@ const DatasetListHeader = (props: dataSetListHeaderProps) => {
     ) {
       let searchParamsList = props.searchParams.get("f").split(";");
       for (var item of searchParamsList) {
-        filterParamsList.push(item.replace(":", " | "));
+        filterParamsList.push(item.replace(":", ": "));
       }
     }
     return filterParamsList;
@@ -25,14 +25,23 @@ const DatasetListHeader = (props: dataSetListHeaderProps) => {
 
   return (
     <Row className="mt-3 pe-4">
-      <Col lg md sm xl xs xxl="2" className="pe-0">
+      <Col lg={2} md={2} sm={2} xl={2} xs={2} xxl={2} className="pe-0">
         <Badge className="p-2 bg-secondary">
           Datasets Found: {props.dsCount}
         </Badge>
       </Col>
-      <Col lg md sm xl xs xxl="8" className="pe-0">
+      <Col lg={8} md={8} sm={8} xl={8} xs={8} xxl={8} className="pe-0">
         {getFilterParamsList().map((item) => (
-          <Badge key={item} className="p-2 bg-primary me-2">
+          <Badge
+            key={item}
+            className="p-2 bg-primary me-2 mb-1 overflow-hidden fs-9"
+            style={{
+              maxWidth: "200px",
+              whiteSpace: "nowrap",
+              textOverflow: "ellipsis",
+            }}
+            title={item}
+          >
             {item}
           </Badge>
         ))}

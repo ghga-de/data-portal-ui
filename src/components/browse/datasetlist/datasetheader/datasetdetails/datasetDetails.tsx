@@ -54,7 +54,7 @@ const DatasetDetails = (props: dataSetDetailsProps) => {
               </span>
             </p>
           </Col>
-          <Col lg md sm xl xs xxl="1" className="text-end px-0">
+          <Col lg={1} md={1} sm={1} xl={1} xs={1} xxl={1} className="text-end px-0">
             {props.details !== null && props.details !== undefined ? (
               <Button className="fs-8 w-100" onClick={() => handleOpen()}>
                 Request Access
@@ -87,7 +87,7 @@ const DatasetDetails = (props: dataSetDetailsProps) => {
 
             <Modal.Body className="px-4">
               <Row className="mb-3 p-3 bg-gray align-items-center">
-                <Col lg md sm xl xs xxl={1}>
+                <Col lg={1} md={1} sm={1} xl={1} xs={1} xxl={1}>
                   <FontAwesomeIcon
                     icon={faCircleExclamation}
                     className="text-danger"

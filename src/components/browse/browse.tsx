@@ -60,7 +60,7 @@ const Browse = () => {
   return (
     <Container>
       <Row>
-        <Col lg md sm xl xs xxl={3}>
+        <Col lg={3} md={3} sm={3} xl={3} xs={3} xxl={3}>
           <Sidebar
             searchKeyword={searchKeyword}
             setSearchKeyword={setSearchKeyword}
@@ -75,7 +75,7 @@ const Browse = () => {
             setPage={setPage}
           />
         </Col>
-        <Col lg md sm xl xs xxl={9}>
+        <Col lg={9} md={9} sm={9} xl={9} xs={9} xxl={9}>
           <DatasetList
             searchKeyword={searchKeyword}
             setSearchResults={setSearchResults}
