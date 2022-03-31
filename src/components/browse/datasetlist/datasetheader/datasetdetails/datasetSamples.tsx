@@ -16,7 +16,7 @@ interface dataSetSamplesProps {
 
 const DatasetSamples = (props: dataSetSamplesProps) => {
   const samples = props.samplesList;
-  const sexes = { female: "XY", male: "XX" };
+  const sexes = { female: "female", male: "male" };
   var countFemale: number = 0;
   var countMale: number = 0;
   var countUnknown: number = 0;
