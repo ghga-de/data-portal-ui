@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Row, Col, Button, Modal, Spinner } from "react-bootstrap";
+import { Row, Col, Button, Modal, Spinner, Tooltip, OverlayTrigger } from "react-bootstrap";
 import { datasetEmbeddedModel, hitModel, dataAccessCommitteeModel, dataAccessPolicyModel } from "../../../../../models/dataset";
 import DatasetExperiments from "./datasetExperiments";
 import DatasetFiles from "./datasetFiles";
@@ -57,6 +57,12 @@ const DatasetDetails = (props: dataSetDetailsProps) => {
     }
     return mailId
   }
+
+  const renderTooltip = (message: string) => (
+    <Tooltip id={message}>
+      Copy {message} to clipboard
+    </Tooltip>
+  );
 
   return (
     <div className="fs-9">
@@ -135,12 +141,19 @@ const DatasetDetails = (props: dataSetDetailsProps) => {
                   To: {getEmailId()}
                 </Col>
                 <Col lg={1} md={1} sm={1} xl={1} xs={1} xxl={1}>
-                  <CopyToClipboard text={copyEmail}>
-                    <FontAwesomeIcon
-                      icon={faCopy}
-                      className="text-muted me-3"
-                    />
-                  </CopyToClipboard>
+                  <OverlayTrigger
+                    placement="right"
+                    delay={{ show: 250, hide: 400 }}
+                    overlay={renderTooltip("email ID")}
+                  >
+                    <CopyToClipboard text={copyEmail}>
+                      <Button id={"email ID"} variant="outline-dark">
+                        <FontAwesomeIcon
+                          icon={faCopy}
+                        />
+                      </Button>
+                    </CopyToClipboard>
+                  </OverlayTrigger>
                 </Col>
               </Row>
               <br />
@@ -149,15 +162,21 @@ const DatasetDetails = (props: dataSetDetailsProps) => {
                   Subject: Request access for dataset {props.hit.content.accession}
                 </Col>
                 <Col lg={1} md={1} sm={1} xl={1} xs={1} xxl={1}>
-                  <CopyToClipboard text={"Request access for dataset " + props.hit.content.accession}>
-                    <FontAwesomeIcon
-                      icon={faCopy}
-                      className="text-muted me-3"
-                    />
-                  </CopyToClipboard>
+                  <OverlayTrigger
+                    placement="right"
+                    delay={{ show: 250, hide: 400 }}
+                    overlay={renderTooltip("subject")}
+                  >
+                    <CopyToClipboard text={"Request access for dataset " + props.hit.content.accession}>
+                      <Button id={"subject"} variant="outline-dark">
+                        <FontAwesomeIcon
+                          icon={faCopy}
+                        />
+                      </Button>
+                    </CopyToClipboard>
+                  </OverlayTrigger>
                 </Col>
               </Row>
-              <br />
               <br />
               <Row>
                 <Col lg={11} md={11} sm={11} xl={11} xs={11} xxl={11}>
@@ -172,19 +191,26 @@ const DatasetDetails = (props: dataSetDetailsProps) => {
                   Kind regards
                 </Col>
                 <Col lg={1} md={1} sm={1} xl={1} xs={1} xxl={1}>
-                  <CopyToClipboard text={`Dear DAC team,
+                  <OverlayTrigger
+                    placement="right"
+                    delay={{ show: 250, hide: 400 }}
+                    overlay={renderTooltip("email body")}
+                  >
+                    <CopyToClipboard text={`Dear DAC team,
                     
                     I am interested in accessing the Dataset ` +
-                    props.hit.content.accession + `, which is listed in the GHGA
+                      props.hit.content.accession + `, which is listed in the GHGA
                     Metadata Catalogue. Please could you reply to me as soon as you
                     are able to discuss my proposed project? Thank you.
                     
                     Kind regards`}>
-                    <FontAwesomeIcon
-                      icon={faCopy}
-                      className="text-muted me-3"
-                    />
-                  </CopyToClipboard>
+                      <Button id={"email body"} variant="outline-dark">
+                        <FontAwesomeIcon
+                          icon={faCopy}
+                        />
+                      </Button>
+                    </CopyToClipboard>
+                  </OverlayTrigger>
                 </Col>
               </Row>
             </Modal.Body>
@@ -215,27 +241,29 @@ const DatasetDetails = (props: dataSetDetailsProps) => {
         </p>
       </Row>
       <hr />
-      {props.details !== null && props.details !== undefined ? (
-        <div>
-          <Row className="my-4 pt-3 fs-8">
-            <DatasetStudies studiesList={props.details.has_study} />
-            <DatasetFiles filesList={props.details.has_file} />
-          </Row>
-          <Row className="pb-4 pt-2 fs-8">
-            <DatasetSamples samplesList={props.details.has_sample} />
-            <DatasetExperiments
-              experimentsList={props.details.has_experiment}
-              hit={props.hit}
-            />
-          </Row>
-        </div>
-      ) : (
-        <div>
-          <Spinner animation="border" variant="primary" size="sm" />
-          &nbsp;Dataset details loading, please wait...
-        </div>
-      )}
-    </div>
+      {
+        props.details !== null && props.details !== undefined ? (
+          <div>
+            <Row className="my-4 pt-3 fs-8">
+              <DatasetStudies studiesList={props.details.has_study} />
+              <DatasetFiles filesList={props.details.has_file} />
+            </Row>
+            <Row className="pb-4 pt-2 fs-8">
+              <DatasetSamples samplesList={props.details.has_sample} />
+              <DatasetExperiments
+                experimentsList={props.details.has_experiment}
+                hit={props.hit}
+              />
+            </Row>
+          </div>
+        ) : (
+          <div>
+            <Spinner animation="border" variant="primary" size="sm" />
+            &nbsp;Dataset details loading, please wait...
+          </div>
+        )
+      }
+    </div >
   );
 };
 
