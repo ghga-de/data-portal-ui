@@ -131,10 +131,10 @@ const DatasetDetails = (props: dataSetDetailsProps) => {
                 </Col>
               </Row>
               <Row>
-                <Col>
+                <Col lg={10} md={10} sm={10} xl={10} xs={10} xxl={10}>
                   To: {getEmailId()}
                 </Col>
-                <Col>
+                <Col lg={2} md={2} sm={2} xl={2} xs={2} xxl={2}>
                   <CopyToClipboard text={copyEmail}>
                     <FontAwesomeIcon
                       icon={faCopy}
@@ -145,10 +145,10 @@ const DatasetDetails = (props: dataSetDetailsProps) => {
               </Row>
               <br />
               <Row>
-                <Col>
+                <Col lg={10} md={10} sm={10} xl={10} xs={10} xxl={10}>
                   Subject: Request access for dataset {props.hit.content.accession}
                 </Col>
-                <Col>
+                <Col lg={2} md={2} sm={2} xl={2} xs={2} xxl={2}>
                   <CopyToClipboard text={"Request access for dataset " + props.hit.content.accession}>
                     <FontAwesomeIcon
                       icon={faCopy}
@@ -160,7 +160,7 @@ const DatasetDetails = (props: dataSetDetailsProps) => {
               <br />
               <br />
               <Row>
-                <Col>
+                <Col lg={10} md={10} sm={10} xl={10} xs={10} xxl={10}>
                   Dear DAC team,
                   <br />
                   <br />I am interested in accessing the Dataset{" "}
@@ -171,7 +171,7 @@ const DatasetDetails = (props: dataSetDetailsProps) => {
                   <br />
                   Kind regards
                 </Col>
-                <Col>
+                <Col lg={2} md={2} sm={2} xl={2} xs={2} xxl={2}>
                   <CopyToClipboard text={`Dear DAC team,
                     
                     I am interested in accessing the Dataset ` +
