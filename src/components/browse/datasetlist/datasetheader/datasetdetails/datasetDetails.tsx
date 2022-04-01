@@ -5,10 +5,12 @@ import DatasetExperiments from "./datasetExperiments";
 import DatasetFiles from "./datasetFiles";
 import DatasetSamples from "./datasetSamples";
 import DatasetStudies from "./datasetStudies";
+import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faDownload,
   faCircleExclamation,
+  faCopy,
 } from "@fortawesome/free-solid-svg-icons";
 
 interface dataSetDetailsProps {
@@ -18,9 +20,12 @@ interface dataSetDetailsProps {
 
 const DatasetDetails = (props: dataSetDetailsProps) => {
   const [show, setShow] = useState(false);
-
+  const [copyEmail, setCopyEmail] = useState<string>('helpdesk@ghga.de')
   const handleClose = () => setShow(false);
-  const handleOpen = () => setShow(true);
+  const handleOpen = () => {
+    setCopyEmail(getEmailId())
+    setShow(true);
+  }
 
   const requestAccess = (datasetId: string) => {
     const subject: string = "Request access for dataset " + datasetId;
@@ -43,15 +48,14 @@ const DatasetDetails = (props: dataSetDetailsProps) => {
       const main_contact = dataAccessCommittee.main_contact;
       for (var item of dataAccessCommittee.has_member) {
         if (main_contact === null) {
-          return item.email === null ? mailId : item.email
+          mailId = (item.email === null || item.email === undefined) ? mailId : item.email
         }
-        if (item.id === main_contact) {
-          return item.email
+        if (item.id === main_contact && item.email !== null && item.email !== undefined) {
+          mailId = item.email
         }
       }
-    } else {
-      return mailId
     }
+    return mailId
   }
 
   return (
@@ -126,22 +130,63 @@ const DatasetDetails = (props: dataSetDetailsProps) => {
                   requests.
                 </Col>
               </Row>
-              <p className="user-select-all mb-4">
-                To: {getEmailId()}
-                <br />
-                Subject: Request access for dataset {props.hit.content.accession}
-                <br />
-                <br />
-                Dear DAC team,
-                <br />
-                <br />I am interested in accessing the Dataset{" "}
-                {props.hit.content.accession}, which is listed in the GHGA
-                Metadata Catalogue. Please could you reply to me as soon as you
-                are able to discuss my proposed project? Thank you.
-                <br />
-                <br />
-                Kind regards
-              </p>
+              <Row>
+                <Col>
+                  To: {getEmailId()}
+                </Col>
+                <Col>
+                  <CopyToClipboard text={copyEmail}>
+                    <FontAwesomeIcon
+                      icon={faCopy}
+                      className="text-muted me-3"
+                    />
+                  </CopyToClipboard>
+                </Col>
+              </Row>
+              <br />
+              <Row>
+                <Col>
+                  Subject: Request access for dataset {props.hit.content.accession}
+                </Col>
+                <Col>
+                  <CopyToClipboard text={"Request access for dataset " + props.hit.content.accession}>
+                    <FontAwesomeIcon
+                      icon={faCopy}
+                      className="text-muted me-3"
+                    />
+                  </CopyToClipboard>
+                </Col>
+              </Row>
+              <br />
+              <br />
+              <Row>
+                <Col>
+                  Dear DAC team,
+                  <br />
+                  <br />I am interested in accessing the Dataset{" "}
+                  {props.hit.content.accession}, which is listed in the GHGA
+                  Metadata Catalogue. Please could you reply to me as soon as you
+                  are able to discuss my proposed project? Thank you.
+                  <br />
+                  <br />
+                  Kind regards
+                </Col>
+                <Col>
+                  <CopyToClipboard text={`Dear DAC team,
+                    
+                    I am interested in accessing the Dataset ` +
+                    props.hit.content.accession + `, which is listed in the GHGA
+                    Metadata Catalogue. Please could you reply to me as soon as you
+                    are able to discuss my proposed project? Thank you.
+                    
+                    Kind regards`}>
+                    <FontAwesomeIcon
+                      icon={faCopy}
+                      className="text-muted me-3"
+                    />
+                  </CopyToClipboard>
+                </Col>
+              </Row>
             </Modal.Body>
             <Modal.Footer className="border-0">
               <Col className="px-4">
