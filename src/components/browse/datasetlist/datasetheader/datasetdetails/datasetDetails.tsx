@@ -1,14 +1,16 @@
 import React, { useState } from "react";
-import { Row, Col, Button, Modal, Spinner } from "react-bootstrap";
+import { Row, Col, Button, Modal, Spinner, Tooltip, OverlayTrigger } from "react-bootstrap";
 import { datasetEmbeddedModel, hitModel, dataAccessCommitteeModel, dataAccessPolicyModel } from "../../../../../models/dataset";
 import DatasetExperiments from "./datasetExperiments";
 import DatasetFiles from "./datasetFiles";
 import DatasetSamples from "./datasetSamples";
 import DatasetStudies from "./datasetStudies";
+import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faDownload,
   faCircleExclamation,
+  faCopy,
 } from "@fortawesome/free-solid-svg-icons";
 
 interface dataSetDetailsProps {
@@ -18,9 +20,12 @@ interface dataSetDetailsProps {
 
 const DatasetDetails = (props: dataSetDetailsProps) => {
   const [show, setShow] = useState(false);
-
+  const [copyEmail, setCopyEmail] = useState<string>('helpdesk@ghga.de')
   const handleClose = () => setShow(false);
-  const handleOpen = () => setShow(true);
+  const handleOpen = () => {
+    setCopyEmail(getEmailId())
+    setShow(true);
+  }
 
   const requestAccess = (datasetId: string) => {
     const subject: string = "Request access for dataset " + datasetId;
@@ -43,16 +48,21 @@ const DatasetDetails = (props: dataSetDetailsProps) => {
       const main_contact = dataAccessCommittee.main_contact;
       for (var item of dataAccessCommittee.has_member) {
         if (main_contact === null) {
-          return item.email === null ? mailId : item.email
+          mailId = (item.email === null || item.email === undefined) ? mailId : item.email
         }
-        if (item.id === main_contact) {
-          return item.email
+        if (item.id === main_contact && item.email !== null && item.email !== undefined) {
+          mailId = item.email
         }
       }
-    } else {
-      return mailId
     }
+    return mailId
   }
+
+  const renderTooltip = (message: string) => (
+    <Tooltip id={message}>
+      Copy {message} to clipboard
+    </Tooltip>
+  );
 
   return (
     <div className="fs-9">
@@ -126,22 +136,83 @@ const DatasetDetails = (props: dataSetDetailsProps) => {
                   requests.
                 </Col>
               </Row>
-              <p className="user-select-all mb-4">
-                To: {getEmailId()}
-                <br />
-                Subject: Request access for dataset {props.hit.content.accession}
-                <br />
-                <br />
-                Dear DAC team,
-                <br />
-                <br />I am interested in accessing the Dataset{" "}
-                {props.hit.content.accession}, which is listed in the GHGA
-                Metadata Catalogue. Please could you reply to me as soon as you
-                are able to discuss my proposed project? Thank you.
-                <br />
-                <br />
-                Kind regards
-              </p>
+              <Row>
+                <Col lg={11} md={11} sm={11} xl={11} xs={11} xxl={11}>
+                  To: {getEmailId()}
+                </Col>
+                <Col lg={1} md={1} sm={1} xl={1} xs={1} xxl={1}>
+                  <OverlayTrigger
+                    placement="right"
+                    delay={{ show: 250, hide: 400 }}
+                    overlay={renderTooltip("email ID")}
+                  >
+                    <CopyToClipboard text={copyEmail}>
+                      <Button id={"email ID"} variant="outline-dark">
+                        <FontAwesomeIcon
+                          icon={faCopy}
+                        />
+                      </Button>
+                    </CopyToClipboard>
+                  </OverlayTrigger>
+                </Col>
+              </Row>
+              <br />
+              <Row>
+                <Col lg={11} md={11} sm={11} xl={11} xs={11} xxl={11}>
+                  Subject: Request access for dataset {props.hit.content.accession}
+                </Col>
+                <Col lg={1} md={1} sm={1} xl={1} xs={1} xxl={1}>
+                  <OverlayTrigger
+                    placement="right"
+                    delay={{ show: 250, hide: 400 }}
+                    overlay={renderTooltip("subject")}
+                  >
+                    <CopyToClipboard text={"Request access for dataset " + props.hit.content.accession}>
+                      <Button id={"subject"} variant="outline-dark">
+                        <FontAwesomeIcon
+                          icon={faCopy}
+                        />
+                      </Button>
+                    </CopyToClipboard>
+                  </OverlayTrigger>
+                </Col>
+              </Row>
+              <br />
+              <Row>
+                <Col lg={11} md={11} sm={11} xl={11} xs={11} xxl={11}>
+                  Dear DAC team,
+                  <br />
+                  <br />I am interested in accessing the Dataset{" "}
+                  {props.hit.content.accession}, which is listed in the GHGA
+                  Metadata Catalogue. Please could you reply to me as soon as you
+                  are able to discuss my proposed project? Thank you.
+                  <br />
+                  <br />
+                  Kind regards
+                </Col>
+                <Col lg={1} md={1} sm={1} xl={1} xs={1} xxl={1}>
+                  <OverlayTrigger
+                    placement="right"
+                    delay={{ show: 250, hide: 400 }}
+                    overlay={renderTooltip("email body")}
+                  >
+                    <CopyToClipboard text={`Dear DAC team,
+                    
+                    I am interested in accessing the Dataset ` +
+                      props.hit.content.accession + `, which is listed in the GHGA
+                    Metadata Catalogue. Please could you reply to me as soon as you
+                    are able to discuss my proposed project? Thank you.
+                    
+                    Kind regards`}>
+                      <Button id={"email body"} variant="outline-dark">
+                        <FontAwesomeIcon
+                          icon={faCopy}
+                        />
+                      </Button>
+                    </CopyToClipboard>
+                  </OverlayTrigger>
+                </Col>
+              </Row>
             </Modal.Body>
             <Modal.Footer className="border-0">
               <Col className="px-4">
@@ -170,27 +241,29 @@ const DatasetDetails = (props: dataSetDetailsProps) => {
         </p>
       </Row>
       <hr />
-      {props.details !== null && props.details !== undefined ? (
-        <div>
-          <Row className="my-4 pt-3 fs-8">
-            <DatasetStudies studiesList={props.details.has_study} />
-            <DatasetFiles filesList={props.details.has_file} />
-          </Row>
-          <Row className="pb-4 pt-2 fs-8">
-            <DatasetSamples samplesList={props.details.has_sample} />
-            <DatasetExperiments
-              experimentsList={props.details.has_experiment}
-              hit={props.hit}
-            />
-          </Row>
-        </div>
-      ) : (
-        <div>
-          <Spinner animation="border" variant="primary" size="sm" />
-          &nbsp;Dataset details loading, please wait...
-        </div>
-      )}
-    </div>
+      {
+        props.details !== null && props.details !== undefined ? (
+          <div>
+            <Row className="my-4 pt-3 fs-8">
+              <DatasetStudies studiesList={props.details.has_study} />
+              <DatasetFiles filesList={props.details.has_file} />
+            </Row>
+            <Row className="pb-4 pt-2 fs-8">
+              <DatasetSamples samplesList={props.details.has_sample} />
+              <DatasetExperiments
+                experimentsList={props.details.has_experiment}
+                hit={props.hit}
+              />
+            </Row>
+          </div>
+        ) : (
+          <div>
+            <Spinner animation="border" variant="primary" size="sm" />
+            &nbsp;Dataset details loading, please wait...
+          </div>
+        )
+      }
+    </div >
   );
 };
 
