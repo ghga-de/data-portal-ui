@@ -1,4 +1,4 @@
-import { Row, Col, Button, Spinner } from "react-bootstrap";
+import { Row, Button, Spinner } from "react-bootstrap";
 import {
   dataAccessCommitteeModel,
   dataAccessPolicyModel,
@@ -21,6 +21,11 @@ const DatasetDetails = (props: dataSetDetailsProps) => {
   const [show, setShow] = React.useState(false);
   const [copyEmail, setCopyEmail] = React.useState<string>("helpdesk@ghga.de");
   const handleClose = () => setShow(false);
+
+  var dacFormLink: string | null = null;
+  if (props.details && props.details.has_data_access_policy.data_request_form) {
+    dacFormLink = props.details.has_data_access_policy.data_request_form;
+  }
 
   const getEmailId = () => {
     let mailId: string = "helpdesk@ghga.de";
@@ -55,38 +60,24 @@ const DatasetDetails = (props: dataSetDetailsProps) => {
   };
 
   return (
-    <div className="fs-9">
+    <div className="fs-8">
       <Row>
         <Row className="pe-0">
-          <Col className="pe-3">
-            <p className="mb-1">
-              <span className="fw-bold">Dataset ID:&nbsp;</span>
-              <span style={{ userSelect: "all" }}>
-                {props.hit.content.accession}
-              </span>
-            </p>
-            <p>
-              <span className="fw-bold">Full title:&nbsp;</span>
-              <span style={{ userSelect: "all" }}>
-                {props.hit.content.title}
-              </span>
-            </p>
-          </Col>
-          <Col
-            lg={1}
-            md={1}
-            sm={1}
-            xl={1}
-            xs={1}
-            xxl={1}
-            className="text-end px-0"
-          >
+          <div className="pe-0 d-block">
             {props.details !== null && props.details !== undefined ? (
-              <Button className="fs-8 w-100" onClick={() => handleOpen()}>
-                Request Access
+              <Button
+                className="fs-8 float-end mb-3 ms-4"
+                onClick={() => handleOpen()}
+                style={{ width: "85px" }}
+              >
+                <strong>Request Access</strong>
               </Button>
             ) : (
-              <Button className="fs-8 w-100" disabled>
+              <Button
+                className="fs-8 float-end mb-3 ms-4"
+                disabled
+                style={{ width: "85px" }}
+              >
                 <Spinner
                   as="span"
                   animation="border"
@@ -96,27 +87,39 @@ const DatasetDetails = (props: dataSetDetailsProps) => {
                 />
               </Button>
             )}
-          </Col>
+            <p>
+              <span className="fw-bold">Dataset ID:&nbsp;</span>
+              <span style={{ userSelect: "all" }}>
+                {props.hit.content.accession}
+              </span>
+              <br />
+              <span className="fw-bold">Full title:&nbsp;</span>
+              <span style={{ userSelect: "all" }}>
+                {props.hit.content.title}
+              </span>
+              <br />
+              <span className="fw-bold">Description:&nbsp;</span>
+              {props.hit.content.description}
+            </p>
+          </div>
           <DataRequestModal
             accession={props.hit.content.accession}
             copyEmail={copyEmail}
             show={show}
             handleClose={handleClose}
+            dacFormLink={dacFormLink}
+            key={props.hit.content.accession + "_modal"}
           />
         </Row>
-        <p className="fs-8">
-          <span className="fw-bold">Description:&nbsp;</span>
-          {props.hit.content.description}
-        </p>
       </Row>
       <hr />
       {props.details !== null && props.details !== undefined ? (
         <div>
-          <Row className="my-4 pt-3 fs-8">
+          <Row className="my-4 pt-3 ">
             <DatasetStudies studiesList={props.details.has_study} />
             <DatasetFiles filesList={props.details.has_file} />
           </Row>
-          <Row className="pb-4 pt-2 fs-8">
+          <Row className="pb-4 pt-2 ">
             <DatasetSamples samplesList={props.details.has_sample} />
             <DatasetExperiments
               experimentsList={props.details.has_experiment}
