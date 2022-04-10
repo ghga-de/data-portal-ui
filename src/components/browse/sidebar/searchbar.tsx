@@ -50,7 +50,7 @@ const Searchbar = (props: searchbarProps) => {
         <Form.Group>
           <div className="input-group p-1">
             <Button type="submit" className="bg-primary">
-              <FontAwesomeIcon icon={faMagnifyingGlass} />
+              <FontAwesomeIcon icon={faMagnifyingGlass} transform="grow-4" />
             </Button>
             <Form.Control
               value={props.searchKeyword}

@@ -1,40 +1,79 @@
-import { Container, Dropdown, Col, Row } from 'react-bootstrap';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Col, Row, Container } from "react-bootstrap";
+import {
+  faCloudDownload,
+  faCloudUpload,
+  faFileLines,
+} from "@fortawesome/free-solid-svg-icons";
+import { faQuestionCircle } from "@fortawesome/free-regular-svg-icons";
+import logo from "../../assets/ghga.png";
 
 const FooterNavbar = () => {
   return (
-    <Container className="mt-5 border-top mw-100 mx-0 d-flex px-0">
-      <Dropdown.Menu show className="border-0 w-100 px-0">
-        <Row className="row-cols-6 mx-0">
-          <Col xl={{ offset: 1 }} lg={{ offset: 1 }} md={{ offset: 1 }}>
-            <Dropdown.Header className='fs-4 fw-bolder text-black'>About us</Dropdown.Header>
-            <Dropdown.Item href="">Mission</Dropdown.Item>
-            <Dropdown.Item href="">Workstreams</Dropdown.Item>
-            <Dropdown.Item href="">Team</Dropdown.Item>
-            <Dropdown.Item href="https://ghga.dkfz.de/">Institutions</Dropdown.Item>
-            <Dropdown.Item href="">Partners</Dropdown.Item>
-            <Dropdown.Item href="">Jobs</Dropdown.Item>
-            <Dropdown.Item href="">Contact</Dropdown.Item>
+    <div className="mt-4 mw-100 mx-0 bg-secondary">
+      <Container className="pt-3 pb-2 text-center">
+        <Row>
+          <Col className="border-1 border-end px-3 mx-0 fs-8">
+            <a href="/">
+              <img src={logo} alt="GHGA logo" height="80px" />
+            </a>
+            <p className="text-start text-light mt-2 mb-1">
+              GHGA Data Portal running in Beta mode.
+            </p>
+            <p className="text-start">
+              <a href="/browse" className="text-light fw-bold">
+                Browse Datasets.
+              </a>
+            </p>
           </Col>
-          <Col>
-            <Dropdown.Header className='fs-4 fw-bolder text-black'>Community</Dropdown.Header>
-            <Dropdown.Item href="">Cancer</Dropdown.Item>
-            <Dropdown.Item href="">Rare Disease</Dropdown.Item>
-          </Col>
-          <Col>
-            <Dropdown.Header className='fs-4 fw-bolder text-black'>News & Events</Dropdown.Header>
-            <Dropdown.Item href="">News</Dropdown.Item>
-            <Dropdown.Item href="">Events</Dropdown.Item>
-          </Col>
-          <Col>
-            <Dropdown.Header className='fs-4 fw-bolder text-black'>Resources</Dropdown.Header>
-            <Dropdown.Item href="https://ghga.dkfz.de/">GHGA Website</Dropdown.Item>
-            <Dropdown.Item href="">Publications</Dropdown.Item>
-            <Dropdown.Item href="">Bioinformatics</Dropdown.Item>
-          </Col>
+          <a
+            href="##"
+            className="text-light text-decoration-none col border-1 border-end px-3 mx-0 flex-shrink-0"
+          >
+            <FontAwesomeIcon
+              icon={faCloudDownload}
+              size="4x"
+              className="text-white mt-3 mb-3"
+            />
+            <p>How to download data</p>
+          </a>
+          <a
+            href="##"
+            className="text-light text-decoration-none col border-1 border-end px-3 mx-0 flex-shrink-0"
+          >
+            <FontAwesomeIcon
+              icon={faCloudUpload}
+              size="4x"
+              className="text-white mt-3 mb-3"
+            />
+            <p>Submit data to GHGA</p>
+          </a>
+          <a
+            href="##"
+            className="text-light text-decoration-none col border-1 border-end px-3 mx-0 flex-shrink-0"
+          >
+            <FontAwesomeIcon
+              icon={faFileLines}
+              size="4x"
+              className="text-white mt-3 mb-3"
+            />
+            <p>About GHGA Metadata Model</p>
+          </a>
+          <a
+            href="##"
+            className="text-light text-decoration-none col border-1 px-3 mx-0 flex-shrink-0"
+          >
+            <FontAwesomeIcon
+              icon={faQuestionCircle}
+              size="4x"
+              className="text-white mt-3 mb-3"
+            />
+            <p>About / FAQ</p>
+          </a>
         </Row>
-      </Dropdown.Menu>
-    </Container>
-  )
-}
+      </Container>
+    </div>
+  );
+};
 
 export default FooterNavbar;

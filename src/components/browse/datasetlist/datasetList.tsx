@@ -44,19 +44,19 @@ const DatasetList = (props: dataSetProps) => {
 
   const HeaderHeader = () => {
     return (
-      <Row className="fs-7 my-2 ms-2 me-5">
+      <Row className="fs-7 mt-4 mb-3 ms-0 me-3 py-1 ps-2 bg-secondary text-light">
         <Col lg={3} md={3} sm={3} xl={3} xs={3} xxl={3}>
-          <span className="fw-bold">Dataset ID:</span>
+          <strong>Dataset ID:</strong>
         </Col>
-        <Col className="pe-2">
-          <span className="fw-bold">Title:</span>
+        <Col className="pe-2 ps-0">
+          <strong>Title:</strong>
         </Col>
       </Row>
     );
   };
 
   return (
-    <div className="bg-white border p-2 ps-3 rounded h-100">
+    <div className="bg-white p-2 ps-3 h-100">
       <DatasetListHeader dsCount={dsCount} searchParams={props.searchParams} />
       {props.dsList === null || props.dsList.length === 0 ? (
         <div className="p-2 fs-3 my-3 fw-bold">
@@ -65,7 +65,6 @@ const DatasetList = (props: dataSetProps) => {
         </div>
       ) : (
         <div>
-          <PaginatedDataset />
           <div className="w-100">
             <HeaderHeader />
             <DatasetHeader dsList={props.dsList} />

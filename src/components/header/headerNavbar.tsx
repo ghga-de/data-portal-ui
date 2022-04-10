@@ -1,64 +1,25 @@
 import React from "react";
 import logo from "../../assets/ghga.png";
-import HeaderIcons from "./headerIcons";
-import { Navbar, Container, Nav, NavDropdown } from "react-bootstrap";
+import { Navbar, Container, Nav } from "react-bootstrap";
 
 const HeaderNavbar = () => {
   return (
-    <Navbar collapseOnSelect expand="lg" bg="white">
-      <Container className="align-items-start">
-        <Navbar.Brand>
+    <Navbar collapseOnSelect expand="lg" bg="primary" variant="dark">
+      <Container>
+        <Navbar.Brand className="p-0" >
           <a href="/">
-            <img src={logo} alt="GHGA logo" height="70px" />
+            <img src={logo} alt="GHGA logo" height="40px"/>
           </a>
         </Navbar.Brand>
-        <Navbar.Toggle aria-controls="basic-navbar-nav" className="border-2" />
+        <Navbar.Toggle aria-controls="basic-navbar-nav" className="border-2 text-light" />
         <Navbar.Collapse id="responsive-navbar-nav">
-          <Nav className="ms-auto">
-            <NavDropdown
-              className="fw-bold"
-              title="ABOUT US"
-              id="collasible-nav-dropdown"
-            >
-              <NavDropdown.Item href="">Mission</NavDropdown.Item>
-              <NavDropdown.Item href="">Workstreams</NavDropdown.Item>
-              <NavDropdown.Item href="">Team</NavDropdown.Item>
-              <NavDropdown.Item href="https://ghga.dkfz.de/">
-                Institutions
-              </NavDropdown.Item>
-              <NavDropdown.Item href="">Partners</NavDropdown.Item>
-              <NavDropdown.Item href="">Jobs</NavDropdown.Item>
-              <NavDropdown.Item href="">Contact</NavDropdown.Item>
-            </NavDropdown>
-            <NavDropdown
-              className="fw-bold"
-              title="COMMUNITY"
-              id="collasible-nav-dropdown"
-            >
-              <NavDropdown.Item href="">Cancer</NavDropdown.Item>
-              <NavDropdown.Item href="">Rare Disease</NavDropdown.Item>
-            </NavDropdown>
-            <NavDropdown
-              className="fw-bold"
-              title="NEWS & EVENTS"
-              id="collasible-nav-dropdown"
-            >
-              <NavDropdown.Item href="">News</NavDropdown.Item>
-              <NavDropdown.Item href="">Events</NavDropdown.Item>
-            </NavDropdown>
-            <NavDropdown
-              className="fw-bold"
-              title="RESOURCES"
-              id="collasible-nav-dropdown"
-            >
-              <NavDropdown.Item href="https://ghga.dkfz.de/">
-                GHGA Website
-              </NavDropdown.Item>
-              <NavDropdown.Item href="">Publications</NavDropdown.Item>
-              <NavDropdown.Item href="">Bioinformatics</NavDropdown.Item>
-            </NavDropdown>
+          <Nav className="justify-content-center flex-fill">
+            <Nav.Link className="text-light mx-2">Home</Nav.Link>
+            <Nav.Link className="mx-2">Download</Nav.Link>
+            <Nav.Link className="mx-2">Upload</Nav.Link>
+            <Nav.Link className="mx-2">Metadata Model</Nav.Link>
+            <Nav.Link className="mx-2">About</Nav.Link>
           </Nav>
-          <HeaderIcons />
         </Navbar.Collapse>
       </Container>
     </Navbar>
