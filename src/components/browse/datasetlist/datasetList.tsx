@@ -3,7 +3,7 @@ import DatasetListHeader from "./datasetListHeader";
 import DatasetPagination from "./datasetPagination";
 import DatasetHeader from "./datasetheader/datasetHeader";
 import { hitModel, searchResponseModel } from "../../../models/dataset";
-import { facetFilterModel } from "../../../models/facets";
+import { facetFilterModel, facetModel } from "../../../models/facets";
 import { Col, Row } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleExclamation } from "@fortawesome/free-solid-svg-icons";
@@ -20,6 +20,7 @@ interface dataSetProps {
   setSearchParams: any;
   page: number;
   setPage: Dispatch<SetStateAction<number>>;
+  facets: facetModel[] | null;
 }
 
 const DatasetList = (props: dataSetProps) => {
@@ -57,7 +58,7 @@ const DatasetList = (props: dataSetProps) => {
 
   return (
     <div className="bg-white p-2 ps-3 h-100">
-      <DatasetListHeader dsCount={dsCount} searchParams={props.searchParams} />
+      <DatasetListHeader dsCount={dsCount} searchParams={props.searchParams} facets={props.facets} />
       {props.dsList === null || props.dsList.length === 0 ? (
         <div className="p-2 fs-3 my-3 fw-bold">
           <FontAwesomeIcon icon={faCircleExclamation} className="text-danger" />

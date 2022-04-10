@@ -14,11 +14,11 @@ const HeaderNavbar = () => {
         <Navbar.Toggle aria-controls="basic-navbar-nav" className="border-2 text-light" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="justify-content-center flex-fill">
-            <Nav.Link className="text-light mx-2">Home</Nav.Link>
-            <Nav.Link className="mx-2">Download</Nav.Link>
-            <Nav.Link className="mx-2">Upload</Nav.Link>
-            <Nav.Link className="mx-2">Metadata Model</Nav.Link>
-            <Nav.Link className="mx-2">About</Nav.Link>
+            <Nav.Link href="/" className="text-light mx-2">Home</Nav.Link>
+            <Nav.Link href="https://www.ghga.de/data/data-download" className="mx-2">Download</Nav.Link>
+            <Nav.Link href="https://www.ghga.de/data/data-upload" className="mx-2">Upload</Nav.Link>
+            <Nav.Link href="https://www.ghga.de/data/metadata-model" className="mx-2">Metadata Model</Nav.Link>
+            <Nav.Link href="https://www.ghga.de/data/about-ghga-beta" className="mx-2">About / FAQ</Nav.Link>
           </Nav>
         </Navbar.Collapse>
       </Container>

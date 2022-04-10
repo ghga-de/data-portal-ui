@@ -1,9 +1,11 @@
 import React from "react";
-import { Badge, Row, Col, } from "react-bootstrap";
+import { Badge, Row, Col } from "react-bootstrap";
+import { facetModel } from "../../../models/facets";
 
 interface dataSetListHeaderProps {
   dsCount: number;
   searchParams: any;
+  facets: facetModel[] | null;
 }
 
 const DatasetListHeader = (props: dataSetListHeaderProps) => {
@@ -15,7 +17,19 @@ const DatasetListHeader = (props: dataSetListHeaderProps) => {
     ) {
       let searchParamsList = props.searchParams.get("f").split(";");
       for (var item of searchParamsList) {
-        filterParamsList.push(item.replace(":", " | "));
+        var itemPretty = item.replace(":", ": ");
+        if (props.facets !== null) {
+          const findResult: facetModel | undefined = props.facets.find(
+            (x) => x.key === item.split(":")[0]
+          );
+          if (findResult !== undefined) {
+            var facetName = findResult.name;
+            if (facetName !== undefined) {
+              itemPretty = facetName + ": " + item.split(":")[1];
+            }
+          }
+        }
+        filterParamsList.push(itemPretty);
       }
     }
     return filterParamsList;
