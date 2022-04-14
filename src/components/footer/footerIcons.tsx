@@ -10,7 +10,7 @@ import { Container } from "react-bootstrap";
 const FooterIcons = () => {
   const year = new Date().getFullYear()
   return (
-      <Container className="mb-2 mt-5 text-center fs-3">
+      <Container className="mb-2 text-center fs-3">
         <a target="_blank" rel="noreferrer" className="mx-2" href="https://twitter.com/GHGA_DE">
           <FontAwesomeIcon icon={faTwitter}/>
         </a>

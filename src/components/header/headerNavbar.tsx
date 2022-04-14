@@ -1,5 +1,5 @@
 import React from "react";
-import logo from "../../assets/ghga.png";
+import logo from "../../assets/data-portal.png";
 import { Navbar, Container, Nav } from "react-bootstrap";
 
 const HeaderNavbar = () => {
@@ -8,7 +8,7 @@ const HeaderNavbar = () => {
       <Container>
         <Navbar.Brand className="p-0" >
           <a href="/">
-            <img src={logo} alt="GHGA logo" height="40px"/>
+            <img src={logo} alt="GHGA logo" height="50px"/>
           </a>
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" className="border-2 text-light" />

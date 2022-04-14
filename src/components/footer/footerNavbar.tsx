@@ -6,16 +6,16 @@ import {
   faFileLines,
 } from "@fortawesome/free-solid-svg-icons";
 import { faQuestionCircle } from "@fortawesome/free-regular-svg-icons";
-import logo from "../../assets/ghga.png";
+import logo from "../../assets/data-portal.png";
 
 const FooterNavbar = () => {
   return (
-    <div className="mt-4 mw-100 mx-0 bg-secondary">
+    <div className="mt-4 pb-2 mw-100 mx-0 bg-secondary">
       <Container className="pt-3 pb-2 text-center">
         <Row>
           <Col className="border-1 border-end px-3 mx-0 fs-8">
             <a href="/">
-              <img src={logo} alt="GHGA logo" height="80px" />
+              <img src={logo} alt="GHGA logo" height="70px" />
             </a>
             <p className="text-start text-light mt-2 mb-1">
               GHGA Data Portal running in Beta mode.
