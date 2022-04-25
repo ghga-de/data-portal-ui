@@ -17,7 +17,7 @@ const Footer = () => {
           backgroundRepeat: "no-repeat",
           backgroundPosition: "center bottom"
         }}
-        className="bg-secondary mw-100 w-100 mx-0 bg-secondary"
+        className="bg-primary mw-100 w-100 mx-0"
       >
         &nbsp;
       </div>

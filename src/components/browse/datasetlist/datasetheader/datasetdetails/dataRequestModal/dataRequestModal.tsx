@@ -77,11 +77,11 @@ const DataRequestModal = (props: DataRequestModalProps) => {
   };
 
   const renderTooltip = (message: string) => (
-    <Tooltip id={message}>{message}</Tooltip>
+    <Tooltip id={message}  key={props.accession + "_modal_message"}>{message}</Tooltip>
   );
 
   return (
-    <Modal size="lg" centered show={props.show} onHide={props.handleClose}>
+    <Modal size="lg" centered show={props.show} onHide={props.handleClose} key={props.accession + "_modal"}>
       <Modal.Header closeButton className="border-0">
         <Modal.Title>
           <FontAwesomeIcon icon={faDownload} className="text-muted me-3" />
@@ -170,7 +170,7 @@ const DataRequestModal = (props: DataRequestModalProps) => {
                 overlay={renderTooltip(emailTooltipString)}
                 rootClose={true}
               >
-                <CopyToClipboard text={props.copyEmail}>
+                <Col><CopyToClipboard text={props.copyEmail}>
                   <Col
                     lg={"auto"}
                     md={"auto"}
@@ -186,7 +186,7 @@ const DataRequestModal = (props: DataRequestModalProps) => {
                       {props.copyEmail}
                     </span>
                   </Col>
-                </CopyToClipboard>
+                </CopyToClipboard></Col>
               </OverlayTrigger>
               <Col
                 className="text-end ps-0"
@@ -203,7 +203,7 @@ const DataRequestModal = (props: DataRequestModalProps) => {
                   overlay={renderTooltip(emailTooltipString)}
                   rootClose={true}
                 >
-                  <CopyToClipboard text={props.copyEmail}>
+                  <Col><CopyToClipboard text={props.copyEmail}>
                     <Button
                       id={"email_address"}
                       variant="outline-dark"
@@ -213,7 +213,7 @@ const DataRequestModal = (props: DataRequestModalProps) => {
                     >
                       <FontAwesomeIcon icon={faCopy} transform="up-6" />
                     </Button>
-                  </CopyToClipboard>
+                  </CopyToClipboard></Col>
                 </OverlayTrigger>
               </Col>
             </Row>
@@ -224,7 +224,7 @@ const DataRequestModal = (props: DataRequestModalProps) => {
                 overlay={renderTooltip(subjectTooltipString)}
                 rootClose={true}
               >
-                <CopyToClipboard text={subject}>
+                <Col><CopyToClipboard text={subject}>
                   <Col
                     lg={"auto"}
                     md={"auto"}
@@ -241,7 +241,7 @@ const DataRequestModal = (props: DataRequestModalProps) => {
                       {subject}
                     </span>
                   </Col>
-                </CopyToClipboard>
+                </CopyToClipboard></Col>
               </OverlayTrigger>
               <Col
                 className="text-end ps-0"
@@ -258,7 +258,7 @@ const DataRequestModal = (props: DataRequestModalProps) => {
                   overlay={renderTooltip(subjectTooltipString)}
                   rootClose={true}
                 >
-                  <CopyToClipboard text={subject}>
+                  <Col><CopyToClipboard text={subject}>
                     <Button
                       id={"subject"}
                       variant="outline-dark"
@@ -268,31 +268,31 @@ const DataRequestModal = (props: DataRequestModalProps) => {
                     >
                       <FontAwesomeIcon icon={faCopy} transform="up-6" />
                     </Button>
-                  </CopyToClipboard>
+                  </CopyToClipboard></Col>
                 </OverlayTrigger>
               </Col>
             </Row>
           </Col>
         </Row>
-        <Row className="border border-light border-3 rounded my-2 py-1">
+        <Row className="border border-light border-3 rounded rounded-3 my-2 py-1">
           <OverlayTrigger
             placement="auto"
             delay={{ show: 100, hide: 400 }}
             overlay={renderTooltip(bodyTooltipString)}
             rootClose={true}
           >
-            <CopyToClipboard text={body}>
+            <Col><CopyToClipboard text={body}>
               <Col style={{ cursor: "pointer" }}>
                 <p onMouseDown={() => setCopiedMessage(2)}>
-                  {body.split("\n").map((string) => (
-                    <>
+                  {body.split("\n").map((string, idx) => (
+                    <span key={props.accession + "_modal_request_body_text_ln_" + idx}>
                       {string}
                       <br />
-                    </>
+                    </span>
                   ))}
                 </p>
               </Col>
-            </CopyToClipboard>
+            </CopyToClipboard></Col>
           </OverlayTrigger>
           <Col
             className="text-end pe-2"
@@ -309,7 +309,7 @@ const DataRequestModal = (props: DataRequestModalProps) => {
               overlay={renderTooltip(bodyTooltipString)}
               rootClose={true}
             >
-              <CopyToClipboard text={body}>
+              <Col><CopyToClipboard text={body}>
                 <Button
                   id={"email body"}
                   variant="outline-dark"
@@ -318,11 +318,12 @@ const DataRequestModal = (props: DataRequestModalProps) => {
                 >
                   <FontAwesomeIcon icon={faCopy} />
                 </Button>
-              </CopyToClipboard>
+              </CopyToClipboard></Col>
             </OverlayTrigger>
           </Col>
         </Row>
       </Modal.Body>
+      
       <Modal.Footer className="border-0">
         <Col className="px-4">
           <Button
@@ -334,7 +335,7 @@ const DataRequestModal = (props: DataRequestModalProps) => {
           </Button>
         </Col>
         <Col className="pe-4">
-          <Button className="w-100" onClick={() => requestAccess()}>
+          <Button className="w-100 text-white" onClick={() => requestAccess()}>
             Open Mail Client
           </Button>
         </Col>

@@ -66,7 +66,7 @@ const DatasetDetails = (props: dataSetDetailsProps) => {
           <div className="pe-0 d-block">
             {props.details !== null && props.details !== undefined ? (
               <Button
-                className="fs-8 float-end mb-3 ms-4"
+                className="fs-8 float-end mb-3 ms-4 bg-white text-primary"
                 onClick={() => handleOpen()}
                 style={{ width: "85px" }}
               >
@@ -74,7 +74,7 @@ const DatasetDetails = (props: dataSetDetailsProps) => {
               </Button>
             ) : (
               <Button
-                className="fs-8 float-end mb-3 ms-4"
+                className="fs-8 float-end mb-3 ms-4 bg-white text-primary"
                 disabled
                 style={{ width: "85px" }}
               >
@@ -108,14 +108,12 @@ const DatasetDetails = (props: dataSetDetailsProps) => {
             show={show}
             handleClose={handleClose}
             dacFormLink={dacFormLink}
-            key={props.hit.content.accession + "_modal"}
           />
         </Row>
       </Row>
-      <hr />
       {props.details !== null && props.details !== undefined ? (
         <div>
-          <Row className="my-4 pt-3 ">
+          <Row className="mb-3 mt-2 pt-3">
             <DatasetStudies studiesList={props.details.has_study} />
             <DatasetFiles filesList={props.details.has_file} />
           </Row>

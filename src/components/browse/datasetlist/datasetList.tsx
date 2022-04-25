@@ -45,12 +45,12 @@ const DatasetList = (props: dataSetProps) => {
 
   const HeaderHeader = () => {
     return (
-      <Row className="fs-7 mt-4 mb-3 ms-0 me-3 py-1 ps-2 bg-secondary text-light">
+      <Row className="fs-7 mt-4 mb-3 ms-0 me-3 py-1 ps-2 bg-primary text-white">
         <Col lg={3} md={3} sm={3} xl={3} xs={3} xxl={3}>
-          <strong>Dataset ID:</strong>
+          Dataset ID:
         </Col>
         <Col className="pe-2 ps-0">
-          <strong>Title:</strong>
+          Title:
         </Col>
       </Row>
     );

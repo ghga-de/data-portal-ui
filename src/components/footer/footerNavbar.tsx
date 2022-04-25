@@ -10,25 +10,25 @@ import logo from "../../assets/data-portal.png";
 
 const FooterNavbar = () => {
   return (
-    <div className="mt-4 pb-2 mw-100 mx-0 bg-secondary">
+    <div className="mt-4 pb-2 mw-100 mx-0 bg-primary">
       <Container className="pt-3 pb-2 text-center">
         <Row>
-          <Col className="border-1 border-end px-3 mx-0 fs-8">
+          <Col className="border-1 border-end px-3 mx-0 fs-8 text-white">
             <a href="/">
               <img src={logo} alt="GHGA logo" height="70px" />
             </a>
-            <p className="text-start text-light mt-2 mb-1">
-              GHGA Data Portal running in Beta mode.
+            <p className="text-start mt-2 mb-1">
+              GHGA Data Portal running in Beta mode
             </p>
             <p className="text-start">
-              <a href="/browse" className="text-light fw-bold">
-                Browse Datasets.
+              <a href="/browse" className="fw-bold text-white">
+                Browse Datasets
               </a>
             </p>
           </Col>
           <a
             href="https://www.ghga.de/data/data-download"
-            className="text-light text-decoration-none col border-1 border-end px-3 mx-0 flex-shrink-0"
+            className="text-white text-decoration-none col border-1 border-end px-3 mx-0 flex-shrink-0"
           >
             <FontAwesomeIcon
               icon={faCloudDownload}
@@ -39,7 +39,7 @@ const FooterNavbar = () => {
           </a>
           <a
             href="https://www.ghga.de/data/data-upload"
-            className="text-light text-decoration-none col border-1 border-end px-3 mx-0 flex-shrink-0"
+            className="text-white text-decoration-none col border-1 border-end px-3 mx-0 flex-shrink-0"
           >
             <FontAwesomeIcon
               icon={faCloudUpload}
@@ -50,7 +50,7 @@ const FooterNavbar = () => {
           </a>
           <a
             href="https://www.ghga.de/data/metadata-model"
-            className="text-light text-decoration-none col border-1 border-end px-3 mx-0 flex-shrink-0"
+            className="text-white text-decoration-none col border-1 border-end px-3 mx-0 flex-shrink-0"
           >
             <FontAwesomeIcon
               icon={faFileLines}
@@ -61,7 +61,7 @@ const FooterNavbar = () => {
           </a>
           <a
             href="https://www.ghga.de/data/about-ghga-beta"
-            className="text-light text-decoration-none col border-1 px-3 mx-0 flex-shrink-0"
+            className="text-white text-decoration-none col border-1 px-3 mx-0 flex-shrink-0"
           >
             <FontAwesomeIcon
               icon={faQuestionCircle}

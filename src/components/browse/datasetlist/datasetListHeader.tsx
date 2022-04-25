@@ -17,10 +17,11 @@ const DatasetListHeader = (props: dataSetListHeaderProps) => {
     ) {
       let searchParamsList = props.searchParams.get("f").split(";");
       for (var item of searchParamsList) {
+        const itemKey = item.split(":")[0]
         var itemPretty = item.replace(":", ": ");
         if (props.facets !== null) {
           const findResult: facetModel | undefined = props.facets.find(
-            (x) => x.key === item.split(":")[0]
+            x => x.key === itemKey
           );
           if (findResult !== undefined) {
             var facetName = findResult.name;

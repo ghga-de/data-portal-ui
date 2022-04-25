@@ -11,14 +11,14 @@ const HeaderNavbar = () => {
             <img src={logo} alt="GHGA logo" height="50px"/>
           </a>
         </Navbar.Brand>
-        <Navbar.Toggle aria-controls="basic-navbar-nav" className="border-2 text-light" />
+        <Navbar.Toggle aria-controls="basic-navbar-nav" className="border-2 text-white" />
         <Navbar.Collapse id="responsive-navbar-nav">
-          <Nav className="justify-content-center flex-fill">
-            <Nav.Link href="/" className="text-light mx-2">Home</Nav.Link>
-            <Nav.Link href="https://www.ghga.de/data/data-download" className="mx-2">Download</Nav.Link>
-            <Nav.Link href="https://www.ghga.de/data/data-upload" className="mx-2">Upload</Nav.Link>
-            <Nav.Link href="https://www.ghga.de/data/metadata-model" className="mx-2">Metadata Model</Nav.Link>
-            <Nav.Link href="https://www.ghga.de/data/about-ghga-beta" className="mx-2">About / FAQ</Nav.Link>
+          <Nav className="justify-content-center flex-fill" style={{height: '36px'}}>
+            <Nav.Link href="/" className="mx-2 py-1 text-white rounded rounded-3 bg-secondary">Home</Nav.Link>
+            <Nav.Link href="https://www.ghga.de/data/about-ghga-beta" className="mx-2 py-1 text-white">About</Nav.Link>
+            <Nav.Link href="https://www.ghga.de/data/data-download" className="mx-2 py-1 text-white">Download</Nav.Link>
+            <Nav.Link href="https://www.ghga.de/data/data-upload" className="mx-2 py-1 text-white">Upload</Nav.Link>
+            <Nav.Link href="https://www.ghga.de/data/metadata-model" className="mx-2 py-1 text-white">Metadata Model</Nav.Link>
           </Nav>
         </Navbar.Collapse>
       </Container>
