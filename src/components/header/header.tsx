@@ -4,7 +4,7 @@ import { Container } from 'react-bootstrap'
 
 const Header = () => {
   return (
-    <Container className='sticky-top border-bottom mw-100 mx-0 mb-4'>
+    <Container className='mw-100 mx-0 mb-4 p-0'>
       <HeaderNavbar />
     </Container>
   )

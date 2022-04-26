@@ -92,6 +92,7 @@ export interface dataAccessPolicyModel {
   id: string;
   accession: string;
   has_data_access_committee: dataAccessCommitteeModel;
+  data_request_form: string;
 }
 
 export interface dataAccessCommitteeModel {

@@ -3,8 +3,8 @@ import DatasetListHeader from "./datasetListHeader";
 import DatasetPagination from "./datasetPagination";
 import DatasetHeader from "./datasetheader/datasetHeader";
 import { hitModel, searchResponseModel } from "../../../models/dataset";
-import { facetFilterModel } from "../../../models/facets";
-import { Col, Row } from "react-bootstrap";
+import { facetFilterModel, facetModel } from "../../../models/facets";
+import { Col, Form, Row } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleExclamation } from "@fortawesome/free-solid-svg-icons";
 
@@ -20,6 +20,7 @@ interface dataSetProps {
   setSearchParams: any;
   page: number;
   setPage: Dispatch<SetStateAction<number>>;
+  facets: facetModel[] | null;
 }
 
 const DatasetList = (props: dataSetProps) => {
@@ -44,34 +45,44 @@ const DatasetList = (props: dataSetProps) => {
 
   const HeaderHeader = () => {
     return (
-      <Row className="fs-7 my-2 ms-2 me-5">
+      <Row className="fs-7 mt-4 mb-3 ms-0 me-3 py-1 ps-2 bg-primary text-white">
         <Col lg={3} md={3} sm={3} xl={3} xs={3} xxl={3}>
-          <span className="fw-bold">Dataset ID:</span>
+          Dataset ID
         </Col>
-        <Col className="pe-2">
-          <span className="fw-bold">Title:</span>
-        </Col>
+        <Col className="pe-2 ps-0">Title</Col>
       </Row>
     );
   };
 
   return (
-    <div className="bg-white border p-2 ps-3 rounded h-100">
-      <DatasetListHeader dsCount={dsCount} searchParams={props.searchParams} />
+    <div className="bg-white p-2 ps-3 h-100">
+      <DatasetListHeader
+        dsCount={dsCount}
+        searchParams={props.searchParams}
+        facets={props.facets}
+      />
       {props.dsList === null || props.dsList.length === 0 ? (
         <div className="p-2 fs-3 my-3 fw-bold">
           <FontAwesomeIcon icon={faCircleExclamation} className="text-danger" />
           &nbsp; No datasets found!
         </div>
       ) : (
-        <div>
-          <PaginatedDataset />
+        <>
           <div className="w-100">
             <HeaderHeader />
             <DatasetHeader dsList={props.dsList} />
           </div>
-          <PaginatedDataset />
-        </div>
+          <Row className="mb-2 mt-5 w-100 pe-0 me-0">
+            <Col>
+              <PaginatedDataset />
+            </Col>
+            <Col lg={2} md={2} sm={2} xl={2} xs={2} xxl={2} className="ps-4 pe-0">
+              <Form.Select>
+                <option>10 rows</option>
+              </Form.Select>
+            </Col>
+          </Row>
+        </>
       )}
     </div>
   );

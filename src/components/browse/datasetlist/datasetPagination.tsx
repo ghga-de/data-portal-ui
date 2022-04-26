@@ -52,7 +52,7 @@ const DatasetPagination = (props: dataSetPaginationProps) => {
   };
 
   return (
-    <div className="p-1 mb-2 mt-4" onClick={scrollUp}>
+    <div className="p-1" onClick={scrollUp}>
       <ReactPaginate
         previousLabel={"<"}
         nextLabel={">"}

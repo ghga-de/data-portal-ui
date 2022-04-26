@@ -88,6 +88,7 @@ const Browse = () => {
             setSearchParams={setSearchParams}
             page={page}
             setPage={setPage}
+            facets={facetList}
           />
         </Col>
       </Row>

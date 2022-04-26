@@ -30,11 +30,11 @@ const DatasetHeader = (props: dataSetListProps) => {
           <Accordion.Item
             key={index}
             eventKey={hit.id}
-            className="mb-3 border border-1 rounded"
+            className="mb-3 border border-1 rounded-0"
             title={hit.content.title}
           >
             <Accordion.Button
-              className="bg-light align-items-start fs-7 text-break"
+              className="bg-light align-items-start fs-7 text-break py-2 text-black"
               onClick={() => getDetails(hit.id)}
             >
               <Col lg={3} md={3} sm={3} xl={3} xs={3} xxl={3}>

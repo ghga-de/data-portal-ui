@@ -1,11 +1,11 @@
 import React from "react";
 import { Badge, Row, Col } from "react-bootstrap";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowTurnDown } from "@fortawesome/free-solid-svg-icons";
+import { facetModel } from "../../../models/facets";
 
 interface dataSetListHeaderProps {
   dsCount: number;
   searchParams: any;
+  facets: facetModel[] | null;
 }
 
 const DatasetListHeader = (props: dataSetListHeaderProps) => {
@@ -17,7 +17,20 @@ const DatasetListHeader = (props: dataSetListHeaderProps) => {
     ) {
       let searchParamsList = props.searchParams.get("f").split(";");
       for (var item of searchParamsList) {
-        filterParamsList.push(item.replace(":", " | "));
+        const itemKey = item.split(":")[0];
+        var itemPretty = item.replace(":", ": ");
+        if (props.facets !== null) {
+          const findResult: facetModel | undefined = props.facets.find(
+            (x) => x.key === itemKey
+          );
+          if (findResult !== undefined) {
+            var facetName = findResult.name;
+            if (facetName !== undefined) {
+              itemPretty = facetName + ": " + item.split(":")[1];
+            }
+          }
+        }
+        filterParamsList.push(itemPretty);
       }
     }
     return filterParamsList;
@@ -25,16 +38,11 @@ const DatasetListHeader = (props: dataSetListHeaderProps) => {
 
   return (
     <Row className="mt-3 pe-4">
-      <Col lg={2} md={2} sm={2} xl={2} xs={2} xxl={2} className="pe-0">
-        <Badge className="p-2 bg-secondary">
-          Datasets Found: {props.dsCount}
-        </Badge>
-      </Col>
-      <Col lg={8} md={8} sm={8} xl={8} xs={8} xxl={8} className="pe-0">
+      <Col lg={10} md={10} sm={10} xl={10} xs={10} xxl={10} className="pe-0">
         {getFilterParamsList().map((item) => (
           <Badge
             key={item}
-            className="p-2 bg-primary me-2 mb-1 overflow-hidden fs-9"
+            className="p-2 me-2 mb-1 overflow-hidden fs-9 rounded-0 bg-white text-dark border"
             style={{
               maxWidth: "200px",
               whiteSpace: "nowrap",
@@ -46,14 +54,14 @@ const DatasetListHeader = (props: dataSetListHeaderProps) => {
           </Badge>
         ))}
       </Col>
-      <Col className="text-end ps-0">
-        <a href="/browse" className="text-reset fs-7 mt-2">
-          Back to all datasets&nbsp;
-          <FontAwesomeIcon
-            icon={faArrowTurnDown}
-            transform="rotate-90 flip-v"
-          />
-        </a>
+      <Col lg={2} md={2} sm={2} xl={2} xs={2} xxl={2} className="text-end">
+        <Badge className="py-3 px-3 bg-secondary">
+          {props.searchParams.get("f") !== undefined &&
+          props.searchParams.get("f") !== null
+            ? "Datasets Found:"
+            : "Total Datasets:"}
+          &nbsp;{props.dsCount}
+        </Badge>
       </Col>
     </Row>
   );

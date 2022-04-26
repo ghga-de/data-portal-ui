@@ -87,7 +87,7 @@ const Sidebar = (props: sidebarProps) => {
   };
 
   return (
-    <div>
+    <div className="border rounded border-light p-2">
       <Row>
         <Search
           searchKeyword={props.searchKeyword}
@@ -100,51 +100,50 @@ const Sidebar = (props: sidebarProps) => {
           filterDict={props.filterDict}
         />
       </Row>
-      <div className="bg-light border p-2 rounded-3 pt-3">
+      {props.facetList === null || props.facetList.length === 0 ? null : (
+        <Row className="position-relative w-100 px-1 mx-0">
+          {props.facetList
+            .sort((a, b) => (b.key < a.key ? 1 : -1))
+            .map((facet, index) => (
+              <Filter
+                facet={facet}
+                key={index}
+                check={check}
+                setCheck={setCheck}
+                searchKeyword={props.searchKeyword}
+                appliedFilterDict={appliedFilterDict}
+                setAppliedFilterDict={setAppliedFilterDict}
+              />
+            ))}
+        </Row>
+      )}
+      <Row className="mb-2 mt-3 justify-content-end">
+        <Col>
+          <Button
+            className="w-100 rounded border-3 fw-bold"
+            variant="outline-dark"
+            onClick={() => {
+              handleClear();
+              scrollUp();
+            }}
+          >
+            Clear
+          </Button>
+        </Col>
         {props.facetList === null || props.facetList.length === 0 ? null : (
-          <Row className="position-relative w-100 px-0 mx-0">
-            {props.facetList
-              .sort((a, b) => (b.key < a.key ? 1 : -1))
-              .map((facet, index) => (
-                <Filter
-                  facet={facet}
-                  key={index}
-                  check={check}
-                  setCheck={setCheck}
-                  searchKeyword={props.searchKeyword}
-                  appliedFilterDict={appliedFilterDict}
-                  setAppliedFilterDict={setAppliedFilterDict}
-                />
-              ))}
-          </Row>
-        )}
-        <Row className="mb-2 mt-3 justify-content-end">
-          <Col lg={4} md={4} sm={4} xl={4} xs={4} xxl={4}>
+          <Col>
             <Button
-              className="btn-warning w-100"
+              className="btn-primary w-100 rounded text-white border-3 fw-bold"
               onClick={() => {
-                handleClear();
+                handleFilter();
                 scrollUp();
               }}
             >
-              Clear
+              Filter
             </Button>
           </Col>
-          {props.facetList === null || props.facetList.length === 0 ? null : (
-            <Col xs md lg={4} className="me-2">
-              <Button
-                className="btn-success w-100"
-                onClick={() => {
-                  handleFilter();
-                  scrollUp();
-                }}
-              >
-                Filter
-              </Button>
-            </Col>
-          )}
-        </Row>
-      </div>
+        )}
+      </Row>
     </div>
   );
 };
