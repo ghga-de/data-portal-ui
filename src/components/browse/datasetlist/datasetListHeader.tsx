@@ -17,11 +17,11 @@ const DatasetListHeader = (props: dataSetListHeaderProps) => {
     ) {
       let searchParamsList = props.searchParams.get("f").split(";");
       for (var item of searchParamsList) {
-        const itemKey = item.split(":")[0]
+        const itemKey = item.split(":")[0];
         var itemPretty = item.replace(":", ": ");
         if (props.facets !== null) {
           const findResult: facetModel | undefined = props.facets.find(
-            x => x.key === itemKey
+            (x) => x.key === itemKey
           );
           if (findResult !== undefined) {
             var facetName = findResult.name;
@@ -55,8 +55,12 @@ const DatasetListHeader = (props: dataSetListHeaderProps) => {
         ))}
       </Col>
       <Col lg={2} md={2} sm={2} xl={2} xs={2} xxl={2} className="text-end">
-        <Badge className="py-3 px-3 bg-secondary rounded-0">
-          Datasets Found: {props.dsCount}
+        <Badge className="py-3 px-3 bg-secondary">
+          {props.searchParams.get("f") !== undefined &&
+          props.searchParams.get("f") !== null
+            ? "Datasets Found:"
+            : "Total Datasets:"}
+          &nbsp;{props.dsCount}
         </Badge>
       </Col>
     </Row>

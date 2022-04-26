@@ -87,7 +87,7 @@ const Sidebar = (props: sidebarProps) => {
   };
 
   return (
-    <>
+    <div className="border rounded border-light p-2">
       <Row>
         <Search
           searchKeyword={props.searchKeyword}
@@ -120,7 +120,8 @@ const Sidebar = (props: sidebarProps) => {
       <Row className="mb-2 mt-3 justify-content-end">
         <Col>
           <Button
-            className="btn-gray w-100 rounded-0 text-white"
+            className="w-100 rounded border-3 fw-bold"
+            variant="outline-dark"
             onClick={() => {
               handleClear();
               scrollUp();
@@ -132,7 +133,7 @@ const Sidebar = (props: sidebarProps) => {
         {props.facetList === null || props.facetList.length === 0 ? null : (
           <Col>
             <Button
-              className="btn-primary w-100 rounded-0 text-white"
+              className="btn-primary w-100 rounded text-white border-3 fw-bold"
               onClick={() => {
                 handleFilter();
                 scrollUp();
@@ -143,7 +144,7 @@ const Sidebar = (props: sidebarProps) => {
           </Col>
         )}
       </Row>
-    </>
+    </div>
   );
 };
 

@@ -1,5 +1,5 @@
 import React, { Dispatch, SetStateAction } from "react";
-import { Form, Col, Container, Row } from "react-bootstrap";
+import { Form, Col, Container, Row, Badge } from "react-bootstrap";
 import { facetModel, facetFilterModel } from "../../../models/facets";
 
 interface filterProps {
@@ -33,15 +33,16 @@ const Filter = (props: filterProps) => {
   };
 
   return (
-    <Container className="border col-11 mb-3 fs-7 mx-0 w-100 px-4 pt-3 pb-4">
+    <Container className="col-11 mb-3 fs-7 mx-0 w-100">
       <Form>
-        <Form.Label className="mt-2 mb-4 text-capitalize"><strong>{props.facet.name}</strong></Form.Label>
+        <Form.Label className="mt-0 mb-4 text-capitalize fs-5"><strong>{props.facet.name}</strong></Form.Label>
+        <div className="border rounded border-light px-2 pt-3 pb-4">
         {props.facet.options
           .sort((a, b) => (b.option < a.option ? 1 : -1))
           .map((option) => {
             let key: string = props.facet.key + ":" + option.option;
               return (
-                <div className="p-1 d-flex align-top mb-2" key={key}>
+                <div className="p-1 d-flex align-top mb-1" key={key}>
                   <Form.Check
                     id={key}
                     className="d-inline-block"
@@ -51,14 +52,14 @@ const Filter = (props: filterProps) => {
                     style={{ zIndex: 100 }}
                     name={props.facet.key}
                   />
-                  <Form.Label className="p-0 m-0 w-100" htmlFor={key}>
+                  <Form.Label className="p-0 m-0 w-100" htmlFor={key}  style={{cursor: "pointer"}}>
                     <Row>
-                      <Col lg={10} md={10} sm={10} xl={10} xs={10} xxl={10}>
-                        <p className="ps-2 my-0">{option.option}</p>
+                      <Col lg={9} md={9} sm={9} xl={9} xs={9} xxl={9}>
+                        <p className="ps-2 my-0 text-capitalize">{option.option}</p>
                       </Col>
-                      <Col lg={2} md={2} sm={2} xl={2} xs={2} xxl={2} className="h-100">
-                        <Form.Label className="p-0 m-0" htmlFor={key}>
-                          {option.count}
+                      <Col lg={3} md={3} sm={3} xl={3} xs={3} xxl={3} className="h-100">
+                        <Form.Label className="p-0 m-0 w-100" htmlFor={key}>
+                          <Badge className="w-100 user-select-none"  style={{cursor: "pointer"}}>{option.count}</Badge>
                         </Form.Label>
                       </Col>
                     </Row>
@@ -66,6 +67,7 @@ const Filter = (props: filterProps) => {
                 </div>
               );
           })}
+          </div>
       </Form>
     </Container>
   );
