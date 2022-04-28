@@ -38,7 +38,7 @@ const Browse = () => {
       };
       getData();
     }, // eslint-disable-next-line react-hooks/exhaustive-deps
-    []
+    [limit]
   );
 
   var dsList: hitModel[] | null = null;
