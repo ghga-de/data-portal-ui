@@ -10,7 +10,7 @@ const DatasetDetailsLayout = (props: dataSetDetailsLayoutProps) => {
   return (
     <Col className="me-2">
     <Row>
-      <Col lg="auto" md="auto" sm="auto" xl="auto" xs="auto" xxl="auto" className="pe-2 pt-2 fs-1">
+      <Col lg="auto" md="auto" sm="auto" xl="auto" xs="auto" xxl="auto" className="pe-2 pt-2 fs-1 text-muted">
         {props.icon}
       </Col>
       <Col className="">

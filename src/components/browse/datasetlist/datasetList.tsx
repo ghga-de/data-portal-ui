@@ -1,5 +1,4 @@
 import React, { Dispatch, SetStateAction } from "react";
-import DatasetListHeader from "./datasetListHeader";
 import DatasetPagination from "./datasetPagination";
 import DatasetHeader from "./datasetheader/datasetHeader";
 import { hitModel, searchResponseModel } from "../../../models/dataset";
@@ -46,7 +45,7 @@ const DatasetList = (props: dataSetProps) => {
 
   const HeaderHeader = () => {
     return (
-      <Row className="fs-7 mt-4 mb-3 ms-0 me-3 py-1 ps-2 bg-primary text-white">
+      <Row className="fs-7 mt-3 mb-3 ms-0 me-3 py-1 ps-2 bg-primary text-white">
         <Col lg={3} md={3} sm={3} xl={3} xs={3} xxl={3}>
           Dataset ID
         </Col>
@@ -62,12 +61,7 @@ const DatasetList = (props: dataSetProps) => {
   }
 
   return (
-    <div className="bg-white p-2 ps-3 h-100">
-      <DatasetListHeader
-        dsCount={dsCount}
-        searchParams={props.searchParams}
-        facets={props.facets}
-      />
+    <div className="bg-white p-2 ps-3 h-100 pt-0">
       {props.dsList === null || props.dsList.length === 0 ? (
         <div className="p-2 fs-3 my-3 fw-bold">
           <FontAwesomeIcon icon={faCircleExclamation} className="text-danger" />
