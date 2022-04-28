@@ -7,6 +7,7 @@ import { facetFilterModel, facetModel } from "../../../models/facets";
 import { Col, Form, Row } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleExclamation } from "@fortawesome/free-solid-svg-icons";
+import { scrollUp } from "../../../utils/utils"
 
 interface dataSetProps {
   dsCount: number;
@@ -54,6 +55,12 @@ const DatasetList = (props: dataSetProps) => {
     );
   };
 
+  const handleSelect = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    console.log(event)
+    props.setLimit(parseInt(event.target.value))
+    scrollUp();
+  }
+
   return (
     <div className="bg-white p-2 ps-3 h-100">
       <DatasetListHeader
@@ -77,8 +84,10 @@ const DatasetList = (props: dataSetProps) => {
               <PaginatedDataset />
             </Col>
             <Col lg={2} md={2} sm={2} xl={2} xs={2} xxl={2} className="ps-4 pe-0">
-              <Form.Select>
-                <option>10 rows</option>
+              <Form.Select value={props.limit} onChange={event => handleSelect(event)}>
+                <option value='10'>10</option>
+                <option value='25'>25</option>
+                <option value='50'>50</option>
               </Form.Select>
             </Col>
           </Row>
