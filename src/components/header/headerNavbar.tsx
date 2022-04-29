@@ -14,11 +14,11 @@ const HeaderNavbar = () => {
         <Navbar.Toggle aria-controls="basic-navbar-nav" className="border-2 text-white" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="justify-content-center flex-fill" style={{height: '36px'}}>
-            <Nav.Link href="/" className="mx-2 p-0"><Button variant="secondary" className="p-0 w-100 h-100 m-0 px-2 text-white">Home</Button></Nav.Link>
-            <Nav.Link href="https://www.ghga.de/data/about-ghga-beta" className="mx-2 p-0"><Button variant="primary" className="p-0 w-100 h-100 m-0 px-2 text-white">About</Button></Nav.Link>
-            <Nav.Link href="https://www.ghga.de/data/data-download" className="mx-2 p-0"><Button variant="primary" className="p-0 w-100 h-100 m-0 px-2 text-white">Download</Button></Nav.Link>
-            <Nav.Link href="https://www.ghga.de/data/data-upload" className="mx-2 p-0"><Button variant="primary" className="p-0 w-100 h-100 m-0 px-2 text-white">Upload</Button></Nav.Link>
-            <Nav.Link href="https://www.ghga.de/data/metadata-model" className="mx-2 p-0"><Button variant="primary" className="p-0 w-100 h-100 m-0 px-2 text-white">Metadata Model</Button></Nav.Link>
+            <Nav.Link href="/" target="_blank" className="mx-2 p-0"><Button variant="secondary" className="p-0 w-100 h-100 m-0 px-2 text-white">Home</Button></Nav.Link>
+            <Nav.Link href="https://www.ghga.de/data/about-ghga-beta" target="_blank" className="mx-2 p-0"><Button variant="primary" className="p-0 w-100 h-100 m-0 px-2 text-white">About</Button></Nav.Link>
+            <Nav.Link href="https://www.ghga.de/data/data-download" target="_blank" className="mx-2 p-0"><Button variant="primary" className="p-0 w-100 h-100 m-0 px-2 text-white">Download</Button></Nav.Link>
+            <Nav.Link href="https://www.ghga.de/data/data-upload" target="_blank" className="mx-2 p-0"><Button variant="primary" className="p-0 w-100 h-100 m-0 px-2 text-white">Upload</Button></Nav.Link>
+            <Nav.Link href="https://www.ghga.de/data/metadata-model" target="_blank" className="mx-2 p-0"><Button variant="primary" className="p-0 w-100 h-100 m-0 px-2 text-white">Metadata Model</Button></Nav.Link>
           </Nav>
         </Navbar.Collapse>
       </Container>
