@@ -22,6 +22,7 @@ interface dataSetProps {
   page: number;
   setPage: Dispatch<SetStateAction<number>>;
   facets: facetModel[] | null;
+  skip: number;
 }
 
 const DatasetList = (props: dataSetProps) => {
@@ -56,7 +57,6 @@ const DatasetList = (props: dataSetProps) => {
   };
 
   const handleSelect = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    console.log(event)
     props.setLimit(parseInt(event.target.value))
     scrollUp();
   }
@@ -67,6 +67,9 @@ const DatasetList = (props: dataSetProps) => {
         dsCount={dsCount}
         searchParams={props.searchParams}
         facets={props.facets}
+        setSearchResults={props.setSearchResults}
+        limit={props.limit}
+        skip={props.skip}
       />
       {props.dsList === null || props.dsList.length === 0 ? (
         <div className="p-2 fs-3 my-3 fw-bold">
@@ -92,8 +95,9 @@ const DatasetList = (props: dataSetProps) => {
             </Col>
           </Row>
         </>
-      )}
-    </div>
+      )
+      }
+    </div >
   );
 };
 

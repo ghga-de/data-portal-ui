@@ -89,6 +89,7 @@ const Browse = () => {
             page={page}
             setPage={setPage}
             facets={facetList}
+            skip={skip}
           />
         </Col>
       </Row>
