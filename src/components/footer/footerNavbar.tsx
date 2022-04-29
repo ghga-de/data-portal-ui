@@ -27,7 +27,7 @@ const FooterNavbar = () => {
             </p>
           </Col>
           <Button
-            href="https://www.ghga.de/data/data-download"
+            href="https://www.ghga.de/data/data-download" target="_blank"
             className="text-white text-decoration-none col border-1 border-end px-3 mx-0 flex-shrink-0"
           >
             <FontAwesomeIcon
@@ -37,7 +37,7 @@ const FooterNavbar = () => {
             />
             <p>How to download data</p>
           </Button>
-            <Button href="https://www.ghga.de/data/data-upload"
+            <Button href="https://www.ghga.de/data/data-upload" target="_blank"
             className="text-white text-decoration-none col border-1 border-end px-3 mx-0 flex-shrink-0">
             <FontAwesomeIcon
               icon={faCloudUpload}
@@ -47,7 +47,7 @@ const FooterNavbar = () => {
             <p>Submit data to GHGA</p>
             </Button>
           <Button
-            href="https://www.ghga.de/data/metadata-model"
+            href="https://www.ghga.de/data/metadata-model" target="_blank"
             className="text-white text-decoration-none col border-1 border-end px-3 mx-0 flex-shrink-0"
           >
             <FontAwesomeIcon
@@ -58,7 +58,7 @@ const FooterNavbar = () => {
             <p>About GHGA Metadata Model</p>
           </Button>
           <Button
-            href="https://www.ghga.de/data/about-ghga-beta"
+            href="https://www.ghga.de/data/about-ghga-beta" target="_blank"
             className="text-white text-decoration-none col border-1 px-3 mx-0 flex-shrink-0"
           >
             <FontAwesomeIcon
