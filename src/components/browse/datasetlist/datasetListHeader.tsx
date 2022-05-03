@@ -9,6 +9,7 @@ interface dataSetListHeaderProps {
   searchParams: any;
   facets: facetModel[] | null;
   setSearchResults: Dispatch<SetStateAction<searchResponseModel | null>>;
+  setSearchKeyword: any;
   limit: number;
   skip: number;
 }
@@ -52,6 +53,24 @@ const DatasetListHeader = (props: dataSetListHeaderProps) => {
     <Row className="mt-1">
       <Col lg={7} md={7} sm={7} xl={7} xs={7} xxl={7} className="ps-3 offset-3">
         <div className="ps-3 pe-0">
+          {props.searchParams.get("q") !== undefined &&
+          props.searchParams.get("q") !== null ? (
+            <Badge
+              key={props.searchParams.get("q")}
+              className="py-2 m-0 me-2 overflow-hidden fs-9 text-white border"
+              style={{
+                maxWidth: "200px",
+                whiteSpace: "nowrap",
+                textOverflow: "ellipsis",
+              }}
+            >
+              {props.searchParams.get("q")}
+              <CloseButton
+                variant="white"
+                onClick={() => props.setSearchKeyword("")}
+              />
+            </Badge>
+          ) : (<></>)}
           {getFilterParamsList().map((item) => (
             <Badge
               key={item}
@@ -68,25 +87,6 @@ const DatasetListHeader = (props: dataSetListHeaderProps) => {
             </Badge>
           ))}
         </div>
-        {props.searchParams.get("q") !== undefined &&
-        props.searchParams.get("q") !== null ? (
-          <Badge
-            key={props.searchParams.get("q")}
-            className="py-2 m-0 me-2 overflow-hidden fs-9 text-white border"
-            style={{
-              maxWidth: "200px",
-              whiteSpace: "nowrap",
-              textOverflow: "ellipsis",
-            }}
-          >
-            {props.searchParams.get("q")}
-            <a href={redirectedSearchUrl}>
-              <CloseButton variant="white" />
-            </a>
-          </Badge>
-        ) : (
-          <div />
-        )}
       </Col>
       <Col lg={2} md={2} sm={2} xl={2} xs={2} xxl={2} className="text-end pe-4">
         <Badge className="py-2 px-2 bg-secondary me-1">

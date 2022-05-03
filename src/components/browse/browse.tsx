@@ -68,6 +68,7 @@ const Browse = () => {
           setSearchResults={setSearchResults}
           limit={limit}
           skip={skip}
+          setSearchKeyword={setSearchKeyword}
         />
       </Row>
       <Row>
