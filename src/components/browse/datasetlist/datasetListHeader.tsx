@@ -1,8 +1,8 @@
 import React, { Dispatch, SetStateAction } from "react";
 import { Badge, Row, Col, CloseButton } from "react-bootstrap";
 import { facetModel } from "../../../models/facets";
-import { getDatasetsSearchResp } from "../../../api/browse";
 import { searchResponseModel } from "../../../models/dataset";
+import { useLocation } from "react-router-dom";
 
 interface dataSetListHeaderProps {
   dsCount: number;
@@ -14,6 +14,9 @@ interface dataSetListHeaderProps {
 }
 
 const DatasetListHeader = (props: dataSetListHeaderProps) => {
+  const location = useLocation();
+  const searchString = 'q=' + props.searchParams.get("q") + '&'
+  const redirectedSearchUrl = location.search.replace(searchString, '')
   const getFilterParamsList = () => {
     let filterParamsList = [];
     if (
@@ -40,11 +43,6 @@ const DatasetListHeader = (props: dataSetListHeaderProps) => {
     }
     return filterParamsList;
   };
-
-  const closeSearch = () => {
-    getDatasetsSearchResp(props.setSearchResults, [], "*", props.skip, props.limit);
-    console.log("clear search")
-  }
 
   const clearFilter = (item: string) => {
     console.log(item)
@@ -80,7 +78,7 @@ const DatasetListHeader = (props: dataSetListHeaderProps) => {
             }}
           >
             {props.searchParams.get("q")}
-            <CloseButton variant="white" onClick={() => closeSearch()} />
+            <a href={redirectedSearchUrl}><CloseButton variant="white" /></a>
           </Badge>
           : <div />}
       </Col>
