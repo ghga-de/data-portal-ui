@@ -58,7 +58,6 @@ const DatasetList = (props: dataSetProps) => {
   };
 
   const handleSelect = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    console.log(event);
     props.setLimit(parseInt(event.target.value));
     scrollUp();
   };
