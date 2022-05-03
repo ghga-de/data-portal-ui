@@ -36,6 +36,8 @@ export const getDatasetsSearchResp: getDatasetsSearchRespType = (
             },
             (error) => {
                 alert("An error occured while fetching the data.");
+                const errorData : searchResponseModel = {count: -1, hits: [],  facets: []}
+                callbackFunc(errorData);
             }
         );
 };

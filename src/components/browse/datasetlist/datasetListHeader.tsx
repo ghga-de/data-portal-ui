@@ -37,8 +37,9 @@ const DatasetListHeader = (props: dataSetListHeaderProps) => {
   };
 
   return (
-    <Row className="mt-1 pe-3 offset-3 ps-3">
-      <Col lg={7} md={7} sm={7} xl={7} xs={7} xxl={7}>
+    <Row className="mt-1">
+      <Col lg={7} md={7} sm={7} xl={7} xs={7} xxl={7} className="ps-3 offset-3">
+        <div className="ps-3 pe-0">
         {getFilterParamsList().map((item) => (
           <Badge
             key={item}
@@ -53,14 +54,15 @@ const DatasetListHeader = (props: dataSetListHeaderProps) => {
             {item}
           </Badge>
         ))}
+        </div>
       </Col>
-      <Col lg={2} md={2} sm={2} xl={2} xs={2} xxl={2} className="text-end pe-4">
+      <Col lg={2} md={2} sm={2} xl={2} xs={2} xxl={2} className="text-end pe-2">
         <Badge className="py-2 px-2 bg-secondary me-1">
           {props.searchParams.get("f") !== undefined &&
           props.searchParams.get("f") !== null
             ? "Datasets Found:"
             : "Total Datasets:"}
-          &nbsp;{props.dsCount}
+          &nbsp;{props.dsCount !== -1 ? props.dsCount : 0}
         </Badge>
       </Col>
     </Row>
