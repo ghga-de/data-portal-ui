@@ -2,19 +2,24 @@ import React, { Dispatch, SetStateAction } from "react";
 import { Badge, Row, Col, CloseButton } from "react-bootstrap";
 import { facetModel } from "../../../models/facets";
 import { searchResponseModel } from "../../../models/dataset";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import { handleSearch } from "../../../utils/utils";
 
 interface dataSetListHeaderProps {
   dsCount: number;
   searchParams: any;
   facets: facetModel[] | null;
   setSearchResults: Dispatch<SetStateAction<searchResponseModel | null>>;
+  filterDict: any;
   setSearchKeyword: any;
   limit: number;
   skip: number;
+  setSearchParams: any;
+  setPage: any;
 }
 
 const DatasetListHeader = (props: dataSetListHeaderProps) => {
+  const navigate = useNavigate();
   const location = useLocation();
   const searchString = "q=" + props.searchParams.get("q") + "&";
   const redirectedSearchUrl = location.search.replace(searchString, "");
@@ -64,13 +69,27 @@ const DatasetListHeader = (props: dataSetListHeaderProps) => {
                 textOverflow: "ellipsis",
               }}
             >
-              {props.searchParams.get("q")}
+              Keyword: {props.searchParams.get("q")}
               <CloseButton
                 variant="white"
-                onClick={() => props.setSearchKeyword("")}
+                onClick={() => {
+                  props.setSearchKeyword("");
+                  navigate(
+                    handleSearch(
+                      props.setSearchResults,
+                      props.filterDict,
+                      "",
+                      props.limit,
+                      props.setSearchParams,
+                      props.setPage
+                    )
+                  );
+                }}
               />
             </Badge>
-          ) : (<></>)}
+          ) : (
+            <></>
+          )}
           {getFilterParamsList().map((item) => (
             <Badge
               key={item}
