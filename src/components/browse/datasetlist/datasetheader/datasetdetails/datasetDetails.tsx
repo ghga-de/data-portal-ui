@@ -1,4 +1,4 @@
-import { Row, Button, Spinner } from "react-bootstrap";
+import { Row, Button, Spinner, Col } from "react-bootstrap";
 import {
   dataAccessCommitteeModel,
   dataAccessPolicyModel,
@@ -11,6 +11,8 @@ import DatasetSamples from "./datasetSamples";
 import DatasetStudies from "./datasetStudies";
 import DataRequestModal from "./dataRequestModal/dataRequestModal";
 import React from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faKey } from "@fortawesome/free-solid-svg-icons";
 
 interface dataSetDetailsProps {
   hit: hitModel;
@@ -68,9 +70,16 @@ const DatasetDetails = (props: dataSetDetailsProps) => {
               <Button
                 className="fs-8 float-end mb-3 ms-4"
                 onClick={() => handleOpen()}
-                style={{ width: "85px" }}
+                style={{ width: "105px" }}
               >
-                <strong>Request Access</strong>
+                <Row className="p-0 m-0 align-items-center">
+                  <Col className="p-0 m-0 col-3 ">
+                    <FontAwesomeIcon icon={faKey} />
+                  </Col>
+                  <Col className="p-0 m-0 lh-1">
+                    <strong>Request Access</strong>
+                  </Col>
+                </Row>
               </Button>
             ) : (
               <Button

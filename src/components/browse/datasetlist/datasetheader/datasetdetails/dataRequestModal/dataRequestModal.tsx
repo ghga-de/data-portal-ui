@@ -158,7 +158,7 @@ const DataRequestModal = (props: DataRequestModalProps) => {
           >
             <FontAwesomeIcon
               icon={faCircleInfo}
-              className="text-primary"
+              className="text-info"
               size="2x"
             />
           </Col>

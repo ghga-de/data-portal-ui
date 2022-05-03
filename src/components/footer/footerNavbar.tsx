@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Col, Row, Container } from "react-bootstrap";
+import { Col, Row, Container, Button } from "react-bootstrap";
 import {
   faCloudDownload,
   faCloudUpload,
@@ -26,8 +26,8 @@ const FooterNavbar = () => {
               </a>
             </p>
           </Col>
-          <a
-            href="https://www.ghga.de/data/data-download"
+          <Button
+            href="https://www.ghga.de/data/data-download" target="_blank"
             className="text-white text-decoration-none col border-1 border-end px-3 mx-0 flex-shrink-0"
           >
             <FontAwesomeIcon
@@ -36,20 +36,18 @@ const FooterNavbar = () => {
               className="text-white mt-3 mb-3"
             />
             <p>How to download data</p>
-          </a>
-          <a
-            href="https://www.ghga.de/data/data-upload"
-            className="text-white text-decoration-none col border-1 border-end px-3 mx-0 flex-shrink-0"
-          >
+          </Button>
+            <Button href="https://www.ghga.de/data/data-upload" target="_blank"
+            className="text-white text-decoration-none col border-1 border-end px-3 mx-0 flex-shrink-0">
             <FontAwesomeIcon
               icon={faCloudUpload}
               size="4x"
               className="text-white mt-3 mb-3"
             />
             <p>Submit data to GHGA</p>
-          </a>
-          <a
-            href="https://www.ghga.de/data/metadata-model"
+            </Button>
+          <Button
+            href="https://www.ghga.de/data/metadata-model" target="_blank"
             className="text-white text-decoration-none col border-1 border-end px-3 mx-0 flex-shrink-0"
           >
             <FontAwesomeIcon
@@ -58,9 +56,9 @@ const FooterNavbar = () => {
               className="text-white mt-3 mb-3"
             />
             <p>About GHGA Metadata Model</p>
-          </a>
-          <a
-            href="https://www.ghga.de/data/about-ghga-beta"
+          </Button>
+          <Button
+            href="https://www.ghga.de/data/about-ghga-beta" target="_blank"
             className="text-white text-decoration-none col border-1 px-3 mx-0 flex-shrink-0"
           >
             <FontAwesomeIcon
@@ -69,7 +67,7 @@ const FooterNavbar = () => {
               className="text-white mt-3 mb-3"
             />
             <p>About / FAQ</p>
-          </a>
+          </Button>
         </Row>
       </Container>
     </div>

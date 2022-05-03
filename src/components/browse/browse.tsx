@@ -7,6 +7,7 @@ import { searchResponseModel, hitModel } from "../../models/dataset";
 import { facetFilterModel, facetModel } from "../../models/facets";
 import { getDatasetsSearchResp } from "../../api/browse";
 import { getFilterParams } from "../../utils/utils";
+import DatasetListHeader from "./datasetlist/datasetListHeader";
 
 const Browse = () => {
   let [searchParams, setSearchParams] = useSearchParams();
@@ -46,7 +47,7 @@ const Browse = () => {
   var dsCount: number = 0;
 
   if (searchResults !== null) {
-    if (searchResults.hits.length > 0) {
+    if (searchResults.hits.length > 0 || searchResults.count === -1) {
       dsList = searchResults.hits;
       facetList = searchResults.facets;
       dsCount = searchResults.count;
@@ -59,6 +60,16 @@ const Browse = () => {
 
   return (
     <Container>
+      <Row>
+        <DatasetListHeader
+          dsCount={dsCount}
+          searchParams={searchParams}
+          facets={facetList}
+          setSearchResults={setSearchResults}
+          limit={limit}
+          skip={skip}
+        />
+      </Row>
       <Row>
         <Col lg={3} md={3} sm={3} xl={3} xs={3} xxl={3}>
           <Sidebar

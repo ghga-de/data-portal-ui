@@ -1,13 +1,15 @@
 import React, { Dispatch, SetStateAction } from "react";
-import DatasetListHeader from "./datasetListHeader";
 import DatasetPagination from "./datasetPagination";
 import DatasetHeader from "./datasetheader/datasetHeader";
 import { hitModel, searchResponseModel } from "../../../models/dataset";
 import { facetFilterModel, facetModel } from "../../../models/facets";
 import { Col, Form, Row } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCircleExclamation } from "@fortawesome/free-solid-svg-icons";
-import { scrollUp } from "../../../utils/utils"
+import {
+  faCircleExclamation,
+  faCircleInfo,
+} from "@fortawesome/free-solid-svg-icons";
+import { scrollUp } from "../../../utils/utils";
 
 interface dataSetProps {
   dsCount: number;
@@ -47,7 +49,7 @@ const DatasetList = (props: dataSetProps) => {
 
   const HeaderHeader = () => {
     return (
-      <Row className="fs-7 mt-4 mb-3 ms-0 me-3 py-1 ps-2 bg-primary text-white">
+      <Row className="fs-7 mt-3 mb-3 ms-0 me-3 py-1 ps-2 bg-primary text-white">
         <Col lg={3} md={3} sm={3} xl={3} xs={3} xxl={3}>
           Dataset ID
         </Col>
@@ -57,21 +59,23 @@ const DatasetList = (props: dataSetProps) => {
   };
 
   const handleSelect = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    props.setLimit(parseInt(event.target.value))
+    props.setLimit(parseInt(event.target.value));
     scrollUp();
-  }
+  };
 
   return (
-    <div className="bg-white p-2 ps-3 h-100">
-      <DatasetListHeader
-        dsCount={dsCount}
-        searchParams={props.searchParams}
-        facets={props.facets}
-        setSearchResults={props.setSearchResults}
-        limit={props.limit}
-        skip={props.skip}
-      />
-      {props.dsList === null || props.dsList.length === 0 ? (
+    <div className="bg-white p-2 ps-3 h-100 pt-0">
+      {props.dsList === null ? (
+        <div className="p-2 fs-4 my-3 fw-bold">
+          <FontAwesomeIcon icon={faCircleInfo} className="text-info" />
+          &nbsp; Loading datasets...
+        </div>
+      ) : props.dsCount === -1 ? (
+        <div className="p-2 fs-3 my-3 fw-bold">
+          <FontAwesomeIcon icon={faCircleExclamation} className="text-danger" />
+          &nbsp; Error loading datasets!
+        </div>
+      ) : props.dsCount === 0 ? (
         <div className="p-2 fs-3 my-3 fw-bold">
           <FontAwesomeIcon icon={faCircleExclamation} className="text-danger" />
           &nbsp; No datasets found!
@@ -86,12 +90,40 @@ const DatasetList = (props: dataSetProps) => {
             <Col>
               <PaginatedDataset />
             </Col>
-            <Col lg={2} md={2} sm={2} xl={2} xs={2} xxl={2} className="ps-4 pe-0">
-              <Form.Select value={props.limit} onChange={event => handleSelect(event)}>
-                <option value='10'>10</option>
-                <option value='25'>25</option>
-                <option value='50'>50</option>
-              </Form.Select>
+            <Col
+              lg={2}
+              md={2}
+              sm={2}
+              xl={2}
+              xs={2}
+              xxl={2}
+              className="ps-4 pe-0"
+            >
+              {(props.page - 1) * 50 <= props.dsCount ? (
+                <Form.Select
+                  value={props.limit}
+                  onChange={(event) => handleSelect(event)}
+                >
+                  <option value="10">10</option>
+                  <option value="25">25</option>
+                  <option value="50">50</option>
+                </Form.Select>
+              ) : (props.page - 1) * 25 <= props.dsCount ? (
+                <Form.Select
+                  value={props.limit}
+                  onChange={(event) => handleSelect(event)}
+                >
+                  <option value="10">10</option>
+                  <option value="25">25</option>
+                </Form.Select>
+              ) : (
+                <Form.Select
+                  value={props.limit}
+                  onChange={(event) => handleSelect(event)}
+                >
+                  <option value="10">10</option>
+                </Form.Select>
+              )}
             </Col>
           </Row>
         </>
