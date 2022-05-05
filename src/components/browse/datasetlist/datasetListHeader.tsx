@@ -63,7 +63,7 @@ const DatasetListHeader = (props: dataSetListHeaderProps) => {
         props.setFilterDict
       )
     );
-    console.log(props.filterDict)
+    console.log(props.filterDict);
   };
 
   return (
@@ -74,15 +74,17 @@ const DatasetListHeader = (props: dataSetListHeaderProps) => {
           props.searchParams.get("q") !== null ? (
             <Badge
               key={props.searchParams.get("q")}
-              className="py-2 m-0 me-2 overflow-hidden fs-9 text-white border"
+              className="py-1 m-0 me-2 overflow-hidden fs-9 text-white border"
               style={{
                 maxWidth: "200px",
                 whiteSpace: "nowrap",
                 textOverflow: "ellipsis",
               }}
             >
+              <span>
               <CloseButton
                 variant="white"
+                className="pt-2"
                 onClick={() => {
                   props.setSearchKeyword("");
                   navigate(
@@ -97,7 +99,8 @@ const DatasetListHeader = (props: dataSetListHeaderProps) => {
                   );
                 }}
               />
-              Keyword: {props.searchParams.get("q")}
+              <span className="px-1 mb-0">Keyword: {props.searchParams.get("q")}</span>
+              </span>
             </Badge>
           ) : (
             <></>
@@ -105,7 +108,7 @@ const DatasetListHeader = (props: dataSetListHeaderProps) => {
           {getFilterParamsList().map((item, idx) => (
             <Badge
               key={item}
-              className="py-2 m-0 me-2 overflow-hidden fs-9 text-white border text-capitalize"
+              className="py-1 m-0 me-2 overflow-hidden fs-9 text-white border text-capitalize"
               style={{
                 maxWidth: "200px",
                 whiteSpace: "nowrap",
@@ -113,8 +116,14 @@ const DatasetListHeader = (props: dataSetListHeaderProps) => {
               }}
               title={item}
             >
-              <CloseButton variant="white" onClick={() => clearFilter(idx)} />
-              {item}
+              <span>
+                <CloseButton
+                  variant="white"
+                  onClick={() => clearFilter(idx)}
+                  className="pt-2"
+                />
+                <span className="px-1 mb-0">{item}</span>
+              </span>
             </Badge>
           ))}
         </div>
