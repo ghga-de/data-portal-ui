@@ -5,7 +5,7 @@ import { Row, Col, Button } from "react-bootstrap";
 import { facetModel, facetFilterModel } from "../../../models/facets";
 import { searchResponseModel } from "../../../models/dataset";
 import { getDatasetsSearchResp } from "../../../api/browse";
-import { getFilterString } from "../../../utils/utils";
+import { handleFilter } from "../../../utils/utils";
 import { useNavigate } from "react-router-dom";
 import { scrollUp } from "../../../utils/utils";
 
@@ -21,13 +21,12 @@ interface sidebarProps {
   setSearchParams: any;
   page: number;
   setPage: Dispatch<SetStateAction<number>>;
+  setAppliedFilterDict: any;
+  appliedFilterDict: any;
 }
 
 const Sidebar = (props: sidebarProps) => {
   let navigate = useNavigate();
-  const [appliedFilterDict, setAppliedFilterDict] = useState<
-    facetFilterModel[]
-  >([]);
   const [check, setCheck] = useState<Map<string, boolean>>(
     new Map<string, boolean>()
   );
@@ -49,41 +48,10 @@ const Sidebar = (props: sidebarProps) => {
       setCheck(check.set(key, false));
     });
     props.setFilterDict([]);
-    setAppliedFilterDict([]);
+    props.setAppliedFilterDict([]);
     props.setSearchKeyword("");
     props.setPage(0);
     navigate(`?p=1`);
-  };
-
-  const handleFilter = () => {
-    getDatasetsSearchResp(
-      props.setSearchResults,
-      appliedFilterDict,
-      props.searchKeyword,
-      skip,
-      props.limit
-    );
-    props.setFilterDict([...appliedFilterDict]);
-    props.setSearchParams({ f: getFilterString(props.filterDict) });
-    props.setSearchParams({ p: 1 });
-    props.setPage(0);
-    if (getFilterString(appliedFilterDict) === "") {
-      if (props.searchKeyword === "" || props.searchKeyword === null) {
-        navigate(`?p=1`);
-      } else {
-        navigate(`?q=${props.searchKeyword}&p=1`);
-      }
-    } else {
-      if (props.searchKeyword === "" || props.searchKeyword === null) {
-        navigate(`?f=${getFilterString(appliedFilterDict)}&p=1`);
-      } else {
-        navigate(
-          `?q=${props.searchKeyword}&f=${getFilterString(
-            appliedFilterDict
-          )}&p=1`
-        );
-      }
-    }
   };
 
   return (
@@ -111,8 +79,8 @@ const Sidebar = (props: sidebarProps) => {
                 check={check}
                 setCheck={setCheck}
                 searchKeyword={props.searchKeyword}
-                appliedFilterDict={appliedFilterDict}
-                setAppliedFilterDict={setAppliedFilterDict}
+                appliedFilterDict={props.appliedFilterDict}
+                setAppliedFilterDict={props.setAppliedFilterDict}
               />
             ))}
         </Row>
@@ -135,7 +103,18 @@ const Sidebar = (props: sidebarProps) => {
             <Button
               className="btn-primary w-100 rounded text-white border-2"
               onClick={() => {
-                handleFilter();
+                navigate(
+                  handleFilter(
+                    props.filterDict,
+                    props.searchKeyword,
+                    props.limit,
+                    props.setSearchParams,
+                    props.setPage,
+                    props.setSearchResults,
+                    props.appliedFilterDict,
+                    props.setFilterDict
+                  )
+                );
                 scrollUp();
               }}
             >

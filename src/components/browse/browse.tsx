@@ -25,6 +25,9 @@ const Browse = () => {
   );
   const [searchResults, setSearchResults] =
     React.useState<searchResponseModel | null>(null);
+  const [appliedFilterDict, setAppliedFilterDict] = React.useState<
+    facetFilterModel[]
+  >([]);
 
   React.useEffect(
     () => {
@@ -72,6 +75,10 @@ const Browse = () => {
           setSearchParams={setSearchParams}
           setPage={setPage}
           filterDict={filterDict}
+          setFilterDict={setFilterDict}
+          searchKeyword={searchKeyword}
+          setAppliedFilterDict={setAppliedFilterDict}
+          appliedFilterDict={appliedFilterDict}
         />
       </Row>
       <Row>
@@ -88,6 +95,8 @@ const Browse = () => {
             setSearchParams={setSearchParams}
             page={page}
             setPage={setPage}
+            setAppliedFilterDict={setAppliedFilterDict}
+            appliedFilterDict={appliedFilterDict}
           />
         </Col>
         <Col lg={9} md={9} sm={9} xl={9} xs={9} xxl={9}>

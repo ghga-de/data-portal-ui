@@ -12,7 +12,7 @@ interface searchbarProps {
   setSearchKeyword: Dispatch<SetStateAction<string>>;
   searchKeyword: string;
   limit: number;
-  searchParams: any;
+  searchParams: URLSearchParams;
   setSearchParams: any;
   setPage: Dispatch<SetStateAction<number>>;
   filterDict: facetFilterModel[];

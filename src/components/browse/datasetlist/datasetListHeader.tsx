@@ -1,35 +1,34 @@
 import React, { Dispatch, SetStateAction } from "react";
 import { Badge, Row, Col, CloseButton } from "react-bootstrap";
-import { facetModel } from "../../../models/facets";
+import { facetFilterModel, facetModel } from "../../../models/facets";
 import { searchResponseModel } from "../../../models/dataset";
-import { useLocation, useNavigate } from "react-router-dom";
-import { handleSearch } from "../../../utils/utils";
+import { useNavigate } from "react-router-dom";
+import { handleSearch, handleFilter } from "../../../utils/utils";
 
 interface dataSetListHeaderProps {
   dsCount: number;
-  searchParams: any;
+  searchParams: URLSearchParams;
   facets: facetModel[] | null;
   setSearchResults: Dispatch<SetStateAction<searchResponseModel | null>>;
-  filterDict: any;
-  setSearchKeyword: any;
+  filterDict: facetFilterModel[];
+  setSearchKeyword: Dispatch<SetStateAction<string>>;
   limit: number;
   skip: number;
   setSearchParams: any;
-  setPage: any;
+  setPage: Dispatch<SetStateAction<number>>;
+  setFilterDict: any;
+  searchKeyword: string;
+  setAppliedFilterDict: any;
+  appliedFilterDict: any;
 }
 
 const DatasetListHeader = (props: dataSetListHeaderProps) => {
   const navigate = useNavigate();
-  const location = useLocation();
-  const searchString = "q=" + props.searchParams.get("q") + "&";
-  const redirectedSearchUrl = location.search.replace(searchString, "");
   const getFilterParamsList = () => {
     let filterParamsList = [];
-    if (
-      props.searchParams.get("f") !== undefined &&
-      props.searchParams.get("f") !== null
-    ) {
-      let searchParamsList = props.searchParams.get("f").split(";");
+    let searchParams = props.searchParams.get("f");
+    if (searchParams !== undefined && searchParams !== null) {
+      let searchParamsList = searchParams.split(";");
       for (var item of searchParamsList) {
         const itemKey = item.split(":")[0];
         var itemPretty = item.replace(":", ": ");
@@ -50,8 +49,21 @@ const DatasetListHeader = (props: dataSetListHeaderProps) => {
     return filterParamsList;
   };
 
-  const clearFilter = (item: string) => {
-    console.log(item);
+  const clearFilter = (item: number) => {
+    props.filterDict.splice(item, 1);
+    navigate(
+      handleFilter(
+        props.filterDict,
+        props.searchKeyword,
+        props.limit,
+        props.setSearchParams,
+        props.setPage,
+        props.setSearchResults,
+        props.filterDict,
+        props.setFilterDict
+      )
+    );
+    console.log(props.filterDict)
   };
 
   return (
@@ -69,7 +81,6 @@ const DatasetListHeader = (props: dataSetListHeaderProps) => {
                 textOverflow: "ellipsis",
               }}
             >
-              Keyword: {props.searchParams.get("q")}
               <CloseButton
                 variant="white"
                 onClick={() => {
@@ -86,14 +97,15 @@ const DatasetListHeader = (props: dataSetListHeaderProps) => {
                   );
                 }}
               />
+              Keyword: {props.searchParams.get("q")}
             </Badge>
           ) : (
             <></>
           )}
-          {getFilterParamsList().map((item) => (
+          {getFilterParamsList().map((item, idx) => (
             <Badge
               key={item}
-              className="py-2 m-0 me-2 overflow-hidden fs-9 text-white border"
+              className="py-2 m-0 me-2 overflow-hidden fs-9 text-white border text-capitalize"
               style={{
                 maxWidth: "200px",
                 whiteSpace: "nowrap",
@@ -101,8 +113,8 @@ const DatasetListHeader = (props: dataSetListHeaderProps) => {
               }}
               title={item}
             >
+              <CloseButton variant="white" onClick={() => clearFilter(idx)} />
               {item}
-              <CloseButton variant="white" onClick={() => clearFilter(item)} />
             </Badge>
           ))}
         </div>
