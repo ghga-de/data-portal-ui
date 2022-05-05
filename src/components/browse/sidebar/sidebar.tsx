@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction, useState } from "react";
+import React, { Dispatch, SetStateAction } from "react";
 import Search from "./searchbar";
 import Filter from "./filter";
 import { Row, Col, Button } from "react-bootstrap";
@@ -22,30 +22,31 @@ interface sidebarProps {
   page: number;
   setPage: Dispatch<SetStateAction<number>>;
   setAppliedFilterDict: any;
-  appliedFilterDict: any;
+  appliedFilterDict: facetFilterModel[];
+  setCheck: Dispatch<SetStateAction<Map<string, boolean>>>;
+  check: Map<string, boolean>;
 }
 
 const Sidebar = (props: sidebarProps) => {
   let navigate = useNavigate();
-  const [check, setCheck] = useState<Map<string, boolean>>(
-    new Map<string, boolean>()
-  );
   const skip = 0;
 
   React.useEffect(() => {
     const displayFilters = () => {
-      if (check.size === 0) {
+      if (props.check.size === 0) {
         for (var item of props.filterDict) {
-          setCheck(check.set(item.key + ":" + item.value, true));
+          props.setCheck(props.check.set(item.key + ":" + item.value, true));
+          props.setAppliedFilterDict(props.appliedFilterDict.concat(item));
         }
       }
     };
     displayFilters();
   });
+  
   const handleClear = () => {
     getDatasetsSearchResp(props.setSearchResults, [], "*", skip, props.limit);
-    check.forEach((value: boolean, key: string) => {
-      setCheck(check.set(key, false));
+    props.check.forEach((value: boolean, key: string) => {
+      props.setCheck(props.check.set(key, false));
     });
     props.setFilterDict([]);
     props.setAppliedFilterDict([]);
@@ -76,8 +77,8 @@ const Sidebar = (props: sidebarProps) => {
               <Filter
                 facet={facet}
                 key={index}
-                check={check}
-                setCheck={setCheck}
+                check={props.check}
+                setCheck={props.setCheck}
                 searchKeyword={props.searchKeyword}
                 appliedFilterDict={props.appliedFilterDict}
                 setAppliedFilterDict={props.setAppliedFilterDict}

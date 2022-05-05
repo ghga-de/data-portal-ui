@@ -29,6 +29,10 @@ const Browse = () => {
     facetFilterModel[]
   >([]);
 
+  const [check, setCheck] = React.useState<Map<string, boolean>>(
+    new Map<string, boolean>()
+  );
+
   React.useEffect(
     () => {
       const getData = () => {
@@ -79,6 +83,7 @@ const Browse = () => {
           searchKeyword={searchKeyword}
           setAppliedFilterDict={setAppliedFilterDict}
           appliedFilterDict={appliedFilterDict}
+          check={check}
         />
       </Row>
       <Row>
@@ -97,6 +102,8 @@ const Browse = () => {
             setPage={setPage}
             setAppliedFilterDict={setAppliedFilterDict}
             appliedFilterDict={appliedFilterDict}
+            setCheck={setCheck}
+            check={check}
           />
         </Col>
         <Col lg={9} md={9} sm={9} xl={9} xs={9} xxl={9}>

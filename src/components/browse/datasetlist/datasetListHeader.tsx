@@ -19,7 +19,8 @@ interface dataSetListHeaderProps {
   setFilterDict: any;
   searchKeyword: string;
   setAppliedFilterDict: any;
-  appliedFilterDict: any;
+  appliedFilterDict: facetFilterModel[];
+  check: Map<string, boolean>;
 }
 
 const DatasetListHeader = (props: dataSetListHeaderProps) => {
@@ -39,7 +40,8 @@ const DatasetListHeader = (props: dataSetListHeaderProps) => {
           if (findResult !== undefined) {
             var facetName = findResult.name;
             if (facetName !== undefined) {
-              itemPretty = facetName + ": " + item.split(":")[1];
+              itemPretty =
+                findResult.key + "|" + facetName + ": " + item.split(":")[1];
             }
           }
         }
@@ -49,8 +51,13 @@ const DatasetListHeader = (props: dataSetListHeaderProps) => {
     return filterParamsList;
   };
 
-  const clearFilter = (item: number) => {
-    props.filterDict.splice(item, 1);
+  const clearFilter = (idx: number, key: string) => {
+    props.filterDict.splice(idx, 1);
+    const itemKey = key.split("|")[0] + ":" + key.split(": ")[1];
+    const splicedAppliedFilterDict = props.appliedFilterDict.filter(
+      (x) => x.value !== itemKey.split(":")[1]
+    );
+    props.setAppliedFilterDict(splicedAppliedFilterDict);
     navigate(
       handleFilter(
         props.filterDict,
@@ -63,7 +70,7 @@ const DatasetListHeader = (props: dataSetListHeaderProps) => {
         props.setFilterDict
       )
     );
-    console.log(props.filterDict);
+    props.check.set(itemKey, false);
   };
 
   return (
@@ -82,24 +89,26 @@ const DatasetListHeader = (props: dataSetListHeaderProps) => {
               }}
             >
               <span>
-              <CloseButton
-                variant="white"
-                className="pt-2"
-                onClick={() => {
-                  props.setSearchKeyword("");
-                  navigate(
-                    handleSearch(
-                      props.setSearchResults,
-                      props.filterDict,
-                      "",
-                      props.limit,
-                      props.setSearchParams,
-                      props.setPage
-                    )
-                  );
-                }}
-              />
-              <span className="px-1 mb-0">Keyword: {props.searchParams.get("q")}</span>
+                <CloseButton
+                  variant="white"
+                  className="pt-2"
+                  onClick={() => {
+                    props.setSearchKeyword("");
+                    navigate(
+                      handleSearch(
+                        props.setSearchResults,
+                        props.filterDict,
+                        "",
+                        props.limit,
+                        props.setSearchParams,
+                        props.setPage
+                      )
+                    );
+                  }}
+                />
+                <span className="px-1 mb-0">
+                  Keyword: {props.searchParams.get("q")}
+                </span>
               </span>
             </Badge>
           ) : (
@@ -107,22 +116,22 @@ const DatasetListHeader = (props: dataSetListHeaderProps) => {
           )}
           {getFilterParamsList().map((item, idx) => (
             <Badge
-              key={item}
+              key={item.split("|")[1]}
               className="py-1 m-0 me-2 overflow-hidden fs-9 text-white border text-capitalize"
               style={{
                 maxWidth: "200px",
                 whiteSpace: "nowrap",
                 textOverflow: "ellipsis",
               }}
-              title={item}
+              title={item.split("|")[1]}
             >
               <span>
                 <CloseButton
                   variant="white"
-                  onClick={() => clearFilter(idx)}
+                  onClick={() => clearFilter(idx, item)}
                   className="pt-2"
                 />
-                <span className="px-1 mb-0">{item}</span>
+                <span className="px-1 mb-0">{item.split("|")[1]}</span>
               </span>
             </Badge>
           ))}
