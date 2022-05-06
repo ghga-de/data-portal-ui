@@ -67,6 +67,9 @@ export const handleFilterAndSearch = (
   if (appliedFilterDict === null) {
     appliedFilterDict = filterDict;
   }
+  if (setFilterDict) {
+    setFilterDict([...appliedFilterDict]);
+  }
   let skip = 0;
   getDatasetsSearchResp(
     setSearchResults,
@@ -75,9 +78,6 @@ export const handleFilterAndSearch = (
     skip,
     limit
   );
-  if (setFilterDict) {
-    setFilterDict([...appliedFilterDict]);
-  }
   if (searchKeyword === "" || searchKeyword === null) {
     if (getFilterString(appliedFilterDict) === "") {
       return `?p=1`;
