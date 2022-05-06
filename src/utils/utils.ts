@@ -68,7 +68,7 @@ export const handleFilterAndSearch = (
     appliedFilterDict = filterDict;
   }
   if (setFilterDict) {
-    setFilterDict([...appliedFilterDict]);
+    filterDict = appliedFilterDict
   }
   let skip = 0;
   getDatasetsSearchResp(
