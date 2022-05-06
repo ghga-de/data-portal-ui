@@ -2,6 +2,7 @@ import { facetFilterModel } from "../models/facets";
 import { getDatasetsSearchResp } from "../api/browse";
 import { Dispatch, SetStateAction } from "react";
 import { searchResponseModel } from "../models/dataset";
+import { URLSearchParamsInit } from "react-router-dom";
 
 export const getFilterString = (filterDict: facetFilterModel[]) => {
   let filterString = "";
@@ -56,14 +57,22 @@ export const parseBytes = (bytes: number) => {
   return returnValue;
 };
 
-export const handleSearch = (
+export const handleFilterAndSearch = (
   setSearchResults: Dispatch<SetStateAction<searchResponseModel | null>>,
   filterDict: facetFilterModel[],
   searchKeyword: string,
   limit: number,
-  setSearchParams: any,
-  setPage: Dispatch<SetStateAction<number>>
+  setSearchParams: (
+    nextInit: URLSearchParamsInit,
+    navigateOptions?: { replace?: boolean | undefined; state?: any } | undefined
+  ) => void,
+  setPage: Dispatch<SetStateAction<number>>,
+  setFilterDict: Dispatch<SetStateAction<facetFilterModel[]>> | null,
+  appliedFilterDict: facetFilterModel[] | null
 ) => {
+  if (appliedFilterDict === null) {
+    appliedFilterDict = filterDict;
+  }
   let skip = 0;
   getDatasetsSearchResp(
     setSearchResults,
@@ -72,54 +81,18 @@ export const handleSearch = (
     skip,
     limit
   );
-  setSearchParams({ p: 1 });
-  setPage(0);
-  if (searchKeyword === "" || searchKeyword === null) {
-    if (getFilterString(filterDict) === "") {
-      return `?p=1`;
-    } else {
-      return `?f=${getFilterString(filterDict)}&p=1`;
-    }
-  } else {
-    if (getFilterString(filterDict) === "") {
-      return `?q=${searchKeyword}&p=1`;
-    } else {
-      return `?q=${searchKeyword}&f=${getFilterString(filterDict)}&p=1`;
-    }
+  if (setFilterDict) {
+    setFilterDict([...appliedFilterDict]);
   }
-};
-
-export const handleFilter = (
-  filterDict: facetFilterModel[],
-  searchKeyword: string,
-  limit: number,
-  setSearchParams: any,
-  setPage: Dispatch<SetStateAction<number>>,
-  setSearchResults: any,
-  appliedFilterDict: any | null,
-  setFilterDict: any
-) => {
-  let skip = 0;
-  getDatasetsSearchResp(
-    setSearchResults,
-    appliedFilterDict,
-    searchKeyword,
-    skip,
-    limit
-  );
-  setFilterDict([...appliedFilterDict]);
-  setSearchParams({ f: getFilterString(filterDict) });
-  setSearchParams({ p: 1 });
-  setPage(0);
-  if (getFilterString(appliedFilterDict) === "") {
-    if (searchKeyword === "" || searchKeyword === null) {
+  if (searchKeyword === "" || searchKeyword === null) {
+    if (getFilterString(appliedFilterDict) === "") {
       return `?p=1`;
     } else {
-      return `?q=${searchKeyword}&p=1`;
+      return `?f=${getFilterString(appliedFilterDict)}&p=1`;
     }
   } else {
-    if (searchKeyword === "" || searchKeyword === null) {
-      return `?f=${getFilterString(appliedFilterDict)}&p=1`;
+    if (getFilterString(appliedFilterDict) === "") {
+      return `?q=${searchKeyword}&p=1`;
     } else {
       return `?q=${searchKeyword}&f=${getFilterString(appliedFilterDict)}&p=1`;
     }

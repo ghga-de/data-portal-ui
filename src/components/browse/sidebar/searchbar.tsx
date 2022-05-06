@@ -3,7 +3,7 @@ import { Form, Container } from "react-bootstrap";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { searchResponseModel } from "../../../models/dataset";
 import { facetFilterModel } from "../../../models/facets";
-import { scrollUp, handleSearch } from "../../../utils/utils";
+import { scrollUp, handleFilterAndSearch } from "../../../utils/utils";
 import { icon, toHtml } from "@fortawesome/fontawesome-svg-core";
 import { useNavigate } from "react-router-dom";
 
@@ -32,13 +32,15 @@ const Searchbar = (props: searchbarProps) => {
           scrollUp();
           event.preventDefault()
           navigate(
-            handleSearch(
+            handleFilterAndSearch(
               props.setSearchResults,
               props.filterDict,
               props.searchKeyword,
               props.limit,
               props.setSearchParams,
-              props.setPage
+              props.setPage,
+              null,
+              null
             )
           );
         }}

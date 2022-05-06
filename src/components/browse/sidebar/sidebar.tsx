@@ -5,8 +5,8 @@ import { Row, Col, Button } from "react-bootstrap";
 import { facetModel, facetFilterModel } from "../../../models/facets";
 import { searchResponseModel } from "../../../models/dataset";
 import { getDatasetsSearchResp } from "../../../api/browse";
-import { handleFilter } from "../../../utils/utils";
-import { useNavigate } from "react-router-dom";
+import { handleFilterAndSearch } from "../../../utils/utils";
+import { URLSearchParamsInit, useNavigate } from "react-router-dom";
 import { scrollUp } from "../../../utils/utils";
 
 interface sidebarProps {
@@ -17,11 +17,11 @@ interface sidebarProps {
   setSearchKeyword: Dispatch<SetStateAction<string>>;
   setFilterDict: Dispatch<SetStateAction<facetFilterModel[]>>;
   filterDict: facetFilterModel[];
-  searchParams: any;
-  setSearchParams: any;
+  searchParams: URLSearchParams;
+  setSearchParams: (nextInit: URLSearchParamsInit, navigateOptions?: { replace?: boolean | undefined; state?: any; } | undefined) => void;
   page: number;
   setPage: Dispatch<SetStateAction<number>>;
-  setAppliedFilterDict: any;
+  setAppliedFilterDict: Dispatch<SetStateAction<facetFilterModel[]>>;
   appliedFilterDict: facetFilterModel[];
   setCheck: Dispatch<SetStateAction<Map<string, boolean>>>;
   check: Map<string, boolean>;
@@ -105,15 +105,15 @@ const Sidebar = (props: sidebarProps) => {
               className="btn-primary w-100 rounded text-white border-2"
               onClick={() => {
                 navigate(
-                  handleFilter(
+                  handleFilterAndSearch(
+                    props.setSearchResults,
                     props.filterDict,
                     props.searchKeyword,
                     props.limit,
                     props.setSearchParams,
                     props.setPage,
-                    props.setSearchResults,
-                    props.appliedFilterDict,
-                    props.setFilterDict
+                    props.setFilterDict,
+                    props.appliedFilterDict
                   )
                 );
                 scrollUp();

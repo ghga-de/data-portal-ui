@@ -2,8 +2,8 @@ import React, { Dispatch, SetStateAction } from "react";
 import { Badge, Row, Col, CloseButton } from "react-bootstrap";
 import { facetFilterModel, facetModel } from "../../../models/facets";
 import { searchResponseModel } from "../../../models/dataset";
-import { useNavigate } from "react-router-dom";
-import { handleSearch, handleFilter } from "../../../utils/utils";
+import { URLSearchParamsInit, useNavigate } from "react-router-dom";
+import { handleFilterAndSearch } from "../../../utils/utils";
 
 interface dataSetListHeaderProps {
   dsCount: number;
@@ -14,11 +14,11 @@ interface dataSetListHeaderProps {
   setSearchKeyword: Dispatch<SetStateAction<string>>;
   limit: number;
   skip: number;
-  setSearchParams: any;
+  setSearchParams: (nextInit: URLSearchParamsInit, navigateOptions?: { replace?: boolean | undefined; state?: any; } | undefined) => void;
   setPage: Dispatch<SetStateAction<number>>;
-  setFilterDict: any;
+  setFilterDict: Dispatch<SetStateAction<facetFilterModel[]>>;
   searchKeyword: string;
-  setAppliedFilterDict: any;
+  setAppliedFilterDict: Dispatch<SetStateAction<facetFilterModel[]>>;
   appliedFilterDict: facetFilterModel[];
   check: Map<string, boolean>;
 }
@@ -59,15 +59,15 @@ const DatasetListHeader = (props: dataSetListHeaderProps) => {
     );
     props.setAppliedFilterDict(splicedAppliedFilterDict);
     navigate(
-      handleFilter(
+      handleFilterAndSearch(
+        props.setSearchResults,
         props.filterDict,
         props.searchKeyword,
         props.limit,
         props.setSearchParams,
         props.setPage,
-        props.setSearchResults,
-        props.filterDict,
-        props.setFilterDict
+        props.setFilterDict,
+        null
       )
     );
     props.check.set(itemKey, false);
@@ -95,13 +95,15 @@ const DatasetListHeader = (props: dataSetListHeaderProps) => {
                   onClick={() => {
                     props.setSearchKeyword("");
                     navigate(
-                      handleSearch(
+                      handleFilterAndSearch(
                         props.setSearchResults,
                         props.filterDict,
                         "",
                         props.limit,
                         props.setSearchParams,
-                        props.setPage
+                        props.setPage,
+                        props.setFilterDict,
+                        null
                       )
                     );
                   }}
