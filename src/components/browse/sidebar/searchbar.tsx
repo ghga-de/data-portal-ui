@@ -29,7 +29,6 @@ const Searchbar = (props: searchbarProps) => {
     <Container className="mb-4">
       <Form
         onSubmit={(event) => {
-          console.log(props.filterDict)
           scrollUp();
           event.preventDefault()
           navigate(

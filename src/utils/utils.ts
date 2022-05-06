@@ -67,7 +67,6 @@ export const handleFilterAndSearch = (
   setFilterDict: Dispatch<SetStateAction<facetFilterModel[]>> | null,
   appliedFilterDict: facetFilterModel[] | null
 ) => {
-  page = page + 1;
   if (appliedFilterDict === null) {
     appliedFilterDict = filterDict;
   }
@@ -75,6 +74,7 @@ export const handleFilterAndSearch = (
     filterDict = appliedFilterDict;
     setFilterDict(appliedFilterDict);
   }
+  page = page + 1;
   setPage(page)
   getDatasetsSearchResp(
     setSearchResults,

@@ -39,31 +39,6 @@ const DatasetPagination = (props: dataSetPaginationProps) => {
         null
       )
     );
-    console.log(data.selected)
-
-
-    // props.setPage(data.selected + 1);
-    // getDatasetsSearchResp(
-    //   props.setSearchResults,
-    //   props.filterDict,
-    //   props.searchKeyword,
-    //   skip,
-    //   props.limit
-    // );
-    // props.setSearchParams({ p: data.selected + 1 })
-    // if (getFilterString(props.filterDict) === '' || getFilterString(props.filterDict) === null) {
-    //   if (props.searchKeyword === '' || props.searchKeyword === null) {
-    //     navigate(`?p=${data.selected + 1}`)
-    //   } else {
-    //     navigate(`?q=${props.searchKeyword}&p=${data.selected + 1}`)
-    //   }
-    // } else {
-    //   if (props.searchKeyword === '' || props.searchKeyword === null) {
-    //     navigate(`?f=${getFilterString(props.filterDict)}&p=${data.selected + 1}`)
-    //   } else {
-    //     navigate(`?q=${props.searchKeyword}&f=${getFilterString(props.filterDict)}&p=${data.selected + 1}`)
-    //   }
-    // }
   };
 
   return (
