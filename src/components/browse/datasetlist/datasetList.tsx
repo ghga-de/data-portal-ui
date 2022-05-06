@@ -24,6 +24,8 @@ interface dataSetProps {
   page: number;
   setPage: Dispatch<SetStateAction<number>>;
   facets: facetModel[] | null;
+  skip: number;
+  setFilterDict: Dispatch<SetStateAction<facetFilterModel[]>>;
 }
 
 const DatasetList = (props: dataSetProps) => {
@@ -42,6 +44,7 @@ const DatasetList = (props: dataSetProps) => {
         setPage={props.setPage}
         searchParams={props.searchParams}
         setSearchParams={props.setSearchParams}
+        setFilterDict={props.setFilterDict}
       />
     );
   };
@@ -126,8 +129,9 @@ const DatasetList = (props: dataSetProps) => {
             </Col>
           </Row>
         </>
-      )}
-    </div>
+      )
+      }
+    </div >
   );
 };
 

@@ -1,21 +1,34 @@
-import React from "react";
-import { Badge, Row, Col } from "react-bootstrap";
-import { facetModel } from "../../../models/facets";
+import React, { Dispatch, SetStateAction } from "react";
+import { Badge, Row, Col, CloseButton } from "react-bootstrap";
+import { facetFilterModel, facetModel } from "../../../models/facets";
+import { searchResponseModel } from "../../../models/dataset";
+import { useNavigate } from "react-router-dom";
+import { handleFilterAndSearch } from "../../../utils/utils";
 
 interface dataSetListHeaderProps {
   dsCount: number;
-  searchParams: any;
+  searchParams: URLSearchParams;
   facets: facetModel[] | null;
+  setSearchResults: Dispatch<SetStateAction<searchResponseModel | null>>;
+  filterDict: facetFilterModel[];
+  setSearchKeyword: Dispatch<SetStateAction<string>>;
+  limit: number;
+  skip: number;
+  setFilterDict: Dispatch<SetStateAction<facetFilterModel[]>>;
+  searchKeyword: string;
+  setAppliedFilterDict: Dispatch<SetStateAction<facetFilterModel[]>>;
+  appliedFilterDict: facetFilterModel[];
+  check: Map<string, boolean>;
+  setPage: Dispatch<SetStateAction<number>>;
 }
 
 const DatasetListHeader = (props: dataSetListHeaderProps) => {
+  const navigate = useNavigate();
   const getFilterParamsList = () => {
     let filterParamsList = [];
-    if (
-      props.searchParams.get("f") !== undefined &&
-      props.searchParams.get("f") !== null
-    ) {
-      let searchParamsList = props.searchParams.get("f").split(";");
+    let searchParams = props.searchParams.get("f");
+    if (searchParams !== undefined && searchParams !== null) {
+      let searchParamsList = searchParams.split(";");
       for (var item of searchParamsList) {
         const itemKey = item.split(":")[0];
         var itemPretty = item.replace(":", ": ");
@@ -26,7 +39,8 @@ const DatasetListHeader = (props: dataSetListHeaderProps) => {
           if (findResult !== undefined) {
             var facetName = findResult.name;
             if (facetName !== undefined) {
-              itemPretty = facetName + ": " + item.split(":")[1];
+              itemPretty =
+                findResult.key + "|" + facetName + ": " + item.split(":")[1];
             }
           }
         }
@@ -36,27 +50,97 @@ const DatasetListHeader = (props: dataSetListHeaderProps) => {
     return filterParamsList;
   };
 
+  const clearFilter = (idx: number, key: string) => {
+    props.filterDict.splice(idx, 1);
+    const itemKey = key.split("|")[0] + ":" + key.split(": ")[1];
+    const splicedAppliedFilterDict = props.appliedFilterDict.filter(
+      (x) => x.value !== itemKey.split(":")[1]
+    );
+    props.setAppliedFilterDict(splicedAppliedFilterDict);
+    navigate(
+      handleFilterAndSearch(
+        props.setSearchResults,
+        props.filterDict,
+        props.searchKeyword,
+        props.limit,
+        0,
+        0,
+        props.setPage,
+        props.setFilterDict,
+        null
+      )
+    );
+    props.check.set(itemKey, false);
+  };
+
   return (
     <Row className="mt-1">
       <Col lg={7} md={7} sm={7} xl={7} xs={7} xxl={7} className="ps-3 offset-3">
         <div className="ps-3 pe-0">
-        {getFilterParamsList().map((item) => (
-          <Badge
-            key={item}
-            className="py-2 m-0 me-2 overflow-hidden fs-9 text-white border"
-            style={{
-              maxWidth: "200px",
-              whiteSpace: "nowrap",
-              textOverflow: "ellipsis",
-            }}
-            title={item}
-          >
-            {item}
-          </Badge>
-        ))}
+          {props.searchParams.get("q") !== undefined &&
+          props.searchParams.get("q") !== null ? (
+            <Badge
+              key={props.searchParams.get("q")}
+              className="py-1 m-0 me-2 overflow-hidden fs-9 text-white border"
+              style={{
+                maxWidth: "200px",
+                whiteSpace: "nowrap",
+                textOverflow: "ellipsis",
+              }}
+            >
+              <span>
+                <CloseButton
+                  variant="white"
+                  className="pt-2"
+                  onClick={() => {
+                    props.setSearchKeyword("");
+                    navigate(
+                      handleFilterAndSearch(
+                        props.setSearchResults,
+                        props.filterDict,
+                        "",
+                        props.limit,
+                        0,
+                        0,
+                        props.setPage,
+                        props.setFilterDict,
+                        null
+                      )
+                    );
+                  }}
+                />
+                <span className="px-1 mb-0">
+                  Keyword: {props.searchParams.get("q")}
+                </span>
+              </span>
+            </Badge>
+          ) : (
+            <></>
+          )}
+          {getFilterParamsList().map((item, idx) => (
+            <Badge
+              key={item.split("|")[1]}
+              className="py-1 m-0 me-2 overflow-hidden fs-9 text-white border text-capitalize"
+              style={{
+                maxWidth: "200px",
+                whiteSpace: "nowrap",
+                textOverflow: "ellipsis",
+              }}
+              title={item.split("|")[1]}
+            >
+              <span>
+                <CloseButton
+                  variant="white"
+                  onClick={() => clearFilter(idx, item)}
+                  className="pt-2"
+                />
+                <span className="px-1 mb-0">{item.split("|")[1]}</span>
+              </span>
+            </Badge>
+          ))}
         </div>
       </Col>
-      <Col lg={2} md={2} sm={2} xl={2} xs={2} xxl={2} className="text-end pe-2">
+      <Col lg={2} md={2} sm={2} xl={2} xs={2} xxl={2} className="text-end pe-4">
         <Badge className="py-2 px-2 bg-secondary me-1">
           {props.searchParams.get("f") !== undefined &&
           props.searchParams.get("f") !== null

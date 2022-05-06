@@ -1,9 +1,8 @@
 import React, { Dispatch, SetStateAction } from "react";
 import ReactPaginate from "react-paginate";
 import { searchResponseModel } from "../../../models/dataset";
-import { getDatasetsSearchResp } from "../../../api/browse";
 import { facetFilterModel } from '../../../models/facets'
-import { getFilterString } from "../../../utils/utils";
+import { handleFilterAndSearch } from "../../../utils/utils";
 import { useNavigate } from 'react-router-dom'
 import { scrollUp } from "../../../utils/utils";
 
@@ -19,36 +18,27 @@ interface dataSetPaginationProps {
   setPage: Dispatch<SetStateAction<number>>;
   searchParams: any;
   setSearchParams: any;
+  setFilterDict: Dispatch<SetStateAction<facetFilterModel[]>>;
 }
 
 const DatasetPagination = (props: dataSetPaginationProps) => {
   let pageCount = Math.ceil(props.dsCount / props.limit);
   let navigate = useNavigate();
-
   const handlePageClick = (data: any) => {
     let skip = data.selected * props.limit;
-    props.setPage(data.selected + 1);
-    getDatasetsSearchResp(
-      props.setSearchResults,
-      props.filterDict,
-      props.searchKeyword,
-      skip,
-      props.limit
+    navigate(
+      handleFilterAndSearch(
+        props.setSearchResults,
+        props.filterDict,
+        props.searchKeyword,
+        props.limit,
+        skip,
+        data.selected,
+        props.setPage,
+        props.setFilterDict,
+        null
+      )
     );
-    props.setSearchParams({ p: data.selected + 1 })
-    if (getFilterString(props.filterDict) === '' || getFilterString(props.filterDict) === null) {
-      if (props.searchKeyword === '' || props.searchKeyword === null) {
-        navigate(`?p=${data.selected + 1}`)
-      } else {
-        navigate(`?q=${props.searchKeyword}&p=${data.selected + 1}`)
-      }
-    } else {
-      if (props.searchKeyword === '' || props.searchKeyword === null) {
-        navigate(`?f=${getFilterString(props.filterDict)}&p=${data.selected + 1}`)
-      } else {
-        navigate(`?q=${props.searchKeyword}&f=${getFilterString(props.filterDict)}&p=${data.selected + 1}`)
-      }
-    }
   };
 
   return (

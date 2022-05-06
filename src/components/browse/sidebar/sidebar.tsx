@@ -1,12 +1,12 @@
-import React, { Dispatch, SetStateAction, useState } from "react";
+import React, { Dispatch, SetStateAction } from "react";
 import Search from "./searchbar";
 import Filter from "./filter";
 import { Row, Col, Button } from "react-bootstrap";
 import { facetModel, facetFilterModel } from "../../../models/facets";
 import { searchResponseModel } from "../../../models/dataset";
 import { getDatasetsSearchResp } from "../../../api/browse";
-import { getFilterString } from "../../../utils/utils";
-import { useNavigate } from "react-router-dom";
+import { handleFilterAndSearch } from "../../../utils/utils";
+import { URLSearchParamsInit, useNavigate } from "react-router-dom";
 import { scrollUp } from "../../../utils/utils";
 
 interface sidebarProps {
@@ -17,73 +17,42 @@ interface sidebarProps {
   setSearchKeyword: Dispatch<SetStateAction<string>>;
   setFilterDict: Dispatch<SetStateAction<facetFilterModel[]>>;
   filterDict: facetFilterModel[];
-  searchParams: any;
-  setSearchParams: any;
+  searchParams: URLSearchParams;
+  setSearchParams: (nextInit: URLSearchParamsInit, navigateOptions?: { replace?: boolean | undefined; state?: any; } | undefined) => void;
   page: number;
   setPage: Dispatch<SetStateAction<number>>;
+  setAppliedFilterDict: Dispatch<SetStateAction<facetFilterModel[]>>;
+  appliedFilterDict: facetFilterModel[];
+  setCheck: Dispatch<SetStateAction<Map<string, boolean>>>;
+  check: Map<string, boolean>;
 }
 
 const Sidebar = (props: sidebarProps) => {
   let navigate = useNavigate();
-  const [appliedFilterDict, setAppliedFilterDict] = useState<
-    facetFilterModel[]
-  >([]);
-  const [check, setCheck] = useState<Map<string, boolean>>(
-    new Map<string, boolean>()
-  );
   const skip = 0;
 
   React.useEffect(() => {
     const displayFilters = () => {
-      if (check.size === 0) {
+      if (props.check.size === 0) {
         for (var item of props.filterDict) {
-          setCheck(check.set(item.key + ":" + item.value, true));
+          props.setCheck(props.check.set(item.key + ":" + item.value, true));
+          props.setAppliedFilterDict(props.appliedFilterDict.concat(item));
         }
       }
     };
     displayFilters();
   });
+  
   const handleClear = () => {
     getDatasetsSearchResp(props.setSearchResults, [], "*", skip, props.limit);
-    check.forEach((value: boolean, key: string) => {
-      setCheck(check.set(key, false));
+    props.check.forEach((value: boolean, key: string) => {
+      props.setCheck(props.check.set(key, false));
     });
     props.setFilterDict([]);
-    setAppliedFilterDict([]);
+    props.setAppliedFilterDict([]);
     props.setSearchKeyword("");
     props.setPage(0);
     navigate(`?p=1`);
-  };
-
-  const handleFilter = () => {
-    getDatasetsSearchResp(
-      props.setSearchResults,
-      appliedFilterDict,
-      props.searchKeyword,
-      skip,
-      props.limit
-    );
-    props.setFilterDict([...appliedFilterDict]);
-    props.setSearchParams({ f: getFilterString(props.filterDict) });
-    props.setSearchParams({ p: 1 });
-    props.setPage(0);
-    if (getFilterString(appliedFilterDict) === "") {
-      if (props.searchKeyword === "" || props.searchKeyword === null) {
-        navigate(`?p=1`);
-      } else {
-        navigate(`?q=${props.searchKeyword}&p=1`);
-      }
-    } else {
-      if (props.searchKeyword === "" || props.searchKeyword === null) {
-        navigate(`?f=${getFilterString(appliedFilterDict)}&p=1`);
-      } else {
-        navigate(
-          `?q=${props.searchKeyword}&f=${getFilterString(
-            appliedFilterDict
-          )}&p=1`
-        );
-      }
-    }
   };
 
   return (
@@ -95,9 +64,9 @@ const Sidebar = (props: sidebarProps) => {
           setSearchResults={props.setSearchResults}
           limit={props.limit}
           searchParams={props.searchParams}
-          setSearchParams={props.setSearchParams}
-          setPage={props.setPage}
           filterDict={props.filterDict}
+          setFilterDict={props.setFilterDict}
+          setPage={props.setPage}
         />
       </Row>
       {props.facetList === null || props.facetList.length === 0 ? null : (
@@ -108,11 +77,11 @@ const Sidebar = (props: sidebarProps) => {
               <Filter
                 facet={facet}
                 key={index}
-                check={check}
-                setCheck={setCheck}
+                check={props.check}
+                setCheck={props.setCheck}
                 searchKeyword={props.searchKeyword}
-                appliedFilterDict={appliedFilterDict}
-                setAppliedFilterDict={setAppliedFilterDict}
+                appliedFilterDict={props.appliedFilterDict}
+                setAppliedFilterDict={props.setAppliedFilterDict}
               />
             ))}
         </Row>
@@ -135,7 +104,19 @@ const Sidebar = (props: sidebarProps) => {
             <Button
               className="btn-primary w-100 rounded text-white border-2"
               onClick={() => {
-                handleFilter();
+                navigate(
+                  handleFilterAndSearch(
+                    props.setSearchResults,
+                    props.filterDict,
+                    props.searchKeyword,
+                    props.limit,
+                    0,
+                    0,
+                    props.setPage,
+                    props.setFilterDict,
+                    props.appliedFilterDict
+                  )
+                );
                 scrollUp();
               }}
             >
