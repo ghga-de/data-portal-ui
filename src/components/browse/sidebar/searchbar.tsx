@@ -14,6 +14,8 @@ interface searchbarProps {
   limit: number;
   searchParams: URLSearchParams;
   filterDict: facetFilterModel[];
+  setFilterDict: Dispatch<SetStateAction<facetFilterModel[]>>;
+  setPage: Dispatch<SetStateAction<number>>;
 }
 
 const Searchbar = (props: searchbarProps) => {
@@ -27,6 +29,7 @@ const Searchbar = (props: searchbarProps) => {
     <Container className="mb-4">
       <Form
         onSubmit={(event) => {
+          console.log(props.filterDict)
           scrollUp();
           event.preventDefault()
           navigate(
@@ -35,7 +38,10 @@ const Searchbar = (props: searchbarProps) => {
               props.filterDict,
               props.searchKeyword,
               props.limit,
-              null,
+              0,
+              0,
+              props.setPage,
+              props.setFilterDict,
               null
             )
           );

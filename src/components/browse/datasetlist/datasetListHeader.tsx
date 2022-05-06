@@ -19,6 +19,7 @@ interface dataSetListHeaderProps {
   setAppliedFilterDict: Dispatch<SetStateAction<facetFilterModel[]>>;
   appliedFilterDict: facetFilterModel[];
   check: Map<string, boolean>;
+  setPage: Dispatch<SetStateAction<number>>;
 }
 
 const DatasetListHeader = (props: dataSetListHeaderProps) => {
@@ -62,6 +63,9 @@ const DatasetListHeader = (props: dataSetListHeaderProps) => {
         props.filterDict,
         props.searchKeyword,
         props.limit,
+        0,
+        0,
+        props.setPage,
         props.setFilterDict,
         null
       )
@@ -96,6 +100,9 @@ const DatasetListHeader = (props: dataSetListHeaderProps) => {
                         props.filterDict,
                         "",
                         props.limit,
+                        0,
+                        0,
+                        props.setPage,
                         props.setFilterDict,
                         null
                       )

@@ -65,6 +65,8 @@ const Sidebar = (props: sidebarProps) => {
           limit={props.limit}
           searchParams={props.searchParams}
           filterDict={props.filterDict}
+          setFilterDict={props.setFilterDict}
+          setPage={props.setPage}
         />
       </Row>
       {props.facetList === null || props.facetList.length === 0 ? null : (
@@ -108,6 +110,9 @@ const Sidebar = (props: sidebarProps) => {
                     props.filterDict,
                     props.searchKeyword,
                     props.limit,
+                    0,
+                    0,
+                    props.setPage,
                     props.setFilterDict,
                     props.appliedFilterDict
                   )

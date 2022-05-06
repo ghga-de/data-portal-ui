@@ -87,6 +87,7 @@ const Browse = () => {
           setAppliedFilterDict={setAppliedFilterDict}
           appliedFilterDict={appliedFilterDict}
           check={check}
+          setPage={setPage}
         />
       </Row>
       <Row>
@@ -124,6 +125,7 @@ const Browse = () => {
             setPage={setPage}
             facets={facetList}
             skip={skip}
+            setFilterDict={setFilterDict}
           />
         </Col>
       </Row>

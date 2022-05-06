@@ -2,6 +2,7 @@ import { facetFilterModel } from "../models/facets";
 import { getDatasetsSearchResp } from "../api/browse";
 import { Dispatch, SetStateAction } from "react";
 import { searchResponseModel } from "../models/dataset";
+import { setSourceMapRange } from "typescript";
 
 export const getFilterString = (filterDict: facetFilterModel[]) => {
   let filterString = "";
@@ -61,16 +62,21 @@ export const handleFilterAndSearch = (
   filterDict: facetFilterModel[],
   searchKeyword: string,
   limit: number,
+  skip: number,
+  page: number,
+  setPage: Dispatch<SetStateAction<number>>,
   setFilterDict: Dispatch<SetStateAction<facetFilterModel[]>> | null,
   appliedFilterDict: facetFilterModel[] | null
 ) => {
+  page = page + 1;
   if (appliedFilterDict === null) {
     appliedFilterDict = filterDict;
   }
   if (setFilterDict) {
-    filterDict = appliedFilterDict
+    filterDict = appliedFilterDict;
+    setFilterDict(appliedFilterDict);
   }
-  let skip = 0;
+  setPage(page)
   getDatasetsSearchResp(
     setSearchResults,
     filterDict,
@@ -79,16 +85,24 @@ export const handleFilterAndSearch = (
     limit
   );
   if (searchKeyword === "" || searchKeyword === null) {
-    if (getFilterString(appliedFilterDict) === "") {
-      return `?p=1`;
+    if (
+      getFilterString(appliedFilterDict) === "" ||
+      getFilterString(appliedFilterDict) === null
+    ) {
+      return `?p=` + page;
     } else {
-      return `?f=${getFilterString(appliedFilterDict)}&p=1`;
+      return `?f=${getFilterString(appliedFilterDict)}&p=` + page;
     }
   } else {
-    if (getFilterString(appliedFilterDict) === "") {
-      return `?q=${searchKeyword}&p=1`;
+    if (
+      getFilterString(appliedFilterDict) === "" ||
+      getFilterString(appliedFilterDict) === null
+    ) {
+      return `?q=${searchKeyword}&p=` + page;
     } else {
-      return `?q=${searchKeyword}&f=${getFilterString(appliedFilterDict)}&p=1`;
+      return (
+        `?q=${searchKeyword}&f=${getFilterString(appliedFilterDict)}&p=` + page
+      );
     }
   }
 };
