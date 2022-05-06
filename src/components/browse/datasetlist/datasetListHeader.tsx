@@ -2,7 +2,7 @@ import React, { Dispatch, SetStateAction } from "react";
 import { Badge, Row, Col, CloseButton } from "react-bootstrap";
 import { facetFilterModel, facetModel } from "../../../models/facets";
 import { searchResponseModel } from "../../../models/dataset";
-import { URLSearchParamsInit, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { handleFilterAndSearch } from "../../../utils/utils";
 
 interface dataSetListHeaderProps {
@@ -14,8 +14,6 @@ interface dataSetListHeaderProps {
   setSearchKeyword: Dispatch<SetStateAction<string>>;
   limit: number;
   skip: number;
-  setSearchParams: (nextInit: URLSearchParamsInit, navigateOptions?: { replace?: boolean | undefined; state?: any; } | undefined) => void;
-  setPage: Dispatch<SetStateAction<number>>;
   setFilterDict: Dispatch<SetStateAction<facetFilterModel[]>>;
   searchKeyword: string;
   setAppliedFilterDict: Dispatch<SetStateAction<facetFilterModel[]>>;
@@ -64,8 +62,6 @@ const DatasetListHeader = (props: dataSetListHeaderProps) => {
         props.filterDict,
         props.searchKeyword,
         props.limit,
-        props.setSearchParams,
-        props.setPage,
         props.setFilterDict,
         null
       )
@@ -100,8 +96,6 @@ const DatasetListHeader = (props: dataSetListHeaderProps) => {
                         props.filterDict,
                         "",
                         props.limit,
-                        props.setSearchParams,
-                        props.setPage,
                         props.setFilterDict,
                         null
                       )

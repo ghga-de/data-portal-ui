@@ -2,7 +2,6 @@ import { facetFilterModel } from "../models/facets";
 import { getDatasetsSearchResp } from "../api/browse";
 import { Dispatch, SetStateAction } from "react";
 import { searchResponseModel } from "../models/dataset";
-import { URLSearchParamsInit } from "react-router-dom";
 
 export const getFilterString = (filterDict: facetFilterModel[]) => {
   let filterString = "";
@@ -14,7 +13,7 @@ export const getFilterString = (filterDict: facetFilterModel[]) => {
 
 export const scrollUp = () => {
   window.scrollTo({
-    top: 55,
+    top: 60,
     behavior: "smooth",
   });
 };
@@ -62,11 +61,6 @@ export const handleFilterAndSearch = (
   filterDict: facetFilterModel[],
   searchKeyword: string,
   limit: number,
-  setSearchParams: (
-    nextInit: URLSearchParamsInit,
-    navigateOptions?: { replace?: boolean | undefined; state?: any } | undefined
-  ) => void,
-  setPage: Dispatch<SetStateAction<number>>,
   setFilterDict: Dispatch<SetStateAction<facetFilterModel[]>> | null,
   appliedFilterDict: facetFilterModel[] | null
 ) => {

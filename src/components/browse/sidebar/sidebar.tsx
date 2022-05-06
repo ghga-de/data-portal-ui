@@ -64,8 +64,6 @@ const Sidebar = (props: sidebarProps) => {
           setSearchResults={props.setSearchResults}
           limit={props.limit}
           searchParams={props.searchParams}
-          setSearchParams={props.setSearchParams}
-          setPage={props.setPage}
           filterDict={props.filterDict}
         />
       </Row>
@@ -110,8 +108,6 @@ const Sidebar = (props: sidebarProps) => {
                     props.filterDict,
                     props.searchKeyword,
                     props.limit,
-                    props.setSearchParams,
-                    props.setPage,
                     props.setFilterDict,
                     props.appliedFilterDict
                   )

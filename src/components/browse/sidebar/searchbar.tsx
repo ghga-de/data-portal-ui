@@ -13,8 +13,6 @@ interface searchbarProps {
   searchKeyword: string;
   limit: number;
   searchParams: URLSearchParams;
-  setSearchParams: any;
-  setPage: Dispatch<SetStateAction<number>>;
   filterDict: facetFilterModel[];
 }
 
@@ -37,8 +35,6 @@ const Searchbar = (props: searchbarProps) => {
               props.filterDict,
               props.searchKeyword,
               props.limit,
-              props.setSearchParams,
-              props.setPage,
               null,
               null
             )
