@@ -2,7 +2,6 @@ import { facetFilterModel } from "../models/facets";
 import { getDatasetsSearchResp } from "../api/browse";
 import { Dispatch, SetStateAction } from "react";
 import { searchResponseModel } from "../models/dataset";
-import { setSourceMapRange } from "typescript";
 
 export const getFilterString = (filterDict: facetFilterModel[]) => {
   let filterString = "";
