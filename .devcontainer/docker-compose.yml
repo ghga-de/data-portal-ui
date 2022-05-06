@@ -4,10 +4,10 @@ services:
   # data portal ui
 
   data_portal_ui_svc:
-    image: ghga/data-portal-ui-v1:dev
+    image: ghga/data-portal-ui:dev
     environment:
-      DATA_PORTAL_UI_V0_HOST: 0.0.0.0
-      DATA_PORTAL_UI_V0_PORT: 8080
+      DATA_PORTAL_UI_HOST: 0.0.0.0
+      DATA_PORTAL_UI_PORT: 8080
     ports:
       - 8000:8080
     depends_on:
@@ -78,10 +78,8 @@ services:
 
         # Convert the data to GHGA format
         python scripts/transform_ega_to_ghga.py \
-          --ega-dac-json data/original/dacs.json \
-          --ega-dataset-json data/original/datasets.json \
-          --ega-studies-json data/original/studies.json \
-          --output /tmp/example_dir
+          --output /tmp/example_dir \
+          blobfish-transform.yml
 
         # Populate the database
         /service/scripts/populate_metadata_store.py --example-dir /tmp/example_dir \
@@ -96,6 +94,8 @@ services:
       - 8002:8080
     depends_on:
       - metadata_db
+    env_file:
+      - .env.local
 
   # mongo db
 
