@@ -1,3 +1,5 @@
+import { faSearch } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import {
   Button,
@@ -41,8 +43,8 @@ const Home = () => {
                       placeholder="Search datasets"
                     />
                   </Col>
-                  <Col className="col-1">
-                    <Button variant="secondary">Search</Button>
+                  <Col className="col-2 ms-0">
+                    <Button variant="secondary" className="text-white"><FontAwesomeIcon icon={faSearch}/>&nbsp;Search</Button>
                   </Col>
                 </Row>
               </Form>
