@@ -4,6 +4,7 @@ import Browse from './components/browse/browse'
 import PageNotFound from './components/pageNotFound/pageNotFound'
 import './App.scss'
 import { Routes, BrowserRouter, Route } from "react-router-dom"
+import Home from './components/home/home'
 
 
 function App() {
@@ -12,7 +13,7 @@ function App() {
       <Header />
       <Routes>
         <Route path="/">
-          <Route index element={<Browse />} />
+          <Route index element={<Home />} />
         </Route>
         <Route path="/browse">
           <Route index element={<Browse />} />
