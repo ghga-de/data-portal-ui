@@ -18,3 +18,4 @@ FROM mcr.microsoft.com/vscode/devcontainers/typescript-node:0-${VARIANT}
 # Copy install and launcher script to bin:
 COPY ./dev_install /bin
 COPY ./dev_launcher /bin
+COPY ./test_app /bin
