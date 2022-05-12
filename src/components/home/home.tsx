@@ -21,33 +21,35 @@ const Home = () => {
           </Row>
           <Row>
             <div
-              className="border border-black p-0 rounded py-3 px-4"
+              className="border border-black p-0 rounded p-3 px-4"
               style={{ background: "RGBA(0,0,0,0.5)" }}
             >
-              <p>
+              <span>
                 A FAIR Portal for Human Genomics data with GDPR-compliant access
                 control.
-              </p>
-              <Button variant="white">Get started</Button>
+              </span>
             </div>
           </Row>
         </Col>
         <Col>
           <Row className="justify-content-center">
-              <Form className="w-75">
-                <Row>
-                  <Col>
-                    <Form.Control
-                      id="searchInput"
-                      type="text"
-                      placeholder="Search datasets"
-                    />
-                  </Col>
-                  <Col className="col-2 ms-0">
-                    <Button variant="secondary" className="text-white"><FontAwesomeIcon icon={faSearch}/>&nbsp;Search</Button>
-                  </Col>
-                </Row>
-              </Form>
+            <Form className="w-75">
+              <Row>
+                <Col>
+                  <Form.Control
+                    id="searchInput"
+                    type="text"
+                    placeholder="Search datasets"
+                  />
+                </Col>
+                <Col className="col-2 ms-0">
+                  <Button variant="secondary" className="text-white">
+                    <FontAwesomeIcon icon={faSearch} />
+                    &nbsp;Search
+                  </Button>
+                </Col>
+              </Row>
+            </Form>
           </Row>
           <Row className="mb-4 mt-2 justify-content-center">
             <Container className="w-75">
@@ -68,30 +70,24 @@ const Home = () => {
             </Container>
           </Row>
           <Row className="text-black justify-content-center">
-              <Card style={{ width: "18rem" }} className="d-inline-block mx-2">
-                <Card.Body>
-                  <Card.Title>Technology</Card.Title>
-                  <Card.Text>
-                    Contents
-                  </Card.Text>
-                </Card.Body>
-              </Card>
-              <Card style={{ width: "18rem" }} className="d-inline-block mx-2">
-                <Card.Body>
-                  <Card.Title>Sex</Card.Title>
-                  <Card.Text>
-                    Contents
-                  </Card.Text>
-                </Card.Body>
-              </Card>
-              <Card style={{ width: "18rem" }} className="d-inline-block mx-2">
-                <Card.Body>
-                  <Card.Title>Volume</Card.Title>
-                  <Card.Text>
-                    Contents
-                  </Card.Text>
-                </Card.Body>
-              </Card>
+            <Card style={{ width: "18rem" }} className="d-inline-block mx-2">
+              <Card.Body>
+                <Card.Title>Technology</Card.Title>
+                <Card.Text>Contents</Card.Text>
+              </Card.Body>
+            </Card>
+            <Card style={{ width: "18rem" }} className="d-inline-block mx-2">
+              <Card.Body>
+                <Card.Title>Sex</Card.Title>
+                <Card.Text>Contents</Card.Text>
+              </Card.Body>
+            </Card>
+            <Card style={{ width: "18rem" }} className="d-inline-block mx-2">
+              <Card.Body>
+                <Card.Title>Volume</Card.Title>
+                <Card.Text>Contents</Card.Text>
+              </Card.Body>
+            </Card>
           </Row>
         </Col>
       </Row>
