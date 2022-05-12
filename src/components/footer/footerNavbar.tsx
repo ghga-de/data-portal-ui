@@ -7,6 +7,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { faQuestionCircle } from "@fortawesome/free-regular-svg-icons";
 import logo from "../../assets/data-portal.png";
+import { Link } from "react-router-dom";
 
 const FooterNavbar = () => {
   return (
@@ -14,16 +15,16 @@ const FooterNavbar = () => {
       <Container className="pt-3 pb-2 text-center">
         <Row>
           <Col className="border-1 border-end px-3 mx-0 fs-8 text-white">
-            <a href="/">
+            <Link to="/">
               <img src={logo} alt="GHGA logo" height="70px" />
-            </a>
+            </Link>
             <p className="text-start mt-2 mb-1">
               GHGA Data Portal running in Beta mode
             </p>
             <p className="text-start">
-              <a href="/browse" className="fw-bold text-white">
+              <Link to="/browse" className="fw-bold text-white">
                 Browse Datasets
-              </a>
+              </Link>
             </p>
           </Col>
           <Button
@@ -37,7 +38,7 @@ const FooterNavbar = () => {
             />
             <p>How to download data</p>
           </Button>
-            <Button href="https://www.ghga.de/data/data-upload" target="_blank"
+          <Button href="https://www.ghga.de/data/data-upload" target="_blank"
             className="text-white text-decoration-none col border-1 border-end px-3 mx-0 flex-shrink-0">
             <FontAwesomeIcon
               icon={faCloudUpload}
@@ -45,7 +46,7 @@ const FooterNavbar = () => {
               className="text-white mt-3 mb-3"
             />
             <p>Submit data to GHGA</p>
-            </Button>
+          </Button>
           <Button
             href="https://www.ghga.de/data/metadata-model" target="_blank"
             className="text-white text-decoration-none col border-1 border-end px-3 mx-0 flex-shrink-0"
