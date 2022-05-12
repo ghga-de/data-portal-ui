@@ -1,9 +1,11 @@
 import React from "react";
 import logo from "../../assets/data-portal.png";
 import { Navbar, Container, Nav, Button } from "react-bootstrap";
+import { NavLink } from "react-router-dom";
 
 const HeaderNavbar = () => {
-  let currPage = window.location.pathname;
+  const activePageStyle = "btn btn-secondary p-0 h-100 m-0 mx-2 px-2 pt-1 text-white";
+  const inactivePageStyle = "btn btn-primary p-0 h-100 m-0 mx-2 px-2 pt-1 text-white"
   return (
     <Navbar
       collapseOnSelect
@@ -27,26 +29,17 @@ const HeaderNavbar = () => {
             className="justify-content-center flex-fill"
             style={{ height: "36px" }}
           >
-            <Nav.Link href="/" className="mx-2 p-0">
-              <Button
-                variant={currPage === "/" ? "secondary" : "primary"}
-                className="p-0 w-100 h-100 m-0 px-2 text-white"
-              >
-                Home
-              </Button>
-            </Nav.Link>
-            <Nav.Link href="/browse" className="mx-2 p-0">
-              <Button
-                variant={
-                  currPage.split("?")[0].toLowerCase() === "/browse"
-                    ? "secondary"
-                    : "primary"
-                }
-                className="p-0 w-100 h-100 m-0 px-2 text-white"
-              >
-                Browse
-              </Button>
-            </Nav.Link>
+            <NavLink to="/" end={true}
+              className={({ isActive }) =>
+                isActive ? activePageStyle : inactivePageStyle
+              }>
+              Home
+            </NavLink>
+            <NavLink to="/browse" className={({ isActive }) =>
+              isActive ? activePageStyle : inactivePageStyle
+            }>
+              Browse
+            </NavLink>
             <Nav.Link
               href="https://www.ghga.de/data/about-ghga-beta"
               target="_blank"
