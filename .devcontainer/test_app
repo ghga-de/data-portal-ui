@@ -1,7 +1,7 @@
 #!/bin/bash
 # install web app in dev container
 
-cd /workspace/test
+cd /workspace
 
 # install web app dependencies:
 yarn test
