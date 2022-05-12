@@ -81,7 +81,7 @@ const DatasetListHeader = (props: dataSetListHeaderProps) => {
           props.searchParams.get("q") !== null ? (
             <Badge
               key={props.searchParams.get("q")}
-              className="py-1 m-0 me-2 overflow-hidden fs-9 text-white border"
+              className="py-1 m-0 me-2 overflow-hidden fs-9 bg-white text-black border border-secondary fw-normal"
               style={{
                 maxWidth: "200px",
                 whiteSpace: "nowrap",
@@ -90,7 +90,6 @@ const DatasetListHeader = (props: dataSetListHeaderProps) => {
             >
               <span>
                 <CloseButton
-                  variant="white"
                   className="pt-2"
                   onClick={() => {
                     props.setSearchKeyword("");
@@ -120,7 +119,7 @@ const DatasetListHeader = (props: dataSetListHeaderProps) => {
           {getFilterParamsList().map((item, idx) => (
             <Badge
               key={item.split("|")[1]}
-              className="py-1 m-0 me-2 overflow-hidden fs-9 text-white border text-capitalize"
+              className="py-1 m-0 me-2 overflow-hidden text-black fs-9 border text-capitalize bg-white border-secondary fw-normal"
               style={{
                 maxWidth: "200px",
                 whiteSpace: "nowrap",
@@ -130,7 +129,6 @@ const DatasetListHeader = (props: dataSetListHeaderProps) => {
             >
               <span>
                 <CloseButton
-                  variant="white"
                   onClick={() => clearFilter(idx, item)}
                   className="pt-2"
                 />
@@ -141,7 +139,7 @@ const DatasetListHeader = (props: dataSetListHeaderProps) => {
         </div>
       </Col>
       <Col lg={2} md={2} sm={2} xl={2} xs={2} xxl={2} className="text-end pe-4">
-        <Badge className="py-2 px-2 bg-secondary me-1">
+        <Badge className="py-2 px-2 bg-primary me-1">
           {props.searchParams.get("f") !== undefined &&
           props.searchParams.get("f") !== null
             ? "Datasets Found:"

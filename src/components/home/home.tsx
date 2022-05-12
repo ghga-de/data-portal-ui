@@ -43,7 +43,7 @@ const Home = () => {
                   />
                 </Col>
                 <Col className="col-2 ms-0">
-                  <Button variant="secondary" className="text-white">
+                  <Button variant="secondary" className="text-white shadow-sm">
                     <FontAwesomeIcon icon={faSearch} />
                     &nbsp;Search
                   </Button>
@@ -66,7 +66,7 @@ const Home = () => {
           </Row>
           <Row className="mb-4 justify-content-center">
             <Container className="col-2">
-              <Button variant="white">ZZ Total Datasets</Button>
+              <Button variant="white" className="shadow-sm">ZZ Total Datasets</Button>
             </Container>
           </Row>
           <Row className="text-black justify-content-center">
@@ -118,7 +118,7 @@ const Home = () => {
                   </Col>
                   <Col>Chart</Col>
                 </Row>
-                <Button variant="white">Learn more...</Button>
+                <Button variant="white" className="shadow-sm">Learn more...</Button>
               </div>
             </Carousel.Item>
           </Carousel>
