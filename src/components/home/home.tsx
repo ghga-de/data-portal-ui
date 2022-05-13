@@ -10,8 +10,11 @@ import {
   Form,
   Row,
 } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
+  let navigate = useNavigate();
+  const [searchKeyword, setSearchKeyword] = React.useState<string>("");
   return (
     <div>
       <Row className="w-100 bg-primary rounded mx-0 mb-3 pt-5 pb-4 pe-4 text-white">
@@ -33,17 +36,20 @@ const Home = () => {
         </Col>
         <Col>
           <Row className="justify-content-center">
-            <Form className="w-75">
+            <Form className="w-75" onSubmit={(event) => {
+          event.preventDefault()
+          navigate("/browse?q=" + searchKeyword)}}>
               <Row>
                 <Col>
                   <Form.Control
                     id="searchInput"
                     type="text"
                     placeholder="Search datasets"
+                    onChange={(event) => setSearchKeyword(event.target.value)}
                   />
                 </Col>
                 <Col className="col-2 ms-0">
-                  <Button variant="secondary" className="text-white shadow-sm">
+                  <Button variant="secondary" className="text-white shadow-sm" type="submit">
                     <FontAwesomeIcon icon={faSearch} />
                     &nbsp;Search
                   </Button>
