@@ -11,9 +11,60 @@ import {
   Row,
 } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+import { getDatasetsSearchResp } from "../../api/browse";
+import { searchResponseModel } from "../../models/dataset";
+import { facetFilterModel, facetModel } from "../../models/facets";
 
 const Home = () => {
   let navigate = useNavigate();
+
+  const [searchResults, setSearchResults] =
+    React.useState<searchResponseModel | null>(null);
+
+  const [filterDict, setFilterDict] = React.useState<facetFilterModel[]>([]);
+
+  React.useEffect(
+    () => {
+      const getData = () => {
+        getDatasetsSearchResp(setSearchResults, [], "", 0, 1);
+      };
+      getData();
+    }, // eslint-disable-next-line react-hooks/exhaustive-deps
+    []
+  );
+
+  var facetList: facetModel[] | null = null;
+  var dsCount: number = 0;
+
+  if (searchResults !== null) {
+    if (searchResults.hits.length > 0 || searchResults.count === -1) {
+      facetList = searchResults.facets;
+      dsCount = searchResults.count;
+    } else {
+      facetList = [];
+      dsCount = 0;
+    }
+  }
+
+  const searchDatasets = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    if (filterDict.length > 0) {
+      let filterURI = filterDict.map((x) => x.key + ":" + x.value).join(";");
+      navigate("/browse?q=" + searchKeyword + "&f=" + filterURI);
+    } else {
+      navigate("/browse?q=" + searchKeyword);
+    }
+  };
+
+  const filterChange = (key: string, optionValue: string) => {
+    if (optionValue === "") {
+      setFilterDict(filterDict.filter((x) => x.key !== key));
+    } else {
+      filterDict.push({ key: key, value: optionValue });
+      setFilterDict(filterDict);
+    }
+  };
+
   const [searchKeyword, setSearchKeyword] = React.useState<string>("");
   return (
     <div>
@@ -36,9 +87,7 @@ const Home = () => {
         </Col>
         <Col>
           <Row className="justify-content-center">
-            <Form className="w-75" onSubmit={(event) => {
-          event.preventDefault()
-          navigate("/browse?q=" + searchKeyword)}}>
+            <Form className="w-75" onSubmit={(event) => searchDatasets(event)}>
               <Row>
                 <Col>
                   <Form.Control
@@ -49,7 +98,11 @@ const Home = () => {
                   />
                 </Col>
                 <Col className="col-2 ms-0">
-                  <Button variant="secondary" className="text-white shadow-sm" type="submit">
+                  <Button
+                    variant="secondary"
+                    className="text-white shadow-sm"
+                    type="submit"
+                  >
                     <FontAwesomeIcon icon={faSearch} />
                     &nbsp;Search
                   </Button>
@@ -59,20 +112,62 @@ const Home = () => {
           </Row>
           <Row className="mb-4 mt-2 justify-content-center">
             <Container className="w-75">
-              <Form.Select className="d-inline-block w-25">
-                <option>Study Type</option>
-              </Form.Select>
-              <Form.Select className="d-inline-block w-25">
-                <option>Type</option>
-              </Form.Select>
-              <Form.Select className="d-inline-block w-25">
-                <option>Size</option>
-              </Form.Select>
+              <div className="w-75">
+                <Form.Select
+                  className="d-inline-block w-25 fs-8 text-capitalize"
+                  size="sm"
+                  onChange={(event) =>
+                    filterChange("has_study.type", event.target.value)
+                  }
+                >
+                  <option>Study Type</option>
+                  {facetList
+                    ?.filter((x) => x.key === "has_study.type")
+                    .map((x) =>
+                      x.options
+                        .sort((a, b) => (b.option < a.option ? 1 : -1))
+                        .map((y) => (
+                          <option value={y.option} key={y.option}>
+                            {y.option}
+                          </option>
+                        ))
+                    )}
+                </Form.Select>
+                <Form.Select
+                  className="d-inline-block w-25 fs-8 text-capitalize"
+                  size="sm"
+                  onChange={(event) =>
+                    filterChange("has_study.type", event.target.value)
+                  }
+                >
+                  <option>Type</option>
+                  {facetList
+                    ?.filter((x) => x.key === "type")
+                    .map((x) =>
+                      x.options
+                        .sort((a, b) => (b.option < a.option ? 1 : -1))
+                        .map((y) => (
+                          <option value={y.option} key={y.option}>
+                            {y.option}
+                          </option>
+                        ))
+                    )}
+                </Form.Select>
+                <Form.Select
+                  className="d-inline-block w-25 fs-8"
+                  size="sm"
+                  disabled
+                >
+                  <option>Size</option>
+                </Form.Select>
+              </div>
             </Container>
           </Row>
           <Row className="mb-4 justify-content-center">
             <Container className="col-2">
-              <Button variant="white" className="shadow-sm">ZZ Total Datasets</Button>
+              <Button variant="white" className="shadow-sm">
+                {dsCount} Total Datasets
+              </Button>
             </Container>
           </Row>
           <Row className="text-black justify-content-center">
@@ -124,7 +219,9 @@ const Home = () => {
                   </Col>
                   <Col>Chart</Col>
                 </Row>
-                <Button variant="white" className="shadow-sm">Learn more...</Button>
+                <Button variant="white" className="shadow-sm">
+                  Learn more...
+                </Button>
               </div>
             </Carousel.Item>
           </Carousel>
