@@ -18,7 +18,10 @@ interface sidebarProps {
   setFilterDict: Dispatch<SetStateAction<facetFilterModel[]>>;
   filterDict: facetFilterModel[];
   searchParams: URLSearchParams;
-  setSearchParams: (nextInit: URLSearchParamsInit, navigateOptions?: { replace?: boolean | undefined; state?: any; } | undefined) => void;
+  setSearchParams: (
+    nextInit: URLSearchParamsInit,
+    navigateOptions?: { replace?: boolean | undefined; state?: any } | undefined
+  ) => void;
   page: number;
   setPage: Dispatch<SetStateAction<number>>;
   setAppliedFilterDict: Dispatch<SetStateAction<facetFilterModel[]>>;
@@ -42,7 +45,7 @@ const Sidebar = (props: sidebarProps) => {
     };
     displayFilters();
   });
-  
+
   const handleClear = () => {
     getDatasetsSearchResp(props.setSearchResults, [], "*", skip, props.limit);
     props.check.forEach((value: boolean, key: string) => {
@@ -89,8 +92,8 @@ const Sidebar = (props: sidebarProps) => {
       <Row className="mb-2 mt-3 justify-content-end">
         <Col>
           <Button
-            className="w-100 rounded border-2"
-            variant="outline-dark"
+            className="w-100 rounded border-2 shadow-sm"
+            variant="outline-secondary"
             onClick={() => {
               handleClear();
               scrollUp();
@@ -102,7 +105,8 @@ const Sidebar = (props: sidebarProps) => {
         {props.facetList === null || props.facetList.length === 0 ? null : (
           <Col>
             <Button
-              className="btn-primary w-100 rounded text-white border-2"
+              variant="secondary"
+              className="w-100 rounded text-white border-2 shadow-sm"
               onClick={() => {
                 navigate(
                   handleFilterAndSearch(
