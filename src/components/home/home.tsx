@@ -48,12 +48,30 @@ const Home = () => {
 
   const searchDatasets = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    let queryString = "";
+    if (searchKeyword !== "") {
+      queryString = "&q=" + searchKeyword;
+    }
     if (filterDict.length > 0) {
       let filterURI = filterDict.map((x) => x.key + ":" + x.value).join(";");
-      navigate("/browse?q=" + searchKeyword + "&f=" + filterURI);
+      navigate("/browse?p=1" + queryString + "&f=" + filterURI);
     } else {
-      navigate("/browse?q=" + searchKeyword);
+      navigate("/browse?p=1" + queryString);
     }
+  };
+
+  const fillFilterSelect = (key: string) => {
+    return facetList
+      ?.filter((x) => x.key === key)
+      .map((x) =>
+        x.options
+          .sort((a, b) => (b.option < a.option ? 1 : -1))
+          .map((y) => (
+            <option value={y.option} key={y.option}>
+              {y.option}
+            </option>
+          ))
+      );
   };
 
   const filterChange = (key: string, optionValue: string) => {
@@ -121,37 +139,15 @@ const Home = () => {
                   }
                 >
                   <option>Study Type</option>
-                  {facetList
-                    ?.filter((x) => x.key === "has_study.type")
-                    .map((x) =>
-                      x.options
-                        .sort((a, b) => (b.option < a.option ? 1 : -1))
-                        .map((y) => (
-                          <option value={y.option} key={y.option}>
-                            {y.option}
-                          </option>
-                        ))
-                    )}
+                  {fillFilterSelect("has_study.type")}
                 </Form.Select>
                 <Form.Select
                   className="d-inline-block w-25 fs-8 text-capitalize"
                   size="sm"
-                  onChange={(event) =>
-                    filterChange("has_study.type", event.target.value)
-                  }
+                  onChange={(event) => filterChange("type", event.target.value)}
                 >
                   <option>Type</option>
-                  {facetList
-                    ?.filter((x) => x.key === "type")
-                    .map((x) =>
-                      x.options
-                        .sort((a, b) => (b.option < a.option ? 1 : -1))
-                        .map((y) => (
-                          <option value={y.option} key={y.option}>
-                            {y.option}
-                          </option>
-                        ))
-                    )}
+                  {fillFilterSelect("type")}
                 </Form.Select>
                 <Form.Select
                   className="d-inline-block w-25 fs-8"
