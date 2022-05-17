@@ -74,6 +74,19 @@ const Home = () => {
       );
   };
 
+  const generateSelect = (key: string) => {
+    return (
+      <Form.Select
+        className="d-inline-block w-25 fs-8 text-capitalize"
+        size="sm"
+        onChange={(event) => filterChange(key, event.target.value)}
+      >
+        <option>Study Type</option>
+        {fillFilterSelect(key)}
+      </Form.Select>
+    );
+  };
+
   const filterChange = (key: string, optionValue: string) => {
     if (optionValue === "") {
       setFilterDict(filterDict.filter((x) => x.key !== key));
@@ -131,24 +144,8 @@ const Home = () => {
           <Row className="mb-4 mt-2 justify-content-center">
             <Container className="w-75">
               <div className="w-75">
-                <Form.Select
-                  className="d-inline-block w-25 fs-8 text-capitalize"
-                  size="sm"
-                  onChange={(event) =>
-                    filterChange("has_study.type", event.target.value)
-                  }
-                >
-                  <option>Study Type</option>
-                  {fillFilterSelect("has_study.type")}
-                </Form.Select>
-                <Form.Select
-                  className="d-inline-block w-25 fs-8 text-capitalize"
-                  size="sm"
-                  onChange={(event) => filterChange("type", event.target.value)}
-                >
-                  <option>Type</option>
-                  {fillFilterSelect("type")}
-                </Form.Select>
+                {generateSelect("has_study.type")}
+                {generateSelect("type")}
                 <Form.Select
                   className="d-inline-block w-25 fs-8"
                   size="sm"
