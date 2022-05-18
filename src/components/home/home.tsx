@@ -93,7 +93,6 @@ const Home = () => {
       currentFilterDict.push({ key: key, value: optionValue });
     }
     setFilterDict(currentFilterDict);
-    console.log(currentFilterDict)
   };
 
   const [searchKeyword, setSearchKeyword] = React.useState<string>("");
