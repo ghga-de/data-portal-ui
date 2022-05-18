@@ -4,6 +4,7 @@ import { facetFilterModel, facetModel } from "../../../models/facets";
 import { searchResponseModel } from "../../../models/dataset";
 import { useNavigate } from "react-router-dom";
 import { handleFilterAndSearch } from "../../../utils/utils";
+import { getDatasetsSearchResp } from "../../../api/browse";
 
 interface dataSetListHeaderProps {
   dsCount: number;
@@ -24,6 +25,28 @@ interface dataSetListHeaderProps {
 
 const DatasetListHeader = (props: dataSetListHeaderProps) => {
   const navigate = useNavigate();
+
+  const [searchResults, setSearchResults] =
+    React.useState<searchResponseModel | null>(null);
+  React.useEffect(
+    () => {
+      const getData = () => {
+        getDatasetsSearchResp(setSearchResults, [], "", 0, 1);
+      };
+      getData();
+    }, // eslint-disable-next-line react-hooks/exhaustive-deps
+    []
+  );
+
+  var listOfAllFacets: facetModel[] | null = null;
+  if (searchResults !== null) {
+    if (searchResults.hits.length > 0 || searchResults.count === -1) {
+      listOfAllFacets = searchResults.facets;
+    } else {
+      listOfAllFacets = [];
+    }
+  }
+
   const getFilterParamsList = () => {
     let filterParamsList = [];
     let searchParams = props.searchParams.get("f");
@@ -31,9 +54,9 @@ const DatasetListHeader = (props: dataSetListHeaderProps) => {
       let searchParamsList = searchParams.split(";");
       for (var item of searchParamsList) {
         const itemKey = item.split(":")[0];
-        var itemPretty = item.replace(":", ": ");
-        if (props.facets !== null) {
-          const findResult: facetModel | undefined = props.facets.find(
+        var itemPretty = itemKey + "|" + item.replace(":", ": ");
+        if (listOfAllFacets !== null) {
+          const findResult: facetModel | undefined = listOfAllFacets.find(
             (x) => x.key === itemKey
           );
           if (findResult !== undefined) {

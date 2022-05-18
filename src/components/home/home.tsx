@@ -10,8 +10,92 @@ import {
   Form,
   Row,
 } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
+import { getDatasetsSearchResp } from "../../api/browse";
+import { searchResponseModel } from "../../models/dataset";
+import { facetFilterModel, facetModel } from "../../models/facets";
 
 const Home = () => {
+  let navigate = useNavigate();
+
+  const [searchResults, setSearchResults] =
+    React.useState<searchResponseModel | null>(null);
+
+  const [filterDict, setFilterDict] = React.useState<facetFilterModel[]>([]);
+
+  React.useEffect(
+    () => {
+      const getData = () => {
+        getDatasetsSearchResp(setSearchResults, [], "", 0, 1);
+      };
+      getData();
+    }, // eslint-disable-next-line react-hooks/exhaustive-deps
+    []
+  );
+
+  var facetList: facetModel[] | null = null;
+  var dsCount: number = 0;
+
+  if (searchResults !== null) {
+    if (searchResults.hits.length > 0 || searchResults.count === -1) {
+      facetList = searchResults.facets;
+      dsCount = searchResults.count;
+    } else {
+      facetList = [];
+      dsCount = 0;
+    }
+  }
+
+  const searchDatasets = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    let queryString = "";
+    if (searchKeyword !== "") {
+      queryString = "&q=" + searchKeyword;
+    }
+    if (filterDict.length > 0) {
+      let filterURI = filterDict.map((x) => x.key + ":" + x.value).join(";");
+      navigate("/browse?p=1" + queryString + "&f=" + filterURI);
+    } else {
+      navigate("/browse?p=1" + queryString);
+    }
+  };
+
+  const fillFilterSelect = (key: string) => {
+    return facetList
+      ?.filter((x) => x.key === key)
+      .map((x) =>
+        x.options
+          .sort((a, b) => (b.option < a.option ? 1 : -1))
+          .map((y) => (
+            <option value={y.option} key={y.option}>
+              {y.option}
+            </option>
+          ))
+      );
+  };
+
+  const generateSelect = (key: string, display: string) => {
+    return (
+      <Form.Select
+        className="d-inline-block w-25 fs-8 text-capitalize"
+        size="sm"
+        onChange={(event) => filterChange(key, event.target.value)}
+      >
+        <option value="">{display}</option>
+        {fillFilterSelect(key)}
+      </Form.Select>
+    );
+  };
+
+  const filterChange = (key: string, optionValue: string) => {
+    let currentFilterDict = filterDict.filter((x) => x.key !== key)
+    if (optionValue !== "") {
+      currentFilterDict.push({ key: key, value: optionValue });
+    }
+    setFilterDict(currentFilterDict);
+  };
+
+  const [searchKeyword, setSearchKeyword] = React.useState<string>("");
   return (
     <div>
       <Row className="w-100 bg-primary rounded mx-0 mb-3 pt-5 pb-4 pe-4 text-white">
@@ -33,17 +117,22 @@ const Home = () => {
         </Col>
         <Col>
           <Row className="justify-content-center">
-            <Form className="w-75">
+            <Form className="w-75" onSubmit={(event) => searchDatasets(event)}>
               <Row>
                 <Col>
                   <Form.Control
                     id="searchInput"
                     type="text"
                     placeholder="Search datasets"
+                    onChange={(event) => setSearchKeyword(event.target.value)}
                   />
                 </Col>
                 <Col className="col-2 ms-0">
-                  <Button variant="secondary" className="text-white shadow-sm">
+                  <Button
+                    variant="secondary"
+                    className="text-white shadow-sm"
+                    type="submit"
+                  >
                     <FontAwesomeIcon icon={faSearch} />
                     &nbsp;Search
                   </Button>
@@ -53,20 +142,24 @@ const Home = () => {
           </Row>
           <Row className="mb-4 mt-2 justify-content-center">
             <Container className="w-75">
-              <Form.Select className="d-inline-block w-25">
-                <option>Study Type</option>
-              </Form.Select>
-              <Form.Select className="d-inline-block w-25">
-                <option>Type</option>
-              </Form.Select>
-              <Form.Select className="d-inline-block w-25">
-                <option>Size</option>
-              </Form.Select>
+              <div className="w-75">
+                {generateSelect("has_study.type", "Study type")}
+                {generateSelect("type", "Type")}
+                <Form.Select
+                  className="d-inline-block w-25 fs-8"
+                  size="sm"
+                  disabled
+                >
+                  <option>Size</option>
+                </Form.Select>
+              </div>
             </Container>
           </Row>
           <Row className="mb-4 justify-content-center">
             <Container className="col-2">
-              <Button variant="white" className="shadow-sm">ZZ Total Datasets</Button>
+              <Button variant="white" className="shadow-sm">
+                {dsCount} Total Datasets
+              </Button>
             </Container>
           </Row>
           <Row className="text-black justify-content-center">
@@ -118,7 +211,9 @@ const Home = () => {
                   </Col>
                   <Col>Chart</Col>
                 </Row>
-                <Button variant="white" className="shadow-sm">Learn more...</Button>
+                <Button variant="white" className="shadow-sm">
+                  Learn more...
+                </Button>
               </div>
             </Carousel.Item>
           </Carousel>
