@@ -31,7 +31,7 @@ const DatasetListHeader = (props: dataSetListHeaderProps) => {
       let searchParamsList = searchParams.split(";");
       for (var item of searchParamsList) {
         const itemKey = item.split(":")[0];
-        var itemPretty = item.replace(":", ": ");
+        var itemPretty = itemKey + "|" + item.replace(":", ": ");
         if (props.facets !== null) {
           const findResult: facetModel | undefined = props.facets.find(
             (x) => x.key === itemKey

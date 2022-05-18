@@ -74,26 +74,26 @@ const Home = () => {
       );
   };
 
-  const generateSelect = (key: string) => {
+  const generateSelect = (key: string, display: string) => {
     return (
       <Form.Select
         className="d-inline-block w-25 fs-8 text-capitalize"
         size="sm"
         onChange={(event) => filterChange(key, event.target.value)}
       >
-        <option>Study Type</option>
+        <option value="">{display}</option>
         {fillFilterSelect(key)}
       </Form.Select>
     );
   };
 
   const filterChange = (key: string, optionValue: string) => {
-    if (optionValue === "") {
-      setFilterDict(filterDict.filter((x) => x.key !== key));
-    } else {
-      filterDict.push({ key: key, value: optionValue });
-      setFilterDict(filterDict);
+    let currentFilterDict = filterDict.filter((x) => x.key !== key)
+    if (optionValue !== "") {
+      currentFilterDict.push({ key: key, value: optionValue });
     }
+    setFilterDict(currentFilterDict);
+    console.log(currentFilterDict)
   };
 
   const [searchKeyword, setSearchKeyword] = React.useState<string>("");
@@ -144,8 +144,8 @@ const Home = () => {
           <Row className="mb-4 mt-2 justify-content-center">
             <Container className="w-75">
               <div className="w-75">
-                {generateSelect("has_study.type")}
-                {generateSelect("type")}
+                {generateSelect("has_study.type", "Study type")}
+                {generateSelect("type", "Type")}
                 <Form.Select
                   className="d-inline-block w-25 fs-8"
                   size="sm"
