@@ -227,10 +227,10 @@ const Home = () => {
             noFooter
             options={{ height: 425 }}
             placeholder={
-              <p>
+              <>
                 <Spinner animation="border" size="sm" variant="info" />&nbsp;Loading <a href="https://twitter.com/GHGA_DE">GHGA Twitter timeline</a> ...<br />
                 You may need to disable blocking of third-party cookies for this element to display correctly.
-              </p>
+              </>
             }
           />
         </Col>
