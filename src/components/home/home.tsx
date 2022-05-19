@@ -224,6 +224,7 @@ const Home = () => {
           <TwitterTimelineEmbed
             sourceType="profile"
             screenName="GHGA_DE"
+            footer: false
             options={{ height: 425 }}
             placeholder={
               <p>
