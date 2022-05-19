@@ -9,8 +9,10 @@ import {
   Container,
   Form,
   Row,
+  Spinner,
 } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+import { TwitterTimelineEmbed } from "react-twitter-embed";
 import { getDatasetsSearchResp } from "../../api/browse";
 import { searchResponseModel } from "../../models/dataset";
 import { facetFilterModel, facetModel } from "../../models/facets";
@@ -88,7 +90,7 @@ const Home = () => {
   };
 
   const filterChange = (key: string, optionValue: string) => {
-    let currentFilterDict = filterDict.filter((x) => x.key !== key)
+    let currentFilterDict = filterDict.filter((x) => x.key !== key);
     if (optionValue !== "") {
       currentFilterDict.push({ key: key, value: optionValue });
     }
@@ -218,7 +220,20 @@ const Home = () => {
             </Carousel.Item>
           </Carousel>
         </Col>
-        <Col className="rounded">Twitter</Col>
+        <Col className="rounded">
+          <TwitterTimelineEmbed
+            sourceType="profile"
+            screenName="GHGA_DE"
+            noFooter
+            options={{ height: 425 }}
+            placeholder={
+              <>
+                <Spinner animation="border" size="sm" variant="info" />&nbsp;Loading <a href="https://twitter.com/GHGA_DE">GHGA Twitter timeline</a> ...<br />
+                You may need to disable blocking of third-party cookies for this element to display correctly.
+              </>
+            }
+          />
+        </Col>
       </Row>
       <Row className="w-100 m-0 mb-3">
         <Col>Gallery Carousel</Col>
