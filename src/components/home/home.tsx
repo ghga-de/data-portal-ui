@@ -16,6 +16,11 @@ import { TwitterTimelineEmbed } from "react-twitter-embed";
 import { getDatasetsSearchResp } from "../../api/browse";
 import { searchResponseModel } from "../../models/dataset";
 import { facetFilterModel, facetModel } from "../../models/facets";
+import { Swiper, SwiperSlide } from "swiper/react/swiper-react.js";
+import { Autoplay, Navigation, Pagination } from "swiper";
+import "swiper/swiper.scss";
+import "swiper/modules/navigation/navigation.scss";
+import "swiper/modules/pagination/pagination.scss";
 
 const Home = () => {
   let navigate = useNavigate();
@@ -228,15 +233,48 @@ const Home = () => {
             options={{ height: 425 }}
             placeholder={
               <>
-                <Spinner animation="border" size="sm" variant="info" />&nbsp;Loading <a href="https://twitter.com/GHGA_DE">GHGA Twitter timeline</a> ...<br />
-                You may need to disable blocking of third-party cookies for this element to display correctly.
+                <Spinner animation="border" size="sm" variant="info" />
+                &nbsp;Loading{" "}
+                <a href="https://twitter.com/GHGA_DE">
+                  GHGA Twitter timeline
+                </a>{" "}
+                ...
+                <br />
+                You may need to disable blocking of third-party cookies for this
+                element to display correctly.
               </>
             }
           />
         </Col>
       </Row>
       <Row className="w-100 m-0 mb-3">
-        <Col>Gallery Carousel</Col>
+        <Col>
+          <Swiper
+            slidesPerView={6}
+            navigation
+            autoplay={{ delay: 500, disableOnInteraction: false, pauseOnMouseEnter: true}}
+            spaceBetween={30}
+            loop
+            pagination
+            speed={5000}
+            centeredSlides
+            loopAdditionalSlides={5}
+            modules={[Navigation, Autoplay, Pagination]}
+          >
+            <SwiperSlide>Slide 1<br/><br/><br/></SwiperSlide>
+            <SwiperSlide>Slide 2</SwiperSlide>
+            <SwiperSlide>Slide 3</SwiperSlide>
+            <SwiperSlide>Slide 4</SwiperSlide>
+            <SwiperSlide>Slide 5</SwiperSlide>
+            <SwiperSlide>Slide 6</SwiperSlide>
+            <SwiperSlide>Slide 7</SwiperSlide>
+            <SwiperSlide>Slide 8</SwiperSlide>
+            <SwiperSlide>Slide 9</SwiperSlide>
+            <SwiperSlide>Slide 10</SwiperSlide>
+            <SwiperSlide>Slide 11</SwiperSlide>
+            <SwiperSlide>Slide 12</SwiperSlide>
+          </Swiper>
+        </Col>
       </Row>
     </div>
   );
