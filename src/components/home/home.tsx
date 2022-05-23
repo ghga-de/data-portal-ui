@@ -102,6 +102,12 @@ const Home = () => {
     setFilterDict(currentFilterDict);
   };
 
+  function importAll(r : any) {
+    return r.keys().map(r);
+  }
+  
+  const listInstitutionImages : any = importAll(require.context('../../assets/institutions/', false, /\.png$/));
+
   const [searchKeyword, setSearchKeyword] = React.useState<string>("");
   return (
     <div>
@@ -252,27 +258,27 @@ const Home = () => {
           <Swiper
             slidesPerView={6}
             navigation
-            autoplay={{ delay: 500, disableOnInteraction: false, pauseOnMouseEnter: true}}
-            spaceBetween={30}
+            autoplay={{
+              delay: 3000,
+              disableOnInteraction: false,
+              pauseOnMouseEnter: true,
+            }}
+            spaceBetween={85}
             loop
-            pagination
-            speed={5000}
+            pagination={{clickable:true }}
+            speed={1500}
             centeredSlides
             loopAdditionalSlides={5}
             modules={[Navigation, Autoplay, Pagination]}
+            className="my-2 pb-4"
           >
-            <SwiperSlide>Slide 1<br/><br/><br/></SwiperSlide>
-            <SwiperSlide>Slide 2</SwiperSlide>
-            <SwiperSlide>Slide 3</SwiperSlide>
-            <SwiperSlide>Slide 4</SwiperSlide>
-            <SwiperSlide>Slide 5</SwiperSlide>
-            <SwiperSlide>Slide 6</SwiperSlide>
-            <SwiperSlide>Slide 7</SwiperSlide>
-            <SwiperSlide>Slide 8</SwiperSlide>
-            <SwiperSlide>Slide 9</SwiperSlide>
-            <SwiperSlide>Slide 10</SwiperSlide>
-            <SwiperSlide>Slide 11</SwiperSlide>
-            <SwiperSlide>Slide 12</SwiperSlide>
+            {listInstitutionImages.map((x : any) => (
+              <SwiperSlide key={x.default} className="d-flex align-items-center" style={{height: "125px"}}>
+                <div className="">
+                <img src={x.default} alt="Institution" className="w-100" />
+                </div>
+              </SwiperSlide>
+            ))}
           </Swiper>
         </Col>
       </Row>
