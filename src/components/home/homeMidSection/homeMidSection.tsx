@@ -9,7 +9,7 @@ const HomeMidSection = () => {
         <h4 className="mb-4">Our Projects</h4>
         <Carousel indicators={false}>
           {projects.map((x) => (
-            <Carousel.Item>
+            <Carousel.Item key={x.id}>
               <div className="px-5">
                 <h5>{x.name}</h5>
                 <Row>
