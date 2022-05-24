@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Accordion, Col } from "react-bootstrap";
 import { getDatasetDetails } from "../../../../api/browse";
 import { datasetEmbeddedModel, hitModel } from "../../../../models/dataset";
-import DatasetDetails from "./datasetdetails/datasetDetails";
+import DatasetDetails from "./datasetDetails/datasetDetails";
 
 interface dataSetListProps {
   dsList: hitModel[];
