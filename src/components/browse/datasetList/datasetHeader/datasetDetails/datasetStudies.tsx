@@ -1,7 +1,7 @@
 import React from "react";
 import { Row } from "react-bootstrap";
 import { studyModel } from "../../../../../models/dataset";
-import DatasetDetailsLayout from "./datasetdetailslayout/datasetDetailsLayout";
+import DatasetDetailsLayout from "./datasetDetailsLayout/datasetDetailsLayout";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBook } from '@fortawesome/free-solid-svg-icons';
 

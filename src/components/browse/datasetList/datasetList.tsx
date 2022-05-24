@@ -1,6 +1,6 @@
 import React, { Dispatch, SetStateAction } from "react";
 import DatasetPagination from "./datasetPagination";
-import DatasetHeader from "./datasetheader/datasetHeader";
+import DatasetHeader from "./datasetHeader/datasetHeader";
 import { hitModel, searchResponseModel } from "../../../models/dataset";
 import { facetFilterModel, facetModel } from "../../../models/facets";
 import { Col, Form, Row } from "react-bootstrap";

@@ -105,3 +105,7 @@ export const handleFilterAndSearch = (
     }
   }
 };
+
+export const importAllFilesFromFolder = (r : any) => {
+  return r.keys().map(r);
+}

@@ -1,6 +1,6 @@
 import React from "react";
 import { Row } from "react-bootstrap";
-import DatasetDetailsLayout from "./datasetdetailslayout/datasetDetailsLayout";
+import DatasetDetailsLayout from "./datasetDetailsLayout/datasetDetailsLayout";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFileLines } from '@fortawesome/free-regular-svg-icons';
 import { fileModel } from "../../../../../models/dataset";
