@@ -1,6 +1,6 @@
-import HomeMidSection from "./homemidsection/homeMidSection";
-import HomeTopSection from "./hometopsection/homeTopSection";
-import InstitutionsCarousel from "./institutionscarousel/institutionsCarousel";
+import HomeMidSection from "./homeMidSection/homeMidSection";
+import HomeTopSection from "./homeTopSection/homeTopSection";
+import InstitutionsCarousel from "./institutionsCarousel/institutionsCarousel";
 
 const Home = () => {
   return (
