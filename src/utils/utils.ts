@@ -1,5 +1,5 @@
 import { facetFilterModel } from "../models/facets";
-import { getDatasetsSearchResp } from "../api/browse";
+import { querySearchService } from "../api/browse";
 import { Dispatch, SetStateAction } from "react";
 import { searchResponseModel } from "../models/dataset";
 
@@ -76,12 +76,13 @@ export const handleFilterAndSearch = (
   }
   page = page + 1;
   setPage(page)
-  getDatasetsSearchResp(
+  querySearchService(
     setSearchResults,
     filterDict,
     searchKeyword,
     skip,
-    limit
+    limit,
+    "Dataset"
   );
   if (searchKeyword === "" || searchKeyword === null) {
     if (

@@ -5,7 +5,7 @@ import DatasetList from "./datasetList/datasetList";
 import Sidebar from "./sidebar/sidebar";
 import { searchResponseModel, hitModel } from "../../models/dataset";
 import { facetFilterModel, facetModel } from "../../models/facets";
-import { getDatasetsSearchResp } from "../../api/browse";
+import { querySearchService } from "../../api/browse";
 import { getFilterParams } from "../../utils/utils";
 import DatasetListHeader from "./datasetList/datasetListHeader";
 
@@ -41,12 +41,13 @@ const Browse = () => {
   React.useEffect(
     () => {
       const getData = () => {
-        getDatasetsSearchResp(
+        querySearchService(
           setSearchResults,
           filterDict,
           searchKeyword,
           skip,
-          limit
+          limit,
+          "Dataset"
         );
       };
       getData();
