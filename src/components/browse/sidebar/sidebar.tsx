@@ -4,7 +4,7 @@ import Filter from "./filter";
 import { Row, Col, Button } from "react-bootstrap";
 import { facetModel, facetFilterModel } from "../../../models/facets";
 import { searchResponseModel } from "../../../models/dataset";
-import { getDatasetsSearchResp } from "../../../api/browse";
+import { querySearchService } from "../../../api/browse";
 import { handleFilterAndSearch } from "../../../utils/utils";
 import { URLSearchParamsInit, useNavigate } from "react-router-dom";
 import { scrollUp } from "../../../utils/utils";
@@ -47,7 +47,7 @@ const Sidebar = (props: sidebarProps) => {
   });
 
   const handleClear = () => {
-    getDatasetsSearchResp(props.setSearchResults, [], "*", skip, props.limit);
+    querySearchService(props.setSearchResults, [], "*", skip, props.limit,"Dataset");
     props.check.forEach((value: boolean, key: string) => {
       props.setCheck(props.check.set(key, false));
     });

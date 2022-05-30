@@ -6,30 +6,41 @@ import bundeslaender from "../../../assets/homepage/Bundeslaender.svg";
 const HomeMidSection = () => {
   return (
     <Row className="w-100 m-0 mb-3">
-      <Col className="col-8 bg-primary rounded p-3 text-white" style={{
-      backgroundImage: `url(${bundeslaender})`,
-      backgroundRepeat: "no-repeat",
-      backgroundSize: "400px",
-      backgroundPosition: "left 50px top -260px",
-    }}>
-        <h4 className="mb-4">Our Projects</h4>
+      <Col
+        className="col-8 bg-primary rounded text-white"
+        style={{
+          backgroundImage: `url(${bundeslaender})`,
+          backgroundRepeat: "no-repeat",
+          backgroundSize: "450px",
+          backgroundPosition: "left 50px top -295px",
+        }}
+      >
+        <h4 className="mb-4 fw-bold fs-3 p-3 pb-2">Our Projects</h4>
         <Carousel indicators={false}>
           {projects.map((x, idx) => (
             <Carousel.Item key={"homepage_projects_" + idx}>
-              <div className="px-5">
-                <h5>{x.name}</h5>
+              <div className="px-5 mx-2">
+                <h4 className="fw-bold">{x.name}</h4>
                 <Row>
-                  <Col className="col-7">
-                    <p>{x.description}</p>
-                  </Col>
-                  <Col>
-                    <img src={x.chart_location} alt={x.chart_alt} />
-                  </Col>
+                  {x.chart_location === "" ? (
+                    <Col>
+                      <p>{x.description}</p>
+                    </Col>
+                  ) : (
+                    <>
+                      <Col className="col-7">
+                        <p>{x.description}</p>
+                      </Col>
+                      <Col>
+                        <img src={x.chart_location} alt={x.chart_alt} />
+                      </Col>
+                    </>
+                  )}
                 </Row>
                 <div className="text-center">
                   <Button
                     variant="white"
-                    className="shadow-sm text-secondary"
+                    className="shadow-sm text-secondary my-4"
                     href={x.learn_more_href}
                   >
                     Learn more...

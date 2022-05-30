@@ -4,7 +4,7 @@ import { facetFilterModel, facetModel } from "../../../models/facets";
 import { searchResponseModel } from "../../../models/dataset";
 import { useNavigate } from "react-router-dom";
 import { handleFilterAndSearch } from "../../../utils/utils";
-import { getDatasetsSearchResp } from "../../../api/browse";
+import { querySearchService } from "../../../api/browse";
 
 interface dataSetListHeaderProps {
   dsCount: number;
@@ -31,10 +31,10 @@ const DatasetListHeader = (props: dataSetListHeaderProps) => {
   React.useEffect(
     () => {
       const getData = () => {
-        getDatasetsSearchResp(setSearchResults, [], "", 0, 1);
+        querySearchService(setSearchResults, [], "", 0, 1,"Dataset");
       };
       getData();
-    }, // eslint-disable-next-line react-hooks/exhaustive-deps
+    },
     []
   );
 

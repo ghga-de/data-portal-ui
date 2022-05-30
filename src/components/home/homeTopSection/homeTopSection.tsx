@@ -1,6 +1,6 @@
 import React from "react";
 import { Button, Col, Container, Row } from "react-bootstrap";
-import { getDatasetsSearchResp } from "../../../api/browse";
+import { querySearchService } from "../../../api/browse";
 import { searchResponseModel } from "../../../models/dataset";
 import { facetFilterModel, facetModel } from "../../../models/facets";
 import HomeFilterSelects from "./homeFilterSelects";
@@ -16,7 +16,7 @@ const HomeTopSection = () => {
 
   React.useEffect(() => {
     const getData = () => {
-      getDatasetsSearchResp(setSearchResults, [], "", 0, 1);
+      querySearchService(setSearchResults, [], "", 0, 1,"Dataset");
     };
     getData();
   }, []);
@@ -36,21 +36,21 @@ const HomeTopSection = () => {
 
   return (
     <Row
-      className="w-100 bg-primary rounded mx-0 mb-3 pt-5 pb-4 pe-4 text-white"
+      className="w-100 bg-primary rounded mx-0 mb-3 pt-5 pb-5 pe-4 text-white"
       style={{
         backgroundImage: `url(${bundeslaender})`,
         backgroundRepeat: "no-repeat",
-        backgroundSize: "400px",
-        backgroundPosition: "left 50px bottom -220px",
+        backgroundSize: "450px",
+        backgroundPosition: "left 50px bottom -245px",
       }}
     >
       <Col className="col-3">
         <Row className="ps-4 mb-4">
-          <h3>GHGA Data Portal</h3>
+          <h3 className="fw-bold">GHGA Data Portal</h3>
         </Row>
         <Row>
           <div
-            className="border border-black p-0 rounded p-3 px-5"
+            className="border border-black p-0 rounded py-5 px-5 fw-bold"
             style={{ background: "RGBA(0,0,0,0.5)" }}
           >
             <span>
