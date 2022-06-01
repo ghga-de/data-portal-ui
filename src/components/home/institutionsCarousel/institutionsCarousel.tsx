@@ -7,7 +7,7 @@ import "swiper/modules/pagination/pagination.scss";
 import { importAllFilesFromFolder } from "../../../utils/utils";
 
 const InstitutionsCarousel = () => {
-  const listInstitutionImages : any = importAllFilesFromFolder(require.context('../../../assets/homepage/institutions/', false, /\.png$/));
+  const listInstitutionImages: any = importAllFilesFromFolder(require.context('../../../assets/homepage/institutions/', false, /\.png$/));
   return (
     <Row className="w-100 m-0 mb-3">
       <Col>
@@ -28,7 +28,7 @@ const InstitutionsCarousel = () => {
           modules={[Navigation, Autoplay, Pagination]}
           className="my-2 pb-4"
         >
-          {listInstitutionImages.map((x: any, idx: number) => (
+          {listInstitutionImages.map((value: any) => ({ value, sort: Math.random() })).sort((a: any, b: any) => a.sort - b.sort).map(({ value } : any) => value).map((x: any, idx: number) => (
             <SwiperSlide
               key={"institution_carousel_item_" + idx}
               className="d-flex align-items-center"

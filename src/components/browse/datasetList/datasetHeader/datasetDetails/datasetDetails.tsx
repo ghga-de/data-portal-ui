@@ -68,7 +68,7 @@ const DatasetDetails = (props: dataSetDetailsProps) => {
           <div className="pe-0 d-block">
             {props.details !== null && props.details !== undefined ? (
               <Button
-                className="fs-8 float-end mb-3 ms-4 text-white shadow-sm"
+                className="fs-8 float-end mb-3 ms-4 text-white shadow-md-dark"
                 variant="secondary"
                 onClick={() => handleOpen()}
                 style={{ width: "105px" }}
@@ -84,7 +84,7 @@ const DatasetDetails = (props: dataSetDetailsProps) => {
               </Button>
             ) : (
               <Button
-                className="fs-8 py-2 float-end mb-3 ms-4 text-white shadow-sm"
+                className="fs-8 py-2 float-end mb-3 ms-4 text-white shadow-md-dark"
                 variant="secondary"
                 disabled
                 style={{ width: "85px" }}

@@ -51,7 +51,7 @@ const Searchbar = (props: searchbarProps) => {
           id="searchInput"
           type="text"
           placeholder="Search datasets"
-          className="shadow-lg ps-5"
+          className="shadow-dark ps-5"
           onChange={(event) => props.setSearchKeyword(event.target.value)}
           style={{
             background:

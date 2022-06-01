@@ -1,6 +1,6 @@
 import { Row, Col, Carousel, Button, Spinner } from "react-bootstrap";
 import { TwitterTimelineEmbed } from "react-twitter-embed";
-import projects from "./projects.json";
+import projects from "./communities&standards.json";
 import bundeslaender from "../../../assets/homepage/Bundeslaender.svg";
 
 const HomeMidSection = () => {
@@ -13,38 +13,44 @@ const HomeMidSection = () => {
           backgroundRepeat: "no-repeat",
           backgroundSize: "450px",
           backgroundPosition: "left 50px top -295px",
+          height: "425px",
         }}
       >
-        <h4 className="mb-4 fw-bold fs-3 p-3 pb-2">Our Projects</h4>
+        <h4 className="mb-4 fw-bold fs-3 p-3 pb-2">Our Communities and Standards</h4>
         <Carousel indicators={false}>
-          {projects.map((x, idx) => (
+          {projects.map(value => ({ value, sort: Math.random() })).sort((a, b) => a.sort - b.sort).map(({ value }) => value).map((x, idx) => (
             <Carousel.Item key={"homepage_projects_" + idx}>
               <div className="px-5 mx-2">
                 <h4 className="fw-bold">{x.name}</h4>
                 <Row>
-                  {x.chart_location === "" ? (
-                    <Col>
-                      <p>{x.description}</p>
+                  {x.img_location === "" ? (
+                    <Col className="overflow-auto" style={{ height: "200px" }}>
+                      <p>{x.description.split("\n").map(x => (<>{x}<br/></>))}</p>
                     </Col>
                   ) : (
                     <>
-                      <Col className="col-7">
-                        <p>{x.description}</p>
+                      <Col className="col-7 overflow-auto" style={{ height: "200px" }}>
+                        <p>{x.description.split("\n").map(x => (<>{x}<br/></>))}</p>
                       </Col>
                       <Col>
-                        <img src={x.chart_location} alt={x.chart_alt} />
+                        <img src={x.img_location} alt={x.img_alt} />
                       </Col>
                     </>
                   )}
                 </Row>
                 <div className="text-center">
-                  <Button
+                  {x.learn_more_href !== "" ? (<Button
                     variant="white"
-                    className="shadow-sm text-secondary my-4"
+                    className="shadow-md-dark text-secondary my-4"
                     href={x.learn_more_href}
                   >
                     Learn more...
-                  </Button>
+                  </Button>) : (<Button
+                    className="my-4 bg-primary pe-none"
+                    href={x.learn_more_href}
+                  >
+                    &nbsp;
+                  </Button>)}
                 </div>
               </div>
             </Carousel.Item>
