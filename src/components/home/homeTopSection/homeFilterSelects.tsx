@@ -33,7 +33,7 @@ const HomeFilterSelects = (props: HomeFilterSelectsProps) => {
   const generateSelect = (key: string, display: string) => {
     return (
       <Form.Select
-        className="d-inline-block w-25 fs-8 text-capitalize"
+        className="d-inline-block w-25 fs-8 text-capitalize me-2"
         size="sm"
         onChange={(event) => filterChange(key, event.target.value)}
       >

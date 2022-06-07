@@ -42,7 +42,7 @@ const HomeSearchbar = (props: HomeSearchbarProps) => {
         <Col className="col-2 ms-0">
           <Button
             variant="secondary"
-            className="text-white shadow-sm"
+            className="text-white shadow-md-dark"
             type="submit"
           >
             <FontAwesomeIcon icon={faSearch} />

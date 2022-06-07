@@ -92,7 +92,7 @@ const Sidebar = (props: sidebarProps) => {
       <Row className="mb-2 mt-3 justify-content-end">
         <Col>
           <Button
-            className="w-100 rounded border-2 shadow-sm"
+            className="w-100 rounded border-2 shadow-md-dark"
             variant="outline-secondary"
             onClick={() => {
               handleClear();
@@ -106,7 +106,7 @@ const Sidebar = (props: sidebarProps) => {
           <Col>
             <Button
               variant="secondary"
-              className="w-100 rounded text-white border-2 shadow-sm"
+              className="w-100 rounded text-white border-2 shadow-md-dark"
               onClick={() => {
                 navigate(
                   handleFilterAndSearch(
