@@ -40,6 +40,8 @@ const HomeMidSection = () => {
                 </Row>
                 <div className="text-center">
                   {x.learn_more_href !== "" ? (<Button
+                    as="a"
+                    target="_blank"
                     variant="white"
                     className="shadow-md-dark text-secondary my-4"
                     href={x.learn_more_href}
