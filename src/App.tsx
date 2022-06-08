@@ -5,6 +5,7 @@ import PageNotFound from './components/pageNotFound/pageNotFound'
 import './App.scss'
 import { Routes, BrowserRouter, Route } from "react-router-dom"
 import Home from './components/home/home'
+import AboutUs from './components/aboutUs/aboutUs'
 
 
 function App() {
@@ -14,6 +15,9 @@ function App() {
       <Routes>
         <Route path="/">
           <Route index element={<Home />} />
+        </Route>
+        <Route path="/about-us">
+          <Route index element={<AboutUs />} />
         </Route>
         <Route path="/browse">
           <Route index element={<Browse />} />

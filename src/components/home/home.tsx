@@ -4,7 +4,7 @@ import InstitutionsCarousel from "./institutionsCarousel/institutionsCarousel";
 
 const Home = () => {
   return (
-    <div>
+    <div className="mt-4">
       <HomeTopSection/>
       <HomeMidSection/>
       <InstitutionsCarousel/>

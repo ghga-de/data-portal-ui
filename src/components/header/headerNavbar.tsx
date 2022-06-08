@@ -40,18 +40,11 @@ const HeaderNavbar = () => {
             }>
               Browse
             </NavLink>
-            <Nav.Link
-              href="https://www.ghga.de/data/about-ghga-beta"
-              target="_blank"
-              className="mx-2 p-0"
-            >
-              <Button
-                variant="primary"
-                className="p-0 w-100 h-100 m-0 px-2 text-white"
-              >
+            <NavLink to="/about-us" className={({ isActive }) =>
+              isActive ? activePageStyle : inactivePageStyle
+            }>
                 About
-              </Button>
-            </Nav.Link>
+            </NavLink>
             <Nav.Link
               href="https://www.ghga.de/data/data-download"
               target="_blank"
