@@ -7,7 +7,7 @@ const AboutUs = () => {
                 <Col className="fw-bold text-white">
                     <p className="fs-5 mb-2">About GHGA Beta</p>
                     <div className="border border-1 border-white mb-2" style={{ width: "60px" }}></div>
-                    <p className="ms-3 mb-5">The German Human Genome-Phenome Archive is a consortium under the umbrella of the NFDI Association, building a national federated infrastructure to store and share human omics data.</p>
+                    <p className="ps-3 mb-5">The German Human Genome-Phenome Archive is a consortium under the umbrella of the NFDI Association, building a national federated infrastructure to store and share human omics data.</p>
                 </Col>
             </Row>
             <Row className="m-0 align-items-center mb-4 ps-2">
@@ -30,7 +30,7 @@ const AboutUs = () => {
                     </Row>
                     <Row className="mb-4">
                         <p className="fw-bold">How to browse / filter / search data?</p>
-                        <p className="ms-4">
+                        <p className="ps-4">
                             explain functions, possibly with screenshots here<br />
                             browse: by default all available datasets are listed<br />
                             filtering: datasets can be filtered on study type and experimental method,<br />
