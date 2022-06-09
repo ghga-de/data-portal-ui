@@ -4,8 +4,10 @@ import { Navbar, Container, Nav, Button } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
 
 const HeaderNavbar = () => {
-  const activePageStyle = "btn btn-secondary p-0 h-100 m-0 mx-2 px-2 pt-1 text-white";
-  const inactivePageStyle = "btn btn-primary p-0 h-100 m-0 mx-2 px-2 pt-1 text-white"
+  const activePageStyle =
+    "btn btn-secondary p-0 h-100 m-0 mx-2 px-2 pt-1 text-white";
+  const inactivePageStyle =
+    "btn btn-primary p-0 h-100 m-0 mx-2 px-2 pt-1 text-white";
   return (
     <Navbar
       collapseOnSelect
@@ -29,29 +31,31 @@ const HeaderNavbar = () => {
             className="justify-content-center flex-fill"
             style={{ height: "36px" }}
           >
-            <NavLink to="/" end={true}
+            <NavLink
+              to="/"
+              end={true}
               className={({ isActive }) =>
                 isActive ? activePageStyle : inactivePageStyle
-              }>
+              }
+            >
               Home
             </NavLink>
-            <NavLink to="/browse" className={({ isActive }) =>
-              isActive ? activePageStyle : inactivePageStyle
-            }>
+            <NavLink
+              to="/browse"
+              className={({ isActive }) =>
+                isActive ? activePageStyle : inactivePageStyle
+              }
+            >
               Browse
             </NavLink>
-            <Nav.Link
-              href="https://www.ghga.de/data/about-ghga-beta"
-              target="_blank"
-              className="mx-2 p-0"
+            <NavLink
+              to="/about-us"
+              className={({ isActive }) =>
+                isActive ? activePageStyle : inactivePageStyle
+              }
             >
-              <Button
-                variant="primary"
-                className="p-0 w-100 h-100 m-0 px-2 text-white"
-              >
-                About
-              </Button>
-            </Nav.Link>
+              About
+            </NavLink>
             <Nav.Link
               href="https://www.ghga.de/data/data-download"
               target="_blank"

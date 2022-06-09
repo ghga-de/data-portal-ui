@@ -129,9 +129,8 @@ const DatasetList = (props: dataSetProps) => {
             </Col>
           </Row>
         </>
-      )
-      }
-    </div >
+      )}
+    </div>
   );
 };
 

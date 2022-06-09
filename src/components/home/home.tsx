@@ -4,10 +4,10 @@ import InstitutionsCarousel from "./institutionsCarousel/institutionsCarousel";
 
 const Home = () => {
   return (
-    <div>
-      <HomeTopSection/>
-      <HomeMidSection/>
-      <InstitutionsCarousel/>
+    <div className="mt-4">
+      <HomeTopSection />
+      <HomeMidSection />
+      <InstitutionsCarousel />
     </div>
   );
 };

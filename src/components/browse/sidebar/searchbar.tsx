@@ -30,7 +30,7 @@ const Searchbar = (props: searchbarProps) => {
       <Form
         onSubmit={(event) => {
           scrollUp();
-          event.preventDefault()
+          event.preventDefault();
           navigate(
             handleFilterAndSearch(
               props.setSearchResults,

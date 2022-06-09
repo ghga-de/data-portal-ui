@@ -13,7 +13,10 @@ import { Card, Col, Row } from "react-bootstrap";
 const TopSectionBadges = () => {
   return (
     <>
-      <Card style={{ width: "18rem" }} className="d-inline-block shadow border-muted mx-2">
+      <Card
+        style={{ width: "18rem" }}
+        className="d-inline-block shadow border-muted mx-2"
+      >
         <Card.Body>
           <Card.Title className="text-secondary fw-bold mt-3">
             Technology
@@ -71,20 +74,29 @@ const TopSectionBadges = () => {
           </Card.Text>
         </Card.Body>
       </Card>
-      <Card style={{ width: "18rem" }} className="d-inline-block shadow border-muted mx-2">
+      <Card
+        style={{ width: "18rem" }}
+        className="d-inline-block shadow border-muted mx-2"
+      >
         <Card.Body>
           <Card.Title className="text-secondary fw-bold mt-3">
             File Format
           </Card.Title>
           <Card.Text as="div">
             <Row className="mt-4 pt-3 fs-8 align-items-center">
-              <Col style={{ fontSize: "72px" }} className="p-0 col-auto text-secondary">
+              <Col
+                style={{ fontSize: "72px" }}
+                className="p-0 col-auto text-secondary"
+              >
                 <span className="fa-layers fa-fw fa-lg ms-2">
                   <FontAwesomeIcon icon={faCircle} />
                   <FontAwesomeIcon icon={faChartColumn} transform="shrink-6" />
                 </span>
               </Col>
-              <Col><p>BAM: ZZZ</p><p>FASTQ: ZZZ</p></Col>
+              <Col>
+                <p>BAM: ZZZ</p>
+                <p>FASTQ: ZZZ</p>
+              </Col>
             </Row>
           </Card.Text>
         </Card.Body>

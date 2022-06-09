@@ -20,7 +20,7 @@ const Browse = () => {
   let skip = page === 0 ? 0 : (page - 1) * limit;
 
   let filterParams = getFilterParams(searchParams.get("f")) || [];
-  
+
   const [filterDict, setFilterDict] =
     React.useState<facetFilterModel[]>(filterParams);
 
@@ -72,7 +72,7 @@ const Browse = () => {
   }
 
   return (
-    <Container>
+    <Container className="mt-4">
       <Row>
         <DatasetListHeader
           dsCount={dsCount}
