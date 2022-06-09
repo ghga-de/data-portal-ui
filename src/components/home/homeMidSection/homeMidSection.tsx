@@ -35,11 +35,18 @@ const HomeMidSection = () => {
                         style={{ height: "200px" }}
                       >
                         <p>
-                          {x.description.split("\n").map((x) => (
-                            <>
-                              {x}
+                          {x.description.split("\n").map((z,idz) => (
+                            <span
+                              key={
+                                "homepage_span_" +
+                                x.name +
+                                "_description_" +
+                                idz
+                              }
+                            >
+                              {z}
                               <br />
-                            </>
+                            </span>
                           ))}
                         </p>
                       </Col>
@@ -50,11 +57,18 @@ const HomeMidSection = () => {
                           style={{ height: "200px" }}
                         >
                           <p>
-                            {x.description.split("\n").map((x) => (
-                              <>
-                                {x}
+                            {x.description.split("\n").map((z,idz) => (
+                              <span
+                                key={
+                                  "homepage_span_" +
+                                  x.name +
+                                  "_description_" +
+                                  idz
+                                }
+                              >
+                                {z}
                                 <br />
-                              </>
+                              </span>
                             ))}
                           </p>
                         </Col>
