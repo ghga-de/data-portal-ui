@@ -47,7 +47,14 @@ const Sidebar = (props: sidebarProps) => {
   });
 
   const handleClear = () => {
-    querySearchService(props.setSearchResults, [], "*", skip, props.limit,"Dataset");
+    querySearchService(
+      props.setSearchResults,
+      [],
+      "*",
+      skip,
+      props.limit,
+      "Dataset"
+    );
     props.check.forEach((value: boolean, key: string) => {
       props.setCheck(props.check.set(key, false));
     });

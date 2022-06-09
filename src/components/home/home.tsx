@@ -5,9 +5,9 @@ import InstitutionsCarousel from "./institutionsCarousel/institutionsCarousel";
 const Home = () => {
   return (
     <div className="mt-4">
-      <HomeTopSection/>
-      <HomeMidSection/>
-      <InstitutionsCarousel/>
+      <HomeTopSection />
+      <HomeMidSection />
+      <InstitutionsCarousel />
     </div>
   );
 };

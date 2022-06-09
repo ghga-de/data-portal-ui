@@ -1,12 +1,11 @@
-import Header from './components/header/header'
-import Footer from './components/footer/footer'
-import Browse from './components/browse/browse'
-import PageNotFound from './components/pageNotFound/pageNotFound'
-import './App.scss'
-import { Routes, BrowserRouter, Route } from "react-router-dom"
-import Home from './components/home/home'
-import AboutUs from './components/aboutUs/aboutUs'
-
+import Header from "./components/header/header";
+import Footer from "./components/footer/footer";
+import Browse from "./components/browse/browse";
+import PageNotFound from "./components/pageNotFound/pageNotFound";
+import "./App.scss";
+import { Routes, BrowserRouter, Route } from "react-router-dom";
+import Home from "./components/home/home";
+import AboutUs from "./components/aboutUs/aboutUs";
 
 function App() {
   return (

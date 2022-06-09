@@ -28,15 +28,12 @@ const DatasetListHeader = (props: dataSetListHeaderProps) => {
 
   const [searchResults, setSearchResults] =
     React.useState<searchResponseModel | null>(null);
-  React.useEffect(
-    () => {
-      const getData = () => {
-        querySearchService(setSearchResults, [], "", 0, 1,"Dataset");
-      };
-      getData();
-    },
-    []
-  );
+  React.useEffect(() => {
+    const getData = () => {
+      querySearchService(setSearchResults, [], "", 0, 1, "Dataset");
+    };
+    getData();
+  }, []);
 
   var listOfAllFacets: facetModel[] | null = null;
   if (searchResults !== null) {

@@ -21,7 +21,9 @@ const HomeSearchbar = (props: HomeSearchbarProps) => {
       queryString = "&q=" + searchKeyword;
     }
     if (props.filterDict.length > 0) {
-      let filterURI = props.filterDict.map((x) => x.key + ":" + x.value).join(";");
+      let filterURI = props.filterDict
+        .map((x) => x.key + ":" + x.value)
+        .join(";");
       navigate("/browse?p=1" + queryString + "&f=" + filterURI);
     } else {
       navigate("/browse?p=1" + queryString);
