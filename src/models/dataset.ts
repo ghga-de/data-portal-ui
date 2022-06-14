@@ -50,10 +50,10 @@ export interface fileModel {
 
 export interface experimentModel {
   title: string;
-  has_technology: [
+  has_protocol: [
     {
       id: string;
-      name: string;
+      instrument_model: string;
     }
   ];
 }

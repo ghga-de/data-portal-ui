@@ -13,14 +13,15 @@ interface dataSetExperimentsProps {
 
 const DatasetExperiments = (props: dataSetExperimentsProps) => {
   const experiments = props.experimentsList;
-  const expTechs: string[] = [];
+  const protocols: string[] = [];
   if (experiments !== null) {
     experiments.map((exp) => {
-      if (exp.has_technology !== null) {
-        exp.has_technology.map((tech) => {
-          if (tech.name !== null) {
-            var expTech = expTechs.find((x) => x === tech.name);
-            if (!expTech && expTech !== null) expTechs.push(tech.name);
+      if (exp.has_protocol !== null) {
+        exp.has_protocol.map((schema) => {
+          if (schema.instrument_model !== null) {
+            console.log(schema.instrument_model)
+            var protocol = protocols.find((x) => x === schema.id);
+            if (!protocol && protocol !== null) protocols.push(schema.instrument_model);
           }
           return null;
         });
@@ -40,11 +41,11 @@ const DatasetExperiments = (props: dataSetExperimentsProps) => {
             <br />
             Dataset type:&nbsp;{props.hit.content.type}
             <br />
-            Technology:&nbsp;
+            Protocols:&nbsp;
             {experiments !== null
-              ? expTechs.length > 0
-                ? expTechs.map((tech) => {
-                  return <span>{tech}, </span>;
+              ? protocols.length > 0
+                ? protocols.map((schema) => {
+                  return <span>{schema}, </span>;
                 })
                 : "N/A"
               : "N/A"}
