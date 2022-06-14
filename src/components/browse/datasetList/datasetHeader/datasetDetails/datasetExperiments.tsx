@@ -13,15 +13,14 @@ interface dataSetExperimentsProps {
 
 const DatasetExperiments = (props: dataSetExperimentsProps) => {
   const experiments = props.experimentsList;
-  const protocols: string[] = [];
+  const protocols: Map<string, number> = new Map<string, number>();
   if (experiments !== null) {
     experiments.map((exp) => {
       if (exp.has_protocol !== null) {
         exp.has_protocol.map((schema) => {
-          if (schema.instrument_model !== null) {
-            console.log(schema.instrument_model)
-            var protocol = protocols.find((x) => x === schema.id);
-            if (!protocol && protocol !== null) protocols.push(schema.instrument_model);
+          if (schema.instrument_model !== null && schema.instrument_model !== undefined) {
+            var count = protocols.get(schema.instrument_model) !== undefined ? protocols.get(schema.instrument_model)! : 0;
+            protocols.set(schema.instrument_model, count + 1)
           }
           return null;
         });
@@ -29,6 +28,8 @@ const DatasetExperiments = (props: dataSetExperimentsProps) => {
       return null;
     });
   }
+
+
   return (
     <DatasetDetailsLayout
       icon={<FontAwesomeIcon icon={faFlask} />}
@@ -43,9 +44,10 @@ const DatasetExperiments = (props: dataSetExperimentsProps) => {
             <br />
             Protocols:&nbsp;
             {experiments !== null
-              ? protocols.length > 0
-                ? protocols.map((schema) => {
-                  return <span>{schema}, </span>;
+              ? protocols.size > 0
+                ?
+                Array.from(protocols.entries()).map((item, index) => {
+                  return <span key={index}> <br />{item[0]} : {item[1]} </span>;
                 })
                 : "N/A"
               : "N/A"}
