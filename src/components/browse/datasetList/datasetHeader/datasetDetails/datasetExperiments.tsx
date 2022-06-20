@@ -37,21 +37,27 @@ const DatasetExperiments = (props: dataSetExperimentsProps) => {
         <Row>
           <p className="mb-0">
             <strong>Experiment info</strong>
-            <br />
-            Experiments: {experiments !== null ? experiments.length : "0"} total
-            <br />
-            Dataset type:&nbsp;{props.hit.content.type}
-            <br />
-            Protocols:&nbsp;
+          </p>
+          <br />
+          <p className="mb-0">Experiments: {experiments !== null ? experiments.length : "0"} total</p>
+          <br />
+          <p className="mb-0">Dataset type:&nbsp;{props.hit.content.type}</p>
+          <br />
+          <p className="mb-0">Protocols:&nbsp;</p>
+          <ul className="mb-1 ps-4 ms-3">
             {experiments !== null
               ? protocols.size > 0
                 ?
                 Array.from(protocols.entries()).map((item, index) => {
-                  return <span key={index}> <br />{item[0]} : {item[1]} </span>;
+                  return <div key={index}>
+                    <li key={index}>
+                      <span key={index}> {item[0]} : {item[1]} </span>
+                    </li>
+                  </div>;
                 })
                 : "N/A"
               : "N/A"}
-          </p>
+          </ul>
         </Row>
       }
     />
