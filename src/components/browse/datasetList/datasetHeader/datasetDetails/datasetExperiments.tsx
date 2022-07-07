@@ -13,14 +13,14 @@ interface dataSetExperimentsProps {
 
 const DatasetExperiments = (props: dataSetExperimentsProps) => {
   const experiments = props.experimentsList;
-  const expTechs: string[] = [];
+  const protocols: Map<string, number> = new Map<string, number>();
   if (experiments !== null) {
     experiments.map((exp) => {
-      if (exp.has_technology !== null) {
-        exp.has_technology.map((tech) => {
-          if (tech.name !== null) {
-            var expTech = expTechs.find((x) => x === tech.name);
-            if (!expTech && expTech !== null) expTechs.push(tech.name);
+      if (exp.has_protocol !== null) {
+        exp.has_protocol.map((schema) => {
+          if (schema.instrument_model !== null && schema.instrument_model !== undefined) {
+            var count = protocols.get(schema.instrument_model) !== undefined ? protocols.get(schema.instrument_model)! : 0;
+            protocols.set(schema.instrument_model, count + 1)
           }
           return null;
         });
@@ -28,6 +28,8 @@ const DatasetExperiments = (props: dataSetExperimentsProps) => {
       return null;
     });
   }
+
+
   return (
     <DatasetDetailsLayout
       icon={<FontAwesomeIcon icon={faFlask} />}
@@ -35,20 +37,27 @@ const DatasetExperiments = (props: dataSetExperimentsProps) => {
         <Row>
           <p className="mb-0">
             <strong>Experiment info</strong>
-            <br />
-            Experiments: {experiments !== null ? experiments.length : "0"} total
-            <br />
-            Dataset type:&nbsp;{props.hit.content.type}
-            <br />
-            Technology:&nbsp;
+          </p>
+          <br />
+          <p className="mb-0">Experiments: {experiments !== null ? experiments.length : "0"} total</p>
+          <br />
+          <p className="mb-0">Dataset type:&nbsp;{props.hit.content.type}</p>
+          <br />
+          <p className="mb-0">Protocols:&nbsp;</p>
+          <ul className="mb-1 ps-4 ms-3">
             {experiments !== null
-              ? expTechs.length > 0
-                ? expTechs.map((tech) => {
-                  return <span>{tech}, </span>;
+              ? protocols.size > 0
+                ?
+                Array.from(protocols.entries()).map((item, index) => {
+                  return <div key={index}>
+                    <li key={index}>
+                      <span key={index}> {item[0]} : {item[1]} </span>
+                    </li>
+                  </div>;
                 })
                 : "N/A"
               : "N/A"}
-          </p>
+          </ul>
         </Row>
       }
     />
