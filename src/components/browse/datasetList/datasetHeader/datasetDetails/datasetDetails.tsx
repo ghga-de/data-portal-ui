@@ -101,7 +101,9 @@ const DatasetDetails = (props: dataSetDetailsProps) => {
             <p>
               <span className="fw-bold">Dataset ID:&nbsp;</span>
               <span style={{ userSelect: "all" }}>
-                {props.hit.content.accession}
+                <a href={"/browse/" + props.hit.content.accession}>
+                  {props.hit.content.accession}
+                </a>
               </span>
               <br />
               <span className="fw-bold">Full title:&nbsp;</span>

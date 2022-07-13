@@ -87,7 +87,7 @@ const SingleDatasetView = () => {
             <p>
               <strong>Type: </strong>ZZZ Type
             </p>
-            <p>
+            <div>
               <strong>Attributes:</strong>
               <Container className="ms-5 w-50">
                 <Row>
@@ -107,7 +107,7 @@ const SingleDatasetView = () => {
                   </Col>
                 </Row>
               </Container>
-            </p>
+            </div>
           </Tab>
           <Tab eventKey="2" title="Publication">
             <h6>
@@ -155,15 +155,17 @@ const SingleDatasetView = () => {
                   <th>Alias</th>
                 </tr>
               </thead>
-              <tr>
-                <td>
-                  ZZZ Name
-                  <br />
-                  <span className="fs-9 text-muted">ZZZ Description</span>
-                </td>
-                <td>ZZZ ID</td>
-                <td>ZZZ Alias</td>
-              </tr>
+              <tbody>
+                <tr>
+                  <td>
+                    ZZZ Name
+                    <br />
+                    <span className="fs-9 text-muted">ZZZ Description</span>
+                  </td>
+                  <td>ZZZ ID</td>
+                  <td>ZZZ Alias</td>
+                </tr>
+              </tbody>
             </Table>
           </Accordion.Body>
         </Accordion.Item>
@@ -178,15 +180,17 @@ const SingleDatasetView = () => {
                   <th>Alias</th>
                 </tr>
               </thead>
-              <tr>
-                <td>
-                  ZZZ Name
-                  <br />
-                  <span className="fs-9 text-muted">ZZZ Description</span>
-                </td>
-                <td>ZZZ ID</td>
-                <td>ZZZ Alias</td>
-              </tr>
+              <tbody>
+                <tr>
+                  <td>
+                    ZZZ Name
+                    <br />
+                    <span className="fs-9 text-muted">ZZZ Description</span>
+                  </td>
+                  <td>ZZZ ID</td>
+                  <td>ZZZ Alias</td>
+                </tr>
+              </tbody>
             </Table>
           </Accordion.Body>
         </Accordion.Item>
@@ -203,15 +207,17 @@ const SingleDatasetView = () => {
                   <th>Alias</th>
                 </tr>
               </thead>
-              <tr>
-                <td>
-                  ZZZ Name
-                  <br />
-                  <span className="fs-9 text-muted">ZZZ Description</span>
-                </td>
-                <td>ZZZ ID</td>
-                <td>ZZZ Alias</td>
-              </tr>
+              <tbody>
+                <tr>
+                  <td>
+                    ZZZ Name
+                    <br />
+                    <span className="fs-9 text-muted">ZZZ Description</span>
+                  </td>
+                  <td>ZZZ ID</td>
+                  <td>ZZZ Alias</td>
+                </tr>
+              </tbody>
             </Table>
           </Accordion.Body>
         </Accordion.Item>

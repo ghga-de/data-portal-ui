@@ -16,7 +16,7 @@ const DatasetExperiments = (props: dataSetExperimentsProps) => {
   const protocols: Map<string, number> = new Map<string, number>();
   if (experiments !== null) {
     experiments.map((exp) => {
-      if (exp.has_protocol !== null) {
+      if (exp.has_protocol && exp.has_protocol !== null) {
         exp.has_protocol.map((schema) => {
           if (schema.instrument_model !== null && schema.instrument_model !== undefined) {
             var count = protocols.get(schema.instrument_model) !== undefined ? protocols.get(schema.instrument_model)! : 0;

@@ -27,7 +27,7 @@ function App() {
           <Route path="?q=:search&f=:filter&p=:page" element={<Browse />} />
         </Route>
         <Route path="*" element={<PageNotFound />} />
-        <Route path="/sdsv">
+        <Route path="/browse/:id">
           <Route index element={<SingleDatasetView />} />
         </Route>
       </Routes>
