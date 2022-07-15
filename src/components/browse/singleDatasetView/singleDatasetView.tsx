@@ -1,4 +1,16 @@
 import {
+  faCalendar,
+  faCopy,
+  faFileLines,
+} from "@fortawesome/free-regular-svg-icons";
+import {
+  faChartSimple,
+  faChartPie,
+  faBookOpen,
+  faUsersRays,
+} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
   Accordion,
   Badge,
   Col,
@@ -9,6 +21,7 @@ import {
   Table,
 } from "react-bootstrap";
 
+
 const SingleDatasetView = () => {
   return (
     <Container className="py-4">
@@ -17,7 +30,14 @@ const SingleDatasetView = () => {
           ZZZ Coverage bias sensitivity of variant calling_ for 4 WG_seg_tech
         </strong>
       </h5>
-      <p>Dataset ID | ZZZ EGAD00001000174</p>
+      <p>
+        Dataset ID | ZZZ EGAD00001000174
+        <FontAwesomeIcon
+          icon={faCopy}
+          transform="up-6 shrink-3"
+          className="ms-1 text-secondary"
+        />
+      </p>
       <p className="fs-7">
         <span className="me-3">
           Study Type | <Badge className="py-1 px-2 fw-normal">ZZZ Badge</Badge>{" "}
@@ -28,7 +48,13 @@ const SingleDatasetView = () => {
       </p>
       <Row className="fs-7">
         <Col>
-          <strong>Description</strong>
+          <strong>
+            <FontAwesomeIcon
+              icon={faFileLines}
+              className="text-secondary me-2"
+            />
+            Description
+          </strong>
         </Col>
         <Col className="text-end">
           <Badge className="py-1 px-2 fw-normal">Status: ZZZ Status</Badge>
@@ -43,7 +69,10 @@ const SingleDatasetView = () => {
         </Col>
       </Row>
       <Row className="fs-8 mb-4">
-        <Col className="text-end">ZZZ Accession Date</Col>
+        <Col className="text-end">
+          <FontAwesomeIcon icon={faCalendar} transform="up-1" className="me-1"/>
+          ZZZ Accession Date
+        </Col>
       </Row>
       <Container className="mb-5">
         <Tab.Container defaultActiveKey="tabs0">
@@ -53,6 +82,10 @@ const SingleDatasetView = () => {
                 eventKey="tabs0"
                 className="border border-1 mx-2 border-light"
               >
+                <FontAwesomeIcon
+                  icon={faChartPie}
+                  className="text-secondary me-2"
+                />
                 Study
               </Nav.Link>
             </Nav.Item>
@@ -61,6 +94,11 @@ const SingleDatasetView = () => {
                 eventKey="tabs1"
                 className="border border-1 mx-2 border-light"
               >
+                <FontAwesomeIcon
+                  icon={faChartSimple}
+                  className="text-secondary me-2"
+                  transform="rotate-180"
+                />
                 Project
               </Nav.Link>
             </Nav.Item>
@@ -69,6 +107,10 @@ const SingleDatasetView = () => {
                 eventKey="tabs2"
                 className="border border-1 mx-2 border-light"
               >
+                <FontAwesomeIcon
+                  icon={faBookOpen}
+                  className="text-secondary me-2"
+                />
                 Publication
               </Nav.Link>
             </Nav.Item>
@@ -77,6 +119,10 @@ const SingleDatasetView = () => {
                 eventKey="tabs3"
                 className="border border-1 mx-2 border-light"
               >
+                <FontAwesomeIcon
+                  icon={faUsersRays}
+                  className="text-secondary me-2"
+                />
                 DAC
               </Nav.Link>
             </Nav.Item>
@@ -84,13 +130,18 @@ const SingleDatasetView = () => {
           <Container className="mb-5 border border-1 rounded p-3">
             <Tab.Content className="mb-4">
               <Tab.Pane eventKey="tabs0">
-                <h5>
+                <h5 className="mb-4">
+                  <FontAwesomeIcon
+                    icon={faChartPie}
+                    pull="left"
+                    className="text-secondary me-3 fs-4"
+                  />
                   <strong>Study</strong>
                 </h5>
-                <p>
+                <p className="mb-4">
                   <strong>Title: </strong>ZZZ Title
                 </p>
-                <p>
+                <p className="mb-4">
                   <strong>Type: </strong>ZZZ Type
                 </p>
                 <p className="fs-7">
@@ -119,7 +170,13 @@ const SingleDatasetView = () => {
                 </p>
               </Tab.Pane>
               <Tab.Pane eventKey="tabs1">
-                <h5>
+                <h5 className="mb-4">
+                  <FontAwesomeIcon
+                    icon={faChartSimple}
+                    pull="left"
+                    className="text-secondary me-3 fs-4"
+                    transform="rotate-180"
+                  />
                   <strong>Project</strong>
                 </h5>
                 <p>
@@ -132,9 +189,11 @@ const SingleDatasetView = () => {
                   <strong>Type: </strong>ZZZ Type
                 </p>
                 <div>
-                  <strong>Attributes:</strong>
+                  <p className="mb-3">
+                    <strong>Attributes:</strong>
+                  </p>
                   <Container className="ms-5 w-50">
-                    <Row>
+                    <Row className="mb-2">
                       <Col>
                         <strong>Centre name: </strong>ZZZ Centre
                       </Col>
@@ -154,7 +213,12 @@ const SingleDatasetView = () => {
                 </div>
               </Tab.Pane>
               <Tab.Pane eventKey="tabs2">
-                <h5>
+                <h5 className="mb-4">
+                  <FontAwesomeIcon
+                    icon={faBookOpen}
+                    pull="left"
+                    className="text-secondary me-3 fs-4"
+                  />
                   <strong>Publication</strong>
                 </h5>
                 <p>
@@ -168,7 +232,12 @@ const SingleDatasetView = () => {
                 </p>
               </Tab.Pane>
               <Tab.Pane eventKey="tabs3">
-                <h5>
+                <h5 className="mb-4">
+                  <FontAwesomeIcon
+                    icon={faUsersRays}
+                    pull="left"
+                    className="text-secondary me-3 fs-4"
+                  />
                   <strong>Policy and Data Access Committee</strong>
                 </h5>
                 <p>
