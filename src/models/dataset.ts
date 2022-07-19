@@ -46,6 +46,8 @@ export interface fileModel {
   category: string;
   checksum: string;
   creation_date: string;
+  accession: string;
+  alias: string;
 }
 
 export interface experimentModel {
@@ -56,9 +58,13 @@ export interface experimentModel {
       instrument_model: string;
     }
   ];
+  description: string;
+  accession: string;
+  alias: string;
 }
 
 export interface publicationModel {
+  id: string;
   title: string;
   abstract: string;
   alias: string;
@@ -78,6 +84,26 @@ export interface sampleModel {
     ];
   };
   tissue: string;
+  description: string;
+  accession: string;
+  alias: string;
+}
+
+export interface projectModel {
+  id: string;
+  title: string;
+  has_attribute: attributeModel[];
+}
+
+export interface studyEmbeddedModel {
+  id: string;
+  title: string;
+  accession: string;
+  abstract: string;
+  has_publication: publicationModel[];
+  type: string;
+  has_attribute: attributeModel[];
+  has_project: projectModel;
 }
 
 export interface studyModel {
@@ -93,6 +119,7 @@ export interface dataAccessPolicyModel {
   accession: string;
   has_data_access_committee: dataAccessCommitteeModel;
   data_request_form: string;
+  policy_text: string;
 }
 
 export interface dataAccessCommitteeModel {
@@ -108,6 +135,11 @@ export interface dataAccessCommitteeMemberModel {
   organization: string;
 }
 
+export interface attributeModel {
+  key: string;
+  value: string;
+}
+
 export interface datasetEmbeddedModel {
   id: string;
   title: string;
@@ -116,9 +148,15 @@ export interface datasetEmbeddedModel {
   has_experiment: experimentModel[];
   has_file: fileModel[];
   has_sample: sampleModel[];
-  has_study: studyModel[];
+  has_study: studyEmbeddedModel[];
   has_data_access_policy: dataAccessPolicyModel;
+  has_attribute: attributeModel[];
+  has_publication: publicationModel[];
   creation_date: string;
+  accession: string;
+  release_status: string;
+  release_date: string;
+  update_date: string;
 }
 
 export interface hitContentModel {
@@ -144,4 +182,49 @@ export interface searchResponseModel {
   count: number;
   hits: hitModel[];
   facets: facetModel[];
+}
+
+export interface sexSummaryModel {
+  female: number;
+  male: number;
+  unknown: number;
+}
+
+export interface sampleSummaryStatsModel {
+  sex: sexSummaryModel[];
+  tissues: number;
+  phenotypes: number;
+}
+
+export interface sampleStudyStatsModel {
+  accesion: string[];
+}
+
+export interface datasetSummaryModel {
+  title: string;
+  description: string;
+  accession: "string";
+  type: "string";
+  sample_summary: {
+    count: number;
+    stats: sampleSummaryStatsModel;
+  };
+  study_summary: {
+    count: number;
+    stats: sampleStudyStatsModel;
+  };
+  experiment_summary: {
+    count: number;
+    stats: {
+      protocol: [{}];
+      additionalProperties: false;
+    };
+  };
+  file_summary: {
+    count: number;
+    stats: {
+      format: [{}];
+      size: number;
+    };
+  };
 }
