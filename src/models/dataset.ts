@@ -50,7 +50,7 @@ export interface fileModel {
   alias: string;
 }
 
-export interface experimentModel {
+export interface experimentEmbeddedModel {
   title: string;
   has_protocol: [
     {
@@ -61,6 +61,7 @@ export interface experimentModel {
   description: string;
   accession: string;
   alias: string;
+  has_sample: sampleModel[]
 }
 
 export interface publicationModel {
@@ -145,7 +146,7 @@ export interface datasetEmbeddedModel {
   title: string;
   description: string;
   type: string;
-  has_experiment: experimentModel[];
+  has_experiment: experimentEmbeddedModel[];
   has_file: fileModel[];
   has_sample: sampleModel[];
   has_study: studyEmbeddedModel[];
@@ -203,8 +204,8 @@ export interface sampleStudyStatsModel {
 export interface datasetSummaryModel {
   title: string;
   description: string;
-  accession: "string";
-  type: "string";
+  accession: string;
+  type: string;
   sample_summary: {
     count: number;
     stats: sampleSummaryStatsModel;
