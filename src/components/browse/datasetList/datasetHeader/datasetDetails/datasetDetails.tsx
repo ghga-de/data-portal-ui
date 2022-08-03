@@ -1,7 +1,5 @@
 import { Row, Button, Spinner, Col } from "react-bootstrap";
 import {
-  dataAccessCommitteeModel,
-  dataAccessPolicyModel,
   datasetEmbeddedModel,
   hitModel,
 } from "../../../../../models/dataset";
@@ -13,6 +11,8 @@ import DataRequestModal from "./dataRequestModal/dataRequestModal";
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faKey } from "@fortawesome/free-solid-svg-icons";
+import { Link } from "react-router-dom";
+import {getDACEmailId} from "../../../../../utils/utils"
 
 interface dataSetDetailsProps {
   hit: hitModel;
@@ -29,35 +29,8 @@ const DatasetDetails = (props: dataSetDetailsProps) => {
     dacFormLink = props.details.has_data_access_policy.data_request_form;
   }
 
-  const getEmailId = () => {
-    let mailId: string = "helpdesk@ghga.de";
-    if (props.details !== null && props.details !== undefined) {
-      const dataAccessPolicy: dataAccessPolicyModel =
-        props.details.has_data_access_policy;
-      const dataAccessCommittee: dataAccessCommitteeModel =
-        dataAccessPolicy.has_data_access_committee;
-      const main_contact = dataAccessCommittee.main_contact;
-      for (var item of dataAccessCommittee.has_member) {
-        if (main_contact === null) {
-          mailId =
-            item.email === null || item.email === undefined
-              ? mailId
-              : item.email;
-        }
-        if (
-          item.id === main_contact &&
-          item.email !== null &&
-          item.email !== undefined
-        ) {
-          mailId = item.email;
-        }
-      }
-    }
-    return mailId;
-  };
-
   const handleOpen = () => {
-    setCopyEmail(getEmailId());
+    setCopyEmail(getDACEmailId(props.details));
     setShow(true);
   };
 
@@ -101,9 +74,9 @@ const DatasetDetails = (props: dataSetDetailsProps) => {
             <p>
               <span className="fw-bold">Dataset ID:&nbsp;</span>
               <span style={{ userSelect: "all" }}>
-                <a href={"/browse/" + props.hit.content.accession}>
+                <Link to={"/browse/" + props.hit.id} state={props.hit.id}>
                   {props.hit.content.accession}
-                </a>
+                </Link>
               </span>
               <br />
               <span className="fw-bold">Full title:&nbsp;</span>

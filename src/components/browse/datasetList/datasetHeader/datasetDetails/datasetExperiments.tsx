@@ -3,11 +3,11 @@ import { Row } from "react-bootstrap";
 import DatasetDetailsLayout from "./datasetDetailsLayout/datasetDetailsLayout";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFlask } from '@fortawesome/free-solid-svg-icons';
-import { experimentModel, hitModel } from "../../../../../models/dataset";
+import { experimentEmbeddedModel, hitModel } from "../../../../../models/dataset";
 
 
 interface dataSetExperimentsProps {
-  experimentsList: experimentModel[] | null;
+  experimentsList: experimentEmbeddedModel[] | null;
   hit: hitModel;
 }
 
