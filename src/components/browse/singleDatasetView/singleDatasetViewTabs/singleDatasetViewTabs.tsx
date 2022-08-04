@@ -67,7 +67,7 @@ const SingleDatasetViewTabs = (props: SingleDatasetViewTabsProps) => {
                 icon={faUsersRays}
                 className="text-secondary me-2"
               />
-              DAC
+              DAP
             </Nav.Link>
           </Nav.Item>
         </Nav>
