@@ -14,7 +14,7 @@ const DatasetHeader = (props: dataSetListProps) => {
     new Map<string, datasetEmbeddedModel | null>())
   const getDetails = (datasetId: string) => {
     if(detailsMap.get(datasetId) === undefined){
-      getDatasetDetails(datasetId, setDetails);
+      getDatasetDetails(datasetId, true, setDetails);
       setDetailsMap(detailsMap.set(datasetId, null))
     }
   };

@@ -4,7 +4,7 @@ services:
   # data portal ui
 
   data_portal_ui_svc:
-    image: ghga/data-portal-ui:dev
+    image: ghga/data-portal-ui:main
     environment:
       DATA_PORTAL_UI_HOST: 0.0.0.0
       DATA_PORTAL_UI_PORT: 8080
@@ -17,7 +17,7 @@ services:
   # metadata search
 
   metadata_search_svc:
-    image: ghga/metadata-search-service:dev
+    image: ghga/metadata-search-service:main
     environment:
       METADATA_SEARCH_SERVICE_HOST: 0.0.0.0
       METADATA_SEARCH_SERVICE_PORT: 8080
@@ -46,7 +46,7 @@ services:
   #metadata repo
 
   metadata_rep:
-    image: ghga/metadata-repository-service:dev
+    image: ghga/metadata-repository-service:main
     environment:
       METADATA_REPOSITORY_SERVICE_HOST: 0.0.0.0
       METADATA_REPOSITORY_SERVICE_PORT: 8080
