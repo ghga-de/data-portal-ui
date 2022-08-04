@@ -1,6 +1,5 @@
 import {
   faCalendar,
-  faCopy,
   faFileLines,
 } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -19,16 +18,11 @@ const SingleDatasetViewSummary = (props: SingleDatasetViewSummaryProps) => {
       </h5>
       <p>
         Dataset ID | {props.details.accession}
-        <FontAwesomeIcon
-          icon={faCopy}
-          transform="up-6 shrink-3"
-          className="ms-1 text-secondary"
-        />
       </p>
       <p className="fs-7">
         <span className="me-3">
           Study Type |{" "}
-          {props.details.has_study.map((x) => {
+          {props.details.has_study?.map((x) => {
             return (
               <Badge
                 key={x.type}

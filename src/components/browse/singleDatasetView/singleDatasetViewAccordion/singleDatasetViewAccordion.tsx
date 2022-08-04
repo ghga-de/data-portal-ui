@@ -25,7 +25,7 @@ const SingleDatasetViewAccordion = (props: SingleDatasetViewAccordionProps) => {
               </tr>
             </thead>
             <tbody>
-              {props.details.has_experiment.map((x) => {
+              {props.details.has_experiment?.map((x) => {
                 return (
                   <tr key={x.accession}>
                     <td>
@@ -56,7 +56,7 @@ const SingleDatasetViewAccordion = (props: SingleDatasetViewAccordionProps) => {
               </tr>
             </thead>
             <tbody>
-              {props.details.has_sample.map((x) => {
+              {props.details.has_sample?.map((x) => {
                 return (
                   <tr key={x.accession}>
                     <td>
@@ -76,7 +76,7 @@ const SingleDatasetViewAccordion = (props: SingleDatasetViewAccordionProps) => {
       <Accordion.Item className="mb-4" eventKey="2">
         <Accordion.Button className="bg-secondary py-2 text-white rounded-0">
           File Summary ({props.details.has_file.length} files,{" "}
-          {props.details.has_file.map((x) => {
+          {props.details.has_file?.map((x) => {
             fileSize = fileSize + x.size;
             return null;
           })}
