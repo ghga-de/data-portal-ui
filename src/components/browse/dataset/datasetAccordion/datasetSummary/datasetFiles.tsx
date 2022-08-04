@@ -25,7 +25,7 @@ const DatasetFiles = (props: dataSetFilesProps) => {
 
   return (
     <DatasetDetailsLayout
-      icon={<FontAwesomeIcon icon={faFileLines}/>}
+      icon={<FontAwesomeIcon icon={faFileLines} />}
       content={
         <Row>
           <p className="mb-0">

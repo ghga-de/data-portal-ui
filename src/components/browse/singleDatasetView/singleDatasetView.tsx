@@ -7,7 +7,7 @@ import { useParams } from "react-router-dom";
 import { getDatasetDetails } from "../../../api/browse";
 import { datasetEmbeddedModel } from "../../../models/dataset";
 import SingleDatasetViewAccordion from "./singleDatasetViewAccordion/singleDatasetViewAccordion";
-import SingleDatasetViewSummary from "./singleDatasetViewSummary";
+import SingleDatasetViewSummary from "./singleDatasetViewSummary/singleDatasetViewSummary";
 import SingleDatasetViewTabs from "./singleDatasetViewTabs/singleDatasetViewTabs";
 
 const SingleDatasetView = (props: any) => {
@@ -38,9 +38,9 @@ const SingleDatasetView = (props: any) => {
     <Container className="py-4">
       {details && details !== null ? (
         <>
-          <SingleDatasetViewSummary details={details}/>
-          <SingleDatasetViewTabs details={details}/>
-          <SingleDatasetViewAccordion details={details}/>
+          <SingleDatasetViewSummary details={details} />
+          <SingleDatasetViewTabs details={details} />
+          <SingleDatasetViewAccordion details={details} />
 
         </>
       ) : (
