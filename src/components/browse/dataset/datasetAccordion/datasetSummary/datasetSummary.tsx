@@ -12,14 +12,14 @@ import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faKey } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
-import {getDACEmailId} from "../../../../../utils/utils"
+import { getDACEmailId } from "../../../../../utils/utils"
 
 interface dataSetDetailsProps {
   hit: hitModel;
   details: datasetEmbeddedModel | null | undefined;
 }
 
-const DatasetDetails = (props: dataSetDetailsProps) => {
+const DatasetSummary = (props: dataSetDetailsProps) => {
   const [show, setShow] = React.useState(false);
   const [copyEmail, setCopyEmail] = React.useState<string>("helpdesk@ghga.de");
   const handleClose = () => setShow(false);
@@ -121,4 +121,4 @@ const DatasetDetails = (props: dataSetDetailsProps) => {
   );
 };
 
-export default DatasetDetails;
+export default DatasetSummary;

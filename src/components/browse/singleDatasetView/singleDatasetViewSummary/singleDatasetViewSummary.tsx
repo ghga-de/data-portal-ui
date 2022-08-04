@@ -4,7 +4,7 @@ import {
 } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Badge, Col, Row } from "react-bootstrap";
-import { datasetEmbeddedModel } from "../../../models/dataset";
+import { datasetEmbeddedModel } from "../../../../models/dataset";
 
 interface SingleDatasetViewSummaryProps {
   details: datasetEmbeddedModel;

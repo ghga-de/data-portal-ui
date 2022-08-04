@@ -2,24 +2,24 @@ import React, { useState } from "react";
 import { Accordion, Col } from "react-bootstrap";
 import { getDatasetDetails } from "../../../../api/browse";
 import { datasetEmbeddedModel, hitModel } from "../../../../models/dataset";
-import DatasetDetails from "./datasetDetails/datasetDetails";
+import DatasetSummary from "./datasetSummary/datasetSummary";
 
 interface dataSetListProps {
   dsList: hitModel[];
 }
 
-const DatasetHeader = (props: dataSetListProps) => {
+const DatasetAccordion = (props: dataSetListProps) => {
   const [details, setDetails] = useState<datasetEmbeddedModel | null | undefined>(null)
   const [detailsMap, setDetailsMap] = useState<Map<string, datasetEmbeddedModel | null | undefined>>(
     new Map<string, datasetEmbeddedModel | null>())
   const getDetails = (datasetId: string) => {
-    if(detailsMap.get(datasetId) === undefined){
+    if (detailsMap.get(datasetId) === undefined) {
       getDatasetDetails(datasetId, true, setDetails);
       setDetailsMap(detailsMap.set(datasetId, null))
     }
   };
 
-  if(details !== null && details !== undefined && detailsMap.get(details.id) === null) {
+  if (details !== null && details !== undefined && detailsMap.get(details.id) === null) {
     setDetailsMap(detailsMap.set(details.id, details))
   }
 
@@ -56,7 +56,7 @@ const DatasetHeader = (props: dataSetListProps) => {
               </Col>
             </Accordion.Button>
             <Accordion.Body>
-                <DatasetDetails hit={hit} details={detailsMap.get(hit.id)} />
+              <DatasetSummary hit={hit} details={detailsMap.get(hit.id)} />
             </Accordion.Body>
           </Accordion.Item>
         ))}
@@ -65,4 +65,4 @@ const DatasetHeader = (props: dataSetListProps) => {
   );
 };
 
-export default DatasetHeader;
+export default DatasetAccordion;
