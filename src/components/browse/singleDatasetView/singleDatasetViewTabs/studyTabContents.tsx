@@ -17,7 +17,12 @@ const StudyTabContents = (props: StudyTabContentsProps) => {
               <FontAwesomeIcon
                 icon={faBook}
                 pull="left"
-                style={{width: "25px", height: "25px", backgroundColor: "rgba(214,95,48,0.2)", padding:"4px"}}
+                style={{
+                  width: "25px",
+                  height: "25px",
+                  backgroundColor: "rgba(214,95,48,0.2)",
+                  padding: "4px",
+                }}
                 className="text-secondary me-3 fs-4 rounded"
               />
               <strong>Study</strong>
@@ -34,18 +39,20 @@ const StudyTabContents = (props: StudyTabContentsProps) => {
               <strong>Type: </strong>
               <span className="text-capitalize">{x.type}</span>
             </p>
-            {x.has_attribute.length > 0 ? (
-              x.has_attribute.find((y) => y.key === "centerName") ? (
-                <p className="mb-4">
-                  <strong>Affiliation: </strong>
-                  {x.has_attribute.find((y) => y.key === "centerName")?.value}
-                </p>
+            <p className="mb-4">
+              <strong>Affiliation: </strong>
+              {x.has_attribute.length > 0 ? (
+                x.has_attribute.find((y) => y.key === "centerName") ? (
+                  <>
+                    {x.has_attribute.find((y) => y.key === "centerName")?.value}
+                  </>
+                ) : (
+                  <>N/A</>
+                )
               ) : (
-                <></>
-              )
-            ) : (
-              <></>
-            )}
+                <>N/A</>
+              )}
+            </p>
             <p>
               <strong>Description: </strong>
               {props.details.description}

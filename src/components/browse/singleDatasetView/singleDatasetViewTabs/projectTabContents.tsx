@@ -17,7 +17,12 @@ const ProjectTabContents = (props: ProjectTabContentsProps) => {
               <FontAwesomeIcon
                 icon={faChartSimple}
                 pull="left"
-                style={{width: "25px", height: "25px", backgroundColor: "rgba(214,95,48,0.2)", padding:"4px"}}
+                style={{
+                  width: "25px",
+                  height: "25px",
+                  backgroundColor: "rgba(214,95,48,0.2)",
+                  padding: "4px",
+                }}
                 className="text-secondary me-3 fs-4 rounded"
                 transform="rotate-180"
               />
@@ -25,28 +30,33 @@ const ProjectTabContents = (props: ProjectTabContentsProps) => {
             </h5>
             <p>
               <strong>ID: </strong>
-              {x.has_project.accession}
+              {x.has_project.accession !== null ? (
+                x.has_project.accession
+              ) : (
+                <>N/A</>
+              )}
             </p>
             <p>
               <strong>Title: </strong>
               {x.has_project.title}
             </p>
-            {x.has_project.has_attribute !== null ? (
-              <p>
-                <strong>Attributes: </strong>
-                {x.has_project.has_attribute?.map((x) => {
-                  return (
-                    <p className="ms-3 mb-1">
-                      <strong>{x.key}: </strong>
-                      {x.value}
-                    </p>
-                  );
-                })}
-              </p>
-            ) : (
-              <></>
-            )}
-
+            <p>
+              <strong>Attributes: </strong>
+              {x.has_project.has_attribute !== null ? (
+                <>
+                  {x.has_project.has_attribute?.map((x) => {
+                    return (
+                      <p className="ms-3 mb-1">
+                        <strong>{x.key}: </strong>
+                        {x.value}
+                      </p>
+                    );
+                  })}
+                </>
+              ) : (
+                <>N/A</>
+              )}
+            </p>
             <p>
               <strong>Description: </strong>
               {x.has_project.description}
