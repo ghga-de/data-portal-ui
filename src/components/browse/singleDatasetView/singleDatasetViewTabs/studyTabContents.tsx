@@ -45,7 +45,10 @@ const StudyTabContents = (props: StudyTabContentsProps) => {
                 <>
                   {x.has_attribute?.map((y) => {
                     return (
-                      <p className="ms-3 mb-1 text-capitalize">
+                      <span
+                        className="ms-3 mb-1 text-capitalize d-block"
+                        key={y.key + ":" + y.value}
+                      >
                         {y.key === "centerName" ? (
                           <>
                             <strong>Centre Name: </strong> {y.value}
@@ -64,7 +67,7 @@ const StudyTabContents = (props: StudyTabContentsProps) => {
                             <strong>{y.key}</strong> {y.value}
                           </>
                         )}
-                      </p>
+                      </span>
                     );
                   })}
                 </>
