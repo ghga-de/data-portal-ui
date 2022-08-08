@@ -11,12 +11,12 @@ const SingleDatasetViewAccordion = (props: SingleDatasetViewAccordionProps) => {
 
   return (
     <Accordion>
-      <Accordion.Item className="mb-4" eventKey="0">
+      <Accordion.Item className="mb-4 border-0" eventKey="0">
         <Accordion.Button className="bg-secondary py-2 text-white rounded-0">
           Experiment Summary
         </Accordion.Button>
         <Accordion.Body className="pt-4">
-          <Table bordered hover className="fs-8" size="sm">
+          <Table bordered hover className="fs-8 rounded" size="sm">
             <thead>
               <tr>
                 <th className="fs-7 w-25">Experiment ID</th>
@@ -42,12 +42,12 @@ const SingleDatasetViewAccordion = (props: SingleDatasetViewAccordionProps) => {
           </Table>
         </Accordion.Body>
       </Accordion.Item>
-      <Accordion.Item className="mb-4" eventKey="1">
+      <Accordion.Item className="mb-4 border-0" eventKey="1">
         <Accordion.Button className="bg-secondary py-2 text-white rounded-0">
           Sample Summary
         </Accordion.Button>
         <Accordion.Body className="pt-4">
-          <Table bordered hover className="fs-8" size="sm">
+          <Table bordered hover className="fs-8 rounded" size="sm">
             <thead>
               <tr>
                 <th className="fs-7 w-25">Sample ID</th>
@@ -73,7 +73,7 @@ const SingleDatasetViewAccordion = (props: SingleDatasetViewAccordionProps) => {
           </Table>
         </Accordion.Body>
       </Accordion.Item>
-      <Accordion.Item className="mb-4" eventKey="2">
+      <Accordion.Item className="mb-4 border-0" eventKey="2">
         <Accordion.Button className="bg-secondary py-2 text-white rounded-0">
           File Summary ({props.details.has_file.length} files,{" "}
           {props.details.has_file?.map((x) => {
@@ -83,7 +83,7 @@ const SingleDatasetViewAccordion = (props: SingleDatasetViewAccordionProps) => {
           {parseBytes(fileSize)})
         </Accordion.Button>
         <Accordion.Body className="pt-4">
-          <Table bordered hover className="fs-8" size="sm">
+          <Table bordered hover className="fs-8 rounded" size="sm">
             <thead>
               <tr>
                 <th className="fs-7 w-25">File name</th>

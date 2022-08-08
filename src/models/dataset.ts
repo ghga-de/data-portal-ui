@@ -61,7 +61,7 @@ export interface experimentEmbeddedModel {
   description: string;
   accession: string;
   alias: string;
-  has_sample: sampleModel[]
+  has_sample: sampleModel[];
   type: string;
 }
 
@@ -101,6 +101,7 @@ export interface projectModel {
 }
 
 export interface studyEmbeddedModel {
+  release_date: string;
   id: string;
   title: string;
   accession: string;

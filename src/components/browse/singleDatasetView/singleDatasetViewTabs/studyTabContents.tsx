@@ -39,16 +39,35 @@ const StudyTabContents = (props: StudyTabContentsProps) => {
               <strong>Type: </strong>
               <span className="text-capitalize">{x.type}</span>
             </p>
-            <p className="mb-4">
-              <strong>Affiliation: </strong>
-              {x.has_attribute.length > 0 ? (
-                x.has_attribute.find((y) => y.key === "centerName") ? (
-                  <>
-                    {x.has_attribute.find((y) => y.key === "centerName")?.value}
-                  </>
-                ) : (
-                  <>N/A</>
-                )
+            <p>
+              <strong>Attributes: </strong>
+              {x.has_attribute !== null ? (
+                <>
+                  {x.has_attribute?.map((y) => {
+                    return (
+                      <p className="ms-3 mb-1 text-capitalize">
+                        {y.key === "centerName" ? (
+                          <>
+                            <strong>Centre Name: </strong> {y.value}
+                          </>
+                        ) : y.key === "released" && y.value === "RELEASED" ? (
+                          <>
+                            <strong>Release date: </strong>
+                            {x.release_date !== null ? (
+                              x.release_date
+                            ) : (
+                              <>N/A</>
+                            )}
+                          </>
+                        ) : (
+                          <>
+                            <strong>{y.key}</strong> {y.value}
+                          </>
+                        )}
+                      </p>
+                    );
+                  })}
+                </>
               ) : (
                 <>N/A</>
               )}
