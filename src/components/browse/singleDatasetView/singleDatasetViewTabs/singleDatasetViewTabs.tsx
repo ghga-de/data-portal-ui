@@ -25,11 +25,12 @@ const SingleDatasetViewTabs = (props: SingleDatasetViewTabsProps) => {
             <Nav.Link
               eventKey="0"
               className="border border-1 mx-2 border-light text-center"
-              style={{width: "140px", borderRadius:"10px"}}
+              style={{width: "150px", borderRadius:"10px"}}
             >
               <FontAwesomeIcon
                 icon={faBook}
-                className="text-secondary me-2"
+                className="text-secondary me-2 rounded"
+                style={{width: "15px", height: "15px", backgroundColor: "rgba(214,95,48,0.3)", padding:"4px"}}
               />
               Study
             </Nav.Link>
@@ -38,11 +39,12 @@ const SingleDatasetViewTabs = (props: SingleDatasetViewTabsProps) => {
             <Nav.Link
               eventKey="1"
               className="border border-1 mx-2 border-light text-center"
-              style={{width: "140px", borderRadius:"10px"}}
+              style={{width: "150px", borderRadius:"10px"}}
             >
               <FontAwesomeIcon
                 icon={faChartSimple}
-                className="text-secondary me-2"
+                className="text-secondary me-2 rounded"
+                style={{width: "15px", height: "15px", backgroundColor: "rgba(214,95,48,0.3)", padding:"4px"}}
                 transform="rotate-180"
               />
               Project
@@ -52,11 +54,12 @@ const SingleDatasetViewTabs = (props: SingleDatasetViewTabsProps) => {
             <Nav.Link
               eventKey="2"
               className="border border-1 mx-2 border-light text-center"
-              style={{width: "140px", borderRadius:"10px"}}
+              style={{width: "150px", borderRadius:"10px"}}
             >
               <FontAwesomeIcon
                 icon={faBookOpen}
-                className="text-secondary me-2"
+                className="text-secondary me-2 rounded"
+                style={{width: "15px", height: "15px", backgroundColor: "rgba(214,95,48,0.3)", padding:"4px"}}
               />
               Publication
             </Nav.Link>
@@ -65,11 +68,12 @@ const SingleDatasetViewTabs = (props: SingleDatasetViewTabsProps) => {
             <Nav.Link
               eventKey="3"
               className="border border-1 mx-2 border-light text-center"
-              style={{width: "140px", borderRadius:"10px"}}
+              style={{width: "150px", borderRadius:"10px"}}
             >
               <FontAwesomeIcon
                 icon={faUsersRays}
-                className="text-secondary me-2"
+                className="text-secondary me-2 rounded"
+                style={{width: "15px", height: "15px", backgroundColor: "rgba(214,95,48,0.3)", padding:"4px"}}
                 transform="grow-4"
               />
               DAP/DAC
