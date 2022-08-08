@@ -1,6 +1,6 @@
 import { Row, Button, Spinner, Col } from "react-bootstrap";
 import {
-  datasetSummaryModel,
+  datasetEmbeddedModel,
   hitModel,
 } from "../../../../../models/dataset";
 import DatasetExperiments from "./datasetExperiments";
@@ -12,24 +12,25 @@ import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faKey } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
+import { getDACEmailId } from "../../../../../utils/utils"
 
 interface dataSetDetailsProps {
   hit: hitModel;
-  details: datasetSummaryModel | null | undefined;
+  details: datasetEmbeddedModel | null | undefined;
 }
 
 const DatasetSummary = (props: dataSetDetailsProps) => {
   const [show, setShow] = React.useState(false);
-  const [copyEmail, setCopyEmail] = React.useState<string>();
+  const [copyEmail, setCopyEmail] = React.useState<string>("helpdesk@ghga.de");
   const handleClose = () => setShow(false);
 
   var dacFormLink: string | null = null;
-  /*if (props.details && props.details.has_data_access_policy.data_request_form) {
+  if (props.details && props.details.has_data_access_policy.data_request_form) {
     dacFormLink = props.details.has_data_access_policy.data_request_form;
-  }*/
+  }
 
   const handleOpen = () => {
-    setCopyEmail(props.details !== null ? props.details?.dac_email : "helpdesk@ghga.de");
+    setCopyEmail(getDACEmailId(props.details));
     setShow(true);
   };
 
@@ -99,13 +100,15 @@ const DatasetSummary = (props: dataSetDetailsProps) => {
       {props.details !== null && props.details !== undefined ? (
         <div>
           <Row className="mb-3 mt-2 pt-3">
-            <DatasetStudies study={props.details.study_summary} />
-            <DatasetFiles files={props.details.file_summary} />
+            <DatasetStudies studiesList={props.details.has_study} />
+            <DatasetFiles filesList={props.details.has_file} />
           </Row>
           <Row className="pb-4 pt-2 ">
-            <DatasetSamples samples={props.details.sample_summary} />
+            <DatasetSamples samplesList={props.details.has_sample} />
             <DatasetExperiments
-              experiments={props.details.experiment_summary} />
+              experimentsList={props.details.has_experiment}
+              hit={props.hit}
+            />
           </Row>
         </div>
       ) : (

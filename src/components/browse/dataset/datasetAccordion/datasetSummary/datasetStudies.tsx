@@ -1,11 +1,12 @@
 import React from "react";
-import { studySummaryModel } from "../../../../../models/dataset";
+import { Row } from "react-bootstrap";
+import { studyModel } from "../../../../../models/dataset";
 import DatasetDetailsLayout from "./datasetDetailsLayout/datasetDetailsLayout";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBook } from '@fortawesome/free-solid-svg-icons';
 
 interface dataSetStudiesProps {
-  study: studySummaryModel | null;
+  studiesList: studyModel[] | null;
 }
 
 const DatasetStudies = (props: dataSetStudiesProps) => {
@@ -13,17 +14,35 @@ const DatasetStudies = (props: dataSetStudiesProps) => {
     <DatasetDetailsLayout
       icon={<FontAwesomeIcon icon={faBook} />}
       content={
-        props.study !== null ? (
+        props.studiesList !== null ? (
           <div>
-            <p className="mb-0">
-              <strong>
-                Part of study:&nbsp;
-                {props.study.stats.accession}
-              </strong>
-              <br />
-              EGA Accession: {props.study.stats.ega_accession}
-              <br />
-            </p>
+            {props.studiesList.map((study, index) => {
+              return (
+                <Row key={index}>
+                  <p className="mb-0">
+                    <strong>
+                      Part of study:&nbsp;
+                      {study.accession}
+                    </strong>
+                    <br />
+                    {study.title}
+                    <br />
+                    {study.has_publication !== null
+                      ? study.has_publication.map((publication) => {
+                        return (
+                          <span>
+                            Publication:&nbsp;
+                            {publication.xref.map((xref) => {
+                              return xref;
+                            })}
+                          </span>
+                        );
+                      })
+                      : "Publications: None"}
+                  </p>
+                </Row>
+              );
+            })}
           </div>
         ) : (
           <p className="mb-0">
