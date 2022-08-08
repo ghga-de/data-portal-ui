@@ -17,7 +17,8 @@ const ProjectTabContents = (props: ProjectTabContentsProps) => {
               <FontAwesomeIcon
                 icon={faChartSimple}
                 pull="left"
-                className="text-secondary me-3 fs-4"
+                style={{width: "25px", height: "25px", backgroundColor: "rgba(214,95,48,0.2)", padding:"4px"}}
+                className="text-secondary me-3 fs-4 rounded"
                 transform="rotate-180"
               />
               <strong>Project</strong>

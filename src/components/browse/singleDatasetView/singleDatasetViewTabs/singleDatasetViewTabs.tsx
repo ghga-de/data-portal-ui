@@ -30,7 +30,7 @@ const SingleDatasetViewTabs = (props: SingleDatasetViewTabsProps) => {
               <FontAwesomeIcon
                 icon={faBook}
                 className="text-secondary me-2 rounded"
-                style={{width: "15px", height: "15px", backgroundColor: "rgba(214,95,48,0.3)", padding:"4px"}}
+                style={{width: "15px", height: "15px", backgroundColor: "rgba(214,95,48,0.2)", padding:"4px"}}
               />
               Study
             </Nav.Link>
@@ -44,7 +44,7 @@ const SingleDatasetViewTabs = (props: SingleDatasetViewTabsProps) => {
               <FontAwesomeIcon
                 icon={faChartSimple}
                 className="text-secondary me-2 rounded"
-                style={{width: "15px", height: "15px", backgroundColor: "rgba(214,95,48,0.3)", padding:"4px"}}
+                style={{width: "15px", height: "15px", backgroundColor: "rgba(214,95,48,0.2)", padding:"4px"}}
                 transform="rotate-180"
               />
               Project
@@ -59,7 +59,7 @@ const SingleDatasetViewTabs = (props: SingleDatasetViewTabsProps) => {
               <FontAwesomeIcon
                 icon={faBookOpen}
                 className="text-secondary me-2 rounded"
-                style={{width: "15px", height: "15px", backgroundColor: "rgba(214,95,48,0.3)", padding:"4px"}}
+                style={{width: "15px", height: "15px", backgroundColor: "rgba(214,95,48,0.2)", padding:"4px"}}
               />
               Publication
             </Nav.Link>
@@ -73,8 +73,8 @@ const SingleDatasetViewTabs = (props: SingleDatasetViewTabsProps) => {
               <FontAwesomeIcon
                 icon={faUsersRays}
                 className="text-secondary me-2 rounded"
-                style={{width: "15px", height: "15px", backgroundColor: "rgba(214,95,48,0.3)", padding:"4px"}}
-                transform="grow-4"
+                style={{width: "15px", height: "15px", backgroundColor: "rgba(214,95,48,0.2)", padding:"4px"}}
+                transform="grow-7"
               />
               DAP/DAC
             </Nav.Link>

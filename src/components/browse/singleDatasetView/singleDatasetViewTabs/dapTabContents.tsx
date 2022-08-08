@@ -15,7 +15,8 @@ const DapTabContents = (props: DapTabContentsProps) => {
         <FontAwesomeIcon
           icon={faUsersRays}
           pull="left"
-          className="text-secondary me-3 fs-4"
+          style={{width: "25px", height: "25px", backgroundColor: "rgba(214,95,48,0.2)", padding:"4px"}}
+          className="text-secondary me-3 fs-4 rounded"
         />
         <strong>Policy and Data Access Committee</strong>
       </h5>
