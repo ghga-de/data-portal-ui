@@ -19,9 +19,9 @@ const SingleDatasetViewAccordion = (props: SingleDatasetViewAccordionProps) => {
           <Table bordered hover className="fs-8" size="sm">
             <thead>
               <tr>
-                <th className="fs-7 w-25">Experiment</th>
-                <th className="w-25">Alias</th>
-                <th>Number of Samples</th>
+                <th className="fs-7 w-25">Experiment ID</th>
+                <th className="w-25">Description</th>
+                <th>Experiment Type</th>
               </tr>
             </thead>
             <tbody>
@@ -34,7 +34,7 @@ const SingleDatasetViewAccordion = (props: SingleDatasetViewAccordionProps) => {
                       <span className="fs-9 text-muted">{}</span>
                     </td>
                     <td>{x.alias}</td>
-                    <td>{x.has_sample.length}</td>
+                    <td>{x.type ? x.type : "N/A"}</td>
                   </tr>
                 );
               })}
@@ -50,9 +50,9 @@ const SingleDatasetViewAccordion = (props: SingleDatasetViewAccordionProps) => {
           <Table bordered hover className="fs-8" size="sm">
             <thead>
               <tr>
-                <th className="fs-7 w-25">Sample</th>
-                <th className="w-25">Sample ID</th>
-                <th>Sex</th>
+                <th className="fs-7 w-25">Sample ID</th>
+                <th className="w-25">Description</th>
+                <th>Sample Type</th>
               </tr>
             </thead>
             <tbody>
@@ -60,12 +60,12 @@ const SingleDatasetViewAccordion = (props: SingleDatasetViewAccordionProps) => {
                 return (
                   <tr key={x.accession}>
                     <td>
-                      {x.name}
+                      {x.accession}
                       <br />
                       <span className="fs-9 text-muted">{}</span>
                     </td>
-                    <td>{x.accession}</td>
-                    <td className="text-capitalize">{x.has_individual.sex}</td>
+                    <td>{x.description}</td>
+                    <td className="text-capitalize">{}</td>
                   </tr>
                 );
               })}
@@ -89,6 +89,7 @@ const SingleDatasetViewAccordion = (props: SingleDatasetViewAccordionProps) => {
                 <th className="fs-7 w-25">File name</th>
                 <th className="w-25">File type</th>
                 <th>Size</th>
+                <th>Quality control</th>
               </tr>
             </thead>
             <tbody>
@@ -98,6 +99,7 @@ const SingleDatasetViewAccordion = (props: SingleDatasetViewAccordionProps) => {
                     <td>{x.name}</td>
                     <td>{x.format.toUpperCase()}</td>
                     <td>{parseBytes(x.size)}</td>
+                    <td></td>
                   </tr>
                 );
               })}

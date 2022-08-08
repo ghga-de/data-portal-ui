@@ -24,13 +24,13 @@ const PublicationTabContents = (props: PublicationTabContentsProps) => {
               </h5>
               <p>
                 <strong>ID: </strong>
-                {x.id}
+                {x.accession}
               </p>
               <p>
                 <strong>Title: </strong>
                 {x.title}
               </p>
-              <p className="fs-7">
+              <p>
                 <strong>Abstract: </strong>
                 {x.abstract}
               </p>

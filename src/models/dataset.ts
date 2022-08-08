@@ -62,6 +62,7 @@ export interface experimentEmbeddedModel {
   accession: string;
   alias: string;
   has_sample: sampleModel[]
+  type: string;
 }
 
 export interface publicationModel {
@@ -70,6 +71,7 @@ export interface publicationModel {
   abstract: string;
   alias: string;
   xref: string[];
+  accession: string;
 }
 
 export interface sampleModel {
@@ -94,6 +96,8 @@ export interface projectModel {
   id: string;
   title: string;
   has_attribute: attributeModel[];
+  description: string;
+  accession: string;
 }
 
 export interface studyEmbeddedModel {

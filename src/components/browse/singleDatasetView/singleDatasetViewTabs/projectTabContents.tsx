@@ -23,12 +23,32 @@ const ProjectTabContents = (props: ProjectTabContentsProps) => {
               <strong>Project</strong>
             </h5>
             <p>
-              <strong>Project ID: </strong>
-              {x.has_project.id}
+              <strong>ID: </strong>
+              {x.has_project.accession}
             </p>
             <p>
               <strong>Title: </strong>
               {x.has_project.title}
+            </p>
+            {x.has_project.has_attribute !== null ? (
+              <p>
+                <strong>Attributes: </strong>
+                {x.has_project.has_attribute?.map((x) => {
+                  return (
+                    <p className="ms-3 mb-1">
+                      <strong>{x.key}: </strong>
+                      {x.value}
+                    </p>
+                  );
+                })}
+              </p>
+            ) : (
+              <></>
+            )}
+
+            <p>
+              <strong>Description: </strong>
+              {x.has_project.description}
             </p>
           </div>
         ) : (

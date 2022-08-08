@@ -1,4 +1,4 @@
-import { faChartPie } from "@fortawesome/free-solid-svg-icons";
+import { faBook } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Tab } from "react-bootstrap";
 import { datasetEmbeddedModel } from "../../../../models/dataset";
@@ -15,12 +15,16 @@ const StudyTabContents = (props: StudyTabContentsProps) => {
           <div key={x.id}>
             <h5 className="mb-4">
               <FontAwesomeIcon
-                icon={faChartPie}
+                icon={faBook}
                 pull="left"
                 className="text-secondary me-3 fs-4"
               />
               <strong>Study</strong>
             </h5>
+            <p className="mb-4">
+              <strong>ID: </strong>
+              {x.accession}
+            </p>
             <p className="mb-4">
               <strong>Title: </strong>
               {x.title}
@@ -29,7 +33,19 @@ const StudyTabContents = (props: StudyTabContentsProps) => {
               <strong>Type: </strong>
               <span className="text-capitalize">{x.type}</span>
             </p>
-            <p className="fs-7">
+            {x.has_attribute.length > 0 ? (
+              x.has_attribute.find((y) => y.key === "centerName") ? (
+                <p className="mb-4">
+                  <strong>Affiliation: </strong>
+                  {x.has_attribute.find((y) => y.key === "centerName")?.value}
+                </p>
+              ) : (
+                <></>
+              )
+            ) : (
+              <></>
+            )}
+            <p>
               <strong>Description: </strong>
               {props.details.description}
             </p>

@@ -1,6 +1,6 @@
 import {
   faBookOpen,
-  faChartPie,
+  faBook,
   faChartSimple,
   faUsersRays,
 } from "@fortawesome/free-solid-svg-icons";
@@ -24,10 +24,11 @@ const SingleDatasetViewTabs = (props: SingleDatasetViewTabsProps) => {
           <Nav.Item>
             <Nav.Link
               eventKey="0"
-              className="border border-1 mx-2 border-light"
+              className="border border-1 mx-2 border-light text-center"
+              style={{width: "140px", borderRadius:"10px"}}
             >
               <FontAwesomeIcon
-                icon={faChartPie}
+                icon={faBook}
                 className="text-secondary me-2"
               />
               Study
@@ -36,7 +37,8 @@ const SingleDatasetViewTabs = (props: SingleDatasetViewTabsProps) => {
           <Nav.Item>
             <Nav.Link
               eventKey="1"
-              className="border border-1 mx-2 border-light"
+              className="border border-1 mx-2 border-light text-center"
+              style={{width: "140px", borderRadius:"10px"}}
             >
               <FontAwesomeIcon
                 icon={faChartSimple}
@@ -49,7 +51,8 @@ const SingleDatasetViewTabs = (props: SingleDatasetViewTabsProps) => {
           <Nav.Item>
             <Nav.Link
               eventKey="2"
-              className="border border-1 mx-2 border-light"
+              className="border border-1 mx-2 border-light text-center"
+              style={{width: "140px", borderRadius:"10px"}}
             >
               <FontAwesomeIcon
                 icon={faBookOpen}
@@ -61,18 +64,20 @@ const SingleDatasetViewTabs = (props: SingleDatasetViewTabsProps) => {
           <Nav.Item>
             <Nav.Link
               eventKey="3"
-              className="border border-1 mx-2 border-light"
+              className="border border-1 mx-2 border-light text-center"
+              style={{width: "140px", borderRadius:"10px"}}
             >
               <FontAwesomeIcon
                 icon={faUsersRays}
                 className="text-secondary me-2"
+                transform="grow-4"
               />
-              DAP
+              DAP/DAC
             </Nav.Link>
           </Nav.Item>
         </Nav>
-        <Container className="mb-5 border border-1 rounded p-3">
-          <Tab.Content className="mb-4">
+        <Container className="mb-5 border border-1 p-3 shadow-sm" style={{borderRadius: "20px"}}>
+          <Tab.Content className="mb-4" style={{height: "350px"}}>
             <StudyTabContents details={props.details} />
             <ProjectTabContents details={props.details} />
             <PublicationTabContents details={props.details} />
