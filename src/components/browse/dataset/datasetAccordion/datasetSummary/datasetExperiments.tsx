@@ -1,5 +1,5 @@
 import React from "react";
-import { Badge, Row } from "react-bootstrap";
+import { Row } from "react-bootstrap";
 import DatasetDetailsLayout from "./datasetDetailsLayout/datasetDetailsLayout";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFlask } from '@fortawesome/free-solid-svg-icons';
