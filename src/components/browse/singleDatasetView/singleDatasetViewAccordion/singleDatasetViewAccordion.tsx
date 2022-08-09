@@ -20,7 +20,7 @@ const SingleDatasetViewAccordion = (props: SingleDatasetViewAccordionProps) => {
             <thead className="border-light-alternative border-1">
               <tr>
                 <th className="w-25">Experiment ID</th>
-                <th className="w-25">Description</th>
+                <th className="w-50 text-wrap">Description</th>
                 <th>Experiment Type</th>
               </tr>
             </thead>
@@ -51,7 +51,7 @@ const SingleDatasetViewAccordion = (props: SingleDatasetViewAccordionProps) => {
             <thead className="border-light-alternative border-1">
               <tr>
                 <th className="w-25">Sample ID</th>
-                <th className="w-25">Description</th>
+                <th className="w-50 text-wrap">Description</th>
                 <th>Sample Type</th>
               </tr>
             </thead>
