@@ -24,7 +24,7 @@ const SingleDatasetViewTabs = (props: SingleDatasetViewTabsProps) => {
           <Nav.Item>
             <Nav.Link
               eventKey="0"
-              className="border border-1 mx-2 border-light text-center"
+              className="border border-1 mx-2 border-light text-center d-flex align-items-center justify-content-center"
               style={{width: "150px", borderRadius:"10px"}}
             >
               <FontAwesomeIcon
@@ -38,7 +38,7 @@ const SingleDatasetViewTabs = (props: SingleDatasetViewTabsProps) => {
           <Nav.Item>
             <Nav.Link
               eventKey="1"
-              className="border border-1 mx-2 border-light text-center"
+              className="border border-1 mx-2 border-light text-center d-flex align-items-center justify-content-center"
               style={{width: "150px", borderRadius:"10px"}}
             >
               <FontAwesomeIcon
@@ -53,7 +53,7 @@ const SingleDatasetViewTabs = (props: SingleDatasetViewTabsProps) => {
           <Nav.Item>
             <Nav.Link
               eventKey="2"
-              className="border border-1 mx-2 border-light text-center"
+              className="border border-1 mx-2 border-light text-center d-flex align-items-center justify-content-center"
               style={{width: "150px", borderRadius:"10px"}}
             >
               <FontAwesomeIcon
@@ -67,7 +67,7 @@ const SingleDatasetViewTabs = (props: SingleDatasetViewTabsProps) => {
           <Nav.Item>
             <Nav.Link
               eventKey="3"
-              className="border border-1 mx-2 border-light text-center"
+              className="border border-1 mx-2 border-light text-center d-flex align-items-center justify-content-center"
               style={{width: "150px", borderRadius:"10px"}}
             >
               <FontAwesomeIcon
