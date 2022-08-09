@@ -1,5 +1,5 @@
 import React from "react";
-import { Row } from "react-bootstrap";
+import { Badge, Row } from "react-bootstrap";
 import DatasetDetailsLayout from "./datasetDetailsLayout/datasetDetailsLayout";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFlask } from '@fortawesome/free-solid-svg-icons';
@@ -15,7 +15,7 @@ const DatasetExperiments = (props: dataSetExperimentsProps) => {
     let protocols: string[] = []
     for (let item in protocol) {
       let value = protocol[item]
-      protocols.push(item + " : " + value + "\n")
+      protocols.push(item + " : " + value)
     }
     return protocols
   };
@@ -31,7 +31,12 @@ const DatasetExperiments = (props: dataSetExperimentsProps) => {
           <br />
           <p className="mb-0">Experiments: {props.experiments?.count} total</p>
           <br />
-          <p className="mb-0">Protocols: {getProtocols(props.experiments?.stats.protocol)} </p>
+          <p className="mb-0">Protocols: <ul>
+            {getProtocols(props.experiments?.stats.protocol).map((x) => {
+              return (<li>{x}</li>)
+            })}
+          </ul>
+          </p>
         </Row>
       }
     />
