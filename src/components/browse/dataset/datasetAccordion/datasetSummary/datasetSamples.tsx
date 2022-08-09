@@ -8,54 +8,13 @@ import {
   faVenus,
   faGenderless,
 } from "@fortawesome/free-solid-svg-icons";
-import { sampleModel } from "../../../../../models/dataset";
+import { sampleSummaryModel } from "../../../../../models/dataset";
 
 interface dataSetSamplesProps {
-  samplesList: sampleModel[] | null;
+  samples: sampleSummaryModel | null;
 }
 
 const DatasetSamples = (props: dataSetSamplesProps) => {
-  const samples = props.samplesList;
-  const sexes = { female: "female", male: "male" };
-  var countFemale: number = 0;
-  var countMale: number = 0;
-  var countUnknown: number = 0;
-
-  const sampleTissues: string[] = [];
-  const samplePhenotypes: string[] = [];
-
-  if (samples !== null) {
-    countFemale += samples.filter(
-      (sample) => sample.has_individual.sex === sexes.female
-    ).length;
-    countMale += samples.filter(
-      (sample) => sample.has_individual.sex === sexes.male
-    ).length;
-    countUnknown += samples.filter(
-      (sample) =>
-        sample.has_individual.sex !== sexes.male &&
-        sample.has_individual.sex !== sexes.female
-    ).length;
-    samples.map((sample) => {
-      if (sample.tissue !== null) {
-        var sampleTissue = sampleTissues.find((x) => x === sample.tissue);
-        if (!sampleTissue) sampleTissues.push(sample.tissue);
-      }
-      if (sample.has_individual.has_phenotypic_feature !== null) {
-        sample.has_individual.has_phenotypic_feature.map((feature) => {
-          if (feature.name !== null) {
-            var samplePhenotype = samplePhenotypes.find(
-              (x) => x === feature.name
-            );
-            if (!samplePhenotype) samplePhenotypes.push(feature.name);
-          }
-          return null;
-        });
-      }
-      return null;
-    });
-  }
-
   return (
     <DatasetDetailsLayout
       icon={<FontAwesomeIcon icon={faVial} />}
@@ -65,38 +24,32 @@ const DatasetSamples = (props: dataSetSamplesProps) => {
             <strong>Sample info</strong>
             <br />
           </p>
-          {samples !== null ? (
+          {props.samples !== null ? (
             <div>
               <p className="mb-0">
-                <strong>{samples.length}</strong>&nbsp;Samples (Sex:{" "}
-                <span title={countFemale + " Female"}>
-                  {countFemale}
+                <strong>{props.samples.count}</strong>&nbsp;Samples (Sex:{" "}
+                <span title={props.samples.stats.sex.female + "Female"}>
+                  {props.samples.stats.sex.female}
                   &nbsp;
                   <FontAwesomeIcon icon={faVenus} />
                 </span>{" "}
                 /{" "}
-                <span title={countMale + " Male"}>
-                  {countMale}
+                <span title={props.samples.stats.sex.male + "Male"}>
+                  {props.samples.stats.sex.male}
                   &nbsp;
                   <FontAwesomeIcon icon={faMars} />
                 </span>{" "}
                 /{" "}
-                <span title={countUnknown + " Unknown"}>
-                  {countUnknown}
+                <span title={props.samples.stats.sex.unkown + "Unknown"}>
+                  {props.samples.stats.sex.unkown}
                   &nbsp;
                   <FontAwesomeIcon icon={faGenderless} />
                 </span>{" "}
                 )
                 <br />
-                <strong>{sampleTissues.length}</strong>&nbsp;Tissues:{" "}
-                {sampleTissues.length > 0
-                  ? sampleTissues.map((tissues) => tissues)
-                  : "N/A"}
+                <strong>{props.samples.stats.tissues}</strong>&nbsp;Tissues:{" "}
                 <br />
-                <strong>{samplePhenotypes.length}</strong>&nbsp;Phenotypes:{" "}
-                {samplePhenotypes.length > 0
-                  ? samplePhenotypes.map((phenotypes) => phenotypes)
-                  : "N/A"}
+                <strong>{props.samples.stats.phenotypes}</strong>&nbsp;Phenotypes:{" "}
               </p>
             </div>
           ) : (
