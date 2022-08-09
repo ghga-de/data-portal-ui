@@ -19,7 +19,7 @@ import CopyToClipboard from "react-copy-to-clipboard";
 
 interface DataRequestModalProps {
   accession: string;
-  copyEmail: string | undefined;
+  copyEmail: string;
   show: boolean;
   handleClose: any;
   dacFormLink: string | null;

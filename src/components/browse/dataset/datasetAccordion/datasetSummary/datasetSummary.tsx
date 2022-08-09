@@ -20,7 +20,7 @@ interface dataSetDetailsProps {
 
 const DatasetSummary = (props: dataSetDetailsProps) => {
   const [show, setShow] = React.useState(false);
-  const [copyEmail, setCopyEmail] = React.useState<string>();
+  const [copyEmail, setCopyEmail] = React.useState<string>("helpdesk@ghga.de");
   const handleClose = () => setShow(false);
 
   var dacFormLink: string | null = null;
@@ -29,7 +29,7 @@ const DatasetSummary = (props: dataSetDetailsProps) => {
   }*/
 
   const handleOpen = () => {
-    setCopyEmail(props.details !== null ? props.details?.dac_email : "helpdesk@ghga.de");
+    setCopyEmail(props.details !== null && props.details ? props.details.dac_email : "helpdesk@ghga.de");
     setShow(true);
   };
 
