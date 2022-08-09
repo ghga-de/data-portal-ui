@@ -24,7 +24,7 @@ const SingleDatasetViewTabs = (props: SingleDatasetViewTabsProps) => {
           <Nav.Item>
             <Nav.Link
               eventKey="0"
-              className="border border-1 mx-2 border-light text-center d-flex align-items-center justify-content-center"
+              className="border border-1 mx-2 border-light-alternative text-center d-flex align-items-center justify-content-center"
               style={{width: "150px", borderRadius:"10px"}}
             >
               <FontAwesomeIcon
@@ -38,7 +38,7 @@ const SingleDatasetViewTabs = (props: SingleDatasetViewTabsProps) => {
           <Nav.Item>
             <Nav.Link
               eventKey="1"
-              className="border border-1 mx-2 border-light text-center d-flex align-items-center justify-content-center"
+              className="border border-1 mx-2 border-light-alternative text-center d-flex align-items-center justify-content-center"
               style={{width: "150px", borderRadius:"10px"}}
             >
               <FontAwesomeIcon
@@ -53,7 +53,7 @@ const SingleDatasetViewTabs = (props: SingleDatasetViewTabsProps) => {
           <Nav.Item>
             <Nav.Link
               eventKey="2"
-              className="border border-1 mx-2 border-light text-center d-flex align-items-center justify-content-center"
+              className="border border-1 mx-2 border-light-alternative text-center d-flex align-items-center justify-content-center"
               style={{width: "150px", borderRadius:"10px"}}
             >
               <FontAwesomeIcon
@@ -67,7 +67,7 @@ const SingleDatasetViewTabs = (props: SingleDatasetViewTabsProps) => {
           <Nav.Item>
             <Nav.Link
               eventKey="3"
-              className="border border-1 mx-2 border-light text-center d-flex align-items-center justify-content-center"
+              className="border border-1 mx-2 border-light-alternative text-center d-flex align-items-center justify-content-center"
               style={{width: "150px", borderRadius:"10px"}}
             >
               <FontAwesomeIcon
@@ -80,7 +80,7 @@ const SingleDatasetViewTabs = (props: SingleDatasetViewTabsProps) => {
             </Nav.Link>
           </Nav.Item>
         </Nav>
-        <Container className="mb-5 border border-1 border-light p-3 shadow-sm" style={{borderRadius: "20px"}}>
+        <Container className="mb-5 border border-1 border-light-alternative p-3 shadow-sm" style={{borderRadius: "20px"}}>
           <Tab.Content className="mb-4" style={{height: "450px"}}>
             <StudyTabContents details={props.details} />
             <ProjectTabContents details={props.details} />

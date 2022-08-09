@@ -17,14 +17,14 @@ const SingleDatasetViewAccordion = (props: SingleDatasetViewAccordionProps) => {
         </Accordion.Button>
         <Accordion.Body className="pt-4">
           <Table hover className="fs-8" size="sm">
-            <thead className="border-light border-1">
+            <thead className="border-light-alternative border-1">
               <tr>
                 <th className="w-25">Experiment ID</th>
                 <th className="w-25">Description</th>
                 <th>Experiment Type</th>
               </tr>
             </thead>
-            <tbody className="border-light border-1">
+            <tbody className="border-light-alternative border-1">
               {props.details.has_experiment?.map((x) => {
                 return (
                   <tr key={x.accession}>
@@ -48,14 +48,14 @@ const SingleDatasetViewAccordion = (props: SingleDatasetViewAccordionProps) => {
         </Accordion.Button>
         <Accordion.Body className="pt-4">
           <Table hover className="fs-8 rounded" size="sm">
-            <thead className="border-light border-1">
+            <thead className="border-light-alternative border-1">
               <tr>
                 <th className="w-25">Sample ID</th>
                 <th className="w-25">Description</th>
                 <th>Sample Type</th>
               </tr>
             </thead>
-            <tbody className="border-light border-1">
+            <tbody className="border-light-alternative border-1">
               {props.details.has_sample?.map((x) => {
                 return (
                   <tr key={x.accession}>
@@ -84,7 +84,7 @@ const SingleDatasetViewAccordion = (props: SingleDatasetViewAccordionProps) => {
         </Accordion.Button>
         <Accordion.Body className="pt-4">
           <Table hover className="fs-8" size="sm">
-            <thead className="border-light border-1">
+            <thead className="border-light-alternative border-1">
               <tr>
                 <th className="w-25">File name</th>
                 <th className="w-25">File type</th>
@@ -92,7 +92,7 @@ const SingleDatasetViewAccordion = (props: SingleDatasetViewAccordionProps) => {
                 <th>Quality control</th>
               </tr>
             </thead>
-            <tbody className="border-light border-1">
+            <tbody className="border-light-alternative border-1">
               {props.details.has_file.map((x) => {
                 return (
                   <tr key={x.id}>
