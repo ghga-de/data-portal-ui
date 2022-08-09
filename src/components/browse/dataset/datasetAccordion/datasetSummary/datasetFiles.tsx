@@ -34,7 +34,7 @@ const DatasetFiles = (props: dataSetFilesProps) => {
               <p className="mb-0">{props.files.count} Files</p>
               <ul className="mb-0">
                 {getFormats(props.files.stats.format).map((x) => {
-                  return (<li>{x}</li>)
+                  return (<li key={x}>{x}</li>)
                 })}
               </ul>
               <p className="mb-0">{parseBytes(props.files.stats.size)} total size</p>

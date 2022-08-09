@@ -31,12 +31,12 @@ const DatasetExperiments = (props: dataSetExperimentsProps) => {
           <br />
           <p className="mb-0">Experiments: {props.experiments?.count} total</p>
           <br />
-          <p className="mb-0">Protocols: <ul>
+          <div className="mb-0">Protocols: <ul>
             {getProtocols(props.experiments?.stats.protocol).map((x) => {
-              return (<li>{x}</li>)
+              return (<li key={x}>{x}</li>)
             })}
           </ul>
-          </p>
+          </div>
         </Row>
       }
     />
