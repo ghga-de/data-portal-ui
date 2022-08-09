@@ -1,6 +1,6 @@
 import {
   faBookOpen,
-  faChartPie,
+  faBook,
   faChartSimple,
   faUsersRays,
 } from "@fortawesome/free-solid-svg-icons";
@@ -24,11 +24,13 @@ const SingleDatasetViewTabs = (props: SingleDatasetViewTabsProps) => {
           <Nav.Item>
             <Nav.Link
               eventKey="0"
-              className="border border-1 mx-2 border-light"
+              className="border border-1 mx-2 border-light-alternative text-center d-flex align-items-center justify-content-center"
+              style={{width: "150px", borderRadius:"10px"}}
             >
               <FontAwesomeIcon
-                icon={faChartPie}
-                className="text-secondary me-2"
+                icon={faBook}
+                className="text-secondary me-2 rounded"
+                style={{width: "15px", height: "15px", backgroundColor: "rgba(214,95,48,0.2)", padding:"4px"}}
               />
               Study
             </Nav.Link>
@@ -36,11 +38,13 @@ const SingleDatasetViewTabs = (props: SingleDatasetViewTabsProps) => {
           <Nav.Item>
             <Nav.Link
               eventKey="1"
-              className="border border-1 mx-2 border-light"
+              className="border border-1 mx-2 border-light-alternative text-center d-flex align-items-center justify-content-center"
+              style={{width: "150px", borderRadius:"10px"}}
             >
               <FontAwesomeIcon
                 icon={faChartSimple}
-                className="text-secondary me-2"
+                className="text-secondary me-2 rounded"
+                style={{width: "15px", height: "15px", backgroundColor: "rgba(214,95,48,0.2)", padding:"4px"}}
                 transform="rotate-180"
               />
               Project
@@ -49,11 +53,13 @@ const SingleDatasetViewTabs = (props: SingleDatasetViewTabsProps) => {
           <Nav.Item>
             <Nav.Link
               eventKey="2"
-              className="border border-1 mx-2 border-light"
+              className="border border-1 mx-2 border-light-alternative text-center d-flex align-items-center justify-content-center"
+              style={{width: "150px", borderRadius:"10px"}}
             >
               <FontAwesomeIcon
                 icon={faBookOpen}
-                className="text-secondary me-2"
+                className="text-secondary me-2 rounded"
+                style={{width: "15px", height: "15px", backgroundColor: "rgba(214,95,48,0.2)", padding:"4px"}}
               />
               Publication
             </Nav.Link>
@@ -61,18 +67,21 @@ const SingleDatasetViewTabs = (props: SingleDatasetViewTabsProps) => {
           <Nav.Item>
             <Nav.Link
               eventKey="3"
-              className="border border-1 mx-2 border-light"
+              className="border border-1 mx-2 border-light-alternative text-center d-flex align-items-center justify-content-center"
+              style={{width: "150px", borderRadius:"10px"}}
             >
               <FontAwesomeIcon
                 icon={faUsersRays}
-                className="text-secondary me-2"
+                className="text-secondary me-2 rounded"
+                style={{width: "15px", height: "15px", backgroundColor: "rgba(214,95,48,0.2)", padding:"4px"}}
+                transform="grow-7"
               />
-              DAP
+              DAP/DAC
             </Nav.Link>
           </Nav.Item>
         </Nav>
-        <Container className="mb-5 border border-1 rounded p-3">
-          <Tab.Content className="mb-4">
+        <Container className="mb-5 border border-1 border-light-alternative p-3 shadow-sm" style={{borderRadius: "20px"}}>
+          <Tab.Content className="mb-4" style={{height: "450px"}}>
             <StudyTabContents details={props.details} />
             <ProjectTabContents details={props.details} />
             <PublicationTabContents details={props.details} />

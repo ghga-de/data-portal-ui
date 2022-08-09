@@ -11,20 +11,20 @@ const SingleDatasetViewAccordion = (props: SingleDatasetViewAccordionProps) => {
 
   return (
     <Accordion>
-      <Accordion.Item className="mb-4" eventKey="0">
+      <Accordion.Item className="mb-4 border-0" eventKey="0">
         <Accordion.Button className="bg-secondary py-2 text-white rounded-0">
           Experiment Summary
         </Accordion.Button>
         <Accordion.Body className="pt-4">
-          <Table bordered hover className="fs-8" size="sm">
-            <thead>
+          <Table hover className="fs-8" size="sm">
+            <thead className="border-light-alternative border-1">
               <tr>
-                <th className="fs-7 w-25">Experiment</th>
-                <th className="w-25">Alias</th>
-                <th>Number of Samples</th>
+                <th className="w-25">Experiment ID</th>
+                <th className="w-50 text-wrap">Description</th>
+                <th>Experiment Type</th>
               </tr>
             </thead>
-            <tbody>
+            <tbody className="border-light-alternative border-1">
               {props.details.has_experiment?.map((x) => {
                 return (
                   <tr key={x.accession}>
@@ -34,7 +34,7 @@ const SingleDatasetViewAccordion = (props: SingleDatasetViewAccordionProps) => {
                       <span className="fs-9 text-muted">{}</span>
                     </td>
                     <td>{x.alias}</td>
-                    <td>{x.has_sample.length}</td>
+                    <td>{x.type ? x.type : "N/A"}</td>
                   </tr>
                 );
               })}
@@ -42,30 +42,30 @@ const SingleDatasetViewAccordion = (props: SingleDatasetViewAccordionProps) => {
           </Table>
         </Accordion.Body>
       </Accordion.Item>
-      <Accordion.Item className="mb-4" eventKey="1">
+      <Accordion.Item className="mb-4 border-0" eventKey="1">
         <Accordion.Button className="bg-secondary py-2 text-white rounded-0">
           Sample Summary
         </Accordion.Button>
         <Accordion.Body className="pt-4">
-          <Table bordered hover className="fs-8" size="sm">
-            <thead>
+          <Table hover className="fs-8 rounded" size="sm">
+            <thead className="border-light-alternative border-1">
               <tr>
-                <th className="fs-7 w-25">Sample</th>
                 <th className="w-25">Sample ID</th>
-                <th>Sex</th>
+                <th className="w-50 text-wrap">Description</th>
+                <th>Sample Type</th>
               </tr>
             </thead>
-            <tbody>
+            <tbody className="border-light-alternative border-1">
               {props.details.has_sample?.map((x) => {
                 return (
                   <tr key={x.accession}>
                     <td>
-                      {x.name}
+                      {x.accession}
                       <br />
                       <span className="fs-9 text-muted">{}</span>
                     </td>
-                    <td>{x.accession}</td>
-                    <td className="text-capitalize">{x.has_individual.sex}</td>
+                    <td>{x.description}</td>
+                    <td className="text-capitalize">{}</td>
                   </tr>
                 );
               })}
@@ -73,7 +73,7 @@ const SingleDatasetViewAccordion = (props: SingleDatasetViewAccordionProps) => {
           </Table>
         </Accordion.Body>
       </Accordion.Item>
-      <Accordion.Item className="mb-4" eventKey="2">
+      <Accordion.Item className="mb-4 border-0" eventKey="2">
         <Accordion.Button className="bg-secondary py-2 text-white rounded-0">
           File Summary ({props.details.has_file.length} files,{" "}
           {props.details.has_file?.map((x) => {
@@ -83,21 +83,23 @@ const SingleDatasetViewAccordion = (props: SingleDatasetViewAccordionProps) => {
           {parseBytes(fileSize)})
         </Accordion.Button>
         <Accordion.Body className="pt-4">
-          <Table bordered hover className="fs-8" size="sm">
-            <thead>
+          <Table hover className="fs-8" size="sm">
+            <thead className="border-light-alternative border-1">
               <tr>
-                <th className="fs-7 w-25">File name</th>
+                <th className="w-25">File name</th>
                 <th className="w-25">File type</th>
                 <th>Size</th>
+                <th>Quality control</th>
               </tr>
             </thead>
-            <tbody>
+            <tbody className="border-light-alternative border-1">
               {props.details.has_file.map((x) => {
                 return (
                   <tr key={x.id}>
                     <td>{x.name}</td>
                     <td>{x.format.toUpperCase()}</td>
                     <td>{parseBytes(x.size)}</td>
+                    <td></td>
                   </tr>
                 );
               })}

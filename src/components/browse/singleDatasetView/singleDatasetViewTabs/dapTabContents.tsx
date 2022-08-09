@@ -11,11 +11,17 @@ interface DapTabContentsProps {
 const DapTabContents = (props: DapTabContentsProps) => {
   return (
     <Tab.Pane eventKey="3">
-      <h5 className="mb-4">
+      <h5 className="mb-4 d-flex align-items-center">
         <FontAwesomeIcon
           icon={faUsersRays}
           pull="left"
-          className="text-secondary me-3 fs-4"
+          style={{
+            width: "30px",
+            height: "30px",
+            backgroundColor: "rgba(214,95,48,0.2)",
+            padding: "8px",
+          }}
+          className="text-secondary me-3 fs-4 rounded"
         />
         <strong>Policy and Data Access Committee</strong>
       </h5>
