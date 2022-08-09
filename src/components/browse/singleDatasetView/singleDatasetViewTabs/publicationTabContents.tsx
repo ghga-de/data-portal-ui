@@ -18,7 +18,12 @@ const PublicationTabContents = (props: PublicationTabContentsProps) => {
                 <FontAwesomeIcon
                   icon={faBookOpen}
                   pull="left"
-                  style={{width: "25px", height: "25px", backgroundColor: "rgba(214,95,48,0.2)", padding:"4px"}}
+                  style={{
+                    width: "30px",
+                    height: "30px",
+                    backgroundColor: "rgba(214,95,48,0.2)",
+                    padding: "8px",
+                  }}
                   className="text-secondary me-3 fs-4 rounded"
                 />
                 <strong>Publication</strong>
@@ -44,7 +49,12 @@ const PublicationTabContents = (props: PublicationTabContentsProps) => {
             <FontAwesomeIcon
               icon={faBookOpen}
               pull="left"
-              style={{width: "25px", height: "25px", backgroundColor: "rgba(214,95,48,0.2)", padding:"4px"}}
+              style={{
+                width: "30px",
+                height: "30px",
+                backgroundColor: "rgba(214,95,48,0.2)",
+                padding: "8px",
+              }}
               className="text-secondary me-3 fs-4 rounded"
             />
             <strong>Publication</strong>
