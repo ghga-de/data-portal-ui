@@ -14,7 +14,7 @@ const PublicationTabContents = (props: PublicationTabContentsProps) => {
         props.details.has_publication.map((x) => {
           return (
             <>
-              <h5 className="mb-4">
+              <h5 className="mb-4 d-flex align-items-center">
                 <FontAwesomeIcon
                   icon={faBookOpen}
                   pull="left"
@@ -45,7 +45,7 @@ const PublicationTabContents = (props: PublicationTabContentsProps) => {
         })
       ) : (
         <>
-          <h5 className="mb-4">
+          <h5 className="mb-4 d-flex align-items-center">
             <FontAwesomeIcon
               icon={faBookOpen}
               pull="left"

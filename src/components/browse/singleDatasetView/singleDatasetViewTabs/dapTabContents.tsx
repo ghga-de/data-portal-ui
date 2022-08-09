@@ -11,7 +11,7 @@ interface DapTabContentsProps {
 const DapTabContents = (props: DapTabContentsProps) => {
   return (
     <Tab.Pane eventKey="3">
-      <h5 className="mb-4">
+      <h5 className="mb-4 d-flex align-items-center">
         <FontAwesomeIcon
           icon={faUsersRays}
           pull="left"

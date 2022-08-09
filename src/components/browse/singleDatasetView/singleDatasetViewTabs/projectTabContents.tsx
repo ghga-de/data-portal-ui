@@ -13,7 +13,7 @@ const ProjectTabContents = (props: ProjectTabContentsProps) => {
       {props.details.has_study?.map((x) => {
         return x.has_project ? (
           <div key={x.id}>
-            <h5 className="mb-4">
+            <h5 className="mb-4 d-flex align-items-center">
               <FontAwesomeIcon
                 icon={faChartSimple}
                 pull="left"

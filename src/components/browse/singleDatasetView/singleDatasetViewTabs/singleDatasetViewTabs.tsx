@@ -81,7 +81,7 @@ const SingleDatasetViewTabs = (props: SingleDatasetViewTabsProps) => {
           </Nav.Item>
         </Nav>
         <Container className="mb-5 border border-1 border-light p-3 shadow-sm" style={{borderRadius: "20px"}}>
-          <Tab.Content className="mb-4" style={{height: "350px"}}>
+          <Tab.Content className="mb-4" style={{height: "450px"}}>
             <StudyTabContents details={props.details} />
             <ProjectTabContents details={props.details} />
             <PublicationTabContents details={props.details} />
