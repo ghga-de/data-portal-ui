@@ -10,6 +10,7 @@ import SingleDatasetViewSummary from "./singleDatasetViewSummary/singleDatasetVi
 import SingleDatasetViewTabs from "./singleDatasetViewTabs/singleDatasetViewTabs";
 import { useNavigate } from "react-router-dom";
 import DataRequestModal from "../dataset/datasetAccordion/datasetSummary/dataRequestModal/dataRequestModal";
+import { getDACEmailId } from "../../../utils/utils";
 
 const SingleDatasetView = (props: any) => {
   const { id } = useParams();
@@ -44,7 +45,7 @@ const SingleDatasetView = (props: any) => {
   }, [datasetId]);
 
   const handleOpen = () => {
-    setCopyEmail(props.details !== null && props.details ? props.details.dac_email : "helpdesk@ghga.de");
+    setCopyEmail(details !== null && details ? getDACEmailId(details) : "helpdesk@ghga.de");
     setShow(true);
   };
 
@@ -52,20 +53,13 @@ const SingleDatasetView = (props: any) => {
     <Container className="py-4">
       {details && details !== null ? (
         <>
-          <Button onClick={() => navigate(-1)} variant="white" className="text-secondary mb-3"><FontAwesomeIcon icon={faArrowTurnUp} transform="rotate-270 grow-10 flip-v" /></Button>
+          <Button onClick={() => navigate.length <= 2 ? navigate('/browse') : navigate(-1)} variant="white" className="text-secondary mb-3"><FontAwesomeIcon icon={faArrowTurnUp} transform="rotate-270 grow-10 flip-v" /></Button>
           <Button
             className="fs-8 float-end mb-3 ms-4 text-white shadow-md-dark"
             variant="secondary"
             onClick={() => handleOpen()}
             style={{ width: "105px" }}
           >
-            <DataRequestModal
-              accession={details.accession}
-              copyEmail={copyEmail}
-              show={show}
-              handleClose={handleClose}
-              dacFormLink={dacFormLink}
-            />
             <Row className="p-0 m-0 align-items-center">
               <Col className="p-0 m-0 col-3 ">
                 <FontAwesomeIcon icon={faKey} />
@@ -75,6 +69,13 @@ const SingleDatasetView = (props: any) => {
               </Col>
             </Row>
           </Button>
+          <DataRequestModal
+              accession={details.accession}
+              copyEmail={copyEmail}
+              show={show}
+              handleClose={handleClose}
+              dacFormLink={dacFormLink}
+            />
           <SingleDatasetViewSummary details={details} />
           <SingleDatasetViewTabs details={details} />
           <SingleDatasetViewAccordion details={details} />
