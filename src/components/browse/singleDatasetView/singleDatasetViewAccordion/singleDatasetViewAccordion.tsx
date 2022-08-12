@@ -75,7 +75,7 @@ const SingleDatasetViewAccordion = (props: SingleDatasetViewAccordionProps) => {
       </Accordion.Item>
       <Accordion.Item className="mb-4 border-0" eventKey="2">
         <Accordion.Button className="bg-secondary py-2 text-white rounded-0">
-          File Summary ({props.details.has_file.length} files,{" "}
+          File Summary ({props.details.has_file?.length} files,{" "}
           {props.details.has_file?.map((x) => {
             fileSize = fileSize + x.size;
             return null;
@@ -93,7 +93,7 @@ const SingleDatasetViewAccordion = (props: SingleDatasetViewAccordionProps) => {
               </tr>
             </thead>
             <tbody className="border-light-alternative border-1">
-              {props.details.has_file.map((x) => {
+              {props.details.has_file?.map((x) => {
                 return (
                   <tr key={x.id}>
                     <td>{x.name}</td>

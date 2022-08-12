@@ -9,18 +9,18 @@ interface dataSetListProps {
 }
 
 const DatasetAccordion = (props: dataSetListProps) => {
-  const [details, setDetails] = useState<datasetSummaryModel | null | undefined>(null)
-  const [detailsMap, setDetailsMap] = useState<Map<string, datasetSummaryModel | null | undefined>>(
+  const [summary, setSummary] = useState<datasetSummaryModel | null | undefined>(null)
+  const [summaryMap, setSummaryMap] = useState<Map<string, datasetSummaryModel | null | undefined>>(
     new Map<string, datasetSummaryModel | null>())
   const getDetails = (datasetId: string) => {
-    if (detailsMap.get(datasetId) === undefined) {
-      getDatasetSummary(datasetId, setDetails);
-      setDetailsMap(detailsMap.set(datasetId, null))
+    if (summaryMap.get(datasetId) === undefined) {
+      getDatasetSummary(datasetId, setSummary);
+      setSummaryMap(summaryMap.set(datasetId, null))
     }
   };
 
-  if (details !== null && details !== undefined && detailsMap.get(details.id) === null) {
-    setDetailsMap(detailsMap.set(details.id, details))
+  if (summary !== null && summary !== undefined && summaryMap.get(summary.id) === null) {
+    setSummaryMap(summaryMap.set(summary.id, summary))
   }
 
   return (
@@ -56,7 +56,7 @@ const DatasetAccordion = (props: dataSetListProps) => {
               </Col>
             </Accordion.Button>
             <Accordion.Body>
-              <DatasetSummary hit={hit} details={detailsMap.get(hit.id)} />
+              <DatasetSummary hit={hit} summary={summaryMap.get(hit.id)} />
             </Accordion.Body>
           </Accordion.Item>
         ))}

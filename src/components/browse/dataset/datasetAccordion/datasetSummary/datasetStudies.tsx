@@ -18,10 +18,10 @@ const DatasetStudies = (props: dataSetStudiesProps) => {
             <p className="mb-0">
               <strong>
                 Part of study:&nbsp;
-                {props.study.stats.accession}
+                {props.study.stats?.accession}
               </strong>
               <br />
-              EGA Accession: {props.study.stats.ega_accession}
+              EGA Accession: {props.study.stats?.ega_accession}
               <br />
             </p>
           </div>

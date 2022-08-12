@@ -1,10 +1,10 @@
-import { faArrowTurnUp, faKey } from "@fortawesome/free-solid-svg-icons";
+import { faArrowTurnUp, faCircleExclamation, faKey } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useState } from "react";
 import { Button, Col, Container, Row, Spinner } from "react-bootstrap";
 import { useParams } from "react-router-dom";
-import { getDatasetDetails } from "../../../api/browse";
-import { datasetEmbeddedModel } from "../../../models/dataset";
+import { getDatasetDetails, querySearchService } from "../../../api/browse";
+import { datasetEmbeddedModel, searchResponseModel } from "../../../models/dataset";
 import SingleDatasetViewAccordion from "./singleDatasetViewAccordion/singleDatasetViewAccordion";
 import SingleDatasetViewSummary from "./singleDatasetViewSummary/singleDatasetViewSummary";
 import SingleDatasetViewTabs from "./singleDatasetViewTabs/singleDatasetViewTabs";
@@ -12,18 +12,46 @@ import { useNavigate } from "react-router-dom";
 import DataRequestModal from "../dataset/datasetAccordion/datasetSummary/dataRequestModal/dataRequestModal";
 import { getDACEmailId } from "../../../utils/utils";
 
-const SingleDatasetView = (props: any) => {
+const SingleDatasetView = () => {
+  let accessionId: string | null | undefined = null
   const { id } = useParams();
-  let datasetId = "";
-  if (id) {
-    datasetId = id;
-  }
+  accessionId = id
 
+  let paramId: string | null | undefined = null;
+
+  const [searchResults, setSearchResults] = useState<searchResponseModel | null>(null);
   const [queried, setQueried] = useState<boolean>(false);
 
   const [details, setDetails] = useState<
-    datasetEmbeddedModel | null | undefined
+    datasetEmbeddedModel | null
   >(null);
+
+  useEffect(() => {
+    const getHits = (accessionId: string | null | undefined) => {
+      if (accessionId && accessionId !== null && !queried) {
+        setQueried(true);
+        querySearchService(setSearchResults, [], accessionId, 0, 1, "Dataset")
+      }
+    };
+    const getDetails = (datasetId: string | undefined) => {
+      if (datasetId && paramId) {
+        getDatasetDetails(datasetId, true, setDetails);
+      }
+    };
+    const processHits = (internalId: searchResponseModel | null) => {
+      if (internalId && internalId !== null && internalId.count === 1) {
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+        paramId = internalId.hits[0].id
+        getDetails(paramId);
+      }
+      else if (internalId?.count === -1) {
+        paramId = undefined;
+      }
+    }
+    getHits(accessionId);
+    processHits(searchResults);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [searchResults, paramId])
 
   const [show, setShow] = useState(false);
   const [copyEmail, setCopyEmail] = useState<string>("helpdesk@ghga.de");
@@ -33,17 +61,6 @@ const SingleDatasetView = (props: any) => {
 
   let navigate = useNavigate();
 
-  useEffect(() => {
-    const getDetails = (datasetId: string) => {
-      if (!queried && datasetId) {
-        getDatasetDetails(datasetId, true, setDetails);
-        setQueried(false);
-      }
-    };
-    getDetails(datasetId);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [datasetId]);
-
   const handleOpen = () => {
     setCopyEmail(details !== null && details ? getDACEmailId(details) : "helpdesk@ghga.de");
     setShow(true);
@@ -51,7 +68,27 @@ const SingleDatasetView = (props: any) => {
 
   return (
     <Container className="py-4">
-      {details && details !== null ? (
+      {searchResults === null ? (
+        <div className="fs-5">
+          <Spinner animation="border" variant="primary" size="sm" />
+          &nbsp;Dataset details loading, please wait...
+        </div>
+      ) : searchResults.count === -1 || accessionId === undefined || paramId === undefined ? (
+        <div className="fs-4 fw-bold">
+          <FontAwesomeIcon icon={faCircleExclamation} className="text-danger" />
+          &nbsp; Error loading dataset details!
+        </div>
+      ) : searchResults.count === 0 ? (
+        <div className="fs-4 fw-bold">
+          <FontAwesomeIcon icon={faCircleExclamation} className="text-danger" />
+          &nbsp; Dataset not found!
+        </div>
+      ) : details === null ? (
+        <div className="fs-5">
+          <Spinner animation="border" variant="primary" size="sm" />
+          &nbsp;Dataset details loading, please wait...
+        </div>
+      ) : (
         <>
           <Button onClick={() => navigate.length <= 2 ? navigate('/browse') : navigate(-1)} variant="white" className="text-secondary mb-3"><FontAwesomeIcon icon={faArrowTurnUp} transform="rotate-270 grow-10 flip-v" /></Button>
           <Button
@@ -70,21 +107,16 @@ const SingleDatasetView = (props: any) => {
             </Row>
           </Button>
           <DataRequestModal
-              accession={details.accession}
-              copyEmail={copyEmail}
-              show={show}
-              handleClose={handleClose}
-              dacFormLink={dacFormLink}
-            />
+            accession={details.accession}
+            copyEmail={copyEmail}
+            show={show}
+            handleClose={handleClose}
+            dacFormLink={dacFormLink}
+          />
           <SingleDatasetViewSummary details={details} />
           <SingleDatasetViewTabs details={details} />
           <SingleDatasetViewAccordion details={details} />
         </>
-      ) : (
-        <div>
-          <Spinner animation="border" variant="primary" size="sm" />
-          &nbsp;Dataset details loading, please wait...
-        </div>
       )}
     </Container>
   );
