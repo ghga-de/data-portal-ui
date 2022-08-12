@@ -11,7 +11,6 @@ import DataRequestModal from "./dataRequestModal/dataRequestModal";
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faKey } from "@fortawesome/free-solid-svg-icons";
-import { Link } from "react-router-dom";
 
 interface dataSetDetailsProps {
   hit: hitModel;
