@@ -11,11 +11,10 @@ import DataRequestModal from "./dataRequestModal/dataRequestModal";
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faKey } from "@fortawesome/free-solid-svg-icons";
-import { Link } from "react-router-dom";
 
 interface dataSetDetailsProps {
   hit: hitModel;
-  details: datasetSummaryModel | null | undefined;
+  summary: datasetSummaryModel | null | undefined;
 }
 
 const DatasetSummary = (props: dataSetDetailsProps) => {
@@ -29,7 +28,7 @@ const DatasetSummary = (props: dataSetDetailsProps) => {
   }*/
 
   const handleOpen = () => {
-    setCopyEmail(props.details !== null && props.details ? props.details.dac_email : "helpdesk@ghga.de");
+    setCopyEmail(props.summary !== null && props.summary ? props.summary.dac_email : "helpdesk@ghga.de");
     setShow(true);
   };
 
@@ -38,7 +37,7 @@ const DatasetSummary = (props: dataSetDetailsProps) => {
       <Row>
         <Row className="pe-0">
           <div className="pe-0 d-block">
-            {props.details !== null && props.details !== undefined ? (
+            {props.summary !== null && props.summary !== undefined ? (
               <Button
                 className="fs-8 float-end mb-3 ms-4 text-white shadow-md-dark"
                 variant="secondary"
@@ -73,9 +72,9 @@ const DatasetSummary = (props: dataSetDetailsProps) => {
             <p>
               <span className="fw-bold">Dataset ID:&nbsp;</span>
               <span style={{ userSelect: "all" }}>
-                <Link to={"/browse/" + props.hit.id} state={props.hit.id}>
+                <a href={"/browse/" + props.hit.content.accession}>
                   {props.hit.content.accession}
-                </Link>
+                </a>
               </span>
               <br />
               <span className="fw-bold">Full title:&nbsp;</span>
@@ -96,16 +95,16 @@ const DatasetSummary = (props: dataSetDetailsProps) => {
           />
         </Row>
       </Row>
-      {props.details !== null && props.details !== undefined ? (
+      {props.summary !== null && props.summary !== undefined ? (
         <div>
           <Row className="mb-3 mt-2 pt-3">
-            <DatasetStudies study={props.details.study_summary} />
-            <DatasetFiles files={props.details.file_summary} />
+            <DatasetStudies study={props.summary.study_summary} />
+            <DatasetFiles files={props.summary.file_summary} />
           </Row>
           <Row className="pb-4 pt-2 ">
-            <DatasetSamples samples={props.details.sample_summary} />
+            <DatasetSamples samples={props.summary.sample_summary} />
             <DatasetExperiments
-              experiments={props.details.experiment_summary} />
+              experiments={props.summary.experiment_summary} />
           </Row>
         </div>
       ) : (

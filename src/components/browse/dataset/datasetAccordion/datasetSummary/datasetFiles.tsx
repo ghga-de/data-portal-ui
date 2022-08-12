@@ -33,11 +33,11 @@ const DatasetFiles = (props: dataSetFilesProps) => {
             <div>
               <p className="mb-0">{props.files.count} Files</p>
               <ul className="mb-0">
-                {getFormats(props.files.stats.format).map((x) => {
+                {getFormats(props.files.stats?.format).map((x) => {
                   return (<li key={x}>{x}</li>)
                 })}
               </ul>
-              <p className="mb-0">{parseBytes(props.files.stats.size)} total size</p>
+              <p className="mb-0">{parseBytes(props.files.stats?.size)} total size</p>
             </div>
           ) : (
             <p className="mb-0">0 Files</p>

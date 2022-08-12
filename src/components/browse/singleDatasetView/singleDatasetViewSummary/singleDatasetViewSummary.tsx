@@ -33,8 +33,8 @@ const SingleDatasetViewSummary = (props: SingleDatasetViewSummaryProps) => {
             );
           })}
         </span>
-        {props.details.has_attribute.length > 0 ? (
-          props.details.has_attribute.map((x) => {
+        {props.details.has_attribute?.length > 0 ? (
+          props.details.has_attribute?.map((x) => {
             return (
               <span key={x.value + "span"}>
                 Centre name: <strong key={x.value + "strong"}>{x.value}</strong>
