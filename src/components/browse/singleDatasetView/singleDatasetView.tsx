@@ -38,13 +38,13 @@ const SingleDatasetView = () => {
         getDatasetDetails(datasetId, true, setDetails);
       }
     };
-    const processHits = (internalId: searchResponseModel | null) => {
-      if (internalId && internalId !== null && internalId.count === 1) {
+    const processHits = (searchResults: searchResponseModel | null) => {
+      if (searchResults && searchResults !== null && searchResults.count >= 1) {
         // eslint-disable-next-line react-hooks/exhaustive-deps
-        paramId = internalId.hits[0].id
+        paramId = searchResults.hits[0].id
         getDetails(paramId);
       }
-      else if (internalId?.count === -1) {
+      else if (searchResults?.count === -1) {
         paramId = undefined;
       }
     }
