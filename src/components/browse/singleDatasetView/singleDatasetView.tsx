@@ -30,7 +30,7 @@ const SingleDatasetView = () => {
     const getHits = (accessionId: string | null | undefined) => {
       if (accessionId && accessionId !== null && !queried) {
         setQueried(true);
-        querySearchService(setSearchResults, [], accessionId, 0, 1, "Dataset")
+        querySearchService(setSearchResults, [{key: "accession", value: accessionId}], "*", 0, 1, "Dataset")
       }
     };
     const getDetails = (datasetId: string | undefined) => {
