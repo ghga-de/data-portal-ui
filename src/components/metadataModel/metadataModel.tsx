@@ -1,7 +1,8 @@
 import { faDesktop } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Button, Col, Container, Row } from "react-bootstrap";
+import { Container } from "react-bootstrap";
 import divBG from "../../assets/metadataModel/div-bg-metadata-model.png";
+import schemaImg from "../../assets/metadataModel/schema.png";
 
 export const MetadataModel = () => {
   return (
@@ -23,15 +24,29 @@ export const MetadataModel = () => {
             ontologies and vocabularies, that help data submitters to richly
             describe their research data to the community. The implementation of
             our metadata catalogue is done using the{" "}
-            <a href="https://linkml.io/linkml/">
+            <a
+              href="https://linkml.io/linkml/"
+              target="_blank"
+              rel="noreferrer"
+            >
               Linked Data Modelling Language (LinkML)
             </a>{" "}
             and is openly accessible for everyone on the{" "}
-            <a href="https://github.com/ghga-de">GHGA GitHub Repository</a>.
-            Here, you can track every new release of the schema and access
+            <a
+              href="https://github.com/ghga-de"
+              target="_blank"
+              rel="noreferrer"
+            >
+              GHGA GitHub Repository
+            </a>
+            . Here, you can track every new release of the schema and access
             different artefacts, such as a JSON Schema, for the programmatic
             implementation at your site (
-            <a href="https://github.com/ghga-de/ghga-metadata-schema/tree/main/artifacts">
+            <a
+              href="https://github.com/ghga-de/ghga-metadata-schema/tree/main/artifacts"
+              target="_blank"
+              rel="noreferrer"
+            >
               https://github.com/ghga-de/ghga-metadata-schema/tree/main/artifacts
             </a>
             ).
@@ -67,33 +82,38 @@ export const MetadataModel = () => {
         </div>
       </div>
       <div className="p-5">
-        <Row className="align-items-center">
-          <Col className="col-4">
-            <p className="fw-bold">
-              The Core-Model captures four categories of data:
-            </p>
-            <ul>
-              <li>Data Access</li>
-              <li>Dataset</li>
-              <li>Experiment</li>
-              <li>Analysis</li>
-            </ul>
-          </Col>
-          <Col className="ps-5">Pretty Chart Here</Col>
-        </Row>
+        <div className="overflow-auto">
+          <img src={schemaImg} alt="schema" className="float-end" width="80%" />
+          <p className="fw-bold">
+            The Core-Model captures four categories of data:
+          </p>
+          <ul>
+            <li>Data Access</li>
+            <li>Dataset</li>
+            <li>Experiment</li>
+            <li>Analysis</li>
+          </ul>
+        </div>
       </div>
-      <Button variant="secondary text-white fw-bold">
-        <Row className="align-items-center">
-          <Col className="ms-2 me-0 pe-2">
-            <FontAwesomeIcon icon={faDesktop} transform="grow-10" />
-          </Col>
-          <Col>
-            Metadata
-            <br />
-            Visualisation
-          </Col>
-        </Row>
-      </Button>
+      <Container
+        className="mb-5 border border-1 border-light-alternative p-3 shadow-sm"
+        style={{ borderRadius: "20px" }}
+      >
+        <h5 className="mb-4 d-flex align-items-center text-secondary fw-bold">
+          <FontAwesomeIcon
+            icon={faDesktop}
+            pull="left"
+            style={{
+              width: "30px",
+              height: "30px",
+              backgroundColor: "rgba(214,95,48,0.2)",
+              padding: "8px",
+            }}
+            className="me-3 fs-4 rounded"
+          />
+          Metadata Visualisation
+        </h5>
+      </Container>
     </Container>
   );
 };
