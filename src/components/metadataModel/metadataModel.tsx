@@ -81,20 +81,6 @@ export const MetadataModel = () => {
           </p>
         </div>
       </div>
-      <div className="p-5">
-        <div className="overflow-auto">
-          <img src={schemaImg} alt="schema" className="float-end" width="80%" />
-          <p className="fw-bold">
-            The Core-Model captures four categories of data:
-          </p>
-          <ul>
-            <li>Data Access</li>
-            <li>Dataset</li>
-            <li>Experiment</li>
-            <li>Analysis</li>
-          </ul>
-        </div>
-      </div>
       <Container
         className="mb-5 border border-1 border-light-alternative p-3 shadow-sm"
         style={{ borderRadius: "20px" }}
@@ -113,6 +99,18 @@ export const MetadataModel = () => {
           />
           Metadata Visualisation
         </h5>
+        <div className="overflow-auto">
+          <img src={schemaImg} alt="schema" className="float-end" width="80%" />
+          <p className="fw-bold">
+            The Core-Model captures four categories of data:
+          </p>
+          <ul>
+            <li>Data Access</li>
+            <li>Dataset</li>
+            <li>Experiment</li>
+            <li>Analysis</li>
+          </ul>
+        </div>
       </Container>
     </Container>
   );
