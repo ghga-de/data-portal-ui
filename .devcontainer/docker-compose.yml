@@ -95,7 +95,7 @@ services:
     depends_on:
       - metadata_db
     env_file:
-      - .env.local
+      - local.env
 
   # mongo db
 
