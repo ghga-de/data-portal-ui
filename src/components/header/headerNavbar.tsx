@@ -91,18 +91,14 @@ const HeaderNavbar = () => {
                 Upload
               </Button>
             </Nav.Link>
-            <Nav.Link
-              href="https://www.ghga.de/data/metadata-model"
-              target="_blank"
-              className="mx-2 p-0"
+            <NavLink
+              to="/metadata-model"
+              className={({ isActive }) =>
+                isActive ? activePageStyle : inactivePageStyle
+              }
             >
-              <Button
-                variant="primary"
-                className="p-0 w-100 h-100 m-0 px-2 text-white"
-              >
                 Metadata Model
-              </Button>
-            </Nav.Link>
+            </NavLink>
           </Nav>
           <Nav
             className="justify-content-center flex-fill"
