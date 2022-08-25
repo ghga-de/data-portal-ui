@@ -14,7 +14,7 @@ services:
       - metadata_search_svc
       - metadata_rep
     env_file:
-      - .env.local
+      - local.env
 
   # metadata search
 
