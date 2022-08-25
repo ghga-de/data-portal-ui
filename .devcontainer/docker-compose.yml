@@ -13,6 +13,8 @@ services:
     depends_on:
       - metadata_search_svc
       - metadata_rep
+    env_file:
+      - .env.local
 
   # metadata search
 

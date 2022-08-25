@@ -24,7 +24,7 @@ ROOT_DIR = Path(__file__).parent.parent.resolve()
 
 # define which parameters of the Config class shall not be translated
 # into env vars for the React app (as performed by the `set_react_app_env_vars`
-# funtion):
+# function):
 IGNORE_PARAMS_FOR_REACT_APP = ["host", "port"]
 
 
@@ -34,8 +34,16 @@ class Config(BaseSettings):
     host: str = "localhost"
     port: int = 8080
     welcome_info: Optional[str]
-    svc_search_url: str = "https://dataportal.api.ghga-dev.de/metadata-search"
-    svc_repository_url: str = "https://dataportal.api.ghga-dev.de/metadata"
+    client_url: str = "https://data.ghga-dev.de/"
+    svc_search_url: str = f"{client_url}metadata-search"
+    svc_repository_url: str = f"{client_url}metadata"
+    oidc_client_id: str = None
+    oidc_redirect_url: str = f"{client_url}oauth/callback"
+    oidc_scope: str = "openid profile email"
+    oidc_authority_url: str = "https://proxy.aai.lifescience-ri.eu/"
+    oidc_authorization_url: str = f"{oidc_authority_url}saml2sp/OIDC/authorization"
+    oidc_token_url: str = f"{oidc_authority_url}OIDC/token"
+    oidc_userinfo_url: str = f"{oidc_authority_url}OIDC/userinfo"
 
 
 def simplelog(text: str):
@@ -105,7 +113,7 @@ def serve(config: Config):
     exit_code_serve = Popen(cmd_serve).wait()
 
     raise RuntimeError(
-        f"Serving of app was interupted: {exit_code_serve}."
+        f"Serving of app was interrupted: {exit_code_serve}."
     )
 
 
@@ -131,7 +139,7 @@ def dev_serve(config: Config):
     exit_code_start = Popen(cmd_start).wait()
 
     raise RuntimeError(
-        f"Serving of app was interupted: {exit_code_start}."
+        f"Serving of app was interrupted: {exit_code_start}."
     )
 
 

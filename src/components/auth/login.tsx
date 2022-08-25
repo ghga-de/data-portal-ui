@@ -1,6 +1,9 @@
 import { Container } from "react-bootstrap";
 import lsLogin from "../../assets/loginLS/ls-login.png";
 import lsRegister from "../../assets/loginLS/ls-register.png";
+import authService from "./authService";
+
+/** Login page */
 
 const Login = () => {
   return (
@@ -12,9 +15,7 @@ const Login = () => {
             <strong>German Human Genome-Phenome Archive</strong>, you need to
             sign in via a <strong>Life Science</strong> account.
           </p>
-          <a href="https://profile.aai.lifescience-ri.eu/">
-            <img src={lsLogin} alt="LS Login" width="200px" />
-          </a>
+          <img src={lsLogin} alt="LS Login" width="200px" onClick={() => authService.login()}/>
         </div>
         <hr className="bg-secondary text-center" />
         <div className="bg-light-alternative p-4 my-5 rounded text-center mb-5">
