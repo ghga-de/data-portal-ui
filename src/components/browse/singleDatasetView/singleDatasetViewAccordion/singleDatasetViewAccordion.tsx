@@ -1,8 +1,6 @@
 import { Accordion, Table } from "react-bootstrap";
 import { datasetEmbeddedModel } from "../../../../models/dataset";
 import { parseBytes } from "../../../../utils/utils";
-import "react-perfect-scrollbar/dist/css/styles.css";
-import PerfectScrollbar from "react-perfect-scrollbar";
 
 interface SingleDatasetViewAccordionProps {
   details: datasetEmbeddedModel;
