@@ -18,7 +18,8 @@ const Login = () => {
           <p className="mb-4">
             LS Login lets you authenticate using your existing accounts at third parties
             (your home university, research institute or a commercial service)
-            and link it to your LS ID. You can also activate LS account with password.
+            and link it to your LS ID. Alternatively, you can also activate
+            an LS account with username and password.
           </p>
           <img src={lsLogin} alt="LS Login" width="200px" onClick={() => authService.login()}/>
         </div>
