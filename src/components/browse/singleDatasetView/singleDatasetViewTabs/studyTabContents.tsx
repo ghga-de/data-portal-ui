@@ -2,8 +2,8 @@ import { faBook } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Tab } from "react-bootstrap";
 import { datasetEmbeddedModel } from "../../../../models/dataset";
-import 'react-perfect-scrollbar/dist/css/styles.css';
-import PerfectScrollbar from 'react-perfect-scrollbar'
+import "react-perfect-scrollbar/dist/css/styles.css";
+import PerfectScrollbar from "react-perfect-scrollbar";
 
 interface StudyTabContentsProps {
   details: datasetEmbeddedModel;
@@ -11,9 +11,8 @@ interface StudyTabContentsProps {
 
 const StudyTabContents = (props: StudyTabContentsProps) => {
   return (
-
     <Tab.Pane eventKey="0" className="h-100">
-      {props.details.has_study !== null ?
+      {props.details.has_study !== null ? (
         props.details.has_study.map((x) => {
           return (
             <div key={x.id} className="text-break overflow-auto h-100">
@@ -58,7 +57,8 @@ const StudyTabContents = (props: StudyTabContentsProps) => {
                               <>
                                 <strong>Centre Name: </strong> {y.value}
                               </>
-                            ) : y.key === "released" && y.value === "RELEASED" ? (
+                            ) : y.key === "released" &&
+                              y.value === "RELEASED" ? (
                               <>
                                 <strong>Release date: </strong>
                                 {x.release_date !== null ? (
@@ -82,32 +82,31 @@ const StudyTabContents = (props: StudyTabContentsProps) => {
                 </p>
                 <p>
                   <strong>Description: </strong>
-                  {props.details.description}{props.details.description}{props.details.description}{props.details.description}{props.details.description}{props.details.description}{props.details.description}{props.details.description}{props.details.description}{props.details.description}{props.details.description}{props.details.description}{props.details.description}{props.details.description}{props.details.description}{props.details.description}{props.details.description}{props.details.description}{props.details.description}{props.details.description}{props.details.description}{props.details.description}{props.details.description}{props.details.description}{props.details.description}{props.details.description}{props.details.description}{props.details.description}
-                </p></PerfectScrollbar>
+                  {props.details.description}
+                </p>
+              </PerfectScrollbar>
             </div>
           );
-        }) : (
-          <>
-            <h5 className="mb-4 d-flex align-items-center">
-              <FontAwesomeIcon
-                icon={faBook}
-                pull="left"
-                style={{
-                  width: "30px",
-                  height: "30px",
-                  backgroundColor: "rgba(214,95,48,0.2)",
-                  padding: "8px",
-                }}
-                className="text-secondary me-3 fs-4 rounded"
-              />
-              <strong>Study</strong>
-            </h5>
-            <p className="mb-4">
-              No study found.
-            </p>
-          </>
-        )
-      }
+        })
+      ) : (
+        <>
+          <h5 className="mb-4 d-flex align-items-center">
+            <FontAwesomeIcon
+              icon={faBook}
+              pull="left"
+              style={{
+                width: "30px",
+                height: "30px",
+                backgroundColor: "rgba(214,95,48,0.2)",
+                padding: "8px",
+              }}
+              className="text-secondary me-3 fs-4 rounded"
+            />
+            <strong>Study</strong>
+          </h5>
+          <p className="mb-4">No study found.</p>
+        </>
+      )}
     </Tab.Pane>
   );
 };
