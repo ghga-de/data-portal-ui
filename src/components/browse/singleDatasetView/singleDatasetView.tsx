@@ -49,12 +49,11 @@ const SingleDatasetView = () => {
       }
     }
     getHits(accessionId, "ega_accession");
-    processHits(searchResults);
     if (searchResults?.count === 0)
     {
       getHits(accessionId, 'accession');
-      processHits(searchResults)
     }
+    processHits(searchResults)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchResults, paramId])
 
