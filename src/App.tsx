@@ -7,8 +7,10 @@ import { Routes, BrowserRouter, Route } from "react-router-dom";
 import Home from "./components/home/home";
 import AboutUs from "./components/aboutUs/aboutUs";
 import SingleDatasetView from "./components/browse/singleDatasetView/singleDatasetView";
-import Login from "./components/login/login";
 import MetadataModel from "./components/metadataModel/metadataModel";
+import Login from "./components/auth/login";
+import Callback from "./components/auth/callback";
+import Profile from "./components/auth/profile";
 
 function App() {
   return (
@@ -37,6 +39,12 @@ function App() {
         </Route>
         <Route path="/login">
           <Route index element={<Login />} />
+        </Route>
+        <Route path="/oauth/callback">
+          <Route index element={<Callback />} />
+        </Route>
+        <Route path="/profile">
+          <Route index element={<Profile />} />
         </Route>
       </Routes>
       <Footer />

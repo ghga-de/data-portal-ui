@@ -1,15 +1,24 @@
-import React from "react";
+import { useEffect, useState } from "react";
 import logo from "../../assets/data-portal.png";
 import { Navbar, Container, Nav, Button } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
+import authService, { UserClaims } from "../auth/authService";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 
 const HeaderNavbar = () => {
+  const [user, setUser] = useState<UserClaims | null>(null);
+
+  useEffect(() => {
+    authService.getUserClaims().then(setUser);
+    document.addEventListener("auth", (e) => setUser((e as CustomEvent).detail));
+  }, []);
+
   const activePageStyle =
     "btn btn-secondary p-0 h-100 m-0 mx-2 px-2 pt-1 text-white";
   const inactivePageStyle =
     "btn btn-primary p-0 h-100 m-0 mx-2 px-2 pt-1 text-white";
+
   return (
     <Navbar
       collapseOnSelect
@@ -91,12 +100,27 @@ const HeaderNavbar = () => {
                 Metadata Model
             </NavLink>
           </Nav>
-          <Nav>
-            <NavLink to="/login">
-              <Button variant="secondary" className="text-white">
-                Login <FontAwesomeIcon icon={faUser} className="ms-1" />
-              </Button>
-            </NavLink>
+          <Nav
+            className="justify-content-center flex-fill"
+            style={{ height: "36px" }}
+          >
+            {
+              user ?
+                <NavLink
+                  to="/profile"
+                  className={({ isActive }) =>
+                    isActive ? activePageStyle : inactivePageStyle
+                  }
+                >
+                  <FontAwesomeIcon icon={faUser} className="ms-1" /> {user.name}
+                </NavLink>
+                :
+                <NavLink to="/login">
+                  <Button variant="secondary" className="text-white">
+                    Login <FontAwesomeIcon icon={faUser} className="ms-1" />
+                  </Button>
+                </NavLink>
+            }
           </Nav>
         </Navbar.Collapse>
       </Container>
