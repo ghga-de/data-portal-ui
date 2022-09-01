@@ -50,7 +50,7 @@ const DatasetSamples = (props: dataSetSamplesProps) => {
                 </span>{" "}
                 )
                 <br />
-                <div><strong>{Object.keys(props.samples.stats?.tissues).length}</strong>&nbsp;Tissues:{" "}
+                <div className="mb-0">Tissues:
                   <ul>
                     {getItemsForSummary(props.samples.stats?.tissues).map((x) => {
                       return (<li key={x}>{x}</li>)
@@ -58,7 +58,7 @@ const DatasetSamples = (props: dataSetSamplesProps) => {
                   </ul>
                 </div>
                 <br />
-                <div><strong>{Object.keys(props.samples.stats?.phenotypes).length}</strong>&nbsp;Phenotypes:{" "}
+                <div className="mb-0">Phenotypes:
                   <ul>
                     {getItemsForSummary(props.samples.stats?.phenotypes).map((x) => {
                       return (<li key={x}>{x}</li>)
