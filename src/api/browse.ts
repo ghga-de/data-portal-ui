@@ -2,14 +2,9 @@ import { searchResponseModel, datasetEmbeddedModel, datasetSummaryModel } from "
 import { facetFilterModel } from "../models/facets";
 import authService from "../components/auth/authService";
 
-type getDatasetsSearchRespType = (
-  callbackFunc: (hits: searchResponseModel) => void,
-  filterQuery: facetFilterModel[],
-  searchKeyword: string,
-  skip: number,
-  limit: number,
-  documentType: string
-) => void;
+const SEARCH_URL = process.env.REACT_APP_SVC_SEARCH_URL;
+const REPOSITORY_URL = process.env.REACT_APP_SVC_REPOSITORY_URL;
+const CLIENT_URL = process.env.REACT_APP_CLIENT_URL;
 
 const getHeaders = async () => {
   const user = await authService.getUser();
@@ -17,9 +12,8 @@ const getHeaders = async () => {
     "Accept": "application/json",
     "Content-Type": "application/json"
   };
-  const origin = process.env.REACT_APP_CLIENT_URL;
-  if (origin) {
-    headers["Origin"] = origin;
+  if (CLIENT_URL) {
+    headers["Origin"] = CLIENT_URL;
   }
   const authorization = user?.access_token;
   if (authorization) {
@@ -30,6 +24,15 @@ const getHeaders = async () => {
   return headers;
 }
 
+type getDatasetsSearchRespType = (
+  callbackFunc: (hits: searchResponseModel) => void,
+  filterQuery: facetFilterModel[],
+  searchKeyword: string,
+  skip: number,
+  limit: number,
+  documentType: string
+) => void;
+
 export const querySearchService: getDatasetsSearchRespType = async (
   callbackFunc: (hits: searchResponseModel) => void,
   filterQuery: facetFilterModel[],
@@ -38,12 +41,12 @@ export const querySearchService: getDatasetsSearchRespType = async (
   limit: number,
   documentType = "Dataset"
 ) => {
-  let url = `${process.env.REACT_APP_SVC_SEARCH_URL}/rpc/search`;
+  let url = `${SEARCH_URL}/rpc/search`;
   url += `?document_type=${documentType}&return_facets=true&skip=${skip}&limit=${limit}`;
   const headers = await getHeaders();
   const body = JSON.stringify({ query: searchKeyword, filters: filterQuery });
   try {
-    const response = await fetch(url, { method: "POST", headers, body});
+    const response = await fetch(url, {method: "POST", headers, body});
     const data = await response.json();
     callbackFunc(data);
   } catch(error) {
@@ -69,11 +72,11 @@ export const getDatasetDetails: getDatasetDetailsType = async (
   embedded = false,
   callbackFunc
 ) => {
-  let url = `${process.env.REACT_APP_SVC_REPOSITORY_URL}/datasets/${datasetId}`;
+  let url = `${REPOSITORY_URL}/datasets/${datasetId}`;
   url += `?embedded=${embedded}`;
   const headers = await getHeaders();
   try {
-    const response = await fetch(url, { method: "get", headers});
+    const response = await fetch(url, {method: "get", headers});
     const data = await response.json();
     callbackFunc(data);
   } catch(error) {
@@ -91,11 +94,11 @@ export const getDatasetSummary: getDatasetSummaryType = async (
   datasetId,
   callbackFunc
 ) => {
-  const url = `${process.env.REACT_APP_SVC_REPOSITORY_URL}/dataset_summary/${datasetId}`;
+  const url = `${REPOSITORY_URL}/dataset_summary/${datasetId}`;
   const headers = await getHeaders();
   try {
     const response = await fetch(url, {method: "get", headers});
-    const data = await response.json()
+    const data = await response.json();
     callbackFunc(data);
   } catch(error) {
     console.error(error);
