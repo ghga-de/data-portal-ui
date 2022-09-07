@@ -1,7 +1,7 @@
 import { Container } from "react-bootstrap";
 import lsLogin from "../../assets/loginLS/ls-login.png";
 import lsRegister from "../../assets/loginLS/ls-register.png";
-import authService from "./authService";
+import authService from "../../services/auth";
 
 /** Login page */
 

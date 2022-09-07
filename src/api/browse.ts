@@ -1,6 +1,6 @@
 import { searchResponseModel, datasetEmbeddedModel, datasetSummaryModel } from "../models/dataset";
 import { facetFilterModel } from "../models/facets";
-import authService from "../components/auth/authService";
+import authService from "../services/auth";
 
 const SEARCH_URL = process.env.REACT_APP_SVC_SEARCH_URL;
 const REPOSITORY_URL = process.env.REACT_APP_SVC_REPOSITORY_URL;

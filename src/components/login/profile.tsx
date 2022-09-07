@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Alert, Button, Container, Row, Col } from "react-bootstrap";
-import authService, { UserClaims } from "./authService";
+import authService, { UserClaims } from "../../services/auth";
 
 /** Display user profile */
 
