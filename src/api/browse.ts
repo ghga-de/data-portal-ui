@@ -49,9 +49,8 @@ export const querySearchService: getDatasetsSearchRespType = async (
     const response = await fetch(url, {method: "POST", headers, body});
     const data = await response.json();
     callbackFunc(data);
-  } catch(error) {
-    console.error(error);
-    alert("An error occured while fetching the data.");
+  } catch {
+    alert("An error occurred while fetching the data.");
     const errorData: searchResponseModel = {
       count: -1,
       hits: [],
@@ -79,9 +78,8 @@ export const getDatasetDetails: getDatasetDetailsType = async (
     const response = await fetch(url, {method: "get", headers});
     const data = await response.json();
     callbackFunc(data);
-  } catch(error) {
-    console.error(error);
-    alert("An error occured while fetching the data.");
+  } catch {
+    alert("An error occurred while fetching the data.");
   }
 };
 
@@ -100,8 +98,7 @@ export const getDatasetSummary: getDatasetSummaryType = async (
     const response = await fetch(url, {method: "get", headers});
     const data = await response.json();
     callbackFunc(data);
-  } catch(error) {
-    console.error(error);
-    alert("An error occured while fetching the data.");
+  } catch {
+    alert("An error occurred while fetching the data.");
   };
 };
