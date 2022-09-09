@@ -1,7 +1,10 @@
-import { facetFilterModel } from "../models/facets";
-import { querySearchService } from "../api/browse";
 import { Dispatch, SetStateAction } from "react";
 import { dataAccessCommitteeModel, dataAccessPolicyModel, datasetEmbeddedModel, searchResponseModel } from "../models/dataset";
+import { facetFilterModel } from "../models/facets";
+import { querySearchService } from "../api/browse";
+import authService from "../services/auth";
+
+const CLIENT_URL = process.env.REACT_APP_CLIENT_URL;
 
 export const getFilterString = (filterDict: facetFilterModel[]) => {
   let filterString = "";
@@ -136,4 +139,26 @@ export const getDACEmailId = (details :  datasetEmbeddedModel | null | undefined
     }
   }
   return mailId;
+}
+
+/** Fetch JSON data with proper headers */
+export const fetchJson = async (url: string, method = "GET", payload?: any): Promise<Response> => {
+  const headers: HeadersInit = {
+    "Accept": "application/json"
+  };
+  if (payload) {
+    headers["Content-Type"] = "application/json";
+  }
+  if (CLIENT_URL) {
+    headers["Origin"] = CLIENT_URL;
+  }
+  const user = await authService.getUser();
+  const token = user?.access_token;
+  if (token) {
+    // the Authorization header is already used for Basic auth,
+    // therefore we use the X-Authorization header for the OIDC token
+    headers["X-Authorization"] = 'Bearer ' + token;
+  }
+  const body = payload ? JSON.stringify(payload) : undefined;
+  return await fetch(url, {method, headers, body});
 }
