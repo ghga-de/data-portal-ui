@@ -1,9 +1,7 @@
 import { Row, Col } from "react-bootstrap";
-import { Swiper, SwiperSlide } from "swiper/react/swiper-react.js";
+import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Navigation, Pagination } from "swiper";
-import "swiper/swiper.scss";
-import "swiper/modules/navigation/navigation.scss";
-import "swiper/modules/pagination/pagination.scss";
+import "swiper/css";
 import { importAllFilesFromFolder } from "../../../utils/utils";
 
 const InstitutionsCarousel = () => {
