@@ -47,9 +47,9 @@ const DatasetSamples = (props: dataSetSamplesProps) => {
                 </span>{" "}
                 )
                 <br />
-                <strong>{props.samples.stats?.tissues}</strong>&nbsp;Tissues:{" "}
+                <strong>{Object.keys(props.samples.stats?.tissues).length}</strong>&nbsp;Tissues:{" "}
                 <br />
-                <strong>{props.samples.stats?.phenotypes}</strong>&nbsp;Phenotypes:{" "}
+                <strong>{Object.keys(props.samples.stats?.phenotypes).length}</strong>&nbsp;Phenotypes:{" "}
               </p>
             </div>
           ) : (
