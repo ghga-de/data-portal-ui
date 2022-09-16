@@ -35,7 +35,7 @@ WORKDIR /service
 # USER appuser
 
 # install dependencies
-RUN yarn install && npm install serve \
+RUN npm install && npm install serve \
      && python3.9 -m pip install -r /service/configure_build_serve/requirements.txt
 
 # serve web app:
