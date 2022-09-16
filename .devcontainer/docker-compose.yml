@@ -67,7 +67,7 @@ services:
       if [ "$${METADATA_REPOSITORY_SERVICE_DATA_LOAD_URL}" != "" ]; then
         # Obtain the data to be imported
         curl -Lo /tmp/data.zip "$${METADATA_REPOSITORY_SERVICE_DATA_LOAD_URL}"
-        mkdir /tmp/data /tmp/example_dir
+        mkdir /tmp/data /tmp/data
         cd /tmp/data
         unzip /tmp/data.zip
         find /tmp/data
@@ -78,13 +78,8 @@ services:
           --db-url "$${METADATA_REPOSITORY_SERVICE_DB_URL}" \
           --db-name "$${METADATA_REPOSITORY_SERVICE_DB_NAME}"
 
-        # Convert the data to GHGA format
-        python scripts/transform_ega_to_ghga.py \
-          --output /tmp/example_dir \
-          blobfish-transform.yml
-
         # Populate the database
-        /service/scripts/populate_metadata_store.py --example-dir /tmp/example_dir \
+        /service/scripts/populate_metadata_store.py --example-dir /tmp/data \
           --db-url "$${METADATA_REPOSITORY_SERVICE_DB_URL}" \
           --db-name "$${METADATA_REPOSITORY_SERVICE_DB_NAME}"
       fi
