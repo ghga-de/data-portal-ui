@@ -132,6 +132,7 @@ export interface dataAccessPolicyModel {
   has_data_access_committee: dataAccessCommitteeModel;
   data_request_form: string;
   policy_text: string;
+  alias: string;
 }
 
 export interface dataAccessCommitteeModel {
@@ -139,6 +140,7 @@ export interface dataAccessCommitteeModel {
   main_contact: string;
   accession: string;
   has_member: dataAccessCommitteeMemberModel[];
+  alias: string;
 }
 
 export interface dataAccessCommitteeMemberModel {
