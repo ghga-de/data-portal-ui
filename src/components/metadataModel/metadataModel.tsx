@@ -18,12 +18,13 @@ export const MetadataModel = () => {
       >
         <div className="bg-white p-4">
           <p>
-            The metadata catalogue for GHGA Beta provides core functionality in
-            order to capture metadata for the sharing of genomics data. We make
-            GHGAs metadata FAIR by utilizing established and widely used
-            ontologies and vocabularies, that help data submitters to richly
-            describe their research data to the community. The implementation of
-            our metadata catalogue is done using the{" "}
+            The GHGA metadata catalog provides core functionality to capture
+            metadata and allows for FAIR compliant sharing of genomics data. Our
+            model is constructed using ontologies and controlled vocabularies
+            that enable the data submitters to enrich their submitted data in a
+            standardised manner as well as efficiently communicate their data to
+            the research community. The implementation of our metadata catalog
+            is done using the{" "}
             <a
               href="https://linkml.io/linkml/"
               target="_blank"
@@ -39,17 +40,19 @@ export const MetadataModel = () => {
             >
               GHGA GitHub Repository
             </a>
-            . Here, you can track every new release of the schema and access
-            different artefacts, such as a JSON Schema, for the programmatic
-            implementation at your site (
-            <a
-              href="https://github.com/ghga-de/ghga-metadata-schema/tree/main/artifacts"
-              target="_blank"
-              rel="noreferrer"
-            >
-              https://github.com/ghga-de/ghga-metadata-schema/tree/main/artifacts
-            </a>
-            ).
+            .
+          </p>
+          <p>
+            The Core-Model captures three categories of data:
+            <span className="ms-4" style={{ display: "list-item" }}>
+              Technical
+            </span>
+            <span className="ms-4" style={{ display: "list-item" }}>
+              Sample
+            </span>
+            <span className="ms-4" style={{ display: "list-item" }}>
+              Dataset
+            </span>
           </p>
           <p>
             Data Access bundles information to indicate the Data Use Condition

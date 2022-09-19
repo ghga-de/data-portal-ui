@@ -21,11 +21,6 @@ const FooterNavbar = () => {
             <p className="text-start mt-2 mb-1">
               GHGA Data Portal running in Beta mode
             </p>
-            <p className="text-start">
-              <Link to="/browse" className="fw-bold text-white">
-                Browse Datasets
-              </Link>
-            </p>
           </Col>
           <Button
             href="https://www.ghga.de/data/data-download"
