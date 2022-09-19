@@ -72,6 +72,7 @@ def build():
     simplelog("Executing `npm build`")
     cmd_build = [
         "npm",
+        "run",
         "build",
         "--prefix",
         str(ROOT_DIR)
@@ -90,8 +91,8 @@ def serve(config: Config):
     simplelog("Making the `serve` package globally available:")
     cmd_add_serve = [
         "npm",
-        "global",
-        "add",
+        "install",
+        "--global",
         "serve",
     ]
     exit_code_add_serve = Popen(cmd_add_serve).wait()
