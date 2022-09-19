@@ -48,6 +48,7 @@ export interface fileModel {
   creation_date: string;
   accession: string;
   alias: string;
+  checksum_type: string;
 }
 
 export interface experimentEmbeddedModel {
@@ -84,9 +85,15 @@ export interface sampleModel {
       {
         id: string;
         name: string;
+        concept_name: string;
       }
     ];
   };
+  has_anatomical_entity: [
+    {
+      concept_name: string;
+    }
+  ];
   tissue: string;
   description: string;
   accession: string;
@@ -97,29 +104,35 @@ export interface sampleModel {
 export interface projectModel {
   id: string;
   title: string;
+  alias: string;
   has_attribute: attributeModel[];
   description: string;
   accession: string;
+  ega_accession: string;
 }
 
 export interface studyEmbeddedModel {
   release_date: string;
   id: string;
   title: string;
+  description: string;
   accession: string;
   abstract: string;
   has_publication: publicationModel[];
   type: string;
   has_attribute: attributeModel[];
   has_project: projectModel;
+  ega_accession: string;
 }
 
 export interface dataAccessPolicyModel {
   id: string;
+  name: string;
   accession: string;
   has_data_access_committee: dataAccessCommitteeModel;
   data_request_form: string;
   policy_text: string;
+  alias: string;
 }
 
 export interface dataAccessCommitteeModel {
@@ -127,6 +140,7 @@ export interface dataAccessCommitteeModel {
   main_contact: string;
   accession: string;
   has_member: dataAccessCommitteeMemberModel[];
+  alias: string;
 }
 
 export interface dataAccessCommitteeMemberModel {
@@ -204,8 +218,8 @@ export interface sampleSummaryModel {
   count: number;
   stats: {
     sex: sexSummaryModel;
-    tissues: number;
-    phenotypes: number;
+    tissues: { [key: string]: number };
+    phenotypes: { [key: string]: number };
   }
 }
 
@@ -219,21 +233,44 @@ export interface studySummaryModel {
   count: number;
   stats: {
     ega_accession: string[];
-    accession: []
-  }
+    accession: [];
+  };
 }
 
 export interface experimentSummaryModel {
   count: number;
   stats: {
-    protocol: { [key: string]: number }
-  }
+    protocol: { [key: string]: number };
+  };
 }
 
 export interface fileSummaryModel {
   count: number;
   stats: {
     format: { [key: string]: number };
-    size: number
-  }
+    size: number;
+  };
+}
+
+export interface individualSummaryModel {
+  count: number;
+  stats: {
+    sex: { [key: string]: number };
+  };
+}
+
+export interface protocolSummaryModel {
+  count: number;
+  stats: {
+    protocol: { [key: string]: number };
+  };
+}
+
+export interface metadataSummaryModel {
+  sample_summary: sampleSummaryModel;
+  study_summary: studySummaryModel;
+  experiment_summary: experimentSummaryModel;
+  file_summary: fileSummaryModel;
+  individual_summary: individualSummaryModel;
+  protocol_summary: protocolSummaryModel;
 }

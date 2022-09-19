@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import logo from "../../assets/data-portal.png";
-import { Navbar, Container, Nav, Button } from "react-bootstrap";
+import { Navbar, Nav, Button } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
 import authService, { UserClaims } from "../auth/authService";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -11,7 +11,9 @@ const HeaderNavbar = () => {
 
   useEffect(() => {
     authService.getUserClaims().then(setUser);
-    document.addEventListener("auth", (e) => setUser((e as CustomEvent).detail));
+    document.addEventListener("auth", (e) =>
+      setUser((e as CustomEvent).detail)
+    );
   }, []);
 
   const activePageStyle =
@@ -27,17 +29,17 @@ const HeaderNavbar = () => {
       variant="dark"
       className="p-0"
     >
-      <Container>
-        <Navbar.Brand className="p-0">
-          <Button href="/" className="p-1 m-0">
-            <img src={logo} alt="GHGA logo" height="50px" />
-          </Button>
-        </Navbar.Brand>
+      <div className="container px-5 d-flex justify-content-between">
         <Navbar.Toggle
           aria-controls="basic-navbar-nav"
           className="border-2 text-white"
         />
         <Navbar.Collapse id="responsive-navbar-nav">
+          <Navbar.Brand className="p-0 col-2">
+            <Button href="/" className="p-1 m-0">
+              <img src={logo} alt="GHGA logo" className="w-100" />
+            </Button>
+          </Navbar.Brand>
           <Nav
             className="justify-content-center flex-fill"
             style={{ height: "36px" }}
@@ -97,33 +99,32 @@ const HeaderNavbar = () => {
                 isActive ? activePageStyle : inactivePageStyle
               }
             >
-                Metadata Model
+              Metadata Model
             </NavLink>
           </Nav>
           <Nav
-            className="justify-content-center flex-fill"
+            className=""
             style={{ height: "36px" }}
           >
-            {
-              user ?
-                <NavLink
-                  to="/profile"
-                  className={({ isActive }) =>
-                    isActive ? activePageStyle : inactivePageStyle
-                  }
-                >
-                  <FontAwesomeIcon icon={faUser} className="ms-1" /> {user.name}
-                </NavLink>
-                :
-                <NavLink to="/login">
-                  <Button variant="secondary" className="text-white">
-                    Login <FontAwesomeIcon icon={faUser} className="ms-1" />
-                  </Button>
-                </NavLink>
-            }
+            {user ? (
+              <NavLink
+                to="/profile"
+                className={({ isActive }) =>
+                  isActive ? activePageStyle : inactivePageStyle
+                }
+              >
+                <FontAwesomeIcon icon={faUser} className="ms-1" /> {user.name}
+              </NavLink>
+            ) : (
+              <NavLink to="/login">
+                <Button variant="secondary" className="text-white">
+                  Login <FontAwesomeIcon icon={faUser} className="ms-1" />
+                </Button>
+              </NavLink>
+            )}
           </Nav>
         </Navbar.Collapse>
-      </Container>
+      </div>
     </Navbar>
   );
 };
