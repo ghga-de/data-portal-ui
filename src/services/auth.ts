@@ -1,11 +1,15 @@
-import { Log, User, UserManager } from 'oidc-client-ts';
-import type { OidcStandardClaims, UserManagerSettings } from 'oidc-client-ts';
-import jwt_decode from 'jwt-decode';
+import { Log, User, UserManager } from "oidc-client-ts";
+import type {
+  OidcMetadata,
+  OidcStandardClaims,
+  UserManagerSettings,
+} from "oidc-client-ts";
+import jwt_decode from "jwt-decode";
 
 export interface UserClaims {
-  expired: boolean,
-  name: string,
-  email: string
+  expired: boolean;
+  name: string;
+  email: string;
 }
 
 /** Authentication service (global object) */
@@ -15,13 +19,10 @@ class AuthService {
 
   constructor() {
     const settings = this.settings;
-    console.debug("OIDC settings:", settings);
-    if (!settings.client_id)
-      console.error("The OIDC client ID is missing!");
     this.userManager = new UserManager(settings);
 
     Log.setLogger(console);
-    Log.setLevel(Log.INFO);
+    Log.setLevel(Log.INFO); // set to DEBUG for more output
   }
 
   /**
@@ -30,26 +31,37 @@ class AuthService {
    */
   private get settings(): UserManagerSettings {
     function env(setting: string): string {
-        return process.env[`REACT_APP_OIDC_${setting.toUpperCase()}`] as string;
+      return process.env[`REACT_APP_OIDC_${setting.toUpperCase()}`] as string;
     }
-
-    return {
+    const settings: UserManagerSettings = {
       authority: env("authority_url"),
       client_id: env("client_id"),
       redirect_uri: env("redirect_url"),
-      // we need to specify metadata explicitly here because
-      // LS Login does not support CORS with the discovery endpoint
-      metadata: {
-        issuer: env("authority_url"),
-        authorization_endpoint: env("authorization_url"),
-        token_endpoint: env("token_url"),
-        userinfo_endpoint: env("userinfo_url"),
-      },
       response_type: "code",
       scope: env("scope"),
       loadUserInfo: false,
-      automaticSilentRenew: true
-    } as UserManagerSettings;
+      automaticSilentRenew: true,
+    };
+
+    const metadata: Partial<OidcMetadata> = {
+      issuer: env("authority_url"),
+      authorization_endpoint: env("authorization_url"),
+      token_endpoint: env("token_url"),
+      userinfo_endpoint: env("userinfo_url"),
+    };
+
+    /* If the "use_discovery" flag is set, we use the OIDC discovery mechanism
+        to provide the metadata, and only seed it with the configured settings.
+        Note that this requires an additional request and will only
+        work if the origin header for a registered client is passed. */
+    const use_discovery = env("use_discovery").toLowerCase() === "true";
+    if (use_discovery) {
+      settings.metadataSeed = metadata;
+    } else {
+      settings.metadata = metadata;
+    }
+
+    return settings;
   }
 
   /**
@@ -94,7 +106,7 @@ class AuthService {
   /**
    * Return promise to load the User object for the currently authenticated user.
    */
-  getUser(): Promise<User | null>  {
+  getUser(): Promise<User | null> {
     return this.userManager.getUser();
   }
 
@@ -111,7 +123,7 @@ class AuthService {
     let user: User | null;
     try {
       user = await this.getUser();
-    } catch(error) {
+    } catch (error) {
       console.error("Cannot get user:", error);
       this.notify(null);
       return null;
@@ -135,7 +147,6 @@ class AuthService {
       return null;
     }
   }
-
 }
 
 const authService = new AuthService();

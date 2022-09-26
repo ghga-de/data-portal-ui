@@ -31,6 +31,7 @@ IGNORE_PARAMS_FOR_REACT_APP = ["host", "port"]
 @config_from_yaml(prefix="data_portal_ui")
 class Config(BaseSettings):
     """Config parameters and their defaults."""
+
     host: str = "localhost"
     port: int = 8080
     welcome_info: Optional[str]
@@ -44,6 +45,7 @@ class Config(BaseSettings):
     oidc_authorization_url: str = f"{oidc_authority_url}saml2sp/OIDC/authorization"
     oidc_token_url: str = f"{oidc_authority_url}OIDC/token"
     oidc_userinfo_url: str = f"{oidc_authority_url}OIDC/userinfo"
+    oidc_use_discovery: Optional[str] = True
 
 
 def simplelog(text: str):
@@ -51,16 +53,13 @@ def simplelog(text: str):
 
 
 def set_react_app_env_vars(config: Config):
-    """This will translate the parameters from a Config object into environment 
+    """This will translate the parameters from a Config object into environment
     variables that are picked up by the create-react-app framework.
     """
 
     simplelog("Setting env vars for use in React App:")
     for name, value in config.dict().items():
-        if (
-            name not in IGNORE_PARAMS_FOR_REACT_APP and
-            value is not None
-        ):
+        if name not in IGNORE_PARAMS_FOR_REACT_APP and value is not None:
             env_var_name = f"REACT_APP_{name.upper()}"
             os.environ[env_var_name] = str(value)
             print(f"  - set {name} as {env_var_name}")
@@ -70,12 +69,7 @@ def build():
     """Builds a production ready version of the web app"""
 
     simplelog("Executing `yarn build`")
-    cmd_build = [
-        "yarn",
-        "--cwd",
-        str(ROOT_DIR),
-        "build"
-    ]
+    cmd_build = ["yarn", "--cwd", str(ROOT_DIR), "build"]
     exit_code_build = Popen(cmd_build).wait()
 
     if exit_code_build != 0:
@@ -112,9 +106,7 @@ def serve(config: Config):
     ]
     exit_code_serve = Popen(cmd_serve).wait()
 
-    raise RuntimeError(
-        f"Serving of app was interrupted: {exit_code_serve}."
-    )
+    raise RuntimeError(f"Serving of app was interrupted: {exit_code_serve}.")
 
 
 def dev_serve(config: Config):
@@ -130,17 +122,10 @@ def dev_serve(config: Config):
         "This app is running using a development server.\n"
         "Do not use for production!\n"
     )
-    cmd_start = [
-        "yarn",
-        "--cwd",
-        str(ROOT_DIR),
-        "start"
-    ]
+    cmd_start = ["yarn", "--cwd", str(ROOT_DIR), "start"]
     exit_code_start = Popen(cmd_start).wait()
 
-    raise RuntimeError(
-        f"Serving of app was interrupted: {exit_code_start}."
-    )
+    raise RuntimeError(f"Serving of app was interrupted: {exit_code_start}.")
 
 
 def run():
@@ -153,16 +138,16 @@ def run():
 
         Before running this utility, please make sure that all javascript
         dependencies are installed by running `yarn install` in the repository
-        root dir."""
+        root dir.""",
     )
 
     parser.add_argument(
-        '--dev',
+        "--dev",
         help="""If set, the script will skip the build process and
         will serve a development web server that will reload automatically
         once changes are made to the source code.
         Please Note: do not use this option for production.""",
-        action='store_true'
+        action="store_true",
     )
 
     args = parser.parse_args()
