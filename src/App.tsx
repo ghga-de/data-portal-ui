@@ -8,9 +8,9 @@ import Home from "./components/home/home";
 import AboutUs from "./components/aboutUs/aboutUs";
 import SingleDatasetView from "./components/browse/singleDatasetView/singleDatasetView";
 import MetadataModel from "./components/metadataModel/metadataModel";
-import Login from "./components/auth/login";
-import Callback from "./components/auth/callback";
-import Profile from "./components/auth/profile";
+import Login from "./components/login/login";
+import Callback from "./components/login/callback";
+import Profile from "./components/login/profile";
 
 function App() {
   return (

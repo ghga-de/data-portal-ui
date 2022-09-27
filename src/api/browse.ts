@@ -1,5 +1,10 @@
 import { searchResponseModel, datasetEmbeddedModel, datasetSummaryModel, metadataSummaryModel } from "../models/dataset";
 import { facetFilterModel } from "../models/facets";
+import { fetchJson } from "../utils/utils";
+
+
+const SEARCH_URL = process.env.REACT_APP_SVC_SEARCH_URL;
+const REPOSITORY_URL = process.env.REACT_APP_SVC_REPOSITORY_URL;
 
 type getDatasetsSearchRespType = (
   callbackFunc: (hits: searchResponseModel) => void,
@@ -10,13 +15,7 @@ type getDatasetsSearchRespType = (
   documentType: string
 ) => void;
 
-const postHeaders = {
-  Accept: "application/json",
-  "Content-Type": "application/json",
-  Origin: "http://localhost:8000/",
-};
-
-export const querySearchService: getDatasetsSearchRespType = (
+export const querySearchService: getDatasetsSearchRespType = async (
   callbackFunc: (hits: searchResponseModel) => void,
   filterQuery: facetFilterModel[],
   searchKeyword = "*",
@@ -24,29 +23,22 @@ export const querySearchService: getDatasetsSearchRespType = (
   limit: number,
   documentType = "Dataset"
 ) => {
-  fetch(
-    `${process.env.REACT_APP_SVC_SEARCH_URL}/rpc/search?document_type=${documentType}&return_facets=true&skip=${skip}&limit=${limit}`,
-    {
-      method: "POST",
-      headers: postHeaders,
-      body: JSON.stringify({ query: searchKeyword, filters: filterQuery }),
-    }
-  )
-    .then((response) => response.json())
-    .then(
-      (data) => {
-        callbackFunc(data);
-      },
-      (error) => {
-        alert("An error occured while fetching the data.");
-        const errorData: searchResponseModel = {
-          count: -1,
-          hits: [],
-          facets: [],
-        };
-        callbackFunc(errorData);
-      }
-    );
+  let url = `${SEARCH_URL}/rpc/search`;
+  url += `?document_type=${documentType}&return_facets=true&skip=${skip}&limit=${limit}`;
+  const payload = { query: searchKeyword, filters: filterQuery };
+  try {
+    const response = await fetchJson(url, "POST", payload);
+    const data = await response.json();
+    callbackFunc(data);
+  } catch {
+    alert("An error occurred while fetching the data.");
+    const errorData: searchResponseModel = {
+      count: -1,
+      hits: [],
+      facets: [],
+    };
+    callbackFunc(errorData);
+  };
 };
 
 type getDatasetDetailsType = (
@@ -55,26 +47,20 @@ type getDatasetDetailsType = (
   callbackFunc: (dataset: datasetEmbeddedModel) => void
 ) => void;
 
-export const getDatasetDetails: getDatasetDetailsType = (
+export const getDatasetDetails: getDatasetDetailsType = async (
   datasetId,
   embedded = false,
   callbackFunc
 ) => {
-  fetch(
-    `${process.env.REACT_APP_SVC_REPOSITORY_URL}/datasets/${datasetId}?embedded=${embedded}`,
-    {
-      method: "get",
-    }
-  )
-    .then((response) => response.json())
-    .then(
-      (data) => {
-        callbackFunc(data);
-      },
-      (error) => {
-        alert("An error occured while fetching the data.");
-      }
-    );
+  let url = `${REPOSITORY_URL}/datasets/${datasetId}`;
+  url += `?embedded=${embedded}`;
+  try {
+    const response = await fetchJson(url);
+    const data = await response.json();
+    callbackFunc(data);
+  } catch {
+    alert("An error occurred while fetching the data.");
+  }
 };
 
 type getDatasetSummaryType = (
@@ -82,25 +68,18 @@ type getDatasetSummaryType = (
   callbackFunc: (dataset: datasetSummaryModel) => void
 ) => void;
 
-export const getDatasetSummary: getDatasetSummaryType = (
+export const getDatasetSummary: getDatasetSummaryType = async (
   datasetId,
   callbackFunc
 ) => {
-  fetch(
-    `${process.env.REACT_APP_SVC_REPOSITORY_URL}/dataset_summary/${datasetId}`,
-    {
-      method: "get",
-    }
-  )
-    .then((response) => response.json())
-    .then(
-      (data) => {
-        callbackFunc(data);
-      },
-      (error) => {
-        alert("An error occured while fetching the data.");
-      }
-    );
+  const url = `${REPOSITORY_URL}/dataset_summary/${datasetId}`;
+  try {
+    const response = await fetchJson(url);
+    const data = await response.json();
+    callbackFunc(data);
+  } catch {
+    alert("An error occurred while fetching the data.");
+  };
 };
 
 type getMetadataSummaryType = (

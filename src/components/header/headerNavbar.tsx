@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import logo from "../../assets/data-portal.png";
 import { Navbar, Nav, Button } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
-import authService, { UserClaims } from "../auth/authService";
+import authService, { UserClaims } from "../../services/auth";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 
