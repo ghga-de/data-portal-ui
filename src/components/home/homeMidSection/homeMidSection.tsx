@@ -90,7 +90,7 @@ const HomeMidSection = () => {
                         as="a"
                         target="_blank"
                         variant="white"
-                        className="shadow-md-dark text-secondary my-4"
+                        className="shadow-md-dark text-secondary my-4 fw-bold"
                         href={x.learn_more_href}
                       >
                         Learn more...

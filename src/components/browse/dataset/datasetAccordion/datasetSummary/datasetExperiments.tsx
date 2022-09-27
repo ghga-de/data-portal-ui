@@ -1,25 +1,17 @@
 import React from "react";
 import { Row } from "react-bootstrap";
 import DatasetDetailsLayout from "./datasetDetailsLayout/datasetDetailsLayout";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faFlask } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faFlask } from "@fortawesome/free-solid-svg-icons";
 import { experimentSummaryModel } from "../../../../../models/dataset";
-
+import { getItemsForSummary } from "../../../../../utils/utils";
+import BoldenedSummaryDetails from "./boldenedSummaryDetails/boldenedSummaryDetails";
 
 interface dataSetExperimentsProps {
   experiments: experimentSummaryModel | null;
 }
 
 const DatasetExperiments = (props: dataSetExperimentsProps) => {
-  const getProtocols = (protocol: { [key: string]: number } | undefined) => {
-    let protocols: string[] = []
-    for (let item in protocol) {
-      let value = protocol[item]
-      protocols.push(item + " : " + value)
-    }
-    return protocols
-  };
-
   return (
     <DatasetDetailsLayout
       icon={<FontAwesomeIcon icon={faFlask} />}
@@ -29,13 +21,26 @@ const DatasetExperiments = (props: dataSetExperimentsProps) => {
             <strong>Experiment info</strong>
           </p>
           <br />
-          <p className="mb-0">Experiments: {props.experiments?.count} total</p>
+          <p className="mb-0">
+            Experiments: <strong>{props.experiments?.count}</strong>{" "}
+          </p>
           <br />
-          <div className="mb-0">Protocols: <ul>
-            {getProtocols(props.experiments?.stats.protocol).map((x) => {
-              return (<li key={x}>{x}</li>)
-            })}
-          </ul>
+          <div className="mb-0">
+            Platforms:&nbsp;
+            {props.experiments?.stats.protocol ? (
+              <strong>
+                {Object.keys(props.experiments?.stats.protocol).length}
+              </strong>
+            ) : (
+              ""
+            )}
+            <ul>
+              {getItemsForSummary(props.experiments?.stats.protocol).map(
+                (x) => {
+                  return <li key={x}>{<BoldenedSummaryDetails x={x} />}</li>;
+                }
+              )}
+            </ul>
           </div>
         </Row>
       }

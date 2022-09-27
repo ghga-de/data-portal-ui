@@ -1,6 +1,6 @@
-import { faBook } from "@fortawesome/free-solid-svg-icons";
+import { faBook, faLink } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Tab } from "react-bootstrap";
+import { Tab, Button, Row, Col } from "react-bootstrap";
 import { datasetEmbeddedModel } from "../../../../models/dataset";
 import "react-perfect-scrollbar/dist/css/styles.css";
 import PerfectScrollbar from "react-perfect-scrollbar";
@@ -17,6 +17,25 @@ const StudyTabContents = (props: StudyTabContentsProps) => {
           return (
             <div key={x.id} className="text-break overflow-auto h-100">
               <PerfectScrollbar>
+                {x.ega_accession !== null ? (
+                  <Button
+                    href={"https://ega-archive.org/studies/" + x.ega_accession}
+                    target="_blank"
+                    variant="white"
+                    className="float-end fs-8 py-2 mb-2 ms-4 text-secondary shadow-md-dark border-secondary"
+                  >
+                    <Row className="p-0 m-0 align-items-center text-start">
+                      <Col className="p-0 m-0 col-3 ">
+                        <FontAwesomeIcon icon={faLink} />
+                      </Col>
+                      <Col className="p-0 m-0 lh-1">
+                        <strong>Visit EGA Study</strong>
+                      </Col>
+                    </Row>
+                  </Button>
+                ) : (
+                  <></>
+                )}
                 <h5 className="mb-4 d-flex align-items-center">
                   <FontAwesomeIcon
                     icon={faBook}
@@ -33,11 +52,15 @@ const StudyTabContents = (props: StudyTabContentsProps) => {
                 </h5>
                 <p className="mb-4">
                   <strong>ID: </strong>
-                  {x.accession}
+                  {x.ega_accession !== null ? x.ega_accession : x.accession}
                 </p>
                 <p className="mb-4">
                   <strong>Title: </strong>
                   {x.title}
+                </p>
+                <p>
+                  <strong>Description: </strong>
+                  {x.description}
                 </p>
                 <p className="mb-4">
                   <strong>Type: </strong>
@@ -79,10 +102,6 @@ const StudyTabContents = (props: StudyTabContentsProps) => {
                   ) : (
                     <>N/A</>
                   )}
-                </p>
-                <p>
-                  <strong>Description: </strong>
-                  {props.details.description}
                 </p>
               </PerfectScrollbar>
             </div>

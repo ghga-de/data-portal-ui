@@ -141,6 +141,7 @@ export const getDACEmailId = (details :  datasetEmbeddedModel | null | undefined
   return mailId;
 }
 
+
 /** Fetch JSON data with proper headers */
 export const fetchJson = async (url: string, method = "GET", payload?: any): Promise<Response> => {
   const headers: HeadersInit = {
@@ -162,3 +163,13 @@ export const fetchJson = async (url: string, method = "GET", payload?: any): Pro
   const body = payload ? JSON.stringify(payload) : undefined;
   return await fetch(url, {method, headers, body});
 }
+
+export const getItemsForSummary = (item: { [key: string]: number } | undefined) => {
+  let items: string[] = []
+  for (let key in item) {
+    let value = item[key]
+    items.push(key + " : " + value)
+  }
+  return items
+};
+

@@ -1,4 +1,4 @@
-import { searchResponseModel, datasetEmbeddedModel, datasetSummaryModel } from "../models/dataset";
+import { searchResponseModel, datasetEmbeddedModel, datasetSummaryModel, metadataSummaryModel } from "../models/dataset";
 import { facetFilterModel } from "../models/facets";
 import { fetchJson } from "../utils/utils";
 
@@ -80,4 +80,28 @@ export const getDatasetSummary: getDatasetSummaryType = async (
   } catch {
     alert("An error occurred while fetching the data.");
   };
+};
+
+type getMetadataSummaryType = (
+  callbackFunc: (summary: metadataSummaryModel) => void
+) => void;
+
+export const getMetadataSummary: getMetadataSummaryType = (
+  callbackFunc
+) => {
+  fetch(
+    `${process.env.REACT_APP_SVC_REPOSITORY_URL}/metadata_summary/`,
+    {
+      method: "get",
+    }
+  )
+    .then((response) => response.json())
+    .then(
+      (data) => {
+        callbackFunc(data);
+      },
+      (error) => {
+        alert("An error occured while fetching the data.");
+      }
+    );
 };

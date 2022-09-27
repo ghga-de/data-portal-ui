@@ -62,15 +62,23 @@ const DataRequestModal = (props: DataRequestModalProps) => {
 
   const body: string =
     `Dear DAC team,\n\n` +
-    `I am interested in accesing the dataset ${props.accession} which is listed in the GHGA Metadata Catalogue. ` +
+    `I am interested in accesing the dataset ${props.accession} which is listed in the GHGA Data Portal. ` +
     `Further details of the nature of my project relating to the request are specified in the form attached to this email. ` +
     `Please could you reply to me as soon as you are able to discuss my proposed project.\n` +
     `Thank you.\n\n` +
     `Kind regards`;
 
+  const cleanEmail = (email: string) => {
+    let clean_email : string = email
+    clean_email = clean_email.replace('[at]', '@')
+    clean_email = clean_email.replace('[dot]', '.')
+    clean_email = clean_email.replace(';', '')
+    return clean_email
+  }
+
   const requestAccess = () => {
     window.location.assign(
-      `mailto:${props.copyEmail}?subject=${subject}&body=${encodeURIComponent(
+      `mailto:${cleanEmail(props.copyEmail)}?subject=${subject}&body=${encodeURIComponent(
         body
       )}`
     );
@@ -170,7 +178,7 @@ const DataRequestModal = (props: DataRequestModalProps) => {
                 overlay={renderTooltip(emailTooltipString)}
                 rootClose={true}
               >
-                <Col><CopyToClipboard text={props.copyEmail}>
+                <Col><CopyToClipboard text={cleanEmail(props.copyEmail)}>
                   <Col
                     lg={"auto"}
                     md={"auto"}
@@ -203,7 +211,7 @@ const DataRequestModal = (props: DataRequestModalProps) => {
                   overlay={renderTooltip(emailTooltipString)}
                   rootClose={true}
                 >
-                  <Col><CopyToClipboard text={props.copyEmail}>
+                  <Col><CopyToClipboard text={cleanEmail(props.copyEmail)}>
                     <Button
                       id={"email_address"}
                       variant="outline-dark"
