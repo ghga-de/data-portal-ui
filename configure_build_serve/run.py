@@ -38,6 +38,7 @@ class Config(BaseSettings):
     client_url: str = "https://data.ghga-dev.de/"
     svc_search_url: str = f"{client_url}metadata-search"
     svc_repository_url: str = f"{client_url}metadata"
+    svc_users_url: str = f"{client_url}users"
     oidc_client_id: str = None
     oidc_redirect_url: str = f"{client_url}oauth/callback"
     oidc_scope: str = "openid profile email"

@@ -2,15 +2,15 @@ import { useEffect, useState } from "react";
 import logo from "../../assets/data-portal.png";
 import { Navbar, Nav, Button } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
-import authService, { UserClaims } from "../../services/auth";
+import authService, { User } from "../../services/auth";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 
 const HeaderNavbar = () => {
-  const [user, setUser] = useState<UserClaims | null>(null);
+  const [user, setUser] = useState<User | null>(null);
 
   useEffect(() => {
-    authService.getUserClaims().then(setUser);
+    authService.getUser().then(setUser);
     document.addEventListener("auth", (e) =>
       setUser((e as CustomEvent).detail)
     );

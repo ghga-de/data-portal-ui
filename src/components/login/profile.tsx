@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react";
 import { Alert, Button, Container, Row, Col } from "react-bootstrap";
-import authService, { UserClaims } from "../../services/auth";
+import authService, { User } from "../../services/auth";
 
 /** Display user profile */
 
 const Profile = () => {
-  const [user, setUser] = useState<UserClaims | null | undefined>(undefined);
+  const [user, setUser] = useState<User | null | undefined>(undefined);
 
   useEffect(() => {
-    authService.getUserClaims().then(setUser);
+    authService.getUser().then(setUser);
   }, []);
 
   const logout = async () => {

@@ -1,32 +1,48 @@
-import { Log, User, UserManager } from "oidc-client-ts";
+import { Log, User as OidcUser, UserManager } from "oidc-client-ts";
 import type {
   OidcMetadata,
   OidcStandardClaims,
   UserManagerSettings,
 } from "oidc-client-ts";
 import jwt_decode from "jwt-decode";
+import { fetchJson } from "../utils/utils";
 
-export interface UserClaims {
+/**
+ * Intercace for a full high-level user object.
+ * Note that this is different from the low-level OIDC user object,
+ * which does not contain the user data from the backend.
+ */
+
+export interface User {
   expired: boolean;
   name: string;
   email: string;
+  lsId: string;
+  id?: string;
+  status?: string | null;
+  title?: string | null;
+  changed?: boolean;
 }
+
+const USERS_URL = process.env.REACT_APP_SVC_USERS_URL;
 
 /** Authentication service (global object) */
 
 class AuthService {
   userManager: UserManager;
+  user: User | null;
 
   constructor() {
     const settings = this.settings;
     this.userManager = new UserManager(settings);
+    this.user = null;
 
     Log.setLogger(console);
     Log.setLevel(Log.INFO); // set to DEBUG for more output
   }
 
   /**
-   * Get the OIdC related settings from the environment
+   * Get the OIDC related settings from the environment
    * and transform them into a UserManagerSettings object.
    */
   private get settings(): UserManagerSettings {
@@ -63,12 +79,21 @@ class AuthService {
 
     return settings;
   }
-
+ 
   /**
    * Notify components of changed user.
    */
-  private notify(claims: UserClaims | null): void {
-    document.dispatchEvent(new CustomEvent("auth", { detail: claims }));
+  private notify(user: User | null): void {
+    document.dispatchEvent(new CustomEvent("auth", { detail: user }));
+    console.log("New user object:", user);
+  }
+
+  /***
+   * Set new user and notify components.
+   */
+  private setUser(user:User | null, notify=true): void {
+    this.user = user;
+    if (notify) this.notify(user);
   }
 
   /**
@@ -81,10 +106,11 @@ class AuthService {
 
   /**
    * Return promise to process response from the authorization endpoint.
-   * The result of the promise is the authenticated User.
+   * Returns the full user object if the login was successful or null otherwise.
    */
-  callback(): Promise<User> {
-    return this.userManager.signinRedirectCallback();
+  async callback(): Promise<User | null> {
+    const oidcUser = await this.userManager.signinRedirectCallback();
+    return await this.getUser(oidcUser);
   }
 
   /**
@@ -100,18 +126,18 @@ class AuthService {
        So we simply remove the user from the store instead.
     */
     await this.userManager.removeUser();
-    return this.notify(null);
+    this.setUser(null);
   }
 
   /**
-   * Return promise to load the User object for the currently authenticated user.
+   * Return promise to load the OIDC User object for the currently authenticated user.
    */
-  getUser(): Promise<User | null> {
+  getOidcUser(): Promise<OidcUser | null> {
     return this.userManager.getUser();
   }
 
   /**
-   * Return promise to load a UserClaims object
+   * Return promise to load a User object
    * for the currently authenticated user.
    * In addition to the User object it also contains
    * the full name and email address properties.
@@ -119,33 +145,46 @@ class AuthService {
    * Unfortunately, these are not part of the ID token in LS Login,
    * where we could get them directly via User.profile.
    */
-  async getUserClaims(): Promise<UserClaims | null> {
-    let user: User | null;
-    try {
-      user = await this.getUser();
-    } catch (error) {
-      console.error("Cannot get user:", error);
-      this.notify(null);
-      return null;
-    }
-    if (!user) {
-      return null;
-    }
-    try {
-      const jwtClaims = jwt_decode<OidcStandardClaims>(user.access_token);
-      const { name, email } = jwtClaims;
-      if (!name || !email) {
-        return null;
+  async getUser(oidcUser?: OidcUser | null): Promise<User | null> {
+    if (!oidcUser) {
+      try {
+        oidcUser = await this.getOidcUser();
+      } catch (error) {
+        console.error("Cannot get user:", error);
+        oidcUser = null;
       }
-      const expired = user.expired ?? true;
-      const userClaims = { expired, name, email };
-      this.notify(userClaims);
-      return userClaims;
-    } catch (error) {
-      console.error("Cannot decode access token:", error);
-      this.notify(null);
-      return null;
     }
+    let user: User | null = null;
+    if (oidcUser) {
+      let jwtClaims: OidcStandardClaims = {};
+      try {
+        jwtClaims = jwt_decode<OidcStandardClaims>(oidcUser.access_token);
+      } catch (error) {
+        console.error("Cannot decode access token:", error);
+      }
+      const { name, email, sub } = jwtClaims;
+      if (name && email && sub) {
+        const expired = oidcUser.expired ?? true;
+        user = { expired, name, email, lsId: sub };
+        try {
+          const response = await fetchJson(`${USERS_URL}/${sub}`);
+          if (response.status === 200) {
+            const userData = await response.json();
+            const { id, status, title } = userData;
+            user = { ...user, id, status, title,
+              changed: name !== userData.name || email !== userData.email
+            };
+          }
+          else if (response.status !== 404) {
+            console.error("Cannot verify user:", response.statusText);
+          }
+        } catch(error) {
+          console.error("Cannot access the server:", error);
+        }
+      }
+    }
+    this.setUser(user);
+    return user;
   }
 }
 
