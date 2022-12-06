@@ -21,7 +21,7 @@ const Profile = () => {
     content = "Loading user data...";
   else if (user === null) 
     content = <div style={{margin: "2em 0"}}>
-        <Alert variant="success">You are not logged in.</Alert>
+        <Alert variant="danger">You are not logged in.</Alert>
       </div>;
   else
     content = (

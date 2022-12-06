@@ -10,6 +10,7 @@ import SingleDatasetView from "./components/browse/singleDatasetView/singleDatas
 import MetadataModel from "./components/metadataModel/metadataModel";
 import Login from "./components/login/login";
 import Callback from "./components/login/callback";
+import Register from "./components/register/register";
 import Profile from "./components/login/profile";
 
 function App() {
@@ -42,6 +43,9 @@ function App() {
         </Route>
         <Route path="/oauth/callback">
           <Route index element={<Callback />} />
+        </Route>
+        <Route path="/register">
+          <Route index element={<Register />} />
         </Route>
         <Route path="/profile">
           <Route index element={<Profile />} />
