@@ -1,7 +1,9 @@
+import React from "react";
 import { useEffect, useState } from "react";
-import logo from "../../assets/data-portal.png";
+import logo from "../../assets/GHGA_logo_clean.png";
 import { Navbar, Nav, Button } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
+import HeaderSearchbar from "./headerSearchbar";
 import authService, { UserClaims } from "../auth/authService";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
@@ -27,21 +29,43 @@ const HeaderNavbar = () => {
       expand="lg"
       bg="primary"
       variant="dark"
-      className="p-0"
+      className="p-0 d-flex justify-content-between"
     >
-      <div className="container px-5 d-flex justify-content-between">
+      <NavLink to="/" end={true} className="ps-5 w-25">
+        <Button className="p-1 m-0 ps-3">
+          <div className="d-flex align-items-center">
+            <div
+              style={{ width: "80%" }}
+              className="flex-fill pe-2 me-2 border-end border-tertiary"
+            >
+              <img src={logo} alt="GHGA logo" height="35px" />
+            </div>
+            <div
+              className="text-tertiary h-100"
+              style={{ fontFamily: "Lexend" }}
+            >
+              <span
+                className="position-relative"
+                style={{ fontSize: "18px", top: "5px" }}
+              >
+                METADATA
+              </span>
+              <br />
+              <span className="fs-5 position-relative" style={{ top: "-5px" }}>
+                CATALOG
+              </span>
+            </div>
+          </div>
+        </Button>
+      </NavLink>
+      <div className="container px-5 mx-auto w-50 d-flex">
         <Navbar.Toggle
           aria-controls="basic-navbar-nav"
           className="border-2 text-white"
         />
-        <Navbar.Collapse id="responsive-navbar-nav">
-          <Navbar.Brand className="p-0 col-2">
-            <Button href="/" className="p-1 m-0">
-              <img src={logo} alt="GHGA logo" className="w-100" />
-            </Button>
-          </Navbar.Brand>
+        <Navbar.Collapse id="responsive-navbar-nav" className="justify-content-center">
           <Nav
-            className="justify-content-center flex-fill"
+            className="justify-content-center"
             style={{ height: "36px" }}
           >
             <NavLink
@@ -69,30 +93,22 @@ const HeaderNavbar = () => {
             >
               About
             </NavLink>
-            <Nav.Link
-              href="https://www.ghga.de/data/data-download"
-              target="_blank"
-              className="mx-2 p-0"
+            <NavLink
+              to="/download"
+              className={({ isActive }) =>
+                isActive ? activePageStyle : inactivePageStyle
+              }
             >
-              <Button
-                variant="primary"
-                className="p-0 w-100 h-100 m-0 px-2 text-white"
-              >
-                Download
-              </Button>
-            </Nav.Link>
-            <Nav.Link
-              href="https://www.ghga.de/data/data-upload"
-              target="_blank"
-              className="mx-2 p-0"
+              Download
+            </NavLink>
+            <NavLink
+              to="/upload"
+              className={({ isActive }) =>
+                isActive ? activePageStyle : inactivePageStyle
+              }
             >
-              <Button
-                variant="primary"
-                className="p-0 w-100 h-100 m-0 px-2 text-white"
-              >
-                Upload
-              </Button>
-            </Nav.Link>
+              Upload
+            </NavLink>
             <NavLink
               to="/metadata-model"
               className={({ isActive }) =>
@@ -102,7 +118,11 @@ const HeaderNavbar = () => {
               Metadata Model
             </NavLink>
           </Nav>
-          <Nav
+        </Navbar.Collapse>
+      </div>
+      <div className="w-25 justify-content-center d-flex">
+        <HeaderSearchbar />
+        <Nav
             className=""
             style={{ height: "36px" }}
           >
@@ -123,7 +143,6 @@ const HeaderNavbar = () => {
               </NavLink>
             )}
           </Nav>
-        </Navbar.Collapse>
       </div>
     </Navbar>
   );

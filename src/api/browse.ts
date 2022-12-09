@@ -1,4 +1,4 @@
-import { searchResponseModel, datasetEmbeddedModel, datasetSummaryModel, metadataSummaryModel } from "../models/dataset";
+import { searchResponseModel, datasetEmbeddedModel, datasetDetailsSummaryModel, metadataSummaryModel } from "../models/dataset";
 import { facetFilterModel } from "../models/facets";
 
 type getDatasetsSearchRespType = (
@@ -24,6 +24,11 @@ export const querySearchService: getDatasetsSearchRespType = (
   limit: number,
   documentType = "Dataset"
 ) => {
+  if(searchKeyword !== ""){
+    if(searchKeyword !== "*"){
+      searchKeyword = '"' + searchKeyword + '"'
+    }
+  }
   fetch(
     `${process.env.REACT_APP_SVC_SEARCH_URL}/rpc/search?document_type=${documentType}&return_facets=true&skip=${skip}&limit=${limit}`,
     {
@@ -79,7 +84,7 @@ export const getDatasetDetails: getDatasetDetailsType = (
 
 type getDatasetSummaryType = (
   datasetId: string,
-  callbackFunc: (dataset: datasetSummaryModel) => void
+  callbackFunc: (dataset: datasetDetailsSummaryModel) => void
 ) => void;
 
 export const getDatasetSummary: getDatasetSummaryType = (

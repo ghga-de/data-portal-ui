@@ -29,25 +29,22 @@ const SingleDatasetView = () => {
 
   const [searchResults, setSearchResults] =
     useState<searchResponseModel | null>(null);
-  const [queriedSearch, setQueriedSearch] = useState<boolean>(false);
-  const [queriedDetail, setQueriedDetail] = useState<boolean>(false);
+  const [queried, setQueried] = useState<boolean>(false);
 
   const [details, setDetails] = useState<datasetEmbeddedModel | null>(null);
 
   useEffect(() => {
     const getHits = (accessionId: string | null | undefined, key: string) => {
-      if (!queriedSearch) {
-        setQueriedSearch(true);
-        if (accessionId && accessionId !== null) {
-          querySearchService(
-            setSearchResults,
-            [{ key: key, value: accessionId }],
-            "*",
-            0,
-            1,
-            "Dataset"
-          );
-        }
+      if (accessionId && accessionId !== null && !queried) {
+        setQueried(true);
+        querySearchService(
+          setSearchResults,
+          [{ key: key, value: accessionId }],
+          "*",
+          0,
+          1,
+          "Dataset"
+        );
       }
     };
     const getDetails = (datasetId: string | undefined) => {
@@ -56,13 +53,7 @@ const SingleDatasetView = () => {
       }
     };
     const processHits = (searchResults: searchResponseModel | null) => {
-      if (
-        searchResults &&
-        searchResults !== null &&
-        searchResults.count >= 1 &&
-        !queriedDetail
-      ) {
-        setQueriedDetail(true);
+      if (searchResults && searchResults !== null && searchResults.count >= 1) {
         // eslint-disable-next-line react-hooks/exhaustive-deps
         paramId = searchResults.hits[0].id;
         getDetails(paramId);
@@ -70,16 +61,13 @@ const SingleDatasetView = () => {
         paramId = undefined;
       }
     };
-    if (searchResults === null && !queriedSearch) {
-      getHits(accessionId, "ega_accession");
-    } else if (searchResults?.count === 0) {
-      setQueriedSearch(false);
+    getHits(accessionId, "ega_accession");
+    if (searchResults?.count === 0) {
       getHits(accessionId, "accession");
-    } else if (searchResults?.count === 1) {
-      processHits(searchResults);
     }
+    processHits(searchResults);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [searchResults]);
+  }, [searchResults, paramId]);
 
   const [show, setShow] = useState(false);
   const [copyEmail, setCopyEmail] = useState<string>("helpdesk@ghga.de");
@@ -97,7 +85,7 @@ const SingleDatasetView = () => {
   };
 
   return (
-    <div className="py-4 mx-auto w-75 px-5">
+    <div className="py-4 mx-auto px-5">
       {searchResults === null ? (
         <div className="fs-5">
           <Spinner animation="border" variant="primary" size="sm" />
@@ -135,7 +123,7 @@ const SingleDatasetView = () => {
             />
           </Button>
           <Button
-            className="fs-8 float-end mb-3 ms-4 text-white shadow-md-dark"
+            className="fs-7 float-end mb-3 ms-4 text-white shadow-md-dark"
             variant="secondary"
             onClick={() => handleOpen()}
             style={{ width: "105px" }}
@@ -151,10 +139,13 @@ const SingleDatasetView = () => {
           </Button>
           {details.ega_accession !== null ? (
             <Button
-              href={"https://ega-archive.org/datasets/" + details.ega_accession}
+              href={
+                "https://ega-archive.org/datasets/" +
+                details.ega_accession
+              }
               target="_blank"
               variant="white"
-              className="fs-8 mb-3 float-end text-secondary shadow-md-dark text-start border-secondary"
+              className="fs-7 mb-3 float-end text-secondary shadow-md-dark text-start border-secondary"
               style={{ width: "115px" }}
             >
               <Row className="p-0 m-0 align-items-center text-start">
@@ -170,11 +161,7 @@ const SingleDatasetView = () => {
             <div />
           )}
           <DataRequestModal
-            accession={
-              details.ega_accession !== null
-                ? details.ega_accession
-                : details.accession
-            }
+            accession={details.ega_accession !== null ? details.ega_accession : details.accession}
             copyEmail={copyEmail}
             show={show}
             handleClose={handleClose}
