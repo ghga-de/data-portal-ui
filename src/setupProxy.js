@@ -4,7 +4,7 @@ const { createProxyMiddleware } = require('http-proxy-middleware');
 const clientUrl = process.env.REACT_APP_CLIENT_URL;
 const basicAuth = process.env.REACT_APP_BASIC_AUTH || null;
 
-const usersProxy = {
+const authServiceProxy = {
   target: clientUrl,
   changeOrigin: true,
   secure: true,
@@ -13,5 +13,5 @@ const usersProxy = {
 };
 
 module.exports = function(app) {
-  app.use('/users', createProxyMiddleware(usersProxy));
+  app.use('/api/auth', createProxyMiddleware(authServiceProxy));
 };

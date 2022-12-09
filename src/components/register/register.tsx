@@ -76,17 +76,17 @@ const Register = () => {
         <form onSubmit={handleSubmit}>
           <p>
             <label>Name:
-            <input type="text" readOnly value={user.name}/>
+            <input type="text" readOnly value={user.name} style={{width:"40em"}}/>
             </label>
           </p>
           <p>
             <label>E-Mail:
-            <input type="text" readOnly value={user.email}/>
+            <input type="text" readOnly value={user.email} style={{width:"40em"}}/>
             </label>
           </p>
           <p>
             <label>LifeScience ID:
-            <input type="text" readOnly value={user.lsId}/>
+            <input type="text" readOnly value={user.lsId} style={{width:"40em"}}/>
             </label>
           </p>
           <p>
@@ -100,12 +100,12 @@ const Register = () => {
           </p>
           <p>
             <label>Reason for registration:
-            <input type="text" onChange={handleReason} required />
+            <input type="text" onChange={handleReason} required style={{width:"40em"}}/>
             </label>
           </p>
           <p>
             <label>Research topics:
-            <input type="text" onChange={handleTopics} required />
+            <input type="text" onChange={handleTopics} required style={{width:"40em"}}/>
             </label>
           </p>
           <p>
