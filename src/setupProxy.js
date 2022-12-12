@@ -4,12 +4,23 @@ const { createProxyMiddleware } = require('http-proxy-middleware');
 const clientUrl = process.env.REACT_APP_CLIENT_URL;
 const basicAuth = process.env.REACT_APP_BASIC_AUTH || null;
 
+const logOptions =  {
+  onProxyReq: (proxyReq, req, res) => {
+    console.log("Request to", req.url);
+    console.log("with headers", JSON.stringify(proxyReq.getHeaders()));
+  },
+  onProxyRes: (proxyRes, req, res) => {
+    console.log("Response status", proxyRes.statusCode, proxyRes.statusMessage);
+    console.log("with headers", JSON.stringify(proxyRes.headers));
+  }
+};
+
 const authServiceProxy = {
   target: clientUrl,
   changeOrigin: true,
   secure: true,
   auth: basicAuth,
-  logger: console
+  ...logOptions
 };
 
 module.exports = function(app) {
