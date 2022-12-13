@@ -22,10 +22,11 @@ const Register = () => {
       ls_id: lsId, name, email,
       title: title || null,
       registration_reason: reason,
-      research_topics: topics
+      research_topics: topics,
+      status: 'registered' // TODO: should be removed from the creation model in the backend
     };
     const response = await fetchJson(`${USERS_URL}`, "post", userData).catch(() => null);
-    if (response && response.status === 204) {
+    if (response && response.status === 201) {
       // TODO: should confirm that the user has been registered
       navigate("/profile");
       return;
