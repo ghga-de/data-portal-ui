@@ -79,7 +79,7 @@ class AuthService {
 
     return settings;
   }
- 
+
   /**
    * Notify components of changed user.
    */
@@ -91,9 +91,11 @@ class AuthService {
   /***
    * Set new user and notify components.
    */
-  private setUser(user:User | null, notify=true): void {
-    this.user = user;
-    if (notify) this.notify(user);
+  private setUser(user: User | null, notify = true): void {
+    if (this.user !== user) {
+      this.user = user;
+      if (notify) this.notify(user);
+    }
   }
 
   /**
@@ -171,14 +173,17 @@ class AuthService {
           if (response.status === 200) {
             const userData = await response.json();
             const { id, status, title } = userData;
-            user = { ...user, id, status, title,
-              changed: name !== userData.name || email !== userData.email
+            user = {
+              ...user,
+              id,
+              status,
+              title,
+              changed: name !== userData.name || email !== userData.email,
             };
-          }
-          else if (response.status !== 404) {
+          } else if (response.status !== 404) {
             console.error("Cannot verify user:", response.statusText);
           }
-        } catch(error) {
+        } catch (error) {
           console.error("Cannot access the server:", error);
         }
       }

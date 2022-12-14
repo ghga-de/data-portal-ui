@@ -16,6 +16,11 @@ const HeaderNavbar = () => {
     );
   }, []);
 
+  function onLogin() {
+    // memorize the last URL when the login button was clicked
+    sessionStorage.setItem("lastUrl", window.location.href);
+  }
+
   const activePageStyle =
     "btn btn-secondary p-0 h-100 m-0 mx-2 px-2 pt-1 text-white";
   const inactivePageStyle =
@@ -117,7 +122,8 @@ const HeaderNavbar = () => {
               </NavLink>
             ) : (
               <NavLink to="/login">
-                <Button variant="secondary" className="text-white">
+                <Button variant="secondary" className="text-white"
+                  onClick={onLogin}>
                   Login <FontAwesomeIcon icon={faUser} className="ms-1" />
                 </Button>
               </NavLink>

@@ -22,8 +22,7 @@ const Register = () => {
       ls_id: lsId, name, email,
       title: title || null,
       registration_reason: reason,
-      research_topics: topics,
-      status: 'registered' // TODO: should be removed from the creation model in the backend
+      research_topics: topics
     };
     const response = await fetchJson(`${USERS_URL}`, "post", userData).catch(() => null);
     if (response && response.status === 201) {
@@ -32,7 +31,8 @@ const Register = () => {
       return;
     }
     alert("Could not register"); // TODO: nicer
-    navigate(-1);
+    const lastUrl = sessionStorage.getItem("lastUrl");
+    lastUrl ? window.location.href = lastUrl : navigate("/");
   };
 
   useEffect(() => {

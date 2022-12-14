@@ -12,7 +12,8 @@ const Callback = () => {
 
     const handleError = () => {
       alert("Could not log in.");  // TODO: make nicer
-      navigate(-1);
+      const lastUrl = sessionStorage.getItem("lastUrl");
+      lastUrl ? window.location.href = lastUrl : navigate("/");
     };
 
     authService.callback().then((user) => {
