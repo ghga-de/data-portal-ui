@@ -11,8 +11,8 @@ To get help run:
     ./run.py --help
 """
 
-import os
 import argparse
+import os
 from pathlib import Path
 from typing import Optional
 from subprocess import Popen
@@ -108,7 +108,9 @@ def serve(config: Config):
         "--no-clipboard",
         "--listen",
         f"tcp://{config.host}:{config.port}",
-        "-s",
+        "--single",
+        "--config",
+        "../configure_build_serve/serve.json",
         str(ROOT_DIR / "build"),
     ]
     exit_code_serve = Popen(cmd_serve).wait()
