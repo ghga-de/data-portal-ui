@@ -6,11 +6,11 @@ const basicAuth = process.env.REACT_APP_BASIC_AUTH || null;
 
 const logOptions =  {
   onProxyReq: (proxyReq, req, res) => {
-    console.log("Request to", req.url);
+    console.log("\n", req.method, "request to", req.url);
     console.log("with headers", JSON.stringify(proxyReq.getHeaders()));
   },
   onProxyRes: (proxyRes, req, res) => {
-    console.log("Response status", proxyRes.statusCode, proxyRes.statusMessage);
+    console.log("response status", proxyRes.statusCode, proxyRes.statusMessage);
     console.log("with headers", JSON.stringify(proxyRes.headers));
   }
 };
