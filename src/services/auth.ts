@@ -24,6 +24,12 @@ export interface User {
   changed?: boolean;
 }
 
+export function fullName(user: User): string {
+  let { name, title } = user;
+  return title ? `${title} ${name}` : name;
+}
+
+
 const USERS_URL = process.env.REACT_APP_SVC_USERS_URL;
 
 /** Authentication service (global object) */

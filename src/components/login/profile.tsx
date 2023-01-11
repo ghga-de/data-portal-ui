@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Alert, Button, Container, Row, Col } from "react-bootstrap";
-import authService, { User } from "../../services/auth";
+import authService, { fullName, User } from "../../services/auth";
 
 /** Display user profile */
 
@@ -26,7 +26,7 @@ const Profile = () => {
   else
     content = (
       <div>
-        <h1 style={{margin: "1em 0"}}>Welcome, {user.name}!</h1>
+        <h1 style={{margin: "1em 0"}}>Welcome, {fullName(user)}!</h1>
         <div style={{margin: "1em 0"}}>
           <p>We will communicate with you via this email address: &nbsp;
             <strong>{user.email}</strong></p>

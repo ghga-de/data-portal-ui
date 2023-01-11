@@ -1,7 +1,7 @@
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { Alert, Container, Row, Col } from "react-bootstrap";
 import { useNavigate } from 'react-router-dom';
-import authService, { User } from "../../services/auth";
+import authService, { fullName, User } from "../../services/auth";
 import { fetchJson } from "../../utils/utils";
 
 const USERS_URL = process.env.REACT_APP_SVC_USERS_URL;
@@ -70,7 +70,7 @@ const Register = () => {
   else
     content = (
       <div>
-        <h1 style={{margin: "1em 0"}}>Welcome, {user.name}!</h1>
+        <h1 style={{margin: "1em 0"}}>Welcome, {fullName(user)}!</h1>
         <p>Since you haven't used our data portal before,
           we ask you to confirm your user data and register with us.
         </p>
