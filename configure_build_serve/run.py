@@ -35,8 +35,9 @@ class Config(BaseSettings):
     port: int = 8080
     welcome_info: Optional[str]
     client_url: str = "https://data.ghga-dev.de/"
-    svc_search_url: str = f"{client_url}metadata-search"
-    svc_repository_url: str = f"{client_url}metadata"
+    svc_search_url: str = f"{client_url}api/search"
+    svc_repository_url: str = f"{client_url}api/repository"
+    svc_users_url: str = f"{client_url}api/auth/users"
     oidc_client_id: str = None
     oidc_redirect_url: str = f"{client_url}oauth/callback"
     oidc_scope: str = "openid profile email"

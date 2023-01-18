@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react";
 import { Alert, Button, Container, Row, Col } from "react-bootstrap";
-import authService, { UserClaims } from "../../services/auth";
+import authService, { fullName, User } from "../../services/auth";
 
 /** Display user profile */
 
 const Profile = () => {
-  const [user, setUser] = useState<UserClaims | null | undefined>(undefined);
+  const [user, setUser] = useState<User | null | undefined>(undefined);
 
   useEffect(() => {
-    authService.getUserClaims().then(setUser);
+    authService.getUser().then(setUser);
   }, []);
 
   const logout = async () => {
@@ -21,12 +21,12 @@ const Profile = () => {
     content = "Loading user data...";
   else if (user === null) 
     content = <div style={{margin: "2em 0"}}>
-        <Alert variant="success">You are not logged in.</Alert>
+        <Alert variant="danger">You are not logged in.</Alert>
       </div>;
   else
     content = (
       <div>
-        <h1 style={{margin: "1em 0"}}>Welcome, {user.name}!</h1>
+        <h1 style={{margin: "1em 0"}}>Welcome, {fullName(user)}!</h1>
         <div style={{margin: "1em 0"}}>
           <p>We will communicate with you via this email address: &nbsp;
             <strong>{user.email}</strong></p>

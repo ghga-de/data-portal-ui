@@ -153,7 +153,7 @@ export const fetchJson = async (url: string, method = "GET", payload?: any): Pro
   if (CLIENT_URL) {
     headers["Origin"] = CLIENT_URL;
   }
-  const user = await authService.getUser();
+  const user = await authService.getOidcUser();
   const token = user?.access_token;
   if (token) {
     // the Authorization header is already used for Basic auth,

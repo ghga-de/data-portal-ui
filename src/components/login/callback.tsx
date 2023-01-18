@@ -5,15 +5,28 @@ import authService from "../../services/auth";
 
 /** Handle redirect after OIDC login */
 
-const Callback = () => { 
-
+const Callback = () => {
   const navigate = useNavigate();
+
   useEffect(() => {
-    authService.callback().then(() => {
-      navigate("/profile");
+
+    const handleError = () => {
+      alert("Could not log in.");  // TODO: make nicer
+      const lastUrl = sessionStorage.getItem("lastUrl");
+      lastUrl ? window.location.href = lastUrl : navigate("/");
+    };
+
+    authService.callback().then((user) => {
+      if (!user) {
+        handleError();
+      } else if (user.status) {
+        navigate("/profile");
+      } else {
+        navigate("/register");
+      }
     }).catch(error => {
       console.error(error);
-      navigate("/profile");
+      handleError();
     });
   }, [navigate]);
 
