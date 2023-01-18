@@ -13,8 +13,8 @@ const USERS_URL = process.env.REACT_APP_SVC_USERS_URL;
 const Register = () => {
   const navigate = useNavigate();
   const [user, setUser] = useState<User | null | undefined>(undefined);
+  const [title, setTitle] = useState<string>('');
   const [accepted, setAccepted] = useState<boolean>(false);
-  let title: string = "";
 
   const postUserData = async () => {
     if (!user) return;
@@ -42,7 +42,7 @@ const Register = () => {
   }, []);
 
   const handleTitle = (event: ChangeEvent<HTMLSelectElement>) => {
-    title = event.target.value;
+    setTitle(event.target.value);
   };
 
   const handleToS = (event: ChangeEvent<HTMLInputElement>) => {
@@ -93,7 +93,7 @@ const Register = () => {
             <label className="col-md-2 col-sm-3 col-form-label" htmlFor="input-title"><b>Academic title:</b></label>
             <div className="col-md-2 col-sm-3">
               <select onChange={handleTitle} className="form-select" id="input-title">
-                <option value=""></option>
+                <option value="">—</option>
                 <option value="Dr.">Dr.</option>
                 <option value="Prof.">Prof.</option>
               </select>
