@@ -12,17 +12,13 @@ const Register = () => {
   const navigate = useNavigate();
   const [user, setUser] = useState<User | null | undefined>(undefined);
   let title: string = "";
-  let reason: string = "";
-  let topics: string = "";
 
   const postUserData = async () => {
     if (!user) return;
     const { lsId, name, email } = user;
     const userData = {
       ls_id: lsId, name, email,
-      title: title || null,
-      registration_reason: reason,
-      research_topics: topics
+      title: title || null
     };
     const response = await fetchJson(`${USERS_URL}`, "post", userData).catch(() => null);
     if (response && response.status === 201) {
@@ -45,14 +41,6 @@ const Register = () => {
   const handleTitle = (event: ChangeEvent<HTMLSelectElement>) => {
     title = event.target.value;
   };
-
-  const handleReason = (event: ChangeEvent<HTMLInputElement>) => {
-    reason = event.target.value;
-  };
-  
-  const handleTopics = (event: ChangeEvent<HTMLInputElement>) => {
-    topics = event.target.value;
-  };  
 
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
@@ -97,16 +85,6 @@ const Register = () => {
               <option value="Dr.">Dr.</option>
               <option value="Prof.">Prof.</option>
             </select>
-            </label>
-          </p>
-          <p>
-            <label>Reason for registration:
-            <input type="text" onChange={handleReason} required style={{width:"40em"}}/>
-            </label>
-          </p>
-          <p>
-            <label>Research topics:
-            <input type="text" onChange={handleTopics} required style={{width:"40em"}}/>
             </label>
           </p>
           <p>
