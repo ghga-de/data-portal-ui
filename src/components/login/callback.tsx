@@ -5,10 +5,16 @@ import authService from "../../services/auth";
 
 /** Handle redirect after OIDC login */
 
+let calls = 0;
+
 const Callback = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+
+    // make sure token request and redirection happen only once
+    // (even in development with strict mode activated)
+    if (calls++) return;
 
     const handleError = () => {
       alert("Could not log in.");  // TODO: make nicer
