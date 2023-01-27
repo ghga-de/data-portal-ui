@@ -53,11 +53,11 @@ const HeaderNavbar = () => {
                 className="position-relative"
                 style={{ fontSize: "18px", top: "5px" }}
               >
-                METADATA
+                DATA
               </span>
               <br />
               <span className="fs-5 position-relative" style={{ top: "-5px" }}>
-                CATALOG
+                PORTAL
               </span>
             </div>
           </div>

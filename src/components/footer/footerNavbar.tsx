@@ -21,10 +21,10 @@ const FooterNavbar = () => {
                 <hr className="border-tertiary" />
                 <div style={{ fontFamily: 'Lexend' }}>
                   <span className="position-relative" style={{ fontSize: "45px", top: "-15px" }}>
-                    METADATA
+                    DATA
                   </span>
                   <br />
-                  <span className="position-relative" style={{ fontSize: "51px", top: "-45px" }}>CATALOG</span>
+                  <span className="position-relative" style={{ fontSize: "51px", top: "-45px" }}>PORTAL</span>
                 </div>
               </div>
             </Link>
