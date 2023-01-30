@@ -48,7 +48,7 @@ services:
   # metadata population
 
   metadata_pop:
-    image: ghga/metadata-populate-job:0.0.0-81-e1595d8-main
+    image: ghga/metadata-populate-job:main
     environment:
        DATA_DB_NAME: metadata
        DATA_DB_URL: mongodb://metadata_db:27017
