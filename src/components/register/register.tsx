@@ -18,9 +18,9 @@ const Register = () => {
 
   const postUserData = async () => {
     if (!user) return;
-    const { lsId, name, email } = user;
+    const { ext_id, name, email } = user;
     const userData = {
-      ls_id: lsId, name, email,
+      ext_id, name, email,
       title: title || null
     };
     const response = await fetchJson(`${USERS_URL}`, "post", userData).catch(() => null);
@@ -86,7 +86,7 @@ const Register = () => {
           <div className="row g-3 mb-4">
             <label className="col-md-2 col-sm-3"><b>Life Science ID:</b></label>
             <div className="col-md-10 col-sm-9">
-              {user.lsId}
+              {user.ext_id}
             </div>
           </div>
           <div className="row g-3 mb-5">
