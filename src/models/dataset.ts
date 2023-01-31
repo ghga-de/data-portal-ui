@@ -74,6 +74,9 @@ export interface publicationModel {
   alias: string;
   xref: string[];
   accession: string;
+  author: string;
+  journal: string;
+  year: number;
 }
 
 export interface sampleModel {
@@ -99,6 +102,7 @@ export interface sampleModel {
   accession: string;
   ega_accession: string;
   alias: string;
+  case_control_status: string;
 }
 
 export interface projectModel {
@@ -132,7 +136,6 @@ export interface dataAccessPolicyModel {
   has_data_access_committee: dataAccessCommitteeModel;
   data_request_form: string;
   policy_text: string;
-  alias: string;
 }
 
 export interface dataAccessCommitteeModel {
@@ -200,7 +203,7 @@ export interface searchResponseModel {
   facets: facetModel[];
 }
 
-export interface datasetSummaryModel {
+export interface datasetDetailsSummaryModel {
   id: string;
   title: string;
   description: string;
@@ -212,6 +215,10 @@ export interface datasetSummaryModel {
   study_summary: studySummaryModel;
   experiment_summary: experimentSummaryModel;
   file_summary: fileSummaryModel;
+}
+
+export interface datasetSummaryModel {
+  count: number
 }
 
 export interface sampleSummaryModel {
@@ -232,8 +239,9 @@ export interface sexSummaryModel {
 export interface studySummaryModel {
   count: number;
   stats: {
-    ega_accession: string[];
-    accession: [];
+    ega_accession: string;
+    accession: string;
+    title: string
   };
 }
 
@@ -267,6 +275,7 @@ export interface protocolSummaryModel {
 }
 
 export interface metadataSummaryModel {
+  dataset_summary: datasetSummaryModel;
   sample_summary: sampleSummaryModel;
   study_summary: studySummaryModel;
   experiment_summary: experimentSummaryModel;
