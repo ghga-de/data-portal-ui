@@ -16,16 +16,37 @@ const Register = () => {
   const [title, setTitle] = useState<string>('');
   const [accepted, setAccepted] = useState<boolean>(false);
 
-  const postUserData = async () => {
-    if (!user) return;
-    const { ext_id, name, email } = user;
-    const userData = {
-      ext_id, name, email,
+  const prompt = () =>
+    user?.id ? (user.changed ? 
+    "Your contact information has changed since you last registered. " : "") +
+    "Please confirm that the information given below is correct." :
+    "Since you haven't used our data portal before, " + 
+    "we ask you to confirm your user data and register with us." ;
+
+  const buttonText = () => user?.id ? "Confirm" : "Register";
+
+  const submitUserData = async () => {
+    if (!user || !USERS_URL) return;
+    const { id, ext_id, name, email } = user;
+    const userData: any = {
+      name, email,
       title: title || null
     };
-    const response = await fetchJson(`${USERS_URL}`, "post", userData).catch(() => null);
-    if (response && response.status === 201) {
-      // TODO: should confirm that the user has been registered
+    let url: string = USERS_URL;
+    let method: string, ok: number;
+    if (id) {
+      url += `/${user.id}`;
+      method = "put";
+      ok = 204;
+    } else {
+      userData["ext_id"] = ext_id;
+      method = "post";
+      ok = 201;
+    }
+    const response = await fetchJson(url, method, userData).catch(
+      () => null);
+    if (response && response.status === ok) {
+      // TODO: should confirm that the user has been updated/registered
       navigate("/profile");
       return;
     }
@@ -51,8 +72,7 @@ const Register = () => {
 
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
-
-    postUserData();
+    submitUserData();
   };
 
   let content;
@@ -67,9 +87,7 @@ const Register = () => {
       <div className="container mb-3">
         <h1><FontAwesomeIcon icon={faIdCard} className="me-2 text-secondary" /> Registration Form</h1>
         <h2 className="mt-4">Welcome, {fullName(user)}!</h2>
-        <p>Since you haven't used our data portal before,
-          we ask you to confirm your user data and register with us.
-        </p>
+        <p>{prompt()}</p>
         <form onSubmit={handleSubmit} className="mt-4">
           <div className="row g-3 mb-3">
             <label className="col-md-2 col-sm-3"><b>Name:</b></label>
@@ -109,7 +127,7 @@ const Register = () => {
           <div className="d-flex justify-content-end">
             <Button type="submit" variant="secondary" className="text-white" disabled={!accepted}>
             <FontAwesomeIcon icon={faUserCheck} className="me-2 ms-3" />
-            <span className="me-3">Register</span></Button>
+            <span className="me-3">{buttonText()}</span></Button>
           </div>
         </form>
       </div>);

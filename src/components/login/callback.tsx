@@ -25,11 +25,14 @@ const Callback = () => {
     authService.callback().then((user) => {
       if (!user) {
         handleError();
-      } else if (user.status) {
-        navigate("/profile");
-      } else {
+      } else if (!user?.id || user.changed) {
+        // user is new (needs to register)
+        // or her data changed (needs to confirm)
         navigate("/register");
-      }
+      } else  {
+        // this is a well-known, registered user
+        navigate("/profile");
+      } 
     }).catch(error => {
       console.error(error);
       handleError();
