@@ -3,7 +3,7 @@
 """
 This is a helper script to configure, build, and serve the web app.
 
-Before running this utility, please make sure that all javascript
+Before running this utility, please make sure that all JavaScript
 dependencies are installed by running `npm install` in the repository
 root dir.
 
@@ -55,6 +55,9 @@ def simplelog(text: str):
 def set_react_app_env_vars(config: Config):
     """This will translate the parameters from a Config object into environment
     variables that are picked up by the create-react-app framework.
+
+    Note that the environment variables are passed via the application bundle.
+    This means that the application must be built AFTER this method is called.
     """
 
     simplelog("Setting env vars for use in React App:")
@@ -66,16 +69,10 @@ def set_react_app_env_vars(config: Config):
 
 
 def build():
-    """Builds a production ready version of the web app"""
+    """Build a production ready version of the web app"""
 
     simplelog("Executing `npm build`")
-    cmd_build = [
-        "npm",
-        "run",
-        "build",
-        "--prefix",
-        str(ROOT_DIR)
-    ]
+    cmd_build = ["npm", "run", "build", "--prefix", str(ROOT_DIR)]
 
     exit_code_build = Popen(cmd_build).wait()
 
@@ -88,21 +85,7 @@ def build():
 def serve(config: Config):
     """Serves a production ready build of the web app"""
 
-    simplelog("Making the `serve` package globally available:")
-    cmd_add_serve = [
-        "npm",
-        "install",
-        "--global",
-        "serve",
-    ]
-    exit_code_add_serve = Popen(cmd_add_serve).wait()
-
-    if exit_code_add_serve != 0:
-        raise RuntimeError(
-            f"`npm` terminated with non-zero exit code: {exit_code_add_serve}."
-        )
-
-    simplelog("serve forever:")
+    simplelog("Serve forever:")
     cmd_serve = [
         "serve",
         "--no-clipboard",
@@ -132,12 +115,7 @@ def dev_serve(config: Config):
         "Do not use for production!\n"
     )
 
-    cmd_start = [
-        "npm",
-        "start",
-        "--prefix",
-        str(ROOT_DIR)
-    ]
+    cmd_start = ["npm", "start", "--prefix", str(ROOT_DIR)]
 
     exit_code_start = Popen(cmd_start).wait()
 
@@ -151,9 +129,9 @@ def run():
     parser = argparse.ArgumentParser(
         prog="run.py",
         description="""This is a helper script to configure, build, and serve the web app.
-        Before running this utility, please make sure that all javascript
+        Before running this utility, please make sure that all JavaScript
         dependencies are installed by running `npm install` in the repository
-        root dir."""
+        root dir.""",
     )
 
     parser.add_argument(
