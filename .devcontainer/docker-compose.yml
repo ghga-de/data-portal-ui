@@ -45,6 +45,19 @@ services:
     depends_on:
       - metadata_db
 
+  # metadata population
+
+  metadata_pop:
+    image: ghga/metadata-populate-job:main
+    environment:
+       DATA_DB_NAME: metadata
+       DATA_DB_URL: mongodb://metadata_db:27017
+    entrypoint: [ "bash", "-c", "./clean-data.sh && ./populate-data.sh" ]
+    env_file:
+     - local.env
+    depends_on:
+      - metadata_db  
+
   #metadata repo
 
   metadata_rep:
@@ -60,39 +73,11 @@ services:
       METADATA_REPOSITORY_SERVICE_DB_URL: mongodb://metadata_db:27017
       METADATA_REPOSITORY_SERVICE_DB_NAME: metadata
 
-    entrypoint: ["sh", "-c"]
-    command: |
-      '''
-      set -x
-      if [ "$${METADATA_REPOSITORY_SERVICE_DATA_LOAD_URL}" != "" ]; then
-        # Obtain the data to be imported
-        curl -Lo /tmp/data.zip "$${METADATA_REPOSITORY_SERVICE_DATA_LOAD_URL}"
-        mkdir /tmp/data /tmp/data
-        cd /tmp/data
-        unzip /tmp/data.zip
-        find /tmp/data
-        pip install typer
-
-        # Clear the database
-        /service/scripts/delete_all_metadata_records.py \
-          --db-url "$${METADATA_REPOSITORY_SERVICE_DB_URL}" \
-          --db-name "$${METADATA_REPOSITORY_SERVICE_DB_NAME}"
-
-        # Populate the database
-        /service/scripts/populate_metadata_store.py --example-dir /tmp/data \
-          --db-url "$${METADATA_REPOSITORY_SERVICE_DB_URL}" \
-          --db-name "$${METADATA_REPOSITORY_SERVICE_DB_NAME}"
-      fi
-
-      # Run the service
-      metadata-repository-service
-      '''
+    entrypoint: ["metadata-repository-service"]
     ports:
       - 8002:8080
     depends_on:
       - metadata_db
-    env_file:
-      - local.env
 
   # mongo db
 
