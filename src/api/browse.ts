@@ -1,4 +1,4 @@
-import { searchResponseModel, datasetEmbeddedModel, datasetSummaryModel, metadataSummaryModel } from "../models/dataset";
+import { searchResponseModel, datasetEmbeddedModel, datasetDetailsSummaryModel, metadataSummaryModel } from "../models/dataset";
 import { facetFilterModel } from "../models/facets";
 import { fetchJson } from "../utils/utils";
 
@@ -65,7 +65,7 @@ export const getDatasetDetails: getDatasetDetailsType = async (
 
 type getDatasetSummaryType = (
   datasetId: string,
-  callbackFunc: (dataset: datasetSummaryModel) => void
+  callbackFunc: (dataset: datasetDetailsSummaryModel) => void
 ) => void;
 
 export const getDatasetSummary: getDatasetSummaryType = async (
