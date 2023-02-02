@@ -13,46 +13,34 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-FROM node:lts-alpine3.15
 
-# install python:
-ARG PYTHON_VERSION="3.9"
-#RUN export DEBIAN_FRONTEND=noninteractive \
-#    && echo "deb http://http.us.debian.org/debian/ stable main contrib" >> \
-#        /etc/apt/sources.list \
-#    && apt update -y \
-#    && apt install -y python${PYTHON_VERSION} python3-pip \
-#    && update-alternatives --install /usr/bin/python python /usr/bin/python3.9 10 \
-#    && update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.9 10
+FROM node:lts-alpine3.16
 
-ENV PYTHONUNBUFFERED=1
+# update and install dependencies
+RUN apk update && apk upgrade
+RUN apk add --no-cache gcc
+RUN apk add --update alpine-sdk
+
+# install python
 RUN apk add --update --no-cache python3 && ln -sf python3 /usr/bin/python
 RUN python3 -m ensurepip
 RUN pip3 install --no-cache --upgrade pip setuptools
 
-# setting up env for non-root user:
-ENV NPM_CONFIG_PREFIX=/home/node/.npm-global
-ENV PATH=$PATH:/home/node/.npm-global/bin
-
-# copy app source code:
+# copy app source code
 WORKDIR /service
 COPY . /service
 
-RUN apk update && apk upgrade
-RUN apk add --no-cache gcc
-RUN apk add --update alpine-sdk
-# Security patch toss busybox
-RUN apk upgrade busybox --repository=http://dl-cdn.alpinelinux.org/alpine/edge/main
-
-# RUN pip install .
-
-# install npm and serve:
-RUN npm install && npm install serve
-
-# settung up user and installing dependencies:
-RUN chown -R  node:node /service
+# set up non-root user
+RUN chown -R node:node /service
 USER node
-RUN python3.9 -m pip install --user -r  /service/configure_build_serve/requirements.txt
+ENV NPM_CONFIG_PREFIX=/home/node/.npm-global
+ENV PATH=$PATH:/home/node/.npm-global/bin
 
-# serve web app:
+# install run script and npm modules
+RUN python3 -m pip install --user -r /service/configure_build_serve/requirements.txt
+RUN npm install
+RUN npm install -g serve
+
+# build application and serve frontend
+# (note that we need to build late in order to pass environment variables)
 ENTRYPOINT ["/service/configure_build_serve/run.py"]
