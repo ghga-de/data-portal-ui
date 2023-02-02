@@ -17,7 +17,7 @@ export interface User {
   expired: boolean;
   name: string;
   email: string;
-  lsId: string;
+  ext_id: string;
   id?: string;
   status?: string | null;
   title?: string | null;
@@ -171,7 +171,7 @@ class AuthService {
       const { name, email, sub } = jwtClaims;
       if (name && email && sub) {
         const expired = oidcUser.expired ?? true;
-        user = { expired, name, email, lsId: sub };
+        user = { expired, name, email, ext_id: sub };
         try {
           const response = await fetchJson(`${USERS_URL}/${sub}`);
           if (response.status === 200) {
