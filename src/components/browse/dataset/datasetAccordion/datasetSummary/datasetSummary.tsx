@@ -1,5 +1,5 @@
 import { Row, Button, Spinner, Col } from "react-bootstrap";
-import { datasetSummaryModel, hitModel } from "../../../../../models/dataset";
+import { datasetDetailsSummaryModel, hitModel } from "../../../../../models/dataset";
 import DatasetExperiments from "./datasetExperiments";
 import DatasetFiles from "./datasetFiles";
 import DatasetSamples from "./datasetSamples";
@@ -15,7 +15,7 @@ import {
 
 interface dataSetDetailsProps {
   hit: hitModel;
-  summary: datasetSummaryModel | null | undefined;
+  summary: datasetDetailsSummaryModel | null | undefined;
 }
 
 const DatasetSummary = (props: dataSetDetailsProps) => {
@@ -38,12 +38,12 @@ const DatasetSummary = (props: dataSetDetailsProps) => {
   };
 
   return (
-    <div className="fs-8">
+    <div className="fs-7">
       <div className="ms-auto float-end ps-4">
         {props.summary !== null && props.summary !== undefined ? (
           <>
             <Button
-              className="fs-8 mb-3 text-white shadow-md-dark"
+              className="fs-7 mb-3 text-white shadow-md-dark"
               variant="secondary"
               onClick={() => handleOpen()}
               style={{ width: "115px" }}
@@ -66,7 +66,7 @@ const DatasetSummary = (props: dataSetDetailsProps) => {
                   : "browse/" + props.hit.content.accession
               }
               variant="secondary"
-              className="text-white mb-3 fs-8 shadow-md-dark"
+              className="text-white mb-3 fs-7 shadow-md-dark"
               title="Dataset Details"
               style={{ width: "115px" }}
             >
@@ -89,7 +89,7 @@ const DatasetSummary = (props: dataSetDetailsProps) => {
                 target="_blank"
                 variant="white"
                 title="Visit the EGA Page for this Dataset"
-                className="fs-8 mb-3 text-secondary shadow-md-dark text-start border-secondary"
+                className="fs-7 mb-3 text-secondary shadow-md-dark text-start border-secondary"
                 style={{ width: "115px" }}
               >
                 <Row className="p-0 m-0 align-items-center text-start">
@@ -107,7 +107,7 @@ const DatasetSummary = (props: dataSetDetailsProps) => {
           </>
         ) : (
           <Button
-            className="fs-8 mb-3 py-2 text-white shadow-md-dark"
+            className="fs-7 mb-3 py-2 text-white shadow-md-dark"
             variant="secondary"
             disabled
             style={{ width: "115px" }}

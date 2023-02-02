@@ -1,1 +1,1 @@
-ghga-service-chassis-lib==0.17.0
+ghga-service-chassis-lib==0.17.4

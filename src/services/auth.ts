@@ -8,7 +8,7 @@ import jwt_decode from "jwt-decode";
 import { fetchJson } from "../utils/utils";
 
 /**
- * Intercace for a full high-level user object.
+ * Interface for a full high-level user object.
  * Note that this is different from the low-level OIDC user object,
  * which does not contain the user data from the backend.
  */
@@ -75,8 +75,7 @@ class AuthService {
         to provide the metadata, and only seed it with the configured settings.
         Note that this requires an additional request and will only
         work if the origin header for a registered client is passed. */
-    const use_discovery = env("use_discovery").toLowerCase() === "true";
-    if (use_discovery) {
+    if ((env("use_discovery") ?? "").toLowerCase() === "true") {
       settings.metadataSeed = metadata;
     } else {
       settings.metadata = metadata;
