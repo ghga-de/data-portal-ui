@@ -1,12 +1,10 @@
-import React from "react";
-import { useEffect, useState } from "react";
-import logo from "../../assets/GHGA_logo_clean.png";
-import { Navbar, Nav, Button } from "react-bootstrap";
-import { NavLink } from "react-router-dom";
-import HeaderSearchbar from "./headerSearchbar";
-import authService, { User } from "../../services/auth";
+import { faUser } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUser } from "@fortawesome/free-solid-svg-icons";
+import { useEffect, useState } from "react";
+import { Button, Nav, Navbar } from "react-bootstrap";
+import { NavLink } from "react-router-dom";
+import logo from "../../assets/GHGA_logo_clean.png";
+import authService, { User } from "../../services/auth";
 
 const HeaderNavbar = () => {
   const [user, setUser] = useState<User | null>(null);
@@ -68,11 +66,11 @@ const HeaderNavbar = () => {
           aria-controls="basic-navbar-nav"
           className="border-2 text-white"
         />
-        <Navbar.Collapse id="responsive-navbar-nav" className="justify-content-center">
-          <Nav
-            className="justify-content-center"
-            style={{ height: "36px" }}
-          >
+        <Navbar.Collapse
+          id="responsive-navbar-nav"
+          className="justify-content-center"
+        >
+          <Nav className="justify-content-center" style={{ height: "36px" }}>
             <NavLink
               to="/"
               end={true}
@@ -125,30 +123,47 @@ const HeaderNavbar = () => {
           </Nav>
         </Navbar.Collapse>
       </div>
-      <div className="w-25 justify-content-center d-flex">
-        <HeaderSearchbar />
-        <Nav
-            className=""
-            style={{ height: "36px" }}
-          >
-            {user ? (
-              <NavLink
-                to="/profile"
-                className={({ isActive }) =>
-                  isActive ? activePageStyle : inactivePageStyle
-                }
+      <div className="w-25 justify-content-end d-flex pe-5">
+        <Nav className="" style={{ height: "36px" }}>
+          {user ? (
+            <NavLink to="/profile" title="Profile">
+              <div
+                className="bg-secondary justify-content-center align-items-center d-flex"
+                style={{
+                  borderRadius: "50%",
+                  width: "40px",
+                  height: "40px",
+                  marginTop: "-2px",
+                }}
               >
-                <FontAwesomeIcon icon={faUser} className="ms-1" /> {user.name}
-              </NavLink>
-            ) : (
-              <NavLink to="/login">
-                <Button variant="secondary" className="text-white"
-                  onClick={onLogin}>
-                  Login <FontAwesomeIcon icon={faUser} className="ms-1" />
-                </Button>
-              </NavLink>
-            )}
-          </Nav>
+                <FontAwesomeIcon
+                  icon={faUser}
+                  className="text-white"
+                  transform="grow-3"
+                />
+              </div>
+            </NavLink>
+          ) : (
+            <NavLink to="/login" title="Login">
+              <div
+                className="bg-light-3 justify-content-center align-items-center d-flex"
+                style={{
+                  borderRadius: "50%",
+                  width: "40px",
+                  height: "40px",
+                  marginTop: "-2px",
+                }}
+                onClick={onLogin}
+              >
+                <FontAwesomeIcon
+                  icon={faUser}
+                  className="m-0"
+                  transform="grow-3"
+                />
+              </div>
+            </NavLink>
+          )}
+        </Nav>
       </div>
     </Navbar>
   );
