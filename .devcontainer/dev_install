@@ -9,6 +9,11 @@ npm install
 # install helper script dependencies:
 pip install -r ./configure_build_serve/requirements.txt
 
+cd .devcontainer
+
+# create certificates
+./create_cert
+
 # setup hosts file
 pip install dnspython==2.3.0
-sudo $(which python) .devcontainer/setup_hosts.py
+sudo $(which python) ./setup_hosts.py

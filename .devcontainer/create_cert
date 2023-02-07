@@ -1,0 +1,15 @@
+#!/bin/bash
+
+# create self-signed certificate for testing with the browser
+
+HOST=data.ghga-dev.de
+CERTFILE=cert.pem
+KEYFILE=key.pem
+
+cd /workspace/.devcontainer
+
+test ! -f "$KEYFILE" -o ! -f "$CERTFILE" && \
+  openssl req -x509 -newkey rsa:4096 -days 356 \
+    -keyout "$KEYFILE" -out "$CERTFILE" \
+    -subj "/CN=$HOST" -nodes \
+    -addext "subjectAltName=DNS:$HOST,DNS:localhost"
