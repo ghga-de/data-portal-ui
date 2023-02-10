@@ -41,6 +41,7 @@ const HeaderNavbar = () => {
   const logout = async () => {
     await authService.logout();
     setUser(null);
+    window.location.reload();
   };
 
   return (
