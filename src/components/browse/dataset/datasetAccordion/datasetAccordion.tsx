@@ -52,7 +52,7 @@ const DatasetAccordion = (props: dataSetListProps) => {
                     WebkitBoxOrient: "vertical",
                   }}
                 >
-                  {hit.content.title}xyz
+                  {hit.content.title}
                 </div>
               </Col>
             </Accordion.Button>
