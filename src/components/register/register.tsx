@@ -1,6 +1,6 @@
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
-import { Alert, Button, Container, Row, Col } from "react-bootstrap";
-import { useNavigate } from 'react-router-dom';
+import { Button, Container, Row, Col } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 import authService, { fullName, User } from "../../services/auth";
 import { fetchJson } from "../../utils/utils";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -13,24 +13,32 @@ const USERS_URL = process.env.REACT_APP_SVC_USERS_URL;
 const Register = () => {
   const navigate = useNavigate();
   const [user, setUser] = useState<User | null | undefined>(undefined);
-  const [title, setTitle] = useState<string>('');
+  const [title, setTitle] = useState<string>("");
   const [accepted, setAccepted] = useState<boolean>(false);
 
-  const prompt = () =>
-    user?.id ? (user.changed ? 
-    "Your contact information has changed since you last registered. " : "") +
-    "Please confirm that the information given below is correct." :
-    "Since you haven't used our data portal before, " + 
-    "we ask you to confirm your user data and register with us." ;
+  const logout = async () => {
+    await authService.logout();
+    const lastUrl = sessionStorage.getItem("lastUrl");
+    lastUrl ? window.location.href = lastUrl : navigate("/");
+  };
 
-  const buttonText = () => user?.id ? "Confirm" : "Register";
+  const prompt = () =>
+    user?.id
+      ? (user.changed
+          ? "Your contact information has changed since you last registered. "
+          : "") + "Please confirm that the information given below is correct."
+      : "Since you haven't used our data portal before, " +
+        "we ask you to confirm your user data and register with us.";
+
+  const buttonText = () => (user?.id ? "Confirm" : "Register");
 
   const submitUserData = async () => {
     if (!user || !USERS_URL) return;
     const { id, ext_id, name, email } = user;
     const userData: any = {
-      name, email,
-      title: title || null
+      name,
+      email,
+      title: title || null,
     };
     let url: string = USERS_URL;
     let method: string, ok: number;
@@ -43,8 +51,7 @@ const Register = () => {
       method = "post";
       ok = 201;
     }
-    const response = await fetchJson(url, method, userData).catch(
-      () => null);
+    const response = await fetchJson(url, method, userData).catch(() => null);
     if (response && response.status === ok) {
       // TODO: should confirm that the user has been updated/registered
       navigate("/profile");
@@ -52,15 +59,17 @@ const Register = () => {
     }
     alert("Could not register"); // TODO: nicer
     const lastUrl = sessionStorage.getItem("lastUrl");
-    lastUrl ? window.location.href = lastUrl : navigate("/");
+    lastUrl ? (window.location.href = lastUrl) : navigate("/");
   };
 
   useEffect(() => {
-    if (authService.user)
-      setUser(authService.user);
-    else
-      authService.getUser().then(setUser);
-  }, []);
+    if (authService.user) setUser(authService.user);
+    else authService.getUser().then(setUser);
+    if (user === null) {
+      const lastUrl = sessionStorage.getItem("lastUrl");
+      lastUrl ? (window.location.href = lastUrl) : navigate("/");
+    }
+  }, [navigate, user]);
 
   const handleTitle = (event: ChangeEvent<HTMLSelectElement>) => {
     setTitle(event.target.value);
@@ -76,41 +85,51 @@ const Register = () => {
   };
 
   let content;
-  if (user === undefined)
-    content = "Loading user data...";
-  else if (user === null) 
-    content = <div style={{margin: "2em 0"}}>
-        <Alert variant="danger">You are not logged in.</Alert>
-      </div>;
-  else
+  if (user === undefined) content = "Loading user data...";
+  else if (user === null) {
+    const lastUrl = sessionStorage.getItem("lastUrl");
+    lastUrl ? (window.location.href = lastUrl) : navigate("/");
+  } else
     content = (
       <div className="container mb-3">
-        <h1><FontAwesomeIcon icon={faIdCard} className="me-2 text-secondary" /> Registration Form</h1>
+        <h1>
+          <FontAwesomeIcon icon={faIdCard} className="me-2 text-secondary" />{" "}
+          Registration Form
+        </h1>
         <h2 className="mt-4">Welcome, {fullName(user)}!</h2>
         <p>{prompt()}</p>
         <form onSubmit={handleSubmit} className="mt-4">
           <div className="row g-3 mb-3">
-            <label className="col-md-2 col-sm-3"><b>Name:</b></label>
-            <div className="col-md-10 col-sm-9">
-              {user.name}
-            </div>
+            <label className="col-md-2 col-sm-3">
+              <b>Name:</b>
+            </label>
+            <div className="col-md-10 col-sm-9">{user.name}</div>
           </div>
           <div className="row g-3 mb-3">
-            <label className="col-md-2 col-sm-3"><b>E-Mail:</b></label>
-            <div className="col-md-10 col-sm-9">
-              {user.email}
-            </div>
+            <label className="col-md-2 col-sm-3">
+              <b>E-Mail:</b>
+            </label>
+            <div className="col-md-10 col-sm-9">{user.email}</div>
           </div>
           <div className="row g-3 mb-4">
-            <label className="col-md-2 col-sm-3"><b>Life Science ID:</b></label>
-            <div className="col-md-10 col-sm-9">
-              {user.ext_id}
-            </div>
+            <label className="col-md-2 col-sm-3">
+              <b>Life Science ID:</b>
+            </label>
+            <div className="col-md-10 col-sm-9">{user.ext_id}</div>
           </div>
           <div className="row g-3 mb-5">
-            <label className="col-md-2 col-sm-3 col-form-label" htmlFor="input-title"><b>Academic title:</b></label>
+            <label
+              className="col-md-2 col-sm-3 col-form-label"
+              htmlFor="input-title"
+            >
+              <b>Academic title:</b>
+            </label>
             <div className="col-md-2 col-sm-3">
-              <select onChange={handleTitle} className="form-select" id="input-title">
+              <select
+                onChange={handleTitle}
+                className="form-select"
+                id="input-title"
+              >
                 <option value="">—</option>
                 <option value="Dr.">Dr.</option>
                 <option value="Prof.">Prof.</option>
@@ -119,20 +138,51 @@ const Register = () => {
           </div>
           <div className="row g-3 mb-3">
             <div className="col-md-12">
-              <input type="checkbox" onChange={handleToS} className="me-3" />I accept
-              the <a href="https://www.ghga.de/terms-of-service" target="_blank" rel="noreferrer">terms of service</a> and
-              the <a href="https://www.ghga.de/data-protection" target="_blank" rel="noreferrer">privacy policy</a>.
+              <input type="checkbox" onChange={handleToS} className="me-3" />I
+              accept the{" "}
+              <a
+                href="https://www.ghga.de/terms-of-service"
+                target="_blank"
+                rel="noreferrer"
+              >
+                terms of service
+              </a>{" "}
+              and the{" "}
+              <a
+                href="https://www.ghga.de/data-protection"
+                target="_blank"
+                rel="noreferrer"
+              >
+                privacy policy
+              </a>
+              .
             </div>
           </div>
           <div className="d-flex justify-content-end">
-            <Button type="submit" variant="secondary" className="text-white" disabled={!accepted}>
-            <FontAwesomeIcon icon={faUserCheck} className="me-2 ms-3" />
-            <span className="me-3">{buttonText()}</span></Button>
+            <Button variant="quaternary" className="text-white me-4" onClick={() => logout()}>
+              Cancel registration
+            </Button>
+            <Button
+              type="submit"
+              variant="secondary"
+              className="text-white"
+              disabled={!accepted}
+            >
+              <FontAwesomeIcon icon={faUserCheck} className="me-2 ms-3" />
+              <span className="me-3">{buttonText()}</span>
+            </Button>
           </div>
         </form>
-      </div>);
+      </div>
+    );
 
-  return <Container className="mt-4"><Row><Col>{content}</Col></Row></Container>;
+  return (
+    <Container className="mt-4">
+      <Row>
+        <Col>{content}</Col>
+      </Row>
+    </Container>
+  );
 };
 
 export default Register;

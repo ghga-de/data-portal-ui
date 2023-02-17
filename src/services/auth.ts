@@ -89,7 +89,7 @@ class AuthService {
    */
   private notify(user: User | null): void {
     document.dispatchEvent(new CustomEvent("auth", { detail: user }));
-    console.log("New user object:", user);
+    //console.log("New user object:", user);
   }
 
   /***
