@@ -19,6 +19,7 @@ interface dataSetPaginationProps {
   setFilterDict: Dispatch<SetStateAction<facetFilterModel[]>>;
 }
 
+/** Pagination navigation for the list of datasets browsed. */
 const DatasetPagination = (props: dataSetPaginationProps) => {
   let pageCount = Math.ceil(props.dsCount / props.limit);
   let navigate = useNavigate();

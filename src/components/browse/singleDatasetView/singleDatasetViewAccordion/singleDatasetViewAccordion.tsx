@@ -15,6 +15,7 @@ interface SingleDatasetViewAccordionProps {
   details: datasetEmbeddedModel;
 }
 
+/** Section at the end of dataset details page consisting of three collapsible summary tables. */
 const SingleDatasetViewAccordion = (props: SingleDatasetViewAccordionProps) => {
   let fileSize = 0;
 
@@ -25,6 +26,7 @@ const SingleDatasetViewAccordion = (props: SingleDatasetViewAccordionProps) => {
 
   let iconsDef = [faSort, faSortUp, faSortDown];
 
+  // Construct table definitions
   let Tables: {
     table: any;
     buttonText: String;
@@ -34,6 +36,7 @@ const SingleDatasetViewAccordion = (props: SingleDatasetViewAccordionProps) => {
     setSortedData: any;
   }[] = [ExperimentsTable(props), SamplesTable(props), FilesTable(props, fileSize)];
 
+  // Function that sorts the given table items and sets the status
   const SortTable = (
     setSortItem: any,
     sortedItem: any,

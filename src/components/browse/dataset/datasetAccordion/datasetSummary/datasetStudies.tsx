@@ -8,6 +8,7 @@ interface dataSetStudiesProps {
   study: studySummaryModel | null;
 }
 
+/** Dataset summary section displays the studies of which the dataset is a part. */
 const DatasetStudies = (props: dataSetStudiesProps) => {
   return (
     <DatasetDetailsLayout

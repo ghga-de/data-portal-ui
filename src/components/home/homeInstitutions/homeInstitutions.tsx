@@ -1,7 +1,9 @@
 import { Col, Row } from "react-bootstrap";
 import { importAllFilesFromFolder } from "../../../utils/utils";
 
+/** Section on the home page where Partners (Institutions) are displayed with their logos */
 const HomeInstitutions = () => {
+  // Import all required logos as .png files
   const listInstitutionImages: any = importAllFilesFromFolder(
     require.context("../../../assets/upload/institutions/", false, /\.png$/)
   );

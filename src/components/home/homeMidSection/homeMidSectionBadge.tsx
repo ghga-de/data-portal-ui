@@ -10,6 +10,7 @@ interface HomeMidSectionBadgeProps {
     badgeDark?: boolean
 }
 
+/** Card component (badge) for summary statistics in the Statistics section on home page. */
 const HomeMidSectionBadge = (props: HomeMidSectionBadgeProps) => {
     return (
         <Card

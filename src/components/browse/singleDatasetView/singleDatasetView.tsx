@@ -20,6 +20,7 @@ import { useNavigate } from "react-router-dom";
 import DataRequestModal from "../dataset/datasetAccordion/datasetSummary/dataRequestModal/dataRequestModal";
 import { getDACEmailId } from "../../../utils/utils";
 
+/** Single dataset details page */
 const SingleDatasetView = () => {
   let accessionId: string | null | undefined = null;
   const { id } = useParams();

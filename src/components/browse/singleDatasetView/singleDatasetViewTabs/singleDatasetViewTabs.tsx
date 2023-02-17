@@ -16,6 +16,7 @@ interface SingleDatasetViewTabsProps {
   details: datasetEmbeddedModel;
 }
 
+/** Tab navigations (buttons) on the dataset details page. */
 const SingleDatasetViewTabs = (props: SingleDatasetViewTabsProps) => {
   return (
     <div className="mx-auto w-100 mb-5">

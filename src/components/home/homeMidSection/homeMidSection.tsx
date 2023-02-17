@@ -13,11 +13,14 @@ import { metadataSummaryModel } from "../../../models/dataset";
 import { getItemsForSummary } from "../../../utils/utils";
 import HomeMidSectionBadge from "./homeMidSectionBadge";
 
+/** Section on the home  page where Statistics are listed in cards (badges). */
 const HomeMidSection = () => {
+  // Declare a state variable "summary" and provide a function to update its value.
   const [summary, setSummary] = React.useState<metadataSummaryModel | null>(
     null
   );
 
+  // Collect metadata summary from API
   React.useEffect(() => {
     const getData = () => {
       getMetadataSummary(setSummary);
@@ -25,6 +28,7 @@ const HomeMidSection = () => {
     getData();
   }, []);
 
+  // Generate a Row component that displays a badge icon, title string, and an optional dark mode style.
   const BadgeTitleGen = (
     icon: IconDefinition,
     titleString: any,
@@ -57,7 +61,9 @@ const HomeMidSection = () => {
     badgeDark?: boolean;
   }[] = [];
 
+  // Construct the content for statistics section.
   if (summary !== null) {
+    // Total Datasets
     Badges.push({
       badgeTitle: (
         <Row className="w-bold fs-5 ps-0">
@@ -97,6 +103,7 @@ const HomeMidSection = () => {
       badgeDark: true
     });
 
+    // Platforms
     Badges.push({
       badgeTitle: BadgeTitleGen(
         faDna,
@@ -116,6 +123,7 @@ const HomeMidSection = () => {
       bodyRowClasses: "pt-3 fs-7",
     });
 
+    // Individuals
     Badges.push({
       badgeTitle: BadgeTitleGen(
         faUser,
@@ -149,6 +157,7 @@ const HomeMidSection = () => {
       badgeDark: true
     });
 
+    // Files
     Badges.push({
       badgeTitle: BadgeTitleGen(
         faChartColumn,
@@ -166,7 +175,7 @@ const HomeMidSection = () => {
                   >
                     {x.split(": ")[0]}:
                   </td>
-                  <td className="fw-bold">{x.split(": ")[1]}</td>
+                  <td className="fw-bold">{x}</td>
                 </tr>
               );
             })}

@@ -3,6 +3,11 @@ import PerfectScrollbar from "react-perfect-scrollbar";
 import "react-perfect-scrollbar/dist/css/styles.css";
 import standards from "./standards.json";
 
+/** 
+ * Section on the home page where Standards are displayed in carousel. 
+ * @remarks
+ * Its content comes from the "standards.json" file instead of server.
+ */
 const HomeBottomSection = () => {
   return (
     <Row className="mx-2 mb-3">

@@ -6,6 +6,7 @@ interface dataSetDetailsLayoutProps {
   content: any;
 }
 
+/** Standard layout component for the information displayed in the Dataset summary. */
 const DatasetDetailsLayout = (props: dataSetDetailsLayoutProps) => {
   return (
     <Col className="me-2 pb-4 mt-2" style={{minHeight: "100px"}}>

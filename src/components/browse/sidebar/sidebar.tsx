@@ -30,6 +30,7 @@ interface sidebarProps {
   check: Map<string, boolean>;
 }
 
+/** Section at the side of Browse page. It contains searchbar and filters form. */
 const Sidebar = (props: sidebarProps) => {
   let navigate = useNavigate();
   const skip = 0;

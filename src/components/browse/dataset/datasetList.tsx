@@ -28,6 +28,7 @@ interface dataSetProps {
   setFilterDict: Dispatch<SetStateAction<facetFilterModel[]>>;
 }
 
+/** Section of the Browse page where datasets are listed. It contains accordion list of datasets and pagination. */
 const DatasetList = (props: dataSetProps) => {
   var dsCount: number = props.dsCount;
 

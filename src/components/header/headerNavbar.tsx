@@ -15,6 +15,7 @@ import logo from "../../assets/GHGA_logo_clean.png";
 import authService, { User } from "../../services/auth";
 import lsLogin from "../../assets/loginLS/ls-login.png";
 
+/** Navigation bar in the main header */
 const HeaderNavbar = () => {
   const [user, setUser] = useState<User | null>(null);
 

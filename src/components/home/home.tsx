@@ -3,6 +3,7 @@ import HomeBottomSection from "./homeBottomSection/homeBottomSection";
 import HomeTopSection from "./homeTopSection/homeTopSection";
 import HomeInstitutions from "./homeInstitutions/homeInstitutions";
 
+/** Home page */
 const Home = () => {
   return (
     <div className="mt-4 mx-auto px-5">

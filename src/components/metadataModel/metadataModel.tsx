@@ -2,6 +2,7 @@ import { faDesktop } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import schemaImg from "../../assets/metadataModel/schema-1.png";
 
+/** Metadata model page */
 export const MetadataModel = () => {
   return (
     <div className="mx-auto px-5 my-4">

@@ -15,6 +15,17 @@ type getDatasetsSearchRespType = (
   documentType: string
 ) => void;
 
+/** 
+ * Async function to retrieve the search results from API, calls the callbackFunc 
+ * function with search results, returns nothing.
+ * @param callbackFunc - Function takes an argument conforms to the searchResponseModel.
+ * @param filterQuery - Filters to be applied, array of objects that conform to the facetFilterModel.
+ * @param searchKeyword - String representing the search keyword. Default: "*".
+ * @param skip - Number of results to skip in the search results. Default: 0.
+ * @param limit - Maximum number of results to be returned by the search. Default: 20.
+ * @param documentType - String representing the document type to search. Default: "Dataset".
+ * @returns Nothing
+ */
 export const querySearchService: getDatasetsSearchRespType = async (
   callbackFunc: (hits: searchResponseModel) => void,
   filterQuery: facetFilterModel[],
@@ -47,6 +58,14 @@ type getDatasetDetailsType = (
   callbackFunc: (dataset: datasetEmbeddedModel) => void
 ) => void;
 
+/**
+ * Async function to retrieve the details of specified dataset from API, 
+ * calls the callbackFunc function with the response data, returns nothing.
+ * @param datasetId - ID of the dataset of interest.
+ * @param embedded - Boolean for the url parameter "embedded". Default: 'false'.
+ * @param callbackFunc - Function used to process response data.
+ * @returns Nothing
+ */
 export const getDatasetDetails: getDatasetDetailsType = async (
   datasetId,
   embedded = false,
@@ -68,6 +87,14 @@ type getDatasetSummaryType = (
   callbackFunc: (dataset: datasetDetailsSummaryModel) => void
 ) => void;
 
+
+/**
+ * Async function to retrieve the summary of specified dataset from API, 
+ * calls the callbackFunc function with the response data, returns nothing.
+ * @param datasetId - ID of the dataset of interest.
+ * @param callbackFunc - Function used to process response data.
+ * @returns Nothing
+ */
 export const getDatasetSummary: getDatasetSummaryType = async (
   datasetId,
   callbackFunc
@@ -86,6 +113,12 @@ type getMetadataSummaryType = (
   callbackFunc: (summary: metadataSummaryModel) => void
 ) => void;
 
+/**
+ * Async function to retrieve the metadata summary from API, 
+ * calls the callbackFunc function with the response data, returns nothing.
+ * @param callbackFunc - Function used to process response data.
+ * @returns Nothing
+ */
 export const getMetadataSummary: getMetadataSummaryType = (
   callbackFunc
 ) => {

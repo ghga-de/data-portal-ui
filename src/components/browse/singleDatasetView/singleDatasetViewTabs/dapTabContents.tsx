@@ -10,6 +10,7 @@ interface DapTabContentsProps {
   details: datasetEmbeddedModel;
 }
 
+/** Section at the top of dataset details page where the summary of dataset displayed. */
 const DapTabContents = (props: DapTabContentsProps) => {
 
   function isValidHttpUrl(str: string) {

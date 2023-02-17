@@ -2,6 +2,7 @@ interface BoldenedProps {
   x : string;
 }
 
+/** Split x string at ": " and render the second part in bold. */
 const BoldenedSummaryDetails = (props : BoldenedProps) => {
   return (
     <div>

@@ -6,6 +6,12 @@ interface SamplesTableProps {
   details: datasetEmbeddedModel;
 }
 
+/**
+ * This function creates the schema for the sample summary table, 
+ * which is one of three tables in the dataset details view.
+ * @param props - Object containing the data and details.
+ * @returns The table definition object that includes table content, button text and definitions.
+ */
 export const SamplesTable = (props: SamplesTableProps) => {
   const [sortDefinition, setSortDefinition] = useState<{
     key: number;

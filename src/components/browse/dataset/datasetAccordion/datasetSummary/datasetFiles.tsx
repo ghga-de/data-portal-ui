@@ -11,6 +11,7 @@ interface dataSetFilesProps {
   files: fileSummaryModel | null;
 }
 
+/** Dataset summary section displays the summary of files. */
 const DatasetFiles = (props: dataSetFilesProps) => {
 
 
