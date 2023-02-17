@@ -175,7 +175,7 @@ const HomeMidSection = () => {
                   >
                     {x.split(": ")[0]}:
                   </td>
-                  <td className="fw-bold">{x}</td>
+                  <td className="fw-bold">{x.split(": ")[1]}</td>
                 </tr>
               );
             })}
