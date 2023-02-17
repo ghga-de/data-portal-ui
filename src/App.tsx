@@ -49,17 +49,17 @@ function RouterWrapper() {
   //   }
   // };
 
-  const logout = async () => {
-    await authService.logout();
-    const lastUrl = sessionStorage.getItem("lastUrl");
-    lastUrl ? window.location.href = lastUrl : navigate("/");
-  };
+  // const logout = async () => {
+  //   await authService.logout();
+  //   const lastUrl = sessionStorage.getItem("lastUrl");
+  //   lastUrl ? window.location.href = lastUrl : navigate("/");
+  // };
 
-  window.onunload = () => {
-    if (location.pathname === "/register") {
-      logout();
-    }
-  };
+  // window.onunload = () => {
+  //   if (location.pathname === "/register") {
+  //     logout();
+  //   }
+  // };
 
   return(
     <Routes>
