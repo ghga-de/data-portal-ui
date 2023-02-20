@@ -25,7 +25,7 @@ function RouterWrapper() {
 
   useLayoutEffect(() => {
     authService.getUser().then((user) => {
-      if ((!user?.id || user.changed) && location.pathname !== "/register" && user !== null) {
+      if (user && (!user.id || user.changed) && location.pathname !== "/register") {
         // user is new (needs to register)
         // or her data changed (needs to confirm)
         navigate("/register");
