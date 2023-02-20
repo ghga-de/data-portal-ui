@@ -159,7 +159,7 @@ const LoginButton = () => {
                       >
                         Manage your
                         <br />
-                        LS Login Account
+                        LS Login account
                       </a>
                       .
                     </p>
