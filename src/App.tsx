@@ -35,31 +35,6 @@ function RouterWrapper() {
     });
   }, [location, navigate])
 
-  // window.onbeforeunload = function (event) {
-  //   const e = event || window.event;
-
-  //   if (location.pathname === "/register") {
-  //     // Cancel the event
-  //     e.preventDefault();
-  //     if (e) {
-  //       e.returnValue =
-  //         "If you leave without registering to the GHGA Data Portal, you will be logged out.\nAre you sure you want to leave?"; // Legacy method for cross browser support
-  //     }
-  //     return ""; // Legacy method for cross browser support
-  //   }
-  // };
-
-  // const logout = async () => {
-  //   await authService.logout();
-  //   const lastUrl = sessionStorage.getItem("lastUrl");
-  //   lastUrl ? window.location.href = lastUrl : navigate("/");
-  // };
-
-  // window.onunload = () => {
-  //   if (location.pathname === "/register") {
-  //     logout();
-  //   }
-  // };
 
   return(
     <Routes>
