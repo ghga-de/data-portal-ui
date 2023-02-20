@@ -61,7 +61,7 @@ const LoginButton = () => {
                   <Popover.Body className="text-center fs-6 px-4">
                     <p>
                       You need to complete your {user.changed ? "re-" : ""}
-                      registration to the GHGA Data Portal before you can start
+                      registration with the GHGA Data Portal before you can start
                       using your LS Login account.
                     </p>
                     <Button
