@@ -31,8 +31,10 @@ const LoginButton = () => {
     authService.login();
   }
 
-  const [show, setShow] = useState(false);
+  const [showTooltip, setShowTooltip] = useState(false);
   const target = useRef(null);
+
+  const [showPopover, setShowPopover] = useState(false);
 
   const logout = async () => {
     await authService.logout();
@@ -49,6 +51,8 @@ const LoginButton = () => {
               trigger="click"
               key="profile"
               placement="bottom-end"
+              rootClose
+              show={showPopover}
               overlay={
                 <Popover
                   id={"ProfilePopover"}
@@ -60,14 +64,16 @@ const LoginButton = () => {
                       registration to the GHGA Data Portal before you can start
                       using your LS Login account.
                     </p>
-                    <NavLink to="/register">
-                      <Button variant="secondary" className="text-white">
-                        Go to registration page
-                      </Button>
-                    </NavLink>
+                    <Button
+                      variant="secondary"
+                      className="text-white fs-7"
+                      onClick={() => setShowPopover(false)}
+                    >
+                      Continue with registration
+                    </Button>
                     <Button
                       variant="quaternary"
-                      className="text-white mt-4"
+                      className="text-white mt-3 fs-7"
                       onClick={() => logout()}
                     >
                       Cancel and sign out
@@ -86,9 +92,14 @@ const LoginButton = () => {
                 }}
                 title="Complete registration"
                 ref={target}
-                onMouseEnter={() => setShow(true)}
-                onMouseLeave={() => setShow(false)}
-                onMouseDown={() => setShow(!show)}
+                onMouseEnter={() => {
+                  setShowTooltip(true && !showPopover);
+                }}
+                onMouseLeave={() => setShowTooltip(false)}
+                onMouseDown={() => {
+                  setShowTooltip(!showTooltip);
+                  setShowPopover(!showPopover);
+                }}
               >
                 <div
                   className="bg-quinary justify-content-center align-items-center d-flex text-tertiary"
@@ -106,7 +117,11 @@ const LoginButton = () => {
                 </div>
               </button>
             </OverlayTrigger>
-            <Overlay target={target.current} show={show} placement="left">
+            <Overlay
+              target={target.current}
+              show={showTooltip}
+              placement="left"
+            >
               {(props) => (
                 <Tooltip id="registertooltip" {...props}>
                   You must complete your {user.changed ? "re-" : ""}registration
@@ -121,6 +136,7 @@ const LoginButton = () => {
               trigger="click"
               key="profile"
               placement="bottom-end"
+              rootClose
               overlay={
                 <Popover
                   id={"ProfilePopover"}
@@ -168,9 +184,14 @@ const LoginButton = () => {
                 }}
                 title="Login"
                 ref={target}
-                onMouseEnter={() => setShow(true)}
-                onMouseLeave={() => setShow(false)}
-                onMouseDown={() => setShow(!show)}
+                onMouseEnter={() => {
+                  setShowTooltip(true && !showPopover);
+                }}
+                onMouseLeave={() => setShowTooltip(false)}
+                onMouseDown={() => {
+                  setShowTooltip(!showTooltip);
+                  setShowPopover(!showPopover);
+                }}
               >
                 <div
                   className="bg-quinary justify-content-center align-items-center d-flex text-tertiary"
@@ -184,7 +205,11 @@ const LoginButton = () => {
                 </div>
               </button>
             </OverlayTrigger>
-            <Overlay target={target.current} show={show} placement="left">
+            <Overlay
+              target={target.current}
+              show={showTooltip}
+              placement="left"
+            >
               {(props) => (
                 <Tooltip id="loggedintooltip" {...props}>
                   You are logged in!
@@ -199,10 +224,13 @@ const LoginButton = () => {
             trigger="click"
             key="login"
             placement="bottom-end"
+            rootClose
             overlay={
               <Popover
                 id={"LoginPopover"}
                 className="border border-2 border-tertiary"
+                show={showPopover}
+                onBlur={() => setShowPopover(false)}
               >
                 <Popover.Body className="fs-8 text-center">
                   <p>
@@ -234,9 +262,14 @@ const LoginButton = () => {
               }}
               title="Login"
               ref={target}
-              onMouseEnter={() => setShow(true)}
-              onMouseLeave={() => setShow(false)}
-              onMouseDown={() => setShow(!show)}
+              onMouseEnter={() => {
+                setShowTooltip(true && !showPopover);
+              }}
+              onMouseLeave={() => setShowTooltip(false)}
+              onMouseDown={() => {
+                setShowTooltip(!showTooltip);
+                setShowPopover(!showPopover);
+              }}
             >
               <div
                 className="bg-primary justify-content-center align-items-center d-flex text-tertiary"
@@ -254,7 +287,7 @@ const LoginButton = () => {
               </div>
             </button>
           </OverlayTrigger>
-          <Overlay target={target.current} show={show} placement="left">
+          <Overlay target={target.current} show={showTooltip} placement="left">
             {(props) => (
               <Tooltip id="overlay-example" {...props}>
                 Log In

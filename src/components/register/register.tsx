@@ -160,7 +160,7 @@ const Register = () => {
           </div>
           <div className="d-flex justify-content-end">
             <Button variant="quaternary" className="text-white me-4" onClick={() => logout()}>
-              Cancel registration
+              Cancel and sign out
             </Button>
             <Button
               type="submit"
