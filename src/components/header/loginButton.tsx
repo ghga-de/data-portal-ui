@@ -45,7 +45,7 @@ const LoginButton = () => {
   return (
     <div>
       {user ? (
-        !user?.id || user.changed ? (
+        !user.id || user.changed ? (
           <>
             <OverlayTrigger
               trigger="click"
