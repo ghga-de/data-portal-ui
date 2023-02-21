@@ -3,7 +3,7 @@ import Footer from "./components/footer/footer";
 import Browse from "./components/browse/browse";
 import PageNotFound from "./components/pageNotFound/pageNotFound";
 import "./App.scss";
-import { Routes, BrowserRouter, Route } from "react-router-dom";
+import { Routes, BrowserRouter, Route, useLocation, useNavigate } from "react-router-dom";
 import Home from "./components/home/home";
 import AboutUs from "./components/aboutUs/aboutUs";
 import SingleDatasetView from "./components/browse/singleDatasetView/singleDatasetView";
@@ -14,12 +14,30 @@ import Login from "./components/login/login";
 import Callback from "./components/login/callback";
 import Register from "./components/register/register";
 import Profile from "./components/login/profile";
+import authService from "./services/auth";
+import { useLayoutEffect } from "react";
 
-function App() {
-  return (
-    <BrowserRouter>
-      <Header />
-      <Routes>
+
+function RouterWrapper() {
+  
+  let location = useLocation();
+  const navigate = useNavigate()
+
+  useLayoutEffect(() => {
+    authService.getUser().then((user) => {
+      if (user && (!user.id || user.changed) && location.pathname !== "/register") {
+        // user is new (needs to register)
+        // or her data changed (needs to confirm)
+        navigate("/register");
+      }
+    }).catch(error => {
+      console.error(error);
+    });
+  }, [location, navigate])
+
+
+  return(
+    <Routes>
         <Route path="/">
           <Route index element={<Home />} />
         </Route>
@@ -59,6 +77,14 @@ function App() {
           <Route index element={<Profile />} />
         </Route>
       </Routes>
+  )
+}
+
+function App() {
+  return (
+    <BrowserRouter>
+      <Header />
+        <RouterWrapper/>
       <Footer />
     </BrowserRouter>
   );

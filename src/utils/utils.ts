@@ -152,11 +152,14 @@ export const getDACEmailId = (
   return mailId;
 };
 
-
 /** Fetch JSON data with proper headers */
-export const fetchJson = async (url: string, method = "GET", payload?: any): Promise<Response> => {
+export const fetchJson = async (
+  url: string,
+  method = "GET",
+  payload?: any
+): Promise<Response> => {
   const headers: HeadersInit = {
-    "Accept": "application/json"
+    Accept: "application/json",
   };
   if (payload) {
     headers["Content-Type"] = "application/json";
@@ -169,14 +172,16 @@ export const fetchJson = async (url: string, method = "GET", payload?: any): Pro
   if (token) {
     // the Authorization header is already used for Basic auth,
     // therefore we use the X-Authorization header for the OIDC token
-    headers["X-Authorization"] = 'Bearer ' + token;
+    headers["X-Authorization"] = "Bearer " + token;
   }
   const body = payload ? JSON.stringify(payload) : undefined;
-  return await fetch(url, {method, headers, body});
-}
+  return await fetch(url, { method, headers, body });
+};
 
-export const getItemsForSummary = (item: { [key: string]: number } | undefined) => {
-  let items: string[] = []
+export const getItemsForSummary = (
+  item: { [key: string]: number } | undefined
+) => {
+  let items: string[] = [];
   for (let key in item) {
     let value = item[key];
     items.push(key + ": " + value);
@@ -198,4 +203,3 @@ export const transposeTableForHTML = (data: string[]) => {
   }
   return grid;
 };
-
