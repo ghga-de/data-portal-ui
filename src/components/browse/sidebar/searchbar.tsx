@@ -18,6 +18,7 @@ interface searchbarProps {
   setPage: Dispatch<SetStateAction<number>>;
 }
 
+/** Searh bar component in the Browse sidebar */
 const Searchbar = (props: searchbarProps) => {
   let navigate = useNavigate();
   var iconAbstract = icon(faMagnifyingGlass).abstract[0];

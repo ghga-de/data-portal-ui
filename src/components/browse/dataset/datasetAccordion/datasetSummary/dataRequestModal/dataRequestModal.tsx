@@ -25,6 +25,7 @@ interface DataRequestModalProps {
   dacFormLink: string | null;
 }
 
+/** Modal that guides the user on how to access the dataset of interest. */
 const DataRequestModal = (props: DataRequestModalProps) => {
   const emailMessage: string = "Copy e-mail to clipboard";
   const subjectMessage: string = "Copy subject to clipboard";

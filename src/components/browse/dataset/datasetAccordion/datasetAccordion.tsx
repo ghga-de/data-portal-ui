@@ -8,6 +8,7 @@ interface dataSetListProps {
   dsList: hitModel[];
 }
 
+/** Accordion component where datasets are listed. It also contains summary information of the datasets. */
 const DatasetAccordion = (props: dataSetListProps) => {
   const [summary, setSummary] = useState<datasetDetailsSummaryModel | null | undefined>(null)
   const [summaryMap, setSummaryMap] = useState<Map<string, datasetDetailsSummaryModel | null | undefined>>(

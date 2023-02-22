@@ -9,6 +9,7 @@ import DatasetHeader from "./dataset/datasetHeader";
 import DatasetList from "./dataset/datasetList";
 import Sidebar from "./sidebar/sidebar";
 
+/** Browse page */
 const Browse = () => {
   let [searchParams, setSearchParams] = useSearchParams();
 

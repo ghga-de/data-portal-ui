@@ -6,6 +6,7 @@ import requestImg from "../../assets/download/request-access.png";
 import emailImg from "../../assets/download/email.png";
 import { Link } from "react-router-dom";
 
+/** Download page */
 const Download = () => {
     return (
 

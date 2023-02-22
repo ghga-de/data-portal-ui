@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { importAllFilesFromFolder } from "../../utils/utils";
 import uploadImg from "../../assets/upload/upload.png"
 
+/** Upload instructions page */
 const Upload = () => {
     const listInstitutionImages: any = importAllFilesFromFolder(
         require.context("../../assets/upload/institutions/", false, /\.png$/)

@@ -11,6 +11,11 @@ import authService from "../services/auth";
 
 const CLIENT_URL = process.env.REACT_APP_CLIENT_URL;
 
+/**
+ * Convert an array of filter objects into string representation.
+ * @param filterDict - Array of objects that conform to the facetFilterModel.
+ * @returns Semicolon-separated string of key-value pairs.
+ */
 export const getFilterString = (filterDict: facetFilterModel[]) => {
   let filterString = "";
   for (var item of filterDict) {
@@ -19,6 +24,10 @@ export const getFilterString = (filterDict: facetFilterModel[]) => {
   return filterString.slice(0, -1);
 };
 
+/**
+ * Scroll page smoothly to 60 pixels below the top
+ * @returns Nothing
+ */
 export const scrollUp = () => {
   window.scrollTo({
     top: 60,
@@ -26,6 +35,12 @@ export const scrollUp = () => {
   });
 };
 
+/**
+ * Convert a string representation of filter into an array of objects 
+ * that conform to the facetFilterModel.
+ * @param filterString - Semicolon-separated string of key-value pairs
+ * @returns facetFilterModelList
+ */
 export const getFilterParams = (filterString: string | null) => {
   let facetFilterModelList: facetFilterModel[] = [];
   if (filterString != null) {
@@ -41,6 +56,11 @@ export const getFilterParams = (filterString: string | null) => {
   return facetFilterModelList;
 };
 
+/**
+ * Convert byte size into a human-readable format 
+ * @param bytes - Bytes as number
+ * @returns Human readable size string, e.g. 5 kB
+ */
 export const parseBytes = (bytes: number) => {
   const prefixes = [
     " B",
@@ -64,6 +84,25 @@ export const parseBytes = (bytes: number) => {
   return returnValue;
 };
 
+/**
+ * Handle filters and call querySearchService to get search results from API
+ * and set the search results, applied filters and page states of a component
+ * 
+ * @remarks
+ * If appliedFilterDict is specified (not null) these filters are used, 
+ * otherwise filterDict is used and the appliedFilterDict is updated accordingly.
+ * 
+ * @param setSearchResults - SetState function that sets search results state conforms to the searchResponseModel or null
+ * @param filterDict - Array of objects that conform to the facetFilterModel.
+ * @param searchKeyword - String representing the search keyword.
+ * @param skip - Number of results to skip in the search results.
+ * @param limit - Maximum number of results to be returned by the search.
+ * @param page - Page number
+ * @param setPage - SetState function that sets page state in number
+ * @param setFilterDict - SetState function that sets filter state conforms to the facetFilterModel[]
+ * @param appliedFilterDict - Array of objects that conform to the facetFilterModel.
+ * @returns Applied filters in query string format.
+ */
 export const handleFilterAndSearch = (
   setSearchResults: Dispatch<SetStateAction<searchResponseModel | null>>,
   filterDict: facetFilterModel[],
@@ -115,10 +154,20 @@ export const handleFilterAndSearch = (
   }
 };
 
+/**
+ * Import all files in a given folder.
+ * @param r - Is expected to be a webpack require.context function.
+ * @returns An array containing the exported content of each file in the folder.
+ */
 export const importAllFilesFromFolder = (r: any) => {
   return r.keys().map(r);
 };
 
+/**
+ * Decide email contact according to dataset details
+ * @param details - Dataset details object conforms to the datasetEmbeddedModel.
+ * @returns Email contact as string. Default: helpdesk@ghga.de
+ */
 export const getDACEmailId = (
   details: datasetEmbeddedModel | null | undefined
 ) => {
@@ -152,6 +201,13 @@ export const getDACEmailId = (
   return mailId;
 };
 
+/**
+ * Perform an HTTP request using fetch().
+ * @param url - URL string to send the request
+ * @param method - HTTP method for request
+ * @param payload - Request body, if any.
+ * @returns Promise resolves to the response of the HTTP request.
+ */
 /** Fetch JSON data with proper headers */
 export const fetchJson = async (
   url: string,
@@ -178,6 +234,11 @@ export const fetchJson = async (
   return await fetch(url, { method, headers, body });
 };
 
+/**
+ * Summarize the items in an object and return an array of string representations.
+ * @param item - Object containing items in "{[key: string]: number}" type.
+ * @returns Array of strings formatted as "<key>: <value>".
+ */
 export const getItemsForSummary = (
   item: { [key: string]: number } | undefined
 ) => {
@@ -189,6 +250,11 @@ export const getItemsForSummary = (
   return items;
 };
 
+/**
+ * Transpose a table of data for HTML display.
+ * @param data - Two arrays of strings representing rows and columns.
+ * @returns Transposed version of data.
+ */
 export const transposeTableForHTML = (data: string[]) => {
   const rows = data.length,
     cols = data[0].length;

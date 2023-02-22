@@ -10,6 +10,7 @@ interface SingleDatasetViewSummaryProps {
   details: datasetEmbeddedModel;
 }
 
+/** Section at the top of dataset details page where the summary of dataset displayed. */
 const SingleDatasetViewSummary = (props: SingleDatasetViewSummaryProps) => {
   return (
     <div>

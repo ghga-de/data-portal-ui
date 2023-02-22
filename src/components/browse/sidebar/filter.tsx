@@ -11,6 +11,7 @@ interface filterProps {
   setAppliedFilterDict: Dispatch<SetStateAction<facetFilterModel[]>>;
 }
 
+/** Form component for filters in Browse sidebar */
 const Filter = (props: filterProps) => {
   const handleCheck = (
     key: string,

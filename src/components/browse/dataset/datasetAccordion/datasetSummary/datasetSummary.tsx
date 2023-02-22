@@ -18,6 +18,7 @@ interface dataSetDetailsProps {
   summary: datasetDetailsSummaryModel | null | undefined;
 }
 
+/** Body component for the datasets listed in accordion. */
 const DatasetSummary = (props: dataSetDetailsProps) => {
   const [show, setShow] = React.useState(false);
   const [copyEmail, setCopyEmail] = React.useState<string>("helpdesk@ghga.de");

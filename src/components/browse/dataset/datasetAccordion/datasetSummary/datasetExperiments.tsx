@@ -11,6 +11,7 @@ interface dataSetExperimentsProps {
   experiments: experimentSummaryModel | null;
 }
 
+/** Dataset summary section displays the experimental information. */
 const DatasetExperiments = (props: dataSetExperimentsProps) => {
   return (
     <DatasetDetailsLayout

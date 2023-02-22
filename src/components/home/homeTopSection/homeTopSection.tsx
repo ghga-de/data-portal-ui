@@ -2,6 +2,7 @@ import { Button, Col, Row } from "react-bootstrap";
 import germany from "../../../assets/homepage/Germany.svg";
 import { NavLink } from "react-router-dom";
 
+/** Section on top of the home page where general information is given about platform. */
 const HomeTopSection = () => {
   return (
     <Col className="px-2">

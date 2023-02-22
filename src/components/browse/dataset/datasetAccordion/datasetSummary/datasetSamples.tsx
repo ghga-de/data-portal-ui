@@ -16,6 +16,7 @@ interface dataSetSamplesProps {
   samples: sampleSummaryModel | null;
 }
 
+/** Dataset summary section displays the sample information. */
 const DatasetSamples = (props: dataSetSamplesProps) => {
   const [openPhenotypesList, setOpenPhenotypesList] = React.useState(false);
 

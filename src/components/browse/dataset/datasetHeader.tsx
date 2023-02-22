@@ -23,6 +23,7 @@ interface datasetHeaderProps {
   setPage: Dispatch<SetStateAction<number>>;
 }
 
+/** Section at the top of Browse page. It contains search keywords, applied filters and datasets count found. */
 const DatasetHeader = (props: datasetHeaderProps) => {
   const navigate = useNavigate();
 

@@ -3,6 +3,7 @@ import banner1 from "../../assets/aboutUs/about-banner.png";
 import banner2 from "../../assets/aboutUs/about-banner2.png";
 import { Link } from "react-router-dom";
 
+/** About Us page */
 const AboutUs = () => {
   return (
     <div className="mx-auto px-5 mt-4">

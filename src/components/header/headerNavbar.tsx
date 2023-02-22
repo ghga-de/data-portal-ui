@@ -7,6 +7,7 @@ import { NavLink } from "react-router-dom";
 import logo from "../../assets/GHGA_logo_clean.png";
 import LoginButton from "./loginButton";
 
+/** Navigation bar in the main header */
 const HeaderNavbar = () => {
   const activePageStyle =
     "btn btn-secondary p-0 h-100 m-0 mx-2 px-2 pt-1 text-white";

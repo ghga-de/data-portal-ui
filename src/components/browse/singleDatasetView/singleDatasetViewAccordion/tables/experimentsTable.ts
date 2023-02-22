@@ -6,6 +6,12 @@ interface ExperimentsTableProps {
   details: datasetEmbeddedModel;
 }
 
+/**
+ * This function creates the schema for the experiment summary table, 
+ * which is one of three tables in the dataset details view. 
+ * @param props - Object containing the data and details.
+ * @returns The table definition object that includes table content, button text and definitions.
+ */
 export const ExperimentsTable = (props: ExperimentsTableProps) => {
   const [sortDefinition, setSortDefinition] = useState<{ key: number; order: number }>({
     key: 0,
