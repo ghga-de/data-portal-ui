@@ -201,7 +201,6 @@ export const getDACEmailId = (
   return mailId;
 };
 
-
 /**
  * Perform an HTTP request using fetch().
  * @param url - URL string to send the request
@@ -209,9 +208,14 @@ export const getDACEmailId = (
  * @param payload - Request body, if any.
  * @returns Promise resolves to the response of the HTTP request.
  */
-export const fetchJson = async (url: string, method = "GET", payload?: any): Promise<Response> => {
+/** Fetch JSON data with proper headers */
+export const fetchJson = async (
+  url: string,
+  method = "GET",
+  payload?: any
+): Promise<Response> => {
   const headers: HeadersInit = {
-    "Accept": "application/json"
+    Accept: "application/json",
   };
   if (payload) {
     headers["Content-Type"] = "application/json";
@@ -224,19 +228,21 @@ export const fetchJson = async (url: string, method = "GET", payload?: any): Pro
   if (token) {
     // the Authorization header is already used for Basic auth,
     // therefore we use the X-Authorization header for the OIDC token
-    headers["X-Authorization"] = 'Bearer ' + token;
+    headers["X-Authorization"] = "Bearer " + token;
   }
   const body = payload ? JSON.stringify(payload) : undefined;
-  return await fetch(url, {method, headers, body});
-}
+  return await fetch(url, { method, headers, body });
+};
 
 /**
  * Summarize the items in an object and return an array of string representations.
  * @param item - Object containing items in "{[key: string]: number}" type.
  * @returns Array of strings formatted as "<key>: <value>".
  */
-export const getItemsForSummary = (item: { [key: string]: number } | undefined) => {
-  let items: string[] = []
+export const getItemsForSummary = (
+  item: { [key: string]: number } | undefined
+) => {
+  let items: string[] = [];
   for (let key in item) {
     let value = item[key];
     items.push(key + ": " + value);
@@ -263,4 +269,3 @@ export const transposeTableForHTML = (data: string[]) => {
   }
   return grid;
 };
-
