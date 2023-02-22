@@ -59,7 +59,7 @@ export const getFilterParams = (filterString: string | null) => {
 /**
  * Convert byte size into a human-readable format 
  * @param bytes - Bytes as number
- * @returns Human readable size string, ex. 5KB
+ * @returns Human readable size string, e.g. 5 kB
  */
 export const parseBytes = (bytes: number) => {
   const prefixes = [

@@ -28,7 +28,7 @@ const HomeMidSection = () => {
     getData();
   }, []);
 
-  // Generate a Row component that displays a badge icon, title string, and an optional dark mode style.
+  // Generate a Row component that displays a badge icon, title string, and an optional dark mode style for alternating badge colours.
   const BadgeTitleGen = (
     icon: IconDefinition,
     titleString: any,
