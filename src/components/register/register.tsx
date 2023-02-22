@@ -208,7 +208,7 @@ const Register = () => {
             </p>
           </Modal.Body>
           <Modal.Footer>
-            <Button variant="quaternary" onClick={logout}>
+            <Button variant="quaternary" onClick={logout} className="text-white">
               <FontAwesomeIcon
                 icon={faArrowRightFromBracket}
                 className="me-2"
