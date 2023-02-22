@@ -1,5 +1,5 @@
-import { faArrowRightToBracket } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { NavLink, useLocation } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
 import {
   Button,
@@ -10,7 +10,11 @@ import {
 } from "react-bootstrap";
 import authService, { User } from "../../services/auth";
 import lsLogin from "../../assets/loginLS/ls-login.png";
-import { NavLink, useLocation } from "react-router-dom";
+import {
+  faArrowRightFromBracket,
+  faArrowRightToBracket,
+  faPenToSquare,
+} from "@fortawesome/free-solid-svg-icons";
 
 const LoginButton = () => {
   const [user, setUser] = useState<User | null>(null);
@@ -61,22 +65,27 @@ const LoginButton = () => {
                   <Popover.Body className="text-center fs-6 px-4">
                     <p>
                       You need to complete your {user.changed ? "re-" : ""}
-                      registration with the GHGA Data Portal before you can start
-                      using your LS Login account.
+                      registration with the GHGA Data Portal before you can
+                      start using your LS Login account.
                     </p>
                     <Button
                       variant="secondary"
                       className="text-white fs-7"
                       onClick={() => setShowPopover(false)}
                     >
-                      Continue with registration
+                      <FontAwesomeIcon icon={faPenToSquare} className="me-2" />
+                      Complete registration
                     </Button>
                     <Button
                       variant="quaternary"
                       className="text-white mt-3 fs-7"
                       onClick={() => logout()}
                     >
-                      Cancel and sign out
+                      <FontAwesomeIcon
+                        icon={faArrowRightFromBracket}
+                        className="me-2"
+                      />
+                      Cancel and log out
                     </Button>
                   </Popover.Body>
                 </Popover>

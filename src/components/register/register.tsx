@@ -1,10 +1,16 @@
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
-import { Button, Container, Row, Col } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+import { unstable_useBlocker as useBlocker } from "react-router-dom";
+import { Button, Container, Modal, Row, Col } from "react-bootstrap";
 import authService, { fullName, User } from "../../services/auth";
 import { fetchJson } from "../../utils/utils";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUserCheck, faIdCard } from "@fortawesome/free-solid-svg-icons";
+import {
+  faUserCheck,
+  faIdCard,
+  faArrowRightFromBracket,
+  faPenToSquare,
+} from "@fortawesome/free-solid-svg-icons";
 
 const USERS_URL = process.env.REACT_APP_SVC_USERS_URL;
 
@@ -15,11 +21,27 @@ const Register = () => {
   const [user, setUser] = useState<User | null | undefined>(undefined);
   const [title, setTitle] = useState<string>("");
   const [accepted, setAccepted] = useState<boolean>(false);
+  const [blocked, setBlocked] = useState<boolean>(true);
+  const blocker = useBlocker(blocked);
+
+  const back = () => {
+    const lastUrl = sessionStorage.getItem("lastUrl");
+    lastUrl ? (window.location.href = lastUrl) : navigate("/");
+  };
+
+  const unblock = () => {
+    blocker.proceed?.();
+    setBlocked(false);
+  };
 
   const logout = async () => {
     await authService.logout();
-    const lastUrl = sessionStorage.getItem("lastUrl");
-    lastUrl ? window.location.href = lastUrl : navigate("/");
+    unblock();
+    back();
+  };
+
+  const proceed = async () => {
+    blocker.reset?.();
   };
 
   const prompt = () =>
@@ -34,6 +56,7 @@ const Register = () => {
 
   const submitUserData = async () => {
     if (!user || !USERS_URL) return;
+    unblock();
     const { id, ext_id, name, email } = user;
     const userData: any = {
       name,
@@ -58,18 +81,13 @@ const Register = () => {
       return;
     }
     alert("Could not register"); // TODO: nicer
-    const lastUrl = sessionStorage.getItem("lastUrl");
-    lastUrl ? (window.location.href = lastUrl) : navigate("/");
+    back();
   };
 
   useEffect(() => {
     if (authService.user) setUser(authService.user);
     else authService.getUser().then(setUser);
-    if (user === null) {
-      const lastUrl = sessionStorage.getItem("lastUrl");
-      lastUrl ? (window.location.href = lastUrl) : navigate("/");
-    }
-  }, [navigate, user]);
+  }, [user]);
 
   const handleTitle = (event: ChangeEvent<HTMLSelectElement>) => {
     setTitle(event.target.value);
@@ -87,8 +105,8 @@ const Register = () => {
   let content;
   if (user === undefined) content = "Loading user data...";
   else if (user === null) {
-    const lastUrl = sessionStorage.getItem("lastUrl");
-    lastUrl ? (window.location.href = lastUrl) : navigate("/");
+    unblock();
+    back();
   } else
     content = (
       <div className="container mb-3">
@@ -159,8 +177,16 @@ const Register = () => {
             </div>
           </div>
           <div className="d-flex justify-content-end">
-            <Button variant="quaternary" className="text-white me-4" onClick={() => logout()}>
-              Cancel and sign out
+            <Button
+              variant="quaternary"
+              className="text-white me-4"
+              onClick={logout}
+            >
+              <FontAwesomeIcon
+                icon={faArrowRightFromBracket}
+                className="me-2"
+              />
+              Cancel and log out
             </Button>
             <Button
               type="submit"
@@ -173,6 +199,42 @@ const Register = () => {
             </Button>
           </div>
         </form>
+        <Modal show={blocked && blocker.state === "blocked"} onHide={proceed}>
+          <Modal.Header closeButton>
+            <Modal.Title>You have not registered yet!</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <p>
+              Please continue with the registration before proceeding to browse
+              this website.
+            </p>
+            <p>
+              If you don't want to register, please log out to cancel the
+              registration.
+            </p>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button
+              variant="quaternary"
+              onClick={logout}
+              className="text-white"
+            >
+              <FontAwesomeIcon
+                icon={faArrowRightFromBracket}
+                className="me-2"
+              />
+              Cancel and log out
+            </Button>
+            <Button
+              variant="secondary"
+              onClick={proceed}
+              className="text-white"
+            >
+              <FontAwesomeIcon icon={faPenToSquare} className="me-2" />
+              Complete registration
+            </Button>
+          </Modal.Footer>
+        </Modal>
       </div>
     );
 
