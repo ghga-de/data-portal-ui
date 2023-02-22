@@ -217,7 +217,7 @@ const Register = () => {
             </Button>
             <Button variant="secondary" onClick={proceed}>
               <FontAwesomeIcon icon={faPenToSquare} className="me-2" />
-              Continue with registration
+              Complete registration
             </Button>
           </Modal.Footer>
         </Modal>
