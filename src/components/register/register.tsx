@@ -21,13 +21,23 @@ const Register = () => {
   const [user, setUser] = useState<User | null | undefined>(undefined);
   const [title, setTitle] = useState<string>("");
   const [accepted, setAccepted] = useState<boolean>(false);
-  const blocker = useBlocker(true);
+  const [blocked, setBlocked] = useState<boolean>(true);
+  const blocker = useBlocker(blocked);
+
+  const back = () => {
+    const lastUrl = sessionStorage.getItem("lastUrl");
+    lastUrl ? (window.location.href = lastUrl) : navigate("/");
+  };
+
+  const unblock = () => {
+    blocker.proceed?.();
+    setBlocked(false);
+  };
 
   const logout = async () => {
     await authService.logout();
-    blocker.proceed?.();
-    const lastUrl = sessionStorage.getItem("lastUrl");
-    lastUrl ? (window.location.href = lastUrl) : navigate("/");
+    unblock();
+    back();
   };
 
   const proceed = async () => {
@@ -46,6 +56,7 @@ const Register = () => {
 
   const submitUserData = async () => {
     if (!user || !USERS_URL) return;
+    unblock();
     const { id, ext_id, name, email } = user;
     const userData: any = {
       name,
@@ -70,18 +81,13 @@ const Register = () => {
       return;
     }
     alert("Could not register"); // TODO: nicer
-    const lastUrl = sessionStorage.getItem("lastUrl");
-    lastUrl ? (window.location.href = lastUrl) : navigate("/");
+    back();
   };
 
   useEffect(() => {
     if (authService.user) setUser(authService.user);
     else authService.getUser().then(setUser);
-    if (user === null) {
-      const lastUrl = sessionStorage.getItem("lastUrl");
-      lastUrl ? (window.location.href = lastUrl) : navigate("/");
-    }
-  }, [navigate, user]);
+  }, [user]);
 
   const handleTitle = (event: ChangeEvent<HTMLSelectElement>) => {
     setTitle(event.target.value);
@@ -99,8 +105,8 @@ const Register = () => {
   let content;
   if (user === undefined) content = "Loading user data...";
   else if (user === null) {
-    const lastUrl = sessionStorage.getItem("lastUrl");
-    lastUrl ? (window.location.href = lastUrl) : navigate("/");
+    unblock();
+    back();
   } else
     content = (
       <div className="container mb-3">
@@ -193,7 +199,7 @@ const Register = () => {
             </Button>
           </div>
         </form>
-        <Modal show={blocker.state === "blocked"} onHide={proceed}>
+        <Modal show={blocked && blocker.state === "blocked"} onHide={proceed}>
           <Modal.Header closeButton>
             <Modal.Title>You have not registered yet!</Modal.Title>
           </Modal.Header>
@@ -208,14 +214,22 @@ const Register = () => {
             </p>
           </Modal.Body>
           <Modal.Footer>
-            <Button variant="quaternary" onClick={logout} className="text-white">
+            <Button
+              variant="quaternary"
+              onClick={logout}
+              className="text-white"
+            >
               <FontAwesomeIcon
                 icon={faArrowRightFromBracket}
                 className="me-2"
               />
               Cancel and log out
             </Button>
-            <Button variant="secondary" onClick={proceed} className="text-white">
+            <Button
+              variant="secondary"
+              onClick={proceed}
+              className="text-white"
+            >
               <FontAwesomeIcon icon={faPenToSquare} className="me-2" />
               Complete registration
             </Button>
