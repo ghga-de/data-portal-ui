@@ -195,7 +195,7 @@ const Register = () => {
         </form>
         <Modal show={blocker.state === "blocked"} onHide={proceed}>
           <Modal.Header closeButton>
-            <Modal.Title>You haven't registered yet!</Modal.Title>
+            <Modal.Title>You have not registered yet!</Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <p>
