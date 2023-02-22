@@ -215,7 +215,7 @@ const Register = () => {
               />
               Cancel and log out
             </Button>
-            <Button variant="secondary" onClick={proceed}>
+            <Button variant="secondary" onClick={proceed} className="text-white">
               <FontAwesomeIcon icon={faPenToSquare} className="me-2" />
               Complete registration
             </Button>
