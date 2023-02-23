@@ -56,11 +56,11 @@ const LoginButton = () => {
               key="profile"
               placement="bottom-end"
               rootClose
-              show={showPopover}
               overlay={
                 <Popover
                   id={"ProfilePopover"}
                   className="border border-2 border-tertiary"
+                  show={showPopover}
                 >
                   <Popover.Body className="text-center fs-6 px-4">
                     <p>
@@ -71,7 +71,7 @@ const LoginButton = () => {
                     <Button
                       variant="secondary"
                       className="text-white fs-7"
-                      onClick={() => setShowPopover(false)}
+                      onClick={() => { setShowPopover(false); }}
                     >
                       <FontAwesomeIcon icon={faPenToSquare} className="me-2" />
                       Complete registration
@@ -150,6 +150,7 @@ const LoginButton = () => {
                 <Popover
                   id={"ProfilePopover"}
                   className="border border-2 border-tertiary"
+                  show={showPopover}
                 >
                   <Popover.Body className="text-center fs-6 px-4">
                     <p>
@@ -239,7 +240,6 @@ const LoginButton = () => {
                 id={"LoginPopover"}
                 className="border border-2 border-tertiary"
                 show={showPopover}
-                onBlur={() => setShowPopover(false)}
               >
                 <Popover.Body className="fs-8 text-center">
                   <p>
