@@ -71,7 +71,7 @@ const LoginButton = () => {
                     <Button
                       variant="secondary"
                       className="text-white fs-7"
-                      onClick={() => setShowPopover(false}}
+                      onClick={() => setShowPopover(false)}
                     >
                       <FontAwesomeIcon icon={faPenToSquare} className="me-2" />
                       Complete registration
