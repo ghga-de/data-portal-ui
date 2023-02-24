@@ -26,12 +26,16 @@ const Register = () => {
 
   const back = () => {
     const lastUrl = sessionStorage.getItem("lastUrl");
-    lastUrl ? (window.location.href = lastUrl) : navigate("/");
+    setTimeout(() =>
+      lastUrl ? (window.location.href = lastUrl) : navigate("/")
+    );
   };
 
   const unblock = () => {
-    blocker.proceed?.();
-    setBlocked(false);
+    if (blocked) {
+      blocker.proceed?.();
+      setBlocked(false);
+    }
   };
 
   const logout = async () => {
