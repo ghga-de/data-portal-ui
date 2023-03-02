@@ -60,7 +60,6 @@ const LoginButton = () => {
                 <Popover
                   id={"ProfilePopover"}
                   className="border border-2 border-tertiary"
-                  show={showPopover}
                 >
                   <Popover.Body className="text-center fs-6 px-4">
                     <p>
@@ -71,7 +70,7 @@ const LoginButton = () => {
                     <Button
                       variant="secondary"
                       className="text-white fs-7"
-                      onClick={() => setShowPopover(false)}
+                      onClick={() => {setShowPopover(false); document.body.click()}}
                     >
                       <FontAwesomeIcon icon={faPenToSquare} className="me-2" />
                       Complete registration
@@ -133,8 +132,7 @@ const LoginButton = () => {
             >
               {(props) => (
                 <Tooltip id="registertooltip" {...props}>
-                  You must complete your {user.changed ? "re-" : ""}registration
-                  before using your LS Login account.
+                  {user.changed ? "Re-" : ""}Registration required
                 </Tooltip>
               )}
             </Overlay>
@@ -150,7 +148,6 @@ const LoginButton = () => {
                 <Popover
                   id={"ProfilePopover"}
                   className="border border-2 border-tertiary"
-                  show={showPopover}
                 >
                   <Popover.Body className="text-center fs-6 px-4">
                     <p>
@@ -222,7 +219,7 @@ const LoginButton = () => {
             >
               {(props) => (
                 <Tooltip id="loggedintooltip" {...props}>
-                  You are logged in!
+                  Logged in!
                 </Tooltip>
               )}
             </Overlay>
@@ -299,7 +296,7 @@ const LoginButton = () => {
           <Overlay target={target.current} show={showTooltip} placement="left">
             {(props) => (
               <Tooltip id="overlay-example" {...props}>
-                Log In
+                Log in
               </Tooltip>
             )}
           </Overlay>

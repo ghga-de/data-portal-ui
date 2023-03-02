@@ -116,7 +116,7 @@ const Register = () => {
       <div className="container mb-3">
         <h1>
           <FontAwesomeIcon icon={faIdCard} className="me-2 text-secondary" />{" "}
-          Registration Form
+          Registration with GHGA
         </h1>
         <h2 className="mt-4">Welcome, {fullName(user)}!</h2>
         <p>{prompt()}</p>
