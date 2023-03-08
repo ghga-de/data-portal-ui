@@ -1,10 +1,13 @@
 import { useEffect, useState } from "react";
 import { Alert, Button, Container, Row, Col } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 import authService, { fullName, User } from "../../services/auth";
 
 /** Display user profile */
 
 const Profile = () => {
+  const navigate = useNavigate();
+
   const [user, setUser] = useState<User | null | undefined>(undefined);
 
   useEffect(() => {
@@ -15,14 +18,17 @@ const Profile = () => {
     await authService.logout();
     setUser(null);
   };
+
+  const back = () => {
+    const lastUrl = sessionStorage.getItem("lastUrl");
+    lastUrl ? (window.location.href = lastUrl) : navigate("/");
+  }
   
   let content;
   if (user === undefined)
     content = "Loading user data...";
   else if (user === null) 
-    content = <div style={{margin: "2em 0"}}>
-        <Alert variant="danger">You are not logged in.</Alert>
-      </div>;
+    back()
   else
     content = (
       <div>
