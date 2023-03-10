@@ -21,7 +21,9 @@ const Profile = () => {
 
   const back = () => {
     const lastUrl = sessionStorage.getItem("lastUrl");
-    lastUrl ? (window.location.href = lastUrl) : navigate("/");
+    setTimeout(() =>
+      lastUrl ? (window.location.href = lastUrl) : navigate("/")
+    );
   }
   
   let content;
