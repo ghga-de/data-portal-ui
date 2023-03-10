@@ -26,12 +26,16 @@ const Register = () => {
 
   const back = () => {
     const lastUrl = sessionStorage.getItem("lastUrl");
-    lastUrl ? (window.location.href = lastUrl) : navigate("/");
+    setTimeout(() =>
+      lastUrl ? (window.location.href = lastUrl) : navigate("/")
+    );
   };
 
   const unblock = () => {
-    blocker.proceed?.();
-    setBlocked(false);
+    if (blocked) {
+      blocker.proceed?.();
+      setBlocked(false);
+    }
   };
 
   const logout = async () => {
@@ -112,7 +116,7 @@ const Register = () => {
       <div className="container mb-3">
         <h1>
           <FontAwesomeIcon icon={faIdCard} className="me-2 text-secondary" />{" "}
-          Registration Form
+          Registration with GHGA
         </h1>
         <h2 className="mt-4">Welcome, {fullName(user)}!</h2>
         <p>{prompt()}</p>

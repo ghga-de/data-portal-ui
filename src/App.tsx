@@ -18,7 +18,6 @@ import SingleDatasetView from "./components/browse/singleDatasetView/singleDatas
 import Download from "./components/download/download";
 import Upload from "./components/upload/upload";
 import MetadataModel from "./components/metadataModel/metadataModel";
-import Login from "./components/login/login";
 import Callback from "./components/login/callback";
 import Register from "./components/register/register";
 import Profile from "./components/login/profile";
@@ -41,7 +40,6 @@ const router = createBrowserRouter(
       <Route path="/download" element={<Download />} />
       <Route path="/upload" element={<Upload />} />
       <Route path="/metadata-model" element={<MetadataModel />} />
-      <Route path="/login" element={<Login />} />
       <Route path="/oauth/callback" element={<Callback />} />
       <Route path="/register" element={<Register />} />
       <Route path="/profile" element={<Profile />} />
