@@ -29,8 +29,10 @@ const Profile = () => {
   let content;
   if (user === undefined)
     content = "Loading user data...";
-  else if (user === null) 
-    back()
+  else if (user === null) {
+    content = "Not logged in!";
+    back();
+    }
   else
     content = (
       <div>
