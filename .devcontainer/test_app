@@ -1,7 +1,0 @@
-#!/bin/bash
-# install web app in dev container
-
-cd /workspace
-
-# install web app dependencies:
-npm test
