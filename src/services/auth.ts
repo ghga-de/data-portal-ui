@@ -1,10 +1,8 @@
 import { Log, User as OidcUser, UserManager } from "oidc-client-ts";
 import type {
   OidcMetadata,
-  OidcStandardClaims,
   UserManagerSettings,
 } from "oidc-client-ts";
-import jwt_decode from "jwt-decode";
 import { fetchJson } from "../utils/utils";
 
 /**
@@ -60,7 +58,7 @@ class AuthService {
       redirect_uri: env("redirect_url"),
       response_type: "code",
       scope: env("scope"),
-      loadUserInfo: false,
+      loadUserInfo: true,
       automaticSilentRenew: true,
     };
 
@@ -161,13 +159,7 @@ class AuthService {
     }
     let user: User | null = null;
     if (oidcUser) {
-      let jwtClaims: OidcStandardClaims = {};
-      try {
-        jwtClaims = jwt_decode<OidcStandardClaims>(oidcUser.access_token);
-      } catch (error) {
-        console.error("Cannot decode access token:", error);
-      }
-      const { name, email, sub } = jwtClaims;
+      const { name, email, sub } = oidcUser.profile;
       if (name && email && sub) {
         const expired = oidcUser.expired ?? true;
         user = { expired, name, email, ext_id: sub };
@@ -189,6 +181,8 @@ class AuthService {
         } catch (error) {
           console.error("Cannot access the server:", error);
         }
+      } else {
+        console.error("Cannot get required user properties.")
       }
     }
     this.setUser(user);
