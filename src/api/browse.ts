@@ -1,10 +1,22 @@
-import { searchResponseModel, datasetEmbeddedModel, datasetDetailsSummaryModel, metadataSummaryModel } from "../models/dataset";
+import {
+  searchResponseModel,
+  datasetEmbeddedModel,
+  datasetDetailsSummaryModel,
+  metadataSummaryModel,
+} from "../models/dataset";
 import { facetFilterModel } from "../models/facets";
 import { fetchJson } from "../utils/utils";
-
+import { showMessage } from "../components/messages/usage";
 
 const SEARCH_URL = process.env.REACT_APP_SVC_SEARCH_URL;
 const REPOSITORY_URL = process.env.REACT_APP_SVC_REPOSITORY_URL;
+
+const showFetchDataError = () => {
+  showMessage({
+    type: "error",
+    title: "An error occurred while fetching the data.",
+  });
+};
 
 type getDatasetsSearchRespType = (
   callbackFunc: (hits: searchResponseModel) => void,
@@ -15,8 +27,8 @@ type getDatasetsSearchRespType = (
   documentType: string
 ) => void;
 
-/** 
- * Async function to retrieve the search results from API, calls the callbackFunc 
+/**
+ * Async function to retrieve the search results from API, calls the callbackFunc
  * function with search results, returns nothing.
  * @param callbackFunc - Function takes an argument conforms to the searchResponseModel.
  * @param filterQuery - Filters to be applied, array of objects that conform to the facetFilterModel.
@@ -41,15 +53,16 @@ export const querySearchService: getDatasetsSearchRespType = async (
     const response = await fetchJson(url, "POST", payload);
     const data = await response.json();
     callbackFunc(data);
-  } catch {
-    alert("An error occurred while fetching the data.");
+  } catch (error) {
+    showFetchDataError();
+    console.log(error);
     const errorData: searchResponseModel = {
       count: -1,
       hits: [],
       facets: [],
     };
     callbackFunc(errorData);
-  };
+  }
 };
 
 type getDatasetDetailsType = (
@@ -59,7 +72,7 @@ type getDatasetDetailsType = (
 ) => void;
 
 /**
- * Async function to retrieve the details of specified dataset from API, 
+ * Async function to retrieve the details of specified dataset from API,
  * calls the callbackFunc function with the response data, returns nothing.
  * @param datasetId - ID of the dataset of interest.
  * @param embedded - Boolean for the url parameter "embedded". Default: 'false'.
@@ -77,8 +90,9 @@ export const getDatasetDetails: getDatasetDetailsType = async (
     const response = await fetchJson(url);
     const data = await response.json();
     callbackFunc(data);
-  } catch {
-    alert("An error occurred while fetching the data.");
+  } catch (error) {
+    showFetchDataError();
+    console.log(error);
   }
 };
 
@@ -87,9 +101,8 @@ type getDatasetSummaryType = (
   callbackFunc: (dataset: datasetDetailsSummaryModel) => void
 ) => void;
 
-
 /**
- * Async function to retrieve the summary of specified dataset from API, 
+ * Async function to retrieve the summary of specified dataset from API,
  * calls the callbackFunc function with the response data, returns nothing.
  * @param datasetId - ID of the dataset of interest.
  * @param callbackFunc - Function used to process response data.
@@ -104,9 +117,10 @@ export const getDatasetSummary: getDatasetSummaryType = async (
     const response = await fetchJson(url);
     const data = await response.json();
     callbackFunc(data);
-  } catch {
-    alert("An error occurred while fetching the data.");
-  };
+  } catch (error) {
+    showFetchDataError();
+    console.log(error);
+  }
 };
 
 type getMetadataSummaryType = (
@@ -114,27 +128,23 @@ type getMetadataSummaryType = (
 ) => void;
 
 /**
- * Async function to retrieve the metadata summary from API, 
+ * Async function to retrieve the metadata summary from API,
  * calls the callbackFunc function with the response data, returns nothing.
  * @param callbackFunc - Function used to process response data.
  * @returns Nothing
  */
-export const getMetadataSummary: getMetadataSummaryType = (
-  callbackFunc
-) => {
-  fetch(
-    `${process.env.REACT_APP_SVC_REPOSITORY_URL}/metadata_summary/`,
-    {
-      method: "get",
-    }
-  )
+export const getMetadataSummary: getMetadataSummaryType = (callbackFunc) => {
+  fetch(`${process.env.REACT_APP_SVC_REPOSITORY_URL}/metadata_summary/`, {
+    method: "get",
+  })
     .then((response) => response.json())
     .then(
       (data) => {
         callbackFunc(data);
       },
       (error) => {
-        alert("An error occured while fetching the data.");
+        showFetchDataError();
+        console.log(error);
       }
     );
 };
