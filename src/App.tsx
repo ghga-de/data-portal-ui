@@ -21,6 +21,8 @@ import MetadataModel from "./components/metadataModel/metadataModel";
 import Callback from "./components/login/callback";
 import Register from "./components/register/register";
 import Profile from "./components/login/profile";
+import { MessageContainer } from "./components/messages/container";
+import { useMessages } from "./components/messages/usage";
 import authService from "./services/auth";
 import { useLayoutEffect } from "react";
 
@@ -51,6 +53,7 @@ const router = createBrowserRouter(
 function Layout() {
   let location = useLocation();
   const navigate = useNavigate();
+  const { showMessage } = useMessages();
 
   useLayoutEffect(() => {
     authService
@@ -67,9 +70,10 @@ function Layout() {
         }
       })
       .catch((error) => {
+        showMessage({ type: "error", title: "Cannot login" });
         console.error(error);
       });
-  }, [location, navigate]);
+  }, [location, navigate, showMessage]);
 
   return (
     <>
@@ -78,6 +82,7 @@ function Layout() {
       </header>
       <main>
         <Outlet />
+        <MessageContainer />
       </main>
       <footer>
         <Footer />

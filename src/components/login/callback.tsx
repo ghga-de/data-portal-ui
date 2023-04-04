@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { Col, Container, Row, Spinner } from "react-bootstrap";
 import authService from "../../services/auth";
+import { useMessages } from "../messages/usage";
 
 /** Handle redirect after OIDC login */
 
@@ -9,6 +10,7 @@ let calls = 0;
 
 const Callback = () => {
   const navigate = useNavigate();
+  const { showMessage } = useMessages();
 
   const [searchParams] = useSearchParams();
   const state = searchParams.get("state");
@@ -19,7 +21,7 @@ const Callback = () => {
     if (calls++) return;
 
     const handleError = () => {
-      alert("Could not log in."); // TODO: make nicer
+      showMessage({ type: "error", title: "Could not log in" });
       const lastUrl = sessionStorage.getItem("lastUrl");
       lastUrl ? (window.location.href = lastUrl) : navigate("/");
     };
@@ -29,8 +31,7 @@ const Callback = () => {
       // since the cookie might be wrong if you try to access the
       // page directly, just send them back to the previous page
       navigate(-1);
-    }
-    else {
+    } else {
       authService
         .callback()
         .then((user) => {
@@ -46,11 +47,12 @@ const Callback = () => {
           }
         })
         .catch((error) => {
+          showMessage({ type: "error", title: "Cannot login" });
           console.error(error);
           handleError();
         });
     }
-  }, [navigate, state]);
+  }, [navigate, state, showMessage]);
 
   return (
     <Container className="mt-4">

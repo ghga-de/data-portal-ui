@@ -1,9 +1,7 @@
 import { Log, User as OidcUser, UserManager } from "oidc-client-ts";
-import type {
-  OidcMetadata,
-  UserManagerSettings,
-} from "oidc-client-ts";
+import type { OidcMetadata, UserManagerSettings } from "oidc-client-ts";
 import { fetchJson } from "../utils/utils";
+import { showMessage } from "../components/messages/usage";
 
 /**
  * Interface for a full high-level user object.
@@ -153,7 +151,9 @@ class AuthService {
       try {
         oidcUser = await this.getOidcUser();
       } catch (error) {
-        console.error("Cannot get user:", error);
+        const title = "Cannot get user";
+        showMessage({ type: "error", title });
+        console.error(title, error);
         oidcUser = null;
       }
     }
@@ -176,13 +176,19 @@ class AuthService {
               changed: name !== userData.name || email !== userData.email,
             };
           } else if (response.status !== 404) {
-            console.error("Cannot verify user:", response.statusText);
+            const title = "Cannot verify user";
+            showMessage({ type: "error", title });
+            console.error(title, response.statusText);
           }
         } catch (error) {
-          console.error("Cannot access the server:", error);
+          const title = "Cannot access the server";
+          showMessage({ type: "error", title });
+          console.error(title, error);
         }
       } else {
-        console.error("Cannot get required user properties.")
+        const title = "Cannot get required user properties";
+        showMessage({ type: "error", title });
+        console.error(title);
       }
     }
     this.setUser(user);
