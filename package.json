@@ -31,8 +31,8 @@
     "react-perfect-scrollbar": "~1.5.8",
     "react-router-dom": "6.8.0",
     "react-scripts": "~5.0.1",
-    "sass": "~1.56.0",
     "react-twitter-embed": "~4.0.4",
+    "sass": "~1.56.0",
     "swiper": "~8.3.2",
     "typescript": "~4.8.4",
     "web-vitals": "~3.0.1",
@@ -64,5 +64,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "msw": "^1.2.1"
   }
 }

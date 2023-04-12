@@ -14,7 +14,6 @@ To get help run:
 import argparse
 import os
 from pathlib import Path
-from typing import Optional
 from subprocess import Popen
 from ghga_service_chassis_lib.config import config_from_yaml
 from pydantic import BaseSettings
@@ -33,19 +32,18 @@ class Config(BaseSettings):
 
     host: str = "localhost"
     port: int = 8080
-    welcome_info: Optional[str]
     client_url: str = "https://data.ghga-dev.de/"
     svc_search_url: str = f"{client_url}api/search"
     svc_repository_url: str = f"{client_url}api/repository"
     svc_users_url: str = f"{client_url}api/auth/users"
-    oidc_client_id: str = None
+    oidc_client_id: str = "ghga-client"
     oidc_redirect_url: str = f"{client_url}oauth/callback"
     oidc_scope: str = "openid profile email"
     oidc_authority_url: str = "https://proxy.aai.lifescience-ri.eu/"
     oidc_authorization_url: str = f"{oidc_authority_url}saml2sp/OIDC/authorization"
     oidc_token_url: str = f"{oidc_authority_url}OIDC/token"
     oidc_userinfo_url: str = f"{oidc_authority_url}OIDC/userinfo"
-    oidc_use_discovery: Optional[str] = True
+    oidc_use_discovery: bool = True
 
 
 def simplelog(text: str):
