@@ -34,7 +34,7 @@ Object.keys(data).forEach((endpoint) => {
   let result = data[endpoint];
   const resolver = (req, res, ctx) => {
     if (result === undefined) return;
-    console.debug("Mocking", method.toUpperCase, url);
+    console.debug("Mocking", method.toUpperCase(), url);
     if (typeof result === "number") {
       res.status(result);
       result = null;

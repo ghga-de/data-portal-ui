@@ -18,6 +18,9 @@ export const data = {
   // User registry
   "GET /api/auth/users/*": user,
 
+  // Static assets
+  "GET /static/*": undefined,
+
   // Metadata Repository Service
   "GET http://127.0.0.1:8001/*": undefined,
 
