@@ -36,6 +36,7 @@ class Config(BaseSettings):
     svc_search_url: str = f"{client_url}api/search"
     svc_repository_url: str = f"{client_url}api/repository"
     svc_users_url: str = f"{client_url}api/auth/users"
+    svc_wps_url: str = f"{client_url}api/wps"
     oidc_client_id: str = "ghga-client"
     oidc_redirect_url: str = f"{client_url}oauth/callback"
     oidc_scope: str = "openid profile email"
