@@ -34,14 +34,18 @@ Object.keys(data).forEach((endpoint) => {
   let result = data[endpoint];
   const resolver = (req, res, ctx) => {
     if (result === undefined) return;
-    console.debug("Mocking", method.toUpperCase, url);
+    console.debug("Mocking", method.toUpperCase(), url);
+    let args = [];
     if (typeof result === "number") {
-      res.status(result);
+      args.push(ctx.status(result));
       result = null;
     } else if (method === "post") {
-      res.status(result ? 201 : 204);
+      args.push(ctx.status(result ? 201 : 204));
     }
-    return res(result ? ctx.json(result) : null);
+    if (result) {
+      args.push(ctx.json(result));
+    }
+    return res(...args);
   };
   handlers.push(
     method === "post" ? rest.post(url, resolver) : rest.get(url, resolver)
