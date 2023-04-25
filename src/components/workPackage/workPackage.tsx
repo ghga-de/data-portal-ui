@@ -89,7 +89,7 @@ export function WorkPackage() {
   if (datasets === null) {
     return (
       <Container className="p-4">
-        <Alert variant="danger">Datasets could no tbe loaded.</Alert>
+        <Alert variant="danger">Datasets could not be loaded.</Alert>
       </Container>
     );
   }

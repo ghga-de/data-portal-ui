@@ -60,12 +60,13 @@ export const messageStore = createStore<MessageStore>((set, get) => ({
     ) {
       message.modal = true;
     }
-    const lastMessage = get().messages.at(-1);
     if (
-      lastMessage &&
-      lastMessage.modal === message.modal &&
-      lastMessage.title === message.title &&
-      lastMessage.detail === message.detail
+      get().messages.some(
+        (m) =>
+          m.modal === message.modal &&
+          m.title === message.title &&
+          m.detail === message.detail
+      )
     ) {
       return; // do not show duplicate messages
     }
@@ -91,5 +92,5 @@ export const useMessages = () => useStore(messageStore);
 
 // for usage outside components
 export const showMessage = (message: Message) => {
-  messageStore.getState().showMessage(message);
+  setTimeout(() => messageStore.getState().showMessage(message));
 };
