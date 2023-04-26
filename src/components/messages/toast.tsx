@@ -55,7 +55,9 @@ export const ToastMessage = (props: ToastMessageProps) => {
   }
   const autohide = !!delay;
 
-  const body = props.detail ? <Toast.Body>{props.detail}</Toast.Body> : null;
+  const body = props.detail ? (
+    <Toast.Body className="text-white">{props.detail}</Toast.Body>
+  ) : null;
   const headerStyle: CSSProperties = {};
   if (!body) {
     // without body, the header should be rounded at the bottom as well

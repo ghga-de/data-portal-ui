@@ -70,7 +70,11 @@ export function ModalMessage(props: ModalMessageProps) {
       handleClose();
     };
     button2 = (
-      <Button variant="secondary" onClick={handleButton2}>
+      <Button
+        variant="secondary"
+        className="text-white"
+        onClick={handleButton2}
+      >
         {props.label2 || "Cancel"}
       </Button>
     );
