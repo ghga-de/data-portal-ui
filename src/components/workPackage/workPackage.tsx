@@ -282,7 +282,7 @@ export function WorkPackage() {
               </Form.Text>
             </Form.Group>
             <Form.Group className="mt-2">
-              <Form.Label htmlFor="userKey">Your Crypt4GH key:</Form.Label>
+              <Form.Label htmlFor="userKey">Your public Crypt4GH key:</Form.Label>
               <Form.Control
                 type="text"
                 id="userKey"
@@ -296,7 +296,7 @@ export function WorkPackage() {
               {userKey ? null : (
                 <Form.Text muted>
                   Please enter your public Crypt4GH key (in Base64 encoded
-                  format) above.
+                  format) above, so that we can encrypt your data.
                 </Form.Text>
               )}
             </Form.Group>
