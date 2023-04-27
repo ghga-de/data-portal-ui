@@ -182,12 +182,28 @@ export function WorkPackage() {
     setUserKey(key);
     // validate the user key
     // (for testing, you can use MTIzNDU2Nzg5MDEyMzQ1Njc4OTAxMjM0NTY3ODkwMTI=)
-    const binKey = Buffer.from(key, "base64");
-    console.log(binKey.length);
+    let errorCode = 0;
+    if (key.match(/-.*PRIVATE.*-/)) {
+      errorCode = 1; // if any kind of private key has been posted
+    } else {
+      // allow and trim headers and footers for public keys
+      key = key.replace(/-----(BEGIN|END) CRYPT4GH PUBLIC KEY-----/, "").trim();
+      // Base64 decode the key
+      const binKey = Buffer.from(key, "base64");
+      if (binKey?.length !== 32) {
+        // key does not have the right length for a Crypt4GH public key
+        if (binKey.subarray(0, 5).equals(Buffer.from("c4gh-", "ascii"))) {
+          errorCode = 1; // key is actually a Base64 encoded Crypt4GH private key
+        } else {
+          errorCode = 2; // key is something else
+        }
+      }
+    }
     const error =
-      binKey?.length === 32
-        ? null
-        : "This does not seem to be a Base64 encoded Crypt4GH key.";
+      {
+        1: "Please do not paste your private key here.",
+        2: "This does not seem to be a Base64 encoded Crypt4GH key.",
+      }[errorCode] ?? null;
     setErrors({ ...errors, userKey: error });
   }
 
@@ -282,7 +298,9 @@ export function WorkPackage() {
               </Form.Text>
             </Form.Group>
             <Form.Group className="mt-2">
-              <Form.Label htmlFor="userKey">Your Crypt4GH key:</Form.Label>
+              <Form.Label htmlFor="userKey">
+                Your public Crypt4GH key:
+              </Form.Label>
               <Form.Control
                 type="text"
                 id="userKey"
@@ -296,7 +314,7 @@ export function WorkPackage() {
               {userKey ? null : (
                 <Form.Text muted>
                   Please enter your public Crypt4GH key (in Base64 encoded
-                  format) above.
+                  format) above, so that we can encrypt your data.
                 </Form.Text>
               )}
             </Form.Group>
