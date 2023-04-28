@@ -20,8 +20,8 @@ const Profile = () => {
     async function fetchData() {
       const user = await authService.getUser();
       setUser(user);
-      if (user) {
-        const url = `${WPS_URL}/datasets`;
+      if (user?.id) {
+        const url = `${WPS_URL}/users/${user.id}/datasets`;
         try {
           const response = await fetchJson(url);
           const datasets = await response.json();
