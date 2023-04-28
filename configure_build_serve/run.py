@@ -15,7 +15,7 @@ import argparse
 import os
 from pathlib import Path
 from subprocess import Popen
-from ghga_service_chassis_lib.config import config_from_yaml
+from hexkit.config import config_from_yaml
 from pydantic import BaseSettings
 
 ROOT_DIR = Path(__file__).parent.parent.resolve()
