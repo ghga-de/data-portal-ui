@@ -11,23 +11,12 @@
 # production
 /build
 
-# compiled Pyhton files
-__pycache__/
-*.py[cod]
-
-# environment files
-*.env
+# misc
+.DS_Store
+**/*.env
 
 # test certificate
 *.pem
 
 # log files
 npm-debug.log*
-
-# ignore VS Code settings
-.vscode/
-
-# desktop settings and thumbnails
-.DS_Store
-desktop.ini
-thumbs.db

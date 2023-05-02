@@ -1,13 +1,37 @@
-# CRLF line endings cause problems in Docker, so we force git to check in and out using only LF line endings.
-# File extensions.
-*.py					text eol=lf
+# CRLF line endings cause problems in Docker, so we force git
+# to check in and out using only LF line endings.
+
+*.cfg					text eol=lf
+*.ini					text eol=lf
+*.json					text eol=lf
 *.md					text eol=lf
-*.yaml			    	text eol=lf
-*.yml			    	text eol=lf
-# Files in root.
-requirements.txt		text eol=lf
+*.py					text eol=lf
+*.txt					text eol=lf
+*.yaml					text eol=lf
+*.yml					text eol=lf
+*.html					text eol=lf
+*.js					text eol=lf
+*.ts					text eol=lf
+*.tsx					text eol=lf
+*.scss					text eol=lf
+*.css					text eol=lf
+*.svg					text eol=lf
+
+*.gif                   binary
+*.gz                    binary
+*.bmp                   binary
+*.jpg                   binary
+*.jpeg                  binary
+*.png                   binary
+*.pdf                   binary
+*.ttf                   binary
+*.zip                   binary
+
 .editorconfig			text eol=lf
+
 .git*					text eol=lf
-#
-**/dev_*		    	text eol=lf
+*_files					text eol=lf
+*_files_ignore			text eol=lf
+
+**/dev_*				text eol=lf
 **/Dockerfile			text eol=lf
