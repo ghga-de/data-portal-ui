@@ -18,9 +18,12 @@ import SingleDatasetView from "./components/browse/singleDatasetView/singleDatas
 import Download from "./components/download/download";
 import Upload from "./components/upload/upload";
 import MetadataModel from "./components/metadataModel/metadataModel";
+import WorkPackage from "./components/workPackage/workPackage";
 import Callback from "./components/login/callback";
 import Register from "./components/register/register";
 import Profile from "./components/login/profile";
+import { MessageContainer } from "./components/messages/container";
+import { useMessages } from "./components/messages/usage";
 import authService from "./services/auth";
 import { useLayoutEffect } from "react";
 
@@ -40,6 +43,7 @@ const router = createBrowserRouter(
       <Route path="/download" element={<Download />} />
       <Route path="/upload" element={<Upload />} />
       <Route path="/metadata-model" element={<MetadataModel />} />
+      <Route path="/work-package" element={<WorkPackage />} />
       <Route path="/oauth/callback" element={<Callback />} />
       <Route path="/register" element={<Register />} />
       <Route path="/profile" element={<Profile />} />
@@ -51,6 +55,7 @@ const router = createBrowserRouter(
 function Layout() {
   let location = useLocation();
   const navigate = useNavigate();
+  const { showMessage } = useMessages();
 
   useLayoutEffect(() => {
     authService
@@ -67,9 +72,10 @@ function Layout() {
         }
       })
       .catch((error) => {
+        showMessage({ type: "error", title: "Cannot login" });
         console.error(error);
       });
-  }, [location, navigate]);
+  }, [location, navigate, showMessage]);
 
   return (
     <>
@@ -78,6 +84,7 @@ function Layout() {
       </header>
       <main>
         <Outlet />
+        <MessageContainer />
       </main>
       <footer>
         <Footer />

@@ -147,12 +147,23 @@ thumbs.db
 # production
 /build
 
-# misc
-.DS_Store
-**/*.env
+# compiled Pyhton files
+__pycache__/
+*.py[cod]
+
+# environment files
+*.env
 
 # test certificate
 *.pem
 
 # log files
 npm-debug.log*
+
+# ignore VS Code settings
+.vscode/
+
+# desktop settings and thumbnails
+.DS_Store
+desktop.ini
+thumbs.db

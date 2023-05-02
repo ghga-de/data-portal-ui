@@ -1,11 +1,7 @@
 import { Log, User as OidcUser, UserManager } from "oidc-client-ts";
-import type {
-  OidcMetadata,
-  OidcStandardClaims,
-  UserManagerSettings,
-} from "oidc-client-ts";
-import jwt_decode from "jwt-decode";
+import type { OidcMetadata, UserManagerSettings } from "oidc-client-ts";
 import { fetchJson } from "../utils/utils";
+import { showMessage } from "../components/messages/usage";
 
 /**
  * Interface for a full high-level user object.
@@ -60,7 +56,7 @@ class AuthService {
       redirect_uri: env("redirect_url"),
       response_type: "code",
       scope: env("scope"),
-      loadUserInfo: false,
+      loadUserInfo: true,
       automaticSilentRenew: true,
     };
 
@@ -155,19 +151,15 @@ class AuthService {
       try {
         oidcUser = await this.getOidcUser();
       } catch (error) {
-        console.error("Cannot get user:", error);
+        const title = "Cannot get user";
+        showMessage({ type: "error", title });
+        console.error(title, error);
         oidcUser = null;
       }
     }
     let user: User | null = null;
     if (oidcUser) {
-      let jwtClaims: OidcStandardClaims = {};
-      try {
-        jwtClaims = jwt_decode<OidcStandardClaims>(oidcUser.access_token);
-      } catch (error) {
-        console.error("Cannot decode access token:", error);
-      }
-      const { name, email, sub } = jwtClaims;
+      const { name, email, sub } = oidcUser.profile;
       if (name && email && sub) {
         const expired = oidcUser.expired ?? true;
         user = { expired, name, email, ext_id: sub };
@@ -184,11 +176,19 @@ class AuthService {
               changed: name !== userData.name || email !== userData.email,
             };
           } else if (response.status !== 404) {
-            console.error("Cannot verify user:", response.statusText);
+            const title = "Cannot verify user";
+            showMessage({ type: "error", title });
+            console.error(title, response.statusText);
           }
         } catch (error) {
-          console.error("Cannot access the server:", error);
+          const title = "Cannot access the server";
+          showMessage({ type: "error", title });
+          console.error(title, error);
         }
+      } else {
+        const title = "Cannot get required user properties";
+        showMessage({ type: "error", title });
+        console.error(title);
       }
     }
     this.setUser(user);

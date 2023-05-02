@@ -11,6 +11,7 @@ import {
   faArrowRightFromBracket,
   faPenToSquare,
 } from "@fortawesome/free-solid-svg-icons";
+import { useMessages } from "../messages/usage";
 
 const USERS_URL = process.env.REACT_APP_SVC_USERS_URL;
 
@@ -23,6 +24,7 @@ const Register = () => {
   const [accepted, setAccepted] = useState<boolean>(false);
   const [blocked, setBlocked] = useState<boolean>(true);
   const blocker = useBlocker(blocked);
+  const { showMessage } = useMessages();
 
   const back = () => {
     const lastUrl = sessionStorage.getItem("lastUrl");
@@ -80,11 +82,11 @@ const Register = () => {
     }
     const response = await fetchJson(url, method, userData).catch(() => null);
     if (response && response.status === ok) {
-      // TODO: should confirm that the user has been updated/registered
+      showMessage({ type: "success", title: "Registration successful" });
       navigate("/profile");
       return;
     }
-    alert("Could not register"); // TODO: nicer
+    showMessage({ type: "error", title: "Could not register" });
     back();
   };
 
