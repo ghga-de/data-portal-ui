@@ -52,7 +52,7 @@ export const data = {
   "GET /api/auth/users/*": user,
 
   // Datasets
-  "GET /api/wps/datasets": datasets,
+  "GET /api/wps/users/j.doe@ghga.de/datasets": datasets,
 
   // Work packages
   // example key for input: MTIzNDU2Nzg5MDEyMzQ1Njc4OTAxMjM0NTY3ODkwMTI
