@@ -9,7 +9,7 @@ services:
       DATA_PORTAL_UI_HOST: 0.0.0.0
       DATA_PORTAL_UI_PORT: 8080
     ports:
-      - 8000:8080
+      - 127.0.0.1:8000:8080
     depends_on:
       - metadata_search_svc
       - metadata_rep
@@ -41,7 +41,7 @@ services:
       metadata-search-service
       '''
     ports:
-      - 8001:8080
+      - 127.0.0.1:8001:8080
     depends_on:
       - metadata_db
 
@@ -50,13 +50,13 @@ services:
   metadata_pop:
     image: ghga/metadata-populate-job:main
     environment:
-       DATA_DB_NAME: metadata
-       DATA_DB_URL: mongodb://metadata_db:27017
-    entrypoint: [ "bash", "-c", "./clean-data.sh && ./populate-data.sh" ]
+      DATA_DB_NAME: metadata
+      DATA_DB_URL: mongodb://metadata_db:27017
+    entrypoint: ["bash", "-c", "./clean-data.sh && ./populate-data.sh"]
     env_file:
-     - local.env
+      - local.env
     depends_on:
-      - metadata_db  
+      - metadata_db
 
   #metadata repo
 
@@ -75,7 +75,7 @@ services:
 
     entrypoint: ["metadata-repository-service"]
     ports:
-      - 8002:8080
+      - 127.0.0.1:8002:8080
     depends_on:
       - metadata_db
 

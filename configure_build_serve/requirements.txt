@@ -1,1 +1,1 @@
-ghga-service-chassis-lib==0.17.4
+hexkit==0.9.2

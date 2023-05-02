@@ -19,12 +19,13 @@ test ! -f "$CERTFILE" -o ! -f "$KEYFILE" && \
 
 # also add local environment that makes use of this
 
-test ! -f "$ENVFILE" && echo "\
+if ! test -f "$ENVFILE" || ! grep -q "HTTPS=" "$ENVFILE"; then
+echo "
 HTTPS=true
 SSL_CRT_FILE=.devcontainer/$CERTFILE
 SSL_KEY_FILE=.devcontainer/$KEYFILE
-DATA_PORTAL_UI_HOST=$HOST
-DATA_PORTAL_UI_PORT=443
 REACT_APP_CLIENT_URL=https://$HOST/
 REACT_APP_OIDC_CLIENT_ID=$CLIENT_ID # please adapt
-REACT_APP_BASIC_AUTH=$BASIC_AUTH # please adapt" > "$ENVFILE"
+REACT_APP_BASIC_AUTH=$BASIC_AUTH # please adapt
+" >> "$ENVFILE"
+fi
