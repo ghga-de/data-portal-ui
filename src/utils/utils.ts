@@ -1,4 +1,5 @@
 import { Dispatch, SetStateAction } from "react";
+import { querySearchService } from "../api/browse";
 import {
   dataAccessCommitteeModel,
   dataAccessPolicyModel,
@@ -6,7 +7,6 @@ import {
   searchResponseModel,
 } from "../models/dataset";
 import { facetFilterModel } from "../models/facets";
-import { querySearchService } from "../api/browse";
 import authService from "../services/auth";
 
 const CLIENT_URL = process.env.REACT_APP_CLIENT_URL;
@@ -25,18 +25,18 @@ export const getFilterString = (filterDict: facetFilterModel[]) => {
 };
 
 /**
- * Scroll page smoothly to 60 pixels below the top
+ * Scroll page smoothly to 0 pixels below the top
  * @returns Nothing
  */
 export const scrollUp = () => {
   window.scrollTo({
-    top: 60,
+    top: 0,
     behavior: "smooth",
   });
 };
 
 /**
- * Convert a string representation of filter into an array of objects 
+ * Convert a string representation of filter into an array of objects
  * that conform to the facetFilterModel.
  * @param filterString - Semicolon-separated string of key-value pairs
  * @returns facetFilterModelList
@@ -57,7 +57,7 @@ export const getFilterParams = (filterString: string | null) => {
 };
 
 /**
- * Convert byte size into a human-readable format 
+ * Convert byte size into a human-readable format
  * @param bytes - Bytes as number
  * @returns Human readable size string, e.g. 5 kB
  */
@@ -87,11 +87,11 @@ export const parseBytes = (bytes: number) => {
 /**
  * Handle filters and call querySearchService to get search results from API
  * and set the search results, applied filters and page states of a component
- * 
+ *
  * @remarks
- * If appliedFilterDict is specified (not null) these filters are used, 
+ * If appliedFilterDict is specified (not null) these filters are used,
  * otherwise filterDict is used and the appliedFilterDict is updated accordingly.
- * 
+ *
  * @param setSearchResults - SetState function that sets search results state conforms to the searchResponseModel or null
  * @param filterDict - Array of objects that conform to the facetFilterModel.
  * @param searchKeyword - String representing the search keyword.
@@ -269,3 +269,9 @@ export const transposeTableForHTML = (data: string[]) => {
   }
   return grid;
 };
+
+export const static_page_main_div_classes = "mx-auto px-2 px-md-5 my-5";
+export const static_page_img_row_classes =
+  "text-center w-100 mx-0 px-0 mb-4 mb-sm-5 justify-content-center";
+export const static_page_img_col_classes =
+  "mx-0 px-0 col-md-11 col-lg-10 col-xl-8 col-xxl-6";

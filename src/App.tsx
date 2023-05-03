@@ -13,7 +13,7 @@ import {
   createRoutesFromElements,
 } from "react-router-dom";
 import Home from "./components/home/home";
-import AboutUs from "./components/aboutUs/aboutUs";
+import AboutUs from "./components/faq/faq";
 import SingleDatasetView from "./components/browse/singleDatasetView/singleDatasetView";
 import Download from "./components/download/download";
 import Upload from "./components/upload/upload";
