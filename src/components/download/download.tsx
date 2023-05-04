@@ -114,7 +114,7 @@ const Download = () => {
         </p>
         <Row className={static_page_img_row_classes}>
           <Col className={static_page_img_col_classes}>
-            <img src={emailImg} alt="Dataset details" className="w-100" />
+            <img src={requestImg} alt="Dataset details" className="w-100" />
           </Col>
         </Row>
       </div>
@@ -166,8 +166,7 @@ const Download = () => {
           the desired datasets.
           <br />
           <strong>
-            Note: The GHGA Metadata Catalog is not responsible for data
-            accession
+            Note: The GHGA Data Portal is not responsible for data accession
           </strong>
         </p>
       </div>

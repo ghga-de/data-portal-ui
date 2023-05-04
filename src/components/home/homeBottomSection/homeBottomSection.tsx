@@ -3,8 +3,8 @@ import PerfectScrollbar from "react-perfect-scrollbar";
 import "react-perfect-scrollbar/dist/css/styles.css";
 import standards from "./standards.json";
 
-/** 
- * Section on the home page where Standards are displayed in carousel. 
+/**
+ * Section on the home page where Standards are displayed in carousel.
  * @remarks
  * Its content comes from the "standards.json" file instead of server.
  */
@@ -13,7 +13,7 @@ const HomeBottomSection = () => {
     <Row className="mx-2 mb-3">
       <Col>
         <h4 className="fw-bold fs-3 p-3 pb-1">Our Standards</h4>
-        <hr className="mx-3 border-tertiary mb-5 opacity-100"/>
+        <hr className="mx-3 border-tertiary mb-5 opacity-100" />
         <Carousel indicators={false} variant="dark" interval={null}>
           {standards
             .map((value) => ({ value, sort: Math.random() }))
@@ -21,7 +21,7 @@ const HomeBottomSection = () => {
             .map(({ value }) => value)
             .map((x, idx) => (
               <Carousel.Item key={"homepage_projects_" + idx}>
-                <div className="px-5 mx-5">
+                <div className="px-3 px-sm-3 px-lg-5 mx-0 mx-sm-3 mx-lg-5">
                   <h4 className="fw-bold">{x.name}</h4>
                   <Row>
                     {x.img_location === "" ? (
@@ -30,7 +30,7 @@ const HomeBottomSection = () => {
                         style={{ height: "200px" }}
                       >
                         <PerfectScrollbar>
-                          <p style={{textAlign: "justify"}}>
+                          <p style={{ textAlign: "justify" }}>
                             {x.description.split("\n").map((z, idz) => (
                               <span
                                 key={
@@ -53,7 +53,7 @@ const HomeBottomSection = () => {
                           style={{ height: "200px" }}
                         >
                           <PerfectScrollbar>
-                            <p style={{textAlign: "justify"}}>
+                            <p style={{ textAlign: "justify" }}>
                               {x.description.split("\n").map((z, idz) => (
                                 <span
                                   key={

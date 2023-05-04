@@ -13,7 +13,7 @@ import {
   createRoutesFromElements,
 } from "react-router-dom";
 import Home from "./components/home/home";
-import AboutUs from "./components/faq/faq";
+import FAQ from "./components/faq/faq";
 import SingleDatasetView from "./components/browse/singleDatasetView/singleDatasetView";
 import Download from "./components/download/download";
 import Upload from "./components/upload/upload";
@@ -31,7 +31,7 @@ const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<Layout />}>
       <Route index element={<Home />} />
-      <Route path="/about-us" element={<AboutUs />} />
+      <Route path="/faq" element={<FAQ />} />
       <Route path="/browse">
         <Route index element={<Browse />} />
         <Route path="?p=:page" element={<Browse />} />
