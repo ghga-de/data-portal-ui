@@ -2,6 +2,9 @@ import { Log, User as OidcUser, UserManager } from "oidc-client-ts";
 import type { OidcMetadata, UserManagerSettings } from "oidc-client-ts";
 import { fetchJson } from "../utils/utils";
 import { showMessage } from "../components/messages/usage";
+import { createStore, useStore } from "zustand";
+
+const USERS_URL = process.env.REACT_APP_SVC_USERS_URL;
 
 /**
  * Interface for a full high-level user object.
@@ -12,6 +15,7 @@ import { showMessage } from "../components/messages/usage";
 export interface User {
   expired: boolean;
   name: string;
+  fullName: string;
   email: string;
   ext_id: string;
   id?: string;
@@ -20,23 +24,37 @@ export interface User {
   changed?: boolean;
 }
 
-export function fullName(user: User): string {
-  let { name, title } = user;
-  return title ? `${title} ${name}` : name;
-}
+/**
+ * A store for information about the authenticated user.
+ */
 
-const USERS_URL = process.env.REACT_APP_SVC_USERS_URL;
+type AuthStore = {
+  user: User | null; // null = not logged in
+  setUser: (user: User | null) => void;
+  loginUser: () => Promise<void>;
+  logoutUser: () => Promise<void>;
+};
+
+const authStore = createStore<AuthStore>((set) => ({
+  user: null,
+  setUser: (user) => {
+    set(() => ({ user }));
+  },
+  loginUser: () => authService.login(),
+  logoutUser: () => authService.logout(),
+}));
+
+// for usage in components
+export const useAuth = () => useStore(authStore);
 
 /** Authentication service (global object) */
 
 class AuthService {
   userManager: UserManager;
-  user: User | null;
 
   constructor() {
     const settings = this.settings;
     this.userManager = new UserManager(settings);
-    this.user = null;
 
     Log.setLogger(console);
     Log.setLevel(Log.INFO); // set to DEBUG for more output
@@ -80,21 +98,11 @@ class AuthService {
     return settings;
   }
 
-  /**
-   * Notify components of changed user.
-   */
-  private notify(user: User | null): void {
-    document.dispatchEvent(new CustomEvent("auth", { detail: user }));
-  }
-
   /***
-   * Set new user and notify components.
+   * Set new user.
    */
-  private setUser(user: User | null, notify = true): void {
-    if (this.user !== user) {
-      this.user = user;
-      if (notify) this.notify(user);
-    }
+  private setUser(user: User | null): void {
+    authStore.getState().setUser(user);
   }
 
   /**
@@ -138,6 +146,14 @@ class AuthService {
   }
 
   /**
+   * Return promise to load the OIDC access token for the currently authenticated user.
+   */
+  async getAccessToken(): Promise<string | null> {
+    const user = await this.getOidcUser();
+    return user?.access_token || null;
+  }
+
+  /**
    * Return promise to load a User object
    * for the currently authenticated user.
    * In addition to the User object it also contains
@@ -162,17 +178,20 @@ class AuthService {
       const { name, email, sub } = oidcUser.profile;
       if (name && email && sub) {
         const expired = oidcUser.expired ?? true;
-        user = { expired, name, email, ext_id: sub };
+        let fullName = name;
+        user = { expired, name, fullName: name, email, ext_id: sub };
         try {
           const response = await fetchJson(`${USERS_URL}/${sub}`);
           if (response.status === 200) {
             const userData = await response.json();
             const { id, status, title } = userData;
+            if (title) fullName = `${title} ${fullName}`;
             user = {
               ...user,
               id,
               status,
               title,
+              fullName,
               changed: name !== userData.name || email !== userData.email,
             };
           } else if (response.status !== 404) {
@@ -196,6 +215,4 @@ class AuthService {
   }
 }
 
-const authService = new AuthService();
-
-export default authService;
+export const authService = new AuthService();

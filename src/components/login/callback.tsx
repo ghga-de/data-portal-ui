@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { Col, Container, Row, Spinner } from "react-bootstrap";
-import authService from "../../services/auth";
+import { authService } from "../../services/auth";
 import { useMessages } from "../messages/usage";
 
 /** Handle redirect after OIDC login */
