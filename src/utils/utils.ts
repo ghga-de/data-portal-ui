@@ -7,7 +7,7 @@ import {
 } from "../models/dataset";
 import { facetFilterModel } from "../models/facets";
 import { querySearchService } from "../api/browse";
-import authService from "../services/auth";
+import { authService } from "../services/auth";
 
 const CLIENT_URL = process.env.REACT_APP_CLIENT_URL;
 
@@ -36,7 +36,7 @@ export const scrollUp = () => {
 };
 
 /**
- * Convert a string representation of filter into an array of objects 
+ * Convert a string representation of filter into an array of objects
  * that conform to the facetFilterModel.
  * @param filterString - Semicolon-separated string of key-value pairs
  * @returns facetFilterModelList
@@ -57,7 +57,7 @@ export const getFilterParams = (filterString: string | null) => {
 };
 
 /**
- * Convert byte size into a human-readable format 
+ * Convert byte size into a human-readable format
  * @param bytes - Bytes as number
  * @returns Human readable size string, e.g. 5 kB
  */
@@ -87,11 +87,11 @@ export const parseBytes = (bytes: number) => {
 /**
  * Handle filters and call querySearchService to get search results from API
  * and set the search results, applied filters and page states of a component
- * 
+ *
  * @remarks
- * If appliedFilterDict is specified (not null) these filters are used, 
+ * If appliedFilterDict is specified (not null) these filters are used,
  * otherwise filterDict is used and the appliedFilterDict is updated accordingly.
- * 
+ *
  * @param setSearchResults - SetState function that sets search results state conforms to the searchResponseModel or null
  * @param filterDict - Array of objects that conform to the facetFilterModel.
  * @param searchKeyword - String representing the search keyword.
@@ -223,8 +223,7 @@ export const fetchJson = async (
   if (CLIENT_URL) {
     headers["Origin"] = CLIENT_URL;
   }
-  const user = await authService.getOidcUser();
-  const token = user?.access_token;
+  const token = await authService.getAccessToken();
   if (token) {
     // the Authorization header is already used for Basic auth,
     // therefore we use the X-Authorization header for the OIDC token

@@ -2,17 +2,17 @@ import { rest } from "msw";
 import { data } from "./data";
 import { setOidcUser } from "./login";
 
-const FAKE_AUTH = true;
-
 const CLIENT_URL = process.env["REACT_APP_CLIENT_URL"];
 const OIDC_AUTHORITY_URL = process.env["REACT_APP_OIDC_AUTHORITY_URL"];
 const OIDC_CONFIG_URL = OIDC_AUTHORITY_URL + ".well-known/openid-configuration";
+
+const fakeAuth = !!CLIENT_URL.match(/127\.|local/);
 
 // handlers for REST endpoints
 export const handlers = [
   // intercept OIDC configuration request and redirect to profile page
   rest.get(OIDC_CONFIG_URL, (req, res, ctx) => {
-    if (FAKE_AUTH) {
+    if (fakeAuth) {
       setOidcUser();
       return res(
         ctx.json({

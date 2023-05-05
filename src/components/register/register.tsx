@@ -1,8 +1,7 @@
-import { ChangeEvent, FormEvent, useEffect, useState } from "react";
+import { ChangeEvent, FormEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { unstable_useBlocker as useBlocker } from "react-router-dom";
 import { Button, Container, Modal, Row, Col } from "react-bootstrap";
-import authService, { fullName, User } from "../../services/auth";
 import { fetchJson } from "../../utils/utils";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -12,6 +11,7 @@ import {
   faPenToSquare,
 } from "@fortawesome/free-solid-svg-icons";
 import { useMessages } from "../messages/usage";
+import { useAuth } from "../../services/auth";
 
 const USERS_URL = process.env.REACT_APP_SVC_USERS_URL;
 
@@ -19,12 +19,12 @@ const USERS_URL = process.env.REACT_APP_SVC_USERS_URL;
 
 const Register = () => {
   const navigate = useNavigate();
-  const [user, setUser] = useState<User | null | undefined>(undefined);
   const [title, setTitle] = useState<string>("");
   const [accepted, setAccepted] = useState<boolean>(false);
   const [blocked, setBlocked] = useState<boolean>(true);
   const blocker = useBlocker(blocked);
   const { showMessage } = useMessages();
+  const { user, logoutUser } = useAuth();
 
   const back = () => {
     const lastUrl = sessionStorage.getItem("lastUrl");
@@ -41,7 +41,7 @@ const Register = () => {
   };
 
   const logout = async () => {
-    await authService.logout();
+    await logoutUser();
     unblock();
     back();
   };
@@ -90,11 +90,6 @@ const Register = () => {
     back();
   };
 
-  useEffect(() => {
-    if (authService.user) setUser(authService.user);
-    else authService.getUser().then(setUser);
-  }, [user]);
-
   const handleTitle = (event: ChangeEvent<HTMLSelectElement>) => {
     setTitle(event.target.value);
   };
@@ -120,7 +115,7 @@ const Register = () => {
           <FontAwesomeIcon icon={faIdCard} className="me-2 text-secondary" />{" "}
           Registration with GHGA
         </h1>
-        <h2 className="mt-4">Welcome, {fullName(user)}!</h2>
+        <h2 className="mt-4">Welcome, {user.fullName}!</h2>
         <p>{prompt()}</p>
         <form onSubmit={handleSubmit} className="mt-4">
           <div className="row g-3 mb-3">
