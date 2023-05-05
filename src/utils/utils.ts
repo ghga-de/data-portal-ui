@@ -7,7 +7,7 @@ import {
   searchResponseModel,
 } from "../models/dataset";
 import { facetFilterModel } from "../models/facets";
-import authService from "../services/auth";
+import { authService } from "../services/auth";
 
 const CLIENT_URL = process.env.REACT_APP_CLIENT_URL;
 
@@ -223,8 +223,7 @@ export const fetchJson = async (
   if (CLIENT_URL) {
     headers["Origin"] = CLIENT_URL;
   }
-  const user = await authService.getOidcUser();
-  const token = user?.access_token;
+  const token = await authService.getAccessToken();
   if (token) {
     // the Authorization header is already used for Basic auth,
     // therefore we use the X-Authorization header for the OIDC token

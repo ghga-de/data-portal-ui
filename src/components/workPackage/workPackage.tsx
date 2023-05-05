@@ -14,7 +14,7 @@ import {
   faUpload,
 } from "@fortawesome/free-solid-svg-icons";
 import { useMessages } from "../messages/usage";
-import authService, { User } from "../../services/auth";
+import { useAuth } from "../../services/auth";
 import { fetchJson } from "../../utils/utils";
 import { Buffer } from "buffer";
 
@@ -37,19 +37,17 @@ export function WorkPackage() {
   const [datasets, setDatasets] = useState<Dataset[] | null | undefined>(
     undefined
   );
-  const [user, setUser] = useState<User | null | undefined>(undefined);
   const [dataset, setDataset] = useState<Dataset | undefined>(undefined);
   const [files, setFiles] = useState<string | undefined>(undefined);
   const [userKey, setUserKey] = useState<string | undefined>(undefined);
   const [errors, setErrors] = useState<Errors>({});
   const [token, setToken] = useState<string | null | undefined>(undefined);
   const { showMessage } = useMessages();
+  const { user } = useAuth();
 
   useEffect(() => {
     async function fetchData() {
       let datasets: Dataset[] | null = null;
-      const user = await authService.getUser();
-      setUser(user);
       if (user?.id) {
         const url = `${WPS_URL}/users/${user.id}/datasets`;
         try {
@@ -66,7 +64,7 @@ export function WorkPackage() {
       setDatasets(datasets);
     }
     fetchData();
-  }, [showMessage]);
+  }, [showMessage, user]);
 
   if (datasets === undefined) {
     return (

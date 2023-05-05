@@ -24,7 +24,7 @@ import Register from "./components/register/register";
 import Profile from "./components/login/profile";
 import { MessageContainer } from "./components/messages/container";
 import { useMessages } from "./components/messages/usage";
-import authService from "./services/auth";
+import { authService } from "./services/auth";
 import { useLayoutEffect } from "react";
 
 const router = createBrowserRouter(

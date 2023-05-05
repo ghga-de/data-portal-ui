@@ -11,12 +11,28 @@
 # production
 /build
 
-# misc
-.DS_Store
+# environment files
 **/*.env
 
 # test certificate
 *.pem
 
+# Python artifacts
+*.py[cod]
+__pycache__/
+__pypackages__/
+
+# virtual environments
+.env/
+.venv/
+
+# VS Code settings
+.vscode/
+
 # log files
 npm-debug.log*
+
+# desktop settings and thumbnails
+.DS_Store
+desktop.ini
+thumbs.db

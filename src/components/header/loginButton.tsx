@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { NavLink, useLocation } from "react-router-dom";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import {
   Button,
   Overlay,
@@ -8,32 +8,25 @@ import {
   Popover,
   Tooltip,
 } from "react-bootstrap";
-import authService, { User } from "../../services/auth";
 import lsLogin from "../../assets/loginLS/ls-login.png";
 import {
   faArrowRightFromBracket,
   faArrowRightToBracket,
   faPenToSquare,
 } from "@fortawesome/free-solid-svg-icons";
+import { useAuth } from "../../services/auth";
 
 const LoginButton = () => {
-  const [user, setUser] = useState<User | null>(null);
+  const { user, loginUser, logoutUser } = useAuth();
 
   let location = useLocation();
 
-  useEffect(() => {
-    authService.getUser().then(setUser);
-    document.addEventListener("auth", (e) =>
-      setUser((e as CustomEvent).detail)
-    );
-  }, []);
-
-  function onLogin() {
+  const login = async () => {
     // memorize the last URL when the login button was clicked
     if (location.pathname !== "/register")
       sessionStorage.setItem("lastUrl", window.location.href);
-    authService.login();
-  }
+    await loginUser();
+  };
 
   const [showTooltip, setShowTooltip] = useState(false);
   const target = useRef(null);
@@ -41,8 +34,7 @@ const LoginButton = () => {
   const [showPopover, setShowPopover] = useState(false);
 
   const logout = async () => {
-    await authService.logout();
-    setUser(null);
+    await logoutUser();
     window.location.reload();
   };
 
@@ -254,7 +246,7 @@ const LoginButton = () => {
                     Alternatively, you can also activate an LS account with
                     username and password.
                   </p>
-                  <button className="p-0 border-0" onClick={() => onLogin()}>
+                  <button className="p-0 border-0" onClick={() => login()}>
                     <img src={lsLogin} alt="LS Login" width="200px" />
                   </button>
                 </Popover.Body>

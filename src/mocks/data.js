@@ -49,7 +49,7 @@ const workPackageToken = {
 
 export const data = {
   // User registry
-  "GET /api/auth/users/*": user,
+  [`GET /api/auth/users/${user.ext_id}`]: user,
 
   // Datasets
   "GET /api/wps/users/j.doe@ghga.de/datasets": datasets,

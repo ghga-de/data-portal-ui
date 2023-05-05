@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Alert, Button, Container, Row, Col } from "react-bootstrap";
 import { useNavigate, NavLink } from "react-router-dom";
 import { useMessages } from "../messages/usage";
-import authService, { fullName, User } from "../../services/auth";
+import { useAuth } from "../../services/auth";
 import { fetchJson } from "../../utils/utils";
 
 const WPS_URL = process.env.REACT_APP_SVC_WPS_URL;
@@ -12,14 +12,12 @@ const WPS_URL = process.env.REACT_APP_SVC_WPS_URL;
 const Profile = () => {
   const navigate = useNavigate();
 
-  const [user, setUser] = useState<User | null | undefined>(undefined);
   const [numDatasets, setNumDatasets] = useState<number>(0);
   const { showMessage } = useMessages();
+  const { user, logoutUser } = useAuth();
 
   useEffect(() => {
     async function fetchData() {
-      const user = await authService.getUser();
-      setUser(user);
       if (user?.id) {
         const url = `${WPS_URL}/users/${user.id}/datasets`;
         try {
@@ -36,12 +34,7 @@ const Profile = () => {
       }
     }
     fetchData();
-  }, [showMessage]);
-
-  const logout = async () => {
-    await authService.logout();
-    setUser(null);
-  };
+  }, [showMessage, user]);
 
   const back = () => {
     const lastUrl = sessionStorage.getItem("lastUrl");
@@ -58,7 +51,7 @@ const Profile = () => {
   } else
     content = (
       <div>
-        <h1 style={{ margin: "1em 0" }}>Welcome, {fullName(user)}!</h1>
+        <h1 style={{ margin: "1em 0" }}>Welcome, {user.fullName}!</h1>
         <div style={{ margin: "1em 0" }}>
           <p>
             We will communicate with you via this email address: &nbsp;
@@ -94,7 +87,11 @@ const Profile = () => {
           )}
         </div>
         <div style={{ margin: "2em 0", textAlign: "right" }}>
-          <Button variant="secondary" className="text-white" onClick={logout}>
+          <Button
+            variant="secondary"
+            className="text-white"
+            onClick={logoutUser}
+          >
             Logout
           </Button>
         </div>
