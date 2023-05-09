@@ -1,121 +1,194 @@
-import {
-  Button,
-  Nav,
-  Navbar,
-} from "react-bootstrap";
-import { NavLink } from "react-router-dom";
 import logo from "../../assets/GHGA_logo_clean.png";
+import { Navbar, Nav, Button, Row, Col, Offcanvas } from "react-bootstrap";
+import { NavLink } from "react-router-dom";
 import LoginButton from "./loginButton";
+import { useState } from "react";
 
 /** Navigation bar in the main header */
 const HeaderNavbar = () => {
-  const activePageStyle =
-    "btn btn-secondary p-0 h-100 m-0 mx-2 px-2 pt-1 text-white";
-  const inactivePageStyle =
-    "btn btn-primary p-0 h-100 m-0 mx-2 px-2 pt-1 text-white";
+  const navLinkClasses =
+    "h-100 m-0 py-2 pt-lg-1 pb-lg-1 px-lg-0 px-xl-2 w-100 w-lg-auto text-white btn";
+
+  const activePageStyle = navLinkClasses + " btn-secondary ";
+  const inactivePageStyle = navLinkClasses + " btn-primary";
+
+  const navColsSpanXS = "auto";
+  const navColsClasses = "text-center mb-2 mb-lg-0 mx-lg-1 mx-xl-2 ";
+
+  const [showOffCanvas, setShowOffCanvas] = useState(false);
+  const handleCloseOffCanvas = () => setShowOffCanvas(false);
+  const handleShowOffCanvas = () => setShowOffCanvas(true);
 
   return (
-    <Navbar
-      collapseOnSelect
-      expand="lg"
-      bg="primary"
-      variant="dark"
-      className="p-0 d-flex justify-content-between"
-    >
-      <NavLink to="/" end={true} className="ps-5 w-25">
-        <Button className="p-1 m-0 ps-3">
-          <div className="d-flex align-items-center">
-            <div
-              style={{ width: "80%" }}
-              className="flex-fill pe-2 me-2 border-end border-tertiary"
-            >
-              <img src={logo} alt="GHGA logo" height="35px" />
-            </div>
-            <div
-              className="text-tertiary h-100"
-              style={{ fontFamily: "Lexend" }}
-            >
-              <span
-                className="position-relative"
-                style={{ fontSize: "18px", top: "5px" }}
-              >
-                DATA
-              </span>
-              <br />
-              <span className="fs-5 position-relative" style={{ top: "-5px" }}>
-                PORTAL
-              </span>
-            </div>
-          </div>
-        </Button>
-      </NavLink>
-      <div className="container px-5 mx-auto w-50 d-flex">
-        <Navbar.Toggle
-          aria-controls="basic-navbar-nav"
-          className="border-2 text-white"
-        />
-        <Navbar.Collapse
-          id="responsive-navbar-nav"
-          className="justify-content-center"
-        >
-          <Nav className="justify-content-center" style={{ height: "36px" }}>
-            <NavLink
-              to="/"
-              end={true}
-              className={({ isActive }) =>
-                isActive ? activePageStyle : inactivePageStyle
-              }
-            >
-              Home
+    <Navbar expand="lg" bg="primary" variant="dark" className="p-0">
+      <Row className="w-100 mx-0 justify-content-between">
+        <Col xs={12} sm={10} lg={3} className="text-center text-md-start px-0">
+          <Navbar.Brand className="ps-xxl-5 me-0">
+            <NavLink to="/" end>
+              <Button className="p-1 m-0 ps-xl-3">
+                <div className="d-flex align-items-center">
+                  <div
+                    style={{ width: "80%" }}
+                    className="flex-fill pe-2 me-2 border-end border-tertiary"
+                  >
+                    <img src={logo} alt="GHGA logo" height="35px" />
+                  </div>
+                  <div
+                    className="text-tertiary h-100"
+                    style={{ fontFamily: "Lexend" }}
+                  >
+                    <span
+                      className="position-relative"
+                      style={{ fontSize: "18px", top: "5px" }}
+                    >
+                      DATA
+                    </span>
+                    <br />
+                    <span
+                      className="fs-5 position-relative"
+                      style={{ top: "-5px" }}
+                    >
+                      PORTAL
+                    </span>
+                  </div>
+                </div>
+              </Button>
             </NavLink>
-            <NavLink
-              to="/browse"
-              className={({ isActive }) =>
-                isActive ? activePageStyle : inactivePageStyle
-              }
+          </Navbar.Brand>
+        </Col>
+        <Col className="px-0 d-flex justify-content-end" xs={12} sm={2} lg={9}>
+          <Navbar.Toggle
+            aria-controls="responsive-navbar-nav"
+            className="border border-2 border-tertiary text-white mb-1 w-100 w-md-auto"
+            onClick={() => handleShowOffCanvas()}
+          />
+          <Navbar.Offcanvas
+            id="responsive-navbar-nav"
+            className="justify-content-center bg-primary border-0"
+            placement="end"
+            show={showOffCanvas}
+            onHide={handleCloseOffCanvas}
+          >
+            <Offcanvas.Header
+              closeButton
+              closeVariant="white"
+              className="text-white"
             >
-              Browse
-            </NavLink>
-            <NavLink
-              to="/about-us"
-              className={({ isActive }) =>
-                isActive ? activePageStyle : inactivePageStyle
-              }
-            >
-              About
-            </NavLink>
-            <NavLink
-              to="/download"
-              className={({ isActive }) =>
-                isActive ? activePageStyle : inactivePageStyle
-              }
-            >
-              Download
-            </NavLink>
-            <NavLink
-              to="/upload"
-              className={({ isActive }) =>
-                isActive ? activePageStyle : inactivePageStyle
-              }
-            >
-              Upload
-            </NavLink>
-            <NavLink
-              to="/metadata-model"
-              className={({ isActive }) =>
-                isActive ? activePageStyle : inactivePageStyle
-              }
-            >
-              Metadata Model
-            </NavLink>
-          </Nav>
-        </Navbar.Collapse>
-      </div>
-      <div className="w-25 justify-content-end d-flex pe-5">
-        <Nav className="" style={{ height: "36px" }}>
-          <LoginButton/>
-        </Nav>
-      </div>
+              Navigation
+            </Offcanvas.Header>
+            <Offcanvas.Body>
+              <Row className="justify-content-between w-100 mx-0">
+                <Col
+                  xs={12}
+                  lg={showOffCanvas ? 12 : 9}
+                  className="mb-2 mb-lg-0 px-0"
+                >
+                  <Nav
+                    className="justify-content-center h-100 h-lg-auto"
+                    style={{ height: "36px", whiteSpace: "nowrap" }}
+                  >
+                    <Col
+                      xs={navColsSpanXS}
+                      className={navColsClasses}
+                      onClick={() => handleCloseOffCanvas()}
+                    >
+                      <NavLink
+                        to="/"
+                        end={true}
+                        className={({ isActive }) =>
+                          isActive ? activePageStyle : inactivePageStyle
+                        }
+                      >
+                        Home
+                      </NavLink>
+                    </Col>
+                    <Col
+                      xs={navColsSpanXS}
+                      className={navColsClasses}
+                      onClick={() => handleCloseOffCanvas()}
+                    >
+                      <NavLink
+                        to="/browse"
+                        className={({ isActive }) =>
+                          isActive ? activePageStyle : inactivePageStyle
+                        }
+                      >
+                        Browse Data
+                      </NavLink>
+                    </Col>
+                    <Col
+                      xs={navColsSpanXS}
+                      className={navColsClasses}
+                      onClick={() => handleCloseOffCanvas()}
+                    >
+                      <NavLink
+                        to="/download"
+                        className={({ isActive }) =>
+                          isActive ? activePageStyle : inactivePageStyle
+                        }
+                      >
+                        Access Data
+                      </NavLink>
+                    </Col>
+                    <Col
+                      xs={navColsSpanXS}
+                      className={navColsClasses}
+                      onClick={() => handleCloseOffCanvas()}
+                    >
+                      <NavLink
+                        to="/upload"
+                        className={({ isActive }) =>
+                          isActive ? activePageStyle : inactivePageStyle
+                        }
+                      >
+                        Submit Data
+                      </NavLink>
+                    </Col>
+                    <Col
+                      xs={navColsSpanXS}
+                      className={navColsClasses}
+                      onClick={() => handleCloseOffCanvas()}
+                    >
+                      <NavLink
+                        to="/metadata-model"
+                        className={({ isActive }) =>
+                          isActive ? activePageStyle : inactivePageStyle
+                        }
+                      >
+                        Metadata Model
+                      </NavLink>
+                    </Col>
+                    <Col
+                      xs={navColsSpanXS}
+                      className={navColsClasses}
+                      onClick={() => handleCloseOffCanvas()}
+                    >
+                      <NavLink
+                        to="/faq"
+                        className={({ isActive }) =>
+                          isActive ? activePageStyle : inactivePageStyle
+                        }
+                      >
+                        FAQ
+                      </NavLink>
+                    </Col>
+                  </Nav>
+                </Col>
+                <Col
+                  className={
+                    "justify-content-end d-flex px-0" +
+                    (showOffCanvas ? " pt-sm-3" : " pe-xl-2 pe-xxl-5")
+                  }
+                  xs={12}
+                  lg={showOffCanvas ? 12 : 3}
+                >
+                  <LoginButton />
+                </Col>
+              </Row>
+            </Offcanvas.Body>
+          </Navbar.Offcanvas>
+        </Col>
+      </Row>
     </Navbar>
   );
 };

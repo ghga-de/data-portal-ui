@@ -39,7 +39,7 @@ const LoginButton = () => {
   };
 
   return (
-    <div>
+    <div className="me-3 me-xxl-0">
       {user ? (
         !user.id || user.changed ? (
           <>
@@ -89,8 +89,8 @@ const LoginButton = () => {
                 className="bg-tertiary justify-content-center align-items-center d-flex p-0 border-0"
                 style={{
                   borderRadius: "50%",
-                  width: "46px",
-                  height: "46px",
+                  width: "43px",
+                  height: "43px",
                   marginTop: "-4px",
                 }}
                 title="Complete registration"
@@ -108,8 +108,8 @@ const LoginButton = () => {
                   className="bg-quinary justify-content-center align-items-center d-flex text-tertiary"
                   style={{
                     borderRadius: "50%",
-                    width: "40px",
-                    height: "40px",
+                    width: "37px",
+                    height: "37px",
                   }}
                 >
                   <FontAwesomeIcon
@@ -180,8 +180,8 @@ const LoginButton = () => {
                 className="bg-tertiary justify-content-center align-items-center d-flex p-0 border-0"
                 style={{
                   borderRadius: "50%",
-                  width: "46px",
-                  height: "46px",
+                  width: "43px",
+                  height: "43px",
                   marginTop: "-4px",
                 }}
                 title="Login"
@@ -199,8 +199,8 @@ const LoginButton = () => {
                   className="bg-quinary justify-content-center align-items-center d-flex text-tertiary"
                   style={{
                     borderRadius: "50%",
-                    width: "40px",
-                    height: "40px",
+                    width: "37px",
+                    height: "37px",
                   }}
                 >
                   {user.name.split(" ").map((x) => x[0])}
@@ -257,8 +257,8 @@ const LoginButton = () => {
               className="bg-tertiary justify-content-center align-items-center d-flex p-0 border-0"
               style={{
                 borderRadius: "50%",
-                width: "44px",
-                height: "44px",
+                width: "41px",
+                height: "41px",
                 marginTop: "-3px",
               }}
               title="Login"
@@ -276,8 +276,8 @@ const LoginButton = () => {
                 className="bg-primary justify-content-center align-items-center d-flex text-tertiary"
                 style={{
                   borderRadius: "50%",
-                  width: "40px",
-                  height: "40px",
+                  width: "37px",
+                  height: "37px",
                 }}
               >
                 <FontAwesomeIcon

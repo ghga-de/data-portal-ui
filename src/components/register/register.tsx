@@ -103,6 +103,8 @@ const Register = () => {
     submitUserData();
   };
 
+  const dataDivClasses = "col-md-10 col-sm-9 text-break";
+
   let content;
   if (user === undefined) content = "Loading user data...";
   else if (user === null) {
@@ -122,19 +124,19 @@ const Register = () => {
             <label className="col-md-2 col-sm-3">
               <b>Name:</b>
             </label>
-            <div className="col-md-10 col-sm-9">{user.name}</div>
+            <div className={dataDivClasses}>{user.name}</div>
           </div>
           <div className="row g-3 mb-3">
             <label className="col-md-2 col-sm-3">
               <b>E-Mail:</b>
             </label>
-            <div className="col-md-10 col-sm-9">{user.email}</div>
+            <div className={dataDivClasses}>{user.email}</div>
           </div>
           <div className="row g-3 mb-4">
             <label className="col-md-2 col-sm-3">
               <b>Life Science ID:</b>
             </label>
-            <div className="col-md-10 col-sm-9">{user.ext_id}</div>
+            <div className={dataDivClasses}>{user.ext_id}</div>
           </div>
           <div className="row g-3 mb-5">
             <label
@@ -183,11 +185,15 @@ const Register = () => {
               className="text-white me-4"
               onClick={logout}
             >
-              <FontAwesomeIcon
-                icon={faArrowRightFromBracket}
-                className="me-2"
-              />
-              Cancel and log out
+              <Row className="flex-nowrap align-items-center">
+                <Col xs={"auto"} className="pe-0">
+                  <FontAwesomeIcon
+                    icon={faArrowRightFromBracket}
+                    className="me-2"
+                  />
+                </Col>
+                <Col className="ps-0">Cancel and log out</Col>
+              </Row>
             </Button>
             <Button
               type="submit"
@@ -195,8 +201,14 @@ const Register = () => {
               className="text-white"
               disabled={!accepted}
             >
-              <FontAwesomeIcon icon={faUserCheck} className="me-2 ms-3" />
-              <span className="me-3">{buttonText()}</span>
+              <Row className="flex-nowrap">
+                <Col xs={"auto"} className="pe-0">
+                  <FontAwesomeIcon icon={faUserCheck} className="me-2" />
+                </Col>
+                <Col className="ps-0">
+                  <span>{buttonText()}</span>
+                </Col>
+              </Row>
             </Button>
           </div>
         </form>

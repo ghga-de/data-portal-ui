@@ -7,14 +7,17 @@ interface ExperimentsTableProps {
 }
 
 /**
- * This function creates the schema for the file summary table, 
+ * This function creates the schema for the file summary table,
  * which is one of three tables in the dataset details view.
  * @param props - Object containing the data and details.
  * @param fileSize - File size in bytes to be displayed on table
  * @returns The table definition object that includes table content, button text and definitions.
  */
 export const FilesTable = (props: ExperimentsTableProps, fileSize: number) => {
-  const [sortDefinition, setSortDefinition] = useState<{ key: number; order: number }>({
+  const [sortDefinition, setSortDefinition] = useState<{
+    key: number;
+    order: number;
+  }>({
     key: 0,
     order: 0,
   });
@@ -42,7 +45,7 @@ export const FilesTable = (props: ExperimentsTableProps, fileSize: number) => {
     {
       header: "Checksum",
       data: props.details.has_file.map(
-        (x) => x.checksum_type + ": " + x.checksum
+        (x) => x.checksum_type + ":" + x.checksum
       ),
       cssClasses: "",
     },

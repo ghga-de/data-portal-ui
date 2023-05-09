@@ -70,27 +70,35 @@ const DataRequestModal = (props: DataRequestModalProps) => {
     `Kind regards`;
 
   const cleanEmail = (email: string) => {
-    let clean_email : string = email
-    clean_email = clean_email.replace('[at]', '@')
-    clean_email = clean_email.replace('[dot]', '.')
-    clean_email = clean_email.replace(';', '')
-    return clean_email
-  }
+    let clean_email: string = email;
+    clean_email = clean_email.replace("[at]", "@");
+    clean_email = clean_email.replace("[dot]", ".");
+    clean_email = clean_email.replace(";", "");
+    return clean_email;
+  };
 
   const requestAccess = () => {
     window.location.assign(
-      `mailto:${cleanEmail(props.copyEmail)}?subject=${subject}&body=${encodeURIComponent(
-        body
-      )}`
+      `mailto:${cleanEmail(
+        props.copyEmail
+      )}?subject=${subject}&body=${encodeURIComponent(body)}`
     );
   };
 
   const renderTooltip = (message: string) => (
-    <Tooltip id={message} key={props.accession + "_modal_message"}>{message}</Tooltip>
+    <Tooltip id={message} key={props.accession + "_modal_message"}>
+      {message}
+    </Tooltip>
   );
 
   return (
-    <Modal size="lg" centered show={props.show} onHide={props.handleClose} key={props.accession + "_modal"}>
+    <Modal
+      size="lg"
+      centered
+      show={props.show}
+      onHide={props.handleClose}
+      key={props.accession + "_modal"}
+    >
       <Modal.Header closeButton className="border-0">
         <Modal.Title>
           <FontAwesomeIcon icon={faDownload} className="text-muted me-3" />
@@ -116,11 +124,13 @@ const DataRequestModal = (props: DataRequestModalProps) => {
             />
           </Col>
           <Col>
-            To request access, you will need to first download the HIPO DACO Info form
-            from the DAP tab in the dataset details. Once this form is filled please
-            contact the indicated Data Access Committee (DAC) which is responsible for approving
-            applications for this dataset. Please copy the message below, attach the filled copy
-            of HIPO DACO Info form and send it via email to <strong>{props.copyEmail}</strong>.
+            To request access, you will need to first download the Data Access
+            Info form from the DAP tab in the dataset details. Once this form is
+            filled please contact the indicated Data Access Committee (DAC)
+            which is responsible for approving applications for this dataset.
+            Please copy the message below, attach the filled copy of Data Access
+            Info form and send it via email to{" "}
+            <strong>{props.copyEmail}</strong>.
             <br />
             If configured, you can click on ‘Open Mail Client’ to open the
             message in your preferred email client. Please add any additional
@@ -180,23 +190,25 @@ const DataRequestModal = (props: DataRequestModalProps) => {
                 overlay={renderTooltip(emailTooltipString)}
                 rootClose={true}
               >
-                <Col><CopyToClipboard text={cleanEmail(props.copyEmail)}>
-                  <Col
-                    lg={"auto"}
-                    md={"auto"}
-                    sm={"auto"}
-                    xl={"auto"}
-                    xs={"auto"}
-                    xxl={"auto"}
-                    className="pe-0"
-                    style={{ cursor: "pointer" }}
-                  >
-                    <strong>To: </strong>
-                    <span onMouseDown={() => setCopiedMessage(0)}>
-                      {props.copyEmail}
-                    </span>
-                  </Col>
-                </CopyToClipboard></Col>
+                <Col>
+                  <CopyToClipboard text={cleanEmail(props.copyEmail)}>
+                    <Col
+                      lg={"auto"}
+                      md={"auto"}
+                      sm={"auto"}
+                      xl={"auto"}
+                      xs={"auto"}
+                      xxl={"auto"}
+                      className="pe-0"
+                      style={{ cursor: "pointer" }}
+                    >
+                      <strong>To: </strong>
+                      <span onMouseDown={() => setCopiedMessage(0)}>
+                        {props.copyEmail}
+                      </span>
+                    </Col>
+                  </CopyToClipboard>
+                </Col>
               </OverlayTrigger>
               <Col
                 className="text-end ps-0"
@@ -213,17 +225,19 @@ const DataRequestModal = (props: DataRequestModalProps) => {
                   overlay={renderTooltip(emailTooltipString)}
                   rootClose={true}
                 >
-                  <Col><CopyToClipboard text={cleanEmail(props.copyEmail)}>
-                    <Button
-                      id={"email_address"}
-                      variant="outline-dark"
-                      size="sm"
-                      className="px-1 ms-1 py-1 border-0 my-0"
-                      onMouseDown={() => setCopiedMessage(0)}
-                    >
-                      <FontAwesomeIcon icon={faCopy} transform="up-6" />
-                    </Button>
-                  </CopyToClipboard></Col>
+                  <Col>
+                    <CopyToClipboard text={cleanEmail(props.copyEmail)}>
+                      <Button
+                        id={"email_address"}
+                        variant="outline-dark"
+                        size="sm"
+                        className="px-1 ms-1 py-1 border-0 my-0"
+                        onMouseDown={() => setCopiedMessage(0)}
+                      >
+                        <FontAwesomeIcon icon={faCopy} transform="up-6" />
+                      </Button>
+                    </CopyToClipboard>
+                  </Col>
                 </OverlayTrigger>
               </Col>
             </Row>
@@ -234,24 +248,26 @@ const DataRequestModal = (props: DataRequestModalProps) => {
                 overlay={renderTooltip(subjectTooltipString)}
                 rootClose={true}
               >
-                <Col><CopyToClipboard text={subject}>
-                  <Col
-                    lg={"auto"}
-                    md={"auto"}
-                    sm={"auto"}
-                    xl={"auto"}
-                    xs={"auto"}
-                    xxl={"auto"}
-                    className="pe-0"
-                    style={{ cursor: "pointer" }}
-                  >
-                    <strong>Subject: </strong>
+                <Col>
+                  <CopyToClipboard text={subject}>
+                    <Col
+                      lg={"auto"}
+                      md={"auto"}
+                      sm={"auto"}
+                      xl={"auto"}
+                      xs={"auto"}
+                      xxl={"auto"}
+                      className="pe-0"
+                      style={{ cursor: "pointer" }}
+                    >
+                      <strong>Subject: </strong>
 
-                    <span onMouseDown={() => setCopiedMessage(1)}>
-                      {subject}
-                    </span>
-                  </Col>
-                </CopyToClipboard></Col>
+                      <span onMouseDown={() => setCopiedMessage(1)}>
+                        {subject}
+                      </span>
+                    </Col>
+                  </CopyToClipboard>
+                </Col>
               </OverlayTrigger>
               <Col
                 className="text-end ps-0"
@@ -268,17 +284,19 @@ const DataRequestModal = (props: DataRequestModalProps) => {
                   overlay={renderTooltip(subjectTooltipString)}
                   rootClose={true}
                 >
-                  <Col><CopyToClipboard text={subject}>
-                    <Button
-                      id={"subject"}
-                      variant="outline-dark"
-                      size="sm"
-                      className="px-1 ms-1 py-1 border-0 my-0"
-                      onMouseDown={() => setCopiedMessage(1)}
-                    >
-                      <FontAwesomeIcon icon={faCopy} transform="up-6" />
-                    </Button>
-                  </CopyToClipboard></Col>
+                  <Col>
+                    <CopyToClipboard text={subject}>
+                      <Button
+                        id={"subject"}
+                        variant="outline-dark"
+                        size="sm"
+                        className="px-1 ms-1 py-1 border-0 my-0"
+                        onMouseDown={() => setCopiedMessage(1)}
+                      >
+                        <FontAwesomeIcon icon={faCopy} transform="up-6" />
+                      </Button>
+                    </CopyToClipboard>
+                  </Col>
                 </OverlayTrigger>
               </Col>
             </Row>
@@ -291,18 +309,24 @@ const DataRequestModal = (props: DataRequestModalProps) => {
             overlay={renderTooltip(bodyTooltipString)}
             rootClose={true}
           >
-            <Col><CopyToClipboard text={body}>
-              <Col style={{ cursor: "pointer" }}>
-                <p onMouseDown={() => setCopiedMessage(2)}>
-                  {body.split("\n").map((string, idx) => (
-                    <span key={props.accession + "_modal_request_body_text_ln_" + idx}>
-                      {string}
-                      <br />
-                    </span>
-                  ))}
-                </p>
-              </Col>
-            </CopyToClipboard></Col>
+            <Col>
+              <CopyToClipboard text={body}>
+                <Col style={{ cursor: "pointer" }}>
+                  <p onMouseDown={() => setCopiedMessage(2)}>
+                    {body.split("\n").map((string, idx) => (
+                      <span
+                        key={
+                          props.accession + "_modal_request_body_text_ln_" + idx
+                        }
+                      >
+                        {string}
+                        <br />
+                      </span>
+                    ))}
+                  </p>
+                </Col>
+              </CopyToClipboard>
+            </Col>
           </OverlayTrigger>
           <Col
             className="text-end pe-2"
@@ -319,16 +343,18 @@ const DataRequestModal = (props: DataRequestModalProps) => {
               overlay={renderTooltip(bodyTooltipString)}
               rootClose={true}
             >
-              <Col><CopyToClipboard text={body}>
-                <Button
-                  id={"email body"}
-                  variant="outline-dark"
-                  className="px-1 ms-1 py-1 border-0 my-0"
-                  onMouseDown={() => setCopiedMessage(2)}
-                >
-                  <FontAwesomeIcon icon={faCopy} />
-                </Button>
-              </CopyToClipboard></Col>
+              <Col>
+                <CopyToClipboard text={body}>
+                  <Button
+                    id={"email body"}
+                    variant="outline-dark"
+                    className="px-1 ms-1 py-1 border-0 my-0"
+                    onMouseDown={() => setCopiedMessage(2)}
+                  >
+                    <FontAwesomeIcon icon={faCopy} />
+                  </Button>
+                </CopyToClipboard>
+              </Col>
             </OverlayTrigger>
           </Col>
         </Row>

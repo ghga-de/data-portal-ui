@@ -34,12 +34,12 @@ const Filter = (props: filterProps) => {
   };
 
   return (
-    <Container className="col-11 mb-3 mx-0 w-100 p-0">
+    <Container className="col-11 mb-lg-3 mx-0 w-100 p-0">
       <Form>
-        <Form.Label className="mt-0 mb-3 text-capitalize fs-5">
+        <Form.Label className="mt-0 mb-lg-3 text-capitalize fs-5">
           <strong>{props.facet.name}</strong>
         </Form.Label>
-        <div className="border rounded border-light px-2 pt-3 pb-4 mb-3">
+        <div className="border rounded border-light px-2 py-1 pt-lg-3 pb-lg-4 mb-3">
           {props.facet.options
             .sort((a, b) => (b.option < a.option ? 1 : -1))
             .map((option) => {
@@ -62,7 +62,7 @@ const Filter = (props: filterProps) => {
                   >
                     <Row>
                       <Col lg={10} md={10} sm={10} xl={10} xs={10} xxl={10}>
-                        <p className="ps-2 my-0 text-capitalize">
+                        <p className="ps-2 my-0 text-capitalize text-break">
                           {option.option}
                         </p>
                       </Col>

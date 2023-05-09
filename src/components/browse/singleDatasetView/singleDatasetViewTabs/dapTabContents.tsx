@@ -3,8 +3,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Tab, Button, Row, Col } from "react-bootstrap";
 import { datasetEmbeddedModel } from "../../../../models/dataset";
 import { getDACEmailId } from "../../../../utils/utils";
-import 'react-perfect-scrollbar/dist/css/styles.css';
-import PerfectScrollbar from 'react-perfect-scrollbar'
+import "react-perfect-scrollbar/dist/css/styles.css";
+import PerfectScrollbar from "react-perfect-scrollbar";
 
 interface DapTabContentsProps {
   details: datasetEmbeddedModel;
@@ -12,7 +12,6 @@ interface DapTabContentsProps {
 
 /** Section at the top of dataset details page where the summary of dataset displayed. */
 const DapTabContents = (props: DapTabContentsProps) => {
-
   function isValidHttpUrl(str: string) {
     let url;
     try {
@@ -28,7 +27,8 @@ const DapTabContents = (props: DapTabContentsProps) => {
       {props.details.has_data_access_policy !== null ? (
         <div className="text-break overflow-auto h-100">
           <PerfectScrollbar>
-            {props.details.has_data_access_policy.policy_url !== null && isValidHttpUrl(props.details.has_data_access_policy.policy_url) ? (
+            {props.details.has_data_access_policy.policy_url !== null &&
+            isValidHttpUrl(props.details.has_data_access_policy.policy_url) ? (
               <Button
                 href={props.details.has_data_access_policy.policy_url}
                 target="_blank"
@@ -40,7 +40,7 @@ const DapTabContents = (props: DapTabContentsProps) => {
                     <FontAwesomeIcon icon={faLink} />
                   </Col>
                   <Col className="p-0 m-0 lh-1">
-                    <strong>HIPO DACO<br />Info Form</strong>
+                    <strong>Data Access Info Form</strong>
                   </Col>
                 </Row>
               </Button>
@@ -61,12 +61,18 @@ const DapTabContents = (props: DapTabContentsProps) => {
               />
               <strong>Policy and Data Access Committee</strong>
             </h5>
-            {props.details.has_data_access_policy.has_data_access_committee.alias !== null ? (
+            {props.details.has_data_access_policy.has_data_access_committee
+              .alias !== null ? (
               <p>
                 <strong>Data Access Committee: </strong>
-                {props.details.has_data_access_policy.has_data_access_committee.alias}
+                {
+                  props.details.has_data_access_policy.has_data_access_committee
+                    .alias
+                }
               </p>
-            ) : ''}
+            ) : (
+              ""
+            )}
             <p>
               <strong>e-Mail: </strong>
               {getDACEmailId(props.details)}
@@ -77,7 +83,14 @@ const DapTabContents = (props: DapTabContentsProps) => {
             </p>
             <p>
               <strong>Policy: </strong>
-              {props.details.has_data_access_policy.policy_text.split('\n').map((x, idx) => (<span key={'dap_policy_' + idx} className="fs-7">{x}<br /></span>))}
+              {props.details.has_data_access_policy.policy_text
+                .split("\n")
+                .map((x, idx) => (
+                  <span key={"dap_policy_" + idx} className="fs-7">
+                    {x}
+                    <br />
+                  </span>
+                ))}
             </p>
           </PerfectScrollbar>
         </div>
@@ -97,9 +110,7 @@ const DapTabContents = (props: DapTabContentsProps) => {
             />
             <strong>Policy and Data Access Committee</strong>
           </h5>
-          <p>
-            No Data Access Policy or Data Access Committee found.
-          </p>
+          <p>No Data Access Policy or Data Access Committee found.</p>
         </>
       )}
     </Tab.Pane>

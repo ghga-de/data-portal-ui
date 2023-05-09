@@ -7,13 +7,16 @@ interface ExperimentsTableProps {
 }
 
 /**
- * This function creates the schema for the experiment summary table, 
- * which is one of three tables in the dataset details view. 
+ * This function creates the schema for the experiment summary table,
+ * which is one of three tables in the dataset details view.
  * @param props - Object containing the data and details.
  * @returns The table definition object that includes table content, button text and definitions.
  */
 export const ExperimentsTable = (props: ExperimentsTableProps) => {
-  const [sortDefinition, setSortDefinition] = useState<{ key: number; order: number }>({
+  const [sortDefinition, setSortDefinition] = useState<{
+    key: number;
+    order: number;
+  }>({
     key: 0,
     order: 0,
   });
@@ -28,7 +31,7 @@ export const ExperimentsTable = (props: ExperimentsTableProps) => {
       data: props.details.has_experiment.map((x) =>
         x.ega_accession !== null ? x.ega_accession : x.alias
       ),
-      cssClasses: "w-25",
+      cssClasses: "w-25 text-wrap text-break",
     },
     {
       header: "Description",
