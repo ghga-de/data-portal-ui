@@ -63,7 +63,7 @@ const Register = () => {
   const submitUserData = async () => {
     if (!user || !USERS_URL) return;
     unblock();
-    const { id, ext_id, name, email } = user;
+    const { id, extId, name, email } = user;
     const userData: any = {
       name,
       email,
@@ -76,7 +76,7 @@ const Register = () => {
       method = "put";
       ok = 204;
     } else {
-      userData["ext_id"] = ext_id;
+      userData["ext_id"] = extId;
       method = "post";
       ok = 201;
     }
@@ -136,7 +136,7 @@ const Register = () => {
             <label className="col-md-2 col-sm-3">
               <b>Life Science ID:</b>
             </label>
-            <div className={dataDivClasses}>{user.ext_id}</div>
+            <div className={dataDivClasses}>{user.extId}</div>
           </div>
           <div className="row g-3 mb-5">
             <label

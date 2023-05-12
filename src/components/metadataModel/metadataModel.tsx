@@ -3,14 +3,14 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Col, Row } from "react-bootstrap";
 import schemaImg from "../../assets/metadataModel/metadatamodel_schema.png";
 import {
-  static_page_img_col_classes,
-  static_page_img_row_classes,
-  static_page_main_div_classes,
+  STATIC_PAGE_IMG_COL_CLASSES,
+  STATIC_PAGE_IMG_ROW_CLASSES,
+  STATIC_PAGE_MAIN_DIV_CLASSES,
 } from "../../utils/utils";
 
 export const MetadataModel = () => {
   return (
-    <div className={static_page_main_div_classes}>
+    <div className={STATIC_PAGE_MAIN_DIV_CLASSES}>
       <h5 className="mb-4 d-flex align-items-center text-secondary fw-bold">
         <FontAwesomeIcon
           icon={faDesktop}
@@ -58,7 +58,7 @@ export const MetadataModel = () => {
           <li>Dataset</li>
           <li>Sample</li>
         </ul>
-        <Row className={static_page_img_row_classes}>
+        <Row className={STATIC_PAGE_IMG_ROW_CLASSES}>
           <a
             className="p-2 border border-1 border-light-3 shadow-sm d-flex align-items-center justify-content-center"
             style={{ borderRadius: "20px" }}
@@ -66,7 +66,7 @@ export const MetadataModel = () => {
             target="_blank"
             rel="noreferrer"
           >
-            <Col className={static_page_img_col_classes}>
+            <Col className={STATIC_PAGE_IMG_COL_CLASSES}>
               <img src={schemaImg} alt="Schema" className="w-100" />
             </Col>
           </a>

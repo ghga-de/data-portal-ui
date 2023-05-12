@@ -51,7 +51,7 @@ const Profile = () => {
   } else
     content = (
       <div>
-        <h1 style={{ margin: "1em 0" }}>Welcome, {user.fullName}!</h1>
+        <h3 style={{ margin: "1em 0" }}>Welcome, {user.fullName}!</h3>
         <div style={{ margin: "1em 0" }}>
           <p>
             We will communicate with you via this email address: &nbsp;
@@ -86,6 +86,15 @@ const Profile = () => {
             <span>You do not yet have access to any datasets.</span>
           )}
         </div>
+        {user.role === "data_steward" ? (
+          <div>
+            <NavLink to="/data-steward-dashboard">
+              Data Steward Dashboard
+            </NavLink>
+          </div>
+        ) : (
+          <></>
+        )}
         <div style={{ margin: "2em 0", textAlign: "right" }}>
           <Button
             variant="secondary"

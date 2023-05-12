@@ -17,11 +17,12 @@ export interface User {
   name: string;
   fullName: string;
   email: string;
-  ext_id: string;
+  extId: string;
   id?: string;
   status?: string | null;
   title?: string | null;
   changed?: boolean;
+  role: string;
 }
 
 /**
@@ -179,7 +180,14 @@ class AuthService {
       if (name && email && sub) {
         const expired = oidcUser.expired ?? true;
         let fullName = name;
-        user = { expired, name, fullName: name, email, ext_id: sub };
+        user = {
+          expired,
+          name,
+          fullName: name,
+          email,
+          extId: sub,
+          role: "user",
+        };
         try {
           const response = await fetchJson(`${USERS_URL}/${sub}`);
           if (response.status === 200) {
@@ -193,6 +201,7 @@ class AuthService {
               title,
               fullName,
               changed: name !== userData.name || email !== userData.email,
+              role: userData.role,
             };
           } else if (response.status !== 404) {
             const title = "Cannot verify user";

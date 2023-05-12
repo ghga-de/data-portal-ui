@@ -17,27 +17,19 @@ import { useMessages } from "../messages/usage";
 import { useAuth } from "../../services/auth";
 import { fetchJson } from "../../utils/utils";
 import { Buffer } from "buffer";
+import { Errors, datasetSubmission } from "../../models/submissionsAndRequests";
 
 const WPS_URL = process.env.REACT_APP_SVC_WPS_URL;
-
-interface Dataset {
-  id: string;
-  title: string;
-  description: string;
-  workType: string;
-}
-
-interface Errors {
-  userKey?: string | null;
-}
 
 /** Work Package creation */
 
 export function WorkPackage() {
-  const [datasets, setDatasets] = useState<Dataset[] | null | undefined>(
+  const [datasets, setDatasets] = useState<
+    datasetSubmission[] | null | undefined
+  >(undefined);
+  const [dataset, setDataset] = useState<datasetSubmission | undefined>(
     undefined
   );
-  const [dataset, setDataset] = useState<Dataset | undefined>(undefined);
   const [files, setFiles] = useState<string | undefined>(undefined);
   const [userKey, setUserKey] = useState<string | undefined>(undefined);
   const [errors, setErrors] = useState<Errors>({});
@@ -47,7 +39,7 @@ export function WorkPackage() {
 
   useEffect(() => {
     async function fetchData() {
-      let datasets: Dataset[] | null = null;
+      let datasets: datasetSubmission[] | null = null;
       if (user?.id) {
         const url = `${WPS_URL}/users/${user.id}/datasets`;
         try {

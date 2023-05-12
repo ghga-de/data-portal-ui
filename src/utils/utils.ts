@@ -177,17 +177,17 @@ export const getDACEmailId = (
       details.has_data_access_policy;
     const dataAccessCommittee: dataAccessCommitteeModel =
       dataAccessPolicy.has_data_access_committee;
-    const main_contact = dataAccessCommittee.main_contact;
-    if (main_contact === null) {
+    const mainContact = dataAccessCommittee.main_contact;
+    if (mainContact === null) {
       for (var item of dataAccessCommittee.has_member) {
-        if (main_contact === null) {
+        if (mainContact === null) {
           mailId =
             item.email === null || item.email === undefined
               ? mailId
               : item.email;
         }
         if (
-          item.id === main_contact &&
+          item.id === mainContact &&
           item.email !== null &&
           item.email !== undefined
         ) {
@@ -195,7 +195,7 @@ export const getDACEmailId = (
         }
       }
     } else {
-      mailId = main_contact;
+      mailId = mainContact;
     }
   }
   return mailId;
@@ -269,8 +269,8 @@ export const transposeTableForHTML = (data: string[]) => {
   return grid;
 };
 
-export const static_page_main_div_classes = "mx-auto px-2 px-md-5 my-5";
-export const static_page_img_row_classes =
+export const STATIC_PAGE_MAIN_DIV_CLASSES = "mx-auto px-2 px-md-5 my-5";
+export const STATIC_PAGE_IMG_ROW_CLASSES =
   "text-center w-100 mx-0 px-0 mb-4 mb-sm-5 justify-content-center";
-export const static_page_img_col_classes =
+export const STATIC_PAGE_IMG_COL_CLASSES =
   "mx-0 px-0 col-md-11 col-lg-10 col-xl-8 col-xxl-6";
