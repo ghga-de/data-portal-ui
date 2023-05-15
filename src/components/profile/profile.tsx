@@ -88,8 +88,8 @@ const Profile = () => {
         </div>
         {user.role === "data_steward" ? (
           <div>
-            <NavLink to="/data-steward-dashboard">
-              Data Steward Dashboard
+            <NavLink to="/access-requests">
+              Manage Inbound Access Requests
             </NavLink>
           </div>
         ) : (

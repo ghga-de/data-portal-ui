@@ -26,7 +26,7 @@ import { MessageContainer } from "./components/messages/container";
 import { useMessages } from "./components/messages/usage";
 import { authService } from "./services/auth";
 import { useLayoutEffect } from "react";
-import DataStewardDashboard from "./components/dataStewardDashboard/dataStewardDashboard";
+import AccessRequests from "./components/accessRequests/accessRequests";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -48,10 +48,7 @@ const router = createBrowserRouter(
       <Route path="/oauth/callback" element={<Callback />} />
       <Route path="/register" element={<Register />} />
       <Route path="/profile" element={<Profile />} />
-      <Route
-        path="/data-steward-dashboard"
-        element={<DataStewardDashboard />}
-      />
+      <Route path="/access-requests" element={<AccessRequests />} />
       <Route path="*" element={<PageNotFound />} />
     </Route>
   )

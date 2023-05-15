@@ -87,7 +87,10 @@ export const data = {
   "GET /api/wps/users/j.doe@ghga.de/datasets": datasets,
 
   // All access requests
-  "GET /api/access_requests": accessRequests,
+  "GET /api/access-requests": accessRequests,
+
+  // Change access request status
+  [accessRequests.map((x) => `GET /api/access-requests/${x.id}`)]: true,
 
   // Work packages
   // example key for input: MTIzNDU2Nzg5MDEyMzQ1Njc4OTAxMjM0NTY3ODkwMTI
