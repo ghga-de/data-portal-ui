@@ -42,37 +42,6 @@ const workPackageToken = {
   token: "MTIzNDU2Nzg5MDEyMzQ1Njc4OTAxMjM0",
 };
 
-const accessRequests = [
-  {
-    id: "TEST00004000001",
-    user_id: "j.doe@ghga.de",
-    dataset_id: "TEST00003000001",
-    full_user_name: "Dr. John Doe",
-    email: "j.jdoe@home.org",
-    request_text: "This is a test request for dataset TEST00003000001.",
-    access_starts: "2023-05-11T15:00:00",
-    access_ends: "2024-05-11T14:59:59",
-    request_created: "2023-05-09T12:04:02",
-    status: "pending",
-    status_changed: null,
-    changed_by: null,
-  },
-
-  {
-    id: "TEST00005000001",
-    user_id: "j.doe@ghga.de",
-    dataset_id: "TEST00002000001",
-    full_user_name: "Dr. John Doe",
-    email: "j.jdoe@home.org",
-    request_text: "This is a test request for dataset TEST00003000001.",
-    access_starts: "2023-05-12T15:00:00",
-    access_ends: "2024-05-12T14:59:59",
-    request_created: "2023-05-11T12:04:02",
-    status: "pending",
-    status_changed: null,
-    changed_by: null,
-  },
-];
 // Static data to be returned for various endpoints.
 
 // The names must contain a method and a URL separated by a space
@@ -85,12 +54,6 @@ export const data = {
 
   // Datasets requested by j.doe@ghga.de user
   "GET /api/wps/users/j.doe@ghga.de/datasets": datasets,
-
-  // All access requests
-  "GET /api/access-requests": accessRequests,
-
-  // Change access request status
-  [accessRequests.map((x) => `GET /api/access-requests/${x.id}`)]: true,
 
   // Work packages
   // example key for input: MTIzNDU2Nzg5MDEyMzQ1Njc4OTAxMjM0NTY3ODkwMTI

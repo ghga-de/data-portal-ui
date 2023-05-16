@@ -1,6 +1,7 @@
 import { rest } from "msw";
 import { data } from "./data";
 import { setOidcUser } from "./login";
+import { getAllAccessRequests, setStatus } from "./accessRequest";
 
 const CLIENT_URL = process.env["REACT_APP_CLIENT_URL"];
 const OIDC_AUTHORITY_URL = process.env["REACT_APP_OIDC_AUTHORITY_URL"];
@@ -20,6 +21,33 @@ export const handlers = [
         })
       );
     }
+  }),
+
+  // Intercept GET all access requests
+  rest.get("/api/access-requests", (req, res, ctx) => {
+    return res(ctx.json(getAllAccessRequests()));
+  }),
+
+  // Intercept PATCH of an access request
+  rest.patch("/api/access-requests/:accessRequestId", (req, res, ctx) => {
+    const { accessRequestId } = req.params;
+    req.json().then((x) => {
+      switch (x.status) {
+        case "pending":
+          setStatus(accessRequestId, "pending");
+          break;
+        case "allowed":
+          setStatus(accessRequestId, "allowed");
+          break;
+        case "denied":
+          setStatus(accessRequestId, "denied");
+          break;
+        default:
+          return res(ctx.status(400));
+      }
+    });
+    const accessRequests = JSON.stringify(getAllAccessRequests());
+    return res(ctx.status(200), ctx.body(accessRequests));
   }),
 ];
 
@@ -48,6 +76,10 @@ Object.keys(data).forEach((endpoint) => {
     return res(...args);
   };
   handlers.push(
-    method === "post" ? rest.post(url, resolver) : rest.get(url, resolver)
+    method === "post"
+      ? rest.post(url, resolver)
+      : method === "patch"
+      ? rest.patch(url, resolver)
+      : rest.get(url, resolver)
   );
 });

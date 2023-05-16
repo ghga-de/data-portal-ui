@@ -29,6 +29,9 @@ const AccessRequests = () => {
   const [requests, setRequests] = useState<accessRequest[] | null | undefined>(
     undefined
   );
+  const [needsUpdate, setNeedsUpdate] = useState(false);
+  const [disabledButtons, setDisabledButtons] = useState(false);
+
   const { showMessage } = useMessages();
   const { user } = useAuth();
 
@@ -40,6 +43,7 @@ const AccessRequests = () => {
   const [requested, setRequested] = useState("");
   const [accessStart, setAccessStart] = useState("");
   const [accessEnd, setAccessEnd] = useState("");
+  const [status, setStatus] = useState("");
 
   const handleCloseModal = () => {
     setId("");
@@ -49,7 +53,9 @@ const AccessRequests = () => {
     setRequested("");
     setAccessStart("");
     setAccessEnd("");
+    setStatus("");
     setShowModal(false);
+    setDisabledButtons(false);
   };
   const handleShowModal = (
     accessId: string,
@@ -58,7 +64,8 @@ const AccessRequests = () => {
     requestText: string,
     dateRequested: string,
     accessStartDate: string,
-    accessEndDate: string
+    accessEndDate: string,
+    status: string
   ) => {
     setId(accessId);
     setRequester(accessRequester);
@@ -67,13 +74,13 @@ const AccessRequests = () => {
     setRequested(dateRequested);
     setAccessStart(accessStartDate);
     setAccessEnd(accessEndDate);
+    setStatus(status);
     setShowModal(true);
   };
 
   useEffect(() => {
     async function fetchData() {
       let requests: accessRequest[] | null = null;
-      console.log(`${API_URL}/access-requests`);
       if (user?.id) {
         const url = `${API_URL}/access-requests`;
         try {
@@ -89,7 +96,10 @@ const AccessRequests = () => {
       setRequests(requests);
     }
     fetchData();
-  }, [showMessage, user]);
+    if (needsUpdate) {
+      setNeedsUpdate(false);
+    }
+  }, [showMessage, user, needsUpdate]);
 
   if (requests === undefined) {
     return (
@@ -134,6 +144,11 @@ const AccessRequests = () => {
             requested={requested}
             accessStart={accessStart}
             accessEnd={accessEnd}
+            status={status}
+            disabledButtons={disabledButtons}
+            setDisabledButtons={setDisabledButtons}
+            setAccessRequests={setRequests}
+            setNeedsUpdate={setNeedsUpdate}
           />
           <h3 style={{ margin: "1em 0" }}>Access Requests Management</h3>
           <table className="w-lg-100" style={{ minWidth: "800px" }}>
@@ -148,38 +163,43 @@ const AccessRequests = () => {
                 <td className={TD_CLASSES}>Status</td>
               </tr>
             </thead>
-            {requests.map((x: accessRequest) => {
-              return (
-                <tr
-                  role="button"
-                  title={"View access request " + x.id}
-                  id={x.id}
-                  onClick={() =>
-                    handleShowModal(
-                      x.id,
-                      x.full_user_name,
-                      x.email,
-                      x.request_text,
-                      x.request_created,
-                      x.access_starts,
-                      x.access_ends
-                    )
-                  }
-                >
-                  <td className={TD_CLASSES}>{x.id}</td>
-                  <td className={TD_CLASSES}>{x.dataset_id}</td>
-                  <td className={TD_CLASSES}>{x.full_user_name}</td>
-                  <td className={TD_CLASSES}>
-                    {x.access_starts.split("T")[0]}
-                  </td>
-                  <td className={TD_CLASSES}>{x.access_ends.split("T")[0]}</td>
-                  <td className={TD_CLASSES}>
-                    {x.request_created.split("T")[0]}
-                  </td>
-                  <td className={TD_CLASSES}>{x.status}</td>
-                </tr>
-              );
-            })}
+            <tbody>
+              {requests.map((x: accessRequest) => {
+                return (
+                  <tr
+                    role="button"
+                    title={"View access request " + x.id}
+                    key={x.id}
+                    onClick={() =>
+                      handleShowModal(
+                        x.id,
+                        x.full_user_name,
+                        x.email,
+                        x.request_text,
+                        x.request_created,
+                        x.access_starts,
+                        x.access_ends,
+                        x.status
+                      )
+                    }
+                  >
+                    <td className={TD_CLASSES}>{x.id}</td>
+                    <td className={TD_CLASSES}>{x.dataset_id}</td>
+                    <td className={TD_CLASSES}>{x.full_user_name}</td>
+                    <td className={TD_CLASSES}>
+                      {x.access_starts.split("T")[0]}
+                    </td>
+                    <td className={TD_CLASSES}>
+                      {x.access_ends.split("T")[0]}
+                    </td>
+                    <td className={TD_CLASSES}>
+                      {x.request_created.split("T")[0]}
+                    </td>
+                    <td className={TD_CLASSES}>{x.status}</td>
+                  </tr>
+                );
+              })}
+            </tbody>
           </table>
         </Col>
       </Row>

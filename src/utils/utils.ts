@@ -202,7 +202,7 @@ export const getDACEmailId = (
 };
 
 /**
- * Perform an HTTP request using fetch().
+ * Perform an HTTP GET request using fetch().
  * @param url - URL string to send the request
  * @param method - HTTP method for request
  * @param payload - Request body, if any.
@@ -211,7 +211,7 @@ export const getDACEmailId = (
 /** Fetch JSON data with proper headers */
 export const fetchJson = async (
   url: string,
-  method = "GET",
+  method: string = "GET",
   payload?: any
 ): Promise<Response> => {
   const headers: HeadersInit = {
