@@ -36,6 +36,6 @@ export interface accessRequest {
   access_ends: string;
   request_created: string;
   status: string;
-  status_changed: null | boolean;
+  status_changed: null | string;
   changed_by: null | string;
 }
