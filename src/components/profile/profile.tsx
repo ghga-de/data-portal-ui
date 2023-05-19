@@ -86,15 +86,6 @@ const Profile = () => {
             <span>You do not yet have access to any datasets.</span>
           )}
         </div>
-        {user.role === "data_steward" ? (
-          <div>
-            <NavLink to="/access-requests">
-              Manage Inbound Access Requests
-            </NavLink>
-          </div>
-        ) : (
-          <></>
-        )}
         <div style={{ margin: "2em 0", textAlign: "right" }}>
           <Button
             variant="secondary"

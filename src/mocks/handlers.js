@@ -1,7 +1,6 @@
 import { rest } from "msw";
 import { data } from "./data";
 import { setOidcUser } from "./login";
-import { getAllAccessRequests, setStatus } from "./accessRequest";
 
 const CLIENT_URL = process.env["REACT_APP_CLIENT_URL"];
 const OIDC_AUTHORITY_URL = process.env["REACT_APP_OIDC_AUTHORITY_URL"];
@@ -22,40 +21,13 @@ export const handlers = [
       );
     }
   }),
-
-  // Intercept GET all access requests
-  rest.get("/api/access-requests", (req, res, ctx) => {
-    return res(ctx.json(getAllAccessRequests()));
-  }),
-
-  // Intercept PATCH of an access request
-  rest.patch("/api/access-requests/:accessRequestId", (req, res, ctx) => {
-    const { accessRequestId } = req.params;
-    req.json().then((x) => {
-      switch (x.status) {
-        case "pending":
-          setStatus(accessRequestId, "pending");
-          break;
-        case "allowed":
-          setStatus(accessRequestId, "allowed");
-          break;
-        case "denied":
-          setStatus(accessRequestId, "denied");
-          break;
-        default:
-          return res(ctx.status(400));
-      }
-    });
-    const accessRequests = JSON.stringify(getAllAccessRequests());
-    return res(ctx.status(200), ctx.body(accessRequests));
-  }),
 ];
 
 // add request handlers for static fake data
 Object.keys(data).forEach((endpoint) => {
   let [method, url] = endpoint.split(" ");
   method = method.toLowerCase();
-  if (!["get", "post"].includes(method)) {
+  if (!["get", "post", "patch"].includes(method)) {
     console.error("Invalid endpoint in fake data:", endpoint);
     return;
   }
@@ -67,7 +39,7 @@ Object.keys(data).forEach((endpoint) => {
     if (typeof result === "number") {
       args.push(ctx.status(result));
       result = null;
-    } else if (method === "post") {
+    } else if (method === "post" || method === "patch") {
       args.push(ctx.status(result ? 201 : 204));
     }
     if (result) {

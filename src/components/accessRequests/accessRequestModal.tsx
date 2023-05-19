@@ -16,26 +16,20 @@
 import { Button, Col, Modal, Row } from "react-bootstrap";
 import { fetchJson } from "../../utils/utils";
 import { showMessage } from "../messages/usage";
+import { AccessRequest } from "../../models/submissionsAndRequests";
+import { useState } from "react";
 
 const API_URL = process.env.REACT_APP_SVC_API_URL;
 
 interface AccessRequestModalProps {
   show: boolean;
   setShow: React.Dispatch<React.SetStateAction<boolean>>;
+  userId: string | undefined;
   handleClose: any;
   handleShow: any;
-  id: string;
-  requester: string;
-  email: string;
-  text: string;
-  requested: string;
-  accessStart: string;
-  accessEnd: string;
-  status: string;
-  disabledButtons: boolean;
-  setDisabledButtons: any;
+  accessRequest: AccessRequest | undefined;
+  onUpdate: any;
   setAccessRequests: any;
-  setNeedsUpdate: any;
 }
 
 const COL_CLASSES = "col-xs-5 col-md-4";
@@ -43,47 +37,28 @@ const ROW_CLASSES = "mb-3";
 
 //
 const AccessRequestModal = (props: AccessRequestModalProps) => {
-  async function handleAllowAccess() {
-    props.setDisabledButtons(true);
-    const url = `${API_URL}/access-requests/${props.id}`;
-    try {
-      const response = await fetchJson(url, "PATCH", { status: "allowed" });
-      if (response.status === 200) {
-        response.json().then((x) => {
-          props.setAccessRequests(x);
-        });
-        props.setNeedsUpdate(true);
-        showMessage({
-          type: "success",
-          title: "Access request successfully updated!",
-        });
-      }
-    } catch (error) {
-      props.setDisabledButtons(false);
-      showMessage({
-        type: "error",
-        title: "Could not change status of request.",
-      });
-    }
-  }
+  const [disabledButtons, setDisabledButtons] = useState(false);
 
-  async function handleDenyAccess() {
-    props.setDisabledButtons(true);
-    const url = `${API_URL}/access-requests/${props.id}`;
+  async function handleButtonClickAccess(status: "allowed" | "denied") {
+    if (props.accessRequest === undefined || props.userId === undefined) {
+      return null;
+    }
+    setDisabledButtons(true);
+    const url = `${API_URL}/access-requests/${props.accessRequest?.id}`;
     try {
-      const response = await fetchJson(url, "PATCH", { status: "denied" });
-      if (response.status === 200) {
-        response.json().then((x) => {
-          props.setAccessRequests(x);
-        });
-        props.setNeedsUpdate(true);
+      const response = await fetchJson(url, "PATCH", { status: status });
+      if (response.ok) {
         showMessage({
           type: "success",
-          title: "Access request successfully updated!",
+          title: "Access successfully " + status + "!",
         });
-      }
+        props.accessRequest.status = status;
+        props.accessRequest.status_changed = new Date().toISOString();
+        props.accessRequest.changed_by = props.userId;
+        props.onUpdate();
+      } else throw new Error("PATCH failed: " + response.text);
     } catch (error) {
-      props.setDisabledButtons(false);
+      setDisabledButtons(false);
       showMessage({
         type: "error",
         title: "Could not change status of request.",
@@ -94,29 +69,43 @@ const AccessRequestModal = (props: AccessRequestModalProps) => {
   return (
     <Modal show={props.show} onHide={props.handleClose}>
       <Modal.Header closeButton>
-        <Modal.Title>Access Request {props.id}</Modal.Title>
+        <Modal.Title>Access Request Detail</Modal.Title>
       </Modal.Header>
 
       <Modal.Body>
         <Row className={ROW_CLASSES}>
           <Col className={COL_CLASSES}>Requester:</Col>
-          <Col>{props.requester}</Col>
+          <Col>{props.accessRequest?.full_user_name}</Col>
         </Row>
         <Row className={ROW_CLASSES}>
           <Col className={COL_CLASSES}>Contact e-Mail:</Col>
-          <Col>{props.email}</Col>
+          <Col>{props.accessRequest?.email}</Col>
         </Row>
         <Row className={ROW_CLASSES}>
           <Col className={COL_CLASSES}>Request Text:</Col>
-          <Col>{props.text}</Col>
-        </Row>
-        <Row className={ROW_CLASSES}>
-          <Col>Request has been made on {props.requested.split("T")[0]}</Col>
+          <Col>{props.accessRequest?.request_text}</Col>
         </Row>
         <Row className={ROW_CLASSES}>
           <Col>
-            Access has been requested from {props.accessStart.split("T")[0]}
-            &nbsp;until {props.accessEnd.split("T")[0]}{" "}
+            Request has been made on{" "}
+            {props.accessRequest?.request_created.split("T")[0]}
+          </Col>
+        </Row>
+        <Row className={ROW_CLASSES}>
+          <Col>
+            Access has been requested from{" "}
+            {props.accessRequest?.access_starts.split("T")[0]}
+            &nbsp;until {props.accessRequest?.access_ends.split("T")[0]}{" "}
+          </Col>
+        </Row>
+        <Row className={ROW_CLASSES}>
+          <Col>
+            {props.accessRequest?.status_changed
+              ? "Access has been " +
+                props.accessRequest?.status +
+                " on " +
+                props.accessRequest?.status_changed.split("T")[0]
+              : "Access request is pending"}
           </Col>
         </Row>
       </Modal.Body>
@@ -125,22 +114,28 @@ const AccessRequestModal = (props: AccessRequestModalProps) => {
         <Button
           variant="secondary"
           className="text-white me-3"
-          onClick={() => handleDenyAccess()}
+          onClick={() => {
+            handleButtonClickAccess("denied");
+            setDisabledButtons(true);
+          }}
           disabled={
-            props.status === "allowed" ||
-            props.status === "denied" ||
-            props.disabledButtons
+            props.accessRequest?.status === "allowed" ||
+            props.accessRequest?.status === "denied" ||
+            disabledButtons
           }
         >
           Deny
         </Button>
         <Button
           variant="quaternary"
-          onClick={() => handleAllowAccess()}
+          onClick={() => {
+            handleButtonClickAccess("allowed");
+            setDisabledButtons(true);
+          }}
           disabled={
-            props.status === "allowed" ||
-            props.status === "denied" ||
-            props.disabledButtons
+            props.accessRequest?.status === "allowed" ||
+            props.accessRequest?.status === "denied" ||
+            disabledButtons
           }
         >
           Allow

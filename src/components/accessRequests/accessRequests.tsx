@@ -15,7 +15,7 @@
 //
 
 import { Alert, Col, Container, Row, Spinner } from "react-bootstrap";
-import { accessRequest } from "../../models/submissionsAndRequests";
+import { AccessRequest } from "../../models/submissionsAndRequests";
 import { useMessages } from "../messages/usage";
 import { useAuth } from "../../services/auth";
 import { useEffect, useState } from "react";
@@ -26,61 +26,38 @@ const API_URL = process.env.REACT_APP_SVC_API_URL;
 const TD_CLASSES = "ps-1 pe-1 pe-lg-3 border";
 
 const AccessRequests = () => {
-  const [requests, setRequests] = useState<accessRequest[] | null | undefined>(
+  const [requests, setRequests] = useState<AccessRequest[] | null | undefined>(
     undefined
   );
-  const [needsUpdate, setNeedsUpdate] = useState(false);
-  const [disabledButtons, setDisabledButtons] = useState(false);
 
   const { showMessage } = useMessages();
   const { user } = useAuth();
 
+  const [selectedAccessRequest, setSelectedAccessRequest] = useState<
+    AccessRequest | undefined
+  >();
+
   const [showModal, setShowModal] = useState(false);
-  const [id, setId] = useState("");
-  const [requester, setRequester] = useState("");
-  const [email, setEmail] = useState("");
-  const [text, setText] = useState("");
-  const [requested, setRequested] = useState("");
-  const [accessStart, setAccessStart] = useState("");
-  const [accessEnd, setAccessEnd] = useState("");
-  const [status, setStatus] = useState("");
 
   const handleCloseModal = () => {
-    setId("");
-    setRequester("");
-    setEmail("");
-    setText("");
-    setRequested("");
-    setAccessStart("");
-    setAccessEnd("");
-    setStatus("");
+    setSelectedAccessRequest(undefined);
     setShowModal(false);
-    setDisabledButtons(false);
   };
-  const handleShowModal = (
-    accessId: string,
-    accessRequester: string,
-    requesterEmail: string,
-    requestText: string,
-    dateRequested: string,
-    accessStartDate: string,
-    accessEndDate: string,
-    status: string
-  ) => {
-    setId(accessId);
-    setRequester(accessRequester);
-    setEmail(requesterEmail);
-    setText(requestText);
-    setRequested(dateRequested);
-    setAccessStart(accessStartDate);
-    setAccessEnd(accessEndDate);
-    setStatus(status);
+  const handleShowModal = (accessRequest: AccessRequest) => {
+    setSelectedAccessRequest(accessRequest);
     setShowModal(true);
   };
 
+  function onUpdate() {
+    if (requests) {
+      setRequests([...requests]);
+    }
+    console.log("called");
+  }
+
   useEffect(() => {
     async function fetchData() {
-      let requests: accessRequest[] | null = null;
+      let requests: AccessRequest[] | null = null;
       if (user?.id) {
         const url = `${API_URL}/access-requests`;
         try {
@@ -96,10 +73,7 @@ const AccessRequests = () => {
       setRequests(requests);
     }
     fetchData();
-    if (needsUpdate) {
-      setNeedsUpdate(false);
-    }
-  }, [showMessage, user, needsUpdate]);
+  }, [showMessage, user]);
 
   if (requests === undefined) {
     return (
@@ -135,67 +109,53 @@ const AccessRequests = () => {
           <AccessRequestModal
             show={showModal}
             setShow={setShowModal}
+            userId={user.id}
             handleClose={handleCloseModal}
             handleShow={handleShowModal}
-            id={id}
-            requester={requester}
-            email={email}
-            text={text}
-            requested={requested}
-            accessStart={accessStart}
-            accessEnd={accessEnd}
-            status={status}
-            disabledButtons={disabledButtons}
-            setDisabledButtons={setDisabledButtons}
+            accessRequest={selectedAccessRequest}
             setAccessRequests={setRequests}
-            setNeedsUpdate={setNeedsUpdate}
+            onUpdate={onUpdate}
           />
           <h3 style={{ margin: "1em 0" }}>Access Requests Management</h3>
           <table className="w-lg-100" style={{ minWidth: "800px" }}>
             <thead className="border-light-3 border-1 bg-secondary text-white px-2">
               <tr>
-                <td className={TD_CLASSES}>Data Request ID</td>
-                <td className={TD_CLASSES}>Dataset</td>
-                <td className={TD_CLASSES}>User</td>
-                <td className={TD_CLASSES}>Starts</td>
-                <td className={TD_CLASSES}>Ends</td>
-                <td className={TD_CLASSES}>Requested</td>
-                <td className={TD_CLASSES}>Status</td>
+                <th className={TD_CLASSES}>Dataset</th>
+                <th className={TD_CLASSES}>User</th>
+                <th className={TD_CLASSES}>Starts</th>
+                <th className={TD_CLASSES}>Ends</th>
+                <th className={TD_CLASSES}>Requested</th>
+                <th className={TD_CLASSES}>Status</th>
               </tr>
             </thead>
             <tbody>
-              {requests.map((x: accessRequest) => {
+              {requests.map((request: AccessRequest) => {
                 return (
                   <tr
                     role="button"
-                    title={"View access request " + x.id}
-                    key={x.id}
-                    onClick={() =>
-                      handleShowModal(
-                        x.id,
-                        x.full_user_name,
-                        x.email,
-                        x.request_text,
-                        x.request_created,
-                        x.access_starts,
-                        x.access_ends,
-                        x.status
-                      )
+                    title={"View access request " + request.id}
+                    className={
+                      request.status === "allowed"
+                        ? "text-success"
+                        : request.status === "denied"
+                        ? "text-danger"
+                        : ""
                     }
+                    key={request.id}
+                    onClick={() => handleShowModal(request)}
                   >
-                    <td className={TD_CLASSES}>{x.id}</td>
-                    <td className={TD_CLASSES}>{x.dataset_id}</td>
-                    <td className={TD_CLASSES}>{x.full_user_name}</td>
+                    <td className={TD_CLASSES}>{request.dataset_id}</td>
+                    <td className={TD_CLASSES}>{request.full_user_name}</td>
                     <td className={TD_CLASSES}>
-                      {x.access_starts.split("T")[0]}
+                      {request.access_starts.split("T")[0]}
                     </td>
                     <td className={TD_CLASSES}>
-                      {x.access_ends.split("T")[0]}
+                      {request.access_ends.split("T")[0]}
                     </td>
                     <td className={TD_CLASSES}>
-                      {x.request_created.split("T")[0]}
+                      {request.request_created.split("T")[0]}
                     </td>
-                    <td className={TD_CLASSES}>{x.status}</td>
+                    <td className={TD_CLASSES}>{request.status}</td>
                   </tr>
                 );
               })}

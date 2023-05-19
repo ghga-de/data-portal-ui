@@ -14,7 +14,7 @@
 // limitations under the License.
 //
 
-export interface datasetSubmission {
+export interface Dataset {
   id: string;
   title: string;
   description: string;
@@ -25,7 +25,7 @@ export interface Errors {
   userKey?: string | null;
 }
 
-export interface accessRequest {
+export interface AccessRequest {
   id: string;
   user_id: string;
   dataset_id: string;
@@ -36,6 +36,6 @@ export interface accessRequest {
   access_ends: string;
   request_created: string;
   status: string;
-  status_changed: null | boolean;
+  status_changed: null | string;
   changed_by: null | string;
 }
