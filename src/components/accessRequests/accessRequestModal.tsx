@@ -55,7 +55,7 @@ const AccessRequestModal = (props: AccessRequestModalProps) => {
         props.setNeedsUpdate(true);
         showMessage({
           type: "success",
-          title: "Access request successfully updated!",
+          title: "Access request has been accepted!",
         });
       }
     } catch (error) {
