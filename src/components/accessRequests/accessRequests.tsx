@@ -62,11 +62,17 @@ const AccessRequests = () => {
         const url = `${API_URL}/access-requests`;
         try {
           const response = await fetchJson(url);
-          requests = await response.json();
+          if (response.ok) {
+            requests = await response.json();
+          } else {
+            throw new Error(
+              "Failed to retrieve access requests: " + response.text
+            );
+          }
         } catch (error) {
           showMessage({
             type: "error",
-            title: "Cannot retrieve your datasets.",
+            title: "Cannot retrieve your access requests.",
           });
         }
       }
