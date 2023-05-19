@@ -202,7 +202,7 @@ export const getDACEmailId = (
 };
 
 /**
- * Perform an HTTP GET request using fetch().
+ * Perform an HTTP request using fetch().
  * @param url - URL string to send the request
  * @param method - HTTP method for request
  * @param payload - Request body, if any.
