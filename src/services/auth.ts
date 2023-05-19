@@ -22,7 +22,6 @@ export interface User {
   status?: string | null;
   title?: string | null;
   changed?: boolean;
-  role: string;
 }
 
 /**
@@ -186,7 +185,6 @@ class AuthService {
           fullName: name,
           email,
           extId: sub,
-          role: "user",
         };
         try {
           const response = await fetchJson(`${USERS_URL}/${sub}`);
@@ -201,7 +199,6 @@ class AuthService {
               title,
               fullName,
               changed: name !== userData.name || email !== userData.email,
-              role: userData.role,
             };
           } else if (response.status !== 404) {
             const title = "Cannot verify user";

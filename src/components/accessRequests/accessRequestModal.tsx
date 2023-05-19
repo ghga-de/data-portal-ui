@@ -110,37 +110,41 @@ const AccessRequestModal = (props: AccessRequestModalProps) => {
         </Row>
       </Modal.Body>
 
-      <Modal.Footer className="justify-content-start">
-        <Button
-          variant="secondary"
-          className="text-white me-3"
-          onClick={() => {
-            handleButtonClickAccess("denied");
-            setDisabledButtons(true);
-          }}
-          disabled={
-            props.accessRequest?.status === "allowed" ||
-            props.accessRequest?.status === "denied" ||
-            disabledButtons
-          }
-        >
-          Deny
-        </Button>
-        <Button
-          variant="quaternary"
-          onClick={() => {
-            handleButtonClickAccess("allowed");
-            setDisabledButtons(true);
-          }}
-          disabled={
-            props.accessRequest?.status === "allowed" ||
-            props.accessRequest?.status === "denied" ||
-            disabledButtons
-          }
-        >
-          Allow
-        </Button>
-      </Modal.Footer>
+      {props.accessRequest?.status === "pending" ? (
+        <Modal.Footer className="d-block text-end">
+          <Button
+            variant="dark-3"
+            className="text-white me-3 float-start"
+            onClick={() => props.setShow(false)}
+            disabled={disabledButtons}
+          >
+            Cancel
+          </Button>
+          <Button
+            variant="secondary"
+            className="text-white me-3"
+            onClick={() => {
+              handleButtonClickAccess("denied");
+              setDisabledButtons(true);
+            }}
+            disabled={disabledButtons}
+          >
+            Deny
+          </Button>
+          <Button
+            variant="quaternary"
+            onClick={() => {
+              handleButtonClickAccess("allowed");
+              setDisabledButtons(true);
+            }}
+            disabled={disabledButtons}
+          >
+            Allow
+          </Button>
+        </Modal.Footer>
+      ) : (
+        <></>
+      )}
     </Modal>
   );
 };
