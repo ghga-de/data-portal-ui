@@ -35,6 +35,7 @@ class Config(BaseSettings):
     client_url: str = "https://data.ghga-dev.de/"
     svc_search_url: str = f"{client_url}api/search"
     svc_repository_url: str = f"{client_url}api/repository"
+    svc_api_url: str = f"{client_url}api"
     svc_users_url: str = f"{client_url}api/auth/users"
     svc_wps_url: str = f"{client_url}api/wps"
     oidc_client_id: str = "ghga-client"

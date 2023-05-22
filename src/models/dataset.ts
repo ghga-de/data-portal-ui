@@ -219,7 +219,7 @@ export interface datasetDetailsSummaryModel {
 }
 
 export interface datasetSummaryModel {
-  count: number
+  count: number;
 }
 
 export interface sampleSummaryModel {
@@ -228,7 +228,7 @@ export interface sampleSummaryModel {
     sex: sexSummaryModel;
     tissues: { [key: string]: number };
     phenotypes: { [key: string]: number };
-  }
+  };
 }
 
 export interface sexSummaryModel {
@@ -242,7 +242,7 @@ export interface studySummaryModel {
   stats: {
     ega_accession: string;
     accession: string;
-    title: string
+    title: string;
   };
 }
 

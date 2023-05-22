@@ -4,9 +4,9 @@ import { Col, Row } from "react-bootstrap";
 import uploadImg from "../../assets/upload/upload.png";
 import {
   importAllFilesFromFolder,
-  static_page_img_col_classes,
-  static_page_img_row_classes,
-  static_page_main_div_classes,
+  STATIC_PAGE_IMG_COL_CLASSES,
+  STATIC_PAGE_IMG_ROW_CLASSES,
+  STATIC_PAGE_MAIN_DIV_CLASSES,
 } from "../../utils/utils";
 
 const Upload = () => {
@@ -15,7 +15,7 @@ const Upload = () => {
   );
 
   return (
-    <div className={static_page_main_div_classes}>
+    <div className={STATIC_PAGE_MAIN_DIV_CLASSES}>
       <h5 className="d-flex align-items-center text-secondary fw-bold">
         <FontAwesomeIcon
           icon={faCloudArrowUp}
@@ -44,8 +44,8 @@ const Upload = () => {
         We are collecting the anonymous dataset metadata following the GHGA
         Metadata Model, and keep it interoperable with the EGA Metadata Model.{" "}
       </p>
-      <Row className={static_page_img_row_classes}>
-        <Col className={static_page_img_col_classes}>
+      <Row className={STATIC_PAGE_IMG_ROW_CLASSES}>
+        <Col className={STATIC_PAGE_IMG_COL_CLASSES}>
           <img src={uploadImg} alt="upload" className="w-100" />
         </Col>
       </Row>

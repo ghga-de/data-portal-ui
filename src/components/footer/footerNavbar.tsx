@@ -10,9 +10,9 @@ import logo from "../../assets/GHGA_logo.png";
 import { Link, NavLink } from "react-router-dom";
 
 const FooterNavbar = () => {
-  const left_link_classes =
+  const LEFT_LINK_CLASSES =
     "text-white text-decoration-none col border-end border-bottom border-bottom-sm-0 p-0 m-0 flex-shrink-0 col-6 col-sm-3";
-  const right_link_classes = left_link_classes + " border-end-0 border-end-sm";
+  const RIGHT_LINK_CLASSES = LEFT_LINK_CLASSES + " border-end-0 border-end-sm";
 
   return (
     <div className="mt-5 mt-sm-4 pb-2 mw-100 mx-0 bg-primary">
@@ -20,7 +20,7 @@ const FooterNavbar = () => {
         <Row style={{ marginBottom: "-50px" }}>
           <Col className="order-lg-1 mb-4 mb-lg-0">
             <Row className="border-start-sm">
-              <NavLink to="/download" end={true} className={left_link_classes}>
+              <NavLink to="/download" end={true} className={LEFT_LINK_CLASSES}>
                 <Button className="w-100 h-100 rounded-0 py-0 px-3 m-0 border-0">
                   <FontAwesomeIcon
                     icon={faCloudDownload}
@@ -34,7 +34,7 @@ const FooterNavbar = () => {
                   </p>
                 </Button>
               </NavLink>
-              <NavLink to="/upload" end={true} className={right_link_classes}>
+              <NavLink to="/upload" end={true} className={RIGHT_LINK_CLASSES}>
                 <Button className="w-100 h-100 rounded-0 py-0 px-3 m-0 border-0">
                   <FontAwesomeIcon
                     icon={faCloudUpload}
@@ -51,7 +51,7 @@ const FooterNavbar = () => {
               <NavLink
                 to="/metadata-model"
                 end={true}
-                className={left_link_classes}
+                className={LEFT_LINK_CLASSES}
               >
                 <Button className="w-100 h-100 rounded-0 py-0 px-3 m-0 border-0">
                   <FontAwesomeIcon
@@ -66,7 +66,7 @@ const FooterNavbar = () => {
                   </p>
                 </Button>
               </NavLink>
-              <NavLink to="/faq" end={true} className={right_link_classes}>
+              <NavLink to="/faq" end={true} className={RIGHT_LINK_CLASSES}>
                 <Button className="w-100 h-100 rounded-0 py-0 px-3 m-0 border-0">
                   <FontAwesomeIcon
                     icon={faQuestionCircle}

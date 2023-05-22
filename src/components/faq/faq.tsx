@@ -2,11 +2,11 @@ import { Col, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleQuestion } from "@fortawesome/free-solid-svg-icons";
-import { static_page_main_div_classes } from "../../utils/utils";
+import { STATIC_PAGE_MAIN_DIV_CLASSES } from "../../utils/utils";
 
 const FAQ = () => {
   return (
-    <div className={static_page_main_div_classes}>
+    <div className={STATIC_PAGE_MAIN_DIV_CLASSES}>
       <Row className="bg-tertiary m-0 mb-4 py-4 px-3">
         <Col className="col-11">
           <p className="fs-5 mb-2 text-secondary">About GHGA</p>

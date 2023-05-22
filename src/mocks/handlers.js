@@ -27,7 +27,7 @@ export const handlers = [
 Object.keys(data).forEach((endpoint) => {
   let [method, url] = endpoint.split(" ");
   method = method.toLowerCase();
-  if (!["get", "post"].includes(method)) {
+  if (!["get", "post", "patch"].includes(method)) {
     console.error("Invalid endpoint in fake data:", endpoint);
     return;
   }
@@ -39,7 +39,7 @@ Object.keys(data).forEach((endpoint) => {
     if (typeof result === "number") {
       args.push(ctx.status(result));
       result = null;
-    } else if (method === "post") {
+    } else if (method === "post" || method === "patch") {
       args.push(ctx.status(result ? 201 : 204));
     }
     if (result) {
@@ -48,6 +48,10 @@ Object.keys(data).forEach((endpoint) => {
     return res(...args);
   };
   handlers.push(
-    method === "post" ? rest.post(url, resolver) : rest.get(url, resolver)
+    method === "post"
+      ? rest.post(url, resolver)
+      : method === "patch"
+      ? rest.patch(url, resolver)
+      : rest.get(url, resolver)
   );
 });

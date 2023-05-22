@@ -8,6 +8,53 @@ export const user = {
   email: "j.jdoe@home.org",
 };
 
+export const accessRequests = [
+  {
+    id: "TEST00004000001",
+    user_id: "j.doe@ghga.de",
+    dataset_id: "TEST00003000001",
+    full_user_name: "Dr. John Doe",
+    email: "j.jdoe@home.org",
+    request_text: "This is a test request for dataset TEST00003000001.",
+    access_starts: "2023-05-11T15:00:00.000Z",
+    access_ends: "2024-05-11T14:59:59.000Z",
+    request_created: "2023-05-09T12:04:02.000Z",
+    status: "pending",
+    status_changed: null,
+    changed_by: null,
+  },
+
+  {
+    id: "TEST00005000001",
+    user_id: "j.doe@ghga.de",
+    dataset_id: "TEST00002000001",
+    full_user_name: "Dr. John Doe",
+    email: "j.jdoe@home.org",
+    request_text: "This is a test request for dataset TEST00002000001.",
+    access_starts: "2023-05-12T15:00:00.000Z",
+    access_ends: "2024-05-12T14:59:59.000Z",
+    request_created: "2023-05-11T12:04:02.000Z",
+    status: "allowed",
+    status_changed: "2023-05-19T12:04:03.000Z",
+    changed_by: "j.doe@ghga.de",
+  },
+
+  {
+    id: "TEST00006000001",
+    user_id: "j.doe@ghga.de",
+    dataset_id: "TEST00001000001",
+    full_user_name: "Dr. John Doe",
+    email: "j.jdoe@home.org",
+    request_text: "This is a test request for dataset TEST00001000001.",
+    access_starts: "2023-05-52T15:00:00.000Z",
+    access_ends: "2024-05-52T14:59:59.000Z",
+    request_created: "2023-05-18T12:04:03.000Z",
+    status: "denied",
+    status_changed: "2023-05-19T12:04:02.000Z",
+    changed_by: "j.doe@ghga.de",
+  },
+];
+
 const datasets = [
   {
     id: "TEST00001000001",
@@ -51,12 +98,18 @@ export const data = {
   // User registry
   [`GET /api/auth/users/${user.ext_id}`]: user,
 
-  // Datasets
+  // Datasets requested by j.doe@ghga.de user
   "GET /api/wps/users/j.doe@ghga.de/datasets": datasets,
 
   // Work packages
   // example key for input: MTIzNDU2Nzg5MDEyMzQ1Njc4OTAxMjM0NTY3ODkwMTI
   "POST /api/wps/work-packages": workPackageToken,
+
+  // All access requests
+  "GET /api/access-requests": accessRequests,
+
+  // Patch an access request
+  "PATCH /api/access-requests/*": 204,
 
   // Static assets
   "GET /static/*": undefined,

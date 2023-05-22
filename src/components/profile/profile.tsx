@@ -51,7 +51,7 @@ const Profile = () => {
   } else
     content = (
       <div>
-        <h1 style={{ margin: "1em 0" }}>Welcome, {user.fullName}!</h1>
+        <h3 style={{ margin: "1em 0" }}>Welcome, {user.fullName}!</h3>
         <div style={{ margin: "1em 0" }}>
           <p>
             We will communicate with you via this email address: &nbsp;

@@ -13,14 +13,14 @@ import downloadImg from "../../assets/download/download-1.png";
 import emailImg from "../../assets/download/email.png";
 import requestImg from "../../assets/download/request-access.png";
 import {
-  static_page_img_col_classes,
-  static_page_img_row_classes,
-  static_page_main_div_classes,
+  STATIC_PAGE_IMG_COL_CLASSES,
+  STATIC_PAGE_IMG_ROW_CLASSES,
+  STATIC_PAGE_MAIN_DIV_CLASSES,
 } from "../../utils/utils";
 
 const Download = () => {
   return (
-    <div className={static_page_main_div_classes}>
+    <div className={STATIC_PAGE_MAIN_DIV_CLASSES}>
       <h5 className="d-flex align-items-center text-secondary fw-bold">
         <FontAwesomeIcon
           icon={faCloudArrowDown}
@@ -52,8 +52,8 @@ const Download = () => {
           email listed on the dataset.
         </p>
       </div>
-      <Row className={static_page_img_row_classes}>
-        <Col className={static_page_img_col_classes}>
+      <Row className={STATIC_PAGE_IMG_ROW_CLASSES}>
+        <Col className={STATIC_PAGE_IMG_COL_CLASSES}>
           <img
             src={downloadImg}
             alt="Explore dataset - Request access - Send e-mail - Data owner interaction"
@@ -83,8 +83,8 @@ const Download = () => {
           </Link>
           &nbsp;using the search function.
         </p>
-        <Row className={static_page_img_row_classes}>
-          <Col className={static_page_img_col_classes}>
+        <Row className={STATIC_PAGE_IMG_ROW_CLASSES}>
+          <Col className={STATIC_PAGE_IMG_COL_CLASSES}>
             <img src={browseImg} alt="Browse view" className="w-100" />
           </Col>
         </Row>
@@ -112,8 +112,8 @@ const Download = () => {
           , expand the dataset by clicking the arrow at the right corner of the
           dataset box, and click the "Request Access" button.
         </p>
-        <Row className={static_page_img_row_classes}>
-          <Col className={static_page_img_col_classes}>
+        <Row className={STATIC_PAGE_IMG_ROW_CLASSES}>
+          <Col className={STATIC_PAGE_IMG_COL_CLASSES}>
             <img src={requestImg} alt="Dataset details" className="w-100" />
           </Col>
         </Row>
@@ -140,8 +140,8 @@ const Download = () => {
           contact e-mail. If your email client doesn't open, you can copy the
           e-mail, subject, and text to send the e-mail manually.
         </p>
-        <Row className={static_page_img_row_classes}>
-          <Col className={static_page_img_col_classes}>
+        <Row className={STATIC_PAGE_IMG_ROW_CLASSES}>
+          <Col className={STATIC_PAGE_IMG_COL_CLASSES}>
             <img src={emailImg} alt="Dataset details" className="w-100" />
           </Col>
         </Row>

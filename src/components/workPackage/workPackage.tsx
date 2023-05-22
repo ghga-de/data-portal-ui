@@ -17,19 +17,9 @@ import { useMessages } from "../messages/usage";
 import { useAuth } from "../../services/auth";
 import { fetchJson } from "../../utils/utils";
 import { Buffer } from "buffer";
+import { Errors, Dataset } from "../../models/submissionsAndRequests";
 
 const WPS_URL = process.env.REACT_APP_SVC_WPS_URL;
-
-interface Dataset {
-  id: string;
-  title: string;
-  description: string;
-  workType: string;
-}
-
-interface Errors {
-  userKey?: string | null;
-}
 
 /** Work Package creation */
 

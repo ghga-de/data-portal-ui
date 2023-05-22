@@ -17,7 +17,7 @@ export interface User {
   name: string;
   fullName: string;
   email: string;
-  ext_id: string;
+  extId: string;
   id?: string;
   status?: string | null;
   title?: string | null;
@@ -179,7 +179,13 @@ class AuthService {
       if (name && email && sub) {
         const expired = oidcUser.expired ?? true;
         let fullName = name;
-        user = { expired, name, fullName: name, email, ext_id: sub };
+        user = {
+          expired,
+          name,
+          fullName: name,
+          email,
+          extId: sub,
+        };
         try {
           const response = await fetchJson(`${USERS_URL}/${sub}`);
           if (response.status === 200) {

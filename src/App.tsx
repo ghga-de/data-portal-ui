@@ -19,13 +19,14 @@ import Download from "./components/download/download";
 import Upload from "./components/upload/upload";
 import MetadataModel from "./components/metadataModel/metadataModel";
 import WorkPackage from "./components/workPackage/workPackage";
-import Callback from "./components/login/callback";
+import Callback from "./components/profile/callback";
 import Register from "./components/register/register";
-import Profile from "./components/login/profile";
+import Profile from "./components/profile/profile";
 import { MessageContainer } from "./components/messages/container";
 import { useMessages } from "./components/messages/usage";
 import { authService } from "./services/auth";
 import { useLayoutEffect } from "react";
+import AccessRequests from "./components/accessRequests/accessRequests";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -47,6 +48,7 @@ const router = createBrowserRouter(
       <Route path="/oauth/callback" element={<Callback />} />
       <Route path="/register" element={<Register />} />
       <Route path="/profile" element={<Profile />} />
+      <Route path="/access-requests" element={<AccessRequests />} />
       <Route path="*" element={<PageNotFound />} />
     </Route>
   )
