@@ -139,11 +139,7 @@ const AccessRequestsList = (props: AccessRequestListProps) => {
                     <Row className="flex-nowrap align-items-center">
                       <Col xs={"auto"} className="pe-0 ps-2">
                         <SortButton
-                          setSortDefinition={tableDefinition.setSortDefinition}
-                          setSortedData={tableDefinition.setSortedData}
-                          sortDefinition={tableDefinition.sortDefinition}
-                          sortedData={tableDefinition.sortedData}
-                          table={innerTable}
+                          tableDefinition={tableDefinition}
                           index={idy}
                           buttonVariant="outline-white"
                         />

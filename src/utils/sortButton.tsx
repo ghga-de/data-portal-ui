@@ -49,7 +49,7 @@ export interface TableFields {
   cssClasses?: string;
 }
 
-interface SortButtonProps {
+export interface TableDefinition {
   table: TableFields[];
   sortDefinition: {
     key: number;
@@ -63,6 +63,10 @@ interface SortButtonProps {
   >;
   sortedData: any[];
   setSortedData: React.Dispatch<any>;
+}
+
+interface SortButtonProps {
+  tableDefinition: TableDefinition;
   index: any;
   buttonVariant: string;
 }
@@ -76,23 +80,25 @@ const SortButton = (props: SortButtonProps) => {
       className="p-0 fs-8 fs-sm-7 px-1 me-1 border-0"
       onClick={() => {
         SortTable(
-          props.setSortDefinition,
-          props.sortedData,
-          props.setSortedData,
+          props.tableDefinition.setSortDefinition,
+          props.tableDefinition.sortedData,
+          props.tableDefinition.setSortedData,
           Array.from(
-            transposeTableForHTML(props.table.map((y: any) => y.data))
+            transposeTableForHTML(
+              props.tableDefinition.table.map((y: any) => y.data)
+            )
           ),
           props.index,
-          props.sortDefinition.key === props.index
-            ? (props.sortDefinition.order + 1) % 3
+          props.tableDefinition.sortDefinition.key === props.index
+            ? (props.tableDefinition.sortDefinition.order + 1) % 3
             : 1
         );
       }}
     >
       <FontAwesomeIcon
         icon={
-          props.sortDefinition.key === props.index
-            ? iconsDef[props.sortDefinition.order]
+          props.tableDefinition.sortDefinition.key === props.index
+            ? iconsDef[props.tableDefinition.sortDefinition.order]
             : iconsDef[0]
         }
       />

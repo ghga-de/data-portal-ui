@@ -66,11 +66,7 @@ const SingleDatasetViewAccordion = (props: SingleDatasetViewAccordionProps) => {
                       <Row className="flex-nowrap align-items-center">
                         <Col xs={"auto"} className="pe-0 ps-2">
                           <SortButton
-                            table={x.table}
-                            setSortDefinition={x.setSortDefinition}
-                            setSortedData={x.setSortedData}
-                            sortDefinition={x.sortDefinition}
-                            sortedData={x.sortedData}
+                            tableDefinition={x}
                             index={idy}
                             buttonVariant="outline-secondary"
                           />
