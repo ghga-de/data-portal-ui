@@ -1,15 +1,10 @@
-import {
-  faSortDown,
-  faSortUp,
-  faSort,
-} from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Accordion, Button, Col, Row, Table } from "react-bootstrap";
+import { Accordion, Col, Row, Table } from "react-bootstrap";
 import { datasetEmbeddedModel } from "../../../../models/dataset";
-import { parseBytes, transposeTableForHTML } from "../../../../utils/utils";
 import { ExperimentsTable } from "./tables/experimentsTable";
 import { FilesTable } from "./tables/filesTable";
 import { SamplesTable } from "./tables/samplesTable";
+import SortButton from "../../../../utils/sortButton";
+import { parseBytes } from "../../../../utils/utils";
 
 interface SingleDatasetViewAccordionProps {
   details: datasetEmbeddedModel;
@@ -24,11 +19,9 @@ const SingleDatasetViewAccordion = (props: SingleDatasetViewAccordionProps) => {
     return null;
   });
 
-  let iconsDef = [faSort, faSortUp, faSortDown];
-
   let Tables: {
     table: any;
-    buttonText: String;
+    buttonText: string;
     sortDefinition: { key: number; order: number };
     setSortDefinition: any;
     sortedData: any;
@@ -38,26 +31,6 @@ const SingleDatasetViewAccordion = (props: SingleDatasetViewAccordionProps) => {
     SamplesTable(props),
     FilesTable(props, fileSize),
   ];
-
-  const SortTable = (
-    setSortItem: any,
-    sortedItem: any,
-    setSortedItem: any,
-    item: any,
-    key: number,
-    order: number
-  ) => {
-    setSortItem({ key: key, order: order });
-    if (order !== 0) {
-      sortedItem.sort((a: any, b: any) => (a[key] > b[key] ? 1 : -1));
-      if (order === 2) {
-        sortedItem.reverse();
-      }
-      setSortedItem(sortedItem);
-    } else {
-      setSortedItem(item);
-    }
-  };
 
   return (
     <Accordion>
@@ -92,34 +65,15 @@ const SingleDatasetViewAccordion = (props: SingleDatasetViewAccordionProps) => {
                     >
                       <Row className="flex-nowrap align-items-center">
                         <Col xs={"auto"} className="pe-0 ps-2">
-                          <Button
-                            variant="outline-secondary"
-                            className="p-0 fs-8 fs-sm-7 px-1 me-1 border-0"
-                            onClick={() => {
-                              SortTable(
-                                x.setSortDefinition,
-                                x.sortedData,
-                                x.setSortedData,
-                                Array.from(
-                                  transposeTableForHTML(
-                                    x.table.map((y: any) => y.data)
-                                  )
-                                ),
-                                idy,
-                                x.sortDefinition.key === idy
-                                  ? (x.sortDefinition.order + 1) % 3
-                                  : 1
-                              );
-                            }}
-                          >
-                            <FontAwesomeIcon
-                              icon={
-                                x.sortDefinition.key === idy
-                                  ? iconsDef[x.sortDefinition.order]
-                                  : iconsDef[0]
-                              }
-                            />
-                          </Button>
+                          <SortButton
+                            table={x.table}
+                            setSortDefinition={x.setSortDefinition}
+                            setSortedData={x.setSortedData}
+                            sortDefinition={x.sortDefinition}
+                            sortedData={x.sortedData}
+                            index={idy}
+                            buttonVariant="outline-secondary"
+                          />
                         </Col>
                         <Col className="ps-0">{y.header}</Col>
                       </Row>

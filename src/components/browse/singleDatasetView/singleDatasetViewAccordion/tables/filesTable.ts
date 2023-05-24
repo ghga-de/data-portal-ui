@@ -25,7 +25,7 @@ export const FilesTable = (props: ExperimentsTableProps, fileSize: number) => {
   let filesTable: {
     header: string;
     data: any;
-    cssClasses: String;
+    cssClasses: string;
   }[] = [
     {
       header: "File name",
@@ -57,7 +57,7 @@ export const FilesTable = (props: ExperimentsTableProps, fileSize: number) => {
 
   const filesTableDef: {
     table: any;
-    buttonText: String;
+    buttonText: string;
     sortDefinition: { key: number; order: number };
     setSortDefinition: any;
     sortedData: any;

@@ -14,9 +14,9 @@
 // limitations under the License.
 
 import { Button, Col, Modal, Row } from "react-bootstrap";
-import { fetchJson } from "../../utils/utils";
-import { showMessage } from "../messages/usage";
-import { AccessRequest } from "../../models/submissionsAndRequests";
+import { fetchJson } from "../../../utils/utils";
+import { showMessage } from "../../messages/usage";
+import { AccessRequest } from "../../../models/submissionsAndRequests";
 import { useState } from "react";
 
 const API_URL = process.env.REACT_APP_SVC_API_URL;

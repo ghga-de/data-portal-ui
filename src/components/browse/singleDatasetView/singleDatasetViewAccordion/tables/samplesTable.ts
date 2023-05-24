@@ -7,7 +7,7 @@ interface SamplesTableProps {
 }
 
 /**
- * This function creates the schema for the sample summary table, 
+ * This function creates the schema for the sample summary table,
  * which is one of three tables in the dataset details view.
  * @param props - Object containing the data and details.
  * @returns The table definition object that includes table content, button text and definitions.
@@ -21,7 +21,7 @@ export const SamplesTable = (props: SamplesTableProps) => {
     order: 0,
   });
 
-  const samplesTable: { header: string; data: any; cssClasses: String }[] = [
+  const samplesTable: { header: string; data: any; cssClasses: string }[] = [
     {
       header: "Sample ID",
       data: props.details.has_sample.map((x) =>
@@ -65,7 +65,7 @@ export const SamplesTable = (props: SamplesTableProps) => {
 
   const samplesTableDef: {
     table: any;
-    buttonText: String;
+    buttonText: string;
     sortDefinition: { key: number; order: number };
     setSortDefinition: any;
     sortedData: any;

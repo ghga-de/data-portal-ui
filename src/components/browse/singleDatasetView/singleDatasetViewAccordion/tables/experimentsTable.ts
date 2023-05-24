@@ -24,7 +24,7 @@ export const ExperimentsTable = (props: ExperimentsTableProps) => {
   const experimentsTable: {
     header: string;
     data: any;
-    cssClasses: String;
+    cssClasses: string;
   }[] = [
     {
       header: "Experiment ID",
@@ -46,7 +46,7 @@ export const ExperimentsTable = (props: ExperimentsTableProps) => {
 
   const experimentsTableDef: {
     table: any;
-    buttonText: String;
+    buttonText: string;
     sortDefinition: { key: number; order: number };
     setSortDefinition: any;
     sortedData: any;
