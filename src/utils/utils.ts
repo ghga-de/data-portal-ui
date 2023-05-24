@@ -255,18 +255,21 @@ export const getItemsForSummary = (
  * @returns Transposed version of data.
  */
 export const transposeTableForHTML = (data: string[]) => {
-  const rows = data.length,
-    cols = data[0].length;
-  const grid = [];
-  for (let j = 0; j < cols; j++) {
-    grid[j] = Array(rows);
-  }
-  for (let i = 0; i < rows; i++) {
+  if (data.length > 0) {
+    const rows = data.length,
+      cols = data[0].length;
+    const grid = [];
     for (let j = 0; j < cols; j++) {
-      grid[j][i] = data[i][j];
+      grid[j] = Array(rows);
     }
+    for (let i = 0; i < rows; i++) {
+      for (let j = 0; j < cols; j++) {
+        grid[j][i] = data[i][j];
+      }
+    }
+    return grid;
   }
-  return grid;
+  return [];
 };
 
 export const STATIC_PAGE_MAIN_DIV_CLASSES = "mx-auto px-2 px-md-5 my-5";

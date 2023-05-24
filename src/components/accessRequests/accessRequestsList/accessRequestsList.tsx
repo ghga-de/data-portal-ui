@@ -45,15 +45,15 @@ const AccessRequestsList = (props: AccessRequestListProps) => {
     },
     {
       header: "Starts",
-      data: props.requests.map((x) => x.access_starts),
+      data: props.requests.map((x) => x.access_starts.split("T")[0]),
     },
     {
       header: "Ends",
-      data: props.requests.map((x) => x.access_ends),
+      data: props.requests.map((x) => x.access_ends.split("T")[0]),
     },
     {
       header: "Requested",
-      data: props.requests.map((x) => x.request_created),
+      data: props.requests.map((x) => x.request_created.split("T")[0]),
     },
     {
       header: "Status",
@@ -98,7 +98,6 @@ const AccessRequestsList = (props: AccessRequestListProps) => {
   const [showModal, setShowModal] = useState(false);
 
   const handleCloseModal = () => {
-    setSelectedAccessRequest(undefined);
     setShowModal(false);
   };
   const handleShowModal = (accessRequest: AccessRequest) => {
