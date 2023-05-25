@@ -14,23 +14,14 @@
 // limitations under the License.
 //
 
-import {
-  Alert,
-  Col,
-  Container,
-  Row,
-  Form,
-  Spinner,
-  Button,
-} from "react-bootstrap";
+import { Alert, Col, Container, Row, Spinner } from "react-bootstrap";
 import { AccessRequest } from "../../models/submissionsAndRequests";
 import { useMessages } from "../messages/usage";
 import { useAuth } from "../../services/auth";
 import { useEffect, useState } from "react";
 import { fetchJson } from "../../utils/utils";
 import AccessRequestsList from "./accessRequestsList/accessRequestsList";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faFilter } from "@fortawesome/free-solid-svg-icons";
+import AccessRequestsFilter from "./accessRequestsFilter/accessRequestsFilter";
 
 const API_URL = process.env.REACT_APP_SVC_API_URL;
 
@@ -162,9 +153,6 @@ const AccessRequests = () => {
     );
   }
 
-  const FORM_GROUP_ROW_CLASS_NAMES = "row mb-3";
-  const LABEL_COL_CLASS_NAMES = "col-4 col-form-label";
-
   function parseDate(value: string) {
     if (
       parseInt(value.split("-")[0]) < MIN_YEAR &&
@@ -182,116 +170,12 @@ const AccessRequests = () => {
       <Row>
         <Col className="overflow-auto">
           <h3 style={{ margin: "1em 0" }}>Access Requests Management</h3>
-          <Container className="mb-4 border rounded shadow p-2 mx-0 w-50">
-            <Row>
-              <Col className="fs-1" xs={"auto"}>
-                <FontAwesomeIcon icon={faFilter} />
-              </Col>
-              <Col>
-                <Form
-                  onSubmit={(e) => {
-                    handleFilter();
-                    e.preventDefault();
-                  }}
-                >
-                  <Form.Group className={FORM_GROUP_ROW_CLASS_NAMES}>
-                    <Form.Label className={LABEL_COL_CLASS_NAMES}>
-                      Dataset
-                    </Form.Label>
-                    <Col>
-                      <Form.Control
-                        type="text"
-                        onChange={(event) => {
-                          handleFilter(event.target.value);
-                        }}
-                      ></Form.Control>
-                    </Col>
-                  </Form.Group>
-                  <Form.Group className={FORM_GROUP_ROW_CLASS_NAMES}>
-                    <Form.Label className={LABEL_COL_CLASS_NAMES}>
-                      User
-                    </Form.Label>
-                    <Col>
-                      <Form.Control
-                        type="text"
-                        onChange={(event) => {
-                          handleFilter(undefined, event.target.value);
-                        }}
-                      ></Form.Control>
-                    </Col>
-                  </Form.Group>
-                  <Form.Group className={FORM_GROUP_ROW_CLASS_NAMES}>
-                    <Form.Label className={LABEL_COL_CLASS_NAMES}>
-                      Requested date from
-                    </Form.Label>
-                    <Col>
-                      <Form.Control
-                        type="date"
-                        min={MIN_YEAR + "-01-01"}
-                        max={new Date().toISOString().split("T")[0]}
-                        onChange={(event) => {
-                          event.target.value = parseDate(event.target.value);
-                          handleFilter(
-                            undefined,
-                            undefined,
-                            event.target.value
-                          );
-                        }}
-                      ></Form.Control>
-                    </Col>
-                  </Form.Group>
-                  <Form.Group className={FORM_GROUP_ROW_CLASS_NAMES}>
-                    <Form.Label className={LABEL_COL_CLASS_NAMES}>
-                      Requested date until
-                    </Form.Label>
-                    <Col>
-                      <Form.Control
-                        type="date"
-                        min={MIN_YEAR + "-01-01"}
-                        max={MAX_YEAR + "-12-31"}
-                        onChange={(event) => {
-                          event.target.value = parseDate(event.target.value);
-                          handleFilter(
-                            undefined,
-                            undefined,
-                            undefined,
-                            event.target.value
-                          );
-                        }}
-                      ></Form.Control>
-                    </Col>
-                  </Form.Group>
-                  <Form.Group className={FORM_GROUP_ROW_CLASS_NAMES}>
-                    <Form.Label className={LABEL_COL_CLASS_NAMES}>
-                      Status
-                    </Form.Label>
-                    <Col>
-                      <Form.Select
-                        onChange={(event) => {
-                          handleFilter(
-                            undefined,
-                            undefined,
-                            undefined,
-                            undefined,
-                            event.target.value
-                          );
-                        }}
-                        defaultValue={"pending"}
-                      >
-                        <option value="">No filter</option>
-                        <option value="pending">Pending</option>
-                        <option value="allowed">Allowed</option>
-                        <option value="denied">Denied</option>
-                      </Form.Select>
-                    </Col>
-                  </Form.Group>
-                  <Button type="submit" className="d-none">
-                    Submit
-                  </Button>
-                </Form>
-              </Col>
-            </Row>
-          </Container>
+          <AccessRequestsFilter
+            handleFilter={handleFilter}
+            MIN_YEAR={MIN_YEAR}
+            MAX_YEAR={MAX_YEAR}
+            parseDate={parseDate}
+          />
           <AccessRequestsList
             requests={filteredRequests ? filteredRequests : []}
             user={user}
