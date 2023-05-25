@@ -1,6 +1,10 @@
 import { useState } from "react";
 import { datasetEmbeddedModel } from "../../../../../models/dataset";
 import { parseBytes, transposeTableForHTML } from "../../../../../utils/utils";
+import {
+  SDSVTableDefinition,
+  TableFields,
+} from "../../../../../utils/sortButton";
 
 interface ExperimentsTableProps {
   details: datasetEmbeddedModel;
@@ -22,11 +26,7 @@ export const FilesTable = (props: ExperimentsTableProps, fileSize: number) => {
     order: 0,
   });
 
-  let filesTable: {
-    header: string;
-    data: any;
-    cssClasses: string;
-  }[] = [
+  let filesTable: TableFields[] = [
     {
       header: "File name",
       data: props.details.has_file.map((x) => x.name),
@@ -55,14 +55,7 @@ export const FilesTable = (props: ExperimentsTableProps, fileSize: number) => {
     transposeTableForHTML(filesTable.map((x) => x.data))
   );
 
-  const filesTableDef: {
-    table: any;
-    buttonText: string;
-    sortDefinition: { key: number; order: number };
-    setSortDefinition: any;
-    sortedData: any;
-    setSortedData: any;
-  } = {
+  const filesTableDef: SDSVTableDefinition = {
     table: filesTable,
     buttonText:
       props.details.has_file !== null

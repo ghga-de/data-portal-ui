@@ -14,7 +14,15 @@
 // limitations under the License.
 //
 
-import { Alert, Col, Container, Row, Form, Spinner } from "react-bootstrap";
+import {
+  Alert,
+  Col,
+  Container,
+  Row,
+  Form,
+  Spinner,
+  Button,
+} from "react-bootstrap";
 import { AccessRequest } from "../../models/submissionsAndRequests";
 import { useMessages } from "../messages/usage";
 import { useAuth } from "../../services/auth";
@@ -35,13 +43,65 @@ const AccessRequests = () => {
   const { showMessage } = useMessages();
   const { user } = useAuth();
 
-  const [filteredRequests, setFilteredRequests] = useState<AccessRequest[]>([]);
+  const [filteredRequests, setFilteredRequests] = useState<
+    AccessRequest[] | null
+  >(null);
 
   const [datasetFilter, setDatasetFilter] = useState<string>("");
   const [userFilter, setUserFilter] = useState<string>("");
   const [fromFilter, setFromFilter] = useState<string>("");
   const [untilFilter, setUntilFilter] = useState<string>("");
-  const [statusFilter, setStatusFilter] = useState<string>("");
+  const [statusFilter, setStatusFilter] = useState<string>("pending");
+
+  function handleFilter(
+    dataset?: string,
+    user?: string,
+    from?: string,
+    until?: string,
+    status?: string
+  ) {
+    console.log(dataset, user, from, until, status);
+
+    if (requests) {
+      let datasetString: string =
+        dataset !== undefined ? dataset : datasetFilter;
+      let userString: string = user !== undefined ? user : userFilter;
+      let fromString: string = from !== undefined ? from : fromFilter;
+      let untilString: string = until !== undefined ? until : untilFilter;
+      let statusString: string = status !== undefined ? status : statusFilter;
+
+      let fromDate = Date.parse(fromString);
+      if (
+        fromDate < Date.parse(MIN_YEAR + "-01-01T00:00:00.000Z") ||
+        !fromString
+      )
+        fromDate = Date.parse(MIN_YEAR + "-01-01T00:00:00.000Z");
+
+      let untilDate = Date.parse(untilString);
+      if (
+        untilDate > Date.parse(MAX_YEAR + "-12-31T23:59:59.999Z") ||
+        !untilString
+      )
+        untilDate = Date.parse(MAX_YEAR + "-12-31T23:59:59.999Z");
+
+      setDatasetFilter(datasetString);
+      setUserFilter(userString);
+      setFromFilter(fromString);
+      setUntilFilter(untilString);
+      setStatusFilter(statusString);
+
+      setFilteredRequests(
+        requests.filter(
+          (x) =>
+            x.dataset_id.toLowerCase().includes(datasetString.toLowerCase()) &&
+            x.full_user_name.toLowerCase().includes(userString.toLowerCase()) &&
+            Date.parse(x.request_created) > fromDate &&
+            Date.parse(x.request_created) < untilDate &&
+            x.status.toLowerCase().includes(statusString.toLowerCase())
+        )
+      );
+    }
+  }
 
   useEffect(() => {
     async function fetchData() {
@@ -66,64 +126,14 @@ const AccessRequests = () => {
       }
       if (accessRequests !== null) {
         setRequests(accessRequests);
-        setFilteredRequests(accessRequests);
-      }
-    }
-    function handleFilter() {
-      if (requests) {
-        const datasetKeyword = new RegExp(`.*${datasetFilter}.*`, "i");
-        const userKeyword = new RegExp(`.*${userFilter}.*`, "i");
-
-        let fromDate = Date.parse(fromFilter);
-        if (
-          fromDate < Date.parse(MIN_YEAR + "-01-01T00:00:00.000Z") ||
-          !fromFilter
-        )
-          fromDate = Date.parse(MIN_YEAR + "-01-01T00:00:00.000Z");
-
-        let untilDate = Date.parse(untilFilter);
-        if (
-          untilDate > Date.parse(MAX_YEAR + "-31-31T23:59:59.999Z") ||
-          !untilFilter
-        )
-          untilDate = Date.parse(MAX_YEAR + "-31-31T23:59:59.999Z");
-
-        let statusKeyword = new RegExp(".*");
-        if (statusFilter !== "") statusKeyword = new RegExp(`${statusFilter}`);
-
-        setFilteredRequests(
-          requests?.filter(
-            (x) =>
-              datasetKeyword.test(x.dataset_id) &&
-              userKeyword.test(x.full_user_name) &&
-              Date.parse(x.request_created) > fromDate &&
-              Date.parse(x.request_created) < untilDate &&
-              statusKeyword.test(x.status)
-          )
-        );
+        if (!filteredRequests)
+          setFilteredRequests(
+            accessRequests.filter((x) => x.status === "pending")
+          );
       }
     }
     if (requests === null || requests === undefined) fetchData();
-    else handleFilter();
-  }, [
-    datasetFilter,
-    fromFilter,
-    requests,
-    showMessage,
-    statusFilter,
-    untilFilter,
-    user,
-    userFilter,
-  ]);
-
-  if (requests === undefined) {
-    return (
-      <Container className="p-4">
-        Loading access requests...{" "}
-        <Spinner className="ms-4" animation="border" />
-      </Container>
-    );
-  }
+  }, [filteredRequests, requests, showMessage, user]);
 
   if (!user) {
     return (
@@ -131,6 +141,15 @@ const AccessRequests = () => {
         <Alert variant="danger">
           Please log in to manage inbound access requests.
         </Alert>
+      </Container>
+    );
+  }
+
+  if (requests === undefined) {
+    return (
+      <Container className="p-4">
+        Loading access requests...{" "}
+        <Spinner className="ms-4" animation="border" />
       </Container>
     );
   }
@@ -169,7 +188,12 @@ const AccessRequests = () => {
                 <FontAwesomeIcon icon={faFilter} />
               </Col>
               <Col>
-                <Form>
+                <Form
+                  onSubmit={(e) => {
+                    handleFilter();
+                    e.preventDefault();
+                  }}
+                >
                   <Form.Group className={FORM_GROUP_ROW_CLASS_NAMES}>
                     <Form.Label className={LABEL_COL_CLASS_NAMES}>
                       Dataset
@@ -178,7 +202,7 @@ const AccessRequests = () => {
                       <Form.Control
                         type="text"
                         onChange={(event) => {
-                          setDatasetFilter(event.target.value);
+                          handleFilter(event.target.value);
                         }}
                       ></Form.Control>
                     </Col>
@@ -191,7 +215,7 @@ const AccessRequests = () => {
                       <Form.Control
                         type="text"
                         onChange={(event) => {
-                          setUserFilter(event.target.value);
+                          handleFilter(undefined, event.target.value);
                         }}
                       ></Form.Control>
                     </Col>
@@ -204,10 +228,14 @@ const AccessRequests = () => {
                       <Form.Control
                         type="date"
                         min={MIN_YEAR + "-01-01"}
-                        max={MAX_YEAR + "-12-31"}
+                        max={new Date().toISOString().split("T")[0]}
                         onChange={(event) => {
                           event.target.value = parseDate(event.target.value);
-                          setFromFilter(event.target.value);
+                          handleFilter(
+                            undefined,
+                            undefined,
+                            event.target.value
+                          );
                         }}
                       ></Form.Control>
                     </Col>
@@ -223,7 +251,12 @@ const AccessRequests = () => {
                         max={MAX_YEAR + "-12-31"}
                         onChange={(event) => {
                           event.target.value = parseDate(event.target.value);
-                          setUntilFilter(event.target.value);
+                          handleFilter(
+                            undefined,
+                            undefined,
+                            undefined,
+                            event.target.value
+                          );
                         }}
                       ></Form.Control>
                     </Col>
@@ -235,8 +268,15 @@ const AccessRequests = () => {
                     <Col>
                       <Form.Select
                         onChange={(event) => {
-                          setStatusFilter(event.target.value);
+                          handleFilter(
+                            undefined,
+                            undefined,
+                            undefined,
+                            undefined,
+                            event.target.value
+                          );
                         }}
+                        defaultValue={"pending"}
                       >
                         <option value="">No filter</option>
                         <option value="pending">Pending</option>
@@ -245,14 +285,17 @@ const AccessRequests = () => {
                       </Form.Select>
                     </Col>
                   </Form.Group>
+                  <Button type="submit" className="d-none">
+                    Submit
+                  </Button>
                 </Form>
               </Col>
             </Row>
           </Container>
           <AccessRequestsList
-            requests={filteredRequests}
-            setRequests={setFilteredRequests}
+            requests={filteredRequests ? filteredRequests : []}
             user={user}
+            setRequests={filteredRequests ? setFilteredRequests : []}
           />
         </Col>
       </Row>

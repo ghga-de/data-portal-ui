@@ -13,7 +13,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { AccessRequest } from "../../../models/submissionsAndRequests";
 import { Col, Row, Table } from "react-bootstrap";
 import AccessRequestModal from "./accessRequestModal";
@@ -29,37 +29,49 @@ interface AccessRequestListProps {
 }
 
 const AccessRequestsList = (props: AccessRequestListProps) => {
-  let innerTable: TableFields[] = [
-    {
-      header: "ID",
-      data: props.requests.map((x) => x.id),
-      cssClasses: "d-none",
-    },
-    {
-      header: "Dataset",
-      data: props.requests.map((x) => x.dataset_id),
-    },
-    {
-      header: "User",
-      data: props.requests.map((x) => x.full_user_name),
-    },
-    {
-      header: "Starts",
-      data: props.requests.map((x) => x.access_starts.split("T")[0]),
-    },
-    {
-      header: "Ends",
-      data: props.requests.map((x) => x.access_ends.split("T")[0]),
-    },
-    {
-      header: "Requested",
-      data: props.requests.map((x) => x.request_created.split("T")[0]),
-    },
-    {
-      header: "Status",
-      data: props.requests.map((x) => x.status),
-    },
-  ];
+  const buildInnerTable = useCallback(() => {
+    return [
+      {
+        header: "ID",
+        data: props.requests.map((x) => x.id),
+        cssClasses: "d-none",
+      },
+      {
+        header: "Dataset",
+        data: props.requests.map((x) => x.dataset_id),
+      },
+      {
+        header: "User",
+        data: props.requests.map((x) => x.full_user_name),
+      },
+      {
+        header: "Starts",
+        data: props.requests.map((x) => x.access_starts.split("T")[0]),
+      },
+      {
+        header: "Ends",
+        data: props.requests.map((x) => x.access_ends.split("T")[0]),
+      },
+      {
+        header: "Requested",
+        data: props.requests.map((x) => x.request_created.split("T")[0]),
+      },
+      {
+        header: "Status",
+        data: props.requests.map((x) => x.status),
+      },
+    ];
+  }, [props.requests]);
+
+  const [innerTable, setInnerTable] = useState<TableFields[]>(
+    buildInnerTable()
+  );
+
+  useEffect(() => {
+    let table: TableFields[] = buildInnerTable();
+    setInnerTable(table);
+    setSortedData(transposeTableForHTML(table.map((x) => x.data)));
+  }, [buildInnerTable, props.requests]);
 
   const [sortDefinition, setSortDefinition] = useState<{
     key: number;
@@ -118,7 +130,6 @@ const AccessRequestsList = (props: AccessRequestListProps) => {
         handleClose={handleCloseModal}
         handleShow={handleShowModal}
         accessRequest={selectedAccessRequest}
-        setAccessRequests={props.setRequests}
         onUpdate={onUpdate}
       />
       <Table className="w-lg-100" style={{ minWidth: "800px" }}>

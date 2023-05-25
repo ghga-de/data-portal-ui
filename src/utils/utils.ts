@@ -254,8 +254,8 @@ export const getItemsForSummary = (
  * @param data - Two arrays of strings representing rows and columns.
  * @returns Transposed version of data.
  */
-export const transposeTableForHTML = (data: string[]) => {
-  if (data.length > 0) {
+export const transposeTableForHTML = (data: any[]) => {
+  if (data.length > 0 && data[0]) {
     const rows = data.length,
       cols = data[0].length;
     const grid = [];

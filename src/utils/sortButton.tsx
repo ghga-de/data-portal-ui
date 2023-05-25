@@ -25,12 +25,13 @@ import { transposeTableForHTML } from "./utils";
 //
 const SortTable = (
   setSortItem: any,
-  sortedItem: any,
+  sortedData: any,
   setSortedItem: any,
   item: any,
   key: number,
   order: number
 ) => {
+  let sortedItem = Array.from(sortedData);
   setSortItem({ key: key, order: order });
   if (order !== 0) {
     sortedItem.sort((a: any, b: any) => (a[key] > b[key] ? 1 : -1));
@@ -63,6 +64,10 @@ export interface TableDefinition {
   >;
   sortedData: any[];
   setSortedData: React.Dispatch<any>;
+}
+
+export interface SDSVTableDefinition extends TableDefinition {
+  buttonText: string;
 }
 
 interface SortButtonProps {

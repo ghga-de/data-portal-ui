@@ -119,4 +119,7 @@ export const data = {
 
   // Metadata Search Service
   "GET http://127.0.0.1:8002/*": undefined,
+
+  // webpack-hot-replace
+  "GET http://127.0.0.1:8000/main.*": undefined,
 };

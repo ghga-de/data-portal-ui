@@ -56,20 +56,20 @@ export function WorkPackage() {
     fetchData();
   }, [showMessage, user]);
 
-  if (datasets === undefined) {
-    return (
-      <Container className="p-4">
-        Loading datasets... <Spinner className="ms-4" animation="border" />
-      </Container>
-    );
-  }
-
   if (!user) {
     return (
       <Container className="p-4">
         <Alert variant="danger">
           Please log in to prepare for downloading or uploading data.
         </Alert>
+      </Container>
+    );
+  }
+
+  if (datasets === undefined) {
+    return (
+      <Container className="p-4">
+        Loading datasets... <Spinner className="ms-4" animation="border" />
       </Container>
     );
   }

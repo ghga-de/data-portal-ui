@@ -3,7 +3,7 @@ import { datasetEmbeddedModel } from "../../../../models/dataset";
 import { ExperimentsTable } from "./tables/experimentsTable";
 import { FilesTable } from "./tables/filesTable";
 import { SamplesTable } from "./tables/samplesTable";
-import SortButton from "../../../../utils/sortButton";
+import SortButton, { SDSVTableDefinition } from "../../../../utils/sortButton";
 import { parseBytes } from "../../../../utils/utils";
 
 interface SingleDatasetViewAccordionProps {
@@ -19,14 +19,7 @@ const SingleDatasetViewAccordion = (props: SingleDatasetViewAccordionProps) => {
     return null;
   });
 
-  let Tables: {
-    table: any;
-    buttonText: string;
-    sortDefinition: { key: number; order: number };
-    setSortDefinition: any;
-    sortedData: any;
-    setSortedData: any;
-  }[] = [
+  let Tables: SDSVTableDefinition[] = [
     ExperimentsTable(props),
     SamplesTable(props),
     FilesTable(props, fileSize),

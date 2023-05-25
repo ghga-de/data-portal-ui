@@ -29,7 +29,6 @@ interface AccessRequestModalProps {
   handleShow: any;
   accessRequest: AccessRequest | undefined;
   onUpdate: any;
-  setAccessRequests: any;
 }
 
 const COL_CLASSES = "col-xs-5 col-md-4";

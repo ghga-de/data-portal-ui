@@ -1,6 +1,10 @@
 import { useState } from "react";
 import { datasetEmbeddedModel } from "../../../../../models/dataset";
 import { transposeTableForHTML } from "../../../../../utils/utils";
+import {
+  SDSVTableDefinition,
+  TableFields,
+} from "../../../../../utils/sortButton";
 
 interface SamplesTableProps {
   details: datasetEmbeddedModel;
@@ -21,7 +25,7 @@ export const SamplesTable = (props: SamplesTableProps) => {
     order: 0,
   });
 
-  const samplesTable: { header: string; data: any; cssClasses: string }[] = [
+  const samplesTable: TableFields[] = [
     {
       header: "Sample ID",
       data: props.details.has_sample.map((x) =>
@@ -63,14 +67,7 @@ export const SamplesTable = (props: SamplesTableProps) => {
     transposeTableForHTML(samplesTable.map((x) => x.data))
   );
 
-  const samplesTableDef: {
-    table: any;
-    buttonText: string;
-    sortDefinition: { key: number; order: number };
-    setSortDefinition: any;
-    sortedData: any;
-    setSortedData: any;
-  } = {
+  const samplesTableDef: SDSVTableDefinition = {
     table: samplesTable,
     buttonText:
       props.details.has_sample !== null
