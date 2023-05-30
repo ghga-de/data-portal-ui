@@ -28,21 +28,24 @@ const API_URL = process.env.REACT_APP_SVC_API_URL;
 const AccessRequests = () => {
   const MIN_YEAR = 2000;
   const MAX_YEAR = 2199;
+  const MIN_ISO: string = MIN_YEAR + "-01-01T00:00:00.000Z";
+  const MAX_ISO: string = MAX_YEAR + "-12-31T23:59:59.999Z";
+
   const [requests, setRequests] = useState<AccessRequest[] | null | undefined>(
     undefined
   );
   const { showMessage } = useMessages();
   const { user } = useAuth();
 
-  const [filteredRequests, setFilteredRequests] = useState<
-    AccessRequest[] | null
-  >(null);
+  let filteredRequests: AccessRequest[] | undefined = undefined;
 
-  const [datasetFilter, setDatasetFilter] = useState<string>("");
-  const [userFilter, setUserFilter] = useState<string>("");
-  const [fromFilter, setFromFilter] = useState<string>("");
-  const [untilFilter, setUntilFilter] = useState<string>("");
-  const [statusFilter, setStatusFilter] = useState<string>("pending");
+  const [filterObj, setFilterObj] = useState({
+    datasetFilter: "",
+    userFilter: "",
+    fromFilter: MIN_ISO,
+    untilFilter: MAX_ISO,
+    statusFilter: "pending",
+  });
 
   function handleFilter(
     dataset?: string,
@@ -51,46 +54,40 @@ const AccessRequests = () => {
     until?: string,
     status?: string
   ) {
-    console.log(dataset, user, from, until, status);
-
     if (requests) {
       let datasetString: string =
-        dataset !== undefined ? dataset : datasetFilter;
-      let userString: string = user !== undefined ? user : userFilter;
-      let fromString: string = from !== undefined ? from : fromFilter;
-      let untilString: string = until !== undefined ? until : untilFilter;
-      let statusString: string = status !== undefined ? status : statusFilter;
+        dataset !== undefined ? dataset : filterObj["datasetFilter"];
+      let userString: string =
+        user !== undefined ? user : filterObj["userFilter"];
+      let fromString: string =
+        from !== undefined ? from : filterObj["fromFilter"];
+      let untilString: string =
+        until !== undefined ? until : filterObj["untilFilter"];
+      let statusString: string =
+        status !== undefined ? status : filterObj["statusFilter"];
 
       let fromDate = Date.parse(fromString);
-      if (
-        fromDate < Date.parse(MIN_YEAR + "-01-01T00:00:00.000Z") ||
-        !fromString
-      )
-        fromDate = Date.parse(MIN_YEAR + "-01-01T00:00:00.000Z");
+      if (fromDate < Date.parse(MIN_ISO) || !fromString)
+        fromDate = Date.parse(MIN_ISO);
 
       let untilDate = Date.parse(untilString);
-      if (
-        untilDate > Date.parse(MAX_YEAR + "-12-31T23:59:59.999Z") ||
-        !untilString
-      )
-        untilDate = Date.parse(MAX_YEAR + "-12-31T23:59:59.999Z");
+      if (untilDate > Date.parse(MAX_ISO) || !untilString)
+        untilDate = Date.parse(MAX_ISO);
 
-      setDatasetFilter(datasetString);
-      setUserFilter(userString);
-      setFromFilter(fromString);
-      setUntilFilter(untilString);
-      setStatusFilter(statusString);
+      setFilterObj({
+        datasetFilter: datasetString,
+        userFilter: userString,
+        fromFilter: fromString,
+        untilFilter: untilString,
+        statusFilter: statusString,
+      });
+    }
+  }
 
-      setFilteredRequests(
-        requests.filter(
-          (x) =>
-            x.dataset_id.toLowerCase().includes(datasetString.toLowerCase()) &&
-            x.full_user_name.toLowerCase().includes(userString.toLowerCase()) &&
-            Date.parse(x.request_created) > fromDate &&
-            Date.parse(x.request_created) < untilDate &&
-            x.status.toLowerCase().includes(statusString.toLowerCase())
-        )
-      );
+  function onUpdate() {
+    console.log("update");
+    if (filteredRequests) {
+      filteredRequests = [...filteredRequests];
     }
   }
 
@@ -117,14 +114,23 @@ const AccessRequests = () => {
       }
       if (accessRequests !== null) {
         setRequests(accessRequests);
-        if (!filteredRequests)
-          setFilteredRequests(
-            accessRequests.filter((x) => x.status === "pending")
-          );
       }
     }
     if (requests === null || requests === undefined) fetchData();
-  }, [filteredRequests, requests, showMessage, user]);
+  }, [requests, showMessage, user]);
+
+  filteredRequests = requests?.filter(
+    (x) =>
+      x.dataset_id
+        .toLowerCase()
+        .includes(filterObj["datasetFilter"].toLowerCase()) &&
+      x.full_user_name
+        .toLowerCase()
+        .includes(filterObj["userFilter"].toLowerCase()) &&
+      Date.parse(x.request_created) > Date.parse(filterObj["fromFilter"]) &&
+      Date.parse(x.request_created) < Date.parse(filterObj["untilFilter"]) &&
+      x.status.toLowerCase().includes(filterObj["statusFilter"].toLowerCase())
+  );
 
   if (!user) {
     return (
@@ -153,15 +159,16 @@ const AccessRequests = () => {
     );
   }
 
-  function parseDate(value: string) {
+  function parseDate(value: string, force: boolean = false) {
     if (
-      parseInt(value.split("-")[0]) < MIN_YEAR &&
-      parseInt(value.split("-")[0]) > 999
+      Date.parse(value) < Date.parse(MIN_ISO) &&
+      (Date.parse(value) > 999 || force)
     )
       value = MIN_YEAR.toString() + "-" + value.split("-").slice(1).join("-");
 
-    if (parseInt(value.split("-")[0]) > MAX_YEAR)
+    if (Date.parse(value) > Date.parse(MAX_ISO))
       value = MAX_YEAR.toString() + "-" + value.split("-").slice(1).join("-");
+
     return value;
   }
 
@@ -172,14 +179,15 @@ const AccessRequests = () => {
           <h3 style={{ margin: "1em 0" }}>Access Requests Management</h3>
           <AccessRequestsFilter
             handleFilter={handleFilter}
-            MIN_YEAR={MIN_YEAR}
-            MAX_YEAR={MAX_YEAR}
+            MIN_ISO={MIN_ISO}
+            MAX_ISO={MAX_ISO}
+            filterObj={filterObj}
             parseDate={parseDate}
           />
           <AccessRequestsList
             requests={filteredRequests ? filteredRequests : []}
             user={user}
-            setRequests={filteredRequests ? setFilteredRequests : []}
+            onUpdate={onUpdate}
           />
         </Col>
       </Row>

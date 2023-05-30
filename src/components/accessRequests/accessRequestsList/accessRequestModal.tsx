@@ -57,6 +57,7 @@ const AccessRequestModal = (props: AccessRequestModalProps) => {
         props.onUpdate();
       } else throw new Error("PATCH failed: " + response.text);
     } catch (error) {
+      console.log(error);
       setDisabledButtons(false);
       showMessage({
         type: "error",

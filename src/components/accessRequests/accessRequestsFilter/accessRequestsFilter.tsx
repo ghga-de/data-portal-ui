@@ -19,9 +19,16 @@ import { Button, Col, Container, Form, Row } from "react-bootstrap";
 
 interface AccessRequestsFilterProps {
   handleFilter: any;
-  MIN_YEAR: number;
-  MAX_YEAR: number;
-  parseDate: (value: string) => string;
+  MIN_ISO: string;
+  MAX_ISO: string;
+  filterObj: {
+    datasetFilter: string;
+    userFilter: string;
+    fromFilter: string;
+    untilFilter: string;
+    statusFilter: string;
+  };
+  parseDate: (value: string, force?: boolean) => string;
 }
 
 const AccessRequestsFilter = (props: AccessRequestsFilterProps) => {
@@ -70,8 +77,20 @@ const AccessRequestsFilter = (props: AccessRequestsFilterProps) => {
               <Col>
                 <Form.Control
                   type="date"
-                  min={props.MIN_YEAR + "-01-01"}
+                  min={props.MIN_ISO.split("T")[0]}
                   max={new Date().toISOString().split("T")[0]}
+                  value={props.filterObj["fromFilter"].split("T")[0]}
+                  onBlur={(event) => {
+                    event.target.value = props.parseDate(
+                      event.target.value,
+                      true
+                    );
+                    props.handleFilter(
+                      undefined,
+                      undefined,
+                      event.target.value
+                    );
+                  }}
                   onChange={(event) => {
                     event.target.value = props.parseDate(event.target.value);
                     props.handleFilter(
@@ -90,8 +109,21 @@ const AccessRequestsFilter = (props: AccessRequestsFilterProps) => {
               <Col>
                 <Form.Control
                   type="date"
-                  min={props.MIN_YEAR + "-01-01"}
-                  max={props.MAX_YEAR + "-12-31"}
+                  min={props.MIN_ISO.split("T")[0]}
+                  max={props.MAX_ISO.split("T")[0]}
+                  value={props.filterObj["untilFilter"].split("T")[0]}
+                  onBlur={(event) => {
+                    event.target.value = props.parseDate(
+                      event.target.value,
+                      true
+                    );
+                    props.handleFilter(
+                      undefined,
+                      undefined,
+                      undefined,
+                      event.target.value
+                    );
+                  }}
                   onChange={(event) => {
                     event.target.value = props.parseDate(event.target.value);
                     props.handleFilter(

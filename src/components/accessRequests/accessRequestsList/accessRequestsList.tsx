@@ -24,8 +24,8 @@ import { transposeTableForHTML } from "../../../utils/utils";
 //
 interface AccessRequestListProps {
   requests: AccessRequest[];
-  setRequests: any;
   user: User;
+  onUpdate: () => void;
 }
 
 const AccessRequestsList = (props: AccessRequestListProps) => {
@@ -94,16 +94,14 @@ const AccessRequestsList = (props: AccessRequestListProps) => {
   };
 
   function onUpdate() {
-    if (props.requests) {
-      props.setRequests([...props.requests]);
-      if (selectedAccessRequest) {
-        sortedData.find(
-          (x: any) =>
-            x[innerTable.findIndex((x) => x.header === "ID")] ===
-            selectedAccessRequest.id
-        )[innerTable.findIndex((x) => x.header === "Status")] =
-          selectedAccessRequest.status;
-      }
+    props.onUpdate();
+    if (selectedAccessRequest) {
+      sortedData.find(
+        (x: any) =>
+          x[innerTable.findIndex((x) => x.header === "ID")] ===
+          selectedAccessRequest.id
+      )[innerTable.findIndex((x) => x.header === "Status")] =
+        selectedAccessRequest.status;
     }
   }
 
