@@ -20,50 +20,86 @@ import { useMessages } from "../messages/usage";
 import { useAuth } from "../../services/auth";
 import { useEffect, useState } from "react";
 import { fetchJson } from "../../utils/utils";
-import AccessRequestModal from "./accessRequestModal";
+import AccessRequestsList from "./accessRequestsList/accessRequestsList";
+import AccessRequestsFilter from "./accessRequestsFilter/accessRequestsFilter";
 
 const API_URL = process.env.REACT_APP_SVC_API_URL;
-const TD_CLASSES = "ps-1 pe-1 pe-lg-3 border";
 
 const AccessRequests = () => {
+  const MIN_YEAR = 2000;
+  const MAX_YEAR = 2199;
+  const MIN_ISO: string = MIN_YEAR + "-01-01T00:00:00.000Z";
+  const MAX_ISO: string = MAX_YEAR + "-12-31T23:59:59.999Z";
+
   const [requests, setRequests] = useState<AccessRequest[] | null | undefined>(
     undefined
   );
-
   const { showMessage } = useMessages();
   const { user } = useAuth();
 
-  const [selectedAccessRequest, setSelectedAccessRequest] = useState<
-    AccessRequest | undefined
-  >();
+  let filteredRequests: AccessRequest[] | undefined = undefined;
 
-  const [showModal, setShowModal] = useState(false);
+  const [filterObj, setFilterObj] = useState({
+    datasetFilter: "",
+    userFilter: "",
+    fromFilter: MIN_ISO,
+    untilFilter: MAX_ISO,
+    statusFilter: "pending",
+  });
 
-  const handleCloseModal = () => {
-    setSelectedAccessRequest(undefined);
-    setShowModal(false);
-  };
-  const handleShowModal = (accessRequest: AccessRequest) => {
-    setSelectedAccessRequest(accessRequest);
-    setShowModal(true);
-  };
+  function handleFilter(
+    dataset?: string,
+    user?: string,
+    from?: string,
+    until?: string,
+    status?: string
+  ) {
+    if (requests) {
+      let datasetString: string =
+        dataset !== undefined ? dataset : filterObj["datasetFilter"];
+      let userString: string =
+        user !== undefined ? user : filterObj["userFilter"];
+      let fromString: string =
+        from !== undefined ? from : filterObj["fromFilter"];
+      let untilString: string =
+        until !== undefined ? until : filterObj["untilFilter"];
+      let statusString: string =
+        status !== undefined ? status : filterObj["statusFilter"];
+
+      let fromDate = Date.parse(fromString);
+      if (fromDate < Date.parse(MIN_ISO) || !fromString)
+        fromDate = Date.parse(MIN_ISO);
+
+      let untilDate = Date.parse(untilString);
+      if (untilDate > Date.parse(MAX_ISO) || !untilString)
+        untilDate = Date.parse(MAX_ISO);
+
+      setFilterObj({
+        datasetFilter: datasetString,
+        userFilter: userString,
+        fromFilter: fromString,
+        untilFilter: untilString,
+        statusFilter: statusString,
+      });
+    }
+  }
 
   function onUpdate() {
-    if (requests) {
-      setRequests([...requests]);
+    console.log("update");
+    if (filteredRequests) {
+      filteredRequests = [...filteredRequests];
     }
-    console.log("called");
   }
 
   useEffect(() => {
     async function fetchData() {
-      let requests: AccessRequest[] | null = null;
+      let accessRequests: AccessRequest[] | null = null;
       if (user?.id) {
         const url = `${API_URL}/access-requests`;
         try {
           const response = await fetchJson(url);
           if (response.ok) {
-            requests = await response.json();
+            accessRequests = await response.json();
           } else {
             throw new Error(
               "Failed to retrieve access requests: " + response.text
@@ -76,19 +112,25 @@ const AccessRequests = () => {
           });
         }
       }
-      setRequests(requests);
+      if (accessRequests !== null) {
+        setRequests(accessRequests);
+      }
     }
-    fetchData();
-  }, [showMessage, user]);
+    if (requests === null || requests === undefined) fetchData();
+  }, [requests, showMessage, user]);
 
-  if (requests === undefined) {
-    return (
-      <Container className="p-4">
-        Loading access requests...{" "}
-        <Spinner className="ms-4" animation="border" />
-      </Container>
-    );
-  }
+  filteredRequests = requests?.filter(
+    (x) =>
+      x.dataset_id
+        .toLowerCase()
+        .includes(filterObj["datasetFilter"].toLowerCase()) &&
+      x.full_user_name
+        .toLowerCase()
+        .includes(filterObj["userFilter"].toLowerCase()) &&
+      Date.parse(x.request_created) > Date.parse(filterObj["fromFilter"]) &&
+      Date.parse(x.request_created) < Date.parse(filterObj["untilFilter"]) &&
+      x.status.toLowerCase().includes(filterObj["statusFilter"].toLowerCase())
+  );
 
   if (!user) {
     return (
@@ -96,6 +138,15 @@ const AccessRequests = () => {
         <Alert variant="danger">
           Please log in to manage inbound access requests.
         </Alert>
+      </Container>
+    );
+  }
+
+  if (requests === undefined) {
+    return (
+      <Container className="p-4">
+        Loading access requests...{" "}
+        <Spinner className="ms-4" animation="border" />
       </Container>
     );
   }
@@ -108,65 +159,36 @@ const AccessRequests = () => {
     );
   }
 
+  function parseDate(value: string, force: boolean = false) {
+    if (
+      Date.parse(value) < Date.parse(MIN_ISO) &&
+      (Date.parse(value) > 999 || force)
+    )
+      value = MIN_YEAR.toString() + "-" + value.split("-").slice(1).join("-");
+
+    if (Date.parse(value) > Date.parse(MAX_ISO))
+      value = MAX_YEAR.toString() + "-" + value.split("-").slice(1).join("-");
+
+    return value;
+  }
+
   return (
     <Container className="pb-4">
       <Row>
         <Col className="overflow-auto">
-          <AccessRequestModal
-            show={showModal}
-            setShow={setShowModal}
-            userId={user.id}
-            handleClose={handleCloseModal}
-            handleShow={handleShowModal}
-            accessRequest={selectedAccessRequest}
-            setAccessRequests={setRequests}
+          <h3 style={{ margin: "1em 0" }}>Access Requests Management</h3>
+          <AccessRequestsFilter
+            handleFilter={handleFilter}
+            MIN_ISO={MIN_ISO}
+            MAX_ISO={MAX_ISO}
+            filterObj={filterObj}
+            parseDate={parseDate}
+          />
+          <AccessRequestsList
+            requests={filteredRequests ? filteredRequests : []}
+            user={user}
             onUpdate={onUpdate}
           />
-          <h3 style={{ margin: "1em 0" }}>Access Requests Management</h3>
-          <table className="w-lg-100" style={{ minWidth: "800px" }}>
-            <thead className="border-light-3 border-1 bg-secondary text-white px-2">
-              <tr>
-                <th className={TD_CLASSES}>Dataset</th>
-                <th className={TD_CLASSES}>User</th>
-                <th className={TD_CLASSES}>Starts</th>
-                <th className={TD_CLASSES}>Ends</th>
-                <th className={TD_CLASSES}>Requested</th>
-                <th className={TD_CLASSES}>Status</th>
-              </tr>
-            </thead>
-            <tbody>
-              {requests.map((request: AccessRequest) => {
-                return (
-                  <tr
-                    role="button"
-                    title={"View access request " + request.id}
-                    className={
-                      request.status === "allowed"
-                        ? "text-success"
-                        : request.status === "denied"
-                        ? "text-danger"
-                        : ""
-                    }
-                    key={request.id}
-                    onClick={() => handleShowModal(request)}
-                  >
-                    <td className={TD_CLASSES}>{request.dataset_id}</td>
-                    <td className={TD_CLASSES}>{request.full_user_name}</td>
-                    <td className={TD_CLASSES}>
-                      {request.access_starts.split("T")[0]}
-                    </td>
-                    <td className={TD_CLASSES}>
-                      {request.access_ends.split("T")[0]}
-                    </td>
-                    <td className={TD_CLASSES}>
-                      {request.request_created.split("T")[0]}
-                    </td>
-                    <td className={TD_CLASSES}>{request.status}</td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
         </Col>
       </Row>
     </Container>

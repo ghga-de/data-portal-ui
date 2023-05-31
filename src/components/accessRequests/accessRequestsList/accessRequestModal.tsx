@@ -14,9 +14,9 @@
 // limitations under the License.
 
 import { Button, Col, Modal, Row } from "react-bootstrap";
-import { fetchJson } from "../../utils/utils";
-import { showMessage } from "../messages/usage";
-import { AccessRequest } from "../../models/submissionsAndRequests";
+import { fetchJson } from "../../../utils/utils";
+import { showMessage } from "../../messages/usage";
+import { AccessRequest } from "../../../models/submissionsAndRequests";
 import { useState } from "react";
 
 const API_URL = process.env.REACT_APP_SVC_API_URL;
@@ -29,7 +29,6 @@ interface AccessRequestModalProps {
   handleShow: any;
   accessRequest: AccessRequest | undefined;
   onUpdate: any;
-  setAccessRequests: any;
 }
 
 const COL_CLASSES = "col-xs-5 col-md-4";
@@ -58,6 +57,7 @@ const AccessRequestModal = (props: AccessRequestModalProps) => {
         props.onUpdate();
       } else throw new Error("PATCH failed: " + response.text);
     } catch (error) {
+      console.log(error);
       setDisabledButtons(false);
       showMessage({
         type: "error",

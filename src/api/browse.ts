@@ -134,7 +134,7 @@ type getMetadataSummaryType = (
  * @returns Nothing
  */
 export const getMetadataSummary: getMetadataSummaryType = (callbackFunc) => {
-  fetch(`${process.env.REACT_APP_SVC_REPOSITORY_URL}/metadata_summary/`, {
+  fetch(`${REPOSITORY_URL}/metadata_summary/`, {
     method: "get",
   })
     .then((response) => response.json())
