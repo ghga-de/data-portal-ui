@@ -6,3 +6,4 @@ svc_repository_url: "http://127.0.0.1:8002"
 svc_api_url: "http://127.0.0.1:8000/api"
 svc_users_url: "http://127.0.0.1:8000/api/auth/users"
 svc_wps_url: "http://127.0.0.1:8000/api/wps"
+default_data_access_duration_days: 365

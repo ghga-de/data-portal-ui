@@ -108,6 +108,9 @@ export const data = {
   // All access requests
   "GET /api/access-requests": accessRequests,
 
+  // All access requests
+  "POST /api/access-requests": 204,
+
   // Patch an access request
   "PATCH /api/access-requests/*": 204,
 

@@ -7,14 +7,11 @@ import DatasetExperiments from "./datasetExperiments";
 import DatasetFiles from "./datasetFiles";
 import DatasetSamples from "./datasetSamples";
 import DatasetStudies from "./datasetStudies";
-import DataRequestModal from "./dataRequestModal/dataRequestModal";
+import DataRequestFormModal from "../../../../../utils/dataRequestFormModal";
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faKey,
-  faLink,
-  faUpRightFromSquare,
-} from "@fortawesome/free-solid-svg-icons";
+import { faLink, faUpRightFromSquare } from "@fortawesome/free-solid-svg-icons";
+import RequestAccessButton from "../../../../../utils/requestAccessButton";
 
 interface dataSetDetailsProps {
   hit: hitModel;
@@ -49,22 +46,7 @@ const DatasetSummary = (props: dataSetDetailsProps) => {
         <div className="float-end ps-0 ps-md-4 ms-1">
           {props.summary !== null && props.summary !== undefined ? (
             <>
-              <Button
-                className="fs-7 mb-3 text-white shadow-md-dark d-block"
-                variant="secondary"
-                onClick={() => handleOpen()}
-                style={{ width: "115px" }}
-                title="Request access"
-              >
-                <Row className="p-0 m-0 align-items-center text-start">
-                  <Col className="p-0 m-0 col-3 ">
-                    <FontAwesomeIcon icon={faKey} />
-                  </Col>
-                  <Col className="p-0 m-0 lh-1">
-                    <strong>Request Access</strong>
-                  </Col>
-                </Row>
-              </Button>
+              <RequestAccessButton handleOpen={handleOpen} classes="d-block" />
               <Button
                 href={
                   props.hit.content.ega_accession !== null
@@ -169,7 +151,7 @@ const DatasetSummary = (props: dataSetDetailsProps) => {
           </div>
         )}
       </div>
-      <DataRequestModal
+      <DataRequestFormModal
         accession={
           props.hit.content.ega_accession !== null
             ? props.hit.content.ega_accession

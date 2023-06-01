@@ -1,7 +1,6 @@
 import {
   faArrowTurnUp,
   faCircleExclamation,
-  faKey,
   faLink,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -14,10 +13,11 @@ import {
   searchResponseModel,
 } from "../../../models/dataset";
 import { getDACEmailId } from "../../../utils/utils";
-import DataRequestModal from "../dataset/datasetAccordion/datasetSummary/dataRequestModal/dataRequestModal";
+import DataRequestFormModal from "../../../utils/dataRequestFormModal";
 import SingleDatasetViewAccordion from "./singleDatasetViewAccordion/singleDatasetViewAccordion";
 import SingleDatasetViewSummary from "./singleDatasetViewSummary/singleDatasetViewSummary";
 import SingleDatasetViewTabs from "./singleDatasetViewTabs/singleDatasetViewTabs";
+import RequestAccessButton from "../../../utils/requestAccessButton";
 
 /** Single dataset details page */
 const SingleDatasetView = () => {
@@ -126,21 +126,10 @@ const SingleDatasetView = () => {
               </Button>
             </Col>
             <Col className="px-0">
-              <Button
-                className="fs-7 float-end mb-3 ms-2 ms-sm-4 text-white shadow-md-dark"
-                variant="secondary"
-                onClick={() => handleOpen()}
-                style={{ width: "105px" }}
-              >
-                <Row className="p-0 m-0 align-items-center text-start">
-                  <Col className="p-0 m-0 col-3 ">
-                    <FontAwesomeIcon icon={faKey} />
-                  </Col>
-                  <Col className="p-0 m-0 lh-1">
-                    <strong>Request Access</strong>
-                  </Col>
-                </Row>
-              </Button>
+              <RequestAccessButton
+                handleOpen={handleOpen}
+                classes="float-end ms-2 ms-sm-4 "
+              />
               {details.ega_accession !== null ? (
                 <Button
                   href={
@@ -165,7 +154,7 @@ const SingleDatasetView = () => {
               )}
             </Col>
           </Row>
-          <DataRequestModal
+          <DataRequestFormModal
             accession={
               details.ega_accession !== null
                 ? details.ega_accession
