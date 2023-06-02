@@ -69,12 +69,7 @@ const AccessRequestModal = (props: AccessRequestModalProps) => {
   const [showConfirmation, setShowConfirmation] = useState<boolean>(false);
   const [status, setStatus] = useState<"allowed" | "denied">("denied");
 
-  interface ConfirmationModalProps {
-    show: boolean;
-    status: "allowed" | "denied";
-  }
-
-  const ConfirmationModal = (props: ConfirmationModalProps) => {
+  const ConfirmationModal = () => {
     return (
       <Modal
         show={showConfirmation && props.show}
@@ -82,10 +77,10 @@ const AccessRequestModal = (props: AccessRequestModalProps) => {
         centered
       >
         <Modal.Header>
-          <Modal.Title>Confirm access request {props.status}</Modal.Title>
+          <Modal.Title>Confirm access request {status}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          Confirm changing current access request status to {props.status}
+          Confirm changing current access request status to {status}
         </Modal.Body>
         <Modal.Footer className="justify-content-between">
           <Button
@@ -100,7 +95,7 @@ const AccessRequestModal = (props: AccessRequestModalProps) => {
             variant={"quinary"}
             className="text-white"
             onClick={() => {
-              handleButtonClickAccess(props.status);
+              handleButtonClickAccess(status);
               setDisabledButtons(true);
               setShowConfirmation(false);
             }}
@@ -193,7 +188,7 @@ const AccessRequestModal = (props: AccessRequestModalProps) => {
           <></>
         )}
       </Modal>
-      <ConfirmationModal show={props.show} status={status} />
+      <ConfirmationModal />
     </>
   );
 };
