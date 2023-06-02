@@ -90,26 +90,50 @@ const DataRequestFormModal = (props: DataRequestFormModalProps) => {
   }
 
   const [showConfirmation, setShowConfirmation] = useState<boolean>(false);
-  const [formEvent, setFormEvent] = useState<
-    FormEvent<HTMLFormElement> | undefined
-  >();
+  const [formEvent, setFormEvent] = useState<FormEvent<HTMLFormElement>>(
+    {} as any as FormEvent<HTMLFormElement>
+  );
 
   const ConfirmationModal = () => {
-    return formEvent !== undefined ? (
+    if (formEvent.target === undefined) return <></>;
+    const { details, from, until, email } =
+      formEvent.target as typeof formEvent.target & FormData;
+    return (
       <Modal
         show={showConfirmation && props.show}
         onHide={() => setShowConfirmation(false)}
         centered
       >
         <Modal.Header>
-          <Modal.Title>Confirm access request</Modal.Title>
+          <Modal.Title>
+            Requesting access to dataset {props.accession}
+          </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          Confirm changing current access request status to
+          <h5 className="mb-4 pb-2">Confirm your data access request:</h5>
+          <p>
+            <strong>Requester:</strong> {user?.fullName}
+          </p>
+          <p>
+            <strong>Contact e-mail:</strong> {email.value}
+          </p>
+          <p>
+            <strong>Dataset:</strong> {props.accession}
+          </p>
+          <p>
+            <strong>From:</strong> {from.value}
+          </p>
+          <p>
+            <strong>Until:</strong> {until.value}
+          </p>
+          <p className="mb-0">
+            <strong>Request details:</strong>
+          </p>
+          <p className="mb-3">{details.value}</p>
         </Modal.Body>
         <Modal.Footer className="justify-content-between">
           <Button
-            variant="dark-3"
+            variant="outline-dark"
             onClick={() => {
               setShowConfirmation(false);
             }}
@@ -117,12 +141,10 @@ const DataRequestFormModal = (props: DataRequestFormModalProps) => {
             Cancel
           </Button>
           <Button
-            variant={"quinary"}
+            variant="primary"
             className="text-white"
             onClick={() => {
-              handleDataAccessRequestSubmission(
-                formEvent as FormEvent<HTMLFormElement>
-              );
+              handleDataAccessRequestSubmission(formEvent);
               setShowConfirmation(false);
             }}
           >
@@ -130,8 +152,6 @@ const DataRequestFormModal = (props: DataRequestFormModalProps) => {
           </Button>
         </Modal.Footer>
       </Modal>
-    ) : (
-      <></>
     );
   };
 
