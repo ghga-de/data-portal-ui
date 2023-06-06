@@ -66,86 +66,130 @@ const AccessRequestModal = (props: AccessRequestModalProps) => {
     }
   }
 
-  return (
-    <Modal show={props.show} onHide={props.handleClose}>
-      <Modal.Header closeButton>
-        <Modal.Title>Access Request Detail</Modal.Title>
-      </Modal.Header>
+  const [showConfirmation, setShowConfirmation] = useState<boolean>(false);
+  const [status, setStatus] = useState<"allowed" | "denied">("denied");
 
-      <Modal.Body>
-        <Row className={ROW_CLASSES}>
-          <Col className={COL_CLASSES}>Requester:</Col>
-          <Col>{props.accessRequest?.full_user_name}</Col>
-        </Row>
-        <Row className={ROW_CLASSES}>
-          <Col className={COL_CLASSES}>Contact e-Mail:</Col>
-          <Col>{props.accessRequest?.email}</Col>
-        </Row>
-        <Row className={ROW_CLASSES}>
-          <Col className={COL_CLASSES}>Request Text:</Col>
-          <Col>{props.accessRequest?.request_text}</Col>
-        </Row>
-        <Row className={ROW_CLASSES}>
-          <Col>
-            Request has been made on{" "}
-            {props.accessRequest?.request_created.split("T")[0]}
-          </Col>
-        </Row>
-        <Row className={ROW_CLASSES}>
-          <Col>
-            Access has been requested from{" "}
-            {props.accessRequest?.access_starts.split("T")[0]}
-            &nbsp;until {props.accessRequest?.access_ends.split("T")[0]}{" "}
-          </Col>
-        </Row>
-        <Row className={ROW_CLASSES}>
-          <Col>
-            {props.accessRequest?.status_changed
-              ? "Access has been " +
-                props.accessRequest?.status +
-                " on " +
-                props.accessRequest?.status_changed.split("T")[0]
-              : "Access request is pending"}
-          </Col>
-        </Row>
-      </Modal.Body>
-
-      {props.accessRequest?.status === "pending" ? (
-        <Modal.Footer className="d-block text-end">
+  const ConfirmationModal = () => {
+    return (
+      <Modal
+        show={showConfirmation && props.show}
+        onHide={() => setShowConfirmation(false)}
+        centered
+      >
+        <Modal.Header>
+          <Modal.Title>Confirm access request {status}</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          Confirm changing current access request status to {status}
+        </Modal.Body>
+        <Modal.Footer className="justify-content-between">
           <Button
             variant="dark-3"
-            className="text-white me-3 float-start"
-            onClick={() => props.setShow(false)}
-            disabled={disabledButtons}
+            onClick={() => {
+              setShowConfirmation(false);
+            }}
           >
             Cancel
           </Button>
           <Button
-            variant="secondary"
-            className="text-white me-3"
+            variant={"quinary"}
+            className="text-white"
             onClick={() => {
-              handleButtonClickAccess("denied");
+              handleButtonClickAccess(status);
               setDisabledButtons(true);
+              setShowConfirmation(false);
             }}
-            disabled={disabledButtons}
           >
-            Deny
-          </Button>
-          <Button
-            variant="quaternary"
-            onClick={() => {
-              handleButtonClickAccess("allowed");
-              setDisabledButtons(true);
-            }}
-            disabled={disabledButtons}
-          >
-            Allow
+            Confirm
           </Button>
         </Modal.Footer>
-      ) : (
-        <></>
-      )}
-    </Modal>
+      </Modal>
+    );
+  };
+
+  return (
+    <>
+      <Modal show={props.show} onHide={props.handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Access Request Detail</Modal.Title>
+        </Modal.Header>
+
+        <Modal.Body>
+          <Row className={ROW_CLASSES}>
+            <Col className={COL_CLASSES}>Requester:</Col>
+            <Col>{props.accessRequest?.full_user_name}</Col>
+          </Row>
+          <Row className={ROW_CLASSES}>
+            <Col className={COL_CLASSES}>Contact e-Mail:</Col>
+            <Col>{props.accessRequest?.email}</Col>
+          </Row>
+          <Row className={ROW_CLASSES}>
+            <Col className={COL_CLASSES}>Request Text:</Col>
+            <Col>{props.accessRequest?.request_text}</Col>
+          </Row>
+          <Row className={ROW_CLASSES}>
+            <Col>
+              Request has been made on{" "}
+              {props.accessRequest?.request_created.split("T")[0]}
+            </Col>
+          </Row>
+          <Row className={ROW_CLASSES}>
+            <Col>
+              Access has been requested from{" "}
+              {props.accessRequest?.access_starts.split("T")[0]}
+              &nbsp;until {props.accessRequest?.access_ends.split("T")[0]}{" "}
+            </Col>
+          </Row>
+          <Row className={ROW_CLASSES}>
+            <Col>
+              {props.accessRequest?.status_changed
+                ? "Access has been " +
+                  props.accessRequest?.status +
+                  " on " +
+                  props.accessRequest?.status_changed.split("T")[0]
+                : "Access request is pending"}
+            </Col>
+          </Row>
+        </Modal.Body>
+
+        {props.accessRequest?.status === "pending" ? (
+          <Modal.Footer className="d-block text-end">
+            <Button
+              variant="dark-3"
+              className="text-white me-3 float-start"
+              onClick={() => props.setShow(false)}
+              disabled={disabledButtons}
+            >
+              Cancel
+            </Button>
+            <Button
+              variant="secondary"
+              className="text-white me-3"
+              onClick={() => {
+                setShowConfirmation(true);
+                setStatus("denied");
+              }}
+              disabled={disabledButtons}
+            >
+              Deny
+            </Button>
+            <Button
+              variant="quaternary"
+              onClick={() => {
+                setShowConfirmation(true);
+                setStatus("allowed");
+              }}
+              disabled={disabledButtons}
+            >
+              Allow
+            </Button>
+          </Modal.Footer>
+        ) : (
+          <></>
+        )}
+      </Modal>
+      <ConfirmationModal />
+    </>
   );
 };
 

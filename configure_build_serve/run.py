@@ -46,6 +46,7 @@ class Config(BaseSettings):
     oidc_token_url: str = f"{oidc_authority_url}OIDC/token"
     oidc_userinfo_url: str = f"{oidc_authority_url}OIDC/userinfo"
     oidc_use_discovery: bool = True
+    default_data_access_duration_days: int = 365
 
 
 def simplelog(text: str):
