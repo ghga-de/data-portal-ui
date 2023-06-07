@@ -1,3 +1,5 @@
+import { embeddedDataset } from "./metadata";
+
 // Static fake data for mocking the backend
 
 export const user = {
@@ -117,11 +119,17 @@ export const data = {
   // Static assets
   "GET /static/*": undefined,
 
+  // Get Dataset details (embedded) Metadata Repository Service
+  "GET http://127.0.0.1:8002/datasets/*?embedded=true": embeddedDataset,
+
   // Metadata Repository Service
-  "GET http://127.0.0.1:8001/*": undefined,
+  "GET http://127.0.0.1:8002/dataset_summary/*": undefined,
+
+  // Metadata Repository Service
+  "GET http://127.0.0.1:8002/metadata_summary/": undefined,
 
   // Metadata Search Service
-  "GET http://127.0.0.1:8002/*": undefined,
+  "GET http://127.0.0.1:8001/*": undefined,
 
   // webpack-hot-replace
   "GET http://127.0.0.1:8000/main.*": undefined,
