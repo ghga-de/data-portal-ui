@@ -27,7 +27,7 @@ const DataRequestFormModal = (props: DataRequestFormModalProps) => {
     return clean_email;
   };
 
-  const API_URL = process.env.REACT_APP_SVC_API_URL;
+  const ARS_URL = process.env.REACT_APP_SVC_ARS_URL;
   const { user } = useAuth();
 
   const MILLISECONDS_TO_ADD: number =
@@ -56,7 +56,7 @@ const DataRequestFormModal = (props: DataRequestFormModalProps) => {
     const { details, from, until, email, cancelButton, submitButton } =
       e.target as typeof e.target & FormData;
 
-    const url = `${API_URL}/access-requests/`;
+    const url = `${ARS_URL}/access-requests/`;
     submitButton.disabled = "true";
     try {
       const response = await fetchJson(url, "POST", {
