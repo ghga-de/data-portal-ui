@@ -1,4 +1,4 @@
-import { embeddedDataset } from "./metadata";
+import { datasetSummary, embeddedDataset, metadataSummary } from "./metadata";
 
 // Static fake data for mocking the backend
 
@@ -122,11 +122,11 @@ export const data = {
   // Get Dataset details (embedded) Metadata Repository Service
   "GET http://127.0.0.1:8002/datasets/*?embedded=true": embeddedDataset,
 
-  // Metadata Repository Service
-  "GET http://127.0.0.1:8002/dataset_summary/*": undefined,
+  // Get summary data from a single dataset
+  "GET http://127.0.0.1:8002/dataset_summary/*": datasetSummary,
 
-  // Metadata Repository Service
-  "GET http://127.0.0.1:8002/metadata_summary/": undefined,
+  // Get summary data from entire metadata database
+  "GET http://127.0.0.1:8002/metadata_summary/": metadataSummary,
 
   // Metadata Search Service
   "GET http://127.0.0.1:8001/*": undefined,
