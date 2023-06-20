@@ -19,7 +19,7 @@ import { showMessage } from "../../messages/usage";
 import { AccessRequest } from "../../../models/submissionsAndRequests";
 import { useState } from "react";
 
-const API_URL = process.env.REACT_APP_SVC_API_URL;
+const ARS_URL = process.env.REACT_APP_SVC_ARS_URL;
 
 interface AccessRequestModalProps {
   show: boolean;
@@ -43,7 +43,7 @@ const AccessRequestModal = (props: AccessRequestModalProps) => {
       return null;
     }
     setDisabledButtons(true);
-    const url = `${API_URL}/access-requests/${props.accessRequest?.id}`;
+    const url = `${ARS_URL}/access-requests/${props.accessRequest?.id}`;
     try {
       const response = await fetchJson(url, "PATCH", { status: status });
       if (response.ok) {

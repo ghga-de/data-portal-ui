@@ -23,7 +23,7 @@ import { fetchJson } from "../../utils/utils";
 import AccessRequestsList from "./accessRequestsList/accessRequestsList";
 import AccessRequestsFilter from "./accessRequestsFilter/accessRequestsFilter";
 
-const API_URL = process.env.REACT_APP_SVC_API_URL;
+const ARS_URL = process.env.REACT_APP_SVC_ARS_URL;
 
 const AccessRequests = () => {
   const MIN_YEAR = 2000;
@@ -95,7 +95,7 @@ const AccessRequests = () => {
     async function fetchData() {
       let accessRequests: AccessRequest[] | null = null;
       if (user?.id) {
-        const url = `${API_URL}/access-requests`;
+        const url = `${ARS_URL}/access-requests`;
         try {
           const response = await fetchJson(url);
           if (response.ok) {

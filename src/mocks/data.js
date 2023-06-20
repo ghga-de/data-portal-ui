@@ -108,13 +108,13 @@ export const data = {
   "POST /api/wps/work-packages": workPackageToken,
 
   // All access requests
-  "GET /api/access-requests": accessRequests,
+  "GET /api/ars/access-requests": accessRequests,
 
   // All access requests
-  "POST /api/access-requests": 204,
+  "POST /api/ars/access-requests": 204,
 
   // Patch an access request
-  "PATCH /api/access-requests/*": 204,
+  "PATCH /api/ars/access-requests/*": 204,
 
   // Static assets
   "GET /static/*": undefined,
