@@ -289,6 +289,7 @@ const DataRequestFormModal = (props: DataRequestFormModalProps) => {
                   <Form.Control
                     type="email"
                     name="email"
+                    value={user.email}
                     required
                   ></Form.Control>
                 </Form.Group>
