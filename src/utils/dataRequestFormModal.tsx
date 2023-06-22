@@ -56,7 +56,7 @@ const DataRequestFormModal = (props: DataRequestFormModalProps) => {
     const { details, from, until, email, cancelButton, submitButton } =
       e.target as typeof e.target & FormData;
 
-    const url = `${ARS_URL}/access-requests/`;
+    const url = `${ARS_URL}/access-requests`;
     submitButton.disabled = "true";
     try {
       const response = await fetchJson(url, "POST", {
@@ -289,6 +289,7 @@ const DataRequestFormModal = (props: DataRequestFormModalProps) => {
                   <Form.Control
                     type="email"
                     name="email"
+                    value={user.email}
                     required
                   ></Form.Control>
                 </Form.Group>
