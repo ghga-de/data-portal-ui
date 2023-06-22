@@ -81,3 +81,74 @@ export const embeddedDataset = {
     },
   ],
 };
+
+export const datasetSummary = {
+  id: "TEST0000000011010",
+  accession: "GHGA:TEST588887987",
+  ega_accession: "EGATEST6516132",
+  description:
+    "Test dataset for Metadata Repository get dataset details call. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Vel risus commodo viverra maecenas accumsan lacus vel. Sit amet risus nullam eget felis eget nunc lobortis mattis. Iaculis at erat pellentesque adipiscing commodo. Volutpat consequat mauris nunc congue. At lectus urna duis convallis convallis tellus id interdum velit. Gravida cum sociis natoque penatibus et. Mauris in aliquam sem fringilla ut morbi. Ultrices gravida dictum fusce ut. At consectetur lorem donec massa sapien faucibus et molestie.",
+  type: ["Test Type"],
+  title: "Test dataset for details",
+  dac_email: "test[at]test[dot]de;",
+  sample_summary: {
+    count: 3,
+    stats: {
+      sex: { female: 1, male: 1, unkown: 1 },
+      tissues: { metastasis: 1, tumor: 2 },
+      phenotypes: { "Test Phenotype 1": 2, "Test Phenotype 2": 1 },
+    },
+  },
+  study_summary: {
+    count: 1,
+    stats: {
+      ega_accession: "EGATEST88464",
+      accession: "TEST18666800",
+      title: "Test Study",
+    },
+  },
+  experiment_summary: {
+    count: 14,
+    stats: {
+      protocol: {
+        "Ilumina test": 10,
+        "HiSeq test": 4,
+      },
+    },
+  },
+  file_summary: {
+    count: 27,
+    stats: {
+      format: { fastq: 22, bam: 5 },
+      size: 434543980,
+    },
+  },
+};
+
+export const metadataSummary = {
+  file_summary: {
+    count: 532,
+    stats: {
+      format: { fastq: 124, bam: 408 },
+    },
+  },
+  individual_summary: {
+    count: 5432,
+    stats: {
+      sex: { female: 1935, male: 2358, unknown: 1139 },
+    },
+  },
+  protocol_summary: {
+    count: 1400,
+    stats: {
+      protocol: {
+        "Ilumina test": 700,
+        "HiSeq test": 700,
+      },
+    },
+  },
+  dataset_summary: {
+    count: 252,
+    stats: {},
+  },
+};
