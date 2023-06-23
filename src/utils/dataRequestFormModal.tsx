@@ -64,8 +64,8 @@ const DataRequestFormModal = (props: DataRequestFormModalProps) => {
         dataset_id: props.accession,
         email: email.value,
         request_text: details.value,
-        access_starts: from.value + "T:00:00:00.000Z",
-        access_ends: until.value + "T:23:59:59.999Z",
+        access_starts: from.value + "T00:00:00.000Z",
+        access_ends: until.value + "T23:59:59.999Z",
       });
       if (response.ok) {
         showMessage({
