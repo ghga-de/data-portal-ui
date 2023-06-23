@@ -51,6 +51,10 @@ export function WorkPackage() {
           console.log(error);
         }
       }
+      // assume work type "download" when not specified
+      datasets?.forEach(
+        (dataset) => (dataset.workType = dataset.workType || "download")
+      );
       setDatasets(datasets);
     }
     fetchData();
@@ -160,9 +164,7 @@ export function WorkPackage() {
 
   function handleSelect(id: string) {
     setDataset(
-      id && datasets
-        ? datasets.find((dataset) => dataset.id === id && dataset.workType)
-        : undefined
+      id && datasets ? datasets.find((dataset) => dataset.id === id) : undefined
     );
   }
 
