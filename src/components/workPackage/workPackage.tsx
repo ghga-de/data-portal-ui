@@ -210,7 +210,7 @@ export function WorkPackage() {
     )
       return;
     const url = `${WPS_URL}/work-packages`;
-    const fileIds = (files || "").split(/[,\s]+/);
+    const fileIds = (files || "").split(/[,\s]+/).filter((file) => file);
     const data = {
       dataset_id: dataset.id,
       type: dataset.workType,
