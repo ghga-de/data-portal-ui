@@ -6,11 +6,11 @@ services:
   data_portal_ui_svc:
     image: ghga/data-portal-ui:main
     environment:
-      DATA_PORTAL_UI_HOST: 0.0.0.0
+      DATA_PORTAL_UI_HOST: 127.0.0.1
       DATA_PORTAL_UI_PORT: 8080
-      WDS_SOCKET_PORT: 8000
+      WDS_SOCKET_PORT: 8080
     ports:
-      - 127.0.0.1:8000:8080
+      - 8080:8080
     depends_on:
       - metadata_search_svc
       - metadata_rep
@@ -59,7 +59,7 @@ services:
     depends_on:
       - metadata_db
 
-  #metadata repo
+  # metadata repo
 
   metadata_rep:
     image: ghga/metadata-repository-service:main

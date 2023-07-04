@@ -37,12 +37,17 @@ export function WorkPackage() {
 
   useEffect(() => {
     async function fetchData() {
-      let datasets: Dataset[] | null = null;
       if (user?.id) {
         const url = `${WPS_URL}/users/${user.id}/datasets`;
         try {
+          let datasets: Dataset[];
           const response = await fetchJson(url);
           datasets = await response.json();
+          datasets = datasets.filter(
+            (dataset) =>
+              dataset.stage === "download" || dataset.stage === "upload"
+          );
+          setDatasets(datasets);
         } catch (error) {
           showMessage({
             type: "error",
@@ -51,11 +56,6 @@ export function WorkPackage() {
           console.log(error);
         }
       }
-      // assume work type "download" when not specified
-      datasets?.forEach(
-        (dataset) => (dataset.workType = dataset.workType || "download")
-      );
-      setDatasets(datasets);
     }
     fetchData();
   }, [showMessage, user]);
@@ -120,12 +120,12 @@ export function WorkPackage() {
     return (
       <Container className="p-4">
         <Alert variant="success">
-          A token for {dataset?.workType} has been created.
+          A token for {dataset?.stage} has been created.
         </Alert>
         <Alert variant="info">
           <Form.Text>
-            Make sure to copy your {dataset?.workType} token now as you will not
-            be able to see this again.
+            Make sure to copy your {dataset?.stage} token now as you will not be
+            able to see this again.
           </Form.Text>
           <InputGroup className="mb-3">
             <Form.Control value={token} readOnly></Form.Control>
@@ -200,20 +200,14 @@ export function WorkPackage() {
   async function handleSubmit(event: FormEvent) {
     event.preventDefault();
     if (
-      !(
-        user?.id &&
-        dataset?.id &&
-        dataset.workType &&
-        userKey &&
-        !errors.userKey
-      )
+      !(user?.id && dataset?.id && dataset.stage && userKey && !errors.userKey)
     )
       return;
     const url = `${WPS_URL}/work-packages`;
     const fileIds = (files || "").split(/[,\s]+/).filter((file) => file);
     const data = {
       dataset_id: dataset.id,
-      type: dataset.workType,
+      type: dataset.stage,
       file_ids: fileIds.length ? fileIds : null,
       user_public_crypt4gh_key: userKey,
     };
@@ -269,7 +263,7 @@ export function WorkPackage() {
               <p>{dataset.description}</p>
               <p>
                 This dataset has been selected for:{" "}
-                <strong>{dataset.workType}</strong>
+                <strong>{dataset.stage}</strong>
               </p>
             </Form.Group>
             <Form.Group>
@@ -281,10 +275,10 @@ export function WorkPackage() {
                 onChange={(event) => setFiles(event.target.value)}
               ></Form.Control>
               <Form.Text muted>
-                You can restrict the {dataset.workType} to certain files only.
-                To do so, enter the desired file IDs above, separated by
-                whitespace or commas. Otherwise, leave the field above empty in
-                order to {dataset.workType} all files of the dataset.
+                You can restrict the {dataset.stage} to certain files only. To
+                do so, enter the desired file IDs above, separated by whitespace
+                or commas. Otherwise, leave the field above empty in order to{" "}
+                {dataset.stage} all files of the dataset.
               </Form.Text>
             </Form.Group>
             <Form.Group className="mt-2">
@@ -316,11 +310,11 @@ export function WorkPackage() {
                   className="text-white"
                 >
                   <FontAwesomeIcon
-                    icon={dataset.workType === "upload" ? faUpload : faDownload}
+                    icon={dataset.stage === "upload" ? faUpload : faDownload}
                     className="me-2 ms-3"
                   />
                   <span className="me-3">
-                    Generate an access token for {dataset.workType}
+                    Generate an access token for {dataset.stage}
                   </span>
                 </Button>
               </div>
