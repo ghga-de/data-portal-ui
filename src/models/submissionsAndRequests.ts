@@ -18,7 +18,7 @@ export interface Dataset {
   id: string;
   title: string;
   description: string;
-  workType: string;
+  stage: string;
 }
 
 export interface Errors {

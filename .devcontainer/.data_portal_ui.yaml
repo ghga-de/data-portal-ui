@@ -3,7 +3,7 @@ host: 127.0.0.1
 port: 8080
 svc_search_url: "http://127.0.0.1:8001"
 svc_repository_url: "http://127.0.0.1:8002"
-svc_ars_url: "http://127.0.0.1:8000/api/ars"
-svc_users_url: "http://127.0.0.1:8000/api/auth/users"
-svc_wps_url: "http://127.0.0.1:8000/api/wps"
+svc_ars_url: "http://127.0.0.1:8080/api/ars"
+svc_users_url: "http://127.0.0.1:8080/api/auth/users"
+svc_wps_url: "http://127.0.0.1:8080/api/wps"
 default_data_access_duration_days: 365
