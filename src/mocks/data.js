@@ -1,4 +1,4 @@
-import { datasetSummary, embeddedDataset, metadataSummary } from "./metadata";
+import { datasetSummary, embeddedDataset, metadataSummary, searchResults, singleSearchResults } from "./metadata";
 
 // Static fake data for mocking the backend
 
@@ -129,7 +129,10 @@ export const data = {
   "GET http://127.0.0.1:8002/metadata_summary/": metadataSummary,
 
   // Metadata Search Service
-  "GET http://127.0.0.1:8001/*": undefined,
+  "POST http://127.0.0.1:8001/rpc/search?*&limit=10": searchResults,
+
+  // Metadata Search Service single result
+  "POST http://127.0.0.1:8001/rpc/search?*&limit=1": singleSearchResults,
 
   // webpack-hot-replace
   "GET http://127.0.0.1:8000/main.*": undefined,
