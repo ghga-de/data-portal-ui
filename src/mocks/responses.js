@@ -6,6 +6,8 @@ import {
   metadataSummary,
   user,
   workPackageToken,
+  searchResults,
+  singleSearchResults,
 } from "./data";
 
 // Responses to be returned for various endpoints.
@@ -49,7 +51,10 @@ const localResponses = {
   "GET http://127.0.0.1:8092/metadata_summary/": metadataSummary,
 
   // Metadata Search Service
-  "GET http://127.0.0.1:8001/*": undefined,
+  "POST http://127.0.0.1:8001/rpc/search?*&limit=10": searchResults,
+
+  // Metadata Search Service single result
+  "POST http://127.0.0.1:8001/rpc/search?*&limit=1": singleSearchResults,
 
   // webpack-hot-replace
   "GET http://127.0.0.1:8080/main.*": undefined,
