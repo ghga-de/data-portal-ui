@@ -24,5 +24,5 @@ const authServiceProxy = {
 };
 
 module.exports = function (app) {
-  app.use("/api/auth", createProxyMiddleware(authServiceProxy));
+  app.use("/api", createProxyMiddleware(authServiceProxy));
 };

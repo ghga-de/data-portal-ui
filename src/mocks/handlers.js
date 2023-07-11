@@ -1,5 +1,5 @@
 import { rest } from "msw";
-import { data } from "./data";
+import { responses } from "./responses";
 import { setOidcUser } from "./login";
 
 const CLIENT_URL = process.env["REACT_APP_CLIENT_URL"];
@@ -24,14 +24,14 @@ export const handlers = [
 ];
 
 // add request handlers for static fake data
-Object.keys(data).forEach((endpoint) => {
+Object.keys(responses).forEach((endpoint) => {
   let [method, url] = endpoint.split(" ");
   method = method.toLowerCase();
   if (!["get", "post", "patch"].includes(method)) {
     console.error("Invalid endpoint in fake data:", endpoint);
     return;
   }
-  let result = data[endpoint];
+  let result = responses[endpoint];
   const resolver = (req, res, ctx) => {
     if (result === undefined) return;
     console.debug("Mocking", method.toUpperCase(), url);
