@@ -8,6 +8,7 @@ import {
   workPackageToken,
   searchResults,
   singleSearchResults,
+  searchResultsNoHits,
 } from "./data";
 
 // Responses to be returned for various endpoints.
@@ -51,7 +52,11 @@ const localResponses = {
   "GET http://127.0.0.1:8092/metadata_summary/": metadataSummary,
 
   // Metadata Search Service
-  "POST http://127.0.0.1:8001/rpc/search?*&limit=10": searchResults,
+  "POST http://127.0.0.1:8001/rpc/search?*&skip=0&limit=10": searchResults,
+
+  // Metadata Search Service no hits found
+  "POST http://127.0.0.1:8001/rpc/search?*&skip=10&limit=10":
+    searchResultsNoHits,
 
   // Metadata Search Service single result
   "POST http://127.0.0.1:8001/rpc/search?*&limit=1": singleSearchResults,
