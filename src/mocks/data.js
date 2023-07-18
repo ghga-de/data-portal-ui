@@ -279,12 +279,6 @@ export const singleSearchResults = {
   ],
 };
 
-export const searchResultsNoHits = {
-  facets: [],
-  count: 15,
-  hits: [],
-};
-
 export const searchResults = {
   facets: [
     {
@@ -304,7 +298,7 @@ export const searchResults = {
       ],
     },
   ],
-  count: 15,
+  count: 25,
   hits: [
     {
       document_type: "Dataset",
@@ -412,6 +406,186 @@ export const searchResults = {
         description:
           "Test dataset for Metadata Repository get dataset details call. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Vel risus commodo viverra maecenas accumsan lacus vel. Sit amet risus nullam eget felis eget nunc lobortis mattis. Iaculis at erat pellentesque adipiscing commodo. Volutpat consequat mauris nunc congue. At lectus urna duis convallis convallis tellus id interdum velit. Gravida cum sociis natoque penatibus et. Mauris in aliquam sem fringilla ut morbi. Ultrices gravida dictum fusce ut. At consectetur lorem donec massa sapien faucibus et molestie.",
         type: ["Test dataset type 1"],
+      },
+    },
+    {
+      document_type: "Dataset",
+      id: "TEST0000000011010",
+      content: {
+        accession: "GHGA:TEST8045045087",
+        ega_accession: "EGATEST786534087",
+        title: "Test dataset for details 10",
+        description:
+          "Test dataset for Metadata Repository get dataset details call. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Vel risus commodo viverra maecenas accumsan lacus vel. Sit amet risus nullam eget felis eget nunc lobortis mattis. Iaculis at erat pellentesque adipiscing commodo. Volutpat consequat mauris nunc congue. At lectus urna duis convallis convallis tellus id interdum velit. Gravida cum sociis natoque penatibus et. Mauris in aliquam sem fringilla ut morbi. Ultrices gravida dictum fusce ut. At consectetur lorem donec massa sapien faucibus et molestie.",
+        type: ["Test dataset type 2"],
+      },
+    },
+    {
+      document_type: "Dataset",
+      id: "TEST0000000011010",
+      content: {
+        accession: "GHGA:TEST8045045087",
+        ega_accession: "EGATEST786534087",
+        title: "Test dataset for details 10",
+        description:
+          "Test dataset for Metadata Repository get dataset details call. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Vel risus commodo viverra maecenas accumsan lacus vel. Sit amet risus nullam eget felis eget nunc lobortis mattis. Iaculis at erat pellentesque adipiscing commodo. Volutpat consequat mauris nunc congue. At lectus urna duis convallis convallis tellus id interdum velit. Gravida cum sociis natoque penatibus et. Mauris in aliquam sem fringilla ut morbi. Ultrices gravida dictum fusce ut. At consectetur lorem donec massa sapien faucibus et molestie.",
+        type: ["Test dataset type 2"],
+      },
+    },
+    {
+      document_type: "Dataset",
+      id: "TEST0000000011010",
+      content: {
+        accession: "GHGA:TEST8045045087",
+        ega_accession: "EGATEST786534087",
+        title: "Test dataset for details 10",
+        description:
+          "Test dataset for Metadata Repository get dataset details call. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Vel risus commodo viverra maecenas accumsan lacus vel. Sit amet risus nullam eget felis eget nunc lobortis mattis. Iaculis at erat pellentesque adipiscing commodo. Volutpat consequat mauris nunc congue. At lectus urna duis convallis convallis tellus id interdum velit. Gravida cum sociis natoque penatibus et. Mauris in aliquam sem fringilla ut morbi. Ultrices gravida dictum fusce ut. At consectetur lorem donec massa sapien faucibus et molestie.",
+        type: ["Test dataset type 2"],
+      },
+    },
+    {
+      document_type: "Dataset",
+      id: "TEST0000000011010",
+      content: {
+        accession: "GHGA:TEST8045045087",
+        ega_accession: "EGATEST786534087",
+        title: "Test dataset for details 10",
+        description:
+          "Test dataset for Metadata Repository get dataset details call. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Vel risus commodo viverra maecenas accumsan lacus vel. Sit amet risus nullam eget felis eget nunc lobortis mattis. Iaculis at erat pellentesque adipiscing commodo. Volutpat consequat mauris nunc congue. At lectus urna duis convallis convallis tellus id interdum velit. Gravida cum sociis natoque penatibus et. Mauris in aliquam sem fringilla ut morbi. Ultrices gravida dictum fusce ut. At consectetur lorem donec massa sapien faucibus et molestie.",
+        type: ["Test dataset type 2"],
+      },
+    },
+    {
+      document_type: "Dataset",
+      id: "TEST0000000011010",
+      content: {
+        accession: "GHGA:TEST8045045087",
+        ega_accession: "EGATEST786534087",
+        title: "Test dataset for details 10",
+        description:
+          "Test dataset for Metadata Repository get dataset details call. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Vel risus commodo viverra maecenas accumsan lacus vel. Sit amet risus nullam eget felis eget nunc lobortis mattis. Iaculis at erat pellentesque adipiscing commodo. Volutpat consequat mauris nunc congue. At lectus urna duis convallis convallis tellus id interdum velit. Gravida cum sociis natoque penatibus et. Mauris in aliquam sem fringilla ut morbi. Ultrices gravida dictum fusce ut. At consectetur lorem donec massa sapien faucibus et molestie.",
+        type: ["Test dataset type 2"],
+      },
+    },
+    {
+      document_type: "Dataset",
+      id: "TEST0000000011010",
+      content: {
+        accession: "GHGA:TEST8045045087",
+        ega_accession: "EGATEST786534087",
+        title: "Test dataset for details 10",
+        description:
+          "Test dataset for Metadata Repository get dataset details call. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Vel risus commodo viverra maecenas accumsan lacus vel. Sit amet risus nullam eget felis eget nunc lobortis mattis. Iaculis at erat pellentesque adipiscing commodo. Volutpat consequat mauris nunc congue. At lectus urna duis convallis convallis tellus id interdum velit. Gravida cum sociis natoque penatibus et. Mauris in aliquam sem fringilla ut morbi. Ultrices gravida dictum fusce ut. At consectetur lorem donec massa sapien faucibus et molestie.",
+        type: ["Test dataset type 2"],
+      },
+    },
+    {
+      document_type: "Dataset",
+      id: "TEST0000000011010",
+      content: {
+        accession: "GHGA:TEST8045045087",
+        ega_accession: "EGATEST786534087",
+        title: "Test dataset for details 10",
+        description:
+          "Test dataset for Metadata Repository get dataset details call. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Vel risus commodo viverra maecenas accumsan lacus vel. Sit amet risus nullam eget felis eget nunc lobortis mattis. Iaculis at erat pellentesque adipiscing commodo. Volutpat consequat mauris nunc congue. At lectus urna duis convallis convallis tellus id interdum velit. Gravida cum sociis natoque penatibus et. Mauris in aliquam sem fringilla ut morbi. Ultrices gravida dictum fusce ut. At consectetur lorem donec massa sapien faucibus et molestie.",
+        type: ["Test dataset type 2"],
+      },
+    },
+    {
+      document_type: "Dataset",
+      id: "TEST0000000011010",
+      content: {
+        accession: "GHGA:TEST8045045087",
+        ega_accession: "EGATEST786534087",
+        title: "Test dataset for details 10",
+        description:
+          "Test dataset for Metadata Repository get dataset details call. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Vel risus commodo viverra maecenas accumsan lacus vel. Sit amet risus nullam eget felis eget nunc lobortis mattis. Iaculis at erat pellentesque adipiscing commodo. Volutpat consequat mauris nunc congue. At lectus urna duis convallis convallis tellus id interdum velit. Gravida cum sociis natoque penatibus et. Mauris in aliquam sem fringilla ut morbi. Ultrices gravida dictum fusce ut. At consectetur lorem donec massa sapien faucibus et molestie.",
+        type: ["Test dataset type 2"],
+      },
+    },
+    {
+      document_type: "Dataset",
+      id: "TEST0000000011010",
+      content: {
+        accession: "GHGA:TEST8045045087",
+        ega_accession: "EGATEST786534087",
+        title: "Test dataset for details 10",
+        description:
+          "Test dataset for Metadata Repository get dataset details call. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Vel risus commodo viverra maecenas accumsan lacus vel. Sit amet risus nullam eget felis eget nunc lobortis mattis. Iaculis at erat pellentesque adipiscing commodo. Volutpat consequat mauris nunc congue. At lectus urna duis convallis convallis tellus id interdum velit. Gravida cum sociis natoque penatibus et. Mauris in aliquam sem fringilla ut morbi. Ultrices gravida dictum fusce ut. At consectetur lorem donec massa sapien faucibus et molestie.",
+        type: ["Test dataset type 2"],
+      },
+    },
+    {
+      document_type: "Dataset",
+      id: "TEST0000000011010",
+      content: {
+        accession: "GHGA:TEST8045045087",
+        ega_accession: "EGATEST786534087",
+        title: "Test dataset for details 10",
+        description:
+          "Test dataset for Metadata Repository get dataset details call. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Vel risus commodo viverra maecenas accumsan lacus vel. Sit amet risus nullam eget felis eget nunc lobortis mattis. Iaculis at erat pellentesque adipiscing commodo. Volutpat consequat mauris nunc congue. At lectus urna duis convallis convallis tellus id interdum velit. Gravida cum sociis natoque penatibus et. Mauris in aliquam sem fringilla ut morbi. Ultrices gravida dictum fusce ut. At consectetur lorem donec massa sapien faucibus et molestie.",
+        type: ["Test dataset type 2"],
+      },
+    },
+    {
+      document_type: "Dataset",
+      id: "TEST0000000011010",
+      content: {
+        accession: "GHGA:TEST8045045087",
+        ega_accession: "EGATEST786534087",
+        title: "Test dataset for details 10",
+        description:
+          "Test dataset for Metadata Repository get dataset details call. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Vel risus commodo viverra maecenas accumsan lacus vel. Sit amet risus nullam eget felis eget nunc lobortis mattis. Iaculis at erat pellentesque adipiscing commodo. Volutpat consequat mauris nunc congue. At lectus urna duis convallis convallis tellus id interdum velit. Gravida cum sociis natoque penatibus et. Mauris in aliquam sem fringilla ut morbi. Ultrices gravida dictum fusce ut. At consectetur lorem donec massa sapien faucibus et molestie.",
+        type: ["Test dataset type 2"],
+      },
+    },
+    {
+      document_type: "Dataset",
+      id: "TEST0000000011010",
+      content: {
+        accession: "GHGA:TEST8045045087",
+        ega_accession: "EGATEST786534087",
+        title: "Test dataset for details 10",
+        description:
+          "Test dataset for Metadata Repository get dataset details call. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Vel risus commodo viverra maecenas accumsan lacus vel. Sit amet risus nullam eget felis eget nunc lobortis mattis. Iaculis at erat pellentesque adipiscing commodo. Volutpat consequat mauris nunc congue. At lectus urna duis convallis convallis tellus id interdum velit. Gravida cum sociis natoque penatibus et. Mauris in aliquam sem fringilla ut morbi. Ultrices gravida dictum fusce ut. At consectetur lorem donec massa sapien faucibus et molestie.",
+        type: ["Test dataset type 2"],
+      },
+    },
+    {
+      document_type: "Dataset",
+      id: "TEST0000000011010",
+      content: {
+        accession: "GHGA:TEST8045045087",
+        ega_accession: "EGATEST786534087",
+        title: "Test dataset for details 10",
+        description:
+          "Test dataset for Metadata Repository get dataset details call. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Vel risus commodo viverra maecenas accumsan lacus vel. Sit amet risus nullam eget felis eget nunc lobortis mattis. Iaculis at erat pellentesque adipiscing commodo. Volutpat consequat mauris nunc congue. At lectus urna duis convallis convallis tellus id interdum velit. Gravida cum sociis natoque penatibus et. Mauris in aliquam sem fringilla ut morbi. Ultrices gravida dictum fusce ut. At consectetur lorem donec massa sapien faucibus et molestie.",
+        type: ["Test dataset type 2"],
+      },
+    },
+    {
+      document_type: "Dataset",
+      id: "TEST0000000011010",
+      content: {
+        accession: "GHGA:TEST8045045087",
+        ega_accession: "EGATEST786534087",
+        title: "Test dataset for details 10",
+        description:
+          "Test dataset for Metadata Repository get dataset details call. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Vel risus commodo viverra maecenas accumsan lacus vel. Sit amet risus nullam eget felis eget nunc lobortis mattis. Iaculis at erat pellentesque adipiscing commodo. Volutpat consequat mauris nunc congue. At lectus urna duis convallis convallis tellus id interdum velit. Gravida cum sociis natoque penatibus et. Mauris in aliquam sem fringilla ut morbi. Ultrices gravida dictum fusce ut. At consectetur lorem donec massa sapien faucibus et molestie.",
+        type: ["Test dataset type 2"],
+      },
+    },
+    {
+      document_type: "Dataset",
+      id: "TEST0000000011010",
+      content: {
+        accession: "GHGA:TEST8045045087",
+        ega_accession: "EGATEST786534087",
+        title: "Test dataset for details 10",
+        description:
+          "Test dataset for Metadata Repository get dataset details call. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Vel risus commodo viverra maecenas accumsan lacus vel. Sit amet risus nullam eget felis eget nunc lobortis mattis. Iaculis at erat pellentesque adipiscing commodo. Volutpat consequat mauris nunc congue. At lectus urna duis convallis convallis tellus id interdum velit. Gravida cum sociis natoque penatibus et. Mauris in aliquam sem fringilla ut morbi. Ultrices gravida dictum fusce ut. At consectetur lorem donec massa sapien faucibus et molestie.",
+        type: ["Test dataset type 2"],
       },
     },
     {
