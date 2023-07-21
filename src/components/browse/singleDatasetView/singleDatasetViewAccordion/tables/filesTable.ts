@@ -29,7 +29,7 @@ export const FilesTable = (props: ExperimentsTableProps, fileSize: number) => {
   let filesTable: TableFields[] = [
     {
       header: "File name",
-      data: props.details.has_file.map((x) => x.name),
+      data: props.details.has_file.map((x) => x.alias),
       cssClasses: "text-break",
     },
     {

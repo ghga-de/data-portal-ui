@@ -47,8 +47,7 @@ export const querySearchService: getDatasetsSearchRespType = async (
   documentType = "Dataset"
 ) => {
   let url = `${SEARCH_URL}/rpc/search`;
-  url += `?document_type=${documentType}&return_facets=true&skip=${skip}&limit=${limit}`;
-  const payload = { query: searchKeyword, filters: filterQuery };
+  const payload = { class_name: "Dataset", query: searchKeyword, filters: filterQuery, skip: skip, limit: limit };
   try {
     const response = await fetchJson(url, "POST", payload);
     const data = await response.json();
@@ -74,18 +73,17 @@ type getDatasetDetailsType = (
 /**
  * Async function to retrieve the details of specified dataset from API,
  * calls the callbackFunc function with the response data, returns nothing.
- * @param datasetId - ID of the dataset of interest.
+ * @param datasetAccession - ID of the dataset of interest.
  * @param embedded - Boolean for the url parameter "embedded". Default: 'false'.
  * @param callbackFunc - Function used to process response data.
  * @returns Nothing
  */
 export const getDatasetDetails: getDatasetDetailsType = async (
-  datasetId,
+  datasetAccession,
   embedded = false,
   callbackFunc
 ) => {
-  let url = `${REPOSITORY_URL}/datasets/${datasetId}`;
-  url += `?embedded=${embedded}`;
+  let url = `${REPOSITORY_URL}/artifacts/embedded_public/classes/EmbeddedDataset/resources/${datasetAccession}`;
   try {
     const response = await fetchJson(url);
     const data = await response.json();

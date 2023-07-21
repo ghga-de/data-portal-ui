@@ -39,16 +39,19 @@ export interface datasetModel {
 }
 
 export interface fileModel {
-  id: string;
-  name: string;
-  size: number;
-  format: string;
-  category: string;
-  checksum: string;
-  creation_date: string;
+  // id: string;
   accession: string;
   alias: string;
+  // study is a repeat of data?
+  study: studyEmbeddedModel;
+  name: string;
+  format: string;
+  size: number;
+  checksum: string;
   checksum_type: string;
+  dataset: string;
+  // category: string;
+  // creation_date: string;
 }
 
 export interface experimentEmbeddedModel {
@@ -116,35 +119,40 @@ export interface projectModel {
 }
 
 export interface studyEmbeddedModel {
-  release_date: string;
-  id: string;
+  // id: string;
+  accession: string;
+  alias: string;
   title: string;
   description: string;
-  accession: string;
-  abstract: string;
-  has_publication: publicationModel[];
+  // accession: string;
   type: string;
-  has_attribute: attributeModel[];
+  release_date: string;
+  // abstract: string;
+  // has_publication: publicationModel[];
+  attributes: attributeModel[];
   has_project: projectModel;
-  ega_accession: string;
+  // ega_accession: string;
 }
 
 export interface dataAccessPolicyModel {
-  id: string;
-  name: string;
+  // id: string;
   accession: string;
-  has_data_access_committee: dataAccessCommitteeModel;
-  data_request_form: string;
+  alias: string;
+  name: string;
+  description: string;
+  // data_request_form: string;
   policy_text: string;
   policy_url: string;
+  data_access_committee: dataAccessCommitteeModel;
 }
 
 export interface dataAccessCommitteeModel {
-  name: string;
-  main_contact: string;
+  // id: string;
   accession: string;
-  has_member: dataAccessCommitteeMemberModel[];
+  // has_member: dataAccessCommitteeMemberModel[];
   alias: string;
+  email: string;
+  institute: string;
 }
 
 export interface dataAccessCommitteeMemberModel {
@@ -159,36 +167,37 @@ export interface attributeModel {
 }
 
 export interface datasetEmbeddedModel {
-  id: string;
+  // id: string;
+  accession: string;
+  alias: string;
   title: string;
   description: string;
-  type: string;
-  has_experiment: experimentEmbeddedModel[];
-  has_file: fileModel[];
+  types: string[];
+  // has_experiment: experimentEmbeddedModel[];
+  // study_files vs files?
+  study_files: fileModel[];
   has_sample: sampleModel[];
-  has_study: studyEmbeddedModel[];
-  has_data_access_policy: dataAccessPolicyModel;
-  has_attribute: attributeModel[];
-  has_publication: publicationModel[];
-  creation_date: string;
-  accession: string;
-  ega_accession: string;
-  release_status: string;
-  release_date: string;
-  update_date: string;
+  studies: studyEmbeddedModel[];
+  data_access_policy: dataAccessPolicyModel;
+  // has_attribute: attributeModel[];
+  // has_publication: publicationModel[];
+  // creation_date: string;
+  // release_status: string;
+  // release_date: string;
+  // update_date: string;
 }
 
 export interface hitContentModel {
-  id: string;
+  // id: string;
   accession: string;
-  ega_accession: string;
+  // ega_accession: string;
   title: string;
   description: string;
-  type: string[];
-  has_study: string[];
-  has_file: string[];
-  has_sample: string[];
-  has_experiment: string[];
+  types: string[];
+  study_files: string[];
+  studies: string[];
+  // has_sample: string[];
+  // has_experiment: string[];
 }
 
 export interface hitModel {
