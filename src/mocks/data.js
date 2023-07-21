@@ -163,7 +163,7 @@ export const embeddedDataset = {
   ],
   has_file: [
     {
-      name: "Test file 1",
+      alias: "Test file 1",
       format: "FASTQ",
       size: "586156",
       checksum: "15117b282328146ac6afebaa8acd80e7",
@@ -243,42 +243,6 @@ export const metadataSummary = {
   },
 };
 
-export const singleSearchResults = {
-  facets: [
-    {
-      key: "has_study.type",
-      name: "Study Type",
-      options: [
-        { option: "Option 1", count: 62 },
-        { option: "Option 2", count: 37 },
-      ],
-    },
-    {
-      key: "type",
-      name: "Dataset Type",
-      options: [
-        { option: "Option 1", count: 12 },
-        { option: "Option 2", count: 87 },
-      ],
-    },
-  ],
-  count: 15,
-  hits: [
-    {
-      document_type: "Dataset",
-      id: "TEST0000000011010",
-      content: {
-        accession: "GHGA:TEST588887987",
-        ega_accession: "EGATEST6516132",
-        title: "Test dataset for details",
-        description:
-          "Test dataset for Metadata Repository get dataset details call. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Vel risus commodo viverra maecenas accumsan lacus vel. Sit amet risus nullam eget felis eget nunc lobortis mattis. Iaculis at erat pellentesque adipiscing commodo. Volutpat consequat mauris nunc congue. At lectus urna duis convallis convallis tellus id interdum velit. Gravida cum sociis natoque penatibus et. Mauris in aliquam sem fringilla ut morbi. Ultrices gravida dictum fusce ut. At consectetur lorem donec massa sapien faucibus et molestie.",
-        type: ["Test dataset type"],
-      },
-    },
-  ],
-};
-
 export const searchResults = {
   facets: [
     {
@@ -301,7 +265,6 @@ export const searchResults = {
   count: 25,
   hits: [
     {
-      document_type: "Dataset",
       id: "TEST0000000011010",
       content: {
         accession: "GHGA:TEST588887987",
@@ -313,7 +276,6 @@ export const searchResults = {
       },
     },
     {
-      document_type: "Dataset",
       id: "TEST0000000011010",
       content: {
         accession: "GHGA:TEST55668843",
@@ -325,7 +287,6 @@ export const searchResults = {
       },
     },
     {
-      document_type: "Dataset",
       id: "TEST0000000011010",
       content: {
         accession: "GHGA:TEST5566545513",
@@ -337,7 +298,6 @@ export const searchResults = {
       },
     },
     {
-      document_type: "Dataset",
       id: "TEST0000000011010",
       content: {
         accession: "GHGA:TEST556651512",
@@ -349,7 +309,6 @@ export const searchResults = {
       },
     },
     {
-      document_type: "Dataset",
       id: "TEST0000000011010",
       content: {
         accession: "GHGA:TEST3545553544",
@@ -361,7 +320,6 @@ export const searchResults = {
       },
     },
     {
-      document_type: "Dataset",
       id: "TEST0000000011010",
       content: {
         accession: null,
@@ -373,7 +331,6 @@ export const searchResults = {
       },
     },
     {
-      document_type: "Dataset",
       id: "TEST0000000011010",
       content: {
         accession: "GHGA:TEST3548778042110",
@@ -385,7 +342,6 @@ export const searchResults = {
       },
     },
     {
-      document_type: "Dataset",
       id: "TEST0000000011010",
       content: {
         accession: "GHGA:TEST7388734323",
@@ -397,7 +353,6 @@ export const searchResults = {
       },
     },
     {
-      document_type: "Dataset",
       id: "TEST0000000011010",
       content: {
         accession: "GHGA:TEST783420187",
@@ -409,7 +364,6 @@ export const searchResults = {
       },
     },
     {
-      document_type: "Dataset",
       id: "TEST0000000011010",
       content: {
         accession: "GHGA:TEST8045045087",
@@ -421,7 +375,6 @@ export const searchResults = {
       },
     },
     {
-      document_type: "Dataset",
       id: "TEST0000000011010",
       content: {
         accession: "GHGA:TEST8045045087",
@@ -433,7 +386,6 @@ export const searchResults = {
       },
     },
     {
-      document_type: "Dataset",
       id: "TEST0000000011010",
       content: {
         accession: "GHGA:TEST8045045087",
@@ -445,7 +397,6 @@ export const searchResults = {
       },
     },
     {
-      document_type: "Dataset",
       id: "TEST0000000011010",
       content: {
         accession: "GHGA:TEST8045045087",
@@ -457,7 +408,6 @@ export const searchResults = {
       },
     },
     {
-      document_type: "Dataset",
       id: "TEST0000000011010",
       content: {
         accession: "GHGA:TEST8045045087",
@@ -469,7 +419,6 @@ export const searchResults = {
       },
     },
     {
-      document_type: "Dataset",
       id: "TEST0000000011010",
       content: {
         accession: "GHGA:TEST8045045087",
@@ -481,7 +430,6 @@ export const searchResults = {
       },
     },
     {
-      document_type: "Dataset",
       id: "TEST0000000011010",
       content: {
         accession: "GHGA:TEST8045045087",
@@ -493,7 +441,6 @@ export const searchResults = {
       },
     },
     {
-      document_type: "Dataset",
       id: "TEST0000000011010",
       content: {
         accession: "GHGA:TEST8045045087",
@@ -505,7 +452,6 @@ export const searchResults = {
       },
     },
     {
-      document_type: "Dataset",
       id: "TEST0000000011010",
       content: {
         accession: "GHGA:TEST8045045087",
@@ -517,7 +463,6 @@ export const searchResults = {
       },
     },
     {
-      document_type: "Dataset",
       id: "TEST0000000011010",
       content: {
         accession: "GHGA:TEST8045045087",
@@ -529,7 +474,6 @@ export const searchResults = {
       },
     },
     {
-      document_type: "Dataset",
       id: "TEST0000000011010",
       content: {
         accession: "GHGA:TEST8045045087",
@@ -541,7 +485,6 @@ export const searchResults = {
       },
     },
     {
-      document_type: "Dataset",
       id: "TEST0000000011010",
       content: {
         accession: "GHGA:TEST8045045087",
@@ -553,7 +496,6 @@ export const searchResults = {
       },
     },
     {
-      document_type: "Dataset",
       id: "TEST0000000011010",
       content: {
         accession: "GHGA:TEST8045045087",
@@ -565,7 +507,6 @@ export const searchResults = {
       },
     },
     {
-      document_type: "Dataset",
       id: "TEST0000000011010",
       content: {
         accession: "GHGA:TEST8045045087",
@@ -577,7 +518,6 @@ export const searchResults = {
       },
     },
     {
-      document_type: "Dataset",
       id: "TEST0000000011010",
       content: {
         accession: "GHGA:TEST8045045087",
@@ -589,7 +529,28 @@ export const searchResults = {
       },
     },
     {
-      document_type: "Dataset",
+      id: "TEST0000000011010",
+      content: {
+        accession: "GHGA:TEST8045045087",
+        ega_accession: "EGATEST786534087",
+        title: "Test dataset for details 10",
+        description:
+          "Test dataset for Metadata Repository get dataset details call. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Vel risus commodo viverra maecenas accumsan lacus vel. Sit amet risus nullam eget felis eget nunc lobortis mattis. Iaculis at erat pellentesque adipiscing commodo. Volutpat consequat mauris nunc congue. At lectus urna duis convallis convallis tellus id interdum velit. Gravida cum sociis natoque penatibus et. Mauris in aliquam sem fringilla ut morbi. Ultrices gravida dictum fusce ut. At consectetur lorem donec massa sapien faucibus et molestie.",
+        type: ["Test dataset type 2"],
+      },
+    },
+    {
+      id: "TEST0000000011010",
+      content: {
+        accession: "GHGA:TEST8045045087",
+        ega_accession: "EGATEST786534087",
+        title: "Test dataset for details 10",
+        description:
+          "Test dataset for Metadata Repository get dataset details call. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Vel risus commodo viverra maecenas accumsan lacus vel. Sit amet risus nullam eget felis eget nunc lobortis mattis. Iaculis at erat pellentesque adipiscing commodo. Volutpat consequat mauris nunc congue. At lectus urna duis convallis convallis tellus id interdum velit. Gravida cum sociis natoque penatibus et. Mauris in aliquam sem fringilla ut morbi. Ultrices gravida dictum fusce ut. At consectetur lorem donec massa sapien faucibus et molestie.",
+        type: ["Test dataset type 2"],
+      },
+    },
+    {
       id: "TEST0000000011010",
       content: {
         accession: "GHGA:TEST8045045087",
