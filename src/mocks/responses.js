@@ -50,24 +50,46 @@ const localResponses = {
   "GET http://127.0.0.1:8092/metadata_summary/": metadataSummary,
 
   // Metadata Search Service
-  "POST http://127.0.0.1:8001/rpc/search?*&skip=0&limit=10": { "facets": searchResults.facets, "count": searchResults.count, "hits": searchResults.hits.slice(0, 10) },
+  "POST http://127.0.0.1:8001/rpc/search?skip=0&limit=10": {
+    facets: searchResults.facets,
+    count: searchResults.count,
+    hits: searchResults.hits.slice(0, 10),
+  },
 
   // Metadata Search Service (display 25)
-  "POST http://127.0.0.1:8001/rpc/search?*&skip=0&limit=25": { "facets": searchResults.facets, "count": searchResults.count, "hits": searchResults.hits.slice(0, 25) },
+  "POST http://127.0.0.1:8001/rpc/search?skip=0&limit=25": {
+    facets: searchResults.facets,
+    count: searchResults.count,
+    hits: searchResults.hits.slice(0, 25),
+  },
 
   // Metadata Search Service (display 50)
-  "POST http://127.0.0.1:8001/rpc/search?*&skip=0&limit=50": { "facets": searchResults.facets, "count": searchResults.count, "hits": searchResults.hits.slice(0, 50) },
+  "POST http://127.0.0.1:8001/rpc/search?skip=0&limit=50": {
+    facets: searchResults.facets,
+    count: searchResults.count,
+    hits: searchResults.hits.slice(0, 50),
+  },
 
   // Metadata Search Service no facets found
-  "POST http://127.0.0.1:8001/rpc/search?*&skip=10&limit=10":
-    { "facets": [], "count": searchResults.count, "hits": searchResults.hits.slice(9, 20) },
+  "POST http://127.0.0.1:8001/rpc/search?skip=10&limit=10": {
+    facets: [],
+    count: searchResults.count,
+    hits: searchResults.hits.slice(9, 20),
+  },
 
   // Metadata Search Service no hits found
-  "POST http://127.0.0.1:8001/rpc/search?*&skip=20&limit=10":
-    { "facets": searchResults.facets, "count": searchResults.count, "hits": [] },
+  "POST http://127.0.0.1:8001/rpc/search?skip=20&limit=10": {
+    facets: searchResults.facets,
+    count: searchResults.count,
+    hits: [],
+  },
 
   // Metadata Search Service single result
-  "POST http://127.0.0.1:8001/rpc/search?*&limit=1": { "facets": searchResults.facets, "count": searchResults.count, "hits": searchResults.hits.slice(0, 1) },
+  "POST http://127.0.0.1:8001/rpc/search?limit=1": {
+    facets: searchResults.facets,
+    count: searchResults.count,
+    hits: searchResults.hits.slice(0, 1),
+  },
 
   // webpack-hot-replace
   "GET http://127.0.0.1:8080/main.*": undefined,
