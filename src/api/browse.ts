@@ -47,7 +47,13 @@ export const querySearchService: getDatasetsSearchRespType = async (
   documentType = "Dataset"
 ) => {
   let url = `${SEARCH_URL}/rpc/search`;
-  const payload = { class_name: "Dataset", query: searchKeyword, filters: filterQuery, skip: skip, limit: limit };
+  const payload = {
+    class_name: "Dataset",
+    query: searchKeyword,
+    filters: filterQuery,
+    skip: skip,
+    limit: limit,
+  };
   try {
     const response = await fetchJson(url, "POST", payload);
     const data = await response.json();
@@ -110,7 +116,7 @@ export const getDatasetSummary: getDatasetSummaryType = async (
   datasetId,
   callbackFunc
 ) => {
-  const url = `${REPOSITORY_URL}/dataset_summary/${datasetId}`;
+  const url = `${REPOSITORY_URL}/artifacts/dataset_summary/classes/DatasetStats/resources/${datasetId}`;
   try {
     const response = await fetchJson(url);
     const data = await response.json();
