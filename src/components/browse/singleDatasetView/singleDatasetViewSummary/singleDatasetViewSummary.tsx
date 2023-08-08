@@ -1,4 +1,4 @@
-import { faCalendar, faFileLines } from "@fortawesome/free-regular-svg-icons";
+import { faFileLines } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Badge, Col, Row } from "react-bootstrap";
 import { datasetEmbeddedModel } from "../../../../models/dataset";
@@ -14,19 +14,14 @@ const SingleDatasetViewSummary = (props: SingleDatasetViewSummaryProps) => {
       <h5>
         <strong>{props.details.title}</strong>
       </h5>
-      <p>
-        Dataset ID |{" "}
-        {props.details.ega_accession !== null
-          ? props.details.ega_accession
-          : props.details.accession}
-      </p>
+      <p>Dataset ID | {props.details.accession}</p>
       <div className="fs-7">
         <Row className="me-0 mb-2 w-100 mx-0">
           <Col xs={"auto"} className="px-0">
             Study Type |{" "}
           </Col>
           <Col className="ps-1 pe-0">
-            {props.details.has_study?.map((x) => {
+            {props.details.studies?.map((x) => {
               return (
                 <Badge
                   key={x.type}
@@ -43,15 +38,17 @@ const SingleDatasetViewSummary = (props: SingleDatasetViewSummaryProps) => {
             Dataset Type |{" "}
           </Col>
           <Col className="ps-1 pe-0">
-            <Badge
-              key={props.details.type}
-              className="py-1 px-2 fw-normal text-capitalize me-0 text-wrap text-start"
-            >
-              {props.details.type}
-            </Badge>
+            {props.details.types?.map((x) => (
+              <Badge
+                key={x}
+                className="py-1 px-2 fw-normal text-capitalize me-0 text-wrap text-start"
+              >
+                {x}
+              </Badge>
+            ))}
           </Col>
         </Row>
-        {props.details.has_attribute?.length > 0 ? (
+        {/* {props.details.has_attribute?.length > 0 ? (
           props.details.has_attribute?.map((x) => {
             return (
               <span key={x.value + "span"}>
@@ -61,7 +58,7 @@ const SingleDatasetViewSummary = (props: SingleDatasetViewSummaryProps) => {
           })
         ) : (
           <></>
-        )}
+        )} */}
       </div>
       <Row className="fs-7 w-100 mx-0">
         <Col>
@@ -74,10 +71,10 @@ const SingleDatasetViewSummary = (props: SingleDatasetViewSummaryProps) => {
           </strong>
         </Col>
       </Row>
-      <Row className="fs-7 my-2 border border-1 border-dark border-end-0 border-start-0 pt-2 pb-3 w-100 mx-0">
+      <Row className="fs-7 my-2 border border-1 border-dark border-end-0 border-start-0 pt-2 pb-3 w-100 mx-0 mb-4">
         <Col className="">{props.details.description}</Col>
       </Row>
-      <Row className="fs-7 mb-4 w-100 mx-0">
+      {/* <Row className="fs-7 mb-4 w-100 mx-0">
         <Col className="text-end">
           <FontAwesomeIcon
             icon={faCalendar}
@@ -92,7 +89,7 @@ const SingleDatasetViewSummary = (props: SingleDatasetViewSummaryProps) => {
             <>{props.details.creation_date.split("T")[0]} Creation date</>
           )}
         </Col>
-      </Row>
+      </Row> */}
     </div>
   );
 };

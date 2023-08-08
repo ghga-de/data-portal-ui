@@ -23,10 +23,8 @@ const DatasetStudies = (props: dataSetStudiesProps) => {
                 : props.study.stats?.accession}
             </p>
             <p className="mb-0">
-              <strong>EGA Accession ID: </strong>
-              {props.study.stats.ega_accession !== null
-                ? props.study.stats.ega_accession
-                : props.study.stats?.accession}
+              <strong>Accession ID: </strong>
+              {props.study.stats?.accession}
             </p>
           </div>
         ) : (

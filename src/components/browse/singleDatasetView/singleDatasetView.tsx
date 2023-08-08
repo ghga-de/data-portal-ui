@@ -1,7 +1,6 @@
 import {
   faArrowTurnUp,
   faCircleExclamation,
-  faLink,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useState } from "react";
@@ -12,7 +11,7 @@ import {
   datasetEmbeddedModel,
   searchResponseModel,
 } from "../../../models/dataset";
-import { getDACEmailId } from "../../../utils/utils";
+// import { getDACEmailId } from "../../../utils/utils";
 import DataRequestFormModal from "../../../utils/dataRequestFormModal";
 import SingleDatasetViewAccordion from "./singleDatasetViewAccordion/singleDatasetViewAccordion";
 import SingleDatasetViewSummary from "./singleDatasetViewSummary/singleDatasetViewSummary";
@@ -55,7 +54,7 @@ const SingleDatasetView = () => {
     const processHits = (searchResults: searchResponseModel | null) => {
       if (searchResults && searchResults !== null && searchResults.count >= 1) {
         // eslint-disable-next-line react-hooks/exhaustive-deps
-        paramId = searchResults.hits[0].id;
+        paramId = searchResults.hits[0].content.accession;
         getDetails(paramId);
       } else if (searchResults?.count === -1) {
         paramId = undefined;
@@ -79,7 +78,9 @@ const SingleDatasetView = () => {
 
   const handleOpen = () => {
     setCopyEmail(
-      details !== null && details ? getDACEmailId(details) : "helpdesk@ghga.de"
+      details !== null && details
+        ? details.data_access_policy.data_access_committee.email
+        : "helpdesk@ghga.de"
     );
     setShow(true);
   };
@@ -130,7 +131,7 @@ const SingleDatasetView = () => {
                 handleOpen={handleOpen}
                 classes="float-end ms-2 ms-sm-4 "
               />
-              {details.ega_accession !== null ? (
+              {/* {details.ega_accession !== null ? (
                 <Button
                   href={
                     "https://ega-archive.org/datasets/" + details.ega_accession
@@ -151,15 +152,11 @@ const SingleDatasetView = () => {
                 </Button>
               ) : (
                 <div />
-              )}
+              )} */}
             </Col>
           </Row>
           <DataRequestFormModal
-            accession={
-              details.ega_accession !== null
-                ? details.ega_accession
-                : details.accession
-            }
+            accession={details.accession}
             copyEmail={copyEmail}
             show={show}
             handleClose={handleClose}

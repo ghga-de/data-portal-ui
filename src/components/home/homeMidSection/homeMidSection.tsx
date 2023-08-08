@@ -112,7 +112,7 @@ const HomeMidSection = () => {
       ),
       badgeBody: getItemsForSummary(
         summary.protocol_summary.stats.protocol
-      ).map((x) => (
+      ).map((x: any) => (
         <Row key={x} className="text-capitalize ms-0 ps-0 mb-2 w-100">
           <Col className="ms-0 ps-0">{x.split(": ")[0]}:</Col>
           <Col className="col-auto text-end fw-bold pe-0">
@@ -164,16 +164,16 @@ const HomeMidSection = () => {
       badgeBody: (
         <table>
           <tbody>
-            {getItemsForSummary(summary.file_summary.stats.format).map((x) => {
+            {summary.file_summary.stats.format.map((x) => {
               return (
-                <tr key={x} className="text-uppercase ms-0 ps-0 mb-2">
+                <tr key={x.value} className="text-uppercase ms-0 ps-0 mb-2">
                   <td
                     className="ms-0 ps-3 pe-4"
                     style={{ width: "1px", whiteSpace: "nowrap" }}
                   >
-                    {x.split(": ")[0]}:
+                    {x.value}:
                   </td>
-                  <td className="fw-bold">{x.split(": ")[1]}</td>
+                  <td className="fw-bold">{x.count}</td>
                 </tr>
               );
             })}

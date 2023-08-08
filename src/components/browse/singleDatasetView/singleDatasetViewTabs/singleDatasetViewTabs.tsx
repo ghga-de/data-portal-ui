@@ -1,14 +1,13 @@
 import {
   faBookOpen,
   faBook,
-  faChartSimple,
   faUsersRays,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Col, Nav, Row, Tab } from "react-bootstrap";
 import { datasetEmbeddedModel } from "../../../../models/dataset";
 import DapTabContents from "./dapTabContents";
-import ProjectTabContents from "./projectTabContents";
+// import ProjectTabContents from "./projectTabContents";
 import PublicationTabContents from "./publicationTabContents";
 import StudyTabContents from "./studyTabContents";
 
@@ -49,7 +48,7 @@ const SingleDatasetViewTabs = (props: SingleDatasetViewTabsProps) => {
                 </Nav.Link>
               </Nav.Item>
             </Col>
-            <Col xs={6} md={"auto"} className="px-0">
+            {/* <Col xs={6} md={"auto"} className="px-0">
               <Nav.Item>
                 <Nav.Link
                   eventKey="1"
@@ -65,7 +64,7 @@ const SingleDatasetViewTabs = (props: SingleDatasetViewTabsProps) => {
                   Project
                 </Nav.Link>
               </Nav.Item>
-            </Col>
+            </Col> */}
             <Col xs={6} md={"auto"} className="px-0">
               <Nav.Item className="float-end">
                 <Nav.Link
@@ -107,7 +106,7 @@ const SingleDatasetViewTabs = (props: SingleDatasetViewTabsProps) => {
         >
           <Tab.Content className="mb-4" style={{ height: "450px" }}>
             <StudyTabContents details={props.details} />
-            <ProjectTabContents details={props.details} />
+            {/* <ProjectTabContents details={props.details} /> */}
             <PublicationTabContents details={props.details} />
             <DapTabContents details={props.details} />
           </Tab.Content>

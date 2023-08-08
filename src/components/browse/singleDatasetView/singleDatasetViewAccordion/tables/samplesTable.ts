@@ -28,36 +28,32 @@ export const SamplesTable = (props: SamplesTableProps) => {
   const samplesTable: TableFields[] = [
     {
       header: "Sample ID",
-      data: props.details.has_sample.map((x) =>
-        x.ega_accession !== null ? x.ega_accession : x.alias
-      ),
+      data: props.details.samples.map((x) => x.alias),
       cssClasses: "",
     },
     {
       header: "Description",
-      data: props.details.has_sample.map((x) => x.description),
+      data: props.details.samples.map((x) => x.description),
       cssClasses: "text-wrap text-break",
     },
     {
       header: "Status",
-      data: props.details.has_sample.map((x) => x.case_control_status),
+      data: props.details.samples.map((x) => x.condition.case_control_status),
       cssClasses: "text-capitalize",
     },
     {
       header: "Phenotype",
-      data: props.details.has_sample.map((x) =>
-        x.has_individual.has_phenotypic_feature !== null
-          ? x.has_individual.has_phenotypic_feature[0].concept_name
+      data: props.details.samples.map((x) =>
+        x.biospecimen.individual.phenotypic_features !== null
+          ? x.biospecimen.individual.phenotypic_features[0]
           : "N/A"
       ),
       cssClasses: "",
     },
     {
       header: "Tissue",
-      data: props.details.has_sample.map((x) =>
-        x.has_anatomical_entity !== null
-          ? x.has_anatomical_entity[0].concept_name
-          : "N/A"
+      data: props.details.samples.map((x) =>
+        x.biospecimen !== null ? x.biospecimen.tissue : "N/A"
       ),
       cssClasses: "text-capitalize",
     },
@@ -70,8 +66,8 @@ export const SamplesTable = (props: SamplesTableProps) => {
   const samplesTableDef: SDSVTableDefinition = {
     table: samplesTable,
     buttonText:
-      props.details.has_sample !== null
-        ? "Sample Summary (" + props.details.has_sample.length + " samples)"
+      props.details.samples !== null
+        ? "Sample Summary (" + props.details.samples.length + " samples)"
         : "Sample Summary",
     sortDefinition: sortDefinition,
     setSortDefinition: setSortDefinition,

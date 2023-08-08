@@ -1,11 +1,6 @@
 import { Dispatch, SetStateAction } from "react";
 import { querySearchService } from "../api/browse";
-import {
-  dataAccessCommitteeModel,
-  dataAccessPolicyModel,
-  datasetEmbeddedModel,
-  searchResponseModel,
-} from "../models/dataset";
+import { searchResponseModel } from "../models/dataset";
 import { facetFilterModel } from "../models/facets";
 import { authService } from "../services/auth";
 
@@ -168,38 +163,38 @@ export const importAllFilesFromFolder = (r: any) => {
  * @param details - Dataset details object conforms to the datasetEmbeddedModel.
  * @returns Email contact as string. Default: helpdesk@ghga.de
  */
-export const getDACEmailId = (
-  details: datasetEmbeddedModel | null | undefined
-) => {
-  let mailId: string = "helpdesk@ghga.de";
-  if (details !== null && details !== undefined) {
-    const dataAccessPolicy: dataAccessPolicyModel =
-      details.has_data_access_policy;
-    const dataAccessCommittee: dataAccessCommitteeModel =
-      dataAccessPolicy.has_data_access_committee;
-    const mainContact = dataAccessCommittee.main_contact;
-    if (mainContact === null) {
-      for (var item of dataAccessCommittee.has_member) {
-        if (mainContact === null) {
-          mailId =
-            item.email === null || item.email === undefined
-              ? mailId
-              : item.email;
-        }
-        if (
-          item.id === mainContact &&
-          item.email !== null &&
-          item.email !== undefined
-        ) {
-          mailId = item.email;
-        }
-      }
-    } else {
-      mailId = mainContact;
-    }
-  }
-  return mailId;
-};
+// export const getDACEmailId = (
+//   details: datasetEmbeddedModel | null | undefined
+// ) => {
+//   let mailId: string = "helpdesk@ghga.de";
+//   if (details !== null && details !== undefined) {
+//     const dataAccessPolicy: dataAccessPolicyModel =
+//       details.has_data_access_policy;
+//     const dataAccessCommittee: dataAccessCommitteeModel =
+//       dataAccessPolicy.has_data_access_committee;
+//     const mainContact = dataAccessCommittee.main_contact;
+//     if (mainContact === null) {
+//       for (var item of dataAccessCommittee.has_member) {
+//         if (mainContact === null) {
+//           mailId =
+//             item.email === null || item.email === undefined
+//               ? mailId
+//               : item.email;
+//         }
+//         if (
+//           item.id === mainContact &&
+//           item.email !== null &&
+//           item.email !== undefined
+//         ) {
+//           mailId = item.email;
+//         }
+//       }
+//     } else {
+//       mailId = mainContact;
+//     }
+//   }
+//   return mailId;
+// };
 
 /**
  * Perform an HTTP request using fetch().

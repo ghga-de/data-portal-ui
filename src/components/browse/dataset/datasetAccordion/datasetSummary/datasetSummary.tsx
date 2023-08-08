@@ -10,7 +10,7 @@ import DatasetStudies from "./datasetStudies";
 import DataRequestFormModal from "../../../../../utils/dataRequestFormModal";
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faLink, faUpRightFromSquare } from "@fortawesome/free-solid-svg-icons";
+import { faUpRightFromSquare } from "@fortawesome/free-solid-svg-icons";
 import RequestAccessButton from "../../../../../utils/requestAccessButton";
 
 interface dataSetDetailsProps {
@@ -48,11 +48,7 @@ const DatasetSummary = (props: dataSetDetailsProps) => {
             <>
               <RequestAccessButton handleOpen={handleOpen} classes="d-block" />
               <Button
-                href={
-                  props.hit.content.ega_accession !== null
-                    ? "browse/" + props.hit.content.ega_accession
-                    : "browse/" + props.hit.content.accession
-                }
+                href={"browse/" + props.hit.content.accession}
                 variant="secondary"
                 className="text-white mb-3 fs-7 shadow-md-dark d-block"
                 title="Dataset Details"
@@ -67,7 +63,7 @@ const DatasetSummary = (props: dataSetDetailsProps) => {
                   </Col>
                 </Row>
               </Button>
-              {props.hit.content.ega_accession !== null ? (
+              {/* {props.hit.content.ega_accession !== null ? (
                 <Button
                   href={
                     "https://ega-archive.org/datasets/" +
@@ -90,7 +86,7 @@ const DatasetSummary = (props: dataSetDetailsProps) => {
                 </Button>
               ) : (
                 <div />
-              )}
+              )} */}
             </>
           ) : (
             <Button
@@ -112,9 +108,7 @@ const DatasetSummary = (props: dataSetDetailsProps) => {
         <div className="text-break mb-3">
           <p className={pClass}>
             <strong>Dataset ID:&nbsp;</strong>
-            {props.hit.content.ega_accession !== null
-              ? props.hit.content.ega_accession
-              : props.hit.content.accession}
+            {props.hit.content.accession}
           </p>
           <p className={pClass}>
             <strong>Full title:&nbsp;</strong>
@@ -126,7 +120,7 @@ const DatasetSummary = (props: dataSetDetailsProps) => {
           </p>
           <p className={pClass}>
             <strong>Type:&nbsp;</strong>
-            {props.hit.content.type}
+            {props.hit.content.types}
           </p>
         </div>
         {props.summary !== null && props.summary !== undefined ? (
@@ -152,11 +146,7 @@ const DatasetSummary = (props: dataSetDetailsProps) => {
         )}
       </div>
       <DataRequestFormModal
-        accession={
-          props.hit.content.ega_accession !== null
-            ? props.hit.content.ega_accession
-            : props.hit.content.accession
-        }
+        accession={props.hit.content.accession}
         copyEmail={copyEmail}
         show={show}
         handleClose={handleClose}

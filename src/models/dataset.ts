@@ -42,70 +42,75 @@ export interface fileModel {
   // id: string;
   accession: string;
   alias: string;
-  // study is a repeat of data?
-  study: studyEmbeddedModel;
   name: string;
   format: string;
   size: number;
   checksum: string;
   checksum_type: string;
-  dataset: string;
   // category: string;
   // creation_date: string;
 }
 
-export interface experimentEmbeddedModel {
+export interface sequencingExperimentEmbeddedModel {
   title: string;
-  has_protocol: [
-    {
-      id: string;
-      instrument_model: string;
-    }
-  ];
+  sequencing_protocol: {
+    instrument_model: string;
+  };
   description: string;
   accession: string;
-  ega_accession: string;
+  // ega_accession: string;
   alias: string;
-  has_sample: sampleModel[];
   type: string;
 }
 
 export interface publicationModel {
-  id: string;
+  // id: string;
+  accession: string;
   title: string;
   abstract: string;
-  alias: string;
-  xref: string[];
-  accession: string;
-  author: string;
   journal: string;
   year: number;
+  author: string;
+  doi: string;
+  alias: string;
+  // xref: string[];
 }
 
 export interface sampleModel {
-  name: string;
-  has_individual: {
-    gender: string;
-    sex: string;
-    has_phenotypic_feature: [
-      {
-        id: string;
-        name: string;
-        concept_name: string;
-      }
-    ];
-  };
-  has_anatomical_entity: [
-    {
-      concept_name: string;
-    }
-  ];
-  tissue: string;
-  description: string;
   accession: string;
-  ega_accession: string;
+  name: string;
+  // has_individual: {
+  //   gender: string;
+  //   sex: string;
+  //   has_phenotypic_feature: [
+  //     {
+  //       id: string;
+  //       name: string;
+  //       concept_name: string;
+  //     }
+  //   ];
+  // };
+  // has_anatomical_entity: [
+  //   {
+  //     concept_name: string;
+  //   }
+  // ];
+  // tissue: string;
+  description: string;
+  // ega_accession: string;
   alias: string;
-  case_control_status: string;
+  biospecimen: {
+    individual: {
+      sex: string;
+      phenotypic_features: string[];
+    };
+    tissue: string;
+  };
+  condition: {
+    name: string;
+    case_control_status: string;
+  };
+  // case_control_status: string;
 }
 
 export interface projectModel {
@@ -124,13 +129,12 @@ export interface studyEmbeddedModel {
   alias: string;
   title: string;
   description: string;
-  // accession: string;
   type: string;
-  release_date: string;
+  // release_date: string;
   // abstract: string;
   // has_publication: publicationModel[];
   attributes: attributeModel[];
-  has_project: projectModel;
+  // has_project: projectModel;
   // ega_accession: string;
 }
 
@@ -173,14 +177,13 @@ export interface datasetEmbeddedModel {
   title: string;
   description: string;
   types: string[];
-  // has_experiment: experimentEmbeddedModel[];
-  // study_files vs files?
-  study_files: fileModel[];
-  has_sample: sampleModel[];
+  sequencing_experiments: sequencingExperimentEmbeddedModel[];
+  files: fileModel[];
+  samples: sampleModel[];
   studies: studyEmbeddedModel[];
   data_access_policy: dataAccessPolicyModel;
   // has_attribute: attributeModel[];
-  // has_publication: publicationModel[];
+  publications: publicationModel[];
   // creation_date: string;
   // release_status: string;
   // release_date: string;
@@ -196,30 +199,30 @@ export interface hitContentModel {
   types: string[];
   study_files: string[];
   studies: string[];
-  // has_sample: string[];
-  // has_experiment: string[];
+  samples: string[];
+  sequencing_experiments: string[];
 }
 
 export interface hitModel {
   document_type: string;
-  id: string;
+  // id: string;
   context: string | null;
   content: hitContentModel;
 }
 
 export interface searchResponseModel {
+  facets: facetModel[];
   count: number;
   hits: hitModel[];
-  facets: facetModel[];
 }
 
 export interface datasetDetailsSummaryModel {
-  id: string;
+  // id: string;
   title: string;
   description: string;
   accession: string;
-  ega_accession: string;
-  type: string;
+  // ega_accession: string;
+  types: string[];
   dac_email: string;
   sample_summary: sampleSummaryModel;
   study_summary: studySummaryModel;
@@ -234,9 +237,9 @@ export interface datasetSummaryModel {
 export interface sampleSummaryModel {
   count: number;
   stats: {
-    sex: sexSummaryModel;
-    tissues: { [key: string]: number };
-    phenotypes: { [key: string]: number };
+    sex: { value: string; count: number }[];
+    tissues: { value: string; count: number }[];
+    phenotypes: { value: string; count: number }[];
   };
 }
 
@@ -249,7 +252,7 @@ export interface sexSummaryModel {
 export interface studySummaryModel {
   count: number;
   stats: {
-    ega_accession: string;
+    // ega_accession: string;
     accession: string;
     title: string;
   };
@@ -258,14 +261,14 @@ export interface studySummaryModel {
 export interface experimentSummaryModel {
   count: number;
   stats: {
-    protocol: { [key: string]: number };
+    sequencing_protocol: { value: string; count: number }[];
   };
 }
 
 export interface fileSummaryModel {
   count: number;
   stats: {
-    format: { [key: string]: number };
+    format: { value: string; count: number }[];
     size: number;
   };
 }

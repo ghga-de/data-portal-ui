@@ -29,24 +29,22 @@ export const FilesTable = (props: ExperimentsTableProps, fileSize: number) => {
   let filesTable: TableFields[] = [
     {
       header: "File name",
-      data: props.details.has_file.map((x) => x.alias),
+      data: props.details.files.map((x) => x.alias),
       cssClasses: "text-break",
     },
     {
       header: "File Type",
-      data: props.details.has_file.map((x) => x.format.toUpperCase()),
+      data: props.details.files.map((x) => x.format.toUpperCase()),
       cssClasses: "",
     },
     {
       header: "Size",
-      data: props.details.has_file.map((x) => x.size),
+      data: props.details.files.map((x) => parseBytes(x.size)),
       cssClasses: "",
     },
     {
       header: "Checksum",
-      data: props.details.has_file.map(
-        (x) => x.checksum_type + ":" + x.checksum
-      ),
+      data: props.details.files.map((x) => x.checksum_type + ": " + x.checksum),
       cssClasses: "",
     },
   ];
@@ -58,9 +56,9 @@ export const FilesTable = (props: ExperimentsTableProps, fileSize: number) => {
   const filesTableDef: SDSVTableDefinition = {
     table: filesTable,
     buttonText:
-      props.details.has_file !== null
+      props.details.files !== null
         ? "File Summary (" +
-          props.details.has_file.length +
+          props.details.files.length +
           " files: " +
           parseBytes(fileSize) +
           ")"
