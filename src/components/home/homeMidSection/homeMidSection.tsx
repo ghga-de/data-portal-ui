@@ -164,16 +164,16 @@ const HomeMidSection = () => {
       badgeBody: (
         <table>
           <tbody>
-            {summary.file_summary.stats.format.map((x) => {
+            {getItemsForSummary(summary.file_summary.stats.format).map((x) => {
               return (
-                <tr key={x.value} className="text-uppercase ms-0 ps-0 mb-2">
+                <tr key={x} className="text-uppercase ms-0 ps-0 mb-2">
                   <td
                     className="ms-0 ps-3 pe-4"
                     style={{ width: "1px", whiteSpace: "nowrap" }}
                   >
-                    {x.value}:
+                    {x.split(": ")[0]}:
                   </td>
-                  <td className="fw-bold">{x.count}</td>
+                  <td className="fw-bold">{x.split(": ")[1]}</td>
                 </tr>
               );
             })}

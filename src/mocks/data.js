@@ -229,7 +229,7 @@ export const metadataSummary = {
   file_summary: {
     count: 532,
     stats: {
-      format: [{ value: "fastq", count: 124 }, { value: "bam", count: 408 }]
+      format: { "fastq": 124, "bam": 408 }
     },
   },
   individual_summary: {

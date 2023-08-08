@@ -243,6 +243,15 @@ export interface sampleSummaryModel {
   };
 }
 
+export interface sampleMetadataSummaryModel {
+  count: number;
+  stats: {
+    sex: sexSummaryModel;
+    tissues: { [key: string]: number };
+    phenotypes: { [key: string]: number };
+  };
+}
+
 export interface sexSummaryModel {
   female: number;
   male: number;
@@ -265,10 +274,24 @@ export interface experimentSummaryModel {
   };
 }
 
+export interface experimentMetadataSummaryModel {
+  count: number;
+  stats: {
+    protocol: { [key: string]: number };
+  };
+}
+
 export interface fileSummaryModel {
   count: number;
   stats: {
     format: { value: string; count: number }[];
+    size: number;
+  };
+}
+export interface fileMetadataSummaryModel {
+  count: number;
+  stats: {
+    format: { [key: string]: number };
     size: number;
   };
 }
@@ -289,10 +312,10 @@ export interface protocolSummaryModel {
 
 export interface metadataSummaryModel {
   dataset_summary: datasetSummaryModel;
-  sample_summary: sampleSummaryModel;
+  sample_summary: sampleMetadataSummaryModel;
   study_summary: studySummaryModel;
-  experiment_summary: experimentSummaryModel;
-  file_summary: fileSummaryModel;
+  experiment_summary: experimentMetadataSummaryModel;
+  file_summary: fileMetadataSummaryModel;
   individual_summary: individualSummaryModel;
   protocol_summary: protocolSummaryModel;
 }
