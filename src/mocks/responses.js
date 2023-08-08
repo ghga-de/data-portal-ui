@@ -44,7 +44,7 @@ const localResponses = {
   "GET http://127.0.0.1:8002/artifacts/embedded_public/classes/EmbeddedDataset/resources/*": embeddedDataset,
 
   // Get summary data from a single dataset
-  "GET http://127.0.0.1:8002/artifacts/dataset_summary/classes/DatasetStats/resources/*": datasetSummary,
+  "GET http://127.0.0.1:8002/artifacts/stats_public/classes/DatasetStats/resources/*": datasetSummary,
 
   // Get summary data from entire metadata database
   "GET http://127.0.0.1:8002/metadata_summary/": metadataSummary,

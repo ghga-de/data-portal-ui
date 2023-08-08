@@ -116,7 +116,7 @@ export const getDatasetSummary: getDatasetSummaryType = async (
   datasetId,
   callbackFunc
 ) => {
-  const url = `${REPOSITORY_URL}/artifacts/dataset_summary/classes/DatasetStats/resources/${datasetId}`;
+  const url = `${REPOSITORY_URL}/artifacts/stats_public/classes/DatasetStats/resources/${datasetId}`;
   try {
     const response = await fetchJson(url);
     const data = await response.json();
