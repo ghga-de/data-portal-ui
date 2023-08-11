@@ -71,8 +71,7 @@ export const querySearchService: getDatasetsSearchRespType = async (
 };
 
 type getDatasetDetailsType = (
-  datasetId: string,
-  embedded: boolean,
+  datasetAccession: string,
   callbackFunc: (dataset: datasetEmbeddedModel) => void
 ) => void;
 
@@ -80,13 +79,11 @@ type getDatasetDetailsType = (
  * Async function to retrieve the details of specified dataset from API,
  * calls the callbackFunc function with the response data, returns nothing.
  * @param datasetAccession - ID of the dataset of interest.
- * @param embedded - Boolean for the url parameter "embedded". Default: 'false'.
  * @param callbackFunc - Function used to process response data.
  * @returns Nothing
  */
 export const getDatasetDetails: getDatasetDetailsType = async (
   datasetAccession,
-  embedded = false,
   callbackFunc
 ) => {
   let url = `${REPOSITORY_URL}/artifacts/embedded_public/classes/EmbeddedDataset/resources/${datasetAccession}`;
@@ -101,22 +98,22 @@ export const getDatasetDetails: getDatasetDetailsType = async (
 };
 
 type getDatasetSummaryType = (
-  datasetId: string,
+  datasetAccession: string,
   callbackFunc: (dataset: datasetDetailsSummaryModel) => void
 ) => void;
 
 /**
  * Async function to retrieve the summary of specified dataset from API,
  * calls the callbackFunc function with the response data, returns nothing.
- * @param datasetId - ID of the dataset of interest.
+ * @param datasetAccession - ID of the dataset of interest.
  * @param callbackFunc - Function used to process response data.
  * @returns Nothing
  */
 export const getDatasetSummary: getDatasetSummaryType = async (
-  datasetId,
+  datasetAccession,
   callbackFunc
 ) => {
-  const url = `${REPOSITORY_URL}/artifacts/stats_public/classes/DatasetStats/resources/${datasetId}`;
+  const url = `${REPOSITORY_URL}/artifacts/stats_public/classes/DatasetStats/resources/${datasetAccession}`;
   try {
     const response = await fetchJson(url);
     const data = await response.json();
@@ -138,9 +135,12 @@ type getMetadataSummaryType = (
  * @returns Nothing
  */
 export const getMetadataSummary: getMetadataSummaryType = (callbackFunc) => {
-  fetch(`${REPOSITORY_URL}/metadata_summary/`, {
-    method: "get",
-  })
+  fetch(
+    `${REPOSITORY_URL}/artifacts/stats_public/classes/GlobalStats/resources/summary`,
+    {
+      method: "get",
+    }
+  )
     .then((response) => response.json())
     .then(
       (data) => {

@@ -4,7 +4,6 @@ import DatasetDetailsLayout from "./datasetDetailsLayout/datasetDetailsLayout";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faVial } from "@fortawesome/free-solid-svg-icons";
 import { sampleSummaryModel } from "../../../../../models/dataset";
-// import { getItemsForSummary } from "../../../../../utils/utils";
 import BoldenedSummaryDetails from "./boldenedSummaryDetails/boldenedSummaryDetails";
 
 interface dataSetSamplesProps {
@@ -33,23 +32,6 @@ const DatasetSamples = (props: dataSetSamplesProps) => {
                     {", "}
                   </>
                 ))}
-                {/* <span title={props.samples.stats?.sex?.female + " Female"}>
-                  {props.samples.stats?.sex?.female}
-                  &nbsp;
-                  <FontAwesomeIcon icon={faVenus} />
-                </span>{" "}
-                {" "}
-                <span title={props.samples.stats?.sex?.male + " Male"}>
-                  {props.samples.stats?.sex?.male}
-                  &nbsp;
-                  <FontAwesomeIcon icon={faMars} />
-                </span>{" "}
-                /{" "}
-                <span title={props.samples.stats?.sex?.unkown + " Unknown"}>
-                  {props.samples.stats?.sex?.unkown}
-                  &nbsp;
-                  <FontAwesomeIcon icon={faGenderless} />
-                </span>{" "} */}
                 )
                 <div className="my-0">
                   <p className="mb-0">

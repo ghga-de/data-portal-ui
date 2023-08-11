@@ -4,7 +4,6 @@ import DatasetDetailsLayout from "./datasetDetailsLayout/datasetDetailsLayout";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFlask } from "@fortawesome/free-solid-svg-icons";
 import { experimentSummaryModel } from "../../../../../models/dataset";
-// import { getItemsForSummary } from "../../../../../utils/utils";
 import BoldenedSummaryDetails from "./boldenedSummaryDetails/boldenedSummaryDetails";
 
 interface dataSetExperimentsProps {

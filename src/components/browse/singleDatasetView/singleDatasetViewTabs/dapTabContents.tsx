@@ -2,7 +2,6 @@ import { faUsersRays, faLink } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Tab, Button, Row, Col } from "react-bootstrap";
 import { datasetEmbeddedModel } from "../../../../models/dataset";
-// import { getDACEmailId } from "../../../../utils/utils";
 import "react-perfect-scrollbar/dist/css/styles.css";
 import PerfectScrollbar from "react-perfect-scrollbar";
 
@@ -72,7 +71,6 @@ const DapTabContents = (props: DapTabContentsProps) => {
             )}
             <p>
               <strong>e-Mail: </strong>
-              {/* {getDACEmailId(props.details)} */}
               {props.details.data_access_policy.data_access_committee.email}
             </p>
             <p>

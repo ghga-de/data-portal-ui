@@ -63,30 +63,6 @@ const DatasetSummary = (props: dataSetDetailsProps) => {
                   </Col>
                 </Row>
               </Button>
-              {/* {props.hit.content.ega_accession !== null ? (
-                <Button
-                  href={
-                    "https://ega-archive.org/datasets/" +
-                    props.hit.content.ega_accession
-                  }
-                  target="_blank"
-                  variant="white"
-                  title="Visit the EGA Page for this Dataset"
-                  className="fs-7 text-secondary shadow-md-dark text-start border-secondary d-block"
-                  style={{ width: "115px" }}
-                >
-                  <Row className="p-0 m-0 align-items-center text-start">
-                    <Col className="p-0 m-0 col-3 ">
-                      <FontAwesomeIcon icon={faLink} />
-                    </Col>
-                    <Col className="p-0 m-0 lh-1">
-                      <strong>Visit EGA Website</strong>
-                    </Col>
-                  </Row>
-                </Button>
-              ) : (
-                <div />
-              )} */}
             </>
           ) : (
             <Button

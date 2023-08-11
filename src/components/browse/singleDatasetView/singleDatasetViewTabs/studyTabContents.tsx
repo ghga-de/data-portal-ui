@@ -51,43 +51,6 @@ const StudyTabContents = (props: StudyTabContentsProps) => {
                   <strong>Type: </strong>
                   <span className="text-capitalize">{x.type}</span>
                 </p>
-                {/* <p>
-                  <strong>Attributes: </strong>
-                  {x.has_attribute !== null ? (
-                    <>
-                      {x.has_attribute?.map((y) => {
-                        return (
-                          <span
-                            className="ms-3 mb-1 text-capitalize d-block"
-                            key={y.key + ":" + y.value}
-                          >
-                            {y.key === "centerName" ? (
-                              <>
-                                <strong>Centre Name: </strong> {y.value}
-                              </>
-                            ) : y.key === "released" &&
-                              y.value === "RELEASED" ? (
-                              <>
-                                <strong>Release date: </strong>
-                                {x.release_date !== null ? (
-                                  x.release_date
-                                ) : (
-                                  <>N/A</>
-                                )}
-                              </>
-                            ) : (
-                              <>
-                                <strong>{y.key}</strong> {y.value}
-                              </>
-                            )}
-                          </span>
-                        );
-                      })}
-                    </>
-                  ) : (
-                    <>N/A</>
-                  )}
-                </p> */}
               </PerfectScrollbar>
             </div>
           );

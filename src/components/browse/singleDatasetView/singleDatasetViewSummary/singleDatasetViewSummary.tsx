@@ -48,17 +48,6 @@ const SingleDatasetViewSummary = (props: SingleDatasetViewSummaryProps) => {
             ))}
           </Col>
         </Row>
-        {/* {props.details.has_attribute?.length > 0 ? (
-          props.details.has_attribute?.map((x) => {
-            return (
-              <span key={x.value + "span"}>
-                Centre name: <strong key={x.value + "strong"}>{x.value}</strong>
-              </span>
-            );
-          })
-        ) : (
-          <></>
-        )} */}
       </div>
       <Row className="fs-7 w-100 mx-0">
         <Col>
@@ -74,22 +63,6 @@ const SingleDatasetViewSummary = (props: SingleDatasetViewSummaryProps) => {
       <Row className="fs-7 my-2 border border-1 border-dark border-end-0 border-start-0 pt-2 pb-3 w-100 mx-0 mb-4">
         <Col className="">{props.details.description}</Col>
       </Row>
-      {/* <Row className="fs-7 mb-4 w-100 mx-0">
-        <Col className="text-end">
-          <FontAwesomeIcon
-            icon={faCalendar}
-            transform="up-1"
-            className="me-1"
-          />
-          {props.details.release_date !== null ? (
-            <>{props.details.release_date.split("T")[0]} Accession date</>
-          ) : props.details.update_date !== null ? (
-            <>{props.details.update_date.split("T")[0]} Update date</>
-          ) : (
-            <>{props.details.creation_date.split("T")[0]} Creation date</>
-          )}
-        </Col>
-      </Row> */}
     </div>
   );
 };

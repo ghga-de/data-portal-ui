@@ -10,7 +10,6 @@ import { Col, Row } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
 import { getMetadataSummary } from "../../../api/browse";
 import { metadataSummaryModel } from "../../../models/dataset";
-import { getItemsForSummary } from "../../../utils/utils";
 import HomeMidSectionBadge from "./homeMidSectionBadge";
 
 /** Section on the home  page where Statistics are listed in cards (badges). */
@@ -108,16 +107,12 @@ const HomeMidSection = () => {
       badgeTitle: BadgeTitleGen(
         faDna,
         "Platforms: " +
-          Object.keys(summary.protocol_summary.stats.protocol).length.toString()
+          summary.protocol_summary.stats.protocol.length.toString()
       ),
-      badgeBody: getItemsForSummary(
-        summary.protocol_summary.stats.protocol
-      ).map((x: any) => (
-        <Row key={x} className="text-capitalize ms-0 ps-0 mb-2 w-100">
-          <Col className="ms-0 ps-0">{x.split(": ")[0]}:</Col>
-          <Col className="col-auto text-end fw-bold pe-0">
-            {x.split(": ")[1]}
-          </Col>
+      badgeBody: summary.protocol_summary.stats.protocol.map((x: any) => (
+        <Row key={x.value} className="text-capitalize ms-0 ps-0 mb-2 w-100">
+          <Col className="ms-0 ps-0">{x.value}:</Col>
+          <Col className="col-auto text-end fw-bold pe-0">{x.count}</Col>
         </Row>
       )),
       bodyRowClasses: "pt-3 fs-7",
@@ -132,24 +127,12 @@ const HomeMidSection = () => {
       badgeBody: (
         <div>
           <Row className="pt-4 mt-3 w-100 px-0 mx-0">
-            <Col className="text-center ps-1">
-              Female:&nbsp;
-              <strong>{summary.individual_summary.stats.sex["female"]}</strong>
-            </Col>
-            <Col className="text-center pe-1">
-              Male:&nbsp;
-              <strong>{summary.individual_summary.stats.sex["male"]}</strong>
-            </Col>
-          </Row>
-          <Row className="mt-4 w-100 mx-0">
-            <Col className="text-center">
-              Unknown:&nbsp;
-              <strong>
-                {summary.individual_summary.stats.sex["unknown"]
-                  ? summary.individual_summary.stats.sex["unknown"]
-                  : 0}
-              </strong>
-            </Col>
+            {summary.individual_summary.stats.sex.map((x) => (
+              <Col className="text-center mb-4 ps-1 text-capitalize">
+                {x.value}:&nbsp;
+                <strong>{x.count}</strong>
+              </Col>
+            ))}
           </Row>
         </div>
       ),
@@ -164,16 +147,16 @@ const HomeMidSection = () => {
       badgeBody: (
         <table>
           <tbody>
-            {getItemsForSummary(summary.file_summary.stats.format).map((x) => {
+            {summary.file_summary.stats.format.map((x) => {
               return (
-                <tr key={x} className="text-uppercase ms-0 ps-0 mb-2">
+                <tr key={x.value} className="text-uppercase ms-0 ps-0 mb-2">
                   <td
                     className="ms-0 ps-3 pe-4"
                     style={{ width: "1px", whiteSpace: "nowrap" }}
                   >
-                    {x.split(": ")[0]}:
+                    {x.value}:
                   </td>
-                  <td className="fw-bold">{x.split(": ")[1]}</td>
+                  <td className="fw-bold">{x.count}</td>
                 </tr>
               );
             })}
