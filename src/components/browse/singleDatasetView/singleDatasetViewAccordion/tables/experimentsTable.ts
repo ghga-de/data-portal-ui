@@ -28,14 +28,12 @@ export const ExperimentsTable = (props: ExperimentsTableProps) => {
   const experimentsTable: TableFields[] = [
     {
       header: "Experiment ID",
-      data: props.details.has_experiment.map((x) =>
-        x.ega_accession !== null ? x.ega_accession : x.alias
-      ),
+      data: props.details.sequencing_experiments.map((x) => x.alias),
       cssClasses: "w-25 text-wrap text-break",
     },
     {
       header: "Description",
-      data: props.details.has_experiment.map((x) => x.description),
+      data: props.details.sequencing_experiments.map((x) => x.description),
       cssClasses: "text-wrap text-break",
     },
   ];
@@ -47,9 +45,9 @@ export const ExperimentsTable = (props: ExperimentsTableProps) => {
   const experimentsTableDef: SDSVTableDefinition = {
     table: experimentsTable,
     buttonText:
-      props.details.has_experiment !== null
+      props.details.sequencing_experiments !== null
         ? "Experiment Summary (" +
-          props.details.has_experiment.length +
+          props.details.sequencing_experiments.length +
           " experiments)"
         : "Experiment Summary",
     sortDefinition: sortDefinition,

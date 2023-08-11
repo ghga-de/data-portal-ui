@@ -14,7 +14,7 @@ interface SingleDatasetViewAccordionProps {
 const SingleDatasetViewAccordion = (props: SingleDatasetViewAccordionProps) => {
   let fileSize = 0;
 
-  props.details.has_file?.map((x) => {
+  props.details.files?.map((x) => {
     fileSize = fileSize + x.size;
     return null;
   });

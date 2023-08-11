@@ -1,11 +1,6 @@
 import { Dispatch, SetStateAction } from "react";
 import { querySearchService } from "../api/browse";
-import {
-  dataAccessCommitteeModel,
-  dataAccessPolicyModel,
-  datasetEmbeddedModel,
-  searchResponseModel,
-} from "../models/dataset";
+import { searchResponseModel } from "../models/dataset";
 import { facetFilterModel } from "../models/facets";
 import { authService } from "../services/auth";
 
@@ -164,44 +159,6 @@ export const importAllFilesFromFolder = (r: any) => {
 };
 
 /**
- * Decide email contact according to dataset details
- * @param details - Dataset details object conforms to the datasetEmbeddedModel.
- * @returns Email contact as string. Default: helpdesk@ghga.de
- */
-export const getDACEmailId = (
-  details: datasetEmbeddedModel | null | undefined
-) => {
-  let mailId: string = "helpdesk@ghga.de";
-  if (details !== null && details !== undefined) {
-    const dataAccessPolicy: dataAccessPolicyModel =
-      details.has_data_access_policy;
-    const dataAccessCommittee: dataAccessCommitteeModel =
-      dataAccessPolicy.has_data_access_committee;
-    const mainContact = dataAccessCommittee.main_contact;
-    if (mainContact === null) {
-      for (var item of dataAccessCommittee.has_member) {
-        if (mainContact === null) {
-          mailId =
-            item.email === null || item.email === undefined
-              ? mailId
-              : item.email;
-        }
-        if (
-          item.id === mainContact &&
-          item.email !== null &&
-          item.email !== undefined
-        ) {
-          mailId = item.email;
-        }
-      }
-    } else {
-      mailId = mainContact;
-    }
-  }
-  return mailId;
-};
-
-/**
  * Perform an HTTP request using fetch().
  * @param url - URL string to send the request
  * @param method - HTTP method for request
@@ -231,22 +188,6 @@ export const fetchJson = async (
   }
   const body = payload ? JSON.stringify(payload) : undefined;
   return await fetch(url, { method, headers, body });
-};
-
-/**
- * Summarize the items in an object and return an array of string representations.
- * @param item - Object containing items in "{[key: string]: number}" type.
- * @returns Array of strings formatted as "<key>: <value>".
- */
-export const getItemsForSummary = (
-  item: { [key: string]: number } | undefined
-) => {
-  let items: string[] = [];
-  for (let key in item) {
-    let value = item[key];
-    items.push(key + ": " + value);
-  }
-  return items;
 };
 
 /**

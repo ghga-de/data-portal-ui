@@ -1,6 +1,6 @@
-import { faBook, faLink } from "@fortawesome/free-solid-svg-icons";
+import { faBook } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Tab, Button, Row, Col } from "react-bootstrap";
+import { Tab, Row, Col } from "react-bootstrap";
 import { datasetEmbeddedModel } from "../../../../models/dataset";
 import "react-perfect-scrollbar/dist/css/styles.css";
 import PerfectScrollbar from "react-perfect-scrollbar";
@@ -12,35 +12,12 @@ interface StudyTabContentsProps {
 const StudyTabContents = (props: StudyTabContentsProps) => {
   return (
     <Tab.Pane eventKey="0" className="h-100">
-      {props.details.has_study !== null ? (
-        props.details.has_study.map((x) => {
+      {props.details.studies !== null ? (
+        props.details.studies.map((x) => {
           return (
-            <div key={x.id} className="text-break overflow-auto h-100">
+            <div key={x.accession} className="text-break overflow-auto h-100">
               <PerfectScrollbar>
                 <Row className="flex-row-reverse">
-                  {x.ega_accession !== null ? (
-                    <Col xs={12} sm={"auto"} className="mb-2 mb-sm-0">
-                      <Button
-                        href={
-                          "https://ega-archive.org/studies/" + x.ega_accession
-                        }
-                        target="_blank"
-                        variant="white"
-                        className="fs-7 py-2 mb-2 text-secondary shadow-md-dark border-secondary"
-                      >
-                        <Row className="p-0 m-0 align-items-center text-start">
-                          <Col className="p-0 m-0" xs={3}>
-                            <FontAwesomeIcon icon={faLink} />
-                          </Col>
-                          <Col className="p-0 m-0 lh-1">
-                            <strong>Visit EGA Study</strong>
-                          </Col>
-                        </Row>
-                      </Button>
-                    </Col>
-                  ) : (
-                    <></>
-                  )}
                   <Col className="pe-0">
                     <h5 className="mb-4 d-flex align-items-center clear-end">
                       <FontAwesomeIcon
@@ -60,7 +37,7 @@ const StudyTabContents = (props: StudyTabContentsProps) => {
                 </Row>
                 <p className="mb-4">
                   <strong>ID: </strong>
-                  {x.ega_accession !== null ? x.ega_accession : x.accession}
+                  {x.accession}
                 </p>
                 <p className="mb-4">
                   <strong>Title: </strong>
@@ -74,43 +51,6 @@ const StudyTabContents = (props: StudyTabContentsProps) => {
                   <strong>Type: </strong>
                   <span className="text-capitalize">{x.type}</span>
                 </p>
-                {/* <p>
-                  <strong>Attributes: </strong>
-                  {x.has_attribute !== null ? (
-                    <>
-                      {x.has_attribute?.map((y) => {
-                        return (
-                          <span
-                            className="ms-3 mb-1 text-capitalize d-block"
-                            key={y.key + ":" + y.value}
-                          >
-                            {y.key === "centerName" ? (
-                              <>
-                                <strong>Centre Name: </strong> {y.value}
-                              </>
-                            ) : y.key === "released" &&
-                              y.value === "RELEASED" ? (
-                              <>
-                                <strong>Release date: </strong>
-                                {x.release_date !== null ? (
-                                  x.release_date
-                                ) : (
-                                  <>N/A</>
-                                )}
-                              </>
-                            ) : (
-                              <>
-                                <strong>{y.key}</strong> {y.value}
-                              </>
-                            )}
-                          </span>
-                        );
-                      })}
-                    </>
-                  ) : (
-                    <>N/A</>
-                  )}
-                </p> */}
               </PerfectScrollbar>
             </div>
           );

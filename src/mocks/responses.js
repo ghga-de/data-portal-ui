@@ -41,13 +41,13 @@ const localResponses = {
   "GET /static/*": undefined,
 
   // Get Dataset details (embedded) Metadata Repository Service
-  "GET http://127.0.0.1:8002/datasets/*?embedded=true": embeddedDataset,
+  "GET http://127.0.0.1:8002/artifacts/embedded_public/classes/EmbeddedDataset/resources/*": embeddedDataset,
 
   // Get summary data from a single dataset
-  "GET http://127.0.0.1:8002/dataset_summary/*": datasetSummary,
+  "GET http://127.0.0.1:8002/artifacts/stats_public/classes/DatasetStats/resources/*": datasetSummary,
 
   // Get summary data from entire metadata database
-  "GET http://127.0.0.1:8092/metadata_summary/": metadataSummary,
+  "GET http://127.0.0.1:8002/artifacts/stats_public/classes/GlobalStats/resources/*": metadataSummary,
 
   // Metadata Search Service
   "POST http://127.0.0.1:8001/rpc/search?skip=0&limit=10": {

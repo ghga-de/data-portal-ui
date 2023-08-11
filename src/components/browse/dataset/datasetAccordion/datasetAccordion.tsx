@@ -19,19 +19,19 @@ const DatasetAccordion = (props: dataSetListProps) => {
   const [summaryMap, setSummaryMap] = useState<
     Map<string, datasetDetailsSummaryModel | null | undefined>
   >(new Map<string, datasetDetailsSummaryModel | null>());
-  const getDetails = (datasetId: string) => {
-    if (summaryMap.get(datasetId) === undefined) {
-      getDatasetSummary(datasetId, setSummary);
-      setSummaryMap(summaryMap.set(datasetId, null));
+  const getDetails = (datasetAccession: string) => {
+    if (summaryMap.get(datasetAccession) === undefined) {
+      getDatasetSummary(datasetAccession, setSummary);
+      setSummaryMap(summaryMap.set(datasetAccession, null));
     }
   };
 
   if (
     summary !== null &&
     summary !== undefined &&
-    summaryMap.get(summary.id) === null
+    summaryMap.get(summary.accession) === null
   ) {
-    setSummaryMap(summaryMap.set(summary.id, summary));
+    setSummaryMap(summaryMap.set(summary.accession, summary));
   }
 
   return (
@@ -43,18 +43,16 @@ const DatasetAccordion = (props: dataSetListProps) => {
         {props.dsList.map((hit, index) => (
           <Accordion.Item
             key={index}
-            eventKey={hit.id}
+            eventKey={hit.content.accession}
             className="mb-3 border border-1 rounded-0"
             title={hit.content.title}
           >
             <Accordion.Button
               className="bg-light align-items-start text-break py-2 px-1 px-lg-2 text-black"
-              onClick={() => getDetails(hit.id)}
+              onClick={() => getDetails(hit.content.accession)}
             >
               <Col xs={5} sm={4} xl={3}>
-                {hit.content.ega_accession !== null
-                  ? hit.content.ega_accession
-                  : hit.content.accession}
+                {hit.content.accession}
               </Col>
               <Col className="pe-2" style={{ height: "42px" }}>
                 <div
@@ -72,7 +70,10 @@ const DatasetAccordion = (props: dataSetListProps) => {
               </Col>
             </Accordion.Button>
             <Accordion.Body className="p-2">
-              <DatasetSummary hit={hit} summary={summaryMap.get(hit.id)} />
+              <DatasetSummary
+                hit={hit}
+                summary={summaryMap.get(hit.content.accession)}
+              />
             </Accordion.Body>
           </Accordion.Item>
         ))}

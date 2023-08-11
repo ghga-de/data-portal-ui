@@ -1,13 +1,12 @@
 interface BoldenedProps {
-  x : string;
+  x: { value: string; count: number };
 }
 
 /** Split x string at ": " and render the second part in bold. */
-const BoldenedSummaryDetails = (props : BoldenedProps) => {
+const BoldenedSummaryDetails = (props: BoldenedProps) => {
   return (
     <div>
-      {props.x.substring(0, props.x.lastIndexOf(": ") + 1)}{" "}
-      <strong>{props.x.substring(props.x.lastIndexOf(": ") + 1, props.x.length)}</strong>
+      {props.x.value} <strong>{props.x.count}</strong>
     </div>
   );
 };

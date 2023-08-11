@@ -72,9 +72,7 @@ const DataRequestFormModal = (props: DataRequestFormModalProps) => {
           type: "success",
           title: "Access successfully requested!",
         });
-        // email.value = "";
         email.disabled = "true";
-        // details.value = "";
         details.disabled = "true";
         cancelButton.innerHTML = "Close";
         submitButton.innerHTML = "Request sent!";

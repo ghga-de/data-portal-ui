@@ -4,7 +4,6 @@ import DatasetDetailsLayout from "./datasetDetailsLayout/datasetDetailsLayout";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFlask } from "@fortawesome/free-solid-svg-icons";
 import { experimentSummaryModel } from "../../../../../models/dataset";
-import { getItemsForSummary } from "../../../../../utils/utils";
 import BoldenedSummaryDetails from "./boldenedSummaryDetails/boldenedSummaryDetails";
 
 interface dataSetExperimentsProps {
@@ -26,19 +25,22 @@ const DatasetExperiments = (props: dataSetExperimentsProps) => {
           </p>
           <div className="mb-0">
             Platforms:&nbsp;
-            {props.experiments?.stats.protocol ? (
+            {props.experiments?.stats.sequencing_protocol ? (
               <strong>
-                {Object.keys(props.experiments?.stats.protocol).length}
+                {
+                  Object.keys(props.experiments?.stats.sequencing_protocol)
+                    .length
+                }
               </strong>
             ) : (
               ""
             )}
             <ul>
-              {getItemsForSummary(props.experiments?.stats.protocol).map(
-                (x) => {
-                  return <li key={x}>{<BoldenedSummaryDetails x={x} />}</li>;
-                }
-              )}
+              {props.experiments?.stats.sequencing_protocol.map((x) => {
+                return (
+                  <li key={x.value}>{<BoldenedSummaryDetails x={x} />}</li>
+                );
+              })}
             </ul>
           </div>
         </Row>

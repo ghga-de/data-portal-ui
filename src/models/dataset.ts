@@ -39,70 +39,53 @@ export interface datasetModel {
 }
 
 export interface fileModel {
-  id: string;
-  name: string;
-  size: number;
-  format: string;
-  category: string;
-  checksum: string;
-  creation_date: string;
   accession: string;
   alias: string;
+  name: string;
+  format: string;
+  size: number;
+  checksum: string;
   checksum_type: string;
 }
 
-export interface experimentEmbeddedModel {
+export interface sequencingExperimentEmbeddedModel {
   title: string;
-  has_protocol: [
-    {
-      id: string;
-      instrument_model: string;
-    }
-  ];
+  sequencing_protocol: {
+    instrument_model: string;
+  };
   description: string;
   accession: string;
-  ega_accession: string;
   alias: string;
-  has_sample: sampleModel[];
   type: string;
 }
 
 export interface publicationModel {
-  id: string;
+  accession: string;
   title: string;
   abstract: string;
-  alias: string;
-  xref: string[];
-  accession: string;
-  author: string;
   journal: string;
   year: number;
+  author: string;
+  doi: string;
+  alias: string;
 }
 
 export interface sampleModel {
-  name: string;
-  has_individual: {
-    gender: string;
-    sex: string;
-    has_phenotypic_feature: [
-      {
-        id: string;
-        name: string;
-        concept_name: string;
-      }
-    ];
-  };
-  has_anatomical_entity: [
-    {
-      concept_name: string;
-    }
-  ];
-  tissue: string;
-  description: string;
   accession: string;
-  ega_accession: string;
+  name: string;
+  description: string;
   alias: string;
-  case_control_status: string;
+  biospecimen: {
+    individual: {
+      sex: string;
+      phenotypic_features: string[];
+    };
+    tissue: string;
+  };
+  condition: {
+    name: string;
+    case_control_status: string;
+  };
 }
 
 export interface projectModel {
@@ -116,35 +99,29 @@ export interface projectModel {
 }
 
 export interface studyEmbeddedModel {
-  release_date: string;
-  id: string;
+  accession: string;
+  alias: string;
   title: string;
   description: string;
-  accession: string;
-  abstract: string;
-  has_publication: publicationModel[];
   type: string;
-  has_attribute: attributeModel[];
-  has_project: projectModel;
-  ega_accession: string;
+  attributes: attributeModel[];
 }
 
 export interface dataAccessPolicyModel {
-  id: string;
-  name: string;
   accession: string;
-  has_data_access_committee: dataAccessCommitteeModel;
-  data_request_form: string;
+  alias: string;
+  name: string;
+  description: string;
   policy_text: string;
   policy_url: string;
+  data_access_committee: dataAccessCommitteeModel;
 }
 
 export interface dataAccessCommitteeModel {
-  name: string;
-  main_contact: string;
   accession: string;
-  has_member: dataAccessCommitteeMemberModel[];
   alias: string;
+  email: string;
+  institute: string;
 }
 
 export interface dataAccessCommitteeMemberModel {
@@ -159,58 +136,47 @@ export interface attributeModel {
 }
 
 export interface datasetEmbeddedModel {
-  id: string;
+  accession: string;
+  alias: string;
   title: string;
   description: string;
-  type: string;
-  has_experiment: experimentEmbeddedModel[];
-  has_file: fileModel[];
-  has_sample: sampleModel[];
-  has_study: studyEmbeddedModel[];
-  has_data_access_policy: dataAccessPolicyModel;
-  has_attribute: attributeModel[];
-  has_publication: publicationModel[];
-  creation_date: string;
-  accession: string;
-  ega_accession: string;
-  release_status: string;
-  release_date: string;
-  update_date: string;
+  types: string[];
+  sequencing_experiments: sequencingExperimentEmbeddedModel[];
+  files: fileModel[];
+  samples: sampleModel[];
+  studies: studyEmbeddedModel[];
+  data_access_policy: dataAccessPolicyModel;
+  publications: publicationModel[];
 }
 
 export interface hitContentModel {
-  id: string;
   accession: string;
-  ega_accession: string;
   title: string;
   description: string;
-  type: string[];
-  has_study: string[];
-  has_file: string[];
-  has_sample: string[];
-  has_experiment: string[];
+  types: string[];
+  study_files: string[];
+  studies: string[];
+  samples: string[];
+  sequencing_experiments: string[];
 }
 
 export interface hitModel {
   document_type: string;
-  id: string;
   context: string | null;
   content: hitContentModel;
 }
 
 export interface searchResponseModel {
+  facets: facetModel[];
   count: number;
   hits: hitModel[];
-  facets: facetModel[];
 }
 
 export interface datasetDetailsSummaryModel {
-  id: string;
   title: string;
   description: string;
   accession: string;
-  ega_accession: string;
-  type: string;
+  types: string[];
   dac_email: string;
   sample_summary: sampleSummaryModel;
   study_summary: studySummaryModel;
@@ -225,9 +191,9 @@ export interface datasetSummaryModel {
 export interface sampleSummaryModel {
   count: number;
   stats: {
-    sex: sexSummaryModel;
-    tissues: { [key: string]: number };
-    phenotypes: { [key: string]: number };
+    sex: { value: string; count: number }[];
+    tissues: { value: string; count: number }[];
+    phenotypes: { value: string; count: number }[];
   };
 }
 
@@ -240,7 +206,6 @@ export interface sexSummaryModel {
 export interface studySummaryModel {
   count: number;
   stats: {
-    ega_accession: string;
     accession: string;
     title: string;
   };
@@ -249,14 +214,14 @@ export interface studySummaryModel {
 export interface experimentSummaryModel {
   count: number;
   stats: {
-    protocol: { [key: string]: number };
+    sequencing_protocol: { value: string; count: number }[];
   };
 }
 
 export interface fileSummaryModel {
   count: number;
   stats: {
-    format: { [key: string]: number };
+    format: { value: string; count: number }[];
     size: number;
   };
 }
@@ -264,22 +229,19 @@ export interface fileSummaryModel {
 export interface individualSummaryModel {
   count: number;
   stats: {
-    sex: { [key: string]: number };
+    sex: { value: string; count: number }[];
   };
 }
 
 export interface protocolSummaryModel {
   count: number;
   stats: {
-    protocol: { [key: string]: number };
+    protocol: { value: string; count: number }[];
   };
 }
 
 export interface metadataSummaryModel {
   dataset_summary: datasetSummaryModel;
-  sample_summary: sampleSummaryModel;
-  study_summary: studySummaryModel;
-  experiment_summary: experimentSummaryModel;
   file_summary: fileSummaryModel;
   individual_summary: individualSummaryModel;
   protocol_summary: protocolSummaryModel;

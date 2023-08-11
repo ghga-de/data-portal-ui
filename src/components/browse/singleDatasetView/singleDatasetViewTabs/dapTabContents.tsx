@@ -2,7 +2,6 @@ import { faUsersRays, faLink } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Tab, Button, Row, Col } from "react-bootstrap";
 import { datasetEmbeddedModel } from "../../../../models/dataset";
-import { getDACEmailId } from "../../../../utils/utils";
 import "react-perfect-scrollbar/dist/css/styles.css";
 import PerfectScrollbar from "react-perfect-scrollbar";
 
@@ -24,13 +23,13 @@ const DapTabContents = (props: DapTabContentsProps) => {
 
   return (
     <Tab.Pane eventKey="3" className="h-100">
-      {props.details.has_data_access_policy !== null ? (
+      {props.details.data_access_policy !== null ? (
         <div className="text-break overflow-auto h-100">
           <PerfectScrollbar>
-            {props.details.has_data_access_policy.policy_url !== null &&
-            isValidHttpUrl(props.details.has_data_access_policy.policy_url) ? (
+            {props.details.data_access_policy.policy_url !== null &&
+            isValidHttpUrl(props.details.data_access_policy.policy_url) ? (
               <Button
-                href={props.details.has_data_access_policy.policy_url}
+                href={props.details.data_access_policy.policy_url}
                 target="_blank"
                 variant="white"
                 className="float-end fs-7 py-2 mb-2 ms-4 text-secondary shadow-md-dark border-secondary"
@@ -61,29 +60,26 @@ const DapTabContents = (props: DapTabContentsProps) => {
               />
               <strong>Policy and Data Access Committee</strong>
             </h5>
-            {props.details.has_data_access_policy.has_data_access_committee
-              .alias !== null ? (
+            {props.details.data_access_policy.data_access_committee.alias !==
+            null ? (
               <p>
                 <strong>Data Access Committee: </strong>
-                {
-                  props.details.has_data_access_policy.has_data_access_committee
-                    .alias
-                }
+                {props.details.data_access_policy.data_access_committee.alias}
               </p>
             ) : (
               ""
             )}
             <p>
               <strong>e-Mail: </strong>
-              {getDACEmailId(props.details)}
+              {props.details.data_access_policy.data_access_committee.email}
             </p>
             <p>
               <strong>Data Access Policy: </strong>
-              {props.details.has_data_access_policy.name}
+              {props.details.data_access_policy.name}
             </p>
             <p>
               <strong>Policy: </strong>
-              {props.details.has_data_access_policy.policy_text
+              {props.details.data_access_policy.policy_text
                 .split("\n")
                 .map((x, idx) => (
                   <span key={"dap_policy_" + idx} className="fs-7">

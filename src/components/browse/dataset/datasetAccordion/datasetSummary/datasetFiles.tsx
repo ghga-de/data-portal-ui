@@ -4,7 +4,7 @@ import DatasetDetailsLayout from "./datasetDetailsLayout/datasetDetailsLayout";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFileLines } from "@fortawesome/free-regular-svg-icons";
 import { fileSummaryModel } from "../../../../../models/dataset";
-import { parseBytes, getItemsForSummary } from "../../../../../utils/utils";
+import { parseBytes } from "../../../../../utils/utils";
 import BoldenedSummaryDetails from "./boldenedSummaryDetails/boldenedSummaryDetails";
 
 interface dataSetFilesProps {
@@ -27,9 +27,9 @@ const DatasetFiles = (props: dataSetFilesProps) => {
                 <strong>{props.files.count}</strong> Files
               </p>
               <ul className="mb-0">
-                {getItemsForSummary(props.files.stats?.format).map((x) => {
+                {props.files.stats?.format.map((x) => {
                   return (
-                    <li key={x} className="text-uppercase">
+                    <li key={x.value} className="text-uppercase">
                       {<BoldenedSummaryDetails x={x} />}
                     </li>
                   );

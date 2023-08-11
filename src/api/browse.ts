@@ -47,8 +47,13 @@ export const querySearchService: getDatasetsSearchRespType = async (
   documentType = "Dataset"
 ) => {
   let url = `${SEARCH_URL}/rpc/search`;
-  url += `?document_type=${documentType}&return_facets=true&skip=${skip}&limit=${limit}`;
-  const payload = { query: searchKeyword, filters: filterQuery };
+  const payload = {
+    class_name: "Dataset",
+    query: searchKeyword,
+    filters: filterQuery,
+    skip: skip,
+    limit: limit,
+  };
   try {
     const response = await fetchJson(url, "POST", payload);
     const data = await response.json();
@@ -66,26 +71,22 @@ export const querySearchService: getDatasetsSearchRespType = async (
 };
 
 type getDatasetDetailsType = (
-  datasetId: string,
-  embedded: boolean,
+  datasetAccession: string,
   callbackFunc: (dataset: datasetEmbeddedModel) => void
 ) => void;
 
 /**
  * Async function to retrieve the details of specified dataset from API,
  * calls the callbackFunc function with the response data, returns nothing.
- * @param datasetId - ID of the dataset of interest.
- * @param embedded - Boolean for the url parameter "embedded". Default: 'false'.
+ * @param datasetAccession - ID of the dataset of interest.
  * @param callbackFunc - Function used to process response data.
  * @returns Nothing
  */
 export const getDatasetDetails: getDatasetDetailsType = async (
-  datasetId,
-  embedded = false,
+  datasetAccession,
   callbackFunc
 ) => {
-  let url = `${REPOSITORY_URL}/datasets/${datasetId}`;
-  url += `?embedded=${embedded}`;
+  let url = `${REPOSITORY_URL}/artifacts/embedded_public/classes/EmbeddedDataset/resources/${datasetAccession}`;
   try {
     const response = await fetchJson(url);
     const data = await response.json();
@@ -97,22 +98,22 @@ export const getDatasetDetails: getDatasetDetailsType = async (
 };
 
 type getDatasetSummaryType = (
-  datasetId: string,
+  datasetAccession: string,
   callbackFunc: (dataset: datasetDetailsSummaryModel) => void
 ) => void;
 
 /**
  * Async function to retrieve the summary of specified dataset from API,
  * calls the callbackFunc function with the response data, returns nothing.
- * @param datasetId - ID of the dataset of interest.
+ * @param datasetAccession - ID of the dataset of interest.
  * @param callbackFunc - Function used to process response data.
  * @returns Nothing
  */
 export const getDatasetSummary: getDatasetSummaryType = async (
-  datasetId,
+  datasetAccession,
   callbackFunc
 ) => {
-  const url = `${REPOSITORY_URL}/dataset_summary/${datasetId}`;
+  const url = `${REPOSITORY_URL}/artifacts/stats_public/classes/DatasetStats/resources/${datasetAccession}`;
   try {
     const response = await fetchJson(url);
     const data = await response.json();
@@ -134,9 +135,12 @@ type getMetadataSummaryType = (
  * @returns Nothing
  */
 export const getMetadataSummary: getMetadataSummaryType = (callbackFunc) => {
-  fetch(`${REPOSITORY_URL}/metadata_summary/`, {
-    method: "get",
-  })
+  fetch(
+    `${REPOSITORY_URL}/artifacts/stats_public/classes/GlobalStats/resources/summary`,
+    {
+      method: "get",
+    }
+  )
     .then((response) => response.json())
     .then(
       (data) => {
