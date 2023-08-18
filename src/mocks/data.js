@@ -185,7 +185,7 @@ export const datasetSummary = {
   experiment_summary: {
     count: 14,
     stats: {
-      sequencing_protocol: [{
+      protocol: [{
         value: "Ilumina test", count: 10
       },
       { value: "HiSeq test", count: 4 }],
@@ -201,19 +201,19 @@ export const datasetSummary = {
 };
 
 export const metadataSummary = {
-  file_summary: {
+  SequencingProcessFile: {
     count: 532,
     stats: {
       format: [{ value: "fastq", count: 124 }, { value: "bam", count: 408 }]
     },
   },
-  individual_summary: {
+  Individual: {
     count: 5432,
     stats: {
       sex: [{ value: "female", count: 1935 }, { value: "male", count: 2358 }, { value: "unknown", count: 1139 }],
     },
   },
-  protocol_summary: {
+  SequencingProtocol: {
     count: 1400,
     stats: {
       protocol: [{
@@ -224,7 +224,7 @@ export const metadataSummary = {
       }],
     },
   },
-  dataset_summary: {
+  Dataset: {
     count: 252,
     stats: {},
   },

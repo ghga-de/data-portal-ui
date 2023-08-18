@@ -93,7 +93,7 @@ const HomeMidSection = () => {
             className="bg-white d-flex align-items-center"
           >
             <span className="w-100 text-center fs-1">
-              {summary?.dataset_summary.count}
+              {summary?.Dataset.count}
             </span>
           </div>
         </NavLink>
@@ -107,9 +107,9 @@ const HomeMidSection = () => {
       badgeTitle: BadgeTitleGen(
         faDna,
         "Platforms: " +
-          summary.protocol_summary.stats.protocol.length.toString()
+          summary.SequencingProtocol.stats.protocol.length.toString()
       ),
-      badgeBody: summary.protocol_summary.stats.protocol.map((x: any) => (
+      badgeBody: summary.SequencingProtocol.stats.protocol.map((x: any) => (
         <Row key={x.value} className="text-capitalize ms-0 ps-0 mb-2 w-100">
           <Col className="ms-0 ps-0">{x.value}:</Col>
           <Col className="col-auto text-end fw-bold pe-0">{x.count}</Col>
@@ -121,13 +121,13 @@ const HomeMidSection = () => {
     Badges.push({
       badgeTitle: BadgeTitleGen(
         faUser,
-        "Individuals: " + summary.individual_summary.count.toString(),
+        "Individuals: " + summary.Individual.count.toString(),
         true
       ),
       badgeBody: (
         <div>
           <Row className="pt-4 mt-3 w-100 px-0 mx-0">
-            {summary.individual_summary.stats.sex.map((x) => (
+            {summary.Individual.stats.sex.map((x) => (
               <Col className="text-center mb-4 ps-1 text-capitalize">
                 {x.value}:&nbsp;
                 <strong>{x.count}</strong>
@@ -142,12 +142,12 @@ const HomeMidSection = () => {
     Badges.push({
       badgeTitle: BadgeTitleGen(
         faChartColumn,
-        "Files: " + summary.file_summary.count.toString()
+        "Files: " + summary.SequencingProcessFile.count.toString()
       ),
       badgeBody: (
         <table>
           <tbody>
-            {summary.file_summary.stats.format.map((x) => {
+            {summary.SequencingProcessFile.stats.format.map((x) => {
               return (
                 <tr key={x.value} className="text-uppercase ms-0 ps-0 mb-2">
                   <td

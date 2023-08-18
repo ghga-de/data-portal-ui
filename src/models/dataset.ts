@@ -197,12 +197,6 @@ export interface sampleSummaryModel {
   };
 }
 
-export interface sexSummaryModel {
-  female: number;
-  male: number;
-  unkown: number;
-}
-
 export interface studySummaryModel {
   count: number;
   stats: {
@@ -214,7 +208,7 @@ export interface studySummaryModel {
 export interface experimentSummaryModel {
   count: number;
   stats: {
-    sequencing_protocol: { value: string; count: number }[];
+    protocol: { value: string; count: number }[];
   };
 }
 
@@ -241,8 +235,8 @@ export interface protocolSummaryModel {
 }
 
 export interface metadataSummaryModel {
-  dataset_summary: datasetSummaryModel;
-  file_summary: fileSummaryModel;
-  individual_summary: individualSummaryModel;
-  protocol_summary: protocolSummaryModel;
+  Dataset: datasetSummaryModel;
+  SequencingProcessFile: fileSummaryModel;
+  Individual: individualSummaryModel;
+  SequencingProtocol: protocolSummaryModel;
 }
