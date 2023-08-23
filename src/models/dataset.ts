@@ -105,6 +105,7 @@ export interface studyEmbeddedModel {
   description: string;
   type: string;
   attributes: attributeModel[];
+  publications: publicationModel[];
 }
 
 export interface dataAccessPolicyModel {
@@ -146,7 +147,6 @@ export interface datasetEmbeddedModel {
   samples: sampleModel[];
   studies: studyEmbeddedModel[];
   data_access_policy: dataAccessPolicyModel;
-  publications: publicationModel[];
 }
 
 export interface hitContentModel {
