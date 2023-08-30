@@ -1,1 +1,48 @@
-{"title":"The C dataset","types":["A Type","And yet another Type"],"dac_email":"dac@dac.dac","sample_summary":{"count":0,"stats":{"sex":[],"tissues":[],"phenotypes":[]}},"study_summary":{"count":2,"stats":{"accession":["GHGAS25907092172816","GHGAS10698041085888"],"title":["The B Study","The A Study"]}},"experiment_summary":{"count":0,"stats":{"protocol":[]}},"file_summary":{"count":20,"stats":{"format":[{"value":"FASTQ","count":20}]}},"accession":"GHGAD30363631557727"}
+{
+    "title": "The C dataset",
+    "types": [
+      "A Type",
+      "And yet another Type"
+    ],
+    "description": "An interesting dataset C",
+    "dac_email": "dac@dac.dac",
+    "samples_summary": {
+      "count": 0,
+      "stats": {
+        "sex": [],
+        "tissues": [],
+        "phenotypic_features": []
+      }
+    },
+    "studies_summary": {
+      "count": 2,
+      "stats": {
+        "accession": [
+          "GHGAS01710016423743",
+          "GHGAS84826041417947"
+        ],
+        "title": [
+          "The B Study",
+          "The A Study"
+        ]
+      }
+    },
+    "sequencing_experiments_summary": {
+      "count": 0,
+      "stats": {
+        "sequencing_protocols": []
+      }
+    },
+    "files_summary": {
+      "count": 20,
+      "stats": {
+        "format": [
+          {
+            "value": "FASTQ",
+            "count": 20
+          }
+        ]
+      }
+    },
+    "accession": "GHGAD29067293535618"
+  }

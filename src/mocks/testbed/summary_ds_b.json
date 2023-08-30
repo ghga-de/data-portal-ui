@@ -1,1 +1,69 @@
-{"title":"The complete-B dataset","types":["And another Type"],"dac_email":"dac_institute_a@dac.dac","sample_summary":{"count":1,"stats":{"sex":[{"value":"MALE_SEX_FOR_CLINICAL_USE","count":1}],"tissues":[{"value":"subcutaneous adipose tissue","count":1}],"phenotypes":[{"value":"Leukemia","count":1}]}},"study_summary":{"count":1,"stats":{"accession":["GHGAS90928834400381"],"title":["The B Study"]}},"experiment_summary":{"count":1,"stats":{"protocol":[{"value":"ILLUMINA_NOVA_SEQ_6000","count":1}]}},"file_summary":{"count":12,"stats":{"format":[{"value":"FASTQ","count":6},{"value":"VCF","count":6}]}},"accession":"GHGAD17415254163365"}
+{
+  "title": "The complete-B dataset",
+  "types": [
+    "And another Type"
+  ],
+  "description": "An interesting dataset B of complete example set",
+  "dac_email": "dac_institute_a@dac.dac",
+  "samples_summary": {
+    "count": 1,
+    "stats": {
+      "sex": [
+        {
+          "value": "MALE_SEX_FOR_CLINICAL_USE",
+          "count": 1
+        }
+      ],
+      "tissues": [
+        {
+          "value": "subcutaneous adipose tissue",
+          "count": 1
+        }
+      ],
+      "phenotypic_features": [
+        {
+          "value": "Leukemia",
+          "count": 1
+        }
+      ]
+    }
+  },
+  "studies_summary": {
+    "count": 1,
+    "stats": {
+      "accession": [
+        "GHGAS52441062619918"
+      ],
+      "title": [
+        "The B Study"
+      ]
+    }
+  },
+  "sequencing_experiments_summary": {
+    "count": 1,
+    "stats": {
+      "sequencing_protocols": [
+        {
+          "value": "ILLUMINA_NOVA_SEQ_6000",
+          "count": 1
+        }
+      ]
+    }
+  },
+  "files_summary": {
+    "count": 12,
+    "stats": {
+      "format": [
+        {
+          "value": "FASTQ",
+          "count": 6
+        },
+        {
+          "value": "VCF",
+          "count": 6
+        }
+      ]
+    }
+  },
+  "accession": "GHGAD74580036630015"
+}
