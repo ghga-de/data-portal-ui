@@ -230,13 +230,15 @@ export interface individualSummaryModel {
 export interface protocolSummaryModel {
   count: number;
   stats: {
-    protocol: { value: string; count: number }[];
+    type: { value: string; count: number }[];
   };
 }
 
 export interface metadataSummaryModel {
-  Dataset: datasetSummaryModel;
-  SequencingProcessFile: fileSummaryModel;
-  Individual: individualSummaryModel;
-  SequencingProtocol: protocolSummaryModel;
+  resource_stats: {
+    Dataset: datasetSummaryModel;
+    SequencingProcessFile: fileSummaryModel;
+    Individual: individualSummaryModel;
+    SequencingProtocol: protocolSummaryModel;
+  };
 }

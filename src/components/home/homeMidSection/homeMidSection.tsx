@@ -93,7 +93,7 @@ const HomeMidSection = () => {
             className="bg-white d-flex align-items-center"
           >
             <span className="w-100 text-center fs-1">
-              {summary?.Dataset.count}
+              {summary?.resource_stats.Dataset.count}
             </span>
           </div>
         </NavLink>
@@ -107,32 +107,41 @@ const HomeMidSection = () => {
       badgeTitle: BadgeTitleGen(
         faDna,
         "Platforms: " +
-          summary.SequencingProtocol.stats.protocol.length.toString()
+          summary.resource_stats.SequencingProtocol.stats.type.length.toString()
       ),
-      badgeBody: summary.SequencingProtocol.stats.protocol.map((x: any) => (
-        <Row key={x.value} className="text-capitalize ms-0 ps-0 mb-2 w-100">
-          <Col className="ms-0 ps-0">{x.value}:</Col>
-          <Col className="col-auto text-end fw-bold pe-0">{x.count}</Col>
-        </Row>
-      )),
+      badgeBody: summary.resource_stats.SequencingProtocol.stats.type.map(
+        (x: any) => (
+          <Row key={x.value} className="text-capitalize ms-0 ps-0 mb-2 w-100">
+            <Col className="ms-0 ps-0">{x.value}:</Col>
+            <Col className="col-auto text-end fw-bold pe-0">{x.count}</Col>
+          </Row>
+        )
+      ),
       bodyRowClasses: "pt-3 fs-7",
     });
 
     Badges.push({
       badgeTitle: BadgeTitleGen(
         faUser,
-        "Individuals: " + summary.Individual.count.toString(),
+        "Individuals: " + summary.resource_stats.Individual.count.toString(),
         true
       ),
       badgeBody: (
         <div>
           <Row className="pt-4 mt-3 w-100 px-0 mx-0">
-            {summary.Individual.stats.sex.map((x) => (
-              <Col className="text-center mb-4 ps-1 text-capitalize">
-                {x.value}:&nbsp;
-                <strong>{x.count}</strong>
-              </Col>
-            ))}
+            {summary.resource_stats.Individual.stats.sex.map((x) => {
+              let sex: string = "";
+              if (x.value === "FEMALE_SEX_FOR_CLINICAL_USE") {
+                sex = "Female";
+              } else sex = "Male";
+              return (
+                <Col className="text-center mb-4 ps-1 text-capitalize">
+                  {sex}
+                  :&nbsp;
+                  <strong>{x.count}</strong>
+                </Col>
+              );
+            })}
           </Row>
         </div>
       ),
@@ -142,24 +151,27 @@ const HomeMidSection = () => {
     Badges.push({
       badgeTitle: BadgeTitleGen(
         faChartColumn,
-        "Files: " + summary.SequencingProcessFile.count.toString()
+        "Files: " +
+          summary.resource_stats.SequencingProcessFile.count.toString()
       ),
       badgeBody: (
         <table>
           <tbody>
-            {summary.SequencingProcessFile.stats.format.map((x) => {
-              return (
-                <tr key={x.value} className="text-uppercase ms-0 ps-0 mb-2">
-                  <td
-                    className="ms-0 ps-3 pe-4"
-                    style={{ width: "1px", whiteSpace: "nowrap" }}
-                  >
-                    {x.value}:
-                  </td>
-                  <td className="fw-bold">{x.count}</td>
-                </tr>
-              );
-            })}
+            {summary.resource_stats.SequencingProcessFile.stats.format.map(
+              (x) => {
+                return (
+                  <tr key={x.value} className="text-uppercase ms-0 ps-0 mb-2">
+                    <td
+                      className="ms-0 ps-3 pe-4"
+                      style={{ width: "1px", whiteSpace: "nowrap" }}
+                    >
+                      {x.value}:
+                    </td>
+                    <td className="fw-bold">{x.count}</td>
+                  </tr>
+                );
+              }
+            )}
           </tbody>
         </table>
       ),
