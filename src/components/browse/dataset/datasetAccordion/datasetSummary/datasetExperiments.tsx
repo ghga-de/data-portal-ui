@@ -18,22 +18,25 @@ const DatasetExperiments = (props: dataSetExperimentsProps) => {
       content={
         <Row>
           <p className="mb-0">
-            <strong>Experiment info</strong>
+            <strong>Sequencing experiments</strong>
           </p>
           <p className="mb-0">
             Experiments: <strong>{props.experiments?.count}</strong>{" "}
           </p>
           <div className="mb-0">
             Platforms:&nbsp;
-            {props.experiments?.stats.protocol ? (
+            {props.experiments?.stats.sequencing_protocols ? (
               <strong>
-                {Object.keys(props.experiments?.stats.protocol).length}
+                {
+                  Object.keys(props.experiments?.stats.sequencing_protocols)
+                    .length
+                }
               </strong>
             ) : (
               ""
             )}
             <ul>
-              {props.experiments?.stats.protocol.map((x) => {
+              {props.experiments?.stats.sequencing_protocols.map((x) => {
                 return (
                   <li key={x.value}>{<BoldenedSummaryDetails x={x} />}</li>
                 );

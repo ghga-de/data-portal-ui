@@ -142,8 +142,11 @@ export interface datasetEmbeddedModel {
   title: string;
   description: string;
   types: string[];
-  sequencing_experiments: sequencingExperimentEmbeddedModel[];
-  files: fileModel[];
+  sequencing_experiments: sequencingExperimentEmbeddedModel[] | undefined;
+  study_files: fileModel[] | null;
+  sample_files: fileModel[] | null;
+  sequencing_process_files: fileModel[] | null;
+  analysis_process_output_files: fileModel[] | null;
   samples: sampleModel[];
   studies: studyEmbeddedModel[];
   data_access_policy: dataAccessPolicyModel;
@@ -178,10 +181,10 @@ export interface datasetDetailsSummaryModel {
   accession: string;
   types: string[];
   dac_email: string;
-  sample_summary: sampleSummaryModel;
-  study_summary: studySummaryModel;
-  experiment_summary: experimentSummaryModel;
-  file_summary: fileSummaryModel;
+  samples_summary: sampleSummaryModel;
+  studies_summary: studySummaryModel;
+  sequencing_experiments_summary: experimentSummaryModel;
+  files_summary: fileSummaryModel;
 }
 
 export interface datasetSummaryModel {
@@ -193,22 +196,22 @@ export interface sampleSummaryModel {
   stats: {
     sex: { value: string; count: number }[];
     tissues: { value: string; count: number }[];
-    phenotypes: { value: string; count: number }[];
+    phenotypic_features: { value: string; count: number }[];
   };
 }
 
 export interface studySummaryModel {
   count: number;
   stats: {
-    accession: string;
-    title: string;
+    accession: string[];
+    title: string[];
   };
 }
 
 export interface experimentSummaryModel {
   count: number;
   stats: {
-    protocol: { value: string; count: number }[];
+    sequencing_protocols: { value: string; count: number }[];
   };
 }
 

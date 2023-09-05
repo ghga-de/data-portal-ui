@@ -88,9 +88,9 @@ export const workPackageToken = {
   token: "MTIzNDU2Nzg5MDEyMzQ1Njc4OTAxMjM0",
 };
 
-export const embeddedDataset = require("./testbed/details_ds_1.json")
+export const embeddedDataset = require("./testbed/details_ds_3.json")
 
-export const datasetSummary = require("./testbed/summary_ds_1.json")
+export const datasetSummary = require("./testbed/summary_ds_3.json")
 
 export const metadataSummary = require("./testbed/summary.json")
 

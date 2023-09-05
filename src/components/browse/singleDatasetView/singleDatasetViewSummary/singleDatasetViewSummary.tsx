@@ -41,7 +41,7 @@ const SingleDatasetViewSummary = (props: SingleDatasetViewSummaryProps) => {
             {props.details.types?.map((x) => (
               <Badge
                 key={x}
-                className="py-1 px-2 fw-normal text-capitalize me-0 text-wrap text-start"
+                className="py-1 px-2 fw-normal text-capitalize me-0 text-wrap text-start me-2"
               >
                 {x}
               </Badge>

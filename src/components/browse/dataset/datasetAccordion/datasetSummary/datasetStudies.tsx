@@ -17,14 +17,22 @@ const DatasetStudies = (props: dataSetStudiesProps) => {
         props.study !== null ? (
           <div>
             <p className="mb-0">
-              <strong>Part of study:&nbsp;</strong>
+              <strong>Part of studies:&nbsp;</strong>
               {props.study.stats.title !== null
-                ? props.study.stats.title
-                : props.study.stats?.accession}
+                ? props.study.stats.title.map((x) => (
+                    <span key={x}>{x}.&nbsp;</span>
+                  ))
+                : props.study.stats.accession.map((x) => (
+                    <span key={x}>{x}.&nbsp;</span>
+                  ))}
             </p>
             <p className="mb-0">
-              <strong>Accession ID: </strong>
-              {props.study.stats?.accession}
+              <strong>Accession ID(s): </strong>
+              {props.study.stats?.accession?.map((x) => (
+                <span className="mb-0 d-block" key={x}>
+                  {x}
+                </span>
+              ))}
             </p>
           </div>
         ) : (

@@ -17,14 +17,14 @@ const PublicationTabContents = (props: PublicationTabContentsProps) => {
   let num_publications: number = 0;
   return (
     <Tab.Pane eventKey="2" className="h-100">
-      {props.details.studies?.map((y) => {
-        if (y.publications?.length > 0) {
-          return y.publications?.map((x) => {
-            num_publications += 1;
-            return (
-              <div key={x.accession} className="text-break overflow-auto h-100">
-                <PerfectScrollbar>
-                  <Row className="flex-row-reverse">
+      <PerfectScrollbar>
+        {props.details.studies?.map((y) => {
+          if (y.publications?.length > 0) {
+            return y.publications?.map((x) => {
+              num_publications += 1;
+              return (
+                <div key={x.accession} className="text-break">
+                  <Row className="flex-row-reverse w-100">
                     {x.doi !== null ? (
                       <Col xs={12} sm={"auto"} className="mb-2 mb-sm-0">
                         <Button
@@ -86,22 +86,22 @@ const PublicationTabContents = (props: PublicationTabContentsProps) => {
                       </span>
                     ))}
                   </p>
-                </PerfectScrollbar>
-              </div>
-            );
-          });
-        } else {
-          return <></>;
-        }
-      })}
-      {num_publications === 0 ? (
-        <div className="p-2 fs-5 fw-bold">
-          <FontAwesomeIcon icon={faCircleInfo} className="text-info" />
-          &nbsp; No publications found.
-        </div>
-      ) : (
-        <></>
-      )}
+                </div>
+              );
+            });
+          } else {
+            return <span key={y.accession}></span>;
+          }
+        })}
+        {num_publications === 0 ? (
+          <div className="p-2 fs-5 fw-bold">
+            <FontAwesomeIcon icon={faCircleInfo} className="text-info" />
+            &nbsp; No publications found.
+          </div>
+        ) : (
+          <></>
+        )}
+      </PerfectScrollbar>
     </Tab.Pane>
   );
 };
