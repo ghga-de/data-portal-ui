@@ -47,7 +47,7 @@ const localResponses = {
   "GET http://127.0.0.1:8002/artifacts/stats_public/classes/DatasetStats/resources/*": datasetSummary,
 
   // Get summary data from entire metadata database
-  "GET http://127.0.0.1:8002/artifacts/stats_public/classes/GlobalStats/resources/*": metadataSummary,
+  "GET http://127.0.0.1:8002/stats": metadataSummary,
 
   // Metadata Search Service
   "POST http://127.0.0.1:8001/rpc/search*": {

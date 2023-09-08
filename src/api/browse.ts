@@ -135,12 +135,9 @@ type getMetadataSummaryType = (
  * @returns Nothing
  */
 export const getMetadataSummary: getMetadataSummaryType = (callbackFunc) => {
-  fetch(
-    `${REPOSITORY_URL}/artifacts/stats_public/classes/GlobalStats/resources/summary`,
-    {
-      method: "get",
-    }
-  )
+  fetch(`${REPOSITORY_URL}/stats`, {
+    method: "get",
+  })
     .then((response) => response.json())
     .then(
       (data) => {
