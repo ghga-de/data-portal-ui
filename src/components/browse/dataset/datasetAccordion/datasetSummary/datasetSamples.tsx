@@ -28,13 +28,24 @@ const DatasetSamples = (props: dataSetSamplesProps) => {
                 <strong>{props.samples.count}</strong>&nbsp;Samples{" "}
                 {props.samples.stats?.sex.length > 0 ? (
                   <>
-                    &lpar;Sex:
-                    {props.samples.stats?.sex?.map((x) => (
-                      <>
-                        <span title={x.value}>{x.count + " " + x.value}</span>
-                        {", "}
-                      </>
-                    ))}
+                    (Sex:&nbsp;
+                    {props.samples.stats?.sex?.map((x, idx, arr) => {
+                      let sex: string = "";
+                      if (x.value === "FEMALE_SEX_FOR_CLINICAL_USE") {
+                        sex = "Female";
+                      } else sex = "Male";
+                      let sep = ". ";
+                      if (idx === arr.length - 1) {
+                        sep = "";
+                      }
+                      return (
+                        <span title={sex} key={sex}>
+                          {x.count + " " + sex}
+                          {sep}
+                        </span>
+                      );
+                    })}
+                    )
                   </>
                 ) : (
                   <></>

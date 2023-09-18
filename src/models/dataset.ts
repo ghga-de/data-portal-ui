@@ -143,10 +143,10 @@ export interface datasetEmbeddedModel {
   description: string;
   types: string[];
   sequencing_experiments: sequencingExperimentEmbeddedModel[] | undefined;
-  study_files: fileModel[] | null;
-  sample_files: fileModel[] | null;
-  sequencing_process_files: fileModel[] | null;
-  analysis_process_output_files: fileModel[] | null;
+  study_files: fileModel[];
+  sample_files: fileModel[];
+  sequencing_process_files: fileModel[];
+  analysis_process_output_files: fileModel[];
   samples: sampleModel[];
   studies: studyEmbeddedModel[];
   data_access_policy: dataAccessPolicyModel;
