@@ -1,0 +1,118 @@
+{
+  "id": "global",
+  "created": "2023-09-08T09:49:32.781146+00:00",
+  "resource_stats": {
+    "DataAccessCommittee": {
+      "count": 2
+    },
+    "DataAccessPolicy": {
+      "count": 4
+    },
+    "Biospecimen": {
+      "count": 2
+    },
+    "Sample": {
+      "count": 2
+    },
+    "AnalysisProcess": {
+      "count": 9
+    },
+    "EmbeddedDataset": {
+      "count": 6
+    },
+    "SequencingExperiment": {
+      "count": 1
+    },
+    "Analysis": {
+      "count": 1
+    },
+    "Dataset": {
+      "count": 6
+    },
+    "Trio": {
+      "count": 1
+    },
+    "Condition": {
+      "count": 2
+    },
+    "Study": {
+      "count": 4
+    },
+    "LibraryPreparationProtocol": {
+      "count": 1,
+      "stats": {
+        "type": [
+          {
+            "count": 1,
+            "value": "unknown"
+          }
+        ]
+      }
+    },
+    "SequencingProcess": {
+      "count": 9
+    },
+    "Individual": {
+      "count": 3,
+      "stats": {
+        "sex": [
+          {
+            "count": 1,
+            "value": "FEMALE_SEX_FOR_CLINICAL_USE"
+          },
+          {
+            "count": 2,
+            "value": "MALE_SEX_FOR_CLINICAL_USE"
+          }
+        ]
+      }
+    },
+    "SequencingProcessFile": {
+      "count": 9,
+      "stats": {
+        "format": [
+          {
+            "count": 9,
+            "value": "FASTQ"
+          }
+        ]
+      }
+    },
+    "SequencingProtocol": {
+      "count": 1,
+      "stats": {
+        "type": [
+          {
+            "count": 1,
+            "value": "DNA-seq"
+          }
+        ]
+      }
+    },
+    "AnalysisProcessOutputFile": {
+      "count": 9,
+      "stats": {
+        "format": [
+          {
+            "count": 9,
+            "value": "VCF"
+          }
+        ]
+      }
+    },
+    "StudyFile": {
+      "count": 53,
+      "stats": {
+        "format": [
+          {
+            "count": 53,
+            "value": "FASTQ"
+          }
+        ]
+      }
+    },
+    "Publication": {
+      "count": 2
+    }
+  }
+}

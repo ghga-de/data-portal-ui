@@ -143,21 +143,24 @@ export const embeddedDataset = {
       biospecimen: {
         tissue: "Test tissue",
         individual: {
-          sex: "female",
+          sex: "FEMALE_SEX_FOR_CLINICAL_USE",
           phenotypic_features: ["Test phenotypic feature 1"]
         }
       }
     },
   ],
-  files: [
+  study_files: [
     {
       alias: "Test file 1",
       format: "FASTQ",
-      size: "586156",
+      size: 586156,
       checksum: "15117b282328146ac6afebaa8acd80e7",
       checksum_type: "MD5",
     },
   ],
+  sample_files: [],
+  sequencing_process_files: [],
+  analysis_process_output_files: []
 };
 
 export const datasetSummary = {
@@ -167,31 +170,31 @@ export const datasetSummary = {
   type: ["Test Type"],
   title: "Test dataset for details",
   dac_email: "test[at]test[dot]de;",
-  sample_summary: {
+  samples_summary: {
     count: 3,
     stats: {
-      sex: [{ value: "female", count: 1 }, { value: "male", count: 1 }, { value: "unkown", count: 1 }],
+      sex: [{ value: "FEMALE_SEX_FOR_CLINICAL_USE", count: 1 }, { value: "MALE_SEX_FOR_CLINICAL_USE", count: 1 }],
       tissues: [{ value: "metastasis", count: 1 }, { value: "tumor", count: 2 }],
-      phenotypes: [{ value: "Test Phenotype 1", count: 2 }, { value: "Test Phenotype 2", count: 1 }],
+      phenotypic_features: [{ value: "Test Phenotype 1", count: 2 }, { value: "Test Phenotype 2", count: 1 }],
     },
   },
-  study_summary: {
+  studies_summary: {
     count: 1,
     stats: {
-      accession: "TEST18666800",
-      title: "Test Study",
+      accession: ["TEST18666800"],
+      title: ["Test Study"],
     },
   },
-  experiment_summary: {
+  sequencing_experiments_summary: {
     count: 14,
     stats: {
-      sequencing_protocol: [{
+      sequencing_protocols: [{
         value: "Ilumina test", count: 10
       },
       { value: "HiSeq test", count: 4 }],
     },
   },
-  file_summary: {
+  files_summary: {
     count: 27,
     stats: {
       format: [{ value: "fastq", count: 22 }, { value: "bam", count: 5 }],
@@ -201,33 +204,35 @@ export const datasetSummary = {
 };
 
 export const metadataSummary = {
-  file_summary: {
-    count: 532,
-    stats: {
-      format: [{ value: "fastq", count: 124 }, { value: "bam", count: 408 }]
-    },
-  },
-  individual_summary: {
-    count: 5432,
-    stats: {
-      sex: [{ value: "female", count: 1935 }, { value: "male", count: 2358 }, { value: "unknown", count: 1139 }],
-    },
-  },
-  protocol_summary: {
-    count: 1400,
-    stats: {
-      protocol: [{
-        value: "Ilumina test", count: 700
+  resource_stats: {
+    SequencingProcessFile: {
+      count: 532,
+      stats: {
+        format: [{ value: "fastq", count: 124 }, { value: "bam", count: 408 }]
       },
-      {
-        value: "HiSeq test", count: 700,
-      }],
     },
-  },
-  dataset_summary: {
-    count: 252,
-    stats: {},
-  },
+    Individual: {
+      count: 5432,
+      stats: {
+        sex: [{ value: "FEMALE_SEX_FOR_CLINICAL_USE", count: 1935 }, { value: "MALE_SEX_FOR_CLINICAL_USE", count: 2358 }],
+      },
+    },
+    SequencingProtocol: {
+      count: 1400,
+      stats: {
+        type: [{
+          value: "Ilumina test", count: 700
+        },
+        {
+          value: "HiSeq test", count: 700,
+        }],
+      },
+    },
+    Dataset: {
+      count: 252,
+      stats: {},
+    },
+  }
 };
 
 export const searchResults = {
@@ -236,16 +241,16 @@ export const searchResults = {
       key: "studies.type",
       name: "Study Type",
       options: [
-        { option: "Option 1", count: 62 },
-        { option: "Option 2", count: 37 },
+        { value: "Option 1", count: 62 },
+        { value: "Option 2", count: 37 },
       ],
     },
     {
       key: "type",
       name: "Dataset Type",
       options: [
-        { option: "Test dataset type 1", count: 12 },
-        { option: "Test dataset type 2", count: 87 },
+        { value: "Test dataset type 1", count: 12 },
+        { value: "Test dataset type 2", count: 87 },
       ],
     },
   ],
@@ -257,7 +262,7 @@ export const searchResults = {
         title: "Test dataset for details",
         description:
           "Test dataset for Metadata Repository get dataset details call. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Vel risus commodo viverra maecenas accumsan lacus vel. Sit amet risus nullam eget felis eget nunc lobortis mattis. Iaculis at erat pellentesque adipiscing commodo. Volutpat consequat mauris nunc congue. At lectus urna duis convallis convallis tellus id interdum velit. Gravida cum sociis natoque penatibus et. Mauris in aliquam sem fringilla ut morbi. Ultrices gravida dictum fusce ut. At consectetur lorem donec massa sapien faucibus et molestie.",
-        type: ["Test dataset type 1"],
+        types: ["Test dataset type 1"],
       }
     },
   ],

@@ -1,4 +1,4 @@
-import { Row, Button, Spinner, Col } from "react-bootstrap";
+import { Row, Button, Spinner, Col, Badge } from "react-bootstrap";
 import {
   datasetDetailsSummaryModel,
   hitModel,
@@ -95,21 +95,28 @@ const DatasetSummary = (props: dataSetDetailsProps) => {
             {props.hit.content.description}
           </p>
           <p className={pClass}>
-            <strong>Type:&nbsp;</strong>
-            {props.hit.content.types}
+            <strong>Types:&nbsp;</strong>
+            {props.hit.content.types.map((x) => (
+              <Badge
+                className="me-1 bg-white text-black border-primary border px-1 fw-normal"
+                key={x}
+              >
+                {x}
+              </Badge>
+            ))}
           </p>
         </div>
         {props.summary !== null && props.summary !== undefined ? (
           <div>
             <Row className="pt-3">
               <Col xs={12} md={6} lg={12} xl={6}>
-                <DatasetStudies study={props.summary.study_summary} />
-                <DatasetSamples samples={props.summary.sample_summary} />
+                <DatasetStudies study={props.summary.studies_summary} />
+                <DatasetSamples samples={props.summary.samples_summary} />
               </Col>
               <Col>
-                <DatasetFiles files={props.summary.file_summary} />
+                <DatasetFiles files={props.summary.files_summary} />
                 <DatasetExperiments
-                  experiments={props.summary.experiment_summary}
+                  experiments={props.summary.sequencing_experiments_summary}
                 />
               </Col>
             </Row>

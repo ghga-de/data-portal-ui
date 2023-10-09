@@ -1,0 +1,1063 @@
+{
+    "accession": "GHGAD91177519158061",
+    "alias": "DS_1",
+    "data_access_policy": {
+      "accession": "GHGAP48115544307951",
+      "alias": "DAP_1",
+      "data_access_committee": {
+        "accession": "GHGAC55275266979046",
+        "alias": "DAC_1",
+        "email": "dac@dac.dac",
+        "institute": "The DAC institute"
+      },
+      "data_use_modifiers": [
+        "clinical care use"
+      ],
+      "data_use_permission": "disease specific research",
+      "description": "A Data Access Policy 1",
+      "name": "DAP 1",
+      "policy_text": "This is a very permissible DAP",
+      "policy_url": "http://some/policy"
+    },
+    "description": "An interesting dataset A",
+    "title": "The A dataset",
+    "types": [
+      "A Type",
+      "Another Type"
+    ],
+    "analysis_process_output_files": [],
+    "sequencing_process_files": [],
+    "study_files": [
+      {
+        "accession": "GHGAF10364944271810",
+        "alias": "FILE_2",
+        "checksum": "1c9579c11d7e9eda0fd83beeb0d113e1d83af53aeba6747e251ebffbba0857a1",
+        "checksum_type": "SHA256",
+        "dataset": "GHGAD91177519158061",
+        "format": "FASTQ",
+        "forward_or_reverse": "REVERSE",
+        "name": "SEQ_FILE_A_R2.fastq.gz",
+        "size": 6145,
+        "study": {
+          "accession": "GHGAS84826041417947",
+          "affiliations": [
+            "Some Institute",
+            "Some other Institute"
+          ],
+          "alias": "STUDY_A",
+          "attributes": [
+            {
+              "key": "budget",
+              "value": "3.5M"
+            },
+            {
+              "key": "funding",
+              "value": "EU"
+            }
+          ],
+          "description": "A study that is the A study",
+          "title": "The A Study",
+          "type": "SYNTHETIC_GENOMICS",
+          "conditions": [],
+          "study_files": [
+            "GHGAF10364944271810",
+            "GHGAF12001672686939",
+            "GHGAF13955953957468",
+            "GHGAF19299365602100",
+            "GHGAF30668523963292",
+            "GHGAF30807751734687",
+            "GHGAF30978630808240",
+            "GHGAF35612630996792",
+            "GHGAF38705112014592",
+            "GHGAF38874338471540",
+            "GHGAF39678650232646",
+            "GHGAF39709023850314",
+            "GHGAF42587762915217",
+            "GHGAF42773348331370",
+            "GHGAF49398390692698",
+            "GHGAF50308304808469",
+            "GHGAF59522322413642",
+            "GHGAF68559528593155",
+            "GHGAF70202090737003",
+            "GHGAF71049222034801",
+            "GHGAF77455170173170",
+            "GHGAF82535446417144",
+            "GHGAF85203274852569",
+            "GHGAF98102152864728"
+          ],
+          "publications": []
+        }
+      },
+      {
+        "accession": "GHGAF19299365602100",
+        "alias": "FILE_4",
+        "checksum": "3451a704880381ece932362770fdfba9500970e3b61eac7e276cf832a696f6bc",
+        "checksum_type": "SHA256",
+        "dataset": "GHGAD91177519158061",
+        "format": "FASTQ",
+        "forward_or_reverse": "REVERSE",
+        "name": "SEQ_FILE_B_R2.fastq.gz",
+        "size": 6145,
+        "study": {
+          "accession": "GHGAS84826041417947",
+          "affiliations": [
+            "Some Institute",
+            "Some other Institute"
+          ],
+          "alias": "STUDY_A",
+          "attributes": [
+            {
+              "key": "budget",
+              "value": "3.5M"
+            },
+            {
+              "key": "funding",
+              "value": "EU"
+            }
+          ],
+          "description": "A study that is the A study",
+          "title": "The A Study",
+          "type": "SYNTHETIC_GENOMICS",
+          "conditions": [],
+          "study_files": [
+            "GHGAF10364944271810",
+            "GHGAF12001672686939",
+            "GHGAF13955953957468",
+            "GHGAF19299365602100",
+            "GHGAF30668523963292",
+            "GHGAF30807751734687",
+            "GHGAF30978630808240",
+            "GHGAF35612630996792",
+            "GHGAF38705112014592",
+            "GHGAF38874338471540",
+            "GHGAF39678650232646",
+            "GHGAF39709023850314",
+            "GHGAF42587762915217",
+            "GHGAF42773348331370",
+            "GHGAF49398390692698",
+            "GHGAF50308304808469",
+            "GHGAF59522322413642",
+            "GHGAF68559528593155",
+            "GHGAF70202090737003",
+            "GHGAF71049222034801",
+            "GHGAF77455170173170",
+            "GHGAF82535446417144",
+            "GHGAF85203274852569",
+            "GHGAF98102152864728"
+          ],
+          "publications": []
+        }
+      },
+      {
+        "accession": "GHGAF30807751734687",
+        "alias": "FILE_5",
+        "checksum": "2b5b7e057b3f29f65b81ce90e4d1f345989e82f0225dd0b688e3f7d17e188a5e",
+        "checksum_type": "SHA256",
+        "dataset": "GHGAD91177519158061",
+        "format": "FASTQ",
+        "forward_or_reverse": "FORWARD",
+        "name": "SEQ_FILE_C_R1.fastq.gz",
+        "size": 6145,
+        "study": {
+          "accession": "GHGAS84826041417947",
+          "affiliations": [
+            "Some Institute",
+            "Some other Institute"
+          ],
+          "alias": "STUDY_A",
+          "attributes": [
+            {
+              "key": "budget",
+              "value": "3.5M"
+            },
+            {
+              "key": "funding",
+              "value": "EU"
+            }
+          ],
+          "description": "A study that is the A study",
+          "title": "The A Study",
+          "type": "SYNTHETIC_GENOMICS",
+          "conditions": [],
+          "study_files": [
+            "GHGAF10364944271810",
+            "GHGAF12001672686939",
+            "GHGAF13955953957468",
+            "GHGAF19299365602100",
+            "GHGAF30668523963292",
+            "GHGAF30807751734687",
+            "GHGAF30978630808240",
+            "GHGAF35612630996792",
+            "GHGAF38705112014592",
+            "GHGAF38874338471540",
+            "GHGAF39678650232646",
+            "GHGAF39709023850314",
+            "GHGAF42587762915217",
+            "GHGAF42773348331370",
+            "GHGAF49398390692698",
+            "GHGAF50308304808469",
+            "GHGAF59522322413642",
+            "GHGAF68559528593155",
+            "GHGAF70202090737003",
+            "GHGAF71049222034801",
+            "GHGAF77455170173170",
+            "GHGAF82535446417144",
+            "GHGAF85203274852569",
+            "GHGAF98102152864728"
+          ],
+          "publications": []
+        }
+      },
+      {
+        "accession": "GHGAF30978630808240",
+        "alias": "FILE_12",
+        "checksum": "74473a16db3d3f037921fcb637c709a859f435ebb92acc13026dae56e82ce871",
+        "checksum_type": "SHA256",
+        "dataset": "GHGAD91177519158061",
+        "format": "FASTQ",
+        "forward_or_reverse": "REVERSE",
+        "name": "SEQ_FILE_F_R2.fastq.gz",
+        "size": 8193,
+        "study": {
+          "accession": "GHGAS84826041417947",
+          "affiliations": [
+            "Some Institute",
+            "Some other Institute"
+          ],
+          "alias": "STUDY_A",
+          "attributes": [
+            {
+              "key": "budget",
+              "value": "3.5M"
+            },
+            {
+              "key": "funding",
+              "value": "EU"
+            }
+          ],
+          "description": "A study that is the A study",
+          "title": "The A Study",
+          "type": "SYNTHETIC_GENOMICS",
+          "conditions": [],
+          "study_files": [
+            "GHGAF10364944271810",
+            "GHGAF12001672686939",
+            "GHGAF13955953957468",
+            "GHGAF19299365602100",
+            "GHGAF30668523963292",
+            "GHGAF30807751734687",
+            "GHGAF30978630808240",
+            "GHGAF35612630996792",
+            "GHGAF38705112014592",
+            "GHGAF38874338471540",
+            "GHGAF39678650232646",
+            "GHGAF39709023850314",
+            "GHGAF42587762915217",
+            "GHGAF42773348331370",
+            "GHGAF49398390692698",
+            "GHGAF50308304808469",
+            "GHGAF59522322413642",
+            "GHGAF68559528593155",
+            "GHGAF70202090737003",
+            "GHGAF71049222034801",
+            "GHGAF77455170173170",
+            "GHGAF82535446417144",
+            "GHGAF85203274852569",
+            "GHGAF98102152864728"
+          ],
+          "publications": []
+        }
+      },
+      {
+        "accession": "GHGAF35612630996792",
+        "alias": "FILE_3",
+        "checksum": "ac789d32d84025fd4f19f061d96279b719aaa8a92e7524aae00ec4d4a4d4c7b2",
+        "checksum_type": "SHA256",
+        "dataset": "GHGAD91177519158061",
+        "format": "FASTQ",
+        "forward_or_reverse": "FORWARD",
+        "name": "SEQ_FILE_B_R1.fastq.gz",
+        "size": 4097,
+        "study": {
+          "accession": "GHGAS84826041417947",
+          "affiliations": [
+            "Some Institute",
+            "Some other Institute"
+          ],
+          "alias": "STUDY_A",
+          "attributes": [
+            {
+              "key": "budget",
+              "value": "3.5M"
+            },
+            {
+              "key": "funding",
+              "value": "EU"
+            }
+          ],
+          "description": "A study that is the A study",
+          "title": "The A Study",
+          "type": "SYNTHETIC_GENOMICS",
+          "conditions": [],
+          "study_files": [
+            "GHGAF10364944271810",
+            "GHGAF12001672686939",
+            "GHGAF13955953957468",
+            "GHGAF19299365602100",
+            "GHGAF30668523963292",
+            "GHGAF30807751734687",
+            "GHGAF30978630808240",
+            "GHGAF35612630996792",
+            "GHGAF38705112014592",
+            "GHGAF38874338471540",
+            "GHGAF39678650232646",
+            "GHGAF39709023850314",
+            "GHGAF42587762915217",
+            "GHGAF42773348331370",
+            "GHGAF49398390692698",
+            "GHGAF50308304808469",
+            "GHGAF59522322413642",
+            "GHGAF68559528593155",
+            "GHGAF70202090737003",
+            "GHGAF71049222034801",
+            "GHGAF77455170173170",
+            "GHGAF82535446417144",
+            "GHGAF85203274852569",
+            "GHGAF98102152864728"
+          ],
+          "publications": []
+        }
+      },
+      {
+        "accession": "GHGAF38874338471540",
+        "alias": "FILE_13",
+        "checksum": "87915df7c6c014a380f9fded427b0650d15094b93b396e36f026ed8604ef29c2",
+        "checksum_type": "SHA256",
+        "dataset": "GHGAD91177519158061",
+        "format": "FASTQ",
+        "forward_or_reverse": "FORWARD",
+        "name": "SEQ_FILE_G_R1.fastq.gz",
+        "size": 2049,
+        "study": {
+          "accession": "GHGAS84826041417947",
+          "affiliations": [
+            "Some Institute",
+            "Some other Institute"
+          ],
+          "alias": "STUDY_A",
+          "attributes": [
+            {
+              "key": "budget",
+              "value": "3.5M"
+            },
+            {
+              "key": "funding",
+              "value": "EU"
+            }
+          ],
+          "description": "A study that is the A study",
+          "title": "The A Study",
+          "type": "SYNTHETIC_GENOMICS",
+          "conditions": [],
+          "study_files": [
+            "GHGAF10364944271810",
+            "GHGAF12001672686939",
+            "GHGAF13955953957468",
+            "GHGAF19299365602100",
+            "GHGAF30668523963292",
+            "GHGAF30807751734687",
+            "GHGAF30978630808240",
+            "GHGAF35612630996792",
+            "GHGAF38705112014592",
+            "GHGAF38874338471540",
+            "GHGAF39678650232646",
+            "GHGAF39709023850314",
+            "GHGAF42587762915217",
+            "GHGAF42773348331370",
+            "GHGAF49398390692698",
+            "GHGAF50308304808469",
+            "GHGAF59522322413642",
+            "GHGAF68559528593155",
+            "GHGAF70202090737003",
+            "GHGAF71049222034801",
+            "GHGAF77455170173170",
+            "GHGAF82535446417144",
+            "GHGAF85203274852569",
+            "GHGAF98102152864728"
+          ],
+          "publications": []
+        }
+      },
+      {
+        "accession": "GHGAF39678650232646",
+        "alias": "FILE_8",
+        "checksum": "e830c31e41e4f210071b695eeab0672102d7ce4842d8f71ca4ff556661e767a9",
+        "checksum_type": "SHA256",
+        "dataset": "GHGAD91177519158061",
+        "format": "FASTQ",
+        "forward_or_reverse": "REVERSE",
+        "name": "SEQ_FILE_D_R2.fastq.gz",
+        "size": 4097,
+        "study": {
+          "accession": "GHGAS84826041417947",
+          "affiliations": [
+            "Some Institute",
+            "Some other Institute"
+          ],
+          "alias": "STUDY_A",
+          "attributes": [
+            {
+              "key": "budget",
+              "value": "3.5M"
+            },
+            {
+              "key": "funding",
+              "value": "EU"
+            }
+          ],
+          "description": "A study that is the A study",
+          "title": "The A Study",
+          "type": "SYNTHETIC_GENOMICS",
+          "conditions": [],
+          "study_files": [
+            "GHGAF10364944271810",
+            "GHGAF12001672686939",
+            "GHGAF13955953957468",
+            "GHGAF19299365602100",
+            "GHGAF30668523963292",
+            "GHGAF30807751734687",
+            "GHGAF30978630808240",
+            "GHGAF35612630996792",
+            "GHGAF38705112014592",
+            "GHGAF38874338471540",
+            "GHGAF39678650232646",
+            "GHGAF39709023850314",
+            "GHGAF42587762915217",
+            "GHGAF42773348331370",
+            "GHGAF49398390692698",
+            "GHGAF50308304808469",
+            "GHGAF59522322413642",
+            "GHGAF68559528593155",
+            "GHGAF70202090737003",
+            "GHGAF71049222034801",
+            "GHGAF77455170173170",
+            "GHGAF82535446417144",
+            "GHGAF85203274852569",
+            "GHGAF98102152864728"
+          ],
+          "publications": []
+        }
+      },
+      {
+        "accession": "GHGAF42587762915217",
+        "alias": "FILE_11",
+        "checksum": "ca8b627793c09722a8a67df9a86ca992d9c611da67f9e09dd82fa5fbbdfc888f",
+        "checksum_type": "SHA256",
+        "dataset": "GHGAD91177519158061",
+        "format": "FASTQ",
+        "forward_or_reverse": "FORWARD",
+        "name": "SEQ_FILE_F_R1.fastq.gz",
+        "size": 6145,
+        "study": {
+          "accession": "GHGAS84826041417947",
+          "affiliations": [
+            "Some Institute",
+            "Some other Institute"
+          ],
+          "alias": "STUDY_A",
+          "attributes": [
+            {
+              "key": "budget",
+              "value": "3.5M"
+            },
+            {
+              "key": "funding",
+              "value": "EU"
+            }
+          ],
+          "description": "A study that is the A study",
+          "title": "The A Study",
+          "type": "SYNTHETIC_GENOMICS",
+          "conditions": [],
+          "study_files": [
+            "GHGAF10364944271810",
+            "GHGAF12001672686939",
+            "GHGAF13955953957468",
+            "GHGAF19299365602100",
+            "GHGAF30668523963292",
+            "GHGAF30807751734687",
+            "GHGAF30978630808240",
+            "GHGAF35612630996792",
+            "GHGAF38705112014592",
+            "GHGAF38874338471540",
+            "GHGAF39678650232646",
+            "GHGAF39709023850314",
+            "GHGAF42587762915217",
+            "GHGAF42773348331370",
+            "GHGAF49398390692698",
+            "GHGAF50308304808469",
+            "GHGAF59522322413642",
+            "GHGAF68559528593155",
+            "GHGAF70202090737003",
+            "GHGAF71049222034801",
+            "GHGAF77455170173170",
+            "GHGAF82535446417144",
+            "GHGAF85203274852569",
+            "GHGAF98102152864728"
+          ],
+          "publications": []
+        }
+      },
+      {
+        "accession": "GHGAF49398390692698",
+        "alias": "FILE_15",
+        "checksum": "421a7518062f8620a046175510c42c27425bd39ee527c69eabdfde5b8cca21a8",
+        "checksum_type": "SHA256",
+        "dataset": "GHGAD91177519158061",
+        "format": "FASTQ",
+        "forward_or_reverse": "FORWARD",
+        "name": "SEQ_FILE_H_R1.fastq.gz",
+        "size": 4097,
+        "study": {
+          "accession": "GHGAS84826041417947",
+          "affiliations": [
+            "Some Institute",
+            "Some other Institute"
+          ],
+          "alias": "STUDY_A",
+          "attributes": [
+            {
+              "key": "budget",
+              "value": "3.5M"
+            },
+            {
+              "key": "funding",
+              "value": "EU"
+            }
+          ],
+          "description": "A study that is the A study",
+          "title": "The A Study",
+          "type": "SYNTHETIC_GENOMICS",
+          "conditions": [],
+          "study_files": [
+            "GHGAF10364944271810",
+            "GHGAF12001672686939",
+            "GHGAF13955953957468",
+            "GHGAF19299365602100",
+            "GHGAF30668523963292",
+            "GHGAF30807751734687",
+            "GHGAF30978630808240",
+            "GHGAF35612630996792",
+            "GHGAF38705112014592",
+            "GHGAF38874338471540",
+            "GHGAF39678650232646",
+            "GHGAF39709023850314",
+            "GHGAF42587762915217",
+            "GHGAF42773348331370",
+            "GHGAF49398390692698",
+            "GHGAF50308304808469",
+            "GHGAF59522322413642",
+            "GHGAF68559528593155",
+            "GHGAF70202090737003",
+            "GHGAF71049222034801",
+            "GHGAF77455170173170",
+            "GHGAF82535446417144",
+            "GHGAF85203274852569",
+            "GHGAF98102152864728"
+          ],
+          "publications": []
+        }
+      },
+      {
+        "accession": "GHGAF50308304808469",
+        "alias": "FILE_7",
+        "checksum": "6372bfee698058d7768ca8e051bff9f336dd0c6f256fad2802b89125b24be858",
+        "checksum_type": "SHA256",
+        "dataset": "GHGAD91177519158061",
+        "format": "FASTQ",
+        "forward_or_reverse": "FORWARD",
+        "name": "SEQ_FILE_D_R1.fastq.gz",
+        "size": 4097,
+        "study": {
+          "accession": "GHGAS84826041417947",
+          "affiliations": [
+            "Some Institute",
+            "Some other Institute"
+          ],
+          "alias": "STUDY_A",
+          "attributes": [
+            {
+              "key": "budget",
+              "value": "3.5M"
+            },
+            {
+              "key": "funding",
+              "value": "EU"
+            }
+          ],
+          "description": "A study that is the A study",
+          "title": "The A Study",
+          "type": "SYNTHETIC_GENOMICS",
+          "conditions": [],
+          "study_files": [
+            "GHGAF10364944271810",
+            "GHGAF12001672686939",
+            "GHGAF13955953957468",
+            "GHGAF19299365602100",
+            "GHGAF30668523963292",
+            "GHGAF30807751734687",
+            "GHGAF30978630808240",
+            "GHGAF35612630996792",
+            "GHGAF38705112014592",
+            "GHGAF38874338471540",
+            "GHGAF39678650232646",
+            "GHGAF39709023850314",
+            "GHGAF42587762915217",
+            "GHGAF42773348331370",
+            "GHGAF49398390692698",
+            "GHGAF50308304808469",
+            "GHGAF59522322413642",
+            "GHGAF68559528593155",
+            "GHGAF70202090737003",
+            "GHGAF71049222034801",
+            "GHGAF77455170173170",
+            "GHGAF82535446417144",
+            "GHGAF85203274852569",
+            "GHGAF98102152864728"
+          ],
+          "publications": []
+        }
+      },
+      {
+        "accession": "GHGAF70202090737003",
+        "alias": "FILE_10",
+        "checksum": "98d69b3859d2ee3a6c047e64d75ff26081d1e01cc283dcffe7982034b5786c7c",
+        "checksum_type": "SHA256",
+        "dataset": "GHGAD91177519158061",
+        "format": "FASTQ",
+        "forward_or_reverse": "REVERSE",
+        "name": "SEQ_FILE_E_R2.fastq.gz",
+        "size": 8193,
+        "study": {
+          "accession": "GHGAS84826041417947",
+          "affiliations": [
+            "Some Institute",
+            "Some other Institute"
+          ],
+          "alias": "STUDY_A",
+          "attributes": [
+            {
+              "key": "budget",
+              "value": "3.5M"
+            },
+            {
+              "key": "funding",
+              "value": "EU"
+            }
+          ],
+          "description": "A study that is the A study",
+          "title": "The A Study",
+          "type": "SYNTHETIC_GENOMICS",
+          "conditions": [],
+          "study_files": [
+            "GHGAF10364944271810",
+            "GHGAF12001672686939",
+            "GHGAF13955953957468",
+            "GHGAF19299365602100",
+            "GHGAF30668523963292",
+            "GHGAF30807751734687",
+            "GHGAF30978630808240",
+            "GHGAF35612630996792",
+            "GHGAF38705112014592",
+            "GHGAF38874338471540",
+            "GHGAF39678650232646",
+            "GHGAF39709023850314",
+            "GHGAF42587762915217",
+            "GHGAF42773348331370",
+            "GHGAF49398390692698",
+            "GHGAF50308304808469",
+            "GHGAF59522322413642",
+            "GHGAF68559528593155",
+            "GHGAF70202090737003",
+            "GHGAF71049222034801",
+            "GHGAF77455170173170",
+            "GHGAF82535446417144",
+            "GHGAF85203274852569",
+            "GHGAF98102152864728"
+          ],
+          "publications": []
+        }
+      },
+      {
+        "accession": "GHGAF71049222034801",
+        "alias": "FILE_1",
+        "checksum": "6d893451b8ed4159c9c31693894fdf6bb4e37c40705b977f315e00d75190d71e",
+        "checksum_type": "SHA256",
+        "dataset": "GHGAD91177519158061",
+        "format": "FASTQ",
+        "forward_or_reverse": "FORWARD",
+        "name": "SEQ_FILE_A_R1.fastq.gz",
+        "size": 2049,
+        "study": {
+          "accession": "GHGAS84826041417947",
+          "affiliations": [
+            "Some Institute",
+            "Some other Institute"
+          ],
+          "alias": "STUDY_A",
+          "attributes": [
+            {
+              "key": "budget",
+              "value": "3.5M"
+            },
+            {
+              "key": "funding",
+              "value": "EU"
+            }
+          ],
+          "description": "A study that is the A study",
+          "title": "The A Study",
+          "type": "SYNTHETIC_GENOMICS",
+          "conditions": [],
+          "study_files": [
+            "GHGAF10364944271810",
+            "GHGAF12001672686939",
+            "GHGAF13955953957468",
+            "GHGAF19299365602100",
+            "GHGAF30668523963292",
+            "GHGAF30807751734687",
+            "GHGAF30978630808240",
+            "GHGAF35612630996792",
+            "GHGAF38705112014592",
+            "GHGAF38874338471540",
+            "GHGAF39678650232646",
+            "GHGAF39709023850314",
+            "GHGAF42587762915217",
+            "GHGAF42773348331370",
+            "GHGAF49398390692698",
+            "GHGAF50308304808469",
+            "GHGAF59522322413642",
+            "GHGAF68559528593155",
+            "GHGAF70202090737003",
+            "GHGAF71049222034801",
+            "GHGAF77455170173170",
+            "GHGAF82535446417144",
+            "GHGAF85203274852569",
+            "GHGAF98102152864728"
+          ],
+          "publications": []
+        }
+      },
+      {
+        "accession": "GHGAF77455170173170",
+        "alias": "FILE_9",
+        "checksum": "f755b270ad22758bee88580199bc1edd8e0b5a366e0a49afbfe332753c7c65ff",
+        "checksum_type": "SHA256",
+        "dataset": "GHGAD91177519158061",
+        "format": "FASTQ",
+        "forward_or_reverse": "FORWARD",
+        "name": "SEQ_FILE_E_R1.fastq.gz",
+        "size": 2049,
+        "study": {
+          "accession": "GHGAS84826041417947",
+          "affiliations": [
+            "Some Institute",
+            "Some other Institute"
+          ],
+          "alias": "STUDY_A",
+          "attributes": [
+            {
+              "key": "budget",
+              "value": "3.5M"
+            },
+            {
+              "key": "funding",
+              "value": "EU"
+            }
+          ],
+          "description": "A study that is the A study",
+          "title": "The A Study",
+          "type": "SYNTHETIC_GENOMICS",
+          "conditions": [],
+          "study_files": [
+            "GHGAF10364944271810",
+            "GHGAF12001672686939",
+            "GHGAF13955953957468",
+            "GHGAF19299365602100",
+            "GHGAF30668523963292",
+            "GHGAF30807751734687",
+            "GHGAF30978630808240",
+            "GHGAF35612630996792",
+            "GHGAF38705112014592",
+            "GHGAF38874338471540",
+            "GHGAF39678650232646",
+            "GHGAF39709023850314",
+            "GHGAF42587762915217",
+            "GHGAF42773348331370",
+            "GHGAF49398390692698",
+            "GHGAF50308304808469",
+            "GHGAF59522322413642",
+            "GHGAF68559528593155",
+            "GHGAF70202090737003",
+            "GHGAF71049222034801",
+            "GHGAF77455170173170",
+            "GHGAF82535446417144",
+            "GHGAF85203274852569",
+            "GHGAF98102152864728"
+          ],
+          "publications": []
+        }
+      },
+      {
+        "accession": "GHGAF82535446417144",
+        "alias": "FILE_16",
+        "checksum": "31be4a412b08df968bfab48754cc87cc14a71c4a241110ad881eeee2e692c560",
+        "checksum_type": "SHA256",
+        "dataset": "GHGAD91177519158061",
+        "format": "FASTQ",
+        "forward_or_reverse": "REVERSE",
+        "name": "SEQ_FILE_H_R2.fastq.gz",
+        "size": 2049,
+        "study": {
+          "accession": "GHGAS84826041417947",
+          "affiliations": [
+            "Some Institute",
+            "Some other Institute"
+          ],
+          "alias": "STUDY_A",
+          "attributes": [
+            {
+              "key": "budget",
+              "value": "3.5M"
+            },
+            {
+              "key": "funding",
+              "value": "EU"
+            }
+          ],
+          "description": "A study that is the A study",
+          "title": "The A Study",
+          "type": "SYNTHETIC_GENOMICS",
+          "conditions": [],
+          "study_files": [
+            "GHGAF10364944271810",
+            "GHGAF12001672686939",
+            "GHGAF13955953957468",
+            "GHGAF19299365602100",
+            "GHGAF30668523963292",
+            "GHGAF30807751734687",
+            "GHGAF30978630808240",
+            "GHGAF35612630996792",
+            "GHGAF38705112014592",
+            "GHGAF38874338471540",
+            "GHGAF39678650232646",
+            "GHGAF39709023850314",
+            "GHGAF42587762915217",
+            "GHGAF42773348331370",
+            "GHGAF49398390692698",
+            "GHGAF50308304808469",
+            "GHGAF59522322413642",
+            "GHGAF68559528593155",
+            "GHGAF70202090737003",
+            "GHGAF71049222034801",
+            "GHGAF77455170173170",
+            "GHGAF82535446417144",
+            "GHGAF85203274852569",
+            "GHGAF98102152864728"
+          ],
+          "publications": []
+        }
+      },
+      {
+        "accession": "GHGAF85203274852569",
+        "alias": "FILE_6",
+        "checksum": "569792074549bd74dd021502bb8b93de93b2a020bebc36d85cb6860bd16523fd",
+        "checksum_type": "SHA256",
+        "dataset": "GHGAD91177519158061",
+        "format": "FASTQ",
+        "forward_or_reverse": "REVERSE",
+        "name": "SEQ_FILE_C_R2.fastq.gz",
+        "size": 8193,
+        "study": {
+          "accession": "GHGAS84826041417947",
+          "affiliations": [
+            "Some Institute",
+            "Some other Institute"
+          ],
+          "alias": "STUDY_A",
+          "attributes": [
+            {
+              "key": "budget",
+              "value": "3.5M"
+            },
+            {
+              "key": "funding",
+              "value": "EU"
+            }
+          ],
+          "description": "A study that is the A study",
+          "title": "The A Study",
+          "type": "SYNTHETIC_GENOMICS",
+          "conditions": [],
+          "study_files": [
+            "GHGAF10364944271810",
+            "GHGAF12001672686939",
+            "GHGAF13955953957468",
+            "GHGAF19299365602100",
+            "GHGAF30668523963292",
+            "GHGAF30807751734687",
+            "GHGAF30978630808240",
+            "GHGAF35612630996792",
+            "GHGAF38705112014592",
+            "GHGAF38874338471540",
+            "GHGAF39678650232646",
+            "GHGAF39709023850314",
+            "GHGAF42587762915217",
+            "GHGAF42773348331370",
+            "GHGAF49398390692698",
+            "GHGAF50308304808469",
+            "GHGAF59522322413642",
+            "GHGAF68559528593155",
+            "GHGAF70202090737003",
+            "GHGAF71049222034801",
+            "GHGAF77455170173170",
+            "GHGAF82535446417144",
+            "GHGAF85203274852569",
+            "GHGAF98102152864728"
+          ],
+          "publications": []
+        }
+      },
+      {
+        "accession": "GHGAF98102152864728",
+        "alias": "FILE_14",
+        "checksum": "61ea1a00a870846b7eb5af23a7d1642a12e0ae89dc0d8184ce01bc86641ba9e1",
+        "checksum_type": "SHA256",
+        "dataset": "GHGAD91177519158061",
+        "format": "FASTQ",
+        "forward_or_reverse": "REVERSE",
+        "name": "SEQ_FILE_G_R2.fastq.gz",
+        "size": 4097,
+        "study": {
+          "accession": "GHGAS84826041417947",
+          "affiliations": [
+            "Some Institute",
+            "Some other Institute"
+          ],
+          "alias": "STUDY_A",
+          "attributes": [
+            {
+              "key": "budget",
+              "value": "3.5M"
+            },
+            {
+              "key": "funding",
+              "value": "EU"
+            }
+          ],
+          "description": "A study that is the A study",
+          "title": "The A Study",
+          "type": "SYNTHETIC_GENOMICS",
+          "conditions": [],
+          "study_files": [
+            "GHGAF10364944271810",
+            "GHGAF12001672686939",
+            "GHGAF13955953957468",
+            "GHGAF19299365602100",
+            "GHGAF30668523963292",
+            "GHGAF30807751734687",
+            "GHGAF30978630808240",
+            "GHGAF35612630996792",
+            "GHGAF38705112014592",
+            "GHGAF38874338471540",
+            "GHGAF39678650232646",
+            "GHGAF39709023850314",
+            "GHGAF42587762915217",
+            "GHGAF42773348331370",
+            "GHGAF49398390692698",
+            "GHGAF50308304808469",
+            "GHGAF59522322413642",
+            "GHGAF68559528593155",
+            "GHGAF70202090737003",
+            "GHGAF71049222034801",
+            "GHGAF77455170173170",
+            "GHGAF82535446417144",
+            "GHGAF85203274852569",
+            "GHGAF98102152864728"
+          ],
+          "publications": []
+        }
+      }
+    ],
+    "studies": [
+      {
+        "accession": "GHGAS84826041417947",
+        "affiliations": [
+          "Some Institute",
+          "Some other Institute"
+        ],
+        "alias": "STUDY_A",
+        "attributes": [
+          {
+            "key": "budget",
+            "value": "3.5M"
+          },
+          {
+            "key": "funding",
+            "value": "EU"
+          }
+        ],
+        "description": "A study that is the A study",
+        "title": "The A Study",
+        "type": "SYNTHETIC_GENOMICS",
+        "conditions": [],
+        "study_files": [
+          "GHGAF10364944271810",
+          "GHGAF12001672686939",
+          "GHGAF13955953957468",
+          "GHGAF19299365602100",
+          "GHGAF30668523963292",
+          "GHGAF30807751734687",
+          "GHGAF30978630808240",
+          "GHGAF35612630996792",
+          "GHGAF38705112014592",
+          "GHGAF38874338471540",
+          "GHGAF39678650232646",
+          "GHGAF39709023850314",
+          "GHGAF42587762915217",
+          "GHGAF42773348331370",
+          "GHGAF49398390692698",
+          "GHGAF50308304808469",
+          "GHGAF59522322413642",
+          "GHGAF68559528593155",
+          "GHGAF70202090737003",
+          "GHGAF71049222034801",
+          "GHGAF77455170173170",
+          "GHGAF82535446417144",
+          "GHGAF85203274852569",
+          "GHGAF98102152864728"
+        ],
+        "publications": []
+      }
+    ],
+    "sample_files": [],
+    "samples": [],
+    "files": [
+      "GHGAF10364944271810",
+      "GHGAF19299365602100",
+      "GHGAF30807751734687",
+      "GHGAF30978630808240",
+      "GHGAF35612630996792",
+      "GHGAF38874338471540",
+      "GHGAF39678650232646",
+      "GHGAF42587762915217",
+      "GHGAF49398390692698",
+      "GHGAF50308304808469",
+      "GHGAF70202090737003",
+      "GHGAF71049222034801",
+      "GHGAF77455170173170",
+      "GHGAF82535446417144",
+      "GHGAF85203274852569",
+      "GHGAF98102152864728"
+    ]
+  }

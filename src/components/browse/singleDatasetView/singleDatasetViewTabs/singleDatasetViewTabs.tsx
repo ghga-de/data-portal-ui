@@ -43,7 +43,7 @@ const SingleDatasetViewTabs = (props: SingleDatasetViewTabsProps) => {
                     className="text-secondary me-2 rounded"
                     style={iconStyle}
                   />
-                  Study
+                  Studies
                 </Nav.Link>
               </Nav.Item>
             </Col>
@@ -59,7 +59,7 @@ const SingleDatasetViewTabs = (props: SingleDatasetViewTabsProps) => {
                     className="text-secondary me-2 rounded"
                     style={iconStyle}
                   />
-                  Publication
+                  Publications
                 </Nav.Link>
               </Nav.Item>
             </Col>

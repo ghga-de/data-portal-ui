@@ -41,9 +41,9 @@ const Filter = (props: filterProps) => {
         </Form.Label>
         <div className="border rounded border-light px-2 py-1 pt-lg-3 pb-lg-4 mb-3">
           {props.facet.options
-            .sort((a, b) => (b.option < a.option ? 1 : -1))
+            .sort((a, b) => (b.value < a.value ? 1 : -1))
             .map((option) => {
-              let key: string = props.facet.key + ":" + option.option;
+              let key: string = props.facet.key + ":" + option.value;
               return (
                 <div className="p-1 d-flex align-top mb-1" key={key}>
                   <Form.Check
@@ -63,7 +63,7 @@ const Filter = (props: filterProps) => {
                     <Row>
                       <Col lg={10} md={10} sm={10} xl={10} xs={10} xxl={10}>
                         <p className="ps-2 my-0 text-capitalize text-break">
-                          {option.option}
+                          {option.value}
                         </p>
                       </Col>
                       <Col

@@ -14,6 +14,8 @@ interface dataSetSamplesProps {
 const DatasetSamples = (props: dataSetSamplesProps) => {
   const [openPhenotypesList, setOpenPhenotypesList] = React.useState(false);
 
+  const stats = props.samples?.stats;
+
   return (
     <DatasetDetailsLayout
       icon={<FontAwesomeIcon icon={faVial} />}
@@ -22,23 +24,32 @@ const DatasetSamples = (props: dataSetSamplesProps) => {
           <p className="mb-0">
             <strong>Sample info</strong>
           </p>
-          {props.samples !== null ? (
+          {props.samples && stats ? (
             <div>
               <div className="mb-0">
-                <strong>{props.samples.count}</strong>&nbsp;Samples (Sex:{" "}
-                {props.samples.stats?.sex?.map((x) => (
+                <strong>{props.samples.count}</strong>&nbsp;Samples{" "}
+                {stats.sex.length > 0 ? (
                   <>
-                    <span title={x.value}>{x.count + " " + x.value}</span>
-                    {", "}
+                    (Sex:&nbsp;
+                    {stats.sex.map((x, idx, arr) => {
+                      const sex = /FEMALE/.test(x.value) ? "Female" : "Male";
+                      return (
+                        <span title={sex} key={sex}>
+                          {`${idx ? ", " : ""} ${x.count} ${sex}`}
+                        </span>
+                      );
+                    })}
+                    )
                   </>
-                ))}
-                )
+                ) : (
+                  <></>
+                )}
                 <div className="my-0">
                   <p className="mb-0">
-                    <strong>{props.samples.stats?.tissues.length}</strong>{" "}
-                    &nbsp;Tissues:
+                    <strong>{stats.tissues.length}</strong>
+                    &nbsp;Tissues
                   </p>
-                  {props.samples.stats?.tissues.map((x) => {
+                  {stats.tissues.map((x) => {
                     return (
                       <Badge
                         key={x.value}
@@ -50,10 +61,10 @@ const DatasetSamples = (props: dataSetSamplesProps) => {
                   })}
                 </div>
                 <div className="mb-0">
-                  <strong>{props.samples.stats?.phenotypes.length}</strong>
-                  &nbsp;Phenotypes:
+                  <strong>{stats.phenotypic_features.length}</strong>
+                  &nbsp;Phenotypic Features
                   <div className="mb-0">
-                    {props.samples.stats?.phenotypes.slice(0, 3).map((x) => {
+                    {stats.phenotypic_features.slice(0, 3).map((x) => {
                       return (
                         <Badge
                           key={x.value}
@@ -64,11 +75,11 @@ const DatasetSamples = (props: dataSetSamplesProps) => {
                       );
                     })}
                   </div>
-                  {props.samples.stats?.phenotypes.length > 3 ? (
+                  {stats.phenotypic_features.length > 3 ? (
                     <>
                       <Collapse in={openPhenotypesList}>
                         <span id="extended-phenotypes">
-                          {props.samples.stats?.phenotypes.slice(3).map((x) => {
+                          {stats.phenotypic_features.slice(3).map((x) => {
                             return (
                               <Badge
                                 key={x.value}

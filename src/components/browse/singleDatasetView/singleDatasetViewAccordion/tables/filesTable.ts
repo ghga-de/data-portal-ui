@@ -1,13 +1,12 @@
 import { useState } from "react";
-import { datasetEmbeddedModel } from "../../../../../models/dataset";
 import { parseBytes, transposeTableForHTML } from "../../../../../utils/utils";
 import {
   SDSVTableDefinition,
   TableFields,
 } from "../../../../../utils/sortButton";
 
-interface ExperimentsTableProps {
-  details: datasetEmbeddedModel;
+interface FilesTableProps {
+  all_files: any[];
 }
 
 /**
@@ -17,7 +16,7 @@ interface ExperimentsTableProps {
  * @param fileSize - File size in bytes to be displayed on table
  * @returns The table definition object that includes table content, button text and definitions.
  */
-export const FilesTable = (props: ExperimentsTableProps, fileSize: number) => {
+export const FilesTable = (props: FilesTableProps, fileSize: number) => {
   const [sortDefinition, setSortDefinition] = useState<{
     key: number;
     order: number;
@@ -29,22 +28,27 @@ export const FilesTable = (props: ExperimentsTableProps, fileSize: number) => {
   let filesTable: TableFields[] = [
     {
       header: "File name",
-      data: props.details.files.map((x) => x.alias),
+      data: props.all_files.map((x) => x.alias),
       cssClasses: "text-break",
     },
     {
       header: "File Type",
-      data: props.details.files.map((x) => x.format.toUpperCase()),
+      data: props.all_files.map((x) => x.format?.toUpperCase()),
       cssClasses: "",
     },
     {
       header: "Size",
-      data: props.details.files.map((x) => parseBytes(x.size)),
+      data: props.all_files.map((x) => parseBytes(x.size)),
       cssClasses: "",
     },
     {
       header: "Checksum",
-      data: props.details.files.map((x) => x.checksum_type + ": " + x.checksum),
+      data: props.all_files.map((x) => x.checksum_type + ": " + x.checksum),
+      cssClasses: "",
+    },
+    {
+      header: "File Origin",
+      data: props.all_files.map((x) => x.file_category),
       cssClasses: "",
     },
   ];
@@ -56,9 +60,9 @@ export const FilesTable = (props: ExperimentsTableProps, fileSize: number) => {
   const filesTableDef: SDSVTableDefinition = {
     table: filesTable,
     buttonText:
-      props.details.files !== null
+      props.all_files !== null
         ? "File Summary (" +
-          props.details.files.length +
+          props.all_files.length +
           " files: " +
           parseBytes(fileSize) +
           ")"

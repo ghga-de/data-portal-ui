@@ -41,14 +41,14 @@ type getDatasetsSearchRespType = (
 export const querySearchService: getDatasetsSearchRespType = async (
   callbackFunc: (hits: searchResponseModel) => void,
   filterQuery: facetFilterModel[],
-  searchKeyword = "*",
+  searchKeyword = "",
   skip: number,
   limit: number,
-  documentType = "Dataset"
+  documentType = "EmbeddedDataset"
 ) => {
   let url = `${SEARCH_URL}/rpc/search`;
   const payload = {
-    class_name: "Dataset",
+    class_name: "EmbeddedDataset",
     query: searchKeyword,
     filters: filterQuery,
     skip: skip,
@@ -135,12 +135,9 @@ type getMetadataSummaryType = (
  * @returns Nothing
  */
 export const getMetadataSummary: getMetadataSummaryType = (callbackFunc) => {
-  fetch(
-    `${REPOSITORY_URL}/artifacts/stats_public/classes/GlobalStats/resources/summary`,
-    {
-      method: "get",
-    }
-  )
+  fetch(`${REPOSITORY_URL}/stats`, {
+    method: "get",
+  })
     .then((response) => response.json())
     .then(
       (data) => {

@@ -1,0 +1,47 @@
+{
+    "title": "The A dataset",
+    "types": [
+      "Another Type",
+      "A Type"
+    ],
+    "description": "An interesting dataset A",
+    "dac_email": "dac@dac.dac",
+    "samples_summary": {
+      "count": 0,
+      "stats": {
+        "sex": [],
+        "tissues": [],
+        "phenotypic_features": []
+      }
+    },
+    "studies_summary": {
+      "count": 1,
+      "stats": {
+        "accession": [
+          "GHGAS84826041417947"
+        ],
+        "title": [
+          "The A Study"
+        ]
+      }
+    },
+    "sequencing_experiments_summary": {
+      "count": 0,
+      "stats": {
+        "sequencing_protocols": []
+      }
+    },
+    "files_summary": {
+      "count": 16,
+      "stats": {
+        "format": [
+          {
+            "value": "FASTQ",
+            "count": 16
+          }
+        ],
+        "size": 77840
+      }
+    },
+    "accession": "GHGAD91177519158061"
+  }

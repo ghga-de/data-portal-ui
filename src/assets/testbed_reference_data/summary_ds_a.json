@@ -1,0 +1,71 @@
+{
+  "title": "The complete-A dataset",
+  "types": [
+    "Another Type",
+    "A Type"
+  ],
+  "description": "An interesting dataset A of complete example set",
+  "dac_email": "dac_institute_a@dac.dac",
+  "samples_summary": {
+    "count": 1,
+    "stats": {
+      "sex": [
+        {
+          "value": "MALE_SEX_FOR_CLINICAL_USE",
+          "count": 1
+        }
+      ],
+      "tissues": [
+        {
+          "value": "blood",
+          "count": 1
+        }
+      ],
+      "phenotypic_features": [
+        {
+          "value": "Leukemia",
+          "count": 1
+        }
+      ]
+    }
+  },
+  "studies_summary": {
+    "count": 1,
+    "stats": {
+      "accession": [
+        "GHGAS45990615033064"
+      ],
+      "title": [
+        "The A Study"
+      ]
+    }
+  },
+  "sequencing_experiments_summary": {
+    "count": 1,
+    "stats": {
+      "sequencing_protocols": [
+        {
+          "value": "ILLUMINA_NOVA_SEQ_6000",
+          "count": 1
+        }
+      ]
+    }
+  },
+  "files_summary": {
+    "count": 7,
+    "stats": {
+      "format": [
+        {
+          "value": "FASTQ",
+          "count": 4
+        },
+        {
+          "value": "VCF",
+          "count": 3
+        }
+      ],
+      "size": 1816
+    }
+  },
+  "accession": "GHGAD62094899048138"
+}
