@@ -27,7 +27,10 @@ const DatasetStudies = (props: dataSetStudiesProps) => {
                   ))}
             </p>
             <p className="mb-0">
-              <strong>Accession ID(s): </strong>
+              <strong>
+                Accession ID
+                {props.study.stats?.accession?.length > 1 ? "s" : ""}:
+              </strong>
               {props.study.stats?.accession?.map((x) => (
                 <span className="mb-0 d-block" key={x}>
                   {x}

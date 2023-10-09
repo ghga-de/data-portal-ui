@@ -130,10 +130,7 @@ const HomeMidSection = () => {
         <div>
           <Row className="pt-4 mt-3 w-100 px-0 mx-0">
             {summary.resource_stats.Individual.stats.sex.map((x) => {
-              let sex: string = "";
-              if (x.value === "FEMALE_SEX_FOR_CLINICAL_USE") {
-                sex = "Female";
-              } else sex = "Male";
+              const sex = /FEMALE/.test(x.value) ? "Female" : "Male";
               return (
                 <Col className="text-center mb-4 ps-1 text-capitalize">
                   {sex}

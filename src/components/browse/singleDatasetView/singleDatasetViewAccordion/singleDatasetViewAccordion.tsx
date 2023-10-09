@@ -12,33 +12,16 @@ interface SingleDatasetViewAccordionProps {
 
 /** Section at the end of dataset details page consisting of three collapsible summary tables. */
 const SingleDatasetViewAccordion = (props: SingleDatasetViewAccordionProps) => {
-  let fileSize = 0;
+  const all_files = Object.keys(props.details)
+    .filter((key) => key.endsWith("_files"))
+    .flatMap((key: string) => {
+      const files = (props.details as any)[key];
+      const file_category =
+        key.charAt(0).toUpperCase() + key.slice(1, -1).replace("_", " ");
+      return files.map((file: any) => ({ ...file, file_category }));
+    });
 
-  let all_files: any[] = [
-    props.details.study_files?.flatMap((x: any) => {
-      x["file_category"] = "Study file";
-      return x;
-    }),
-    props.details.sample_files?.flatMap((x: any) => {
-      x["file_category"] = "Sample file";
-      return x;
-    }),
-    props.details.sequencing_process_files?.flatMap((x: any) => {
-      x["file_category"] = "Sequencing process file";
-      return x;
-    }),
-    props.details.analysis_process_output_files?.flatMap((x: any) => {
-      x["file_category"] = "Analysis process output file";
-      return x;
-    }),
-  ];
-
-  all_files = all_files.flat();
-
-  all_files?.map((x) => {
-    fileSize = fileSize + x.size;
-    return null;
-  });
+  const fileSize = all_files.reduce((a, c) => a + c.size, 0);
 
   let Tables: SDSVTableDefinition[] = [
     ExperimentsTable(props),

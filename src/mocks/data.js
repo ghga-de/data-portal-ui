@@ -143,7 +143,7 @@ export const embeddedDataset = {
       biospecimen: {
         tissue: "Test tissue",
         individual: {
-          sex: "female",
+          sex: "FEMALE_SEX_FOR_CLINICAL_USE",
           phenotypic_features: ["Test phenotypic feature 1"]
         }
       }
@@ -153,7 +153,7 @@ export const embeddedDataset = {
     {
       alias: "Test file 1",
       format: "FASTQ",
-      size: "586156",
+      size: 586156,
       checksum: "15117b282328146ac6afebaa8acd80e7",
       checksum_type: "MD5",
     },
@@ -214,7 +214,7 @@ export const metadataSummary = {
     Individual: {
       count: 5432,
       stats: {
-        sex: [{ value: "female", count: 1935 }, { value: "male", count: 2358 }, { value: "unknown", count: 1139 }],
+        sex: [{ value: "FEMALE_SEX_FOR_CLINICAL_USE", count: 1935 }, { value: "MALE_SEX_FOR_CLINICAL_USE", count: 2358 }],
       },
     },
     SequencingProtocol: {
