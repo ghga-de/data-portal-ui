@@ -5,12 +5,12 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Tab, Button, Row, Col } from "react-bootstrap";
-import { datasetEmbeddedModel } from "../../../../models/dataset";
+import { DatasetEmbeddedModel } from "../../../../models/dataset";
 import "react-perfect-scrollbar/dist/css/styles.css";
 import PerfectScrollbar from "react-perfect-scrollbar";
 
 interface PublicationTabContentsProps {
-  details: datasetEmbeddedModel;
+  details: DatasetEmbeddedModel;
 }
 
 const PublicationTabContents = (props: PublicationTabContentsProps) => {

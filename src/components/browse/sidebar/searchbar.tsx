@@ -1,25 +1,25 @@
 import React, { Dispatch, SetStateAction } from "react";
 import { Form, Container } from "react-bootstrap";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
-import { searchResponseModel } from "../../../models/dataset";
-import { facetFilterModel } from "../../../models/facets";
+import { SearchResponseModel } from "../../../models/dataset";
+import { FacetFilterModel } from "../../../models/facets";
 import { scrollUp, handleFilterAndSearch } from "../../../utils/utils";
 import { icon, toHtml } from "@fortawesome/fontawesome-svg-core";
 import { useNavigate } from "react-router-dom";
 
-interface searchbarProps {
-  setSearchResults: Dispatch<SetStateAction<searchResponseModel | null>>;
+interface SearchbarProps {
+  setSearchResults: Dispatch<SetStateAction<SearchResponseModel | null>>;
   setSearchKeyword: Dispatch<SetStateAction<string>>;
   searchKeyword: string;
   limit: number;
   searchParams: URLSearchParams;
-  filterDict: facetFilterModel[];
-  setFilterDict: Dispatch<SetStateAction<facetFilterModel[]>>;
+  filterDict: FacetFilterModel[];
+  setFilterDict: Dispatch<SetStateAction<FacetFilterModel[]>>;
   setPage: Dispatch<SetStateAction<number>>;
 }
 
 /** Searh bar component in the Browse sidebar */
-const Searchbar = (props: searchbarProps) => {
+const Searchbar = (props: SearchbarProps) => {
   let navigate = useNavigate();
   var iconAbstract = icon(faMagnifyingGlass).abstract[0];
   if (iconAbstract.children) {

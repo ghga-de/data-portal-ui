@@ -1,8 +1,8 @@
 import React, { Dispatch, SetStateAction } from "react";
 import DatasetPagination from "./datasetPagination/datasetPagination";
 import DatasetAccordion from "./datasetAccordion/datasetAccordion";
-import { hitModel, searchResponseModel } from "../../../models/dataset";
-import { facetFilterModel, facetModel } from "../../../models/facets";
+import { HitModel, SearchResponseModel } from "../../../models/dataset";
+import { FacetFilterModel, FacetModel } from "../../../models/facets";
 import { Col, Form, Row } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -11,25 +11,25 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { scrollUp } from "../../../utils/utils";
 
-interface dataSetProps {
+interface DataSetProps {
   dsCount: number;
-  dsList: hitModel[] | null;
-  setSearchResults: Dispatch<SetStateAction<searchResponseModel | null>>;
+  dsList: HitModel[] | null;
+  setSearchResults: Dispatch<SetStateAction<SearchResponseModel | null>>;
   searchKeyword: string;
   limit: number;
   setLimit: Dispatch<SetStateAction<number>>;
-  filterDict: facetFilterModel[];
+  filterDict: FacetFilterModel[];
   searchParams: any;
   setSearchParams: any;
   page: number;
   setPage: Dispatch<SetStateAction<number>>;
-  facets: facetModel[] | null;
+  facets: FacetModel[] | null;
   skip: number;
-  setFilterDict: Dispatch<SetStateAction<facetFilterModel[]>>;
+  setFilterDict: Dispatch<SetStateAction<FacetFilterModel[]>>;
 }
 
 /** Section of the Browse page where datasets are listed. It contains accordion list of datasets and pagination. */
-const DatasetList = (props: dataSetProps) => {
+const DatasetList = (props: DataSetProps) => {
   var dsCount: number = props.dsCount;
 
   const PaginatedDataset = () => {

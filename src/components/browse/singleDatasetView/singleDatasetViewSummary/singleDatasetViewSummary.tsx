@@ -1,10 +1,10 @@
 import { faFileLines } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Badge, Col, Row } from "react-bootstrap";
-import { datasetEmbeddedModel } from "../../../../models/dataset";
+import { DatasetEmbeddedModel } from "../../../../models/dataset";
 
 interface SingleDatasetViewSummaryProps {
-  details: datasetEmbeddedModel;
+  details: DatasetEmbeddedModel;
 }
 
 /** Section at the top of dataset details page where the summary of dataset displayed. */

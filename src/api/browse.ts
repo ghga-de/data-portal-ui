@@ -1,10 +1,10 @@
 import {
-  searchResponseModel,
-  datasetEmbeddedModel,
-  datasetDetailsSummaryModel,
-  metadataSummaryModel,
+  SearchResponseModel,
+  DatasetEmbeddedModel,
+  DatasetDetailsSummaryModel,
+  MetadataSummaryModel,
 } from "../models/dataset";
-import { facetFilterModel } from "../models/facets";
+import { FacetFilterModel } from "../models/facets";
 import { fetchJson } from "../utils/utils";
 import { showMessage } from "../components/messages/usage";
 
@@ -19,8 +19,8 @@ const showFetchDataError = () => {
 };
 
 type getDatasetsSearchRespType = (
-  callbackFunc: (hits: searchResponseModel) => void,
-  filterQuery: facetFilterModel[],
+  callbackFunc: (hits: SearchResponseModel) => void,
+  filterQuery: FacetFilterModel[],
   searchKeyword: string,
   skip: number,
   limit: number,
@@ -39,8 +39,8 @@ type getDatasetsSearchRespType = (
  * @returns Nothing
  */
 export const querySearchService: getDatasetsSearchRespType = async (
-  callbackFunc: (hits: searchResponseModel) => void,
-  filterQuery: facetFilterModel[],
+  callbackFunc: (hits: SearchResponseModel) => void,
+  filterQuery: FacetFilterModel[],
   searchKeyword = "",
   skip: number,
   limit: number,
@@ -61,7 +61,7 @@ export const querySearchService: getDatasetsSearchRespType = async (
   } catch (error) {
     showFetchDataError();
     console.log(error);
-    const errorData: searchResponseModel = {
+    const errorData: SearchResponseModel = {
       count: -1,
       hits: [],
       facets: [],
@@ -72,7 +72,7 @@ export const querySearchService: getDatasetsSearchRespType = async (
 
 type getDatasetDetailsType = (
   datasetAccession: string,
-  callbackFunc: (dataset: datasetEmbeddedModel) => void
+  callbackFunc: (dataset: DatasetEmbeddedModel) => void
 ) => void;
 
 /**
@@ -99,7 +99,7 @@ export const getDatasetDetails: getDatasetDetailsType = async (
 
 type getDatasetSummaryType = (
   datasetAccession: string,
-  callbackFunc: (dataset: datasetDetailsSummaryModel) => void
+  callbackFunc: (dataset: DatasetDetailsSummaryModel) => void
 ) => void;
 
 /**
@@ -125,7 +125,7 @@ export const getDatasetSummary: getDatasetSummaryType = async (
 };
 
 type getMetadataSummaryType = (
-  callbackFunc: (summary: metadataSummaryModel) => void
+  callbackFunc: (summary: MetadataSummaryModel) => void
 ) => void;
 
 /**

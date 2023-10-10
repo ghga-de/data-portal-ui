@@ -1,23 +1,23 @@
 import React, { Dispatch, SetStateAction } from "react";
 import { Form, Col, Container, Row, Badge } from "react-bootstrap";
-import { facetModel, facetFilterModel } from "../../../models/facets";
+import { FacetModel, FacetFilterModel } from "../../../models/facets";
 
-interface filterProps {
-  facet: facetModel;
+interface FilterProps {
+  facet: FacetModel;
   check: Map<string, boolean>;
   setCheck: Dispatch<SetStateAction<Map<string, boolean>>>;
   searchKeyword: string;
-  appliedFilterDict: facetFilterModel[];
-  setAppliedFilterDict: Dispatch<SetStateAction<facetFilterModel[]>>;
+  appliedFilterDict: FacetFilterModel[];
+  setAppliedFilterDict: Dispatch<SetStateAction<FacetFilterModel[]>>;
 }
 
 /** Form component for filters in Browse sidebar */
-const Filter = (props: filterProps) => {
+const Filter = (props: FilterProps) => {
   const handleCheck = (
     key: string,
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
-    const facetFilter: facetFilterModel = {
+    const facetFilter: FacetFilterModel = {
       key: key.split(":")[0],
       value: key.split(":")[1],
     };

@@ -5,13 +5,13 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Col, Nav, Row, Tab } from "react-bootstrap";
-import { datasetEmbeddedModel } from "../../../../models/dataset";
+import { DatasetEmbeddedModel } from "../../../../models/dataset";
 import DapTabContents from "./dapTabContents";
 import PublicationTabContents from "./publicationTabContents";
 import StudyTabContents from "./studyTabContents";
 
 interface SingleDatasetViewTabsProps {
-  details: datasetEmbeddedModel;
+  details: DatasetEmbeddedModel;
 }
 
 /** Tab navigations (buttons) on the dataset details page. */

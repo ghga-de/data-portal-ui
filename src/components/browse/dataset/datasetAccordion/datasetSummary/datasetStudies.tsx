@@ -1,15 +1,15 @@
 import React from "react";
-import { studySummaryModel } from "../../../../../models/dataset";
+import { StudySummaryModel } from "../../../../../models/dataset";
 import DatasetDetailsLayout from "./datasetDetailsLayout/datasetDetailsLayout";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBook } from "@fortawesome/free-solid-svg-icons";
 
-interface dataSetStudiesProps {
-  study: studySummaryModel | null;
+interface DataSetStudiesProps {
+  study: StudySummaryModel | null;
 }
 
 /** Dataset summary section displays the studies of which the dataset is a part. */
-const DatasetStudies = (props: dataSetStudiesProps) => {
+const DatasetStudies = (props: DataSetStudiesProps) => {
   return (
     <DatasetDetailsLayout
       icon={<FontAwesomeIcon icon={faBook} />}

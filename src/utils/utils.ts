@@ -1,7 +1,7 @@
 import { Dispatch, SetStateAction } from "react";
 import { querySearchService } from "../api/browse";
-import { searchResponseModel } from "../models/dataset";
-import { facetFilterModel } from "../models/facets";
+import { SearchResponseModel } from "../models/dataset";
+import { FacetFilterModel } from "../models/facets";
 import { authService } from "../services/auth";
 
 const CLIENT_URL = process.env.REACT_APP_CLIENT_URL;
@@ -11,7 +11,7 @@ const CLIENT_URL = process.env.REACT_APP_CLIENT_URL;
  * @param filterDict - Array of objects that conform to the facetFilterModel.
  * @returns Semicolon-separated string of key-value pairs.
  */
-export const getFilterString = (filterDict: facetFilterModel[]) => {
+export const getFilterString = (filterDict: FacetFilterModel[]) => {
   let filterString = "";
   for (var item of filterDict) {
     filterString += item.key + ":" + item.value + ";";
@@ -37,11 +37,11 @@ export const scrollUp = () => {
  * @returns facetFilterModelList
  */
 export const getFilterParams = (filterString: string | null) => {
-  let facetFilterModelList: facetFilterModel[] = [];
+  let facetFilterModelList: FacetFilterModel[] = [];
   if (filterString != null) {
     let filterStringList = filterString.split(";");
     for (var item of filterStringList) {
-      let filterItem: facetFilterModel = {
+      let filterItem: FacetFilterModel = {
         key: item.split(":")[0],
         value: item.split(":")[1],
       };
@@ -99,15 +99,15 @@ export const parseBytes = (bytes: number) => {
  * @returns Applied filters in query string format.
  */
 export const handleFilterAndSearch = (
-  setSearchResults: Dispatch<SetStateAction<searchResponseModel | null>>,
-  filterDict: facetFilterModel[],
+  setSearchResults: Dispatch<SetStateAction<SearchResponseModel | null>>,
+  filterDict: FacetFilterModel[],
   searchKeyword: string,
   limit: number,
   skip: number,
   page: number,
   setPage: Dispatch<SetStateAction<number>>,
-  setFilterDict: Dispatch<SetStateAction<facetFilterModel[]>> | null,
-  appliedFilterDict: facetFilterModel[] | null
+  setFilterDict: Dispatch<SetStateAction<FacetFilterModel[]>> | null,
+  appliedFilterDict: FacetFilterModel[] | null
 ) => {
   if (appliedFilterDict === null) {
     appliedFilterDict = filterDict;

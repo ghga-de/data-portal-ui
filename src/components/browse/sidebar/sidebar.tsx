@@ -2,22 +2,22 @@ import React, { Dispatch, SetStateAction } from "react";
 import { Button, Col, Row } from "react-bootstrap";
 import { URLSearchParamsInit, useNavigate } from "react-router-dom";
 import { querySearchService } from "../../../api/browse";
-import { searchResponseModel } from "../../../models/dataset";
-import { facetFilterModel, facetModel } from "../../../models/facets";
+import { SearchResponseModel } from "../../../models/dataset";
+import { FacetFilterModel, FacetModel } from "../../../models/facets";
 import { handleFilterAndSearch, scrollUp } from "../../../utils/utils";
 import Filter from "./filter";
 import Searchbar from "./searchbar";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
 
-interface sidebarProps {
-  facetList: facetModel[] | null;
-  setSearchResults: Dispatch<SetStateAction<searchResponseModel | null>>;
+interface SidebarProps {
+  facetList: FacetModel[] | null;
+  setSearchResults: Dispatch<SetStateAction<SearchResponseModel | null>>;
   searchKeyword: string;
   limit: number;
   setSearchKeyword: Dispatch<SetStateAction<string>>;
-  setFilterDict: Dispatch<SetStateAction<facetFilterModel[]>>;
-  filterDict: facetFilterModel[];
+  setFilterDict: Dispatch<SetStateAction<FacetFilterModel[]>>;
+  filterDict: FacetFilterModel[];
   searchParams: URLSearchParams;
   setSearchParams: (
     nextInit: URLSearchParamsInit,
@@ -25,15 +25,15 @@ interface sidebarProps {
   ) => void;
   page: number;
   setPage: Dispatch<SetStateAction<number>>;
-  setAppliedFilterDict: Dispatch<SetStateAction<facetFilterModel[]>>;
-  appliedFilterDict: facetFilterModel[];
+  setAppliedFilterDict: Dispatch<SetStateAction<FacetFilterModel[]>>;
+  appliedFilterDict: FacetFilterModel[];
   setCheck: Dispatch<SetStateAction<Map<string, boolean>>>;
   check: Map<string, boolean>;
   setOpenFilter: any;
 }
 
 /** Section at the side of Browse page. It contains searchbar and filters form. */
-const Sidebar = (props: sidebarProps) => {
+const Sidebar = (props: SidebarProps) => {
   let navigate = useNavigate();
   const skip = 0;
 

@@ -3,16 +3,16 @@ import { Row } from "react-bootstrap";
 import DatasetDetailsLayout from "./datasetDetailsLayout/datasetDetailsLayout";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFileLines } from "@fortawesome/free-regular-svg-icons";
-import { fileSummaryModel } from "../../../../../models/dataset";
+import { FileSummaryModel } from "../../../../../models/dataset";
 import { parseBytes } from "../../../../../utils/utils";
 import BoldenedSummaryDetails from "./boldenedSummaryDetails/boldenedSummaryDetails";
 
-interface dataSetFilesProps {
-  files: fileSummaryModel | null;
+interface DataSetFilesProps {
+  files: FileSummaryModel | null;
 }
 
 /** Dataset summary section displays the summary of files. */
-const DatasetFiles = (props: dataSetFilesProps) => {
+const DatasetFiles = (props: DataSetFilesProps) => {
   return (
     <DatasetDetailsLayout
       icon={<FontAwesomeIcon icon={faFileLines} />}

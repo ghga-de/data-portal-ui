@@ -8,8 +8,8 @@ import { Button, Col, Row, Spinner } from "react-bootstrap";
 import { useNavigate, useParams } from "react-router-dom";
 import { getDatasetDetails, querySearchService } from "../../../api/browse";
 import {
-  datasetEmbeddedModel,
-  searchResponseModel,
+  DatasetEmbeddedModel,
+  SearchResponseModel,
 } from "../../../models/dataset";
 import DataRequestFormModal from "../../../utils/dataRequestFormModal";
 import SingleDatasetViewAccordion from "./singleDatasetViewAccordion/singleDatasetViewAccordion";
@@ -26,10 +26,10 @@ const SingleDatasetView = () => {
   let paramId: string | null | undefined = null;
 
   const [searchResults, setSearchResults] =
-    useState<searchResponseModel | null>(null);
+    useState<SearchResponseModel | null>(null);
   const [queried, setQueried] = useState<boolean>(false);
 
-  const [details, setDetails] = useState<datasetEmbeddedModel | null>(null);
+  const [details, setDetails] = useState<DatasetEmbeddedModel | null>(null);
 
   useEffect(() => {
     const getHits = (accessionId: string | null | undefined, key: string) => {
@@ -50,7 +50,7 @@ const SingleDatasetView = () => {
         getDatasetDetails(datasetAccession, setDetails);
       }
     };
-    const processHits = (searchResults: searchResponseModel | null) => {
+    const processHits = (searchResults: SearchResponseModel | null) => {
       if (searchResults && searchResults !== null && searchResults.count >= 1) {
         // eslint-disable-next-line react-hooks/exhaustive-deps
         paramId = searchResults.hits[0].content.accession;

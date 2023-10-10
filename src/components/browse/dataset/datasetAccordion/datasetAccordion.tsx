@@ -2,23 +2,23 @@ import React, { useState } from "react";
 import { Accordion, Col, Row } from "react-bootstrap";
 import { getDatasetSummary } from "../../../../api/browse";
 import {
-  datasetDetailsSummaryModel,
-  hitModel,
+  DatasetDetailsSummaryModel,
+  HitModel,
 } from "../../../../models/dataset";
 import DatasetSummary from "./datasetSummary/datasetSummary";
 
-interface dataSetListProps {
-  dsList: hitModel[];
+interface DataSetListProps {
+  dsList: HitModel[];
 }
 
 /** Accordion component where datasets are listed. It also contains summary information of the datasets. */
-const DatasetAccordion = (props: dataSetListProps) => {
+const DatasetAccordion = (props: DataSetListProps) => {
   const [summary, setSummary] = useState<
-    datasetDetailsSummaryModel | null | undefined
+    DatasetDetailsSummaryModel | null | undefined
   >(null);
   const [summaryMap, setSummaryMap] = useState<
-    Map<string, datasetDetailsSummaryModel | null | undefined>
-  >(new Map<string, datasetDetailsSummaryModel | null>());
+    Map<string, DatasetDetailsSummaryModel | null | undefined>
+  >(new Map<string, DatasetDetailsSummaryModel | null>());
   const getDetails = (datasetAccession: string) => {
     if (summaryMap.get(datasetAccession) === undefined) {
       getDatasetSummary(datasetAccession, setSummary);

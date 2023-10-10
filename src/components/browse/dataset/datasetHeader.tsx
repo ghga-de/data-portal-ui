@@ -1,34 +1,34 @@
 import React, { Dispatch, SetStateAction } from "react";
 import { Badge, Row, Col, CloseButton } from "react-bootstrap";
-import { facetFilterModel, facetModel } from "../../../models/facets";
-import { searchResponseModel } from "../../../models/dataset";
+import { FacetFilterModel, FacetModel } from "../../../models/facets";
+import { SearchResponseModel } from "../../../models/dataset";
 import { useNavigate } from "react-router-dom";
 import { handleFilterAndSearch } from "../../../utils/utils";
 import { querySearchService } from "../../../api/browse";
 
-interface datasetHeaderProps {
+interface DatasetHeaderProps {
   dsCount: number;
   searchParams: URLSearchParams;
-  facets: facetModel[] | null;
-  setSearchResults: Dispatch<SetStateAction<searchResponseModel | null>>;
-  filterDict: facetFilterModel[];
+  facets: FacetModel[] | null;
+  setSearchResults: Dispatch<SetStateAction<SearchResponseModel | null>>;
+  filterDict: FacetFilterModel[];
   setSearchKeyword: Dispatch<SetStateAction<string>>;
   limit: number;
   skip: number;
-  setFilterDict: Dispatch<SetStateAction<facetFilterModel[]>>;
+  setFilterDict: Dispatch<SetStateAction<FacetFilterModel[]>>;
   searchKeyword: string;
-  setAppliedFilterDict: Dispatch<SetStateAction<facetFilterModel[]>>;
-  appliedFilterDict: facetFilterModel[];
+  setAppliedFilterDict: Dispatch<SetStateAction<FacetFilterModel[]>>;
+  appliedFilterDict: FacetFilterModel[];
   check: Map<string, boolean>;
   setPage: Dispatch<SetStateAction<number>>;
 }
 
 /** Section at the top of Browse page. It contains search keywords, applied filters and datasets count found. */
-const DatasetHeader = (props: datasetHeaderProps) => {
+const DatasetHeader = (props: DatasetHeaderProps) => {
   const navigate = useNavigate();
 
   const [searchResults, setSearchResults] =
-    React.useState<searchResponseModel | null>(null);
+    React.useState<SearchResponseModel | null>(null);
   React.useEffect(() => {
     const getData = () => {
       querySearchService(setSearchResults, [], "", 0, 1, "Dataset");
@@ -36,7 +36,7 @@ const DatasetHeader = (props: datasetHeaderProps) => {
     getData();
   }, []);
 
-  var listOfAllFacets: facetModel[] | null = null;
+  var listOfAllFacets: FacetModel[] | null = null;
   if (searchResults !== null) {
     if (searchResults.hits.length > 0 || searchResults.count === -1) {
       listOfAllFacets = searchResults.facets;
@@ -54,7 +54,7 @@ const DatasetHeader = (props: datasetHeaderProps) => {
         const itemKey = item.split(":")[0];
         var itemPretty = itemKey + "|" + item.replace(":", ": ");
         if (listOfAllFacets !== null) {
-          const findResult: facetModel | undefined = listOfAllFacets.find(
+          const findResult: FacetModel | undefined = listOfAllFacets.find(
             (x) => x.key === itemKey
           );
           if (findResult !== undefined) {
@@ -96,7 +96,12 @@ const DatasetHeader = (props: datasetHeaderProps) => {
 
   return (
     <Row className="mt-1 mx-0">
-      <Col xs={12} lg={6} xl={7} className="ps-3 offset-0 offset-lg-4 offset-xl-3">
+      <Col
+        xs={12}
+        lg={6}
+        xl={7}
+        className="ps-3 offset-0 offset-lg-4 offset-xl-3"
+      >
         <div className="ps-3 pe-0">
           {props.searchParams.get("q") !== undefined &&
           props.searchParams.get("q") !== null ? (

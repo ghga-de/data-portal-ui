@@ -1,12 +1,12 @@
 import { faBook } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Tab, Row, Col } from "react-bootstrap";
-import { datasetEmbeddedModel } from "../../../../models/dataset";
+import { DatasetEmbeddedModel } from "../../../../models/dataset";
 import "react-perfect-scrollbar/dist/css/styles.css";
 import PerfectScrollbar from "react-perfect-scrollbar";
 
 interface StudyTabContentsProps {
-  details: datasetEmbeddedModel;
+  details: DatasetEmbeddedModel;
 }
 
 const StudyTabContents = (props: StudyTabContentsProps) => {

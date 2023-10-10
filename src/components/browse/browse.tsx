@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import { Col, Navbar, Row } from "react-bootstrap";
 import { useSearchParams } from "react-router-dom";
 import { querySearchService } from "../../api/browse";
-import { hitModel, searchResponseModel } from "../../models/dataset";
-import { facetFilterModel, facetModel } from "../../models/facets";
+import { HitModel, SearchResponseModel } from "../../models/dataset";
+import { FacetFilterModel, FacetModel } from "../../models/facets";
 import { getFilterParams } from "../../utils/utils";
 import DatasetHeader from "./dataset/datasetHeader";
 import DatasetList from "./dataset/datasetList";
@@ -25,16 +25,16 @@ const Browse = () => {
   let filterParams = getFilterParams(searchParams.get("f")) || [];
 
   const [filterDict, setFilterDict] =
-    React.useState<facetFilterModel[]>(filterParams);
+    React.useState<FacetFilterModel[]>(filterParams);
 
   const [searchKeyword, setSearchKeyword] = React.useState(
     searchParams.get("q") || ""
   );
   const [searchResults, setSearchResults] =
-    React.useState<searchResponseModel | null>(null);
+    React.useState<SearchResponseModel | null>(null);
 
   const [appliedFilterDict, setAppliedFilterDict] = React.useState<
-    facetFilterModel[]
+    FacetFilterModel[]
   >([]);
 
   const [check, setCheck] = React.useState<Map<string, boolean>>(
@@ -58,8 +58,8 @@ const Browse = () => {
     [limit]
   );
 
-  var dsList: hitModel[] | null = null;
-  var facetList: facetModel[] | null = null;
+  var dsList: HitModel[] | null = null;
+  var facetList: FacetModel[] | null = null;
   var dsCount: number = 0;
 
   if (searchResults !== null) {
