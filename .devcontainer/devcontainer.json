@@ -15,18 +15,6 @@
             "path": "/bin/bash"
           }
         },
-        "sqltools.connections": [
-          {
-            "name": "Container database",
-            "driver": "PostgreSQL",
-            "previewLimit": 50,
-            "server": "localhost",
-            "port": 5432,
-            "database": "postgres",
-            "username": "postgres",
-            "password": "postgres"
-          }
-        ],
         "python.pythonPath": "/usr/local/bin/python",
         "python.languageServer": "Pylance",
         "python.linting.enabled": true,
@@ -58,7 +46,6 @@
         "ms-python.python",
         "ms-python.isort",
         "ms-python.vscode-pylance",
-        "ms-toolsai.jupyter",
         "njpwerner.autodocstring",
         "redhat.vscode-yaml",
         "42crunch.vscode-openapi",
@@ -80,11 +67,5 @@
   // Comment out connect as root instead. More info: https://aka.ms/vscode-remote/containers/non-root.
   "remoteUser": "vscode",
   "features": {
-    "ghcr.io/devcontainers/features/docker-in-docker:2": {
-      "version": "latest",
-      "enableNonRootDocker": "true",
-      "moby": true,
-      "azureDnsAutoDetection": false
-    }
   }
 }
