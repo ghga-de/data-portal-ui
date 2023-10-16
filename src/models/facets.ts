@@ -1,15 +1,15 @@
-export interface facetOptionsModel {
+export interface FacetOptionsModel {
   value: string;
   count: number;
 }
 
-export interface facetModel {
+export interface FacetModel {
   key: string;
   name: string;
-  options: facetOptionsModel[];
+  options: FacetOptionsModel[];
 }
 
-export interface facetFilterModel {
+export interface FacetFilterModel {
   key: string;
   value: string;
 }

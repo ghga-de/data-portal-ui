@@ -14,7 +14,7 @@
 # limitations under the License.
 
 
-FROM node:lts-alpine3.16
+FROM node:lts-alpine3.18
 
 # update and install dependencies
 RUN apk update && apk upgrade

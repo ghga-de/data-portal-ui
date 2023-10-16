@@ -1,13 +1,13 @@
 import React from "react";
 import { Row, Col } from "react-bootstrap";
 
-interface dataSetDetailsLayoutProps {
+interface DataSetDetailsLayoutProps {
   icon: JSX.Element;
   content: any;
 }
 
 /** Standard layout component for the information displayed in the Dataset summary. */
-const DatasetDetailsLayout = (props: dataSetDetailsLayoutProps) => {
+const DatasetDetailsLayout = (props: DataSetDetailsLayoutProps) => {
   return (
     <Col className="me-2 pb-4 mt-2" style={{ minHeight: "100px" }}>
       <Row className="w-100 flex-nowrap">

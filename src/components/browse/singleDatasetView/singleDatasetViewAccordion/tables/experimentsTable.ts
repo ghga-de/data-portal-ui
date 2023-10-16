@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { datasetEmbeddedModel } from "../../../../../models/dataset";
+import { DatasetEmbeddedModel } from "../../../../../models/dataset";
 import { transposeTableForHTML } from "../../../../../utils/utils";
 import {
   SDSVTableDefinition,
@@ -7,7 +7,7 @@ import {
 } from "../../../../../utils/sortButton";
 
 interface ExperimentsTableProps {
-  details: datasetEmbeddedModel;
+  details: DatasetEmbeddedModel;
 }
 
 /**

@@ -1,12 +1,12 @@
 import { faUsersRays, faLink } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Tab, Button, Row, Col } from "react-bootstrap";
-import { datasetEmbeddedModel } from "../../../../models/dataset";
+import { DatasetEmbeddedModel } from "../../../../models/dataset";
 import "react-perfect-scrollbar/dist/css/styles.css";
 import PerfectScrollbar from "react-perfect-scrollbar";
 
 interface DapTabContentsProps {
-  details: datasetEmbeddedModel;
+  details: DatasetEmbeddedModel;
 }
 
 /** Section at the top of dataset details page where the summary of dataset displayed. */

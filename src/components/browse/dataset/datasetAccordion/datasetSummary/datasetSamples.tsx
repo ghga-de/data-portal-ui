@@ -3,15 +3,15 @@ import { Button, Collapse, Row, Badge } from "react-bootstrap";
 import DatasetDetailsLayout from "./datasetDetailsLayout/datasetDetailsLayout";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faVial } from "@fortawesome/free-solid-svg-icons";
-import { sampleSummaryModel } from "../../../../../models/dataset";
+import { SampleSummaryModel } from "../../../../../models/dataset";
 import BoldenedSummaryDetails from "./boldenedSummaryDetails/boldenedSummaryDetails";
 
-interface dataSetSamplesProps {
-  samples: sampleSummaryModel | null;
+interface DataSetSamplesProps {
+  samples: SampleSummaryModel | null;
 }
 
 /** Dataset summary section displays the sample information. */
-const DatasetSamples = (props: dataSetSamplesProps) => {
+const DatasetSamples = (props: DataSetSamplesProps) => {
   const [openPhenotypesList, setOpenPhenotypesList] = React.useState(false);
 
   const stats = props.samples?.stats;

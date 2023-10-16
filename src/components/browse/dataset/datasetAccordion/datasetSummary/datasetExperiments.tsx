@@ -3,15 +3,15 @@ import { Row } from "react-bootstrap";
 import DatasetDetailsLayout from "./datasetDetailsLayout/datasetDetailsLayout";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFlask } from "@fortawesome/free-solid-svg-icons";
-import { experimentSummaryModel } from "../../../../../models/dataset";
+import { ExperimentSummaryModel } from "../../../../../models/dataset";
 import BoldenedSummaryDetails from "./boldenedSummaryDetails/boldenedSummaryDetails";
 
-interface dataSetExperimentsProps {
-  experiments: experimentSummaryModel | null;
+interface DataSetExperimentsProps {
+  experiments: ExperimentSummaryModel | null;
 }
 
 /** Dataset summary section displays the experimental information. */
-const DatasetExperiments = (props: dataSetExperimentsProps) => {
+const DatasetExperiments = (props: DataSetExperimentsProps) => {
   return (
     <DatasetDetailsLayout
       icon={<FontAwesomeIcon icon={faFlask} />}

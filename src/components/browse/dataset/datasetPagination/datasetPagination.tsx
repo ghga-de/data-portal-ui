@@ -2,25 +2,25 @@ import React, { Dispatch, SetStateAction } from "react";
 import ReactPaginate from "react-paginate";
 import { useNavigate } from "react-router-dom";
 import { scrollUp, handleFilterAndSearch } from "../../../../utils/utils";
-import { searchResponseModel } from "../../../../models/dataset";
-import { facetFilterModel } from "../../../../models/facets";
+import { SearchResponseModel } from "../../../../models/dataset";
+import { FacetFilterModel } from "../../../../models/facets";
 
-interface dataSetPaginationProps {
+interface DataSetPaginationProps {
   dsCount: number;
-  setSearchResults: Dispatch<SetStateAction<searchResponseModel | null>>;
+  setSearchResults: Dispatch<SetStateAction<SearchResponseModel | null>>;
   searchKeyword: string;
   limit: number;
   setLimit: Dispatch<SetStateAction<number>>;
-  filterDict: facetFilterModel[];
+  filterDict: FacetFilterModel[];
   page: number;
   setPage: Dispatch<SetStateAction<number>>;
   searchParams: any;
   setSearchParams: any;
-  setFilterDict: Dispatch<SetStateAction<facetFilterModel[]>>;
+  setFilterDict: Dispatch<SetStateAction<FacetFilterModel[]>>;
 }
 
 /** Pagination navigation for the list of datasets browsed. */
-const DatasetPagination = (props: dataSetPaginationProps) => {
+const DatasetPagination = (props: DataSetPaginationProps) => {
   let pageCount = Math.ceil(props.dsCount / props.limit);
   let navigate = useNavigate();
   const handlePageClick = (data: any) => {

@@ -1,7 +1,7 @@
 import { Row, Button, Spinner, Col, Badge } from "react-bootstrap";
 import {
-  datasetDetailsSummaryModel,
-  hitModel,
+  DatasetDetailsSummaryModel,
+  HitModel,
 } from "../../../../../models/dataset";
 import DatasetExperiments from "./datasetExperiments";
 import DatasetFiles from "./datasetFiles";
@@ -13,13 +13,13 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUpRightFromSquare } from "@fortawesome/free-solid-svg-icons";
 import RequestAccessButton from "../../../../../utils/requestAccessButton";
 
-interface dataSetDetailsProps {
-  hit: hitModel;
-  summary: datasetDetailsSummaryModel | null | undefined;
+interface DataSetDetailsProps {
+  hit: HitModel;
+  summary: DatasetDetailsSummaryModel | null | undefined;
 }
 
 /** Body component for the datasets listed in accordion. */
-const DatasetSummary = (props: dataSetDetailsProps) => {
+const DatasetSummary = (props: DataSetDetailsProps) => {
   const [show, setShow] = React.useState(false);
   const [copyEmail, setCopyEmail] = React.useState<string>("helpdesk@ghga.de");
   const handleClose = () => setShow(false);

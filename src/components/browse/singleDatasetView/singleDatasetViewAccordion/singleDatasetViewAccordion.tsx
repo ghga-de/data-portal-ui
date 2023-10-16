@@ -1,5 +1,5 @@
 import { Accordion, Col, Row, Table } from "react-bootstrap";
-import { datasetEmbeddedModel } from "../../../../models/dataset";
+import { DatasetEmbeddedModel } from "../../../../models/dataset";
 import { ExperimentsTable } from "./tables/experimentsTable";
 import { FilesTable } from "./tables/filesTable";
 import { SamplesTable } from "./tables/samplesTable";
@@ -7,7 +7,7 @@ import SortButton, { SDSVTableDefinition } from "../../../../utils/sortButton";
 import { parseBytes } from "../../../../utils/utils";
 
 interface SingleDatasetViewAccordionProps {
-  details: datasetEmbeddedModel;
+  details: DatasetEmbeddedModel;
 }
 
 /** Section at the end of dataset details page consisting of three collapsible summary tables. */

@@ -9,12 +9,12 @@ import React from "react";
 import { Col, Row } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
 import { getMetadataSummary } from "../../../api/browse";
-import { metadataSummaryModel } from "../../../models/dataset";
+import { MetadataSummaryModel } from "../../../models/dataset";
 import HomeMidSectionBadge from "./homeMidSectionBadge";
 
 /** Section on the home  page where Statistics are listed in cards (badges). */
 const HomeMidSection = () => {
-  const [summary, setSummary] = React.useState<metadataSummaryModel | null>(
+  const [summary, setSummary] = React.useState<MetadataSummaryModel | null>(
     null
   );
 
