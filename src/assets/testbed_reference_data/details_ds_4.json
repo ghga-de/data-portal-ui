@@ -19,7 +19,7 @@
       "policy_text": "This is a very strict DAP",
       "policy_url": "http://some/other/policy"
     },
-    "description": "An interesting dataset D",
+    "description": "A mock dataset D",
     "title": "The D dataset",
     "types": [
       "A Type"

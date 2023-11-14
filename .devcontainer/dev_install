@@ -15,5 +15,5 @@ cd .devcontainer
 ./create_cert
 
 # setup hosts file
-pip install dnspython==2.3.0
+sudo pip install dnspython==2.4.2
 sudo $(which python) ./setup_hosts.py

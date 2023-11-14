@@ -1,3 +1,12 @@
+/*
+  setupProxy.js
+
+  This file sets up Create React App so that requests against
+  the backend are made via a custom proxy configuration.
+  This configuration adds basic authentication to backend requests
+  and changes the URL of the requests to use the real backend.
+*/
+
 // Note that this currently works only as a CommonJS module
 const { createProxyMiddleware } = require("http-proxy-middleware");
 

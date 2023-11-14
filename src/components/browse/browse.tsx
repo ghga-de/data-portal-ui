@@ -50,7 +50,7 @@ const Browse = () => {
           searchKeyword,
           skip,
           limit,
-          "Dataset"
+          "EmbeddedDataset"
         );
       };
       getData();

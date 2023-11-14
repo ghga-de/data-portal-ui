@@ -41,7 +41,7 @@ const SingleDatasetView = () => {
           "*",
           0,
           1,
-          "Dataset"
+          "EmbeddedDataset"
         );
       }
     };

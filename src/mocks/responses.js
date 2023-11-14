@@ -15,9 +15,9 @@ import {
 // the values can be undefined (do not mock this endpoint)
 // a number (use it as response status), or an object (return it as JSON).
 
-// Responses for local testing
+// Responses for local testing without backend
 
-const localResponses = {
+export const responses = {
   // User registry
   [`GET /api/auth/users/${user.ext_id}`]: user,
 
@@ -41,23 +41,23 @@ const localResponses = {
   "GET /static/*": undefined,
 
   // Get Dataset details (embedded) Metadata Repository Service
-  "GET http://127.0.0.1:8002/artifacts/embedded_public/classes/EmbeddedDataset/resources/*": embeddedDataset,
+  "GET /api/metldata/artifacts/embedded_public/classes/EmbeddedDataset/resources/*": embeddedDataset,
 
   // Get summary data from a single dataset
-  "GET http://127.0.0.1:8002/artifacts/stats_public/classes/DatasetStats/resources/*": datasetSummary,
+  "GET /api/metldata/classes/DatasetStats/resources/*": datasetSummary,
 
   // Get summary data from entire metadata database
-  "GET http://127.0.0.1:8002/stats": metadataSummary,
+  "GET /api/metldata/stats": metadataSummary,
 
   // Metadata Search Service
-  "POST http://127.0.0.1:8001/rpc/search*": {
+  "POST /api/mass/rpc/search*": {
     facets: searchResults.facets,
     count: searchResults.count,
     hits: searchResults.hits,
   },
 
   // Metadata Search Service single result
-  "POST http://127.0.0.1:8001/rpc/search?limit=1": {
+  "POST /api/mass/rpc/search?limit=1": {
     facets: searchResults.facets,
     count: searchResults.count,
     hits: searchResults.hits.slice(0, 1),
@@ -66,34 +66,3 @@ const localResponses = {
   // webpack-hot-replace
   "GET http://127.0.0.1:8080/main.*": undefined,
 };
-
-// Responses for remote testing
-
-const remoteResponses = {
-  "GET /main*": undefined,
-  "GET /static/*": undefined,
-
-  "GET /api/auth/*": undefined,
-
-  "GET /api/ars/*": undefined,
-
-  "GET /api/wps/*": undefined,
-
-  "GET /api/search/*": undefined,
-  "GET /api/repository/*": undefined,
-
-  // LS AAI
-  "GET https://proxy.aai.lifescience-ri.eu/*": undefined,
-  "POST https://proxy.aai.lifescience-ri.eu/*": undefined,
-  "GET https://ds.aai.lifescience-ri.eu/*": undefined,
-  "GET https://idhub.aai.lifescience-ri.eu/logos/*": undefined,
-
-  // Provider
-  "GET https://dkfzshib.inet.dkfz-heidelberg.de/*": undefined,
-};
-
-// Select responses for local or remote testing depending on env
-
-const isLocal = !process.env.HTTPS;
-
-export const responses = isLocal ? localResponses : remoteResponses;

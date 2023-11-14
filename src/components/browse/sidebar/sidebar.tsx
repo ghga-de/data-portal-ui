@@ -56,7 +56,7 @@ const Sidebar = (props: SidebarProps) => {
       "*",
       skip,
       props.limit,
-      "Dataset"
+      "EmbeddedDataset"
     );
     props.check.forEach((value: boolean, key: string) => {
       props.setCheck(props.check.set(key, false));

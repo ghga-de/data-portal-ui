@@ -31,7 +31,7 @@ const DatasetHeader = (props: DatasetHeaderProps) => {
     React.useState<SearchResponseModel | null>(null);
   React.useEffect(() => {
     const getData = () => {
-      querySearchService(setSearchResults, [], "", 0, 1, "Dataset");
+      querySearchService(setSearchResults, [], "", 0, 1, "EmbeddedDataset");
     };
     getData();
   }, []);
