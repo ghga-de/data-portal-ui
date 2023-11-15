@@ -8,8 +8,8 @@ import { FacetFilterModel } from "../models/facets";
 import { fetchJson } from "../utils/utils";
 import { showMessage } from "../components/messages/usage";
 
-const SEARCH_URL = process.env.REACT_APP_SVC_SEARCH_URL;
-const REPOSITORY_URL = process.env.REACT_APP_SVC_REPOSITORY_URL;
+const MASS_URL = process.env.REACT_APP_MASS_URL;
+const METLDATA_URL = process.env.REACT_APP_METLDATA_URL;
 
 const showFetchDataError = () => {
   showMessage({
@@ -42,13 +42,13 @@ export const querySearchService: getDatasetsSearchRespType = async (
   callbackFunc: (hits: SearchResponseModel) => void,
   filterQuery: FacetFilterModel[],
   searchKeyword = "",
-  skip: number,
-  limit: number,
+  skip = 0,
+  limit = 20,
   documentType = "EmbeddedDataset"
 ) => {
-  let url = `${SEARCH_URL}/rpc/search`;
+  let url = `${MASS_URL}/rpc/search`;
   const payload = {
-    class_name: "EmbeddedDataset",
+    class_name: documentType,
     query: searchKeyword,
     filters: filterQuery,
     skip: skip,
@@ -86,7 +86,7 @@ export const getDatasetDetails: getDatasetDetailsType = async (
   datasetAccession,
   callbackFunc
 ) => {
-  let url = `${REPOSITORY_URL}/artifacts/embedded_public/classes/EmbeddedDataset/resources/${datasetAccession}`;
+  let url = `${METLDATA_URL}/artifacts/embedded_public/classes/EmbeddedDataset/resources/${datasetAccession}`;
   try {
     const response = await fetchJson(url);
     const data = await response.json();
@@ -113,7 +113,7 @@ export const getDatasetSummary: getDatasetSummaryType = async (
   datasetAccession,
   callbackFunc
 ) => {
-  const url = `${REPOSITORY_URL}/artifacts/stats_public/classes/DatasetStats/resources/${datasetAccession}`;
+  const url = `${METLDATA_URL}/artifacts/stats_public/classes/DatasetStats/resources/${datasetAccession}`;
   try {
     const response = await fetchJson(url);
     const data = await response.json();
@@ -135,7 +135,7 @@ type getMetadataSummaryType = (
  * @returns Nothing
  */
 export const getMetadataSummary: getMetadataSummaryType = (callbackFunc) => {
-  fetch(`${REPOSITORY_URL}/stats`, {
+  fetch(`${METLDATA_URL}/stats`, {
     method: "get",
   })
     .then((response) => response.json())

@@ -86,7 +86,7 @@
           "policy_text": "This is a very permissible DAP",
           "policy_url": "http://some/policy"
         },
-        "description": "An interesting dataset C",
+        "description": "A mock dataset C",
         "title": "The C dataset",
         "types": [
           "And yet another Type",
@@ -1312,7 +1312,7 @@
           "policy_text": "This is a very strict DAP",
           "policy_url": "http://some/other/policy"
         },
-        "description": "An interesting dataset D",
+        "description": "A mock dataset D",
         "title": "The D dataset",
         "types": [
           "A Type"
@@ -1934,7 +1934,7 @@
           "policy_text": "This is a very permissible DAP",
           "policy_url": "http://some/policy"
         },
-        "description": "An interesting dataset B",
+        "description": "A mock dataset B",
         "title": "The B dataset",
         "types": [
           "And another Type"
@@ -2389,7 +2389,7 @@
           "policy_text": "This is a very permissible DAP",
           "policy_url": "http://some/policy"
         },
-        "description": "An interesting dataset A of complete example set",
+        "description": "A mock dataset A of complete example set",
         "title": "The complete-A dataset",
         "types": [
           "A Type",
@@ -2654,7 +2654,7 @@
           "policy_text": "This is a very strict DAP",
           "policy_url": "http://some/other/policy"
         },
-        "description": "An interesting dataset B of complete example set",
+        "description": "A mock dataset B of complete example set",
         "title": "The complete-B dataset",
         "types": [
           "And another Type"
@@ -2994,7 +2994,7 @@
           "policy_text": "This is a very permissible DAP",
           "policy_url": "http://some/policy"
         },
-        "description": "An interesting dataset A",
+        "description": "A mock dataset A",
         "title": "The A dataset",
         "types": [
           "A Type",

@@ -27,7 +27,7 @@ const DataRequestFormModal = (props: DataRequestFormModalProps) => {
     return clean_email;
   };
 
-  const ARS_URL = process.env.REACT_APP_SVC_ARS_URL;
+  const ARS_URL = process.env.REACT_APP_ARS_URL;
   const { user } = useAuth();
 
   const MILLISECONDS_TO_ADD: number =
@@ -260,8 +260,8 @@ const DataRequestFormModal = (props: DataRequestFormModalProps) => {
                     <Form.Control
                       type="date"
                       name="from"
-                      disabled
-                      value={new Date().toISOString().split("T")[0]}
+                      disabled readOnly
+                      defaultValue={new Date().toISOString().split("T")[0]}
                     ></Form.Control>
                   </Col>
                   <Col xs={"auto"}>
@@ -271,8 +271,8 @@ const DataRequestFormModal = (props: DataRequestFormModalProps) => {
                     <Form.Control
                       type="date"
                       name="until"
-                      disabled
-                      value={
+                      disabled readOnly
+                      defaultValue={
                         new Date(new Date().getTime() + MILLISECONDS_TO_ADD)
                           .toISOString()
                           .split("T")[0]
@@ -287,7 +287,7 @@ const DataRequestFormModal = (props: DataRequestFormModalProps) => {
                   <Form.Control
                     type="email"
                     name="email"
-                    value={user.email}
+                    defaultValue={user.email}
                     required
                   ></Form.Control>
                 </Form.Group>

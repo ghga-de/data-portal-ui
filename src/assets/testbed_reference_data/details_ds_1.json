@@ -19,7 +19,7 @@
       "policy_text": "This is a very permissible DAP",
       "policy_url": "http://some/policy"
     },
-    "description": "An interesting dataset A",
+    "description": "A mock dataset A",
     "title": "The A dataset",
     "types": [
       "A Type",

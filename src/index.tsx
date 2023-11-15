@@ -4,9 +4,16 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 
 if (process.env.NODE_ENV === "development") {
-  // use mock API in development mode
-  const { worker } = require("./mocks/browser");
-  worker.start();
+  const host = document.location.host
+  const useBackend = /ghga/.test(host);
+  if (useBackend) {
+    console.log("Using real backend");
+  } else {
+    // use mock API in development mode
+    console.log("Using mock backend");
+    const { worker } = require("./mocks/browser");
+    worker.start();
+  }
 }
 
 const root = ReactDOM.createRoot(document.getElementById("root")!);

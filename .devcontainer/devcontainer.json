@@ -4,7 +4,7 @@
 {
   "name": "Data Portal UI",
   "dockerComposeFile": "docker-compose.yml",
-  "service": "data_portal_ui_svc",
+  "service": "app",
   "workspaceFolder": "/workspace",
   "customizations": {
     "vscode": {
@@ -30,12 +30,16 @@
         "python.linting.pydocstylePath": "/usr/local/py-utils/bin/pydocstyle",
         "python.linting.pylintPath": "/usr/local/py-utils/bin/pylint",
         "python.testing.pytestPath": "/usr/local/py-utils/bin/pytest",
-        "python.testing.pytestArgs": ["--profile"],
+        "python.testing.pytestArgs": [
+          "--profile"
+        ],
         "python.testing.unittestEnabled": false,
         "python.testing.pytestEnabled": true,
         "editor.formatOnSave": true,
         "editor.renderWhitespace": "all",
-        "editor.rulers": [88],
+        "editor.rulers": [
+          88
+        ],
         "licenser.license": "Custom",
         "licenser.customHeaderFile": "/workspace/.devcontainer/license_header.txt"
       },
@@ -61,11 +65,13 @@
     }
   },
   // Use 'forwardPorts' to make a list of ports inside the container available locally.
-  "forwardPorts": [8080, 443],
+  "forwardPorts": [
+    8080,
+    443
+  ],
   // Use 'postCreateCommand' to run commands after the container is created.
   "postCreateCommand": "dev_install",
   // Comment out connect as root instead. More info: https://aka.ms/vscode-remote/containers/non-root.
   "remoteUser": "vscode",
-  "features": {
-  }
+  "features": {}
 }

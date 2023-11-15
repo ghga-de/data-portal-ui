@@ -38,10 +38,10 @@ const SingleDatasetView = () => {
         querySearchService(
           setSearchResults,
           [{ key: key, value: accessionId }],
-          "*",
+          "",
           0,
           1,
-          "Dataset"
+          "EmbeddedDataset"
         );
       }
     };
@@ -59,7 +59,7 @@ const SingleDatasetView = () => {
         paramId = undefined;
       }
     };
-    getHits(accessionId, "ega_accession");
+    getHits(accessionId, "accession");
     if (searchResults?.count === 0) {
       getHits(accessionId, "accession");
     }

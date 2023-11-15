@@ -3,7 +3,7 @@
     "types": [
       "A Type"
     ],
-    "description": "An interesting dataset D",
+    "description": "A mock dataset D",
     "dac_email": "dac@dac.dac",
     "samples_summary": {
       "count": 0,

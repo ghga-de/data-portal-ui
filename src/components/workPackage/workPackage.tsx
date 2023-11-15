@@ -19,7 +19,7 @@ import { fetchJson } from "../../utils/utils";
 import { Buffer } from "buffer";
 import { Errors, Dataset } from "../../models/submissionsAndRequests";
 
-const WPS_URL = process.env.REACT_APP_SVC_WPS_URL;
+const WPS_URL = process.env.REACT_APP_WPS_URL;
 
 /** Work Package creation */
 

@@ -124,7 +124,7 @@ export const handleFilterAndSearch = (
     searchKeyword,
     skip,
     limit,
-    "Dataset"
+    "EmbeddedDataset"
   );
   if (searchKeyword === "" || searchKeyword === null) {
     if (
