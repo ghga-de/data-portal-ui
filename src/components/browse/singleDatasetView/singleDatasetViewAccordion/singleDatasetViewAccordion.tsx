@@ -17,7 +17,7 @@ const SingleDatasetViewAccordion = (props: SingleDatasetViewAccordionProps) => {
     .flatMap((key: string) => {
       const files = (props.details as any)[key];
       const file_category =
-        key.charAt(0).toUpperCase() + key.slice(1, -1).replace("_", " ");
+        key.charAt(0).toUpperCase() + key.slice(1, -1).replaceAll("_", " ");
       return files.map((file: any) => ({ ...file, file_category }));
     });
 
