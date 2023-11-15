@@ -1,5 +1,5 @@
 import { ChangeEvent, FormEvent, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { unstable_useBlocker as useBlocker } from "react-router-dom";
 import { Button, Container, Modal, Row, Col } from "react-bootstrap";
 import { fetchJson } from "../../utils/utils";
@@ -161,13 +161,13 @@ const Register = () => {
             <div className="col-md-12">
               <input type="checkbox" onChange={handleToS} className="me-3" />I
               accept the{" "}
-              <a
-                href="https://www.ghga.de/terms-of-service"
+              <Link
+                to="/terms-of-use"
                 target="_blank"
                 rel="noreferrer"
               >
-                terms of service
-              </a>{" "}
+                terms of use
+              </Link>{" "}
               and the{" "}
               <a
                 href="https://www.ghga.de/data-protection"
