@@ -1,5 +1,5 @@
-import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Link } from "react-router-dom";
 import {
   faTwitter,
   faGithub,
@@ -39,6 +39,10 @@ const FooterIcons = () => {
       <p className="mt-2 fs-7 text-muted mb-4">
         &#169;{year} GHGA. All Rights Reserved.<br/>
         <a href="https://www.ghga.de/imprint" target="_blank" rel="noreferrer">Imprint</a>
+        {" | "}
+        <a href="https://www.ghga.de/data-protection" target="_blank" rel="noreferrer">Data Protection</a>
+        {" | "}
+        <Link to="/terms-of-use">Terms of Use</Link>
       </p>
     </Container>
   );
