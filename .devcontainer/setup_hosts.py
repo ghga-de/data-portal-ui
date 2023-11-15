@@ -31,7 +31,7 @@ def setup():
         hosts = hostsfile.read()
     if not hosts.endswith("\n"):
         hosts += "\n"
-    re_name = name.replace(".", "\.")
+    re_name = name.replace(".", "\\.")
     new_hosts, num_subs = re.subn(
         rf"^[0-9.]+\s+{re_name}$", f"{ip} {name}", hosts, flags=re.M)
     if num_subs:

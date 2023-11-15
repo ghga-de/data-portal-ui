@@ -1,21 +1,18 @@
 version: "3"
 
 services:
-  # data portal ui
-
-  data_portal_ui_svc:
+  # Data Portal UI
+  app:
     build:
       context: .
       dockerfile: ./Dockerfile
       args:
-        # [Choice] Python version: 3, 3.8, 3.7, 3.6
+        # Python version: 3, 3.11, 3.12
         VARIANT: 3.9
-        # [Choice] Install Node.js
+        # Install Node.js
         INSTALL_NODE: "true"
         NODE_VERSION: "lts/*"
-        # Please adapt to package name:
-        PACKAGE_NAME: "data_portal_ui_svc"
-        # On Linux, you may need to update USER_UID and USER_GID below if not your local UID is not 1000.
+        # on Linux, you may need to update USER_UID and USER_GID below if not your local UID is not 1000
         USER_UID: 1000
         USER_GID: 1000
 
@@ -25,17 +22,15 @@ services:
     volumes:
       - ..:/workspace:cached
 
-    # Overrides default command so things don't shut down after the process ends.
+    # override default command so things don't shut down after the process ends
     command: sleep infinity
 
-    # Uncomment the next line to use a non-root user for all processes.
+    # use a non-root user for all processes
     user: vscode
 
     # define environment variables
     environment:
-      # Please adapt to package name:
       DATA_PORTAL_UI_CONFIG_YAML: /workspace/.devcontainer/.data_portal_ui.yaml
-      WDS_SOCKET_PORT: 443
 
     env_file:
       - local.env

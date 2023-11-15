@@ -16,7 +16,7 @@ import os
 from pathlib import Path
 from subprocess import Popen
 from hexkit.config import config_from_yaml
-from pydantic import BaseSettings
+from pydantic_settings import BaseSettings
 
 ROOT_DIR = Path(__file__).parent.parent.resolve()
 
