@@ -33,5 +33,6 @@ const authServiceProxy = {
 };
 
 module.exports = function (app) {
-  app.use("/api", createProxyMiddleware(authServiceProxy));
+  const useBackend = /ghga/.test(clientUrl);
+  if (useBackend) app.use("/api", createProxyMiddleware(authServiceProxy));
 };
