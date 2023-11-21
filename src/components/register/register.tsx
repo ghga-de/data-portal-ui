@@ -1,6 +1,6 @@
 import { ChangeEvent, FormEvent, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import { unstable_useBlocker as useBlocker } from "react-router-dom";
+import { useBlocker } from "react-router-dom";
 import { Button, Container, Modal, Row, Col } from "react-bootstrap";
 import { fetchJson } from "../../utils/utils";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";

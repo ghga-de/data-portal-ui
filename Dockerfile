@@ -38,7 +38,10 @@ ENV PATH=$PATH:/home/node/.npm-global/bin
 
 # install run script and npm modules
 RUN python3 -m pip install --user -r /service/configure_build_serve/requirements.txt
-RUN npm install
+RUN npm install --only=prod
+RUN npm install react-scripts
+RUN /service/configure_build_serve/run.py --build
+RUN rm -rf node_modules
 RUN npm install -g serve
 
 # build application and serve frontend

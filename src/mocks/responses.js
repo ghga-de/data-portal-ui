@@ -44,7 +44,7 @@ export const responses = {
   "GET /api/metldata/artifacts/embedded_public/classes/EmbeddedDataset/resources/*": embeddedDataset,
 
   // Get summary data from a single dataset
-  "GET /api/metldata/classes/DatasetStats/resources/*": datasetSummary,
+  "GET /api/metldata/artifacts/stats_public/classes/DatasetStats/resources/*": datasetSummary,
 
   // Get summary data from entire metadata database
   "GET /api/metldata/stats": metadataSummary,

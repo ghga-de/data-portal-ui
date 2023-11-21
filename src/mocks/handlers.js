@@ -1,4 +1,4 @@
-import { rest } from "msw";
+import { http, HttpResponse } from "msw";
 import { responses } from "./responses";
 import { setOidcUser } from "./login";
 
@@ -13,14 +13,12 @@ const fakeAuth = !!CLIENT_URL.match(/127\.|local/);
 // handlers for REST endpoints
 export const handlers = [
   // intercept OIDC configuration request and redirect to profile page
-  rest.get(OIDC_CONFIG_URL, (req, res, ctx) => {
+  http.get(OIDC_CONFIG_URL, () => {
     if (fakeAuth) {
       setOidcUser();
-      return res(
-        ctx.json({
-          authorization_endpoint: CLIENT_URL + "profile",
-        })
-      );
+      return HttpResponse.json({
+        authorization_endpoint: CLIENT_URL + "profile",
+      }, {status: 200});
     }
   }),
 ];
@@ -45,11 +43,21 @@ Object.keys(responses).forEach((endpoint) => {
   responseMap[params || "*"] = responses[endpoint];
 });
 
-function getMatchingParamString(requestParams, responseMap) {
+// find the response with the most matching parameters
+async function getMatchingParamString(request, responseMap) {
   const paramStrings = Object.keys(responseMap);
   if (responseMap.length < 2) {
     return paramStrings[0];
   }
+  // combine parameters from query string and body
+  const requestParams = new URL(request.url).searchParams;
+  const method = request.method.toLowerCase();
+  if (method === "post" || method === "patch") {
+    const bodyParams = await request.json();
+    Object.entries(bodyParams).forEach(
+      (key, value) => requestParams.set(key, value));
+  }
+  // find the response with the most matching parameters
   let bestParamString = null;
   let bestNumParams = 0;
   let bestStringLen = 0;
@@ -78,31 +86,24 @@ Object.keys(groupedResponses).forEach((endpoint) => {
   let method, url;
   [method, url] = endpoint.split(" ");
   const responseMap = groupedResponses[endpoint];
-  const resolver = (req, res, ctx) => {
-    const paramString = getMatchingParamString(
-      req.url.searchParams,
-      responseMap
-    );
+  const resolver = async (info) => {
+    const paramString = await getMatchingParamString(info.request, responseMap);
     let response = responseMap[paramString];
     if (response === undefined) {
-      console.debug("Not mocking", req.url.href);
+      console.debug("Not mocking", url);
       return;
     }
-    console.debug("Mocking", req.url.href);
     if (responseMap.length > 1) {
       console.debug("Using mock data for params", paramString);
     }
-    let args = [];
+    let status = 200;
     if (typeof response === "number") {
-      args.push(ctx.status(response));
+      status = response;
       response = null;
     } else if (method === "post" || method === "patch") {
-      args.push(ctx.status(response ? 201 : 204));
+      status = response ? 201 : 204;
     }
-    if (response) {
-      args.push(ctx.json(response));
-    }
-    return res(...args);
+    return HttpResponse.json(response || null, {status});
   };
-  handlers.push(rest[method].call(rest, url, resolver));
+  handlers.push(http[method].call(http, url, resolver));
 });

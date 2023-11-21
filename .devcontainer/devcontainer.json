@@ -10,6 +10,7 @@
     "vscode": {
       // Set *default* container specific settings.json values on container create.
       "settings": {
+        "files.eol": "\n",
         "terminal.integrated.profiles.linux": {
           "bash": {
             "path": "/bin/bash"
@@ -17,18 +18,7 @@
         },
         "python.pythonPath": "/usr/local/bin/python",
         "python.languageServer": "Pylance",
-        "python.linting.enabled": true,
-        "python.linting.pylintEnabled": true,
-        "python.formatting.autopep8Path": "/usr/local/py-utils/bin/autopep8",
-        "python.formatting.blackPath": "/usr/local/py-utils/bin/black",
-        "python.formatting.yapfPath": "/usr/local/py-utils/bin/yapf",
-        "python.formatting.provider": "black",
         "python.analysis.typeCheckingMode": "basic",
-        "python.linting.banditPath": "/usr/local/py-utils/bin/bandit",
-        "python.linting.mypyPath": "/usr/local/py-utils/bin/mypy",
-        "python.linting.pycodestylePath": "/usr/local/py-utils/bin/pycodestyle",
-        "python.linting.pydocstylePath": "/usr/local/py-utils/bin/pydocstyle",
-        "python.linting.pylintPath": "/usr/local/py-utils/bin/pylint",
         "python.testing.pytestPath": "/usr/local/py-utils/bin/pytest",
         "python.testing.pytestArgs": [
           "--profile"
@@ -40,6 +30,7 @@
         "editor.rulers": [
           88
         ],
+        "editor.defaultFormatter": "ms-python.black-formatter",
         "licenser.license": "Custom",
         "licenser.customHeaderFile": "/workspace/.devcontainer/license_header.txt"
       },
@@ -48,8 +39,8 @@
         "mikestead.dotenv",
         "ms-azuretools.vscode-docker",
         "ms-python.python",
-        "ms-python.isort",
         "ms-python.vscode-pylance",
+        "ms-python.black-formatter",
         "njpwerner.autodocstring",
         "redhat.vscode-yaml",
         "42crunch.vscode-openapi",
