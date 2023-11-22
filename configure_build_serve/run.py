@@ -81,7 +81,6 @@ def build():
         raise RuntimeError(
             f"`npm` terminated with non-zero exit code: {exit_code_build}."
         )
-        
 
 
 def serve(config: Config):
@@ -98,7 +97,6 @@ def serve(config: Config):
         "../configure_build_serve/serve.json",
         str(ROOT_DIR / "build"),
     ]
-
     exit_code_serve = Popen(cmd_serve).wait()
 
     raise RuntimeError(f"Serving of app was interrupted: {exit_code_serve}.")
@@ -138,16 +136,10 @@ def run():
     )
 
     parser.add_argument(
-        "--build",
-        help="""If set, the script will build the web app for production.""",
-        action="store_true",
-    )
-
-
-    parser.add_argument(
         "--dev",
-        help="""If set, the script will serve using a development web server that will 
-        reload automatically once changes are made to the source code.
+        help="""If set, the script will skip the build process and
+        will serve a development web server that will reload automatically
+        once changes are made to the source code.
         Please Note: do not use this option for production.""",
         action="store_true",
     )
@@ -163,11 +155,9 @@ def run():
     if args.dev:
         # run app using development server:
         dev_serve(config)
-    elif args.build:
-        # just build the app:
-        build()
     else:
-        # serve using production server:
+        # build and serve production server:
+        build()
         serve(config)
 
 
