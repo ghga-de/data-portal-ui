@@ -79,7 +79,7 @@ const PublicationTabContents = (props: PublicationTabContentsProps) => {
                   </p>
                   <p>
                     <strong>Abstract: </strong>
-                    {x.abstract.split("\n").map((x, idx) => (
+                    {(x.abstract || "").split("\n").map((x, idx) => (
                       <span key={"pub_abstract_" + idx}>
                         {x}
                         <br />
