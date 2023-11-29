@@ -65,6 +65,29 @@ function Layout() {
     authService
       .getUser()
       .then((user) => {
+        if (user?.expired) {
+          // user is logged in, but token has expired
+          authService.logout().then(() => {
+            console.info("You have been logged out.");
+            showMessage({
+              type: "error",
+              title: "Your user session has expired",
+              detail:
+                "You need to log in again if you want" +
+                " to continue your authenticated authenticated session.",
+              callback1: () => {},
+              label1: "Continue unauthenticated",
+              callback2: () => {
+                if (location.pathname !== "/register")
+                  sessionStorage.setItem("lastUrl", window.location.href);
+                authService.login();
+              },
+              label2: "Log in again",
+              modal: true,
+            });
+          });
+          user = null;
+        }
         if (
           user &&
           (!user.id || user.changed) &&
