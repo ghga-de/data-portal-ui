@@ -74,7 +74,7 @@ function Layout() {
               title: "Your user session has expired",
               detail:
                 "You need to log in again if you want" +
-                " to continue your authenticated authenticated session.",
+                " to continue your authenticated user session.",
               callback1: () => {},
               label1: "Continue unauthenticated",
               callback2: () => {
