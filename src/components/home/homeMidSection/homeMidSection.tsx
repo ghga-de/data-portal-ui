@@ -93,7 +93,7 @@ const HomeMidSection = () => {
             className="bg-white d-flex align-items-center"
           >
             <span className="w-100 text-center fs-1">
-              {summary.resource_stats.Dataset !== undefined ? summary.resource_stats.Dataset.count: 0}
+              {summary?.resource_stats?.Dataset?.count || 0}
             </span>
           </div>
         </NavLink>
