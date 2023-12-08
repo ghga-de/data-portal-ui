@@ -107,7 +107,7 @@ const HomeMidSection = () => {
       badgeTitle: BadgeTitleGen(
         faDna,
         "Platforms: " +
-        String(summary.resource_stats.SequencingProtocol !== undefined ? summary.resource_stats.SequencingProtocol?.stats.type.length.toString() : 0)
+        (summary?.resource_stats?.SequencingProtocol?.stats?.type?.length || 0)
       ),
       badgeBody: summary.resource_stats.SequencingProtocol?.stats.type.map(
         (x: any) => (
