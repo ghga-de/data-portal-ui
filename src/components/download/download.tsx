@@ -37,19 +37,17 @@ const Download = () => {
       </h5>
       <hr className="border-secondary mb-4" />
       <div className="overflow-auto">
-        <p className="fw-bold">
-          The GHGA Data Portal is currently being developed and will allow data
-          download request over the portal in the future. During this early
-          phase of the project, we are listing non-personal metadata and acting
-          as a gateway to data submitters who will serve the research data upon
-          approval of the request.
+        <p>
+          The GHGA Data Portal allows users to request access to data through the 
+          portal. We are listing non-personal metadata and acting as a gateway to data 
+          submitters who will serve the research data upon approval of the request. 
         </p>
-        <p className="fw-bold">
-          Visit your dataset of interest and then click on the "Request access"
-          button. This will prompt your email client to open with an email
-          template to the data access committee for the dataset. Fill in the
-          necessary information and send the email to the data access committee
-          email listed on the dataset.
+        <p>
+          Visit your dataset of interest and then click on the "Request access" 
+          button. This will direct you to a data access request form. Complete 
+          the form with the necessary information and submit it to request access 
+          to the dataset. The data access committee will review your request and 
+          respond accordingly.
         </p>
       </div>
       <Row className={STATIC_PAGE_IMG_ROW_CLASSES}>
@@ -88,6 +86,15 @@ const Download = () => {
             <img src={browseImg} alt="Browse view" className="w-100" />
           </Col>
         </Row>
+        <p>
+          To request a dataset, expand the dataset by clicking the arrow at the right corner of the
+          dataset box, and click the "Request Access" button.
+        </p>
+        <Row className={STATIC_PAGE_IMG_ROW_CLASSES}>
+          <Col className={STATIC_PAGE_IMG_COL_CLASSES}>
+            <img src={requestImg} alt="Dataset details" className="w-100" />
+          </Col>
+        </Row>
       </div>
       <div>
         <h5 className="mb-4 d-flex align-items-center text-secondary fw-bold">
@@ -105,40 +112,11 @@ const Download = () => {
           Request Access
         </h5>
         <p>
-          To request a dataset, please find the dataset of interest on the&nbsp;
-          <Link to="/browse" target="_blank" rel="noreferrer">
-            browse page
-          </Link>
-          , expand the dataset by clicking the arrow at the right corner of the
-          dataset box, and click the "Request Access" button.
-        </p>
-        <Row className={STATIC_PAGE_IMG_ROW_CLASSES}>
-          <Col className={STATIC_PAGE_IMG_COL_CLASSES}>
-            <img src={requestImg} alt="Dataset details" className="w-100" />
-          </Col>
-        </Row>
-      </div>
-      <div>
-        <h5 className="mb-4 d-flex align-items-center text-secondary fw-bold">
-          <FontAwesomeIcon
-            icon={faEnvelope}
-            pull="left"
-            style={{
-              width: "30px",
-              height: "30px",
-              backgroundColor: "rgba(214,95,48,0.2)",
-              padding: "8px",
-            }}
-            className="me-3 fs-4 rounded"
-          />
-          Send an email
-        </h5>
-        <p>
-          This should prompt your email client (Microsoft Outlook, Apple Mail,
-          ...) to create a new email with partially filled content. Please
-          answer the questions in the mail, and send it to the respective
-          contact e-mail. If your email client doesn't open, you can copy the
-          e-mail, subject, and text to send the e-mail manually.
+          After clicking the "Request Access" button on the dataset details page, you 
+          will be directed to a specific data access request form for that dataset. 
+          On this form, you will need to provide details about your request and your 
+          email address for further communication. Once you've filled out the necessary 
+          information, submit the form to proceed with your data access request.
         </p>
         <Row className={STATIC_PAGE_IMG_ROW_CLASSES}>
           <Col className={STATIC_PAGE_IMG_COL_CLASSES}>
@@ -163,7 +141,8 @@ const Download = () => {
         </h5>
         <p className="mb-5">
           After communicating with the data owner, you will get permission for
-          the desired datasets.
+          the desired datasets. You will receive an email notification at the 
+          email address you provided in the form.
           <br />
           <strong>
             Note: The GHGA Data Portal is not responsible for data accession
@@ -175,17 +154,9 @@ const Download = () => {
         <p className="mb-0">Requesting Multiple Datasets:</p>
         <ul>
           <li>
-            If you want to request all datasets from a study, you can send a
-            request for the whole study with a single email.
-          </li>
-          <li>
-            If you are interested in multiple datasets under the same use case,
-            you can send us a single email, list the dataset IDs you want to
-            access, and answer questions once.
-          </li>
-          <li>
-            If you are interested in multiple datasets for different use cases,
-            please send separate emails for each use case.
+            If you are interested in multiple datasets, whether for the same or 
+            different use cases, please send a separate email for each dataset 
+            and each use case.
           </li>
         </ul>
       </div>
