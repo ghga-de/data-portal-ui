@@ -123,7 +123,7 @@ const HomeMidSection = () => {
     Badges.push({
       badgeTitle: BadgeTitleGen(
         faUser,
-        "Individuals: " + String(summary.resource_stats.Individual !== undefined ? summary.resource_stats.Individual?.count.toString() : 0),
+        "Individuals: " + (summary?.resource_stats?.Individual?.count || 0),
         true
       ),
       badgeBody: (
@@ -149,7 +149,7 @@ const HomeMidSection = () => {
       badgeTitle: BadgeTitleGen(
         faChartColumn,
         "Files: " +
-          String(summary.resource_stats.SequencingProcessFile !== undefined ? summary.resource_stats.SequencingProcessFile?.count.toString() : 0)
+          (summary?.resource_stats?.SequencingProcessFile?.count || 0)
       ),
       badgeBody: (
         <table>
