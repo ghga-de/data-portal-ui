@@ -93,7 +93,7 @@ const HomeMidSection = () => {
             className="bg-white d-flex align-items-center"
           >
             <span className="w-100 text-center fs-1">
-              {summary?.resource_stats.Dataset.count}
+              {summary?.resource_stats?.Dataset?.count || 0}
             </span>
           </div>
         </NavLink>
@@ -107,9 +107,9 @@ const HomeMidSection = () => {
       badgeTitle: BadgeTitleGen(
         faDna,
         "Platforms: " +
-          summary.resource_stats.SequencingProtocol.stats.type.length.toString()
+        (summary?.resource_stats?.SequencingProtocol?.stats?.type?.length || 0)
       ),
-      badgeBody: summary.resource_stats.SequencingProtocol.stats.type.map(
+      badgeBody: summary.resource_stats.SequencingProtocol?.stats.type.map(
         (x: any) => (
           <Row key={x.value} className="text-capitalize ms-0 ps-0 mb-2 w-100">
             <Col className="ms-0 ps-0">{x.value}:</Col>
@@ -123,13 +123,13 @@ const HomeMidSection = () => {
     Badges.push({
       badgeTitle: BadgeTitleGen(
         faUser,
-        "Individuals: " + summary.resource_stats.Individual.count.toString(),
+        "Individuals: " + (summary?.resource_stats?.Individual?.count || 0),
         true
       ),
       badgeBody: (
         <div>
           <Row className="pt-4 mt-3 w-100 px-0 mx-0">
-            {summary.resource_stats.Individual.stats.sex.map((x, i) => {
+            {summary.resource_stats.Individual?.stats.sex.map((x, i) => {
               const sex = /FEMALE/.test(x.value) ? "Female" : "Male";
               return (
                 <Col key={i} className="text-center mb-4 ps-1 text-capitalize">
@@ -149,12 +149,12 @@ const HomeMidSection = () => {
       badgeTitle: BadgeTitleGen(
         faChartColumn,
         "Files: " +
-          summary.resource_stats.SequencingProcessFile.count.toString()
+          (summary?.resource_stats?.SequencingProcessFile?.count || 0)
       ),
       badgeBody: (
         <table>
           <tbody>
-            {summary.resource_stats.SequencingProcessFile.stats.format.map(
+            {summary.resource_stats.SequencingProcessFile?.stats.format.map(
               (x) => {
                 return (
                   <tr key={x.value} className="text-uppercase ms-0 ps-0 mb-2">
