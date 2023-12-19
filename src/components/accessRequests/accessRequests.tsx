@@ -23,7 +23,8 @@ import { fetchJson } from "../../utils/utils";
 import AccessRequestsList from "./accessRequestsList/accessRequestsList";
 import AccessRequestsFilter from "./accessRequestsFilter/accessRequestsFilter";
 
-const ARS_URL = process.env.REACT_APP_ARS_URL;
+const CLIENT_URL = process.env.REACT_APP_CLIENT_URL
+const ARS_URL = (CLIENT_URL || "") + process.env.REACT_APP_ARS_URL;
 
 const AccessRequests = () => {
   const MIN_YEAR = 2000;

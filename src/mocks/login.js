@@ -1,8 +1,9 @@
 import { user } from "./data";
 
-const ISSUER = process.env["REACT_APP_OIDC_AUTHORITY_URL"];
-const SCOPE = process.env["REACT_APP_OIDC_SCOPE"];
-const CLIENT_ID = process.env["REACT_APP_OIDC_CLIENT_ID"];
+const CLIENT_URL = process.env["REACT_APP_CLIENT_URL"];
+const ISSUER = (CLIENT_URL || "") + process.env["REACT_APP_OIDC_AUTHORITY_URL"];
+const SCOPE = (CLIENT_URL || "") + process.env["REACT_APP_OIDC_SCOPE"];
+const CLIENT_ID = (CLIENT_URL || "") + process.env["REACT_APP_OIDC_CLIENT_ID"];
 
 // Simulate login with dummy user via OIDC
 export function setOidcUser() {

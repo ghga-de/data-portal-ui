@@ -13,7 +13,8 @@ import {
 import { useMessages } from "../messages/usage";
 import { useAuth } from "../../services/auth";
 
-const USERS_URL = process.env.REACT_APP_USERS_URL;
+const CLIENT_URL = process.env.REACT_APP_CLIENT_URL
+const USERS_URL = (CLIENT_URL || "") + process.env.REACT_APP_USERS_URL;
 
 /** User registration form */
 

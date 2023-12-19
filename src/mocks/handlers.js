@@ -3,7 +3,7 @@ import { responses } from "./responses";
 import { setOidcUser } from "./login";
 
 const CLIENT_URL = process.env["REACT_APP_CLIENT_URL"];
-const OIDC_AUTHORITY_URL = process.env["REACT_APP_OIDC_AUTHORITY_URL"];
+const OIDC_AUTHORITY_URL = (CLIENT_URL || "") + process.env["REACT_APP_OIDC_AUTHORITY_URL"];
 const OIDC_CONFIG_URL = OIDC_AUTHORITY_URL + ".well-known/openid-configuration";
 
 const fakeAuth = !!CLIENT_URL.match(/127\.|local/);
@@ -18,7 +18,7 @@ export const handlers = [
       setOidcUser();
       return HttpResponse.json({
         authorization_endpoint: CLIENT_URL + "profile",
-      }, {status: 200});
+      }, { status: 200 });
     }
   }),
 ];
@@ -103,7 +103,7 @@ Object.keys(groupedResponses).forEach((endpoint) => {
     } else if (method === "post" || method === "patch") {
       status = response ? 201 : 204;
     }
-    return HttpResponse.json(response || null, {status});
+    return HttpResponse.json(response || null, { status });
   };
   handlers.push(http[method].call(http, url, resolver));
 });

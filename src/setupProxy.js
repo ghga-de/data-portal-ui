@@ -11,7 +11,7 @@
 const { createProxyMiddleware } = require("http-proxy-middleware");
 
 const clientUrl = process.env.REACT_APP_CLIENT_URL;
-const basicAuth = process.env.REACT_APP_BASIC_AUTH || null;
+const basicAuth = (clientUrl || "") + process.env.REACT_APP_BASIC_AUTH || null;
 
 const logOptions = {
   onProxyReq: (proxyReq, req, res) => {
