@@ -8,9 +8,9 @@ import { FacetFilterModel } from "../models/facets";
 import { fetchJson } from "../utils/utils";
 import { showMessage } from "../components/messages/usage";
 
-const CLIENT_URL = process.env.REACT_APP_CLIENT_URL
-const MASS_URL = (CLIENT_URL || "") + process.env.REACT_APP_MASS_URL;
-const METLDATA_URL = (CLIENT_URL || "") + process.env.REACT_APP_METLDATA_URL;
+const CLIENT_URL : URL = new URL(String(process.env.REACT_APP_CLIENT_URL))
+const MASS_URL : URL = new URL(String(process.env.REACT_APP_MASS_URL), CLIENT_URL);
+const METLDATA_URL : URL = new URL(String(process.env.REACT_APP_METLDATA_URL), CLIENT_URL)
 
 const showFetchDataError = () => {
   showMessage({

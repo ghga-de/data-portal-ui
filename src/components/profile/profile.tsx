@@ -5,8 +5,8 @@ import { useMessages } from "../messages/usage";
 import { useAuth } from "../../services/auth";
 import { fetchJson } from "../../utils/utils";
 
-const CLIENT_URL = process.env.REACT_APP_CLIENT_URL
-const WPS_URL = (CLIENT_URL || "") + process.env.REACT_APP_WPS_URL;
+const CLIENT_URL : URL = new URL(String(process.env.REACT_APP_CLIENT_URL))
+const WPS_URL : URL = new URL (String(process.env.REACT_APP_WPS_URL), CLIENT_URL);
 
 /** Display user profile */
 

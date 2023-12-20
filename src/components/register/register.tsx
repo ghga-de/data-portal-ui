@@ -13,8 +13,8 @@ import {
 import { useMessages } from "../messages/usage";
 import { useAuth } from "../../services/auth";
 
-const CLIENT_URL = process.env.REACT_APP_CLIENT_URL
-const USERS_URL = (CLIENT_URL || "") + process.env.REACT_APP_USERS_URL;
+const CLIENT_URL : URL = new URL (String(process.env.REACT_APP_CLIENT_URL))
+const USERS_URL : URL = new URL (String(process.env.REACT_APP_USERS_URL), CLIENT_URL)
 
 /** User registration form */
 
@@ -70,7 +70,7 @@ const Register = () => {
       email,
       title: title || null,
     };
-    let url: string = USERS_URL;
+    let url: string = USERS_URL.href;
     let method: string, ok: number;
     if (id) {
       url += `/${user.id}`;

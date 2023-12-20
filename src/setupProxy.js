@@ -10,8 +10,8 @@
 // Note that this currently works only as a CommonJS module
 const { createProxyMiddleware } = require("http-proxy-middleware");
 
-const clientUrl = process.env.REACT_APP_CLIENT_URL;
-const basicAuth = (clientUrl || "") + process.env.REACT_APP_BASIC_AUTH || null;
+const clientUrl = new URL(String(process.env.REACT_APP_CLIENT_URL));
+const basicAuth = process.env.REACT_APP_BASIC_AUTH === undefined ? null : new URL(process.env.REACT_APP_BASIC_AUTH, clientUrl)
 
 const logOptions = {
   onProxyReq: (proxyReq, req, res) => {

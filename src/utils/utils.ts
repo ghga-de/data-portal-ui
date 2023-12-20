@@ -4,7 +4,7 @@ import { SearchResponseModel } from "../models/dataset";
 import { FacetFilterModel } from "../models/facets";
 import { authService } from "../services/auth";
 
-const CLIENT_URL = process.env.REACT_APP_CLIENT_URL;
+const CLIENT_URL : URL = new URL (String(process.env.REACT_APP_CLIENT_URL))
 
 /**
  * Convert an array of filter objects into string representation.
@@ -178,7 +178,7 @@ export const fetchJson = async (
     headers["Content-Type"] = "application/json";
   }
   if (CLIENT_URL) {
-    headers["Origin"] = CLIENT_URL;
+    headers["Origin"] = CLIENT_URL.hostname;
   }
   const token = await authService.getAccessToken();
   if (token) {

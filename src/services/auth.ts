@@ -4,8 +4,8 @@ import { fetchJson } from "../utils/utils";
 import { showMessage } from "../components/messages/usage";
 import { createStore, useStore } from "zustand";
 
-const CLIENT_URL = process.env.REACT_APP_CLIENT_URL
-const USERS_URL = (CLIENT_URL || "") + process.env.REACT_APP_USERS_URL;
+const CLIENT_URL : URL = new URL (String(process.env.REACT_APP_CLIENT_URL))
+const USERS_URL : URL = new URL(String(process.env.REACT_APP_USERS_URL), CLIENT_URL);
 
 /**
  * Interface for a full high-level user object.

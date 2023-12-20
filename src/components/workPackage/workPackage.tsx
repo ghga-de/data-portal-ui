@@ -19,8 +19,8 @@ import { fetchJson } from "../../utils/utils";
 import { Buffer } from "buffer";
 import { Errors, Dataset } from "../../models/submissionsAndRequests";
 
-const CLIENT_URL = process.env.REACT_APP_CLIENT_URL
-const WPS_URL = (CLIENT_URL || "") + process.env.REACT_APP_WPS_URL;
+const CLIENT_URL : URL = new URL (String(process.env.REACT_APP_CLIENT_URL))
+const WPS_URL : URL = new URL (String(process.env.REACT_APP_WPS_URL), CLIENT_URL);
 
 /** Work Package creation */
 

@@ -19,8 +19,8 @@ import { showMessage } from "../../messages/usage";
 import { AccessRequest } from "../../../models/submissionsAndRequests";
 import { useState } from "react";
 
-const CLIENT_URL = process.env.REACT_APP_CLIENT_URL
-const ARS_URL = (CLIENT_URL || "") + process.env.REACT_APP_ARS_URL;
+const CLIENT_URL : URL = new URL (String(process.env.REACT_APP_CLIENT_URL))
+const ARS_URL: URL = new URL(String(process.env.REACT_APP_ARS_URL),CLIENT_URL);
 
 interface AccessRequestModalProps {
   show: boolean;

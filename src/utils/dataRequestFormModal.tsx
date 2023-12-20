@@ -27,8 +27,8 @@ const DataRequestFormModal = (props: DataRequestFormModalProps) => {
     return clean_email;
   };
 
-  const CLIENT_URL = process.env.REACT_APP_CLIENT_URL
-  const ARS_URL = (CLIENT_URL || "") + process.env.REACT_APP_ARS_URL;
+  const CLIENT_URL: URL = new URL(String(process.env.REACT_APP_CLIENT_URL))
+  const ARS_URL : URL = new URL(String(process.env.REACT_APP_ARS_URL), CLIENT_URL);
   const { user } = useAuth();
 
   const MILLISECONDS_TO_ADD: number =
