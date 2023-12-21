@@ -14,13 +14,13 @@
 // limitations under the License.
 
 import { Button, Col, Modal, Row } from "react-bootstrap";
-import { fetchJson } from "../../../utils/utils";
+import { fetchJson, cleanUrl } from "../../../utils/utils";
 import { showMessage } from "../../messages/usage";
 import { AccessRequest } from "../../../models/submissionsAndRequests";
 import { useState } from "react";
 
-const CLIENT_URL : URL = new URL (String(process.env.REACT_APP_CLIENT_URL))
-const ARS_URL: URL = new URL(String(process.env.REACT_APP_ARS_URL),CLIENT_URL);
+const CLIENT_URL : URL = new URL(process.env.REACT_APP_CLIENT_URL as string)
+const ARS_URL: URL = new URL(cleanUrl(process.env.REACT_APP_ARS_URL as string),CLIENT_URL);
 
 interface AccessRequestModalProps {
   show: boolean;
@@ -44,7 +44,7 @@ const AccessRequestModal = (props: AccessRequestModalProps) => {
       return null;
     }
     setDisabledButtons(true);
-    const url = `${ARS_URL}/access-requests/${props.accessRequest?.id}`;
+    const url = new URL(`${ARS_URL.href}/access-requests/${props.accessRequest?.id}`);
     try {
       const response = await fetchJson(url, "PATCH", { status: status });
       if (response.ok) {

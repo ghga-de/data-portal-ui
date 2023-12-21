@@ -19,12 +19,12 @@ import { AccessRequest } from "../../models/submissionsAndRequests";
 import { useMessages } from "../messages/usage";
 import { useAuth } from "../../services/auth";
 import { useEffect, useState } from "react";
-import { fetchJson } from "../../utils/utils";
+import { fetchJson, cleanUrl } from "../../utils/utils";
 import AccessRequestsList from "./accessRequestsList/accessRequestsList";
 import AccessRequestsFilter from "./accessRequestsFilter/accessRequestsFilter";
 
-const CLIENT_URL : URL = new URL(String(process.env.REACT_APP_CLIENT_URL))
-const ARS_URL : URL = new URL(String(process.env.REACT_APP_ARS_URL), CLIENT_URL);
+const CLIENT_URL : URL = new URL(process.env.REACT_APP_CLIENT_URL as string)
+const ARS_URL : URL = new URL(cleanUrl(process.env.REACT_APP_ARS_URL as string), CLIENT_URL);
 
 const AccessRequests = () => {
   const MIN_YEAR = 2000;
@@ -96,7 +96,7 @@ const AccessRequests = () => {
     async function fetchData() {
       let accessRequests: AccessRequest[] | null = null;
       if (user?.id) {
-        const url = `${ARS_URL}/access-requests`;
+        const url = new URL(`${ARS_URL.href}/access-requests`);
         try {
           const response = await fetchJson(url);
           if (response.ok) {

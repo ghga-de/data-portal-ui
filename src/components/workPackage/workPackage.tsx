@@ -15,12 +15,12 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { useMessages } from "../messages/usage";
 import { useAuth } from "../../services/auth";
-import { fetchJson } from "../../utils/utils";
+import { fetchJson, cleanUrl } from "../../utils/utils";
 import { Buffer } from "buffer";
 import { Errors, Dataset } from "../../models/submissionsAndRequests";
 
-const CLIENT_URL : URL = new URL (String(process.env.REACT_APP_CLIENT_URL))
-const WPS_URL : URL = new URL (String(process.env.REACT_APP_WPS_URL), CLIENT_URL);
+const CLIENT_URL : URL = new URL(process.env.REACT_APP_CLIENT_URL as string)
+const WPS_URL : URL = new URL(cleanUrl(process.env.REACT_APP_WPS_URL as string), CLIENT_URL);
 
 /** Work Package creation */
 
@@ -39,7 +39,7 @@ export function WorkPackage() {
   useEffect(() => {
     async function fetchData() {
       if (user?.id) {
-        const url = `${WPS_URL}/users/${user.id}/datasets`;
+        const url = new URL(`${WPS_URL}/users/${user.id}/datasets`);
         try {
           let datasets: Dataset[];
           const response = await fetchJson(url);
@@ -204,7 +204,7 @@ export function WorkPackage() {
       !(user?.id && dataset?.id && dataset.stage && userKey && !errors.userKey)
     )
       return;
-    const url = `${WPS_URL}/work-packages`;
+    const url = new URL(`${WPS_URL}/work-packages`);
     const fileIds = (files || "").split(/[,\s]+/).filter((file) => file);
     const data = {
       dataset_id: dataset.id,

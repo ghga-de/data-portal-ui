@@ -8,9 +8,21 @@ import { FacetFilterModel } from "../models/facets";
 import { fetchJson } from "../utils/utils";
 import { showMessage } from "../components/messages/usage";
 
-const CLIENT_URL : URL = new URL(String(process.env.REACT_APP_CLIENT_URL))
-const MASS_URL : URL = new URL(String(process.env.REACT_APP_MASS_URL), CLIENT_URL);
-const METLDATA_URL : URL = new URL(String(process.env.REACT_APP_METLDATA_URL), CLIENT_URL)
+/**
+ * Checks and cleans up URL if last character is or is not forward slash
+ * Duplicate of utils version because of infinite recursion error, needs refactoring
+ * @param url - String of URL
+ * @param endSlash - whether we want to have an end slash or not
+ * @returns URL as specified
+ */
+const cleanUrl = (url: string, endSlash : boolean = false) => {
+  const lastCharSlash : boolean = url.slice(-1) === "/"
+  return endSlash ? lastCharSlash ? url : url + "/" : lastCharSlash ? url.slice(0,-1) : url
+}
+
+const CLIENT_URL : URL = new URL(process.env.REACT_APP_CLIENT_URL as string)
+const MASS_URL : URL = new URL(cleanUrl(process.env.REACT_APP_MASS_URL as string), CLIENT_URL);
+const METLDATA_URL : URL = new URL(cleanUrl(process.env.REACT_APP_METLDATA_URL as string), CLIENT_URL)
 
 const showFetchDataError = () => {
   showMessage({
@@ -47,7 +59,7 @@ export const querySearchService: getDatasetsSearchRespType = async (
   limit = 20,
   documentType = "EmbeddedDataset"
 ) => {
-  let url = `${MASS_URL}/rpc/search`;
+  let url = new URL(`${MASS_URL.href}/rpc/search`);
   const payload = {
     class_name: documentType,
     query: searchKeyword,
@@ -87,7 +99,7 @@ export const getDatasetDetails: getDatasetDetailsType = async (
   datasetAccession,
   callbackFunc
 ) => {
-  let url = `${METLDATA_URL}/artifacts/embedded_public/classes/EmbeddedDataset/resources/${datasetAccession}`;
+  let url = new URL(`${METLDATA_URL.href}/artifacts/embedded_public/classes/EmbeddedDataset/resources/${datasetAccession}`);
   try {
     const response = await fetchJson(url);
     const data = await response.json();
@@ -114,7 +126,7 @@ export const getDatasetSummary: getDatasetSummaryType = async (
   datasetAccession,
   callbackFunc
 ) => {
-  const url = `${METLDATA_URL}/artifacts/stats_public/classes/DatasetStats/resources/${datasetAccession}`;
+  const url = new URL(`${METLDATA_URL.href}/artifacts/stats_public/classes/DatasetStats/resources/${datasetAccession}`);
   try {
     const response = await fetchJson(url);
     const data = await response.json();
@@ -136,7 +148,7 @@ type getMetadataSummaryType = (
  * @returns Nothing
  */
 export const getMetadataSummary: getMetadataSummaryType = (callbackFunc) => {
-  fetch(`${METLDATA_URL}/stats`, {
+  fetch(new URL (`${METLDATA_URL.href}/stats`), {
     method: "get",
   })
     .then((response) => response.json())

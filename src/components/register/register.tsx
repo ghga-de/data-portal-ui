@@ -2,7 +2,7 @@ import { ChangeEvent, FormEvent, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { useBlocker } from "react-router-dom";
 import { Button, Container, Modal, Row, Col } from "react-bootstrap";
-import { fetchJson } from "../../utils/utils";
+import { fetchJson, cleanUrl } from "../../utils/utils";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faUserCheck,
@@ -13,8 +13,8 @@ import {
 import { useMessages } from "../messages/usage";
 import { useAuth } from "../../services/auth";
 
-const CLIENT_URL : URL = new URL (String(process.env.REACT_APP_CLIENT_URL))
-const USERS_URL : URL = new URL (String(process.env.REACT_APP_USERS_URL), CLIENT_URL)
+const CLIENT_URL : URL = new URL(process.env.REACT_APP_CLIENT_URL as string)
+const USERS_URL : URL = new URL(cleanUrl(process.env.REACT_APP_USERS_URL as string), CLIENT_URL)
 
 /** User registration form */
 
@@ -70,10 +70,10 @@ const Register = () => {
       email,
       title: title || null,
     };
-    let url: string = USERS_URL.href;
+    let url: URL = USERS_URL;
     let method: string, ok: number;
     if (id) {
-      url += `/${user.id}`;
+      url = new URL(url.href + `/${user.id}`);
       method = "put";
       ok = 204;
     } else {

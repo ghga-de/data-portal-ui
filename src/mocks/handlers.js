@@ -1,12 +1,13 @@
 import { http, HttpResponse } from "msw";
 import { responses } from "./responses";
 import { setOidcUser } from "./login";
+import { cleanUrl } from "../utils/utils";
 
-const CLIENT_URL = new URL(String(process.env["REACT_APP_CLIENT_URL"]));
-const OIDC_AUTHORITY_URL = new URL(String(process.env["REACT_APP_OIDC_AUTHORITY_URL"]), CLIENT_URL);
+const CLIENT_URL = new URL(process.env.REACT_APP_CLIENT_URL);
+const OIDC_AUTHORITY_URL = new URL(cleanUrl(process.env.REACT_APP_OIDC_AUTHORITY_URL,true), CLIENT_URL);
 const OIDC_CONFIG_URL = new URL(".well-known/openid-configuration", OIDC_AUTHORITY_URL)
 
-const fakeAuth = !!CLIENT_URL.match(/127\.|local/);
+const fakeAuth = !!CLIENT_URL.href.match(/127\.|local/);
 
 // this module converts the responses with static fake data to response handlers
 
@@ -17,7 +18,7 @@ export const handlers = [
     if (fakeAuth) {
       setOidcUser();
       return HttpResponse.json({
-        authorization_endpoint: CLIENT_URL + "profile",
+        authorization_endpoint: CLIENT_URL.href + "profile",
       }, { status: 200 });
     }
   }),

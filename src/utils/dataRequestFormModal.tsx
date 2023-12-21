@@ -6,7 +6,7 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Modal, Row, Col, Button, Form } from "react-bootstrap";
 import { showMessage } from "../components/messages/usage";
-import { fetchJson } from "./utils";
+import { fetchJson, cleanUrl } from "./utils";
 import { useAuth } from "../services/auth";
 import { FormEvent, useState } from "react";
 interface DataRequestFormModalProps {
@@ -27,8 +27,8 @@ const DataRequestFormModal = (props: DataRequestFormModalProps) => {
     return clean_email;
   };
 
-  const CLIENT_URL: URL = new URL(String(process.env.REACT_APP_CLIENT_URL))
-  const ARS_URL : URL = new URL(String(process.env.REACT_APP_ARS_URL), CLIENT_URL);
+  const CLIENT_URL: URL = new URL(process.env.REACT_APP_CLIENT_URL as string)
+  const ARS_URL : URL = new URL(cleanUrl(process.env.REACT_APP_ARS_URL as string), CLIENT_URL);
   const { user } = useAuth();
 
   const MILLISECONDS_TO_ADD: number =
@@ -57,7 +57,7 @@ const DataRequestFormModal = (props: DataRequestFormModalProps) => {
     const { details, from, until, email, cancelButton, submitButton } =
       e.target as typeof e.target & FormData;
 
-    const url = `${ARS_URL}/access-requests`;
+    const url = new URL(`${ARS_URL}/access-requests`);
     submitButton.disabled = "true";
     try {
       const response = await fetchJson(url, "POST", {
