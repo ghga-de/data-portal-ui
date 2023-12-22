@@ -28,8 +28,8 @@ const DataRequestFormModal = (props: DataRequestFormModalProps) => {
     return clean_email;
   };
 
-  const CLIENT_URL: URL = new URL(urlWithEndSlash(process.env.REACT_APP_CLIENT_URL!))
-  const ARS_URL : URL = new URL(urlWithEndSlash(process.env.REACT_APP_ARS_URL!), CLIENT_URL);
+  const CLIENT_URL = new URL(urlWithEndSlash(process.env.REACT_APP_CLIENT_URL!))
+  const ARS_URL = new URL(urlWithEndSlash(process.env.REACT_APP_ARS_URL!), CLIENT_URL);
   const { user } = useAuth();
 
   const MILLISECONDS_TO_ADD: number =

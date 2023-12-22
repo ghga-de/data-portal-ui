@@ -5,8 +5,8 @@ import { showMessage } from "../components/messages/usage";
 import { createStore, useStore } from "zustand";
 import { urlWithEndSlash } from "../api/browse";
 
-const CLIENT_URL : URL = new URL(urlWithEndSlash(process.env.REACT_APP_CLIENT_URL!))
-const USERS_URL : URL = new URL(urlWithEndSlash(process.env.REACT_APP_USERS_URL!), CLIENT_URL);
+const CLIENT_URL = new URL(urlWithEndSlash(process.env.REACT_APP_CLIENT_URL!))
+const USERS_URL = new URL(urlWithEndSlash(process.env.REACT_APP_USERS_URL!), CLIENT_URL);
 
 /**
  * Interface for a full high-level user object.

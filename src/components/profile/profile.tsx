@@ -6,8 +6,8 @@ import { useAuth } from "../../services/auth";
 import { fetchJson } from "../../utils/utils";
 import { urlWithEndSlash } from "../../api/browse";
 
-const CLIENT_URL : URL = new URL(urlWithEndSlash(process.env.REACT_APP_CLIENT_URL!))
-const WPS_URL : URL = new URL(urlWithEndSlash(process.env.REACT_APP_WPS_URL!), CLIENT_URL);
+const CLIENT_URL = new URL(urlWithEndSlash(process.env.REACT_APP_CLIENT_URL!))
+const WPS_URL = new URL(urlWithEndSlash(process.env.REACT_APP_WPS_URL!), CLIENT_URL);
 
 /** Display user profile */
 

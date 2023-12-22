@@ -14,8 +14,8 @@ import { useMessages } from "../messages/usage";
 import { useAuth } from "../../services/auth";
 import { urlWithEndSlash } from "../../api/browse";
 
-const CLIENT_URL : URL = new URL(urlWithEndSlash(process.env.REACT_APP_CLIENT_URL!))
-const USERS_URL : URL = new URL(urlWithEndSlash(process.env.REACT_APP_USERS_URL!), CLIENT_URL)
+const CLIENT_URL = new URL(urlWithEndSlash(process.env.REACT_APP_CLIENT_URL!))
+const USERS_URL = new URL(urlWithEndSlash(process.env.REACT_APP_USERS_URL!), CLIENT_URL)
 
 /** User registration form */
 
@@ -71,7 +71,7 @@ const Register = () => {
       email,
       title: title || null,
     };
-    let url: URL = USERS_URL;
+    let url = USERS_URL;
     let method: string, ok: number;
     if (id) {
       url = new URL(`${user.id}`, url);

@@ -20,8 +20,8 @@ import { AccessRequest } from "../../../models/submissionsAndRequests";
 import { useState } from "react";
 import { urlWithEndSlash } from "../../../api/browse";
 
-const CLIENT_URL : URL = new URL(urlWithEndSlash(process.env.REACT_APP_CLIENT_URL!))
-const ARS_URL: URL = new URL(urlWithEndSlash(process.env.REACT_APP_ARS_URL!),CLIENT_URL);
+const CLIENT_URL = new URL(urlWithEndSlash(process.env.REACT_APP_CLIENT_URL!))
+const ARS_URL = new URL(urlWithEndSlash(process.env.REACT_APP_ARS_URL!),CLIENT_URL);
 
 interface AccessRequestModalProps {
   show: boolean;

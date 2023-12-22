@@ -4,7 +4,7 @@ import { SearchResponseModel } from "../models/dataset";
 import { FacetFilterModel } from "../models/facets";
 import { authService } from "../services/auth";
 
-const CLIENT_URL : URL = new URL(urlWithEndSlash(process.env.REACT_APP_CLIENT_URL!))
+const CLIENT_URL = new URL(urlWithEndSlash(process.env.REACT_APP_CLIENT_URL!))
 
 /**
  * Convert an array of filter objects into string representation.

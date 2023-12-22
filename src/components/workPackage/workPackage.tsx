@@ -20,8 +20,8 @@ import { Buffer } from "buffer";
 import { Errors, Dataset } from "../../models/submissionsAndRequests";
 import { urlWithEndSlash } from "../../api/browse";
 
-const CLIENT_URL : URL = new URL(urlWithEndSlash(process.env.REACT_APP_CLIENT_URL!))
-const WPS_URL : URL = new URL(urlWithEndSlash(process.env.REACT_APP_WPS_URL!), CLIENT_URL);
+const CLIENT_URL = new URL(urlWithEndSlash(process.env.REACT_APP_CLIENT_URL!))
+const WPS_URL = new URL(urlWithEndSlash(process.env.REACT_APP_WPS_URL!), CLIENT_URL);
 
 /** Work Package creation */
 

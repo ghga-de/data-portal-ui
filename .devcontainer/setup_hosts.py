@@ -11,11 +11,7 @@ import re
 import dns.resolver
 import os
 
-name = (
-    os.environ["REACT_APP_CLIENT_URL"].split("://")[1].split("/")[0].split(":")[0]
-)  # host name of the portal
-
-print(name)
+name = "data.staging.ghga.dev"  # host name of the portal
 
 
 def get_ip():

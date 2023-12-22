@@ -24,8 +24,8 @@ import AccessRequestsList from "./accessRequestsList/accessRequestsList";
 import AccessRequestsFilter from "./accessRequestsFilter/accessRequestsFilter";
 import { urlWithEndSlash } from "../../api/browse";
 
-const CLIENT_URL : URL = new URL(urlWithEndSlash(process.env.REACT_APP_CLIENT_URL!))
-const ARS_URL : URL = new URL(urlWithEndSlash(process.env.REACT_APP_ARS_URL!), CLIENT_URL);
+const CLIENT_URL = new URL(urlWithEndSlash(process.env.REACT_APP_CLIENT_URL!))
+const ARS_URL = new URL(urlWithEndSlash(process.env.REACT_APP_ARS_URL!), CLIENT_URL);
 
 const AccessRequests = () => {
   const MIN_YEAR = 2000;
