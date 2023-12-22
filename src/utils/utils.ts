@@ -1,10 +1,10 @@
 import { Dispatch, SetStateAction } from "react";
-import { querySearchService } from "../api/browse";
+import { querySearchService, urlWithEndSlash } from "../api/browse";
 import { SearchResponseModel } from "../models/dataset";
 import { FacetFilterModel } from "../models/facets";
 import { authService } from "../services/auth";
 
-const CLIENT_URL = process.env.REACT_APP_CLIENT_URL;
+const CLIENT_URL = new URL(urlWithEndSlash(process.env.REACT_APP_CLIENT_URL!))
 
 /**
  * Convert an array of filter objects into string representation.
@@ -167,7 +167,7 @@ export const importAllFilesFromFolder = (r: any) => {
  */
 /** Fetch JSON data with proper headers */
 export const fetchJson = async (
-  url: string,
+  url: string | URL,
   method: string = "GET",
   payload?: any
 ): Promise<Response> => {
@@ -178,7 +178,7 @@ export const fetchJson = async (
     headers["Content-Type"] = "application/json";
   }
   if (CLIENT_URL) {
-    headers["Origin"] = CLIENT_URL;
+    headers["Origin"] = CLIENT_URL.hostname;
   }
   const token = await authService.getAccessToken();
   if (token) {

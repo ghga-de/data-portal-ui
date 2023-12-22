@@ -1,7 +1,6 @@
 import {
   faClockFour,
   faCloudArrowDown,
-  faEnvelope,
   faKey,
   faMagnifyingGlass,
 } from "@fortawesome/free-solid-svg-icons";

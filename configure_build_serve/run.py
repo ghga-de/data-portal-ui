@@ -32,7 +32,7 @@ class Config(BaseSettings):
 
     host: str = "localhost"
     port: int = 8080
-    client_url: str = "https://data.ghga-dev.de/"
+    client_url: str = "https://data.staging.ghga.dev/"
     mass_url: str = f"{client_url}api/mass"
     metldata_url: str = f"{client_url}api/metldata"
     ars_url: str = f"{client_url}api/ars"

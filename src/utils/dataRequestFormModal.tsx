@@ -9,6 +9,7 @@ import { showMessage } from "../components/messages/usage";
 import { fetchJson } from "./utils";
 import { useAuth } from "../services/auth";
 import { FormEvent, useState } from "react";
+import { urlWithEndSlash } from "../api/browse";
 interface DataRequestFormModalProps {
   accession: string;
   copyEmail: string;
@@ -27,7 +28,8 @@ const DataRequestFormModal = (props: DataRequestFormModalProps) => {
     return clean_email;
   };
 
-  const ARS_URL = process.env.REACT_APP_ARS_URL;
+  const CLIENT_URL = new URL(urlWithEndSlash(process.env.REACT_APP_CLIENT_URL!))
+  const ARS_URL = new URL(urlWithEndSlash(process.env.REACT_APP_ARS_URL!), CLIENT_URL);
   const { user } = useAuth();
 
   const MILLISECONDS_TO_ADD: number =
@@ -56,7 +58,7 @@ const DataRequestFormModal = (props: DataRequestFormModalProps) => {
     const { details, from, until, email, cancelButton, submitButton } =
       e.target as typeof e.target & FormData;
 
-    const url = `${ARS_URL}/access-requests`;
+    const url = new URL('access-requests', ARS_URL);
     submitButton.disabled = "true";
     try {
       const response = await fetchJson(url, "POST", {

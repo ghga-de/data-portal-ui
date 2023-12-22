@@ -7,11 +7,13 @@
   and changes the URL of the requests to use the real backend.
 */
 
+
 // Note that this currently works only as a CommonJS module
 const { createProxyMiddleware } = require("http-proxy-middleware");
+const { urlWithEndSlash } = require("./api/browse");
 
-const clientUrl = process.env.REACT_APP_CLIENT_URL;
-const basicAuth = process.env.REACT_APP_BASIC_AUTH || null;
+const CLIENT_URL = new URL(urlWithEndSlash(process.env.REACT_APP_CLIENT_URL));
+const BASIC_AUTH = process.env.REACT_APP_BASIC_AUTH
 
 const logOptions = {
   onProxyReq: (proxyReq, req, res) => {
@@ -25,14 +27,14 @@ const logOptions = {
 };
 
 const authServiceProxy = {
-  target: clientUrl,
+  target: CLIENT_URL.href,
   changeOrigin: true,
   secure: true,
-  auth: basicAuth,
+  auth: BASIC_AUTH,
   ...logOptions,
 };
 
 module.exports = function (app) {
-  const useBackend = /ghga/.test(clientUrl);
+  const useBackend = /ghga/.test(CLIENT_URL.href);
   if (useBackend) app.use("/api", createProxyMiddleware(authServiceProxy));
 };

@@ -22,8 +22,10 @@ import { useEffect, useState } from "react";
 import { fetchJson } from "../../utils/utils";
 import AccessRequestsList from "./accessRequestsList/accessRequestsList";
 import AccessRequestsFilter from "./accessRequestsFilter/accessRequestsFilter";
+import { urlWithEndSlash } from "../../api/browse";
 
-const ARS_URL = process.env.REACT_APP_ARS_URL;
+const CLIENT_URL = new URL(urlWithEndSlash(process.env.REACT_APP_CLIENT_URL!))
+const ARS_URL = new URL(urlWithEndSlash(process.env.REACT_APP_ARS_URL!), CLIENT_URL);
 
 const AccessRequests = () => {
   const MIN_YEAR = 2000;
@@ -95,7 +97,7 @@ const AccessRequests = () => {
     async function fetchData() {
       let accessRequests: AccessRequest[] | null = null;
       if (user?.id) {
-        const url = `${ARS_URL}/access-requests`;
+        const url = new URL('access-requests', ARS_URL);
         try {
           const response = await fetchJson(url);
           if (response.ok) {

@@ -4,8 +4,10 @@ import { useNavigate, NavLink } from "react-router-dom";
 import { useMessages } from "../messages/usage";
 import { useAuth } from "../../services/auth";
 import { fetchJson } from "../../utils/utils";
+import { urlWithEndSlash } from "../../api/browse";
 
-const WPS_URL = process.env.REACT_APP_WPS_URL;
+const CLIENT_URL = new URL(urlWithEndSlash(process.env.REACT_APP_CLIENT_URL!))
+const WPS_URL = new URL(urlWithEndSlash(process.env.REACT_APP_WPS_URL!), CLIENT_URL);
 
 /** Display user profile */
 
@@ -19,7 +21,7 @@ const Profile = () => {
   useEffect(() => {
     async function fetchData() {
       if (user?.id) {
-        const url = `${WPS_URL}/users/${user.id}/datasets`;
+        const url = new URL(`users/${user.id}/datasets`, WPS_URL);
         try {
           const response = await fetchJson(url);
           const datasets = await response.json();

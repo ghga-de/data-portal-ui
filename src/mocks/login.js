@@ -1,8 +1,10 @@
+import { urlWithEndSlash } from "../api/browse";
 import { user } from "./data";
 
-const ISSUER = process.env["REACT_APP_OIDC_AUTHORITY_URL"];
-const SCOPE = process.env["REACT_APP_OIDC_SCOPE"];
-const CLIENT_ID = process.env["REACT_APP_OIDC_CLIENT_ID"];
+const CLIENT_URL = new URL(urlWithEndSlash(process.env.REACT_APP_CLIENT_URL));
+const ISSUER = new URL(urlWithEndSlash(process.env.REACT_APP_OIDC_AUTHORITY_URL, CLIENT_URL));
+const SCOPE = new URL(urlWithEndSlash(process.env.REACT_APP_OIDC_SCOPE, CLIENT_URL));
+const CLIENT_ID = new URL(urlWithEndSlash(process.env.REACT_APP_OIDC_CLIENT_ID, CLIENT_URL));
 
 // Simulate login with dummy user via OIDC
 export function setOidcUser() {
@@ -13,16 +15,16 @@ export function setOidcUser() {
     session_state: null,
     access_token: null,
     token_type: "Bearer",
-    scope: SCOPE,
+    scope: SCOPE.href,
     profile: {
       sub: user.ext_id,
       sid: null,
       scope: SCOPE.split(" "),
-      client_id: CLIENT_ID,
-      iss: ISSUER,
+      client_id: CLIENT_ID.href,
+      iss: ISSUER.href,
       iat,
       exp,
-      aud: [CLIENT_ID],
+      aud: [CLIENT_ID.href],
       name: user.name,
       given_name: user.name.split(" ")[0],
       family_name: user.name.split(" ")[1],
