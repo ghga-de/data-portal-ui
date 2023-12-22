@@ -1,21 +1,10 @@
 import { Dispatch, SetStateAction } from "react";
-import { querySearchService } from "../api/browse";
+import { querySearchService, urlWithEndSlash } from "../api/browse";
 import { SearchResponseModel } from "../models/dataset";
 import { FacetFilterModel } from "../models/facets";
 import { authService } from "../services/auth";
 
-
-/**
- * Checks and cleans up URL if last character is or is not forward slash
- * @param url - String of URL
- * @param endSlash - whether we want to have an end slash or not
- * @returns URL as specified
- */
-export const cleanUrl = (url: string, endSlash : boolean = true) => {
-  const lastCharSlash : boolean = url.slice(-1) === "/"
-  return endSlash ? lastCharSlash ? url : url + "/" : lastCharSlash ? url.slice(0,-1) : url
-}
-const CLIENT_URL : URL = new URL(cleanUrl(process.env.REACT_APP_CLIENT_URL as string))
+const CLIENT_URL : URL = new URL(urlWithEndSlash(process.env.REACT_APP_CLIENT_URL!))
 
 /**
  * Convert an array of filter objects into string representation.

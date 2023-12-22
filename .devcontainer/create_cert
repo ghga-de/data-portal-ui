@@ -2,7 +2,7 @@
 
 # create self-signed certificate for testing with the browser
 
-HOST=data.ghga-dev.de
+HOST=$(echo ${REACT_APP_CLIENT_URL} | awk -F[/:] '{print $4}')
 CERTFILE=cert.pem
 KEYFILE=key.pem
 ENVFILE=local.env

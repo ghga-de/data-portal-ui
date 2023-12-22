@@ -15,14 +15,14 @@ import { showMessage } from "../components/messages/usage";
  * @param endSlash - whether we want to have an end slash or not
  * @returns URL as specified
  */
-const cleanUrl = (url: string, endSlash : boolean = true) => {
+export const urlWithEndSlash = (url: string) => {
   const lastCharSlash : boolean = url.slice(-1) === "/"
-  return endSlash ? lastCharSlash ? url : url + "/" : lastCharSlash ? url.slice(0,-1) : url
+  return lastCharSlash ? url : url + "/"
 }
 
-const CLIENT_URL : URL = new URL(cleanUrl(process.env.REACT_APP_CLIENT_URL as string))
-const MASS_URL : URL = new URL(cleanUrl(process.env.REACT_APP_MASS_URL as string), CLIENT_URL);
-const METLDATA_URL : URL = new URL(cleanUrl(process.env.REACT_APP_METLDATA_URL as string), CLIENT_URL)
+const CLIENT_URL : URL = new URL(urlWithEndSlash(process.env.REACT_APP_CLIENT_URL!))
+const MASS_URL : URL = new URL(urlWithEndSlash(process.env.REACT_APP_MASS_URL!), CLIENT_URL);
+const METLDATA_URL : URL = new URL(urlWithEndSlash(process.env.REACT_APP_METLDATA_URL!), CLIENT_URL)
 
 const showFetchDataError = () => {
   showMessage({

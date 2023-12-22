@@ -1,11 +1,12 @@
 import { Log, User as OidcUser, UserManager } from "oidc-client-ts";
 import type { OidcMetadata, UserManagerSettings } from "oidc-client-ts";
-import { fetchJson, cleanUrl } from "../utils/utils";
+import { fetchJson } from "../utils/utils";
 import { showMessage } from "../components/messages/usage";
 import { createStore, useStore } from "zustand";
+import { urlWithEndSlash } from "../api/browse";
 
-const CLIENT_URL : URL = new URL(cleanUrl(process.env.REACT_APP_CLIENT_URL as string))
-const USERS_URL : URL = new URL(cleanUrl(process.env.REACT_APP_USERS_URL as string), CLIENT_URL);
+const CLIENT_URL : URL = new URL(urlWithEndSlash(process.env.REACT_APP_CLIENT_URL!))
+const USERS_URL : URL = new URL(urlWithEndSlash(process.env.REACT_APP_USERS_URL!), CLIENT_URL);
 
 /**
  * Interface for a full high-level user object.
@@ -188,7 +189,7 @@ class AuthService {
           extId: sub,
         };
         try {
-          const response = await fetchJson(new URL(`${sub}`, USERS_URL));
+          const response = await fetchJson(new URL(sub, USERS_URL));
           if (response.status === 200) {
             const userData = await response.json();
             const { id, status, title } = userData;

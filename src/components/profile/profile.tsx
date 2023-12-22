@@ -3,10 +3,11 @@ import { Alert, Button, Container, Row, Col } from "react-bootstrap";
 import { useNavigate, NavLink } from "react-router-dom";
 import { useMessages } from "../messages/usage";
 import { useAuth } from "../../services/auth";
-import { fetchJson, cleanUrl } from "../../utils/utils";
+import { fetchJson } from "../../utils/utils";
+import { urlWithEndSlash } from "../../api/browse";
 
-const CLIENT_URL : URL = new URL(cleanUrl(process.env.REACT_APP_CLIENT_URL as string))
-const WPS_URL : URL = new URL(cleanUrl(process.env.REACT_APP_WPS_URL as string), CLIENT_URL);
+const CLIENT_URL : URL = new URL(urlWithEndSlash(process.env.REACT_APP_CLIENT_URL!))
+const WPS_URL : URL = new URL(urlWithEndSlash(process.env.REACT_APP_WPS_URL!), CLIENT_URL);
 
 /** Display user profile */
 

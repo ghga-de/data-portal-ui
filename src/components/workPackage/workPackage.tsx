@@ -15,12 +15,13 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { useMessages } from "../messages/usage";
 import { useAuth } from "../../services/auth";
-import { fetchJson, cleanUrl } from "../../utils/utils";
+import { fetchJson } from "../../utils/utils";
 import { Buffer } from "buffer";
 import { Errors, Dataset } from "../../models/submissionsAndRequests";
+import { urlWithEndSlash } from "../../api/browse";
 
-const CLIENT_URL : URL = new URL(cleanUrl(process.env.REACT_APP_CLIENT_URL as string))
-const WPS_URL : URL = new URL(cleanUrl(process.env.REACT_APP_WPS_URL as string), CLIENT_URL);
+const CLIENT_URL : URL = new URL(urlWithEndSlash(process.env.REACT_APP_CLIENT_URL!))
+const WPS_URL : URL = new URL(urlWithEndSlash(process.env.REACT_APP_WPS_URL!), CLIENT_URL);
 
 /** Work Package creation */
 

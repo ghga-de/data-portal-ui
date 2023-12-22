@@ -2,7 +2,7 @@ import { ChangeEvent, FormEvent, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { useBlocker } from "react-router-dom";
 import { Button, Container, Modal, Row, Col } from "react-bootstrap";
-import { fetchJson, cleanUrl } from "../../utils/utils";
+import { fetchJson } from "../../utils/utils";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faUserCheck,
@@ -12,9 +12,10 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { useMessages } from "../messages/usage";
 import { useAuth } from "../../services/auth";
+import { urlWithEndSlash } from "../../api/browse";
 
-const CLIENT_URL : URL = new URL(cleanUrl(process.env.REACT_APP_CLIENT_URL as string))
-const USERS_URL : URL = new URL(cleanUrl(process.env.REACT_APP_USERS_URL as string), CLIENT_URL)
+const CLIENT_URL : URL = new URL(urlWithEndSlash(process.env.REACT_APP_CLIENT_URL!))
+const USERS_URL : URL = new URL(urlWithEndSlash(process.env.REACT_APP_USERS_URL!), CLIENT_URL)
 
 /** User registration form */
 

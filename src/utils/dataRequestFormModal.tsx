@@ -6,9 +6,10 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Modal, Row, Col, Button, Form } from "react-bootstrap";
 import { showMessage } from "../components/messages/usage";
-import { fetchJson, cleanUrl } from "./utils";
+import { fetchJson } from "./utils";
 import { useAuth } from "../services/auth";
 import { FormEvent, useState } from "react";
+import { urlWithEndSlash } from "../api/browse";
 interface DataRequestFormModalProps {
   accession: string;
   copyEmail: string;
@@ -27,8 +28,8 @@ const DataRequestFormModal = (props: DataRequestFormModalProps) => {
     return clean_email;
   };
 
-  const CLIENT_URL: URL = new URL(cleanUrl(process.env.REACT_APP_CLIENT_URL as string))
-  const ARS_URL : URL = new URL(cleanUrl(process.env.REACT_APP_ARS_URL as string), CLIENT_URL);
+  const CLIENT_URL: URL = new URL(urlWithEndSlash(process.env.REACT_APP_CLIENT_URL!))
+  const ARS_URL : URL = new URL(urlWithEndSlash(process.env.REACT_APP_ARS_URL!), CLIENT_URL);
   const { user } = useAuth();
 
   const MILLISECONDS_TO_ADD: number =

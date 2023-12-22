@@ -9,8 +9,13 @@ the portal properly even if the docker host has changed it for local testing.
 
 import re
 import dns.resolver
+import os
 
-name = "data.ghga-dev.de"  # host name of the portal
+name = (
+    os.environ["REACT_APP_CLIENT_URL"].split("://")[1].split("/")[0]
+)  # host name of the portal
+
+print(name)
 
 
 def get_ip():
@@ -18,8 +23,11 @@ def get_ip():
     resolver = dns.resolver.Resolver()
     resolver.nameservers = ["8.8.8.8", "8.8.4.4"]  # Google nameserver
     ip = str(resolver.resolve(name)[0])
-    if (ip.count('.') != 3 or not ip.replace('.', '').isdigit()
-            or ip.startswith(("0.", "127.", "10."))):
+    if (
+        ip.count(".") != 3
+        or not ip.replace(".", "").isdigit()
+        or ip.startswith(("0.", "127.", "10."))
+    ):
         raise RuntimeError(f"Cannot resolve {name}, got {ip}")
     return ip
 
@@ -33,7 +41,8 @@ def setup():
         hosts += "\n"
     re_name = name.replace(".", "\\.")
     new_hosts, num_subs = re.subn(
-        rf"^[0-9.]+\s+{re_name}$", f"{ip} {name}", hosts, flags=re.M)
+        rf"^[0-9.]+\s+{re_name}$", f"{ip} {name}", hosts, flags=re.M
+    )
     if num_subs:
         if hosts == new_hosts:
             print("Host file was already set up.")
