@@ -12,7 +12,7 @@ import dns.resolver
 import os
 
 name = (
-    os.environ["REACT_APP_CLIENT_URL"].split("://")[1].split("/")[0]
+    os.environ["REACT_APP_CLIENT_URL"].split("://")[1].split("/")[0].split(":")[0]
 )  # host name of the portal
 
 print(name)
