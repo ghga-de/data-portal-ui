@@ -23,7 +23,7 @@ import { fetchJson, cleanUrl } from "../../utils/utils";
 import AccessRequestsList from "./accessRequestsList/accessRequestsList";
 import AccessRequestsFilter from "./accessRequestsFilter/accessRequestsFilter";
 
-const CLIENT_URL : URL = new URL(process.env.REACT_APP_CLIENT_URL as string)
+const CLIENT_URL : URL = new URL(cleanUrl(process.env.REACT_APP_CLIENT_URL as string))
 const ARS_URL : URL = new URL(cleanUrl(process.env.REACT_APP_ARS_URL as string), CLIENT_URL);
 
 const AccessRequests = () => {
@@ -96,7 +96,7 @@ const AccessRequests = () => {
     async function fetchData() {
       let accessRequests: AccessRequest[] | null = null;
       if (user?.id) {
-        const url = new URL(`${ARS_URL.href}/access-requests`);
+        const url = new URL('access-requests', ARS_URL);
         try {
           const response = await fetchJson(url);
           if (response.ok) {

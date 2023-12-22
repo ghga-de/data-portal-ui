@@ -19,7 +19,7 @@ import { showMessage } from "../../messages/usage";
 import { AccessRequest } from "../../../models/submissionsAndRequests";
 import { useState } from "react";
 
-const CLIENT_URL : URL = new URL(process.env.REACT_APP_CLIENT_URL as string)
+const CLIENT_URL : URL = new URL(cleanUrl(process.env.REACT_APP_CLIENT_URL as string))
 const ARS_URL: URL = new URL(cleanUrl(process.env.REACT_APP_ARS_URL as string),CLIENT_URL);
 
 interface AccessRequestModalProps {
@@ -44,7 +44,7 @@ const AccessRequestModal = (props: AccessRequestModalProps) => {
       return null;
     }
     setDisabledButtons(true);
-    const url = new URL(`${ARS_URL.href}/access-requests/${props.accessRequest?.id}`);
+    const url = new URL(`access-requests/${props.accessRequest?.id}`, ARS_URL);
     try {
       const response = await fetchJson(url, "PATCH", { status: status });
       if (response.ok) {

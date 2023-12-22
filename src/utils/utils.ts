@@ -4,7 +4,18 @@ import { SearchResponseModel } from "../models/dataset";
 import { FacetFilterModel } from "../models/facets";
 import { authService } from "../services/auth";
 
-const CLIENT_URL : URL = new URL (process.env.REACT_APP_CLIENT_URL as string)
+
+/**
+ * Checks and cleans up URL if last character is or is not forward slash
+ * @param url - String of URL
+ * @param endSlash - whether we want to have an end slash or not
+ * @returns URL as specified
+ */
+export const cleanUrl = (url: string, endSlash : boolean = true) => {
+  const lastCharSlash : boolean = url.slice(-1) === "/"
+  return endSlash ? lastCharSlash ? url : url + "/" : lastCharSlash ? url.slice(0,-1) : url
+}
+const CLIENT_URL : URL = new URL(cleanUrl(process.env.REACT_APP_CLIENT_URL as string))
 
 /**
  * Convert an array of filter objects into string representation.
@@ -212,17 +223,6 @@ export const transposeTableForHTML = (data: any[]) => {
   }
   return [];
 };
-
-/**
- * Checks and cleans up URL if last character is or is not forward slash
- * @param url - String of URL
- * @param endSlash - whether we want to have an end slash or not
- * @returns URL as specified
- */
-export const cleanUrl = (url: string, endSlash : boolean = false) => {
-  const lastCharSlash : boolean = url.slice(-1) === "/"
-  return endSlash ? lastCharSlash ? url : url + "/" : lastCharSlash ? url.slice(0,-1) : url
-}
 
 export const STATIC_PAGE_MAIN_DIV_CLASSES = "mx-auto px-2 px-md-5 my-5";
 export const STATIC_PAGE_IMG_ROW_CLASSES =

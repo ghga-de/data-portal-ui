@@ -5,7 +5,7 @@ import { useMessages } from "../messages/usage";
 import { useAuth } from "../../services/auth";
 import { fetchJson, cleanUrl } from "../../utils/utils";
 
-const CLIENT_URL : URL = new URL(process.env.REACT_APP_CLIENT_URL as string)
+const CLIENT_URL : URL = new URL(cleanUrl(process.env.REACT_APP_CLIENT_URL as string))
 const WPS_URL : URL = new URL(cleanUrl(process.env.REACT_APP_WPS_URL as string), CLIENT_URL);
 
 /** Display user profile */
@@ -20,7 +20,7 @@ const Profile = () => {
   useEffect(() => {
     async function fetchData() {
       if (user?.id) {
-        const url = new URL(`${WPS_URL.href}/users/${user.id}/datasets`);
+        const url = new URL(`users/${user.id}/datasets`, WPS_URL);
         try {
           const response = await fetchJson(url);
           const datasets = await response.json();

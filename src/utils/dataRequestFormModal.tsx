@@ -27,7 +27,7 @@ const DataRequestFormModal = (props: DataRequestFormModalProps) => {
     return clean_email;
   };
 
-  const CLIENT_URL: URL = new URL(process.env.REACT_APP_CLIENT_URL as string)
+  const CLIENT_URL: URL = new URL(cleanUrl(process.env.REACT_APP_CLIENT_URL as string))
   const ARS_URL : URL = new URL(cleanUrl(process.env.REACT_APP_ARS_URL as string), CLIENT_URL);
   const { user } = useAuth();
 
@@ -57,7 +57,7 @@ const DataRequestFormModal = (props: DataRequestFormModalProps) => {
     const { details, from, until, email, cancelButton, submitButton } =
       e.target as typeof e.target & FormData;
 
-    const url = new URL(`${ARS_URL}/access-requests`);
+    const url = new URL('access-requests', ARS_URL);
     submitButton.disabled = "true";
     try {
       const response = await fetchJson(url, "POST", {

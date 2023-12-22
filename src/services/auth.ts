@@ -4,7 +4,7 @@ import { fetchJson, cleanUrl } from "../utils/utils";
 import { showMessage } from "../components/messages/usage";
 import { createStore, useStore } from "zustand";
 
-const CLIENT_URL : URL = new URL(process.env.REACT_APP_CLIENT_URL as string)
+const CLIENT_URL : URL = new URL(cleanUrl(process.env.REACT_APP_CLIENT_URL as string))
 const USERS_URL : URL = new URL(cleanUrl(process.env.REACT_APP_USERS_URL as string), CLIENT_URL);
 
 /**
@@ -188,7 +188,7 @@ class AuthService {
           extId: sub,
         };
         try {
-          const response = await fetchJson(new URL(`${USERS_URL}/${sub}`));
+          const response = await fetchJson(new URL(`${sub}`, USERS_URL));
           if (response.status === 200) {
             const userData = await response.json();
             const { id, status, title } = userData;
