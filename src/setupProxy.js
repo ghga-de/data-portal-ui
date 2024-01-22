@@ -10,10 +10,14 @@
 
 // Note that this currently works only as a CommonJS module
 const { createProxyMiddleware } = require("http-proxy-middleware");
-const { urlWithEndSlash } = require("./api/browse");
+
+function urlWithEndSlash(url) {
+  const lastCharSlash = url.endsWith("/");
+  return lastCharSlash ? url : url + "/"
+}
 
 const CLIENT_URL = new URL(urlWithEndSlash(process.env.REACT_APP_CLIENT_URL));
-const BASIC_AUTH = process.env.REACT_APP_BASIC_AUTH
+const BASIC_AUTH = process.env.REACT_APP_BASIC_AUTH;
 
 const logOptions = {
   onProxyReq: (proxyReq, req, res) => {
