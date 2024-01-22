@@ -5,7 +5,8 @@ import { urlWithEndSlash } from "../api/browse";
 
 const CLIENT_URL = new URL(urlWithEndSlash(process.env.REACT_APP_CLIENT_URL));
 const OIDC_AUTHORITY_URL = new URL(urlWithEndSlash(process.env.REACT_APP_OIDC_AUTHORITY_URL, true), CLIENT_URL);
-const OIDC_CONFIG_URL = new URL("/.well-known/openid-configuration", OIDC_AUTHORITY_URL)
+const OIDC_CONFIG_PATH = "/.well-known/openid-configuration";
+const OIDC_CONFIG_URL = new URL(OIDC_CONFIG_PATH, OIDC_AUTHORITY_URL);
 
 const fakeAuth = !!CLIENT_URL.href.match(/127\.|local/);
 
@@ -14,7 +15,7 @@ const fakeAuth = !!CLIENT_URL.href.match(/127\.|local/);
 // handlers for REST endpoints
 export const handlers = [
   // intercept OIDC configuration request and redirect to profile page
-  http.get(OIDC_CONFIG_URL, () => {
+  http.get(OIDC_CONFIG_URL.href, () => {
     if (fakeAuth) {
       setOidcUser();
       return HttpResponse.json({
