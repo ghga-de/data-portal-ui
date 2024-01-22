@@ -3,8 +3,8 @@ import { user } from "./data";
 
 const CLIENT_URL = new URL(urlWithEndSlash(process.env.REACT_APP_CLIENT_URL));
 const ISSUER = new URL(urlWithEndSlash(process.env.REACT_APP_OIDC_AUTHORITY_URL, CLIENT_URL));
-const SCOPE = new URL(urlWithEndSlash(process.env.REACT_APP_OIDC_SCOPE, CLIENT_URL));
-const CLIENT_ID = new URL(urlWithEndSlash(process.env.REACT_APP_OIDC_CLIENT_ID, CLIENT_URL));
+const SCOPE = process.env.REACT_APP_OIDC_SCOPE;
+const CLIENT_ID = process.env.REACT_APP_OIDC_CLIENT_ID;
 
 // Simulate login with dummy user via OIDC
 export function setOidcUser() {
