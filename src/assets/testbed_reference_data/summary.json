@@ -1,56 +1,41 @@
 {
-  "id": "global",
   "created": "2023-09-08T09:49:32.781146+00:00",
+  "id": "global",
   "resource_stats": {
+    "Analysis": {
+      "count": 1
+    },
+    "AnalysisProcess": {
+      "count": 9
+    },
+    "AnalysisProcessOutputFile": {
+      "count": 9,
+      "stats": {
+        "format": [
+          {
+            "count": 9,
+            "value": "VCF"
+          }
+        ]
+      }
+    },
+    "Biospecimen": {
+      "count": 2
+    },
+    "Condition": {
+      "count": 2
+    },
     "DataAccessCommittee": {
       "count": 2
     },
     "DataAccessPolicy": {
       "count": 4
     },
-    "Biospecimen": {
-      "count": 2
-    },
-    "Sample": {
-      "count": 2
-    },
-    "AnalysisProcess": {
-      "count": 9
-    },
-    "EmbeddedDataset": {
-      "count": 6
-    },
-    "SequencingExperiment": {
-      "count": 1
-    },
-    "Analysis": {
-      "count": 1
-    },
     "Dataset": {
       "count": 6
     },
-    "Trio": {
-      "count": 1
-    },
-    "Condition": {
-      "count": 2
-    },
-    "Study": {
-      "count": 4
-    },
-    "LibraryPreparationProtocol": {
-      "count": 1,
-      "stats": {
-        "type": [
-          {
-            "count": 1,
-            "value": "unknown"
-          }
-        ]
-      }
-    },
-    "SequencingProcess": {
-      "count": 9
+    "EmbeddedDataset": {
+      "count": 6
     },
     "Individual": {
       "count": 3,
@@ -66,6 +51,29 @@
           }
         ]
       }
+    },
+    "LibraryPreparationProtocol": {
+      "count": 1,
+      "stats": {
+        "type": [
+          {
+            "count": 1,
+            "value": "unknown"
+          }
+        ]
+      }
+    },
+    "Publication": {
+      "count": 2
+    },
+    "Sample": {
+      "count": 2
+    },
+    "SequencingExperiment": {
+      "count": 1
+    },
+    "SequencingProcess": {
+      "count": 9
     },
     "SequencingProcessFile": {
       "count": 9,
@@ -89,16 +97,8 @@
         ]
       }
     },
-    "AnalysisProcessOutputFile": {
-      "count": 9,
-      "stats": {
-        "format": [
-          {
-            "count": 9,
-            "value": "VCF"
-          }
-        ]
-      }
+    "Study": {
+      "count": 4
     },
     "StudyFile": {
       "count": 53,
@@ -111,8 +111,8 @@
         ]
       }
     },
-    "Publication": {
-      "count": 2
+    "Trio": {
+      "count": 1
     }
   }
 }

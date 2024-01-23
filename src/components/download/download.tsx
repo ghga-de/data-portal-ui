@@ -37,15 +37,15 @@ const Download = () => {
       <hr className="border-secondary mb-4" />
       <div className="overflow-auto">
         <p>
-          The GHGA Data Portal allows users to request access to data through the 
-          portal. We are listing non-personal metadata and acting as a gateway to data 
-          submitters who will serve the research data upon approval of the request. 
+          The GHGA Data Portal allows users to request access to data through the
+          portal. We are listing non-personal metadata and acting as a gateway to data
+          submitters who will serve the research data upon approval of the request.
         </p>
         <p>
-          Visit your dataset of interest and then click on the "Request access" 
-          button. This will direct you to a data access request form. Complete 
-          the form with the necessary information and submit it to request access 
-          to the dataset. The data access committee will review your request and 
+          Visit your dataset of interest and then click on the "Request access"
+          button. This will direct you to a data access request form. Complete
+          the form with the necessary information and submit it to request access
+          to the dataset. The data access committee will review your request and
           respond accordingly.
         </p>
       </div>
@@ -111,10 +111,10 @@ const Download = () => {
           Request Access
         </h5>
         <p>
-          After clicking the "Request Access" button on the dataset details page, you 
-          will be directed to a specific data access request form for that dataset. 
-          On this form, you will need to provide details about your request and your 
-          email address for further communication. Once you've filled out the necessary 
+          After clicking the "Request Access" button on the dataset details page, you
+          will be directed to a specific data access request form for that dataset.
+          On this form, you will need to provide details about your request and your
+          email address for further communication. Once you've filled out the necessary
           information, submit the form to proceed with your data access request.
         </p>
         <Row className={STATIC_PAGE_IMG_ROW_CLASSES}>
@@ -140,7 +140,7 @@ const Download = () => {
         </h5>
         <p className="mb-5">
           After communicating with the data owner, you will get permission for
-          the desired datasets. You will receive an email notification at the 
+          the desired datasets. You will receive an email notification at the
           email address you provided in the form.
           <br />
           <strong>
@@ -153,8 +153,8 @@ const Download = () => {
         <p className="mb-0">Requesting Multiple Datasets:</p>
         <ul>
           <li>
-            If you are interested in multiple datasets, whether for the same or 
-            different use cases, please send a separate email for each dataset 
+            If you are interested in multiple datasets, whether for the same or
+            different use cases, please send a separate email for each dataset
             and each use case.
           </li>
         </ul>

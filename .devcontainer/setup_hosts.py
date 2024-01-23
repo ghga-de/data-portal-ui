@@ -9,7 +9,6 @@ the portal properly even if the docker host has changed it for local testing.
 
 import re
 import dns.resolver
-import os
 
 name = "data.staging.ghga.dev"  # host name of the portal
 

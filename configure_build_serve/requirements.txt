@@ -1,1 +1,2 @@
-hexkit==1.0.0
+pre-commit==3.6.0
+hexkit==2.1.0

@@ -1,46 +1,46 @@
 {
-    "title": "The B dataset",
-    "types": [
-      "And another Type"
-    ],
-    "description": "A mock dataset B",
-    "dac_email": "dac@dac.dac",
-    "samples_summary": {
-      "count": 0,
-      "stats": {
-        "sex": [],
-        "tissues": [],
-        "phenotypic_features": []
-      }
-    },
-    "studies_summary": {
-      "count": 1,
-      "stats": {
-        "accession": [
-          "GHGAS84826041417947"
-        ],
-        "title": [
-          "The A Study"
-        ]
-      }
-    },
-    "sequencing_experiments_summary": {
-      "count": 0,
-      "stats": {
-        "sequencing_protocols": []
-      }
-    },
-    "files_summary": {
-      "count": 6,
-      "stats": {
-        "format": [
-          {
-            "value": "FASTQ",
-            "count": 6
-          }
-        ],
-        "size": 38918
-      }
-    },
-    "accession": "GHGAD59991696920308"
-  }
+  "accession": "GHGAD59991696920308",
+  "dac_email": "dac@dac.dac",
+  "description": "A mock dataset B",
+  "files_summary": {
+    "count": 6,
+    "stats": {
+      "format": [
+        {
+          "count": 6,
+          "value": "FASTQ"
+        }
+      ],
+      "size": 38918
+    }
+  },
+  "samples_summary": {
+    "count": 0,
+    "stats": {
+      "phenotypic_features": [],
+      "sex": [],
+      "tissues": []
+    }
+  },
+  "sequencing_experiments_summary": {
+    "count": 0,
+    "stats": {
+      "sequencing_protocols": []
+    }
+  },
+  "studies_summary": {
+    "count": 1,
+    "stats": {
+      "accession": [
+        "GHGAS84826041417947"
+      ],
+      "title": [
+        "The A Study"
+      ]
+    }
+  },
+  "title": "The B dataset",
+  "types": [
+    "And another Type"
+  ]
+}

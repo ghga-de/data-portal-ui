@@ -131,7 +131,7 @@ class AuthService {
     /* This would be the proper way to do it,
        but LS Login does not support end session endpoint:
          return this.userManager.signoutRedirect();
-       This does not work either, 
+       This does not work either,
        since LS Login does not provide a revocation endpoint:
          return this.userManager.revokeTokens();
        So we simply remove the user from the store instead.
