@@ -1,6 +1,71 @@
 {
   "accession": "GHGAD62094899048138",
   "alias": "DS_A",
+  "analysis_process_output_files": [
+    {
+      "accession": "GHGAF16680888925367",
+      "alias": "OUTPUT_1",
+      "analysis_process": {
+        "accession": "GHGAR42937522062924",
+        "alias": "ANALYSIS_PROCESS_1",
+        "analysis": "GHGAZ70658474655033",
+        "analysis_process_output_files": [
+          "GHGAF16680888925367"
+        ],
+        "sequencing_process_input_files": [
+          "GHGAF00703444897886"
+        ]
+      },
+      "checksum": "730b8eb7322fd8b763cf3fcefbfea4488ad4c6af05c55f4945e8f2f43d16dc51",
+      "checksum_type": "SHA256",
+      "dataset": "GHGAD62094899048138",
+      "format": "VCF",
+      "name": "SAMPLE_1_SPECIMEN_1_FILE_1.vcf.gz",
+      "size": 15
+    },
+    {
+      "accession": "GHGAF26721888568346",
+      "alias": "OUTPUT_3",
+      "analysis_process": {
+        "accession": "GHGAR02260038743483",
+        "alias": "ANALYSIS_PROCESS_3",
+        "analysis": "GHGAZ70658474655033",
+        "analysis_process_output_files": [
+          "GHGAF26721888568346"
+        ],
+        "sequencing_process_input_files": [
+          "GHGAF28831238836368"
+        ]
+      },
+      "checksum": "ac252bccd424089f2740ba6e23e22c72196b8b139029f908bb6b04e2343019b8",
+      "checksum_type": "SHA256",
+      "dataset": "GHGAD62094899048138",
+      "format": "VCF",
+      "name": "SAMPLE_1_SPECIMEN_1_FILE_3.vcf.gz",
+      "size": 501
+    },
+    {
+      "accession": "GHGAF47612352255665",
+      "alias": "OUTPUT_2",
+      "analysis_process": {
+        "accession": "GHGAR63034308186992",
+        "alias": "ANALYSIS_PROCESS_2",
+        "analysis": "GHGAZ70658474655033",
+        "analysis_process_output_files": [
+          "GHGAF47612352255665"
+        ],
+        "sequencing_process_input_files": [
+          "GHGAF94399835832718"
+        ]
+      },
+      "checksum": "f3e8f36baa79d33cca9c4dfa2bec12e57b7c8c4bb3d9c62600cb8773dad91393",
+      "checksum_type": "SHA256",
+      "dataset": "GHGAD62094899048138",
+      "format": "VCF",
+      "name": "SAMPLE_1_SPECIMEN_1_FILE_2.vcf.gz",
+      "size": 70
+    }
+  ],
   "data_access_policy": {
     "accession": "GHGAP04073781825546",
     "alias": "DAP_1",
@@ -20,76 +85,14 @@
     "policy_url": "http://some/policy"
   },
   "description": "A mock dataset A of complete example set",
-  "title": "The complete-A dataset",
-  "types": [
-    "A Type",
-    "Another Type"
+  "files": [
+    "GHGAF36258899331942",
+    "GHGAF16680888925367",
+    "GHGAF26721888568346",
+    "GHGAF47612352255665"
   ],
-  "analysis_process_output_files": [
-    {
-      "accession": "GHGAF16680888925367",
-      "alias": "OUTPUT_1",
-      "analysis_process": {
-        "accession": "GHGAR42937522062924",
-        "alias": "ANALYSIS_PROCESS_1",
-        "analysis": "GHGAZ70658474655033",
-        "sequencing_process_input_files": [
-          "GHGAF00703444897886"
-        ],
-        "analysis_process_output_files": [
-          "GHGAF16680888925367"
-        ]
-      },
-      "checksum": "730b8eb7322fd8b763cf3fcefbfea4488ad4c6af05c55f4945e8f2f43d16dc51",
-      "checksum_type": "SHA256",
-      "dataset": "GHGAD62094899048138",
-      "format": "VCF",
-      "name": "SAMPLE_1_SPECIMEN_1_FILE_1.vcf.gz",
-      "size": 15
-    },
-    {
-      "accession": "GHGAF26721888568346",
-      "alias": "OUTPUT_3",
-      "analysis_process": {
-        "accession": "GHGAR02260038743483",
-        "alias": "ANALYSIS_PROCESS_3",
-        "analysis": "GHGAZ70658474655033",
-        "sequencing_process_input_files": [
-          "GHGAF28831238836368"
-        ],
-        "analysis_process_output_files": [
-          "GHGAF26721888568346"
-        ]
-      },
-      "checksum": "ac252bccd424089f2740ba6e23e22c72196b8b139029f908bb6b04e2343019b8",
-      "checksum_type": "SHA256",
-      "dataset": "GHGAD62094899048138",
-      "format": "VCF",
-      "name": "SAMPLE_1_SPECIMEN_1_FILE_3.vcf.gz",
-      "size": 501
-    },
-    {
-      "accession": "GHGAF47612352255665",
-      "alias": "OUTPUT_2",
-      "analysis_process": {
-        "accession": "GHGAR63034308186992",
-        "alias": "ANALYSIS_PROCESS_2",
-        "analysis": "GHGAZ70658474655033",
-        "sequencing_process_input_files": [
-          "GHGAF94399835832718"
-        ],
-        "analysis_process_output_files": [
-          "GHGAF47612352255665"
-        ]
-      },
-      "checksum": "f3e8f36baa79d33cca9c4dfa2bec12e57b7c8c4bb3d9c62600cb8773dad91393",
-      "checksum_type": "SHA256",
-      "dataset": "GHGAD62094899048138",
-      "format": "VCF",
-      "name": "SAMPLE_1_SPECIMEN_1_FILE_2.vcf.gz",
-      "size": 70
-    }
-  ],
+  "sample_files": [],
+  "samples": [],
   "sequencing_process_files": [
     {
       "accession": "GHGAF00703444897886",
@@ -111,11 +114,11 @@
         "sequencing_experiment": "GHGAX46243488026107",
         "sequencing_lane_id": "LANE_123",
         "sequencing_machine_id": "SEQ_MACHINE_123",
-        "sequencing_run_id": "RUN_123",
-        "title": "Sequencing Process A",
         "sequencing_process_files": [
           "GHGAF00703444897886"
-        ]
+        ],
+        "sequencing_run_id": "RUN_123",
+        "title": "Sequencing Process A"
       },
       "size": 37
     },
@@ -139,11 +142,11 @@
         "sequencing_experiment": "GHGAX46243488026107",
         "sequencing_lane_id": "LANE_125",
         "sequencing_machine_id": "SEQ_MACHINE_123",
-        "sequencing_run_id": "RUN_125",
-        "title": "Sequencing Process C",
         "sequencing_process_files": [
           "GHGAF28831238836368"
-        ]
+        ],
+        "sequencing_run_id": "RUN_125",
+        "title": "Sequencing Process C"
       },
       "size": 1000
     },
@@ -167,13 +170,45 @@
         "sequencing_experiment": "GHGAX46243488026107",
         "sequencing_lane_id": "LANE_124",
         "sequencing_machine_id": "SEQ_MACHINE_123",
-        "sequencing_run_id": "RUN_124",
-        "title": "Sequencing Process B",
         "sequencing_process_files": [
           "GHGAF94399835832718"
-        ]
+        ],
+        "sequencing_run_id": "RUN_124",
+        "title": "Sequencing Process B"
       },
       "size": 153
+    }
+  ],
+  "studies": [
+    {
+      "accession": "GHGAS45990615033064",
+      "affiliations": [
+        "Some Institute",
+        "Some other Institute"
+      ],
+      "alias": "STUDY_A",
+      "attributes": [
+        {
+          "key": "budget",
+          "value": "3.5M"
+        },
+        {
+          "key": "funding",
+          "value": "EU"
+        }
+      ],
+      "conditions": [
+        "GHGAK81851599092372"
+      ],
+      "description": "A study that is the A study",
+      "publications": [
+        "GHGAU31391334493937"
+      ],
+      "study_files": [
+        "GHGAF36258899331942"
+      ],
+      "title": "The A Study",
+      "type": "SYNTHETIC_GENOMICS"
     }
   ],
   "study_files": [
@@ -204,59 +239,24 @@
             "value": "EU"
           }
         ],
-        "description": "A study that is the A study",
-        "title": "The A Study",
-        "type": "SYNTHETIC_GENOMICS",
         "conditions": [
           "GHGAK81851599092372"
+        ],
+        "description": "A study that is the A study",
+        "publications": [
+          "GHGAU31391334493937"
         ],
         "study_files": [
           "GHGAF36258899331942"
         ],
-        "publications": [
-          "GHGAU31391334493937"
-        ]
+        "title": "The A Study",
+        "type": "SYNTHETIC_GENOMICS"
       }
     }
   ],
-  "studies": [
-    {
-      "accession": "GHGAS45990615033064",
-      "affiliations": [
-        "Some Institute",
-        "Some other Institute"
-      ],
-      "alias": "STUDY_A",
-      "attributes": [
-        {
-          "key": "budget",
-          "value": "3.5M"
-        },
-        {
-          "key": "funding",
-          "value": "EU"
-        }
-      ],
-      "description": "A study that is the A study",
-      "title": "The A Study",
-      "type": "SYNTHETIC_GENOMICS",
-      "conditions": [
-        "GHGAK81851599092372"
-      ],
-      "study_files": [
-        "GHGAF36258899331942"
-      ],
-      "publications": [
-        "GHGAU31391334493937"
-      ]
-    }
-  ],
-  "sample_files": [],
-  "samples": [],
-  "files": [
-    "GHGAF36258899331942",
-    "GHGAF16680888925367",
-    "GHGAF26721888568346",
-    "GHGAF47612352255665"
+  "title": "The complete-A dataset",
+  "types": [
+    "A Type",
+    "Another Type"
   ]
 }

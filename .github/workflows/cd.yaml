@@ -17,9 +17,9 @@ jobs:
         name: Check out code
 
       - uses: actions/setup-python@v4
-        name: Set up Python 3.9
+        name: Set up Python 3.11
         with:
-          python-version: "3.9"
+          python-version: "3.11"
 
       - id: get_version_tag
         name: Get version tag

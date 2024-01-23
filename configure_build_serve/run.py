@@ -33,11 +33,11 @@ class Config(BaseSettings):
     host: str = "localhost"
     port: int = 8080
     client_url: str = "https://data.staging.ghga.dev/"
-    mass_url: str = f"{client_url}api/mass"
-    metldata_url: str = f"{client_url}api/metldata"
-    ars_url: str = f"{client_url}api/ars"
-    users_url: str = f"{client_url}api/auth/users"
-    wps_url: str = f"{client_url}api/wps"
+    mass_url: str = "/api/mass"
+    metldata_url: str = "/api/metldata"
+    ars_url: str = "/api/ars"
+    users_url: str = "/api/auth/users"
+    wps_url: str = "/api/wps"
     oidc_client_id: str = "ghga-client"
     oidc_redirect_url: str = f"{client_url}oauth/callback"
     oidc_scope: str = "openid profile email"
@@ -62,7 +62,7 @@ def set_react_app_env_vars(config: Config):
     """
 
     simplelog("Setting env vars for use in React App:")
-    for name, value in config.dict().items():
+    for name, value in config.model_dump().items():
         if name not in IGNORE_PARAMS_FOR_REACT_APP and value is not None:
             env_var_name = f"REACT_APP_{name.upper()}"
             os.environ[env_var_name] = str(value)

@@ -30,7 +30,7 @@
         "editor.rulers": [
           88
         ],
-        "editor.defaultFormatter": "ms-python.black-formatter",
+        "editor.defaultFormatter": "charliermarsh.ruff",
         "licenser.license": "Custom",
         "licenser.customHeaderFile": "/workspace/.devcontainer/license_header.txt"
       },
@@ -40,7 +40,6 @@
         "ms-azuretools.vscode-docker",
         "ms-python.python",
         "ms-python.vscode-pylance",
-        "ms-python.black-formatter",
         "njpwerner.autodocstring",
         "redhat.vscode-yaml",
         "42crunch.vscode-openapi",
@@ -51,7 +50,7 @@
         "yzhang.markdown-all-in-one",
         "visualstudioexptteam.vscodeintellicode",
         "ymotongpoo.licenser",
-        "editorconfig.editorconfig"
+        "charliermarsh.ruff"
       ]
     }
   },
