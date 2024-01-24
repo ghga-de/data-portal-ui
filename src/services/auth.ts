@@ -21,7 +21,7 @@ export interface User {
   email: string;
   extId: string;
   id?: string;
-  status?: string | null;
+  state: "unauthenticated" | "identified" | "needs-registration" | "needs-reregistration" | "registered" | "needs-totp-token" | "lost-totp-token" | "has-totp-token" | "authenticated";
   title?: string | null;
   changed?: boolean;
 }
@@ -185,6 +185,7 @@ class AuthService {
           expired,
           name,
           fullName: name,
+          state: "identified",
           email,
           extId: sub,
         };
@@ -197,7 +198,7 @@ class AuthService {
             user = {
               ...user,
               id,
-              status,
+              state: "registered",
               title,
               fullName,
               changed: name !== userData.name || email !== userData.email,
