@@ -13,6 +13,7 @@ To get help run:
 
 import argparse
 import os
+import json
 from pathlib import Path
 from subprocess import Popen
 from hexkit.config import config_from_yaml
@@ -33,6 +34,7 @@ class Config(BaseSettings):
     host: str = "localhost"
     port: int = 8080
     client_url: str = "https://data.staging.ghga.dev/"
+    ribbon_text: str = "Development v$v"
     mass_url: str = "/api/mass"
     metldata_url: str = "/api/metldata"
     ars_url: str = "/api/ars"
@@ -62,6 +64,10 @@ def set_react_app_env_vars(config: Config):
     """
 
     simplelog("Setting env vars for use in React App:")
+    # pass the version as env var
+    package = json.load(open("../package.json"))
+    os.environ["REACT_APP_VERSION"] = package["version"]
+    # pass config params as env vars
     for name, value in config.model_dump().items():
         if name not in IGNORE_PARAMS_FOR_REACT_APP and value is not None:
             env_var_name = f"REACT_APP_{name.upper()}"
