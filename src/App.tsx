@@ -90,7 +90,7 @@ function Layout() {
         }
         if (
           user &&
-          (!user.id || user.changed) &&
+          (user?.state === "needs-registration" || user?.state === "needs-reregistration") &&
           location.pathname !== "/register"
         ) {
           // user is new (needs to register)

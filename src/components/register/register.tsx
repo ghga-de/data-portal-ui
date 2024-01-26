@@ -54,7 +54,7 @@ const Register = () => {
 
   const prompt = () =>
     user?.id
-      ? (user.changed
+      ? (user.state === "needs-reregistration"
           ? "Your contact information has changed since you last registered. "
           : "") + "Please confirm that the information given below is correct."
       : "Since you haven't used our data portal before, " +

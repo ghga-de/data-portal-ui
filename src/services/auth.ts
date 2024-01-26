@@ -23,7 +23,6 @@ export interface User {
   id?: string;
   state: "unauthenticated" | "identified" | "needs-registration" | "needs-reregistration" | "registered" | "needs-totp-token" | "lost-totp-token" | "has-totp-token" | "authenticated";
   title?: string | null;
-  changed?: boolean;
 }
 
 /**
@@ -165,6 +164,7 @@ class AuthService {
    * where we could get them directly via User.profile.
    */
   async getUser(oidcUser?: OidcUser | null): Promise<User | null> {
+    let user: User | null = null;
     if (!oidcUser) {
       try {
         oidcUser = await this.getOidcUser();
@@ -175,10 +175,9 @@ class AuthService {
         oidcUser = null;
       }
     }
-    let user: User | null = null;
     if (oidcUser) {
-      const { name, email, sub } = oidcUser.profile;
-      if (name && email && sub) {
+      const { sub, name, email } = oidcUser.profile;
+      if (sub && name && email) {
         const expired = oidcUser.expired ?? true;
         let fullName = name;
         user = {
@@ -193,18 +192,23 @@ class AuthService {
           const response = await fetchJson(new URL(sub, USERS_URL));
           if (response.status === 200) {
             const userData = await response.json();
-            const { id, status, title } = userData;
+            const { id, name, title } = userData;
             if (title) fullName = `${title} ${fullName}`;
+            if (name !== userData.name || email !== userData.email) user.state = "needs-reregistration"
+            else user.state = "registered"
             user = {
               ...user,
               id,
-              state: "registered",
               title,
               fullName,
-              changed: name !== userData.name || email !== userData.email,
             };
+            console.log(user)
           } else if (response.status !== 404) {
             const title = "Cannot verify user";
+            user = {
+              ...user,
+              state: "needs-registration"
+            }
             showMessage({ type: "error", title });
             console.error(title, response.statusText);
           }
