@@ -189,7 +189,7 @@ class AuthService {
     }
     if (oidcUser) {
       const { sub, name, email } = oidcUser.profile;
-      if (sub && name && email) {
+      if (sub && name && email && oidcUser.access_token) {
         const expired = oidcUser.expired ?? true;
         let fullName = name;
         user = {
@@ -201,7 +201,8 @@ class AuthService {
           extId: sub,
         };
         try {
-          const response = await fetchJson(new URL(oidcUser.access_token, USERS_URL));
+          let tokenHeader: HeadersInit = { "X-Authorization": "Bearer " + oidcUser.access_token }
+          const response = await fetchJson(new URL(sub, USERS_URL), "GET", null, tokenHeader);
           if (response.status === 200) {
             const userData = await response.json();
             const { id, name, title } = userData;
