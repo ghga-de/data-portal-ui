@@ -11,7 +11,7 @@ import {
   faPenToSquare,
 } from "@fortawesome/free-solid-svg-icons";
 import { useMessages } from "../messages/usage";
-import { useAuth } from "../../services/auth";
+import { loginState, useAuth } from "../../services/auth";
 import { urlWithEndSlash } from "../../api/browse";
 
 const CLIENT_URL = new URL(urlWithEndSlash(process.env.REACT_APP_CLIENT_URL!))
@@ -54,7 +54,7 @@ const Register = () => {
 
   const prompt = () =>
     user?.id
-      ? (user.state === "needs-reregistration"
+      ? (user.loginState === "needs-reregistration"
           ? "Your contact information has changed since you last registered. "
           : "") + "Please confirm that the information given below is correct."
       : "Since you haven't used our data portal before, " +
@@ -63,7 +63,7 @@ const Register = () => {
   const buttonText = () => (user?.id ? "Confirm" : "Register");
 
   const submitUserData = async () => {
-    if (!user || !USERS_URL || user?.state === "unauthenticated") return;
+    if (!user || !USERS_URL || user?.loginState === "unauthenticated") return;
     unblock();
     const { id, extId, name, email } = user;
     const userData: any = {
@@ -85,7 +85,7 @@ const Register = () => {
     const response = await fetchJson(url, method, userData).catch(() => null);
     if (response && response.status === ok) {
       showMessage({ type: "success", title: "Registration successful" });
-      user.state = "registered"
+      user.loginState = loginState.registered;
       navigate("/profile");
       return;
     }
