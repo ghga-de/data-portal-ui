@@ -63,7 +63,7 @@ const Register = () => {
   const buttonText = () => (user?.id ? "Confirm" : "Register");
 
   const submitUserData = async () => {
-    if (!user || !USERS_URL) return;
+    if (!user || !USERS_URL || user?.state === "unauthenticated") return;
     unblock();
     const { id, extId, name, email } = user;
     const userData: any = {
@@ -85,6 +85,7 @@ const Register = () => {
     const response = await fetchJson(url, method, userData).catch(() => null);
     if (response && response.status === ok) {
       showMessage({ type: "success", title: "Registration successful" });
+      user.state = "registered"
       navigate("/profile");
       return;
     }

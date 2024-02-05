@@ -40,7 +40,7 @@ const LoginButton = () => {
 
   return (
     <div className="me-3 me-xxl-0">
-      {user ? (
+      {user && user?.state !== "unauthenticated" ? (
         user?.state === "needs-registration" || user?.state === "needs-reregistration" ? (
           <>
             <OverlayTrigger

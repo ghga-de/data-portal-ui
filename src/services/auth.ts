@@ -165,6 +165,11 @@ class AuthService {
    */
   async getUser(oidcUser?: OidcUser | null): Promise<User | null> {
     let user: User | null = null;
+
+    let userCookie = document.cookie.match("(^|;)\\s*user\\s*=\\s*([^;]+)")?.pop();
+    if (!userCookie) {
+      user = { "expired": false, email: "", name: "", state: "unauthenticated", extId: "", fullName: "" }
+    }
     if (!oidcUser) {
       try {
         oidcUser = await this.getOidcUser();
@@ -202,7 +207,6 @@ class AuthService {
               title,
               fullName,
             };
-            console.log(user)
           } else if (response.status !== 404) {
             const title = "Cannot verify user";
             user = {
