@@ -200,7 +200,7 @@ class AuthService {
           extId: sub,
         };
         try {
-          let tokenHeader: HeadersInit = { "X-Authorization": "Bearer " + oidcUser.access_token }
+          let tokenHeader: Record<string, string> = { "X-Authorization": "Bearer " + oidcUser.access_token }
           const response = await fetchJson(new URL(sub, USERS_URL), "GET", null, tokenHeader);
           if (response.status === 200) {
             const userData = await response.json();
