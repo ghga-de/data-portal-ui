@@ -14,7 +14,7 @@ import {
   faArrowRightToBracket,
   faPenToSquare,
 } from "@fortawesome/free-solid-svg-icons";
-import { useAuth } from "../../services/auth";
+import { LoginState, useAuth } from "../../services/auth";
 
 const LoginButton = () => {
   const { user, loginUser, logoutUser } = useAuth();
@@ -40,8 +40,8 @@ const LoginButton = () => {
 
   return (
     <div className="me-3 me-xxl-0">
-      {user && user?.loginState !== "unauthenticated" ? (
-        user?.loginState === "needs-registration" || user?.loginState === "needs-reregistration" ? (
+      {user ? (
+        user.loginState === LoginState.NeedsRegistration || user.loginState === LoginState.NeedsReregistration ? (
           <>
             <OverlayTrigger
               trigger="click"
@@ -55,7 +55,7 @@ const LoginButton = () => {
                 >
                   <Popover.Body className="text-center fs-6 px-4">
                     <p>
-                      You need to complete your {user?.loginState === "needs-reregistration" ? "re-" : ""}
+                      You need to complete your {user.loginState === LoginState.NeedsReregistration ? "re-" : ""}
                       registration with the GHGA Data Portal before you can
                       start using your LS Login account.
                     </p>
@@ -127,7 +127,7 @@ const LoginButton = () => {
             >
               {(props) => (
                 <Tooltip id="registertooltip" {...props}>
-                  {user?.loginState === "needs-reregistration" ? "Re-" : ""}Registration required
+                  {user?.loginState === LoginState.NeedsReregistration ? "Re-" : ""}Registration required
                 </Tooltip>
               )}
             </Overlay>

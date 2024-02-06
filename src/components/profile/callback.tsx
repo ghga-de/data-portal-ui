@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { Col, Container, Row, Spinner } from "react-bootstrap";
-import { authService } from "../../services/auth";
+import { LoginState, authService } from "../../services/auth";
 import { useMessages } from "../messages/usage";
 
 /** Handle redirect after OIDC login */
@@ -37,7 +37,7 @@ const Callback = () => {
         .then((user) => {
           if (!user) {
             handleError();
-          } else if (user?.loginState === "needs-registration" || user?.loginState === "needs-reregistration") {
+          } else if (user.loginState === LoginState.NeedsRegistration || user.loginState === LoginState.NeedsReregistration) {
             // user is new (needs to register)
             // or her data changed (needs to confirm)
             navigate("/register");

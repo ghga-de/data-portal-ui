@@ -14,16 +14,15 @@ const USERS_URL = new URL(urlWithEndSlash(process.env.REACT_APP_USERS_URL!), CLI
  * which does not contain the user data from the backend.
  */
 
-export enum loginState {
-  unauthenticated = "unauthenticated",
-  identified = "identified",
-  needs_registration = "needs-registration",
-  needs_reregistration = "needs-reregistration",
-  registered = "registered",
-  needs_totp_token = "needs-totp-token",
-  lost_totp_token = "lost-totp-token",
-  has_totp_token = "has-totp-token",
-  authenticated = "authenticated"
+export enum LoginState {
+  Identified,
+  NeedsRegistration,
+  NeedsReregistration,
+  Registered,
+  NeedsTOTPToken,
+  LostTOTPToken,
+  HasTOTPToken,
+  Authenticated
 }
 
 export interface User {
@@ -33,7 +32,7 @@ export interface User {
   email: string;
   extId: string;
   id?: string;
-  loginState: loginState;
+  loginState: LoginState;
   title?: string | null;
 }
 
@@ -176,7 +175,7 @@ class AuthService {
    * where we could get them directly via User.profile.
    */
   async getUser(oidcUser?: OidcUser | null): Promise<User | null> {
-    let user: User = { "expired": false, email: "", name: "", loginState: loginState.unauthenticated, extId: "", fullName: "" }
+    let user: User | null = null;
     if (!oidcUser) {
       try {
         oidcUser = await this.getOidcUser();
@@ -189,14 +188,14 @@ class AuthService {
     }
     if (oidcUser) {
       const { sub, name, email } = oidcUser.profile;
-      if (sub && name && email && oidcUser.access_token) {
+      if (sub && name && email) {
         const expired = oidcUser.expired ?? true;
         let fullName = name;
         user = {
           expired,
-          name,
+          name: name,
           fullName: name,
-          loginState: loginState.identified,
+          loginState: LoginState.Identified,
           email,
           extId: sub,
         };
@@ -205,22 +204,23 @@ class AuthService {
           const response = await fetchJson(new URL(sub, USERS_URL), "GET", null, tokenHeader);
           if (response.status === 200) {
             const userData = await response.json();
-            const { id, name, title } = userData;
+            const { id, title } = userData;
             if (title) fullName = `${title} ${fullName}`;
-            if (name !== userData.name || email !== userData.email) user.loginState = loginState.needs_reregistration
-            else user.loginState = loginState.registered
+            user.loginState = name !== userData.name || email !== userData.email ? LoginState.NeedsReregistration : LoginState.Registered;
             user = {
               ...user,
               id,
               title,
               fullName,
             };
-          } else if (response.status !== 404) {
-            const title = "Cannot verify user";
+          } else if (response.status === 404) {
             user = {
               ...user,
-              loginState: loginState.needs_registration
+              loginState: LoginState.NeedsRegistration
             }
+          }
+          else {
+            const title = "Cannot verify user";
             showMessage({ type: "error", title });
             console.error(title, response.statusText);
           }
