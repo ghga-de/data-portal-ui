@@ -214,10 +214,7 @@ class AuthService {
               fullName,
             };
           } else if (response.status === 404) {
-            user = {
-              ...user,
-              loginState: LoginState.NeedsRegistration
-            }
+            user.loginState = LoginState.NeedsRegistration;
           }
           else {
             const title = "Cannot verify user";

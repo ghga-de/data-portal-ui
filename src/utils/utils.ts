@@ -171,7 +171,7 @@ export const fetchJson = async (
   payload?: any,
   additionalHeaders?: Record<string, string>,
 ): Promise<Response> => {
-  let headers: HeadersInit = {
+  const headers: HeadersInit = {
     Accept: "application/json",
   };
   if (payload) {
@@ -181,7 +181,7 @@ export const fetchJson = async (
     headers["Origin"] = CLIENT_URL.hostname;
   }
   if (additionalHeaders)
-    headers = Object.assign(headers, additionalHeaders)
+    Object.assign(headers, additionalHeaders)
   const body = payload ? JSON.stringify(payload) : undefined;
   return await fetch(url, { method, headers, body });
 };
