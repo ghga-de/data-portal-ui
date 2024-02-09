@@ -114,6 +114,7 @@ class AuthService {
    * Set new user.
    */
   private setUser(user: User | null): void {
+    localStorage.setItem("userObj", JSON.stringify(user))
     authStore.getState().setUser(user);
   }
 
@@ -147,6 +148,7 @@ class AuthService {
        So we simply remove the user from the store instead.
     */
     await this.userManager.removeUser();
+    sessionStorage.setItem("userObj", "null")
     this.setUser(null);
   }
 
@@ -176,6 +178,12 @@ class AuthService {
    */
   async getUser(oidcUser?: OidcUser | null): Promise<User | null> {
     let user: User | null = null;
+
+    let userLocalStore = localStorage.getItem("userObj")
+    let userLocalStoreJSON: any;
+    userLocalStore && userLocalStore !== "null" ? userLocalStoreJSON = JSON.parse(userLocalStore) : user = null
+    userLocalStoreJSON ? user = { email: userLocalStoreJSON.email, extId: userLocalStoreJSON.extId, expired: userLocalStoreJSON.expired, name: userLocalStoreJSON.name, fullName: userLocalStoreJSON.fullName, loginState: userLocalStoreJSON.loginState } : user = null
+
     if (!oidcUser) {
       try {
         oidcUser = await this.getOidcUser();
