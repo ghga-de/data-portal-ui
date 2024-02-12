@@ -114,7 +114,7 @@ class AuthService {
    * Set new user.
    */
   private setUser(user: User | null): void {
-    localStorage.setItem("userObj", JSON.stringify(user))
+    sessionStorage.setItem("userObj", JSON.stringify(user))
     authStore.getState().setUser(user);
   }
 
@@ -179,11 +179,6 @@ class AuthService {
   async getUser(oidcUser?: OidcUser | null): Promise<User | null> {
     let user: User | null = null;
 
-    let userLocalStore = localStorage.getItem("userObj")
-    let userLocalStoreJSON: any;
-    userLocalStore && userLocalStore !== "null" ? userLocalStoreJSON = JSON.parse(userLocalStore) : user = null
-    userLocalStoreJSON ? user = { email: userLocalStoreJSON.email, extId: userLocalStoreJSON.extId, expired: userLocalStoreJSON.expired, name: userLocalStoreJSON.name, fullName: userLocalStoreJSON.fullName, loginState: userLocalStoreJSON.loginState } : user = null
-
     if (!oidcUser) {
       try {
         oidcUser = await this.getOidcUser();
@@ -195,6 +190,13 @@ class AuthService {
       }
     }
     if (oidcUser) {
+
+      let userSessionStore = sessionStorage.getItem("userObj")
+      let userSessionStoreJSON: any;
+      userSessionStore && userSessionStore !== "null" ? userSessionStoreJSON = JSON.parse(userSessionStore) : user = null
+      if (userSessionStoreJSON)
+        user = { email: userSessionStoreJSON.email, extId: userSessionStoreJSON.extId, expired: userSessionStoreJSON.expired, name: userSessionStoreJSON.name, fullName: userSessionStoreJSON.fullName, loginState: userSessionStoreJSON.loginState }
+
       const { sub, name, email } = oidcUser.profile;
       if (sub && name && email) {
         const expired = oidcUser.expired ?? true;
