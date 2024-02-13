@@ -14,6 +14,17 @@ const USERS_URL = new URL(urlWithEndSlash(process.env.REACT_APP_USERS_URL!), CLI
  * which does not contain the user data from the backend.
  */
 
+export enum LoginState {
+  Identified,
+  NeedsRegistration,
+  NeedsReregistration,
+  Registered,
+  NeedsTOTPToken,
+  LostTOTPToken,
+  HasTOTPToken,
+  Authenticated
+}
+
 export interface User {
   expired: boolean;
   name: string;
@@ -21,9 +32,8 @@ export interface User {
   email: string;
   extId: string;
   id?: string;
-  status?: string | null;
+  loginState: LoginState;
   title?: string | null;
-  changed?: boolean;
 }
 
 /**
@@ -104,6 +114,7 @@ class AuthService {
    * Set new user.
    */
   private setUser(user: User | null): void {
+    sessionStorage.setItem("userObj", JSON.stringify(user))
     authStore.getState().setUser(user);
   }
 
@@ -137,6 +148,7 @@ class AuthService {
        So we simply remove the user from the store instead.
     */
     await this.userManager.removeUser();
+    sessionStorage.setItem("userObj", "null")
     this.setUser(null);
   }
 
@@ -165,6 +177,8 @@ class AuthService {
    * where we could get them directly via User.profile.
    */
   async getUser(oidcUser?: OidcUser | null): Promise<User | null> {
+    let user: User | null = null;
+
     if (!oidcUser) {
       try {
         oidcUser = await this.getOidcUser();
@@ -175,34 +189,44 @@ class AuthService {
         oidcUser = null;
       }
     }
-    let user: User | null = null;
     if (oidcUser) {
-      const { name, email, sub } = oidcUser.profile;
-      if (name && email && sub) {
+
+      let userSessionStore = sessionStorage.getItem("userObj")
+      let userSessionStoreJSON: any;
+      userSessionStore && userSessionStore !== "null" ? userSessionStoreJSON = JSON.parse(userSessionStore) : user = null
+      if (userSessionStoreJSON)
+        user = { email: userSessionStoreJSON.email, extId: userSessionStoreJSON.extId, expired: userSessionStoreJSON.expired, name: userSessionStoreJSON.name, fullName: userSessionStoreJSON.fullName, loginState: userSessionStoreJSON.loginState }
+
+      const { sub, name, email } = oidcUser.profile;
+      if (sub && name && email) {
         const expired = oidcUser.expired ?? true;
         let fullName = name;
         user = {
           expired,
-          name,
+          name: name,
           fullName: name,
+          loginState: LoginState.Identified,
           email,
           extId: sub,
         };
         try {
-          const response = await fetchJson(new URL(sub, USERS_URL));
+          let tokenHeader: Record<string, string> = { "X-Authorization": "Bearer " + oidcUser.access_token }
+          const response = await fetchJson(new URL(sub, USERS_URL), "GET", null, tokenHeader);
           if (response.status === 200) {
             const userData = await response.json();
-            const { id, status, title } = userData;
+            const { id, title } = userData;
             if (title) fullName = `${title} ${fullName}`;
+            user.loginState = name !== userData.name || email !== userData.email ? LoginState.NeedsReregistration : LoginState.Registered;
             user = {
               ...user,
               id,
-              status,
               title,
               fullName,
-              changed: name !== userData.name || email !== userData.email,
             };
-          } else if (response.status !== 404) {
+          } else if (response.status === 404) {
+            user.loginState = LoginState.NeedsRegistration;
+          }
+          else {
             const title = "Cannot verify user";
             showMessage({ type: "error", title });
             console.error(title, response.statusText);

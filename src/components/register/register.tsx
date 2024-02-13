@@ -11,7 +11,7 @@ import {
   faPenToSquare,
 } from "@fortawesome/free-solid-svg-icons";
 import { useMessages } from "../messages/usage";
-import { useAuth } from "../../services/auth";
+import { LoginState, useAuth } from "../../services/auth";
 import { urlWithEndSlash } from "../../api/browse";
 
 const CLIENT_URL = new URL(urlWithEndSlash(process.env.REACT_APP_CLIENT_URL!))
@@ -54,7 +54,7 @@ const Register = () => {
 
   const prompt = () =>
     user?.id
-      ? (user.changed
+      ? (user.loginState === LoginState.NeedsReregistration
           ? "Your contact information has changed since you last registered. "
           : "") + "Please confirm that the information given below is correct."
       : "Since you haven't used our data portal before, " +
@@ -85,6 +85,7 @@ const Register = () => {
     const response = await fetchJson(url, method, userData).catch(() => null);
     if (response && response.status === ok) {
       showMessage({ type: "success", title: "Registration successful" });
+      user.loginState = LoginState.Registered;
       navigate("/profile");
       return;
     }

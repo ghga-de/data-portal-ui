@@ -13,7 +13,7 @@ export function setOidcUser() {
   const userObj = {
     id_token: null,
     session_state: null,
-    access_token: null,
+    access_token: "test123",
     token_type: "Bearer",
     scope: SCOPE.href,
     profile: {

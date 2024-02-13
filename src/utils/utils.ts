@@ -2,7 +2,6 @@ import { Dispatch, SetStateAction } from "react";
 import { querySearchService, urlWithEndSlash } from "../api/browse";
 import { SearchResponseModel } from "../models/dataset";
 import { FacetFilterModel } from "../models/facets";
-import { authService } from "../services/auth";
 
 const CLIENT_URL = new URL(urlWithEndSlash(process.env.REACT_APP_CLIENT_URL!))
 
@@ -169,7 +168,8 @@ export const importAllFilesFromFolder = (r: any) => {
 export const fetchJson = async (
   url: string | URL,
   method: string = "GET",
-  payload?: any
+  payload?: any,
+  additionalHeaders?: Record<string, string>,
 ): Promise<Response> => {
   const headers: HeadersInit = {
     Accept: "application/json",
@@ -180,12 +180,8 @@ export const fetchJson = async (
   if (CLIENT_URL) {
     headers["Origin"] = CLIENT_URL.hostname;
   }
-  const token = await authService.getAccessToken();
-  if (token) {
-    // the Authorization header is already used for Basic auth,
-    // therefore we use the X-Authorization header for the OIDC token
-    headers["X-Authorization"] = "Bearer " + token;
-  }
+  if (additionalHeaders)
+    Object.assign(headers, additionalHeaders)
   const body = payload ? JSON.stringify(payload) : undefined;
   return await fetch(url, { method, headers, body });
 };

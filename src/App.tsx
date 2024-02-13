@@ -25,7 +25,7 @@ import Register from "./components/register/register";
 import Profile from "./components/profile/profile";
 import { MessageContainer } from "./components/messages/container";
 import { useMessages } from "./components/messages/usage";
-import { authService } from "./services/auth";
+import { LoginState, authService } from "./services/auth";
 import { useLayoutEffect } from "react";
 import AccessRequests from "./components/accessRequests/accessRequests";
 
@@ -90,7 +90,7 @@ function Layout() {
         }
         if (
           user &&
-          (!user.id || user.changed) &&
+          (user.loginState === LoginState.NeedsRegistration || user.loginState === LoginState.NeedsReregistration ) &&
           location.pathname !== "/register"
         ) {
           // user is new (needs to register)
