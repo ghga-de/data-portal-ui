@@ -2,7 +2,7 @@ import { ChangeEvent, FormEvent, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { useBlocker } from "react-router-dom";
 import { Button, Container, Modal, Row, Col } from "react-bootstrap";
-import { fetchJson } from "../../utils/utils";
+import { AUTH_URL, fetchJson } from "../../utils/utils";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faUserCheck,
@@ -12,10 +12,6 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { useMessages } from "../messages/usage";
 import { LoginState, useAuth } from "../../services/auth";
-import { urlWithEndSlash } from "../../api/browse";
-
-const CLIENT_URL = new URL(urlWithEndSlash(process.env.REACT_APP_CLIENT_URL!))
-const USERS_URL = new URL(urlWithEndSlash(process.env.REACT_APP_USERS_URL!), CLIENT_URL)
 
 /** User registration form */
 
@@ -55,15 +51,15 @@ const Register = () => {
   const prompt = () =>
     user?.id
       ? (user.loginState === LoginState.NeedsReregistration
-          ? "Your contact information has changed since you last registered. "
-          : "") + "Please confirm that the information given below is correct."
+        ? "Your contact information has changed since you last registered. "
+        : "") + "Please confirm that the information given below is correct."
       : "Since you haven't used our data portal before, " +
-        "we ask you to confirm your user data and register with us.";
+      "we ask you to confirm your user data and register with us.";
 
   const buttonText = () => (user?.id ? "Confirm" : "Register");
 
   const submitUserData = async () => {
-    if (!user || !USERS_URL) return;
+    if (!user || !AUTH_URL) return;
     unblock();
     const { id, extId, name, email } = user;
     const userData: any = {
@@ -71,7 +67,7 @@ const Register = () => {
       email,
       title: title || null,
     };
-    let url = USERS_URL;
+    let url = AUTH_URL;
     let method: string, ok: number;
     if (id) {
       url = new URL(`${user.id}`, url);

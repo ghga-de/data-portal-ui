@@ -19,13 +19,9 @@ import { AccessRequest } from "../../models/submissionsAndRequests";
 import { useMessages } from "../messages/usage";
 import { useAuth } from "../../services/auth";
 import { useEffect, useState } from "react";
-import { fetchJson } from "../../utils/utils";
+import { ARS_URL, fetchJson } from "../../utils/utils";
 import AccessRequestsList from "./accessRequestsList/accessRequestsList";
 import AccessRequestsFilter from "./accessRequestsFilter/accessRequestsFilter";
-import { urlWithEndSlash } from "../../api/browse";
-
-const CLIENT_URL = new URL(urlWithEndSlash(process.env.REACT_APP_CLIENT_URL!))
-const ARS_URL = new URL(urlWithEndSlash(process.env.REACT_APP_ARS_URL!), CLIENT_URL);
 
 const AccessRequests = () => {
   const MIN_YEAR = 2000;

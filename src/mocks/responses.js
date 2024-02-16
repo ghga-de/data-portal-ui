@@ -19,7 +19,7 @@ import {
 
 export const responses = {
   // User registry
-  [`GET /api/auth/users/${user.ext_id}`]: user,
+  [`POST /api/auth/rpc/login`]: user,
 
   // Datasets requested by j.doe@ghga.de user
   "GET /api/wps/users/j.doe@ghga.de/datasets": datasets,

@@ -1,9 +1,35 @@
 import { Dispatch, SetStateAction } from "react";
-import { querySearchService, urlWithEndSlash } from "../api/browse";
+import { querySearchService } from "../api/browse";
 import { SearchResponseModel } from "../models/dataset";
 import { FacetFilterModel } from "../models/facets";
 
-const CLIENT_URL = new URL(urlWithEndSlash(process.env.REACT_APP_CLIENT_URL!))
+/**
+ * Checks and cleans up URL if last character is or is not forward slash
+ * Duplicate of utils version because of infinite recursion error, needs refactoring
+ * @param url - String of URL
+ * @param endSlash - whether we want to have an end slash or not
+ * @returns URL as specified
+ */
+export const urlWithEndSlash = (url: string) => {
+  const lastCharSlash = url.endsWith("/");
+  return lastCharSlash ? url : url + "/"
+}
+
+export const CLIENT_URL = new URL(urlWithEndSlash(process.env.REACT_APP_CLIENT_URL!))
+
+export const ARS_URL = new URL(urlWithEndSlash(process.env.REACT_APP_ARS_URL!), CLIENT_URL);
+
+export const AUTH_URL = new URL(urlWithEndSlash(process.env.REACT_APP_AUTH_URL!), CLIENT_URL)
+export const ISSUER = new URL(urlWithEndSlash(process.env.REACT_APP_OIDC_AUTHORITY_URL!), CLIENT_URL);
+
+export const MASS_URL = new URL(urlWithEndSlash(process.env.REACT_APP_MASS_URL!), CLIENT_URL);
+export const METLDATA_URL = new URL(urlWithEndSlash(process.env.REACT_APP_METLDATA_URL!), CLIENT_URL)
+
+export const OIDC_AUTHORITY_URL = new URL(urlWithEndSlash(process.env.REACT_APP_OIDC_AUTHORITY_URL!), CLIENT_URL);
+export const OIDC_CONFIG_PATH = "/.well-known/openid-configuration";
+export const OIDC_CONFIG_URL = new URL(OIDC_CONFIG_PATH, OIDC_AUTHORITY_URL);
+
+export const WPS_URL = new URL(urlWithEndSlash(process.env.REACT_APP_WPS_URL!), CLIENT_URL);
 
 /**
  * Convert an array of filter objects into string representation.

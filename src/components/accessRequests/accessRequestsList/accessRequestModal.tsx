@@ -14,14 +14,10 @@
 // limitations under the License.
 
 import { Button, Col, Modal, Row } from "react-bootstrap";
-import { fetchJson } from "../../../utils/utils";
+import { ARS_URL, fetchJson } from "../../../utils/utils";
 import { showMessage } from "../../messages/usage";
 import { AccessRequest } from "../../../models/submissionsAndRequests";
 import { useState } from "react";
-import { urlWithEndSlash } from "../../../api/browse";
-
-const CLIENT_URL = new URL(urlWithEndSlash(process.env.REACT_APP_CLIENT_URL!))
-const ARS_URL = new URL(urlWithEndSlash(process.env.REACT_APP_ARS_URL!),CLIENT_URL);
 
 interface AccessRequestModalProps {
   show: boolean;

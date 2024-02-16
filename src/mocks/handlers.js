@@ -1,12 +1,7 @@
 import { http, HttpResponse } from "msw";
 import { responses } from "./responses";
 import { setOidcUser } from "./login";
-import { urlWithEndSlash } from "../api/browse";
-
-const CLIENT_URL = new URL(urlWithEndSlash(process.env.REACT_APP_CLIENT_URL));
-const OIDC_AUTHORITY_URL = new URL(urlWithEndSlash(process.env.REACT_APP_OIDC_AUTHORITY_URL, true), CLIENT_URL);
-const OIDC_CONFIG_PATH = "/.well-known/openid-configuration";
-const OIDC_CONFIG_URL = new URL(OIDC_CONFIG_PATH, OIDC_AUTHORITY_URL);
+import { CLIENT_URL, OIDC_CONFIG_URL } from "../utils/utils";
 
 const fakeAuth = !!CLIENT_URL.href.match(/127\.|local/);
 

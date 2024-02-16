@@ -5,24 +5,8 @@ import {
   MetadataSummaryModel,
 } from "../models/dataset";
 import { FacetFilterModel } from "../models/facets";
-import { fetchJson } from "../utils/utils";
+import { MASS_URL, METLDATA_URL, fetchJson } from "../utils/utils";
 import { showMessage } from "../components/messages/usage";
-
-/**
- * Checks and cleans up URL if last character is or is not forward slash
- * Duplicate of utils version because of infinite recursion error, needs refactoring
- * @param url - String of URL
- * @param endSlash - whether we want to have an end slash or not
- * @returns URL as specified
- */
-export const urlWithEndSlash = (url: string) => {
-  const lastCharSlash = url.endsWith("/");
-  return lastCharSlash ? url : url + "/"
-}
-
-const CLIENT_URL = new URL(urlWithEndSlash(process.env.REACT_APP_CLIENT_URL!))
-const MASS_URL = new URL(urlWithEndSlash(process.env.REACT_APP_MASS_URL!), CLIENT_URL);
-const METLDATA_URL = new URL(urlWithEndSlash(process.env.REACT_APP_METLDATA_URL!), CLIENT_URL)
 
 const showFetchDataError = () => {
   showMessage({

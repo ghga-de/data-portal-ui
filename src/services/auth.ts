@@ -3,10 +3,6 @@ import type { OidcMetadata, UserManagerSettings } from "oidc-client-ts";
 import { fetchJson } from "../utils/utils";
 import { showMessage } from "../components/messages/usage";
 import { createStore, useStore } from "zustand";
-import { urlWithEndSlash } from "../api/browse";
-
-const CLIENT_URL = new URL(urlWithEndSlash(process.env.REACT_APP_CLIENT_URL!))
-const USERS_URL = new URL(urlWithEndSlash(process.env.REACT_APP_USERS_URL!), CLIENT_URL);
 
 /**
  * Interface for a full high-level user object.
@@ -147,7 +143,6 @@ class AuthService {
        So we simply remove the user from the store instead.
     */
     await this.userManager.removeUser();
-    sessionStorage.setItem("userObj", "null")
     this.setUser(null);
   }
 
@@ -190,12 +185,6 @@ class AuthService {
     }
     if (oidcUser) {
 
-      let userSessionStore = sessionStorage.getItem("userObj")
-      let userSessionStoreJSON: any;
-      userSessionStore && userSessionStore !== "null" ? userSessionStoreJSON = JSON.parse(userSessionStore) : user = null
-      if (userSessionStoreJSON)
-        user = { email: userSessionStoreJSON.email, extId: userSessionStoreJSON.extId, expired: userSessionStoreJSON.expired, name: userSessionStoreJSON.name, fullName: userSessionStoreJSON.fullName, loginState: userSessionStoreJSON.loginState }
-
       const { sub, name, email } = oidcUser.profile;
       if (sub && name && email) {
         const expired = oidcUser.expired ?? true;
@@ -208,22 +197,28 @@ class AuthService {
           email,
           extId: sub,
         };
+        const response = { status: 204, statusText: "" }
+        const userData = { name: "John Doe", email: "j.jdoe@home.org" }; let id = "aacaffeecaffeecaffeecaffeecaffeecaffeeaad@lifescience-ri.eu"; let title = "";
         try {
-          let tokenHeader: Record<string, string> = { "X-Authorization": "Bearer " + oidcUser.access_token }
-          const response = await fetchJson(new URL(sub, USERS_URL), "GET", null, tokenHeader);
-          if (response.status === 200) {
-            const userData = await response.json();
-            const { id, title } = userData;
-            if (title) fullName = `${title} ${fullName}`;
-            user.loginState = name !== userData.name || email !== userData.email ? LoginState.NeedsReregistration : LoginState.Registered;
-            user = {
-              ...user,
-              id,
-              title,
-              fullName,
-            };
-          } else if (response.status === 404) {
-            user.loginState = LoginState.NeedsRegistration;
+          // let tokenHeader: Record<string, string> = { "X-Authorization": "Bearer " + oidcUser.access_token }
+          // const response = await fetchJson(new URL("rpc/login", AUTH_URL), "POST", null, tokenHeader);
+          if (response.status === 204) {
+            // const userData = { id: "", title: "", name: "", email: "" };
+            // const sessionData = await response.headers.get("X-Session");
+            // if (sessionData) {
+              if (title) fullName = `${title} ${fullName}`;
+              user.loginState = name !== userData.name || email !== userData.email ? LoginState.NeedsReregistration : LoginState.Registered;
+              user = {
+                ...user,
+                id,
+                title,
+                fullName,
+              };
+            // }
+          } else if (response.status === 401) {
+            const title = "Not authorised";
+            showMessage({ type: "error", title });
+            console.error(title, response.statusText);
           }
           else {
             const title = "Cannot verify user";

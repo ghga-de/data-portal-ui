@@ -38,7 +38,7 @@ class Config(BaseSettings):
     mass_url: str = "/api/mass"
     metldata_url: str = "/api/metldata"
     ars_url: str = "/api/ars"
-    users_url: str = "/api/auth/users"
+    auth_url: str = "/api/auth"
     wps_url: str = "/api/wps"
     oidc_client_id: str = "ghga-client"
     oidc_redirect_url: str = f"{client_url}oauth/callback"
