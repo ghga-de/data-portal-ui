@@ -28,7 +28,8 @@ import { useMessages } from "./components/messages/usage";
 import { LoginState, authService } from "./services/auth";
 import { useLayoutEffect } from "react";
 import AccessRequests from "./components/accessRequests/accessRequests";
-import SetupTOTP from "./components/profile/setupTOTP/setupTOTP";
+import SetupTOTP from "./components/register/setupTOTP/setupTOTP";
+import ConfirmTOTP from "./components/confirmTOTP/confirmTOTP";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -51,8 +52,9 @@ const router = createBrowserRouter(
       <Route path="/oauth/callback" element={<Callback />} />
       <Route path="/register" element={<Register />} />
       <Route path="/profile" element={<Profile />} />
-      <Route path="/setupTOTP" element={<SetupTOTP />} />
+      <Route path="/setup-totp" element={<SetupTOTP />} />
       <Route path="/access-requests" element={<AccessRequests />} />
+      <Route path="/confirm-totp" element={<ConfirmTOTP />} />
       <Route path="*" element={<PageNotFound />} />
     </Route>
   )
@@ -92,7 +94,8 @@ function Layout() {
         }
         if (
           user &&
-          (user.loginState === LoginState.NeedsRegistration || user.loginState === LoginState.NeedsReregistration ) &&
+          (user.loginState === LoginState.NeedsRegistration ||
+            user.loginState === LoginState.NeedsReregistration) &&
           location.pathname !== "/register"
         ) {
           // user is new (needs to register)
