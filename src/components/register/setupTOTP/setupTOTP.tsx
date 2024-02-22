@@ -30,19 +30,19 @@ const SetupTOTP = () => {
 
   return (
     <Container className="mt-4">
-      <h2>Set up two-step authentication</h2>
+      <h2>Set up two-factor authentication</h2>
       <div className="w-100">
         <p>
           For additional security when accessing protected data with the GHGA
-          data portal, we are using two-step authentication and verification of
-          your identity via an independent verification address.
+          data portal, we are using two-factor authentication and verification
+          of your identity via an independent verification address.
         </p>
         <p>
-          The two-step authentication means that we require you to enter an
+          The two-factor authentication means that we require you to enter an
           additional 6-digit authentication code after you logged in via LS
           Login. This code can be produced by an authenticator app such as
           Aegis, Microsoft Authenticator or Google Authenticator, which you can
-          install on your phone
+          install on your mobile phone
         </p>
         <p>
           In order to set up the authenticator app to produce the authentication
@@ -60,7 +60,7 @@ const SetupTOTP = () => {
         <div className={showManual}>
           <p>
             If you have trouble scanning the QR Code, please manually input the
-            following on your authenticator app:
+            following setup key in your authenticator app:
             <br />{" "}
             <OverlayTrigger
               placement="top"
@@ -83,8 +83,16 @@ const SetupTOTP = () => {
         </div>
         <div>
           <Button
+            onClick={() => {
+              navigate("/confirm-totp");
+            }}
+          >
+            <FontAwesomeIcon icon={faCircleArrowRight} />
+            &nbsp; Continue
+          </Button>
+          <Button
             variant="gray"
-            className="me-2 text-white"
+            className="ms-2 text-white"
             onClick={() => {
               if (showManual === "") {
                 setShowManual("d-none");
@@ -96,14 +104,6 @@ const SetupTOTP = () => {
             }}
           >
             {buttonText}
-          </Button>
-          <Button
-            onClick={() => {
-              navigate("/confirm-totp");
-            }}
-          >
-            <FontAwesomeIcon icon={faCircleArrowRight} />
-            &nbsp; Continue
           </Button>
         </div>
       </div>

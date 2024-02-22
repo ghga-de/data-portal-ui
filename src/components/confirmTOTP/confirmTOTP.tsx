@@ -45,8 +45,8 @@ const ConfirmTOTP = () => {
             authenticator app, you can create a new authentication code setup.
           </p>
           <p className="fw-bold">
-            However, all independent addresses that had been verified before
-            will need to be verified again
+            However, all contact addresses that had been verified before will
+            need to be verified again
           </p>
 
           <div>
@@ -60,8 +60,8 @@ const ConfirmTOTP = () => {
               }}
             />
             <label htmlFor="agree" className="d-inline">
-              I acknowledge that all previous verification methods will require
-              re-verification if a new TOTP setup is requested
+              I acknowledge that all previous contact addresses will require
+              re-verification if a new authenticator setup is requested
             </label>
           </div>
           <br />
@@ -88,7 +88,7 @@ const ConfirmTOTP = () => {
 
   return (
     <Container className="mt-4">
-      <h2>Two-step authentication</h2>
+      <h2>Two-factor authentication</h2>
       <LostTOTPModal />
       <div className="w-100">
         <p>

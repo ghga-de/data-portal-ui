@@ -12,24 +12,32 @@ import { FacetFilterModel } from "../models/facets";
  */
 export const urlWithEndSlash = (url: string) => {
   const lastCharSlash = url.endsWith("/");
-  return lastCharSlash ? url : url + "/"
-}
+  return lastCharSlash ? url : url + "/";
+};
 
-export const CLIENT_URL = new URL(urlWithEndSlash(process.env.REACT_APP_CLIENT_URL!))
+const getParsedUrl = (varName: string) => {
+  return new URL(
+    urlWithEndSlash(process.env[`REACT_APP_${varName}`]!),
+    CLIENT_URL
+  );
+};
 
-export const ARS_URL = new URL(urlWithEndSlash(process.env.REACT_APP_ARS_URL!), CLIENT_URL);
+export const CLIENT_URL = new URL(
+  urlWithEndSlash(process.env.REACT_APP_CLIENT_URL!)
+);
 
-export const AUTH_URL = new URL(urlWithEndSlash(process.env.REACT_APP_AUTH_URL!), CLIENT_URL)
-export const ISSUER = new URL(urlWithEndSlash(process.env.REACT_APP_OIDC_AUTHORITY_URL!), CLIENT_URL);
+export const ARS_URL = getParsedUrl("ARS_URL");
 
-export const MASS_URL = new URL(urlWithEndSlash(process.env.REACT_APP_MASS_URL!), CLIENT_URL);
-export const METLDATA_URL = new URL(urlWithEndSlash(process.env.REACT_APP_METLDATA_URL!), CLIENT_URL)
+export const AUTH_URL = getParsedUrl("AUTH_URL");
+export const OIDC_AUTHORITY_URL = getParsedUrl("OIDC_AUTHORITY_URL");
 
-export const OIDC_AUTHORITY_URL = new URL(urlWithEndSlash(process.env.REACT_APP_OIDC_AUTHORITY_URL!), CLIENT_URL);
+export const MASS_URL = getParsedUrl("MASS_URL");
+export const METLDATA_URL = getParsedUrl("METLDATA_URL");
+
 export const OIDC_CONFIG_PATH = "/.well-known/openid-configuration";
 export const OIDC_CONFIG_URL = new URL(OIDC_CONFIG_PATH, OIDC_AUTHORITY_URL);
 
-export const WPS_URL = new URL(urlWithEndSlash(process.env.REACT_APP_WPS_URL!), CLIENT_URL);
+export const WPS_URL = getParsedUrl("WPS_URL");
 
 /**
  * Convert an array of filter objects into string representation.
@@ -195,7 +203,7 @@ export const fetchJson = async (
   url: string | URL,
   method: string = "GET",
   payload?: any,
-  additionalHeaders?: Record<string, string>,
+  additionalHeaders?: Record<string, string>
 ): Promise<Response> => {
   const headers: HeadersInit = {
     Accept: "application/json",
@@ -206,8 +214,7 @@ export const fetchJson = async (
   if (CLIENT_URL) {
     headers["Origin"] = CLIENT_URL.hostname;
   }
-  if (additionalHeaders)
-    Object.assign(headers, additionalHeaders)
+  if (additionalHeaders) Object.assign(headers, additionalHeaders);
   const body = payload ? JSON.stringify(payload) : undefined;
   return await fetch(url, { method, headers, body });
 };

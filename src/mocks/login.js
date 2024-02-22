@@ -1,4 +1,4 @@
-import { ISSUER } from "../utils/utils";
+import { OIDC_AUTHORITY_URL } from "../utils/utils";
 import { user } from "./data";
 
 const SCOPE = process.env.REACT_APP_OIDC_SCOPE;
@@ -19,7 +19,7 @@ export function setOidcUser() {
       sid: null,
       scope: SCOPE.split(" "),
       client_id: CLIENT_ID.href,
-      iss: ISSUER.href,
+      iss: OIDC_AUTHORITY_URL.href,
       iat,
       exp,
       aud: [CLIENT_ID.href],
@@ -30,6 +30,6 @@ export function setOidcUser() {
     },
     expires_at: exp,
   };
-  const userKey = `oidc.user:${ISSUER}:${CLIENT_ID}`;
+  const userKey = `oidc.user:${OIDC_AUTHORITY_URL}:${CLIENT_ID}`;
   sessionStorage.setItem(userKey, JSON.stringify(userObj));
 }
