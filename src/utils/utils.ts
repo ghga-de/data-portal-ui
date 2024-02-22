@@ -29,13 +29,13 @@ export const CLIENT_URL = new URL(
 export const ARS_URL = getParsedUrl("ARS_URL");
 
 export const AUTH_URL = getParsedUrl("AUTH_URL");
+
 export const OIDC_AUTHORITY_URL = getParsedUrl("OIDC_AUTHORITY_URL");
+export const OIDC_CONFIG_PATH = "/.well-known/openid-configuration";
+export const OIDC_CONFIG_URL = new URL(OIDC_CONFIG_PATH, OIDC_AUTHORITY_URL);
 
 export const MASS_URL = getParsedUrl("MASS_URL");
 export const METLDATA_URL = getParsedUrl("METLDATA_URL");
-
-export const OIDC_CONFIG_PATH = "/.well-known/openid-configuration";
-export const OIDC_CONFIG_URL = new URL(OIDC_CONFIG_PATH, OIDC_AUTHORITY_URL);
 
 export const WPS_URL = getParsedUrl("WPS_URL");
 
