@@ -111,12 +111,13 @@ const Confirm2FA = () => {
           >
             <input
               type="text"
-              className="text-center"
+              className="text-center fs-2"
+              style={{ letterSpacing: "0.5em", paddingLeft: "0.5em" }}
               required
               minLength={6}
               maxLength={6}
               pattern="[0-9]{6}"
-              size={10}
+              size={6}
               onKeyDown={(e) => {
                 if (
                   e.key.match("^[a-zA-Z]{1}$") &&
