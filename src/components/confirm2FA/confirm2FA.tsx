@@ -120,7 +120,7 @@ const Confirm2FA = () => {
               size={6}
               onKeyDown={(e) => {
                 if (
-                  e.key.match("^[a-zA-Z]{1}$") &&
+                  e.key.match("^[^0-9]{1}$") &&
                   e.ctrlKey === false &&
                   e.altKey === false
                 )
