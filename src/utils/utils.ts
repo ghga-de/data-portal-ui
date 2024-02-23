@@ -1,9 +1,37 @@
 import { Dispatch, SetStateAction } from "react";
-import { querySearchService, urlWithEndSlash } from "../api/browse";
+import { querySearchService } from "../api/browse";
 import { SearchResponseModel } from "../models/dataset";
 import { FacetFilterModel } from "../models/facets";
 
-const CLIENT_URL = new URL(urlWithEndSlash(process.env.REACT_APP_CLIENT_URL!))
+/**
+ * Checks and cleans up URL if last character is or is not forward slash
+ * Duplicate of utils version because of infinite recursion error, needs refactoring
+ * @param url - String of URL
+ * @param endSlash - whether we want to have an end slash or not
+ * @returns URL as specified
+ */
+export const urlWithEndSlash = (url: string) =>
+  url.endsWith("/") ? url : url + "/";
+
+const getParsedUrl = (varName: string) =>
+  new URL(urlWithEndSlash(process.env[`REACT_APP_${varName}`]!), CLIENT_URL);
+
+export const CLIENT_URL = new URL(
+  urlWithEndSlash(process.env.REACT_APP_CLIENT_URL!)
+);
+
+export const ARS_URL = getParsedUrl("ARS_URL");
+
+export const AUTH_URL = getParsedUrl("AUTH_URL");
+
+export const OIDC_AUTHORITY_URL = getParsedUrl("OIDC_AUTHORITY_URL");
+export const OIDC_CONFIG_PATH = "/.well-known/openid-configuration";
+export const OIDC_CONFIG_URL = new URL(OIDC_CONFIG_PATH, OIDC_AUTHORITY_URL);
+
+export const MASS_URL = getParsedUrl("MASS_URL");
+export const METLDATA_URL = getParsedUrl("METLDATA_URL");
+
+export const WPS_URL = getParsedUrl("WPS_URL");
 
 /**
  * Convert an array of filter objects into string representation.
@@ -169,7 +197,7 @@ export const fetchJson = async (
   url: string | URL,
   method: string = "GET",
   payload?: any,
-  additionalHeaders?: Record<string, string>,
+  additionalHeaders?: Record<string, string>
 ): Promise<Response> => {
   const headers: HeadersInit = {
     Accept: "application/json",
@@ -180,8 +208,7 @@ export const fetchJson = async (
   if (CLIENT_URL) {
     headers["Origin"] = CLIENT_URL.hostname;
   }
-  if (additionalHeaders)
-    Object.assign(headers, additionalHeaders)
+  if (additionalHeaders) Object.assign(headers, additionalHeaders);
   const body = payload ? JSON.stringify(payload) : undefined;
   return await fetch(url, { method, headers, body });
 };

@@ -4,6 +4,6 @@ port: 8080
 mass_url: "api/mass"
 metldata_url: "api/metldata"
 ars_url: "api/ars"
-users_url: "api/auth/users"
+auth_url: "api/auth"
 wps_url: "api/wps"
 default_data_access_duration_days: 365
