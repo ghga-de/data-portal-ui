@@ -10,17 +10,11 @@ import { FacetFilterModel } from "../models/facets";
  * @param endSlash - whether we want to have an end slash or not
  * @returns URL as specified
  */
-export const urlWithEndSlash = (url: string) => {
-  const lastCharSlash = url.endsWith("/");
-  return lastCharSlash ? url : url + "/";
-};
+export const urlWithEndSlash = (url: string) =>
+  url.endsWith("/") ? url : url + "/";
 
-const getParsedUrl = (varName: string) => {
-  return new URL(
-    urlWithEndSlash(process.env[`REACT_APP_${varName}`]!),
-    CLIENT_URL
-  );
-};
+const getParsedUrl = (varName: string) =>
+  new URL(urlWithEndSlash(process.env[`REACT_APP_${varName}`]!), CLIENT_URL);
 
 export const CLIENT_URL = new URL(
   urlWithEndSlash(process.env.REACT_APP_CLIENT_URL!)

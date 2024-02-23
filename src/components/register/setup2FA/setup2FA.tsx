@@ -21,8 +21,8 @@ import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleArrowRight } from "@fortawesome/free-solid-svg-icons";
 
-const SetupTOTP = () => {
-  let totpCode = "0123456789ABCDEFGHI";
+const Setup2FA = () => {
+  let twoFACode = "0123456789ABCDEFGHI";
   const navigate = useNavigate();
 
   const [showManual, setShowManual] = useState<string>("d-none");
@@ -42,7 +42,7 @@ const SetupTOTP = () => {
           additional 6-digit authentication code after you logged in via LS
           Login. This code can be produced by an authenticator app such as
           Aegis, Microsoft Authenticator or Google Authenticator, which you can
-          install on your mobile phone
+          install on your mobile phone.
         </p>
         <p>
           In order to set up the authenticator app to produce the authentication
@@ -52,7 +52,7 @@ const SetupTOTP = () => {
         <div>
           <QRCode
             size={128}
-            value={totpCode}
+            value={twoFACode}
             viewBox={`0 0 128 128`}
             className="mb-3"
           />
@@ -72,10 +72,10 @@ const SetupTOTP = () => {
               <input
                 type="text"
                 readOnly
-                value={totpCode}
+                value={twoFACode}
                 className="text-center"
                 onClick={() => {
-                  navigator.clipboard.writeText(totpCode);
+                  navigator.clipboard.writeText(twoFACode);
                 }}
               />
             </OverlayTrigger>
@@ -84,14 +84,14 @@ const SetupTOTP = () => {
         <div>
           <Button
             onClick={() => {
-              navigate("/confirm-totp");
+              navigate("/confirm-2fa");
             }}
           >
             <FontAwesomeIcon icon={faCircleArrowRight} />
             &nbsp; Continue
           </Button>
           <Button
-            variant="gray"
+            variant="secondary"
             className="ms-2 text-white"
             onClick={() => {
               if (showManual === "") {
@@ -111,4 +111,4 @@ const SetupTOTP = () => {
   );
 };
 
-export default SetupTOTP;
+export default Setup2FA;

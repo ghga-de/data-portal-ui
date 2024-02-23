@@ -28,8 +28,8 @@ import { useMessages } from "./components/messages/usage";
 import { LoginState, authService } from "./services/auth";
 import { useLayoutEffect } from "react";
 import AccessRequests from "./components/accessRequests/accessRequests";
-import SetupTOTP from "./components/register/setupTOTP/setupTOTP";
-import ConfirmTOTP from "./components/confirmTOTP/confirmTOTP";
+import Setup2FA from "./components/register/setup2FA/setup2FA";
+import Confirm2FA from "./components/confirm2FA/confirm2FA";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -52,9 +52,9 @@ const router = createBrowserRouter(
       <Route path="/oauth/callback" element={<Callback />} />
       <Route path="/register" element={<Register />} />
       <Route path="/profile" element={<Profile />} />
-      <Route path="/setup-totp" element={<SetupTOTP />} />
+      <Route path="/setup-2fa" element={<Setup2FA />} />
       <Route path="/access-requests" element={<AccessRequests />} />
-      <Route path="/confirm-totp" element={<ConfirmTOTP />} />
+      <Route path="/confirm-2fa" element={<Confirm2FA />} />
       <Route path="*" element={<PageNotFound />} />
     </Route>
   )
