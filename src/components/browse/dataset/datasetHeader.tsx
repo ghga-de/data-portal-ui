@@ -4,7 +4,7 @@ import { FacetFilterModel, FacetModel } from "../../../models/facets";
 import { SearchResponseModel } from "../../../models/dataset";
 import { useNavigate } from "react-router-dom";
 import { querySearchService } from "../../../api/browse";
-import { handleFilterAndSearch } from "../sharedFunctions/sharedFunctions";
+import { handleFilterAndSearch } from "../shared";
 
 interface DatasetHeaderProps {
   dsCount: number;

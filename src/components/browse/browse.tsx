@@ -9,7 +9,7 @@ import DatasetList from "./dataset/datasetList";
 import Sidebar from "./sidebar/sidebar";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFilter, faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
-import { getFilterParams } from "./sharedFunctions/sharedFunctions";
+import { getFilterParams } from "./shared";
 
 /** Browse page */
 const Browse = () => {

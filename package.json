@@ -1,6 +1,6 @@
 {
   "name": "data-portal-ui",
-  "version": "1.1.0a2",
+  "version": "1.1.0a1",
   "private": true,
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "~6.4.2",

@@ -9,7 +9,7 @@ import Filter from "./filter";
 import Searchbar from "./searchbar";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
-import { handleFilterAndSearch } from "../sharedFunctions/sharedFunctions";
+import { handleFilterAndSearch } from "../shared";
 
 interface SidebarProps {
   facetList: FacetModel[] | null;

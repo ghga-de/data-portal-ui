@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { scrollUp } from "../../../../utils/utils";
 import { SearchResponseModel } from "../../../../models/dataset";
 import { FacetFilterModel } from "../../../../models/facets";
-import { handleFilterAndSearch } from "../../sharedFunctions/sharedFunctions";
+import { handleFilterAndSearch } from "../../shared";
 
 interface DataSetPaginationProps {
   dsCount: number;

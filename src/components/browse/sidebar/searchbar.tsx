@@ -6,7 +6,7 @@ import { FacetFilterModel } from "../../../models/facets";
 import { scrollUp } from "../../../utils/utils";
 import { icon, toHtml } from "@fortawesome/fontawesome-svg-core";
 import { useNavigate } from "react-router-dom";
-import { handleFilterAndSearch } from "../sharedFunctions/sharedFunctions";
+import { handleFilterAndSearch } from "../shared";
 
 interface SearchbarProps {
   setSearchResults: Dispatch<SetStateAction<SearchResponseModel | null>>;

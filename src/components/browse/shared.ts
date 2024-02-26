@@ -14,9 +14,9 @@
 // limitations under the License.
 //
 import { Dispatch, SetStateAction } from "react";
-import { FacetFilterModel } from "../../../models/facets";
-import { SearchResponseModel } from "../../../models/dataset";
-import { querySearchService } from "../../../api/browse";
+import { FacetFilterModel } from "../../models/facets";
+import { SearchResponseModel } from "../../models/dataset";
+import { querySearchService } from "../../api/browse";
 
 /**
  * Convert a string representation of filter into an array of objects
