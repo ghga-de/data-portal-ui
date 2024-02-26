@@ -3,9 +3,10 @@ import { Form, Container } from "react-bootstrap";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { SearchResponseModel } from "../../../models/dataset";
 import { FacetFilterModel } from "../../../models/facets";
-import { scrollUp, handleFilterAndSearch } from "../../../utils/utils";
+import { scrollUp } from "../../../utils/utils";
 import { icon, toHtml } from "@fortawesome/fontawesome-svg-core";
 import { useNavigate } from "react-router-dom";
+import { handleFilterAndSearch } from "../sharedFunctions/sharedFunctions";
 
 interface SearchbarProps {
   setSearchResults: Dispatch<SetStateAction<SearchResponseModel | null>>;

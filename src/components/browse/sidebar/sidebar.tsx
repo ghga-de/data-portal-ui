@@ -4,11 +4,12 @@ import { URLSearchParamsInit, useNavigate } from "react-router-dom";
 import { querySearchService } from "../../../api/browse";
 import { SearchResponseModel } from "../../../models/dataset";
 import { FacetFilterModel, FacetModel } from "../../../models/facets";
-import { handleFilterAndSearch, scrollUp } from "../../../utils/utils";
+import { scrollUp } from "../../../utils/utils";
 import Filter from "./filter";
 import Searchbar from "./searchbar";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
+import { handleFilterAndSearch } from "../sharedFunctions/sharedFunctions";
 
 interface SidebarProps {
   facetList: FacetModel[] | null;

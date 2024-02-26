@@ -3,8 +3,8 @@ import { Badge, Row, Col, CloseButton } from "react-bootstrap";
 import { FacetFilterModel, FacetModel } from "../../../models/facets";
 import { SearchResponseModel } from "../../../models/dataset";
 import { useNavigate } from "react-router-dom";
-import { handleFilterAndSearch } from "../../../utils/utils";
 import { querySearchService } from "../../../api/browse";
+import { handleFilterAndSearch } from "../sharedFunctions/sharedFunctions";
 
 interface DatasetHeaderProps {
   dsCount: number;

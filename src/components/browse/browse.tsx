@@ -4,12 +4,12 @@ import { useSearchParams } from "react-router-dom";
 import { querySearchService } from "../../api/browse";
 import { HitModel, SearchResponseModel } from "../../models/dataset";
 import { FacetFilterModel, FacetModel } from "../../models/facets";
-import { getFilterParams } from "../../utils/utils";
 import DatasetHeader from "./dataset/datasetHeader";
 import DatasetList from "./dataset/datasetList";
 import Sidebar from "./sidebar/sidebar";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFilter, faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
+import { getFilterParams } from "./sharedFunctions/sharedFunctions";
 
 /** Browse page */
 const Browse = () => {

@@ -18,7 +18,7 @@ export enum LoginState {
   NeedsTOTPToken,
   LostTOTPToken,
   HasTOTPToken,
-  Authenticated
+  Authenticated,
 }
 
 export interface User {
@@ -184,7 +184,6 @@ class AuthService {
       }
     }
     if (oidcUser) {
-
       const { sub, name, email } = oidcUser.profile;
       if (sub && name && email) {
         const expired = oidcUser.expired ?? true;
@@ -197,8 +196,10 @@ class AuthService {
           email,
           extId: sub,
         };
-        const response = { status: 204, statusText: "" }
-        const userData = { name: "John Doe", email: "j.jdoe@home.org" }; let id = "aacaffeecaffeecaffeecaffeecaffeecaffeeaad@lifescience-ri.eu"; let title = "";
+        const response = { status: 204, statusText: "" };
+        const userData = { name: "John Doe", email: "j.jdoe@home.org" };
+        let id = "aacaffeecaffeecaffeecaffeecaffeecaffeeaad@lifescience-ri.eu";
+        let title = "";
         try {
           // let tokenHeader: Record<string, string> = { "X-Authorization": "Bearer " + oidcUser.access_token }
           // const response = await fetchJson(new URL("rpc/login", AUTH_URL), "POST", null, tokenHeader);
@@ -206,21 +207,23 @@ class AuthService {
             // const userData = { id: "", title: "", name: "", email: "" };
             // const sessionData = await response.headers.get("X-Session");
             // if (sessionData) {
-              if (title) fullName = `${title} ${fullName}`;
-              user.loginState = name !== userData.name || email !== userData.email ? LoginState.NeedsReregistration : LoginState.Registered;
-              user = {
-                ...user,
-                id,
-                title,
-                fullName,
-              };
+            if (title) fullName = `${title} ${fullName}`;
+            user.loginState =
+              name !== userData.name || email !== userData.email
+                ? LoginState.NeedsReregistration
+                : LoginState.Registered;
+            user = {
+              ...user,
+              id,
+              title,
+              fullName,
+            };
             // }
           } else if (response.status === 401) {
             const title = "Not authorised";
             showMessage({ type: "error", title });
             console.error(title, response.statusText);
-          }
-          else {
+          } else {
             const title = "Cannot verify user";
             showMessage({ type: "error", title });
             console.error(title, response.statusText);
