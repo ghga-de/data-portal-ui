@@ -69,8 +69,8 @@ function Layout() {
     authService
       .getUser()
       .then((user) => {
-        if (user?.expired) {
-          // user is logged in, but token has expired
+        if (user && !user.timeout) {
+          // user is logged in, but session has expired
           authService.logout().then(() => {
             console.info("You have been logged out.");
             showMessage({
@@ -94,8 +94,8 @@ function Layout() {
         }
         if (
           user &&
-          (user.loginState === LoginState.NeedsRegistration ||
-            user.loginState === LoginState.NeedsReregistration) &&
+          (user.state === LoginState.NeedsRegistration ||
+            user.state === LoginState.NeedsReregistration) &&
           location.pathname !== "/register"
         ) {
           // user is new (needs to register)

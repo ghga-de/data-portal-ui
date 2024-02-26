@@ -109,7 +109,7 @@ const DataRequestFormModal = (props: DataRequestFormModalProps) => {
         <Modal.Body>
           <h5 className="mb-4 pb-2">Confirm your data access request:</h5>
           <p>
-            <strong>Requester:</strong> {user?.fullName}
+            <strong>Requester:</strong> {user?.full_name}
           </p>
           <p>
             <strong>Contact e-mail:</strong> {email.value}

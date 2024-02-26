@@ -50,7 +50,7 @@ const Register = () => {
 
   const prompt = () =>
     user?.id
-      ? (user.loginState === LoginState.NeedsReregistration
+      ? (user.state === LoginState.NeedsReregistration
         ? "Your contact information has changed since you last registered. "
         : "") + "Please confirm that the information given below is correct."
       : "Since you haven't used our data portal before, " +
@@ -61,7 +61,7 @@ const Register = () => {
   const submitUserData = async () => {
     if (!user || !AUTH_URL) return;
     unblock();
-    const { id, extId, name, email } = user;
+    const { id, ext_id, name, email } = user;
     const userData: any = {
       name,
       email,
@@ -74,14 +74,14 @@ const Register = () => {
       method = "put";
       ok = 204;
     } else {
-      userData["ext_id"] = extId;
+      userData["ext_id"] = ext_id;
       method = "post";
       ok = 201;
     }
     const response = await fetchJson(url, method, userData).catch(() => null);
     if (response && response.status === ok) {
       showMessage({ type: "success", title: "Registration successful" });
-      user.loginState = LoginState.Registered;
+      user.state = LoginState.Registered;
       navigate("/profile");
       return;
     }
@@ -116,7 +116,7 @@ const Register = () => {
           <FontAwesomeIcon icon={faIdCard} className="me-2 text-secondary" />{" "}
           Registration with GHGA
         </h1>
-        <h2 className="mt-4">Welcome, {user.fullName}!</h2>
+        <h2 className="mt-4">Welcome, {user.full_name}!</h2>
         <p>{prompt()}</p>
         <form onSubmit={handleSubmit} className="mt-4">
           <div className="row g-3 mb-3">
@@ -135,7 +135,7 @@ const Register = () => {
             <label className="col-md-2 col-sm-3">
               <b>Life Science ID:</b>
             </label>
-            <div className={dataDivClasses}>{user.extId}</div>
+            <div className={dataDivClasses}>{user.ext_id}</div>
           </div>
           <div className="row g-3 mb-5">
             <label

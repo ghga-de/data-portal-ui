@@ -1,6 +1,6 @@
 import { http, HttpResponse } from "msw";
 import { responses } from "./responses";
-import { setOidcUser } from "./login";
+import { setOidcUser, getLoginHeaders } from "./login";
 import { CLIENT_URL, OIDC_CONFIG_URL } from "../utils/utils";
 
 const fakeAuth = !!CLIENT_URL.href.match(/127\.|local/);
@@ -17,6 +17,11 @@ export const handlers = [
         authorization_endpoint: CLIENT_URL.href + "profile",
       }, { status: 200 });
     }
+  }),
+  // intercept login request and return session header
+  http.post("/api/auth/rpc/login", () => {
+    const headers = getLoginHeaders();
+    return HttpResponse.json(undefined, headers ? { status: 204, headers} : { status: 401 });
   }),
 ];
 
@@ -96,11 +101,11 @@ Object.keys(groupedResponses).forEach((endpoint) => {
     let status = 200;
     if (typeof response === "number") {
       status = response;
-      response = null;
+      response = undefined;
     } else if (method === "post" || method === "patch") {
       status = response ? 201 : 204;
     }
-    return HttpResponse.json(response || null, { status });
+    return HttpResponse.json(response || undefined, { status });
   };
   handlers.push(http[method].call(http, url, resolver));
 });

@@ -190,6 +190,7 @@ export const importAllFilesFromFolder = (r: any) => {
  * @param url - URL string to send the request
  * @param method - HTTP method for request
  * @param payload - Request body, if any.
+ * @param additionalHeaders - Custom request headers, if any.
  * @returns Promise resolves to the response of the HTTP request.
  */
 /** Fetch JSON data with proper headers */
@@ -210,7 +211,15 @@ export const fetchJson = async (
   }
   if (additionalHeaders) Object.assign(headers, additionalHeaders);
   const body = payload ? JSON.stringify(payload) : undefined;
-  return await fetch(url, { method, headers, body });
+  try {
+    return await fetch(url, { method, headers, body });
+  } catch (error) {
+    console.error(error);
+    return new Response(null, {
+      status: 500,
+      statusText: 'Cannot fetch response: ' + error,
+    });
+  }
 };
 
 /**

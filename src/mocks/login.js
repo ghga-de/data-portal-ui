@@ -4,6 +4,8 @@ import { user } from "./data";
 const SCOPE = process.env.REACT_APP_OIDC_SCOPE;
 const CLIENT_ID = process.env.REACT_APP_OIDC_CLIENT_ID;
 
+const USER_KEY = `oidc.user:${OIDC_AUTHORITY_URL}:${CLIENT_ID}`;
+
 // Simulate login with dummy user via OIDC
 export function setOidcUser() {
   const iat = Math.round(new Date() / 1000);
@@ -30,6 +32,24 @@ export function setOidcUser() {
     },
     expires_at: exp,
   };
-  const userKey = `oidc.user:${OIDC_AUTHORITY_URL}:${CLIENT_ID}`;
-  sessionStorage.setItem(userKey, JSON.stringify(userObj));
+  sessionStorage.setItem(USER_KEY, JSON.stringify(userObj));
+}
+
+// Get response headers for logged in user
+export function getLoginHeaders(){
+  if (!sessionStorage.getItem(USER_KEY)) {
+    return null;
+  }
+  const sessionObj = {
+    id: user.id,
+    ext_id: user.ext_id,
+    name: user.name,
+    title: user.title,
+    email: user.email,
+    state: "Registered",  // the state after login
+    csrf: "test123",
+    timeout: 3600,
+    extends: 7200,
+  }
+  return {"X-Session": JSON.stringify(sessionObj)};
 }
