@@ -1,9 +1,10 @@
 import React, { Dispatch, SetStateAction } from "react";
 import ReactPaginate from "react-paginate";
 import { useNavigate } from "react-router-dom";
-import { scrollUp, handleFilterAndSearch } from "../../../../utils/utils";
+import { scrollUp } from "../../../../utils/utils";
 import { SearchResponseModel } from "../../../../models/dataset";
 import { FacetFilterModel } from "../../../../models/facets";
+import { handleFilterAndSearch } from "../../shared";
 
 interface DataSetPaginationProps {
   dsCount: number;
