@@ -153,7 +153,7 @@ class AuthService {
       return null;
     }
 
-    const user = this.getUserSession(response);
+    const user = this.parseUserFromResponse(response);
     if (!user) {
       showMessage({ type: "error", title: "Login failed" });
     }
@@ -209,7 +209,7 @@ class AuthService {
       // get session state from backend
       const response = await fetchJson(new URL("rpc/login", AUTH_URL), "POST");
       if (response.status === 204) {
-        user = this.getUserSession(response);
+        user = this.parseUserFromResponse(response);
       }
     }
     this.setUser(user);
@@ -219,7 +219,7 @@ class AuthService {
   /**
    * Return the deserialized user session from the response headers.
    */
-  getUserSession(response: Response): User | null {
+  parseUserFromResponse(response: Response): User | null {
     const sessionJson = response.headers.get("X-Session");
     let user: User | null;
     try {
