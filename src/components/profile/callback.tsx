@@ -37,7 +37,7 @@ const Callback = () => {
         .then((user) => {
           if (!user) {
             handleError();
-          } else if (user.loginState === LoginState.NeedsRegistration || user.loginState === LoginState.NeedsReregistration) {
+          } else if (user.state === LoginState.NeedsRegistration || user.state === LoginState.NeedsReregistration) {
             // user is new (needs to register)
             // or her data changed (needs to confirm)
             navigate("/register");

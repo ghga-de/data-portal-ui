@@ -4,7 +4,6 @@ import {
   datasetSummary,
   embeddedDataset,
   metadataSummary,
-  user,
   workPackageToken,
   searchResults,
 } from "./data";
@@ -18,9 +17,6 @@ import {
 // Responses for local testing without backend
 
 export const responses = {
-  // User registry
-  [`POST /api/auth/rpc/login`]: user,
-
   // Datasets requested by j.doe@ghga.de user
   "GET /api/wps/users/j.doe@ghga.de/datasets": datasets,
 

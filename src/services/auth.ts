@@ -1,6 +1,6 @@
 import { Log, User as OidcUser, UserManager } from "oidc-client-ts";
 import type { OidcMetadata, UserManagerSettings } from "oidc-client-ts";
-import { fetchJson } from "../utils/utils";
+import { fetchJson, AUTH_URL } from "../utils/utils";
 import { showMessage } from "../components/messages/usage";
 import { createStore, useStore } from "zustand";
 
@@ -21,15 +21,17 @@ export enum LoginState {
   Authenticated,
 }
 
+/** User session interface */
 export interface User {
-  expired: boolean;
-  name: string;
-  fullName: string;
-  email: string;
-  extId: string;
   id?: string;
-  loginState: LoginState;
-  title?: string | null;
+  ext_id: string;
+  name: string;
+  title?: string;
+  full_name: string;
+  email: string;
+  state: LoginState;
+  timeout?: number;
+  extends?: number;
 }
 
 /**
@@ -82,8 +84,8 @@ class AuthService {
       redirect_uri: env("redirect_url"),
       response_type: "code",
       scope: env("scope"),
-      loadUserInfo: true,
-      automaticSilentRenew: true,
+      loadUserInfo: false,
+      automaticSilentRenew: false,
     };
 
     const metadata: Partial<OidcMetadata> = {
@@ -111,6 +113,7 @@ class AuthService {
    */
   private setUser(user: User | null): void {
     authStore.getState().setUser(user);
+    sessionStorage.setItem("user", JSON.stringify(user));
   }
 
   /**
@@ -127,7 +130,34 @@ class AuthService {
    */
   async callback(): Promise<User | null> {
     const oidcUser = await this.userManager.signinRedirectCallback();
-    return await this.getUser(oidcUser);
+
+    const sub = oidcUser?.profile.sub;
+    const expired = oidcUser.expired ?? true;
+
+    if (!sub || expired) {
+      const title = "Cannot get user information";
+      showMessage({ type: "error", title });
+      console.error(title);
+      return null;
+    }
+
+    const headers: Record<string, string> = {
+      "X-Authorization": "Bearer " + oidcUser.access_token
+    };
+    const response = await fetchJson(new URL("rpc/login", AUTH_URL), "POST", null, headers);
+
+    if (response.status !== 204) {
+      const title = "Login failed";
+      showMessage({ type: "error", title });
+      console.error(title, response.statusText);
+      return null;
+    }
+
+    const user = this.parseUserFromResponse(response);
+    if (!user) {
+      showMessage({ type: "error", title: "Login failed" });
+    }
+    return user;
   }
 
   /**
@@ -162,84 +192,49 @@ class AuthService {
   }
 
   /**
-   * Return promise to load a User object
-   * for the currently authenticated user.
-   * In addition to the User object it also contains
-   * the full name and email address properties.
-   * These properties are decoded from the access token.
-   * Unfortunately, these are not part of the ID token in LS Login,
-   * where we could get them directly via User.profile.
+   * Return promise to load the User session for the currently authenticated user.
    */
-  async getUser(oidcUser?: OidcUser | null): Promise<User | null> {
+  async getUser(): Promise<User | null> {
     let user: User | null = null;
-
-    if (!oidcUser) {
+    const userJson = sessionStorage.getItem("user");
+    if (userJson) {
+      // get session state from session storage
       try {
-        oidcUser = await this.getOidcUser();
-      } catch (error) {
-        const title = "Cannot get user";
-        showMessage({ type: "error", title });
-        console.error(title, error);
-        oidcUser = null;
+        user = JSON.parse(userJson);
+      } catch {
+        console.error("Cannot parse user from session storage");
       }
     }
-    if (oidcUser) {
-      const { sub, name, email } = oidcUser.profile;
-      if (sub && name && email) {
-        const expired = oidcUser.expired ?? true;
-        let fullName = name;
-        user = {
-          expired,
-          name: name,
-          fullName: name,
-          loginState: LoginState.Identified,
-          email,
-          extId: sub,
-        };
-        const response = { status: 204, statusText: "" };
-        const userData = { name: "John Doe", email: "j.jdoe@home.org" };
-        let id = "aacaffeecaffeecaffeecaffeecaffeecaffeeaad@lifescience-ri.eu";
-        let title = "";
-        try {
-          // let tokenHeader: Record<string, string> = { "X-Authorization": "Bearer " + oidcUser.access_token }
-          // const response = await fetchJson(new URL("rpc/login", AUTH_URL), "POST", null, tokenHeader);
-          if (response.status === 204) {
-            // const userData = { id: "", title: "", name: "", email: "" };
-            // const sessionData = await response.headers.get("X-Session");
-            // if (sessionData) {
-            if (title) fullName = `${title} ${fullName}`;
-            user.loginState =
-              name !== userData.name || email !== userData.email
-                ? LoginState.NeedsReregistration
-                : LoginState.Registered;
-            user = {
-              ...user,
-              id,
-              title,
-              fullName,
-            };
-            // }
-          } else if (response.status === 401) {
-            const title = "Not authorised";
-            showMessage({ type: "error", title });
-            console.error(title, response.statusText);
-          } else {
-            const title = "Cannot verify user";
-            showMessage({ type: "error", title });
-            console.error(title, response.statusText);
-          }
-        } catch (error) {
-          const title = "Cannot access the server";
-          showMessage({ type: "error", title });
-          console.error(title, error);
-        }
-      } else {
-        const title = "Cannot get required user properties";
-        showMessage({ type: "error", title });
-        console.error(title);
+    if (!user) {
+      // get session state from backend
+      const response = await fetchJson(new URL("rpc/login", AUTH_URL), "POST");
+      if (response.status === 204) {
+        user = this.parseUserFromResponse(response);
       }
     }
     this.setUser(user);
+    return user;
+  }
+
+  /**
+   * Return the deserialized user session from the response headers.
+   */
+  parseUserFromResponse(response: Response): User | null {
+    const sessionJson = response.headers.get("X-Session");
+    let user: User | null;
+    try {
+      user = JSON.parse(sessionJson || 'null');
+      if (user && user.ext_id &&
+        typeof user.state == 'string' && user.state in LoginState) {
+        if (user.name && user.title) user.full_name = `${user.title} ${user.name}`;
+        user.state = LoginState[user.state] as unknown as LoginState;
+      } else {
+        user = null;
+      }
+    } catch {
+      user = null;
+    }
+    if (!user) console.error("Cannot parse user session from backend");
     return user;
   }
 }

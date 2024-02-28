@@ -41,7 +41,7 @@ const LoginButton = () => {
   return (
     <div className="me-3 me-xxl-0">
       {user ? (
-        user.loginState === LoginState.NeedsRegistration || user.loginState === LoginState.NeedsReregistration ? (
+        user.state === LoginState.NeedsRegistration || user.state === LoginState.NeedsReregistration ? (
           <>
             <OverlayTrigger
               trigger="click"
@@ -55,7 +55,7 @@ const LoginButton = () => {
                 >
                   <Popover.Body className="text-center fs-6 px-4">
                     <p>
-                      You need to complete your {user.loginState === LoginState.NeedsReregistration ? "re-" : ""}
+                      You need to complete your {user.state === LoginState.NeedsReregistration ? "re-" : ""}
                       registration with the GHGA Data Portal before you can
                       start using your LS Login account.
                     </p>
@@ -127,7 +127,7 @@ const LoginButton = () => {
             >
               {(props) => (
                 <Tooltip id="registertooltip" {...props}>
-                  {user?.loginState === LoginState.NeedsReregistration ? "Re-" : ""}Registration required
+                  {user?.state === LoginState.NeedsReregistration ? "Re-" : ""}Registration required
                 </Tooltip>
               )}
             </Overlay>

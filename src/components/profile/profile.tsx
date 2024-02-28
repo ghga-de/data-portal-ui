@@ -49,7 +49,7 @@ const Profile = () => {
   } else
     content = (
       <div>
-        <h3 style={{ margin: "1em 0" }}>Welcome, {user.fullName}!</h3>
+        <h3 style={{ margin: "1em 0" }}>Welcome, {user.full_name}!</h3>
         <div style={{ margin: "1em 0" }}>
           <p>
             We will communicate with you via this email address: &nbsp;
@@ -68,10 +68,10 @@ const Profile = () => {
           </p>
         </div>
         <div style={{ margin: "1em 0" }}>
-          <Alert variant={user.expired ? "danger" : "success"}>
-            {user.expired
-              ? "Your session has expired!"
-              : "Your user session is active."}
+          <Alert variant={user?.timeout ? "success" : "danger"}>
+            {user.timeout
+              ? "Your user session is active."
+              : "Your session has expired!"}
           </Alert>
         </div>
         <div style={{ margin: "1em 0" }}>
