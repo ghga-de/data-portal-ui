@@ -92,6 +92,28 @@ function Layout() {
           });
           user = null;
         }
+        console.log(user);
+        console.log(LoginState);
+        if (
+          user &&
+          (user.state === LoginState.Registered ||
+            user.state === LoginState.NeedsTOTPToken ||
+            user.state === LoginState.LostTOTPToken ||
+            user.state === LoginState.NewTOTPToken) &&
+          location.pathname !== "/setup-2fa" &&
+          location.pathname !== "/confirm-2fa"
+        ) {
+          // user is new (needs to register)
+          // or her data changed (needs to confirm)
+          navigate("/setup-2fa");
+        }
+        if (
+          user &&
+          user.state === LoginState.HasTOTPToken &&
+          location.pathname !== "/confirm-2fa"
+        ) {
+          navigate("/confirm-2fa");
+        }
         if (
           user &&
           (user.state === LoginState.NeedsRegistration ||

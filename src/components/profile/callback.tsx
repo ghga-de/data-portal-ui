@@ -37,10 +37,21 @@ const Callback = () => {
         .then((user) => {
           if (!user) {
             handleError();
-          } else if (user.state === LoginState.NeedsRegistration || user.state === LoginState.NeedsReregistration) {
+          } else if (
+            user.state === LoginState.NeedsRegistration ||
+            user.state === LoginState.NeedsReregistration
+          ) {
             // user is new (needs to register)
             // or her data changed (needs to confirm)
             navigate("/register");
+          } else if (
+            user.state === LoginState.Registered ||
+            user.state === LoginState.NeedsTOTPToken ||
+            user.state === LoginState.LostTOTPToken
+          ) {
+            // user is new (needs to register)
+            // or her data changed (needs to confirm)
+            navigate("/setup-2fa");
           } else {
             // this is a well-known, registered user
             navigate("/profile");

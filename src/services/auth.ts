@@ -17,6 +17,7 @@ export enum LoginState {
   Registered,
   NeedsTOTPToken,
   LostTOTPToken,
+  NewTOTPToken,
   HasTOTPToken,
   Authenticated,
 }
@@ -142,9 +143,14 @@ class AuthService {
     }
 
     const headers: Record<string, string> = {
-      "X-Authorization": "Bearer " + oidcUser.access_token
+      "X-Authorization": "Bearer " + oidcUser.access_token,
     };
-    const response = await fetchJson(new URL("rpc/login", AUTH_URL), "POST", null, headers);
+    const response = await fetchJson(
+      new URL("rpc/login", AUTH_URL),
+      "POST",
+      null,
+      headers
+    );
 
     if (response.status !== 204) {
       const title = "Login failed";
@@ -172,6 +178,7 @@ class AuthService {
          return this.userManager.revokeTokens();
        So we simply remove the user from the store instead.
     */
+    document.cookie = `user=`;
     await this.userManager.removeUser();
     this.setUser(null);
   }
@@ -196,12 +203,19 @@ class AuthService {
    */
   async getUser(): Promise<User | null> {
     let user: User | null = null;
-    const userJson = sessionStorage.getItem("user");
+    const userJson = atob(
+      document.cookie.replace(
+        /(?:(?:^|.*;\s*)user\s*=\s*([^;]*).*$)|^.*$/,
+        "$1"
+      )
+    );
     if (userJson) {
       // get session state from session storage
       try {
         user = JSON.parse(userJson);
       } catch {
+        // preventing issues where the session cookie is malformed and persists because it is not replaced
+        document.cookie = `user=`;
         console.error("Cannot parse user from session storage");
       }
     }
@@ -211,7 +225,7 @@ class AuthService {
       if (response.status === 204) {
         user = this.parseUserFromResponse(response);
       }
-    }
+    } else user.state = LoginState[user.state] as unknown as LoginState;
     this.setUser(user);
     return user;
   }
@@ -223,10 +237,15 @@ class AuthService {
     const sessionJson = response.headers.get("X-Session");
     let user: User | null;
     try {
-      user = JSON.parse(sessionJson || 'null');
-      if (user && user.ext_id &&
-        typeof user.state == 'string' && user.state in LoginState) {
-        if (user.name && user.title) user.full_name = `${user.title} ${user.name}`;
+      user = JSON.parse(sessionJson || "null");
+      if (
+        user &&
+        user.ext_id &&
+        typeof user.state == "string" &&
+        user.state in LoginState
+      ) {
+        if (user.name && user.title)
+          user.full_name = `${user.title} ${user.name}`;
         user.state = LoginState[user.state] as unknown as LoginState;
       } else {
         user = null;

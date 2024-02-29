@@ -51,10 +51,10 @@ const Register = () => {
   const prompt = () =>
     user?.id
       ? (user.state === LoginState.NeedsReregistration
-        ? "Your contact information has changed since you last registered. "
-        : "") + "Please confirm that the information given below is correct."
+          ? "Your contact information has changed since you last registered. "
+          : "") + "Please confirm that the information given below is correct."
       : "Since you haven't used our data portal before, " +
-      "we ask you to confirm your user data and register with us.";
+        "we ask you to confirm your user data and register with us.";
 
   const buttonText = () => (user?.id ? "Confirm" : "Register");
 
@@ -70,7 +70,7 @@ const Register = () => {
     let url = AUTH_URL;
     let method: string, ok: number;
     if (id) {
-      url = new URL(`${user.id}`, url);
+      url = new URL(`users/${id}`, url);
       method = "put";
       ok = 204;
     } else {
@@ -82,7 +82,17 @@ const Register = () => {
     if (response && response.status === ok) {
       showMessage({ type: "success", title: "Registration successful" });
       user.state = LoginState.Registered;
-      navigate("/profile");
+      showMessage({
+        type: "success",
+        title: `Registration successful`,
+        detail:
+          "You have been successfully registered. To be able to login, you will need to setup two-factor authentication in the next page.",
+        label1: "Continue",
+        callback1: () => {
+          navigate("/setup-2fa");
+        },
+        modal: true,
+      });
       return;
     }
     showMessage({ type: "error", title: "Could not register" });
@@ -158,24 +168,27 @@ const Register = () => {
           </div>
           <div className="row g-3 mb-3">
             <div className="col-md-12">
-              <input type="checkbox" onChange={handleToS} className="me-3" />I
-              accept the{" "}
-              <Link
-                to="/terms-of-use"
-                target="_blank"
-                rel="noreferrer"
-              >
-                terms of use
-              </Link>{" "}
-              and the{" "}
-              <a
-                href="https://www.ghga.de/data-protection"
-                target="_blank"
-                rel="noreferrer"
-              >
-                privacy policy
-              </a>
-              .
+              <input
+                type="checkbox"
+                onChange={handleToS}
+                className="me-3"
+                id="tos"
+              />
+              <label htmlFor="tos">
+                I accept the{" "}
+                <Link to="/terms-of-use" target="_blank" rel="noreferrer">
+                  terms of use
+                </Link>{" "}
+                and the{" "}
+                <a
+                  href="https://www.ghga.de/data-protection"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  privacy policy
+                </a>
+                .
+              </label>
             </div>
           </div>
           <div className="d-flex justify-content-end">
