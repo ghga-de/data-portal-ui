@@ -29,7 +29,7 @@ import {
   Tooltip,
 } from "react-bootstrap";
 import { useBlocker, useNavigate } from "react-router-dom";
-import { LoginState, useAuth } from "../../services/auth";
+import { LoginState, setUserState, useAuth } from "../../services/auth";
 import { AUTH_URL, fetchJson } from "../../utils/utils";
 import { showMessage } from "../messages/usage";
 
@@ -85,6 +85,7 @@ const Confirm2FA = () => {
     if (response && response.status === ok) {
       showMessage({ type: "success", title: "Login successful" });
       user.state = LoginState.Authenticated;
+      setUserState(LoginState.Authenticated);
       unblock();
       back();
       return;
@@ -134,6 +135,7 @@ const Confirm2FA = () => {
               disabled={disabledNew2FAButton}
               onClick={() => {
                 user.state = LoginState.LostTOTPToken;
+                setUserState(LoginState.LostTOTPToken);
                 unblock();
                 navigate("/setup-2fa");
               }}

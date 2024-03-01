@@ -30,7 +30,7 @@ import {
   faCircleArrowRight,
   faPenToSquare,
 } from "@fortawesome/free-solid-svg-icons";
-import { LoginState, useAuth } from "../../../services/auth";
+import { LoginState, setUserState, useAuth } from "../../../services/auth";
 import { AUTH_URL, fetchJson } from "../../../utils/utils";
 
 const Setup2FA = () => {
@@ -169,6 +169,7 @@ const Setup2FA = () => {
             <Button
               onClick={() => {
                 user.state = LoginState.HasTOTPToken;
+                setUserState(LoginState.HasTOTPToken);
                 unblock();
                 navigate("/confirm-2fa");
               }}

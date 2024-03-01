@@ -11,7 +11,7 @@ import {
   faPenToSquare,
 } from "@fortawesome/free-solid-svg-icons";
 import { useMessages } from "../messages/usage";
-import { LoginState, useAuth } from "../../services/auth";
+import { LoginState, setUserState, useAuth } from "../../services/auth";
 
 /** User registration form */
 
@@ -82,6 +82,7 @@ const Register = () => {
     if (response && response.status === ok) {
       showMessage({ type: "success", title: "Registration successful" });
       user.state = LoginState.Registered;
+      setUserState(LoginState.Registered);
       showMessage({
         type: "success",
         title: `Registration successful`,

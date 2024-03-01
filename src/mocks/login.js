@@ -51,7 +51,7 @@ export function getLoginHeaders() {
     timeout: 3600,
     extends: 7200,
   }
-  return { "X-Session": JSON.stringify(sessionObj), "Set-Cookie": "user=" };
+  return { "X-Session": JSON.stringify(sessionObj), "Set-Cookie": "user=" + btoa(JSON.stringify(sessionObj)) };
 }
 
 // Get response headers for re-registered in user
@@ -70,43 +70,5 @@ export function getReregistrationHeaders() {
     timeout: 3600,
     extends: 7200,
   }
-  return { "X-Session": JSON.stringify(sessionObj), "Set-Cookie": "user=" + btoa(JSON.stringify(sessionObj)) };
-}
-
-// Get response headers for re-registered in user
-export function getTOTPToken() {
-  if (!sessionStorage.getItem(USER_KEY)) {
-    return null;
-  }
-  const sessionObj = {
-    id: user.id,
-    ext_id: user.ext_id,
-    name: user.name,
-    title: user.title,
-    email: user.email,
-    state: "NewTOTPToken",  // the state after login
-    csrf: "test123",
-    timeout: 3600,
-    extends: 7200,
-  }
-  return { "Set-Cookie": "user=" + btoa(JSON.stringify(sessionObj)) };
-}
-
-// Get response headers for correct TOTP in user
-export function verifyToken() {
-  if (!sessionStorage.getItem(USER_KEY)) {
-    return null;
-  }
-  const sessionObj = {
-    id: user.id,
-    ext_id: user.ext_id,
-    name: user.name,
-    title: user.title,
-    email: user.email,
-    state: "Authenticated",  // the state after login
-    csrf: "test123",
-    timeout: 3600,
-    extends: 7200,
-  }
-  return { "Set-Cookie": "user=" + btoa(JSON.stringify(sessionObj)) };
+  return { "X-Session": JSON.stringify(sessionObj) };
 }

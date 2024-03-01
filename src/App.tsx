@@ -92,8 +92,6 @@ function Layout() {
           });
           user = null;
         }
-        console.log(user);
-        console.log(LoginState);
         if (
           user &&
           (user.state === LoginState.Registered ||
