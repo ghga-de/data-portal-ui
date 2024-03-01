@@ -41,7 +41,7 @@ const LoginButton = () => {
   return (
     <div className="me-3 me-xxl-0">
       {user ? (
-        user.state === LoginState.NeedsRegistration || user.state === LoginState.NeedsReregistration ? (
+        user.state !== LoginState.Authenticated ? (
           <>
             <OverlayTrigger
               trigger="click"
@@ -55,9 +55,22 @@ const LoginButton = () => {
                 >
                   <Popover.Body className="text-center fs-6 px-4">
                     <p>
-                      You need to complete your {user.state === LoginState.NeedsReregistration ? "re-" : ""}
-                      registration with the GHGA Data Portal before you can
-                      start using your LS Login account.
+                      You need to complete your{" "}
+                      {user.state === LoginState.NeedsReregistration
+                        ? "re-registration "
+                        : ""}
+                      {user.state === LoginState.NeedsRegistration
+                        ? "registration "
+                        : ""}
+                      {user.state === LoginState.NeedsTOTPToken ||
+                      user.state === LoginState.HasTOTPToken ||
+                      user.state === LoginState.LostTOTPToken ||
+                      user.state === LoginState.NewTOTPToken ||
+                      user.state === LoginState.Registered
+                        ? "2FA setup "
+                        : ""}
+                      with the GHGA Data Portal before you can start using your
+                      LS Login account.
                     </p>
                     <Button
                       variant="secondary"
@@ -68,7 +81,20 @@ const LoginButton = () => {
                       }}
                     >
                       <FontAwesomeIcon icon={faPenToSquare} className="me-2" />
-                      Complete registration
+                      Complete{" "}
+                      {user.state === LoginState.NeedsReregistration
+                        ? "re-registration"
+                        : ""}
+                      {user.state === LoginState.NeedsRegistration
+                        ? "registration"
+                        : ""}
+                      {user.state === LoginState.NeedsTOTPToken ||
+                      user.state === LoginState.HasTOTPToken ||
+                      user.state === LoginState.LostTOTPToken ||
+                      user.state === LoginState.NewTOTPToken ||
+                      user.state === LoginState.Registered
+                        ? "2FA setup"
+                        : ""}
                     </Button>
                     <Button
                       variant="quaternary"
@@ -127,7 +153,20 @@ const LoginButton = () => {
             >
               {(props) => (
                 <Tooltip id="registertooltip" {...props}>
-                  {user?.state === LoginState.NeedsReregistration ? "Re-" : ""}Registration required
+                  {user.state === LoginState.NeedsReregistration
+                    ? "Re-registration "
+                    : ""}
+                  {user.state === LoginState.NeedsRegistration
+                    ? "Registration "
+                    : ""}
+                  {user.state === LoginState.NeedsTOTPToken ||
+                  user.state === LoginState.HasTOTPToken ||
+                  user.state === LoginState.LostTOTPToken ||
+                  user.state === LoginState.NewTOTPToken ||
+                  user.state === LoginState.Registered
+                    ? "2FA setup "
+                    : ""}
+                  required
                 </Tooltip>
               )}
             </Overlay>
