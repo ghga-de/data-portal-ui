@@ -8,6 +8,19 @@ export const user = {
   email: "j.jdoe@home.org",
 };
 
+export const IVAs = [{
+  id: "TEST00014000001",
+  type: "Phone",
+  value: "+441234567890004",
+  status: "Verified"
+},
+{
+  id: "TEST00014000002",
+  type: "Fax",
+  value: "+491234567890000",
+  status: "Unverified"
+}]
+
 export const accessRequests = [
   {
     id: "TEST00004000001",

@@ -18,6 +18,7 @@ import { ARS_URL, fetchJson } from "../../../utils/utils";
 import { showMessage } from "../../messages/usage";
 import { AccessRequest } from "../../../models/submissionsAndRequests";
 import { useState } from "react";
+import { IVA, IVAStatus } from "../../../models/ivas";
 
 interface AccessRequestModalProps {
   show: boolean;
@@ -27,6 +28,7 @@ interface AccessRequestModalProps {
   handleShow: any;
   accessRequest: AccessRequest | undefined;
   onUpdate: any;
+  userIVAs: IVA[];
 }
 
 const COL_CLASSES = "col-xs-5 col-md-4";
@@ -148,28 +150,55 @@ const AccessRequestModal = (props: AccessRequestModalProps) => {
                 : "Access request is pending"}
             </Col>
           </Row>
+          <Row className={ROW_CLASSES}>
+            <Col className="mt-3">
+              {props.userIVAs.length > 0 ? (
+                <>
+                  {props.userIVAs.map((x: IVA) => (
+                    <div key={x.id}>
+                      <Row className="mb-1">
+                        <Col xs={7}>
+                          <input type="checkbox" className="me-1" id={x.id} />
+                          <label htmlFor={x.id}>
+                            {x.type}: {x.value}
+                          </label>
+                        </Col>
+                        <Col>
+                          <label
+                            htmlFor={x.id}
+                            className={
+                              x.status === IVAStatus[IVAStatus.Verified]
+                                ? "text-secondary"
+                                : "text-success"
+                            }
+                          >
+                            {x.status}
+                          </label>
+                        </Col>
+                      </Row>
+                    </div>
+                  ))}
+                  <p className="mt-3 mb-0">
+                    Please select the verification address that should be used
+                    to secure the access request
+                  </p>
+                </>
+              ) : (
+                "No verification addresses have been entered by the user so far"
+              )}
+            </Col>
+          </Row>
         </Modal.Body>
 
         {props.accessRequest?.status === "pending" ? (
-          <Modal.Footer className="d-block text-end">
+          <Modal.Footer className="d-block text-start">
             <Button
               variant="dark-3"
-              className="text-white me-3 float-start"
+              className="text-white ms-3 float-end"
               onClick={() => props.setShow(false)}
               disabled={disabledButtons}
             >
               Cancel
-            </Button>
-            <Button
-              variant="secondary"
-              className="text-white me-3"
-              onClick={() => {
-                setShowConfirmation(true);
-                setStatus("denied");
-              }}
-              disabled={disabledButtons}
-            >
-              Deny
             </Button>
             <Button
               variant="quaternary"
@@ -177,9 +206,20 @@ const AccessRequestModal = (props: AccessRequestModalProps) => {
                 setShowConfirmation(true);
                 setStatus("allowed");
               }}
-              disabled={disabledButtons}
+              disabled={disabledButtons || props.userIVAs.length === 0}
             >
               Allow
+            </Button>
+            <Button
+              variant="secondary"
+              className="text-white ms-3"
+              onClick={() => {
+                setShowConfirmation(true);
+                setStatus("denied");
+              }}
+              disabled={disabledButtons}
+            >
+              Deny
             </Button>
           </Modal.Footer>
         ) : (
