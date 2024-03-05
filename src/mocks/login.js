@@ -36,7 +36,26 @@ export function setOidcUser() {
 }
 
 // Get response headers for logged in user
-export function getLoginHeaders(){
+export function getLoginHeaders() {
+  if (!sessionStorage.getItem(USER_KEY)) {
+    return null;
+  }
+  const sessionObj = {
+    id: user.id,
+    ext_id: user.ext_id,
+    name: user.name,
+    title: user.title,
+    email: user.email,
+    state: "NeedsReregistration",  // the state after login
+    csrf: "test123",
+    timeout: 3600,
+    extends: 7200,
+  }
+  return { "X-Session": JSON.stringify(sessionObj), "Set-Cookie": "user=" + btoa(JSON.stringify(sessionObj)) };
+}
+
+// Get response headers for re-registered in user
+export function getReregistrationHeaders() {
   if (!sessionStorage.getItem(USER_KEY)) {
     return null;
   }
@@ -51,5 +70,5 @@ export function getLoginHeaders(){
     timeout: 3600,
     extends: 7200,
   }
-  return {"X-Session": JSON.stringify(sessionObj)};
+  return { "X-Session": JSON.stringify(sessionObj) };
 }

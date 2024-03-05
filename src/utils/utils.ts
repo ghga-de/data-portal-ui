@@ -108,7 +108,7 @@ export const fetchJson = async (
     console.error(error);
     return new Response(null, {
       status: 500,
-      statusText: 'Cannot fetch response: ' + error,
+      statusText: "Cannot fetch response: " + error,
     });
   }
 };

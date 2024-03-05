@@ -1,6 +1,6 @@
 import { http, HttpResponse } from "msw";
 import { responses } from "./responses";
-import { setOidcUser, getLoginHeaders } from "./login";
+import { setOidcUser, getLoginHeaders, getReregistrationHeaders } from "./login";
 import { CLIENT_URL, OIDC_CONFIG_URL } from "../utils/utils";
 
 const fakeAuth = !!CLIENT_URL.href.match(/127\.|local/);
@@ -21,7 +21,22 @@ export const handlers = [
   // intercept login request and return session header
   http.post("/api/auth/rpc/login", () => {
     const headers = getLoginHeaders();
-    return HttpResponse.json(undefined, headers ? { status: 204, headers} : { status: 401 });
+    return HttpResponse.json(undefined, headers ? { status: 204, headers } : { status: 401 });
+  }),
+  // intercept reregistration request and return session header
+  http.put("/api/auth/users/:user_id", () => {
+    const headers = getReregistrationHeaders();
+    return HttpResponse.json(undefined, headers ? { status: 204, headers } : { status: 401 });
+  }),
+  // intercept totp token request and return header
+  http.post("/api/auth/totp-token", () => {
+    return HttpResponse.json({ text: "123456789ABCDEFGHI" }, { status: 201 });
+  }),
+  // intercept totp token request and return header
+  http.post("/api/auth/rpc/verify-totp", async ({ request }) => {
+    const data = await request.json();
+    const token = data["token"];
+    return HttpResponse.json(undefined, token === "123456" ? { status: 204 } : { status: 401 });
   }),
 ];
 
