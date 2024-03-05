@@ -113,7 +113,7 @@ const Confirm2FA = () => {
             </p>
             <p className="fw-bold">
               However, all contact addresses that had been verified before will
-              need to be verified again
+              need to be verified again.
             </p>
 
             <div>
@@ -127,7 +127,7 @@ const Confirm2FA = () => {
               />
               <label htmlFor="agree" className="d-inline">
                 I acknowledge that all previous contact addresses will require
-                re-verification if a new authenticator setup is requested
+                re-verification if a new authenticator setup is requested.
               </label>
             </div>
             <br />
