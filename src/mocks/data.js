@@ -50,6 +50,7 @@ export const accessRequests = [
     status: "allowed",
     status_changed: "2023-05-19T12:04:03.000Z",
     changed_by: "j.doe@ghga.de",
+    iva: "TEST00014000001",
   },
 
   {

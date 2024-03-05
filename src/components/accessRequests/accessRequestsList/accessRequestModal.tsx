@@ -37,6 +37,7 @@ const ROW_CLASSES = "mb-3";
 //
 const AccessRequestModal = (props: AccessRequestModalProps) => {
   const [disabledButtons, setDisabledButtons] = useState(false);
+  const [selectedIVA, setSelectedIVA] = useState("");
 
   async function handleButtonClickAccess(status: "allowed" | "denied") {
     if (props.accessRequest === undefined || props.userId === undefined) {
@@ -54,6 +55,7 @@ const AccessRequestModal = (props: AccessRequestModalProps) => {
         props.accessRequest.status = status;
         props.accessRequest.status_changed = new Date().toISOString();
         props.accessRequest.changed_by = props.userId;
+        props.accessRequest.iva = selectedIVA;
         props.onUpdate();
       } else throw new Error("PATCH failed: " + response.text);
     } catch (error) {
@@ -150,44 +152,89 @@ const AccessRequestModal = (props: AccessRequestModalProps) => {
                 : "Access request is pending"}
             </Col>
           </Row>
-          <Row className={ROW_CLASSES}>
-            <Col className="mt-3">
-              {props.userIVAs.length > 0 ? (
-                <>
-                  {props.userIVAs.map((x: IVA) => (
-                    <div key={x.id}>
-                      <Row className="mb-1">
-                        <Col xs={7}>
-                          <input type="checkbox" className="me-1" id={x.id} />
-                          <label htmlFor={x.id}>
-                            {x.type}: {x.value}
-                          </label>
-                        </Col>
-                        <Col>
-                          <label
-                            htmlFor={x.id}
-                            className={
-                              x.status === IVAStatus[IVAStatus.Verified]
-                                ? "text-secondary"
-                                : "text-success"
-                            }
-                          >
-                            {x.status}
-                          </label>
-                        </Col>
-                      </Row>
-                    </div>
-                  ))}
-                  <p className="mt-3 mb-0">
-                    Please select the verification address that should be used
-                    to secure the access request
-                  </p>
-                </>
-              ) : (
-                "No verification addresses have been entered by the user so far"
-              )}
-            </Col>
-          </Row>
+          {props.accessRequest?.status === "pending" ? (
+            <Row className={ROW_CLASSES}>
+              <Col className="mt-3">
+                {props.userIVAs.length > 0 ? (
+                  <>
+                    {props.userIVAs.map((x: IVA) => (
+                      <div key={x.id}>
+                        <Row className="mb-1">
+                          <Col xs={7}>
+                            <input
+                              type="radio"
+                              className="me-1"
+                              id={x.id}
+                              name="ivas"
+                              value={x.id}
+                              onClick={() => setSelectedIVA(x.id)}
+                            />
+                            <label htmlFor={x.id}>
+                              {x.type}: {x.value}
+                            </label>
+                          </Col>
+                          <Col>
+                            <label
+                              htmlFor={x.id}
+                              className={
+                                x.status === IVAStatus[IVAStatus.Verified]
+                                  ? "text-secondary"
+                                  : "text-success"
+                              }
+                            >
+                              {x.status}
+                            </label>
+                          </Col>
+                        </Row>
+                      </div>
+                    ))}
+                    <p className="mt-3 mb-0">
+                      Please select the verification address that should be used
+                      to secure the access request
+                    </p>
+                  </>
+                ) : (
+                  "No verification addresses have been entered by the user so far"
+                )}
+              </Col>
+            </Row>
+          ) : (
+            <></>
+          )}
+          {props.accessRequest?.status === "allowed" ? (
+            <Row className={ROW_CLASSES}>
+              <Col>
+                Verification address used:
+                <br />
+                {props.userIVAs.find(
+                  (x: IVA) => x.id === props.accessRequest?.iva
+                )?.type +
+                  ": " +
+                  props.userIVAs.find(
+                    (x: IVA) => x.id === props.accessRequest?.iva
+                  )?.value}{" "}
+                <span
+                  className={
+                    props.userIVAs.find(
+                      (x: IVA) => x.id === props.accessRequest?.iva
+                    )?.status === IVAStatus[IVAStatus.Verified]
+                      ? "text-success"
+                      : "text-secondary"
+                  }
+                >
+                  (
+                  {
+                    props.userIVAs.find(
+                      (x: IVA) => x.id === props.accessRequest?.iva
+                    )?.status
+                  }
+                  )
+                </span>
+              </Col>
+            </Row>
+          ) : (
+            <></>
+          )}
         </Modal.Body>
 
         {props.accessRequest?.status === "pending" ? (
@@ -206,7 +253,11 @@ const AccessRequestModal = (props: AccessRequestModalProps) => {
                 setShowConfirmation(true);
                 setStatus("allowed");
               }}
-              disabled={disabledButtons || props.userIVAs.length === 0}
+              disabled={
+                disabledButtons ||
+                props.userIVAs.length === 0 ||
+                selectedIVA === ""
+              }
             >
               Allow
             </Button>

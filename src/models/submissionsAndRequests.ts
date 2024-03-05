@@ -38,4 +38,5 @@ export interface AccessRequest {
   status: string;
   status_changed: null | string;
   changed_by: null | string;
+  iva: null | string;
 }
