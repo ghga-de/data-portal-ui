@@ -38,6 +38,23 @@ const LoginButton = () => {
     window.location.reload();
   };
 
+  const getStatusString = () => {
+    switch (user?.state) {
+      case LoginState.NeedsRegistration:
+        return "registration";
+      case LoginState.NeedsReregistration:
+        return "re-registration";
+      case LoginState.NeedsTOTPToken ||
+        LoginState.HasTOTPToken ||
+        LoginState.LostTOTPToken ||
+        LoginState.NewTOTPToken ||
+        LoginState.Registered:
+        return "2FA setup";
+      default:
+        break;
+    }
+  };
+
   return (
     <div className="me-3 me-xxl-0">
       {user ? (
@@ -55,22 +72,9 @@ const LoginButton = () => {
                 >
                   <Popover.Body className="text-center fs-6 px-4">
                     <p>
-                      You need to complete your{" "}
-                      {user.state === LoginState.NeedsReregistration
-                        ? "re-registration "
-                        : ""}
-                      {user.state === LoginState.NeedsRegistration
-                        ? "registration "
-                        : ""}
-                      {user.state === LoginState.NeedsTOTPToken ||
-                      user.state === LoginState.HasTOTPToken ||
-                      user.state === LoginState.LostTOTPToken ||
-                      user.state === LoginState.NewTOTPToken ||
-                      user.state === LoginState.Registered
-                        ? "2FA setup "
-                        : ""}
-                      with the GHGA Data Portal before you can start using your
-                      LS Login account.
+                      You need to complete your {getStatusString()} with the
+                      GHGA Data Portal before you can start using your LS Login
+                      account.
                     </p>
                     <Button
                       variant="secondary"
@@ -81,20 +85,7 @@ const LoginButton = () => {
                       }}
                     >
                       <FontAwesomeIcon icon={faPenToSquare} className="me-2" />
-                      Complete{" "}
-                      {user.state === LoginState.NeedsReregistration
-                        ? "re-registration"
-                        : ""}
-                      {user.state === LoginState.NeedsRegistration
-                        ? "registration"
-                        : ""}
-                      {user.state === LoginState.NeedsTOTPToken ||
-                      user.state === LoginState.HasTOTPToken ||
-                      user.state === LoginState.LostTOTPToken ||
-                      user.state === LoginState.NewTOTPToken ||
-                      user.state === LoginState.Registered
-                        ? "2FA setup"
-                        : ""}
+                      Complete {getStatusString()}
                     </Button>
                     <Button
                       variant="quaternary"
@@ -153,19 +144,7 @@ const LoginButton = () => {
             >
               {(props) => (
                 <Tooltip id="registertooltip" {...props}>
-                  {user.state === LoginState.NeedsReregistration
-                    ? "Re-registration "
-                    : ""}
-                  {user.state === LoginState.NeedsRegistration
-                    ? "Registration "
-                    : ""}
-                  {user.state === LoginState.NeedsTOTPToken ||
-                  user.state === LoginState.HasTOTPToken ||
-                  user.state === LoginState.LostTOTPToken ||
-                  user.state === LoginState.NewTOTPToken ||
-                  user.state === LoginState.Registered
-                    ? "2FA setup "
-                    : ""}
+                  {getStatusString()}
                   required
                 </Tooltip>
               )}
