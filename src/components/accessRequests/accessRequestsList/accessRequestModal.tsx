@@ -18,7 +18,7 @@ import { ARS_URL, fetchJson } from "../../../utils/utils";
 import { showMessage } from "../../messages/usage";
 import { AccessRequest } from "../../../models/submissionsAndRequests";
 import { useState } from "react";
-import { IVA, IVAStatus } from "../../../models/ivas";
+import { IVA, IVAStatus, IVAType } from "../../../models/ivas";
 
 interface AccessRequestModalProps {
   show: boolean;
@@ -188,7 +188,7 @@ const AccessRequestModal = (props: AccessRequestModalProps) => {
                               htmlFor={"iva_" + x.id}
                               className={selectedIVA === x.id ? "fw-bold" : ""}
                             >
-                              {x.type}: {x.value}
+                              {IVAType[x.type]}: {x.value}
                             </label>
                           </Col>
                           <Col>
@@ -225,7 +225,7 @@ const AccessRequestModal = (props: AccessRequestModalProps) => {
               <Col>
                 Verification address used:
                 <br />
-                {allowedIVA.type + ": " + allowedIVA.value}{" "}
+                {IVAType[allowedIVA.type] + ": " + allowedIVA.value}{" "}
                 <span
                   className={
                     allowedIVA.status === IVAStatus.Verified

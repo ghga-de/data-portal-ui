@@ -38,6 +38,10 @@ export const handlers = [
     const token = data["token"];
     return HttpResponse.json(undefined, token === "123456" ? { status: 204 } : { status: 401 });
   }),
+  // intercept IVA deletion request
+  http.delete("/api/wps/users/:id/ivas/:iva", () => {
+    return HttpResponse.json(undefined, { status: 204 });
+  }),
 ];
 
 const groupedResponses = {};

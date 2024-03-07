@@ -3,7 +3,7 @@ import type { OidcMetadata, UserManagerSettings } from "oidc-client-ts";
 import { fetchJson, AUTH_URL, WPS_URL } from "../utils/utils";
 import { showMessage } from "../components/messages/usage";
 import { createStore, useStore } from "zustand";
-import { IVA, IVAStatus } from "../models/ivas";
+import { IVA, IVAStatus, IVAType } from "../models/ivas";
 
 /**
  * Interface for a full high-level user object.
@@ -81,11 +81,12 @@ export const getIVAs = async (userId: string, setUserIVAs: any) => {
   if (response && response.status === ok) {
     try {
       await response.json().then((x: any[]) => {
-        function parseIVAStatus(userIVA: any) {
+        function parseIVAStatusAndType(userIVA: any) {
           userIVA.status = IVAStatus[userIVA.status] as unknown as IVAStatus;
+          userIVA.type = IVAType[userIVA.type] as unknown as IVAType;
         }
         let IVAs: IVA[] = x;
-        IVAs.forEach(parseIVAStatus);
+        IVAs.forEach(parseIVAStatusAndType);
         setUserIVAs(IVAs);
       });
     } catch {

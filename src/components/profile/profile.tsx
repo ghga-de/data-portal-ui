@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
-import { Alert, Button, Container, Row, Col } from "react-bootstrap";
+import { Alert, Button, Container, Row, Col, Modal } from "react-bootstrap";
 import { useNavigate, NavLink } from "react-router-dom";
 import { useMessages } from "../messages/usage";
 import { getIVAs, useAuth } from "../../services/auth";
 import { WPS_URL, fetchJson } from "../../utils/utils";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleXmark, faPlus } from "@fortawesome/free-solid-svg-icons";
-import { IVA, IVAStatus } from "../../models/ivas";
+import { IVA, IVAStatus, IVAType } from "../../models/ivas";
 import NewIVAModal from "./newIVAsModal/newIVAModal";
 
 /** Display user profile */
@@ -21,9 +21,75 @@ const Profile = () => {
   const [showModal, setShowModal] = useState(false);
   const [userIVAs, setUserIVAs] = useState<IVA[]>([]);
 
+  const [toDeleteIVA, setToDeleteIVA] = useState<IVA | null>(null);
+  const [showDeletionConfirmation, setShowDeletionConfirmation] =
+    useState<boolean>(false);
+
+  const ConfirmationModal = () => {
+    return (
+      <Modal
+        show={showDeletionConfirmation}
+        onHide={() => {
+          setShowDeletionConfirmation(false);
+        }}
+        centered
+      >
+        <Modal.Header>
+          <Modal.Title>Confirm deletion of contact address</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          Confirm deleting the{" "}
+          <em>{toDeleteIVA ? IVAStatus[toDeleteIVA.status] + " " : ""}</em>
+          contact address <em>{toDeleteIVA?.value}</em>
+        </Modal.Body>
+        <Modal.Footer className="justify-content-between">
+          <Button
+            variant="dark-3"
+            onClick={() => {
+              setShowDeletionConfirmation(false);
+            }}
+          >
+            Cancel
+          </Button>
+          <Button
+            variant={"quinary"}
+            className="text-white"
+            onClick={() => {
+              deleteUserIVA();
+            }}
+          >
+            Confirm
+          </Button>
+        </Modal.Footer>
+      </Modal>
+    );
+  };
+
   const newUserIVA = (newIVA: IVA) => {
-    console.log([...userIVAs, newIVA]);
     setUserIVAs([...userIVAs, newIVA]);
+  };
+
+  const deleteUserIVA = async () => {
+    let url = WPS_URL;
+    url = new URL(`users/${user?.ext_id}/ivas/${toDeleteIVA!.id}`, WPS_URL);
+    let method: string = "DELETE",
+      ok: number = 204;
+    const response = await fetchJson(url, method).catch(() => null);
+    if (response && response.status === ok) {
+      showMessage({
+        type: "success",
+        title: "Contact address deleted successfully!",
+      });
+      setUserIVAs(userIVAs.filter((x) => x.id !== toDeleteIVA!.id));
+      setToDeleteIVA(null);
+      setShowDeletionConfirmation(false);
+    } else {
+      showMessage({
+        type: "error",
+        title: "Contact address could not be deleted",
+      });
+    }
+    return;
   };
 
   useEffect(() => {
@@ -95,13 +161,17 @@ const Profile = () => {
           ? userIVAs.map((x, index) => (
               <Row key={x.id + index}>
                 <Col xs={3}>
-                  {x.type}: {x.value}
+                  {IVAType[x.type]}: {x.value}
                 </Col>
                 <Col xs={2}>{IVAStatus[x.status]}</Col>
                 <Col xs={1}>
                   <Button
                     variant="link"
                     className="border-0 text-secondary p-0 d-flex align-items-start"
+                    onClick={() => {
+                      setToDeleteIVA(x);
+                      setShowDeletionConfirmation(true);
+                    }}
                   >
                     <FontAwesomeIcon icon={faCircleXmark} className="fa-lg" />
                   </Button>
@@ -141,6 +211,7 @@ const Profile = () => {
           userId={user.ext_id}
           newUserIVA={newUserIVA}
         />
+        <ConfirmationModal />
       </div>
     );
 
