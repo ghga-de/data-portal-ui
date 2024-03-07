@@ -55,7 +55,7 @@ const AccessRequestModal = (props: AccessRequestModalProps) => {
         props.accessRequest.status = status;
         props.accessRequest.status_changed = new Date().toISOString();
         props.accessRequest.changed_by = props.userId;
-        props.accessRequest.iva = selectedIVA;
+        props.accessRequest.iva_id = selectedIVA;
         props.onUpdate();
       } else throw new Error("PATCH failed: " + response.text);
     } catch (error) {
@@ -75,7 +75,9 @@ const AccessRequestModal = (props: AccessRequestModalProps) => {
     return (
       <Modal
         show={showConfirmation && props.show}
-        onHide={() => setShowConfirmation(false)}
+        onHide={() => {
+          setShowConfirmation(false);
+        }}
         centered
       >
         <Modal.Header>
@@ -109,9 +111,22 @@ const AccessRequestModal = (props: AccessRequestModalProps) => {
     );
   };
 
+  let allowedIVA: IVA | undefined | null = null;
+  if (props.accessRequest?.status === "allowed") {
+    allowedIVA = props.userIVAs.find(
+      (x: IVA) => x.id === props.accessRequest?.iva_id
+    );
+  }
+
   return (
     <>
-      <Modal show={props.show} onHide={props.handleClose}>
+      <Modal
+        show={props.show}
+        onHide={() => {
+          setSelectedIVA("");
+          props.handleClose();
+        }}
+      >
         <Modal.Header closeButton>
           <Modal.Title>Access Request Detail</Modal.Title>
         </Modal.Header>
@@ -164,12 +179,15 @@ const AccessRequestModal = (props: AccessRequestModalProps) => {
                             <input
                               type="radio"
                               className="me-1"
-                              id={x.id}
+                              id={"iva_" + x.id}
                               name="ivas"
                               value={x.id}
                               onClick={() => setSelectedIVA(x.id)}
                             />
-                            <label htmlFor={x.id}>
+                            <label
+                              htmlFor={"iva_" + x.id}
+                              className={selectedIVA === x.id ? "fw-bold" : ""}
+                            >
                               {x.type}: {x.value}
                             </label>
                           </Col>
@@ -189,49 +207,44 @@ const AccessRequestModal = (props: AccessRequestModalProps) => {
                       </div>
                     ))}
                     <p className="mt-3 mb-0">
-                      Please select the verification address that should be used
-                      to secure the access request
+                      {props.userIVAs.length === 1
+                        ? "Make sure the verification address specified by the user is correct."
+                        : "Please select the verification address that should be used to secure the access request"}
                     </p>
                   </>
                 ) : (
-                  "No verification addresses have been entered by the user so far"
+                  "No verification address have been entered by the user so far"
                 )}
               </Col>
             </Row>
           ) : (
             <></>
           )}
-          {props.accessRequest?.status === "allowed" ? (
+          {props.accessRequest?.status === "allowed" && allowedIVA ? (
             <Row className={ROW_CLASSES}>
               <Col>
                 Verification address used:
                 <br />
-                {props.userIVAs.find(
-                  (x: IVA) => x.id === props.accessRequest?.iva
-                )?.type +
-                  ": " +
-                  props.userIVAs.find(
-                    (x: IVA) => x.id === props.accessRequest?.iva
-                  )?.value}{" "}
+                {allowedIVA.type + ": " + allowedIVA.value}{" "}
                 <span
                   className={
-                    props.userIVAs.find(
-                      (x: IVA) => x.id === props.accessRequest?.iva
-                    )?.status === IVAStatus[IVAStatus.Verified]
+                    allowedIVA.status === IVAStatus[IVAStatus.Verified]
                       ? "text-success"
                       : "text-secondary"
                   }
                 >
-                  (
-                  {
-                    props.userIVAs.find(
-                      (x: IVA) => x.id === props.accessRequest?.iva
-                    )?.status
-                  }
-                  )
+                  ({allowedIVA.status})
                 </span>
               </Col>
             </Row>
+          ) : props.accessRequest?.status === "allowed" &&
+            allowedIVA === undefined ? (
+            <>
+              <span className="text-secondary fw-bold">
+                Verification address used to approve this user's access request
+                was not found
+              </span>
+            </>
           ) : (
             <></>
           )}

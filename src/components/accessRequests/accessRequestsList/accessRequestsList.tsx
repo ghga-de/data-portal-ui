@@ -121,11 +121,13 @@ const AccessRequestsList = (props: AccessRequestListProps) => {
     let method: string = "GET",
       ok: number = 200;
     const response = await fetchJson(url, method).catch(() => null);
+    let IVAs = null;
     if (response && response.status === ok) {
       try {
         const IVAs = await response.json();
         setUserIVAs(IVAs);
-      } catch {
+      } catch {}
+      if (IVAs) {
         showMessage({
           type: "error",
           title:
