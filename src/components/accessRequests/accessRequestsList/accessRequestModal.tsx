@@ -177,12 +177,12 @@ const AccessRequestModal = (props: AccessRequestModalProps) => {
                             <label
                               htmlFor={x.id}
                               className={
-                                x.status === IVAStatus[IVAStatus.Verified]
+                                x.status === IVAStatus.Verified
                                   ? "text-secondary"
                                   : "text-success"
                               }
                             >
-                              {x.status}
+                              {IVAStatus[x.status!]}
                             </label>
                           </Col>
                         </Row>
@@ -217,16 +217,18 @@ const AccessRequestModal = (props: AccessRequestModalProps) => {
                   className={
                     props.userIVAs.find(
                       (x: IVA) => x.id === props.accessRequest?.iva
-                    )?.status === IVAStatus[IVAStatus.Verified]
+                    )?.status === IVAStatus.Verified
                       ? "text-success"
                       : "text-secondary"
                   }
                 >
                   (
                   {
-                    props.userIVAs.find(
-                      (x: IVA) => x.id === props.accessRequest?.iva
-                    )?.status
+                    IVAStatus[
+                      props.userIVAs.find(
+                        (x: IVA) => x.id === props.accessRequest?.iva
+                      )!.status!
+                    ]
                   }
                   )
                 </span>

@@ -17,14 +17,9 @@ import { useCallback, useEffect, useState } from "react";
 import { AccessRequest } from "../../../models/submissionsAndRequests";
 import { Col, Row, Table } from "react-bootstrap";
 import AccessRequestModal from "./accessRequestModal";
-import { User } from "../../../services/auth";
+import { User, getIVAs } from "../../../services/auth";
 import SortButton, { TableFields } from "../../../utils/sortButton";
-import {
-  WPS_URL,
-  fetchJson,
-  transposeTableForHTML,
-} from "../../../utils/utils";
-import { showMessage } from "../../messages/usage";
+import { transposeTableForHTML } from "../../../utils/utils";
 import { IVA } from "../../../models/ivas";
 
 //
@@ -115,39 +110,12 @@ const AccessRequestsList = (props: AccessRequestListProps) => {
 
   const [userIVAs, setUserIVAs] = useState<IVA[]>([]);
 
-  const getIVAs = async () => {
-    let url = WPS_URL;
-    url = new URL(`users/${props.user.id}/ivas`, WPS_URL);
-    let method: string = "GET",
-      ok: number = 200;
-    const response = await fetchJson(url, method).catch(() => null);
-    if (response && response.status === ok) {
-      try {
-        const IVAs = await response.json();
-        setUserIVAs(IVAs);
-      } catch {
-        showMessage({
-          type: "error",
-          title:
-            "Could not obtain user's IVAs. Please try reopening this dialog again.",
-        });
-      }
-      return;
-    }
-    showMessage({
-      type: "error",
-      title:
-        "Could not obtain user's IVAs. Please try reopening this dialog again.",
-    });
-    return;
-  };
-
   const handleCloseModal = () => {
     setShowModal(false);
   };
   const handleShowModal = (accessRequest: AccessRequest) => {
     setSelectedAccessRequest(accessRequest);
-    getIVAs();
+    getIVAs(props.user.ext_id, setUserIVAs);
     setShowModal(true);
   };
 

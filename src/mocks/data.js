@@ -5,7 +5,7 @@ export const user = {
   ext_id: "aacaffeecaffeecaffeecaffeecaffeecaffeeaad@lifescience-ri.eu",
   name: "John Doe",
   title: "Dr.",
-  email: "j.jdoe@home.org",
+  email: "j.jdoe@home.org"
 };
 
 export const IVAs = [{

@@ -39,19 +39,15 @@ const LoginButton = () => {
   };
 
   const getStatusString = () => {
+    console.log(user);
+    console.log(LoginState);
     switch (user?.state) {
       case LoginState.NeedsRegistration:
-        return "registration";
+        return "Registration";
       case LoginState.NeedsReregistration:
-        return "re-registration";
-      case LoginState.NeedsTOTPToken ||
-        LoginState.HasTOTPToken ||
-        LoginState.LostTOTPToken ||
-        LoginState.NewTOTPToken ||
-        LoginState.Registered:
-        return "2FA setup";
+        return "Re-registration";
       default:
-        break;
+        return "2FA setup";
     }
   };
 
@@ -72,9 +68,9 @@ const LoginButton = () => {
                 >
                   <Popover.Body className="text-center fs-6 px-4">
                     <p>
-                      You need to complete your {getStatusString()} with the
-                      GHGA Data Portal before you can start using your LS Login
-                      account.
+                      You need to complete your{" "}
+                      {getStatusString().toLowerCase()} with the GHGA Data
+                      Portal before you can start using your LS Login account.
                     </p>
                     <Button
                       variant="secondary"
@@ -110,7 +106,7 @@ const LoginButton = () => {
                   height: "43px",
                   marginTop: "-4px",
                 }}
-                title="Complete registration"
+                title={"Complete " + getStatusString().toLowerCase()}
                 ref={target}
                 onMouseEnter={() => {
                   setShowTooltip(true && !showPopover);
@@ -144,8 +140,7 @@ const LoginButton = () => {
             >
               {(props) => (
                 <Tooltip id="registertooltip" {...props}>
-                  {getStatusString()}
-                  required
+                  {getStatusString().toLowerCase()} required
                 </Tooltip>
               )}
             </Overlay>

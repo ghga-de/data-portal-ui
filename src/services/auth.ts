@@ -1,8 +1,9 @@
 import { Log, User as OidcUser, UserManager } from "oidc-client-ts";
 import type { OidcMetadata, UserManagerSettings } from "oidc-client-ts";
-import { fetchJson, AUTH_URL } from "../utils/utils";
+import { fetchJson, AUTH_URL, WPS_URL } from "../utils/utils";
 import { showMessage } from "../components/messages/usage";
 import { createStore, useStore } from "zustand";
+import { IVA, IVAStatus } from "../models/ivas";
 
 /**
  * Interface for a full high-level user object.
@@ -68,6 +69,40 @@ export const setUserState = (state: LoginState) => {
       `$1` + btoa(JSON.stringify(userObj)) + "$3"
     );
   }
+};
+
+// Get user IVAs
+export const getIVAs = async (userId: string, setUserIVAs: any) => {
+  let url = WPS_URL;
+  url = new URL(`users/${userId}/ivas`, WPS_URL);
+  let method: string = "GET",
+    ok: number = 200;
+  const response = await fetchJson(url, method).catch(() => null);
+  if (response && response.status === ok) {
+    try {
+      await response.json().then((x: any[]) => {
+        function parseIVAStatus(userIVA: any) {
+          userIVA.status = IVAStatus[userIVA.status] as unknown as IVAStatus;
+        }
+        let IVAs: IVA[] = x;
+        IVAs.forEach(parseIVAStatus);
+        setUserIVAs(IVAs);
+      });
+    } catch {
+      showMessage({
+        type: "error",
+        title:
+          "Could not obtain user's IVAs. Please try reopening this dialog again.",
+      });
+    }
+    return;
+  }
+  showMessage({
+    type: "error",
+    title:
+      "Could not obtain user's IVAs. Please try reopening this dialog again.",
+  });
+  return;
 };
 
 //parse user from cookie
@@ -260,6 +295,7 @@ class AuthService {
       ) {
         if (user.name && user.title)
           user.full_name = `${user.title} ${user.name}`;
+        else user.full_name = user.name;
         user.state = LoginState[user.state] as unknown as LoginState;
       } else {
         user = null;
