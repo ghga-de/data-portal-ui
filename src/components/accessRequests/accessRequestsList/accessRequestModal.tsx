@@ -117,6 +117,8 @@ const AccessRequestModal = (props: AccessRequestModalProps) => {
       (x: IVA) => x.id === props.accessRequest?.iva_id
     );
   }
+  if (props.userIVAs.length === 1 && selectedIVA === "")
+    setSelectedIVA(props.userIVAs[0].id);
 
   return (
     <>
@@ -172,45 +174,55 @@ const AccessRequestModal = (props: AccessRequestModalProps) => {
               <Col className="mt-3">
                 {props.userIVAs.length > 0 ? (
                   <>
-                    {props.userIVAs.map((x: IVA) => (
-                      <div key={x.id}>
-                        <Row className="mb-1">
-                          <Col xs={7}>
-                            <input
-                              type="radio"
-                              className="me-1"
-                              id={"iva_" + x.id}
-                              name="ivas"
-                              value={x.id}
-                              onClick={() => setSelectedIVA(x.id)}
-                            />
-                            <label
-                              htmlFor={"iva_" + x.id}
-                              className={selectedIVA === x.id ? "fw-bold" : ""}
-                            >
-                              {x.type}: {x.value}
-                            </label>
-                          </Col>
-                          <Col>
-                            <label
-                              htmlFor={x.id}
-                              className={
-                                x.status === IVAStatus[IVAStatus.Verified]
-                                  ? "text-secondary"
-                                  : "text-success"
-                              }
-                            >
-                              {x.status}
-                            </label>
-                          </Col>
-                        </Row>
-                      </div>
-                    ))}
-                    <p className="mt-3 mb-0">
+                    <p className="mt-2 fw-bold">
                       {props.userIVAs.length === 1
-                        ? "Make sure the verification address specified by the user is correct."
-                        : "Please select the verification address that should be used to secure the access request"}
+                        ? "Make sure the verification address specified by the user is correct:"
+                        : "Please select the verification address that should be used to secure the access request:"}
                     </p>
+                    {props.userIVAs.map((x: IVA) => {
+                      return (
+                        <div key={x.id}>
+                          <Row className="mb-1">
+                            <Col xs={7}>
+                              <input
+                                type="radio"
+                                className="me-1"
+                                id={"iva_" + x.id}
+                                name="ivas"
+                                value={x.id}
+                                onClick={() => setSelectedIVA(x.id)}
+                                defaultChecked={
+                                  props.userIVAs.length === 1 ? true : false
+                                }
+                              />
+                              <label
+                                htmlFor={"iva_" + x.id}
+                                className={
+                                  selectedIVA === x.id ||
+                                  props.userIVAs.length === 1
+                                    ? "fw-bold"
+                                    : ""
+                                }
+                              >
+                                {x.type}: {x.value}
+                              </label>
+                            </Col>
+                            <Col>
+                              <label
+                                htmlFor={x.id}
+                                className={
+                                  x.status === IVAStatus[IVAStatus.Verified]
+                                    ? "text-success"
+                                    : "text-secondary"
+                                }
+                              >
+                                {x.status}
+                              </label>
+                            </Col>
+                          </Row>
+                        </div>
+                      );
+                    })}
                   </>
                 ) : (
                   "No verification address have been entered by the user so far"
