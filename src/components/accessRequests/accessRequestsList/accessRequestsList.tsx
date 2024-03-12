@@ -112,6 +112,8 @@ const AccessRequestsList = (props: AccessRequestListProps) => {
 
   const handleCloseModal = () => {
     setShowModal(false);
+    setSelectedAccessRequest(undefined);
+    setUserIVAs([]);
   };
   const handleShowModal = (accessRequest: AccessRequest) => {
     setSelectedAccessRequest(accessRequest);
