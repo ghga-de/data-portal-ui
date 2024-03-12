@@ -198,52 +198,54 @@ const Profile = () => {
           </p>
         </div>
         {userIVAs.length > 0
-          ? userIVAs.map((x, index) => (
-              <Row key={x.id + index}>
-                <Col xs={3}>
-                  {IVAType[x.type]}: {x.value}
-                </Col>
-                <Col xs={2}>
-                  {x.status === IVAStatus.Unverified ? (
+          ? userIVAs.map((x, index) => {
+              return (
+                <Row key={x.id + index}>
+                  <Col xs={3}>
+                    {IVAType[x.type]}: {x.value}
+                  </Col>
+                  <Col xs={2}>
+                    {x.status === IVAStatus.Unverified ? (
+                      <Button
+                        id={"del_" + x.id}
+                        className="p-0 px-1 bg-quinary"
+                        onClick={(e) => {
+                          let button = e.target as HTMLButtonElement;
+                          HandleRequestVerification(button.id.substring(4));
+                        }}
+                      >
+                        Request verification
+                      </Button>
+                    ) : x.status === IVAStatus.WaitingVerification ? (
+                      <Button
+                        id={"con_" + x.id}
+                        className="p-0 px-1 bg-quinary"
+                        onClick={(e) => {
+                          let button = e.target as HTMLButtonElement;
+                          HandleConfirmVerification(button.id.substring(4));
+                        }}
+                      >
+                        Enter verification code
+                      </Button>
+                    ) : (
+                      IVAStatus[x.status]
+                    )}
+                  </Col>
+                  <Col xs={1}>
                     <Button
-                      id={"del_" + x.id}
-                      className="p-0 px-1 bg-quinary"
-                      onClick={(e) => {
-                        let button = e.target as HTMLButtonElement;
-                        HandleRequestVerification(button.id.substring(4));
+                      variant="link"
+                      className="border-0 h-100 text-secondary p-0 d-flex align-items-center"
+                      onClick={() => {
+                        setToDeleteIVA(x);
+                        setShowDeletionConfirmationModal(true);
                       }}
                     >
-                      Request verification
+                      <FontAwesomeIcon icon={faCircleXmark} className="fa-lg" />
                     </Button>
-                  ) : x.status === IVAStatus.WaitingVerification ? (
-                    <Button
-                      id={"con_" + x.id}
-                      className="p-0 px-1 bg-quinary"
-                      onClick={(e) => {
-                        let button = e.target as HTMLButtonElement;
-                        HandleConfirmVerification(button.id.substring(4));
-                      }}
-                    >
-                      Enter verification code
-                    </Button>
-                  ) : (
-                    IVAStatus[x.status]
-                  )}
-                </Col>
-                <Col xs={1}>
-                  <Button
-                    variant="link"
-                    className="border-0 h-100 text-secondary p-0 d-flex align-items-center"
-                    onClick={() => {
-                      setToDeleteIVA(x);
-                      setShowDeletionConfirmationModal(true);
-                    }}
-                  >
-                    <FontAwesomeIcon icon={faCircleXmark} className="fa-lg" />
-                  </Button>
-                </Col>
-              </Row>
-            ))
+                  </Col>
+                </Row>
+              );
+            })
           : "You have not yet created any independent verification addresses. This is needed if you wish to download research data."}
         <div style={{ margin: "1em 0" }}>
           {numDatasets ? (

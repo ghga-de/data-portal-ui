@@ -22,8 +22,8 @@ export const IVAs = [{
 },
 {
   id: "TEST00014000003",
-  type: "SMS",
-  value: "+49123456789056412",
+  type: "PostalAddress",
+  value: "Willhelmstr. 123",
   status: "WaitingVerification"
 }]
 

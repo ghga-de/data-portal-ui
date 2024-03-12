@@ -33,7 +33,7 @@ const NewIVAModal = (props: NewIVAModalProps) => {
         const id = await response.text();
         const newIVA: IVA = {
           id: id,
-          type: userData.type,
+          type: IVAType[userData.type] as unknown as IVAType,
           value: userData.value,
           status: IVAStatus.Unverified,
         };
@@ -89,7 +89,7 @@ const NewIVAModal = (props: NewIVAModalProps) => {
                 }
                 onClick={() => {
                   setClickedButton("Fax");
-                  setDisabledButton(true);
+                  setDisabledButton(false);
                   setPromptText("fax number");
                 }}
               >
@@ -105,7 +105,7 @@ const NewIVAModal = (props: NewIVAModalProps) => {
                 }
                 onClick={() => {
                   setClickedButton("PostalAddress");
-                  setDisabledButton(true);
+                  setDisabledButton(false);
                   setPromptText("postal address");
                 }}
               >
@@ -121,7 +121,7 @@ const NewIVAModal = (props: NewIVAModalProps) => {
                 }
                 onClick={() => {
                   setClickedButton("InPerson");
-                  setDisabledButton(true);
+                  setDisabledButton(false);
                   setPromptText("Where can we meet you?");
                 }}
               >
