@@ -216,7 +216,7 @@ const AccessRequestModal = (props: AccessRequestModalProps) => {
                                     : "text-secondary"
                                 }
                               >
-                                {x.status}
+                                {IVAStatus[x.status]}
                               </label>
                             </Col>
                           </Row>
