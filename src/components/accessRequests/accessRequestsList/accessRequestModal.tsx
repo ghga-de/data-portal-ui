@@ -186,7 +186,7 @@ const AccessRequestModal = (props: AccessRequestModalProps) => {
                             <Col xs={7}>
                               <input
                                 type="radio"
-                                className="me-1"
+                                className="me-2"
                                 id={"iva_" + x.id}
                                 name="ivas"
                                 value={x.id}
