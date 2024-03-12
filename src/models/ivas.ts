@@ -14,29 +14,19 @@
 // limitations under the License.
 //
 
-export interface Dataset {
-  id: string;
-  title: string;
-  description: string;
-  stage: string;
+export enum IVAStatus {
+  Unverified,
+  Verified,
 }
-
-export interface Errors {
-  userKey?: string | null;
+export enum IVAType {
+  Phone,
+  Fax,
+  PostalAddress,
+  InPerson,
 }
-
-export interface AccessRequest {
+export interface IVA {
   id: string;
-  user_id: string;
-  dataset_id: string;
-  full_user_name: string;
-  email: string;
-  request_text: string;
-  access_starts: string;
-  access_ends: string;
-  request_created: string;
+  type: IVAType;
+  value: string;
   status: string;
-  status_changed: null | string;
-  changed_by: null | string;
-  iva_id: null | string;
 }

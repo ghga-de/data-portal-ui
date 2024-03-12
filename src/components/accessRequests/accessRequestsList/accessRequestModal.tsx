@@ -18,6 +18,7 @@ import { ARS_URL, fetchJson } from "../../../utils/utils";
 import { showMessage } from "../../messages/usage";
 import { AccessRequest } from "../../../models/submissionsAndRequests";
 import { useState } from "react";
+import { IVA, IVAStatus } from "../../../models/ivas";
 
 interface AccessRequestModalProps {
   show: boolean;
@@ -27,6 +28,7 @@ interface AccessRequestModalProps {
   handleShow: any;
   accessRequest: AccessRequest | undefined;
   onUpdate: any;
+  userIVAs: IVA[];
 }
 
 const COL_CLASSES = "col-xs-5 col-md-4";
@@ -35,6 +37,7 @@ const ROW_CLASSES = "mb-3";
 //
 const AccessRequestModal = (props: AccessRequestModalProps) => {
   const [disabledButtons, setDisabledButtons] = useState(false);
+  const [selectedIVA, setSelectedIVA] = useState("");
 
   async function handleButtonClickAccess(status: "allowed" | "denied") {
     if (props.accessRequest === undefined || props.userId === undefined) {
@@ -52,6 +55,7 @@ const AccessRequestModal = (props: AccessRequestModalProps) => {
         props.accessRequest.status = status;
         props.accessRequest.status_changed = new Date().toISOString();
         props.accessRequest.changed_by = props.userId;
+        props.accessRequest.iva_id = selectedIVA;
         props.onUpdate();
       } else throw new Error("PATCH failed: " + response.text);
     } catch (error) {
@@ -71,7 +75,9 @@ const AccessRequestModal = (props: AccessRequestModalProps) => {
     return (
       <Modal
         show={showConfirmation && props.show}
-        onHide={() => setShowConfirmation(false)}
+        onHide={() => {
+          setShowConfirmation(false);
+        }}
         centered
       >
         <Modal.Header>
@@ -105,9 +111,24 @@ const AccessRequestModal = (props: AccessRequestModalProps) => {
     );
   };
 
+  let allowedIVA: IVA | undefined | null = null;
+  if (props.accessRequest?.status === "allowed") {
+    allowedIVA = props.userIVAs.find(
+      (x: IVA) => x.id === props.accessRequest?.iva_id
+    );
+  }
+  if (props.userIVAs.length === 1 && selectedIVA === "")
+    setSelectedIVA(props.userIVAs[0].id);
+
   return (
     <>
-      <Modal show={props.show} onHide={props.handleClose}>
+      <Modal
+        show={props.show}
+        onHide={() => {
+          setSelectedIVA("");
+          props.handleClose();
+        }}
+      >
         <Modal.Header closeButton>
           <Modal.Title>Access Request Detail</Modal.Title>
         </Modal.Header>
@@ -148,28 +169,108 @@ const AccessRequestModal = (props: AccessRequestModalProps) => {
                 : "Access request is pending"}
             </Col>
           </Row>
+          {props.accessRequest?.status === "pending" ? (
+            <Row className={ROW_CLASSES}>
+              <Col className="mt-3">
+                {props.userIVAs.length > 0 ? (
+                  <>
+                    <p className="mt-2 fw-bold">
+                      {props.userIVAs.length === 1
+                        ? "Make sure the verification address specified by the user is correct:"
+                        : "Please select the verification address that should be used to secure the access request:"}
+                    </p>
+                    {props.userIVAs.map((x: IVA) => {
+                      return (
+                        <div key={x.id}>
+                          <Row className="mb-1">
+                            <Col xs={7}>
+                              <input
+                                type="radio"
+                                className="me-2"
+                                id={"iva_" + x.id}
+                                name="ivas"
+                                value={x.id}
+                                onClick={() => setSelectedIVA(x.id)}
+                                defaultChecked={
+                                  props.userIVAs.length === 1 ? true : false
+                                }
+                              />
+                              <label
+                                htmlFor={"iva_" + x.id}
+                                className={
+                                  selectedIVA === x.id ||
+                                  props.userIVAs.length === 1
+                                    ? "fw-bold"
+                                    : ""
+                                }
+                              >
+                                {x.type}: {x.value}
+                              </label>
+                            </Col>
+                            <Col>
+                              <label
+                                htmlFor={x.id}
+                                className={
+                                  x.status === IVAStatus[IVAStatus.Verified]
+                                    ? "text-success"
+                                    : "text-secondary"
+                                }
+                              >
+                                {x.status}
+                              </label>
+                            </Col>
+                          </Row>
+                        </div>
+                      );
+                    })}
+                  </>
+                ) : (
+                  "No verification address have been entered by the user so far"
+                )}
+              </Col>
+            </Row>
+          ) : (
+            <></>
+          )}
+          {props.accessRequest?.status === "allowed" && allowedIVA ? (
+            <Row className={ROW_CLASSES}>
+              <Col>
+                Verification address used:
+                <br />
+                {allowedIVA.type + ": " + allowedIVA.value}{" "}
+                <span
+                  className={
+                    allowedIVA.status === IVAStatus[IVAStatus.Verified]
+                      ? "text-success"
+                      : "text-secondary"
+                  }
+                >
+                  ({allowedIVA.status})
+                </span>
+              </Col>
+            </Row>
+          ) : props.accessRequest?.status === "allowed" &&
+            allowedIVA === undefined ? (
+            <>
+              <span className="text-secondary fw-bold">
+                Verification address used to approve this user's access request
+                was not found
+              </span>
+            </>
+          ) : (
+            <></>
+          )}
         </Modal.Body>
 
         {props.accessRequest?.status === "pending" ? (
-          <Modal.Footer className="d-block text-end">
+          <Modal.Footer className="d-block text-start">
             <Button
               variant="dark-3"
-              className="text-white me-3 float-start"
+              className="text-white ms-3 float-end"
               onClick={() => props.setShow(false)}
               disabled={disabledButtons}
             >
               Cancel
-            </Button>
-            <Button
-              variant="secondary"
-              className="text-white me-3"
-              onClick={() => {
-                setShowConfirmation(true);
-                setStatus("denied");
-              }}
-              disabled={disabledButtons}
-            >
-              Deny
             </Button>
             <Button
               variant="quaternary"
@@ -177,9 +278,24 @@ const AccessRequestModal = (props: AccessRequestModalProps) => {
                 setShowConfirmation(true);
                 setStatus("allowed");
               }}
-              disabled={disabledButtons}
+              disabled={
+                disabledButtons ||
+                props.userIVAs.length === 0 ||
+                selectedIVA === ""
+              }
             >
               Allow
+            </Button>
+            <Button
+              variant="secondary"
+              className="text-white ms-3"
+              onClick={() => {
+                setShowConfirmation(true);
+                setStatus("denied");
+              }}
+              disabled={disabledButtons}
+            >
+              Deny
             </Button>
           </Modal.Footer>
         ) : (

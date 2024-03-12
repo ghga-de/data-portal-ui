@@ -6,6 +6,7 @@ import {
   metadataSummary,
   workPackageToken,
   searchResults,
+  IVAs,
 } from "./data";
 
 // Responses to be returned for various endpoints.
@@ -19,6 +20,9 @@ import {
 export const responses = {
   // Datasets requested by j.doe@ghga.de user
   "GET /api/wps/users/j.doe@ghga.de/datasets": datasets,
+
+  // User IVAs
+  "GET /api/wps/users/:user_id/ivas": IVAs,
 
   // Work packages
   // example key for input: MTIzNDU2Nzg5MDEyMzQ1Njc4OTAxMjM0NTY3ODkwMTI

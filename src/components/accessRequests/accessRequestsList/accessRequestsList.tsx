@@ -19,7 +19,13 @@ import { Col, Row, Table } from "react-bootstrap";
 import AccessRequestModal from "./accessRequestModal";
 import { User } from "../../../services/auth";
 import SortButton, { TableFields } from "../../../utils/sortButton";
-import { transposeTableForHTML } from "../../../utils/utils";
+import {
+  WPS_URL,
+  fetchJson,
+  transposeTableForHTML,
+} from "../../../utils/utils";
+import { showMessage } from "../../messages/usage";
+import { IVA } from "../../../models/ivas";
 
 //
 interface AccessRequestListProps {
@@ -107,11 +113,39 @@ const AccessRequestsList = (props: AccessRequestListProps) => {
 
   const [showModal, setShowModal] = useState(false);
 
+  const [userIVAs, setUserIVAs] = useState<IVA[]>([]);
+
+  const getIVAs = async () => {
+    let url = WPS_URL;
+    url = new URL(`users/${props.user.id}/ivas`, WPS_URL);
+    let method: string = "GET",
+      ok: number = 200;
+    const response = await fetchJson(url, method).catch(() => null);
+    let IVAs = null;
+    if (response && response.status === ok) {
+      try {
+        IVAs = await response.json();
+      } catch {}
+    }
+    if (IVAs) {
+      setUserIVAs(IVAs);
+    } else {
+      showMessage({
+        type: "error",
+        title:
+          "Could not obtain user's IVAs. Please try reopening this dialog again.",
+      });
+    }
+  };
+
   const handleCloseModal = () => {
     setShowModal(false);
+    setSelectedAccessRequest(undefined);
+    setUserIVAs([]);
   };
   const handleShowModal = (accessRequest: AccessRequest) => {
     setSelectedAccessRequest(accessRequest);
+    getIVAs();
     setShowModal(true);
   };
 
@@ -129,6 +163,7 @@ const AccessRequestsList = (props: AccessRequestListProps) => {
         handleShow={handleShowModal}
         accessRequest={selectedAccessRequest}
         onUpdate={onUpdate}
+        userIVAs={userIVAs}
       />
       <Table className="w-lg-100" style={{ minWidth: "800px" }}>
         <thead className="border-light-3 border-1">
