@@ -204,7 +204,7 @@ const AccessRequestModal = (props: AccessRequestModalProps) => {
                                     : ""
                                 }
                               >
-                                {x.type}: {x.value}
+                                {IVAType[x.type]}: {x.value}
                               </label>
                             </Col>
                             <Col>
