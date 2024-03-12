@@ -42,6 +42,10 @@ export const handlers = [
   http.delete("/api/wps/users/:id/ivas/:iva", () => {
     return HttpResponse.json(undefined, { status: 204 });
   }),
+  // intercept IVA verification request and return header
+  http.post("/api/auth/rpc/ivas/:iva/request-code", () => {
+    return HttpResponse.json(undefined, { status: 200 });
+  }),
 ];
 
 const groupedResponses = {};

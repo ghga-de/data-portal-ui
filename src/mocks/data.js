@@ -19,6 +19,12 @@ export const IVAs = [{
   type: "Fax",
   value: "+491234567890000",
   status: "Unverified"
+},
+{
+  id: "TEST00014000003",
+  type: "SMS",
+  value: "+49123456789056412",
+  status: "WaitingVerification"
 }]
 
 export const accessRequests = [

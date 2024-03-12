@@ -3,11 +3,13 @@ import { Alert, Button, Container, Row, Col, Modal } from "react-bootstrap";
 import { useNavigate, NavLink } from "react-router-dom";
 import { useMessages } from "../messages/usage";
 import { getIVAs, useAuth } from "../../services/auth";
-import { WPS_URL, fetchJson } from "../../utils/utils";
+import { AUTH_URL, WPS_URL, fetchJson } from "../../utils/utils";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleXmark, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { IVA, IVAStatus, IVAType } from "../../models/ivas";
 import NewIVAModal from "./newIVAsModal/newIVAModal";
+import ConfirmVerificationModal from "./verificationModals/confirmVerificationModal";
+import RequestVerificationModal from "./verificationModals/requestVerificationModal";
 
 /** Display user profile */
 
@@ -18,19 +20,25 @@ const Profile = () => {
   const { showMessage } = useMessages();
   const { user, logoutUser } = useAuth();
 
-  const [showModal, setShowModal] = useState(false);
   const [userIVAs, setUserIVAs] = useState<IVA[]>([]);
 
   const [toDeleteIVA, setToDeleteIVA] = useState<IVA | null>(null);
-  const [showDeletionConfirmation, setShowDeletionConfirmation] =
-    useState<boolean>(false);
+  const [toConfirmIVA, setToConfirmIVA] = useState<IVA | null>(null);
 
-  const ConfirmationModal = () => {
+  const [showNewIVAModal, setShowNewIVAModal] = useState(false);
+  const [showDeletionConfirmationModal, setShowDeletionConfirmationModal] =
+    useState<boolean>(false);
+  const [showRequestVerificationModal, setShowRequestVerificationModal] =
+    useState(false);
+  const [showConfirmVerificationModal, setShowConfirmVerificationModal] =
+    useState(false);
+
+  const DeletionConfirmationModal = () => {
     return (
       <Modal
-        show={showDeletionConfirmation}
+        show={showDeletionConfirmationModal}
         onHide={() => {
-          setShowDeletionConfirmation(false);
+          setShowDeletionConfirmationModal(false);
         }}
         centered
       >
@@ -46,7 +54,7 @@ const Profile = () => {
           <Button
             variant="dark-3"
             onClick={() => {
-              setShowDeletionConfirmation(false);
+              setShowDeletionConfirmationModal(false);
             }}
           >
             Cancel
@@ -82,14 +90,46 @@ const Profile = () => {
       });
       setUserIVAs(userIVAs.filter((x) => x.id !== toDeleteIVA!.id));
       setToDeleteIVA(null);
-      setShowDeletionConfirmation(false);
+      setShowDeletionConfirmationModal(false);
     } else {
+      setToDeleteIVA(null);
+      setShowDeletionConfirmationModal(false);
       showMessage({
         type: "error",
         title: "Contact address could not be deleted",
       });
     }
     return;
+  };
+
+  const HandleRequestVerification = async (idIVA: string) => {
+    setShowNewIVAModal(false);
+    setShowRequestVerificationModal(false);
+    setShowDeletionConfirmationModal(false);
+    setShowConfirmVerificationModal(false);
+    let url = AUTH_URL;
+    url = new URL(`rpc/ivas/${idIVA}/request-code`, url);
+    let method: string = "POST",
+      ok: number = 200;
+    const response = await fetchJson(url, method).catch(() => null);
+    if (response && response.status === ok) {
+      setShowRequestVerificationModal(true);
+      userIVAs.find((x) => idIVA === x.id)!.status =
+        IVAStatus.VerificationRequested;
+    } else {
+      showMessage({
+        type: "error",
+        title:
+          "Could not request verification of your contact address. Please try again later.",
+      });
+    }
+  };
+
+  const HandleConfirmVerification = (idIVA: string) => {
+    setShowNewIVAModal(false);
+    setShowDeletionConfirmationModal(false);
+    setShowRequestVerificationModal(false);
+    setShowConfirmVerificationModal(true);
   };
 
   useEffect(() => {
@@ -163,14 +203,40 @@ const Profile = () => {
                 <Col xs={3}>
                   {IVAType[x.type]}: {x.value}
                 </Col>
-                <Col xs={2}>{IVAStatus[x.status]}</Col>
+                <Col xs={2}>
+                  {x.status === IVAStatus.Unverified ? (
+                    <Button
+                      id={"del_" + x.id}
+                      className="p-0 px-1 bg-quinary"
+                      onClick={(e) => {
+                        let button = e.target as HTMLButtonElement;
+                        HandleRequestVerification(button.id.substring(4));
+                      }}
+                    >
+                      Request verification
+                    </Button>
+                  ) : x.status === IVAStatus.WaitingVerification ? (
+                    <Button
+                      id={"con_" + x.id}
+                      className="p-0 px-1 bg-quinary"
+                      onClick={(e) => {
+                        let button = e.target as HTMLButtonElement;
+                        HandleConfirmVerification(button.id.substring(4));
+                      }}
+                    >
+                      Enter verification code
+                    </Button>
+                  ) : (
+                    IVAStatus[x.status]
+                  )}
+                </Col>
                 <Col xs={1}>
                   <Button
                     variant="link"
-                    className="border-0 text-secondary p-0 d-flex align-items-start"
+                    className="border-0 h-100 text-secondary p-0 d-flex align-items-center"
                     onClick={() => {
                       setToDeleteIVA(x);
-                      setShowDeletionConfirmation(true);
+                      setShowDeletionConfirmationModal(true);
                     }}
                   >
                     <FontAwesomeIcon icon={faCircleXmark} className="fa-lg" />
@@ -193,7 +259,7 @@ const Profile = () => {
           <Button
             variant="primary"
             className="text-white"
-            onClick={() => setShowModal(true)}
+            onClick={() => setShowNewIVAModal(true)}
           >
             <FontAwesomeIcon icon={faPlus} /> New verification address
           </Button>
@@ -206,12 +272,20 @@ const Profile = () => {
           </Button>
         </div>
         <NewIVAModal
-          show={showModal}
-          setShow={setShowModal}
+          show={showNewIVAModal}
+          setShow={setShowNewIVAModal}
           userId={user.ext_id}
           newUserIVA={newUserIVA}
         />
-        <ConfirmationModal />
+        <DeletionConfirmationModal />
+        <RequestVerificationModal
+          show={showRequestVerificationModal}
+          setShow={setShowRequestVerificationModal}
+        />
+        <ConfirmVerificationModal
+          show={showConfirmVerificationModal}
+          setShow={setShowConfirmVerificationModal}
+        />
       </div>
     );
 

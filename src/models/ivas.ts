@@ -16,7 +16,7 @@
 
 export enum IVAStatus {
   Unverified,
-  RequestedVerification,
+  VerificationRequested,
   WaitingVerification,
   Verified,
 }
