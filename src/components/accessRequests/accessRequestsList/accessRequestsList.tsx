@@ -124,24 +124,18 @@ const AccessRequestsList = (props: AccessRequestListProps) => {
     let IVAs = null;
     if (response && response.status === ok) {
       try {
-        const IVAs = await response.json();
-        setUserIVAs(IVAs);
+        IVAs = await response.json();
       } catch {}
-      if (IVAs) {
-        showMessage({
-          type: "error",
-          title:
-            "Could not obtain user's IVAs. Please try reopening this dialog again.",
-        });
-      }
-      return;
     }
-    showMessage({
-      type: "error",
-      title:
-        "Could not obtain user's IVAs. Please try reopening this dialog again.",
-    });
-    return;
+    if (IVAs) {
+      setUserIVAs(IVAs);
+    } else {
+      showMessage({
+        type: "error",
+        title:
+          "Could not obtain user's IVAs. Please try reopening this dialog again.",
+      });
+    }
   };
 
   const handleCloseModal = () => {
