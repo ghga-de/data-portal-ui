@@ -57,7 +57,7 @@ const NewIVAModal = (props: NewIVAModalProps) => {
       }}
       size="lg"
     >
-      <Modal.Header>
+      <Modal.Header closeButton>
         <Modal.Title>New verification address</Modal.Title>
       </Modal.Header>
       <Modal.Body>

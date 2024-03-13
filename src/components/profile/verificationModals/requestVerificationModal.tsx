@@ -8,7 +8,7 @@ interface RequestVerificationModalProps {
 const RequestVerificationModal = (props: RequestVerificationModalProps) => {
   return (
     <Modal show={props.show} onHide={() => props.setShow(false)}>
-      <Modal.Header>
+      <Modal.Header closeButton>
         <Modal.Title>Verification Requested</Modal.Title>
       </Modal.Header>
       <Modal.Body>

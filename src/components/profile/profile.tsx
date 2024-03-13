@@ -42,7 +42,7 @@ const Profile = () => {
         }}
         centered
       >
-        <Modal.Header>
+        <Modal.Header closeButton>
           <Modal.Title>Confirm deletion of contact address</Modal.Title>
         </Modal.Header>
         <Modal.Body>
@@ -52,14 +52,6 @@ const Profile = () => {
         </Modal.Body>
         <Modal.Footer className="justify-content-between">
           <Button
-            variant="dark-3"
-            onClick={() => {
-              setShowDeletionConfirmationModal(false);
-            }}
-          >
-            Cancel
-          </Button>
-          <Button
             variant={"quinary"}
             className="text-white"
             onClick={() => {
@@ -67,6 +59,14 @@ const Profile = () => {
             }}
           >
             Confirm
+          </Button>
+          <Button
+            variant="dark-3"
+            onClick={() => {
+              setShowDeletionConfirmationModal(false);
+            }}
+          >
+            Cancel
           </Button>
         </Modal.Footer>
       </Modal>
@@ -130,6 +130,11 @@ const Profile = () => {
     setShowDeletionConfirmationModal(false);
     setShowRequestVerificationModal(false);
     setShowConfirmVerificationModal(true);
+    try {
+      setToConfirmIVA(userIVAs.find((x) => x.id === idIVA)!);
+    } catch {
+      showMessage({ type: "error", title: "Contact address not found!" });
+    }
   };
 
   useEffect(() => {
@@ -216,7 +221,7 @@ const Profile = () => {
                       >
                         Request verification
                       </Button>
-                    ) : x.status === IVAStatus.WaitingVerification ? (
+                    ) : x.status === IVAStatus.CodeTransmitted ? (
                       <Button
                         id={"con_" + x.id}
                         className="p-0 px-1 bg-quinary"
@@ -287,6 +292,8 @@ const Profile = () => {
         <ConfirmVerificationModal
           show={showConfirmVerificationModal}
           setShow={setShowConfirmVerificationModal}
+          toConfirmIVA={toConfirmIVA}
+          setToConfirmIVA={setToConfirmIVA}
         />
       </div>
     );

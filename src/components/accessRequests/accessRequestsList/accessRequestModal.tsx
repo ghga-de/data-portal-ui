@@ -80,7 +80,7 @@ const AccessRequestModal = (props: AccessRequestModalProps) => {
         }}
         centered
       >
-        <Modal.Header>
+        <Modal.Header closeButton>
           <Modal.Title>Confirm access request {status}</Modal.Title>
         </Modal.Header>
         <Modal.Body>

@@ -91,6 +91,7 @@ const Confirm2FA = () => {
       return;
     }
     setShowError(true);
+    setTimeout(() => setDisabledContinueButton(false), 2000);
   };
 
   let content;
@@ -103,7 +104,7 @@ const Confirm2FA = () => {
       const [disabledNew2FAButton, setDisabledNew2FAButton] = useState(true);
       return (
         <Modal show={showModal} size="lg" onHide={() => setShowModal(false)}>
-          <Modal.Header>
+          <Modal.Header closeButton>
             <Modal.Title>Create new setup for authenticator app</Modal.Title>
           </Modal.Header>
           <Modal.Body>

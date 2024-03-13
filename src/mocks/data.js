@@ -24,7 +24,7 @@ export const IVAs = [{
   id: "TEST00014000003",
   type: "PostalAddress",
   value: "Willhelmstr. 123",
-  status: "WaitingVerification"
+  status: "CodeTransmitted"
 }]
 
 export const accessRequests = [

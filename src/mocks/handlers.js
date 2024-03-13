@@ -46,6 +46,12 @@ export const handlers = [
   http.post("/api/auth/rpc/ivas/:iva/request-code", () => {
     return HttpResponse.json(undefined, { status: 200 });
   }),
+  // intercept IVA confirmation request and return header
+  http.post("/api/auth/rpc/ivas/:iva/validate-code", async ({ request }) => {
+    const data = await request.json();
+    const code = data["verification_code"];
+    return HttpResponse.json(undefined, code === "123456" ? { status: 204 } : { status: 403 });
+  }),
 ];
 
 const groupedResponses = {};
