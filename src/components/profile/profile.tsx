@@ -208,7 +208,7 @@ const Profile = () => {
           </Alert>
         </div>
         <Card className="mb-3">
-          <Card.Header>e-Mail</Card.Header>
+          <Card.Header>E-Mail address</Card.Header>
           <Card.Body>
             <div>
               <p>
