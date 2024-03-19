@@ -14,7 +14,7 @@ interface NewIVAModalProps {
 
 const NewIVAModal = (props: NewIVAModalProps) => {
   const [promptText, setPromptText] = useState("");
-  const [clickedButton, setClickedButton] = useState("");
+  const [clickedButton, setClickedButton] = useState<IVAType | null>(null);
   const [disabledButton, setDisabledButton] = useState(true);
 
   const handleSubmit = async (value: string) => {
@@ -33,13 +33,13 @@ const NewIVAModal = (props: NewIVAModalProps) => {
         const id = await response.text();
         const newIVA: IVA = {
           id: id,
-          type: IVAType[userData.type] as unknown as IVAType,
+          type: userData.type as unknown as IVAType,
           value: userData.value,
           status: IVAStatus.Unverified,
         };
         props.newUserIVA(newIVA);
         setPromptText("");
-        setClickedButton("");
+        setClickedButton(null);
         props.setShow(false);
       } catch {}
     }
@@ -52,7 +52,7 @@ const NewIVAModal = (props: NewIVAModalProps) => {
       show={props.show}
       onHide={() => {
         props.setShow(false);
-        setClickedButton("");
+        setClickedButton(null);
         setPromptText("");
       }}
       size="lg"
@@ -67,14 +67,14 @@ const NewIVAModal = (props: NewIVAModalProps) => {
             <Col>
               <Button
                 className={
-                  clickedButton === "Phone"
+                  clickedButton === IVAType.Phone
                     ? "w-100 bg-quaternary"
                     : "w-100 bg-quinary"
                 }
                 onClick={() => {
-                  setClickedButton("Phone");
+                  setClickedButton(IVAType.Phone);
                   setDisabledButton(false);
-                  setPromptText("your mobile phone number");
+                  setPromptText("mobile phone number");
                 }}
               >
                 SMS
@@ -83,14 +83,14 @@ const NewIVAModal = (props: NewIVAModalProps) => {
             <Col>
               <Button
                 className={
-                  clickedButton === "Fax"
+                  clickedButton === IVAType.Fax
                     ? "w-100 bg-quaternary"
                     : "w-100 bg-quinary"
                 }
                 onClick={() => {
-                  setClickedButton("Fax");
+                  setClickedButton(IVAType.Fax);
                   setDisabledButton(false);
-                  setPromptText("your fax number");
+                  setPromptText("fax number");
                 }}
               >
                 Fax
@@ -99,14 +99,14 @@ const NewIVAModal = (props: NewIVAModalProps) => {
             <Col>
               <Button
                 className={
-                  clickedButton === "PostalAddress"
+                  clickedButton === IVAType.PostalAddress
                     ? "w-100 bg-quaternary"
                     : "w-100 bg-quinary"
                 }
                 onClick={() => {
-                  setClickedButton("PostalAddress");
+                  setClickedButton(IVAType.PostalAddress);
                   setDisabledButton(false);
-                  setPromptText("your postal address");
+                  setPromptText("postal address");
                 }}
               >
                 Letter
@@ -115,14 +115,14 @@ const NewIVAModal = (props: NewIVAModalProps) => {
             <Col>
               <Button
                 className={
-                  clickedButton === "InPerson"
+                  clickedButton === IVAType.InPerson
                     ? "w-100 bg-quaternary"
                     : "w-100 bg-quinary"
                 }
                 onClick={() => {
-                  setClickedButton("InPerson");
+                  setClickedButton(IVAType.InPerson);
                   setDisabledButton(false);
-                  setPromptText("where we can meet you");
+                  setPromptText("Where can we meet you?");
                 }}
               >
                 In-Person
@@ -130,7 +130,7 @@ const NewIVAModal = (props: NewIVAModalProps) => {
             </Col>
           </Row>
         </div>
-        {clickedButton !== "" ? (
+        {clickedButton !== null ? (
           <form
             onSubmit={(e) => {
               e.preventDefault();
@@ -139,9 +139,9 @@ const NewIVAModal = (props: NewIVAModalProps) => {
             }}
           >
             <p>
-              {clickedButton === "In-Person"
+              {clickedButton === IVAType.InPerson
                 ? promptText
-                : `Please enter ${promptText}:`}
+                : `Please enter your ${promptText}:`}
             </p>
             <input
               type="text"
@@ -172,7 +172,7 @@ const NewIVAModal = (props: NewIVAModalProps) => {
                   className="text-white w-100"
                   onClick={() => {
                     props.setShow(false);
-                    setClickedButton("");
+                    setClickedButton(null);
                     setPromptText("");
                   }}
                 >
