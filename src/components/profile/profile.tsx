@@ -230,7 +230,7 @@ const Profile = () => {
           </Card.Body>
         </Card>
         <Card className="mb-3">
-          <Card.Header>Contact addresses</Card.Header>
+          <Card.Header>Contact addresses for account verification</Card.Header>
           <Card.Body>
             <div className="mb-3">
               {userIVAs.length > 0 ? (
