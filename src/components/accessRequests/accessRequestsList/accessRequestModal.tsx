@@ -18,7 +18,7 @@ import { ARS_URL, fetchJson } from "../../../utils/utils";
 import { showMessage } from "../../messages/usage";
 import { AccessRequest } from "../../../models/submissionsAndRequests";
 import { useState } from "react";
-import { IVA, IVAStatus } from "../../../models/ivas";
+import { IVA, IVAStatus, IVAType } from "../../../models/ivas";
 
 interface AccessRequestModalProps {
   show: boolean;
@@ -80,7 +80,7 @@ const AccessRequestModal = (props: AccessRequestModalProps) => {
         }}
         centered
       >
-        <Modal.Header>
+        <Modal.Header closeButton>
           <Modal.Title>Confirm access request {status}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
@@ -204,19 +204,22 @@ const AccessRequestModal = (props: AccessRequestModalProps) => {
                                     : ""
                                 }
                               >
-                                {x.type}: {x.value}
+                                {IVAType[x.type].split(/(?=[A-Z])/).join(" ")}:{" "}
+                                {x.value}
                               </label>
                             </Col>
                             <Col>
                               <label
                                 htmlFor={x.id}
                                 className={
-                                  x.status === IVAStatus[IVAStatus.Verified]
+                                  x.status === IVAStatus.Verified
                                     ? "text-success"
                                     : "text-secondary"
                                 }
                               >
-                                {x.status}
+                                {IVAStatus[x.status]
+                                  .split(/(?=[A-Z])/)
+                                  .join(" ")}
                               </label>
                             </Col>
                           </Row>
@@ -237,15 +240,15 @@ const AccessRequestModal = (props: AccessRequestModalProps) => {
               <Col>
                 Verification address used:
                 <br />
-                {allowedIVA.type + ": " + allowedIVA.value}{" "}
+                {IVAType[allowedIVA.type] + ": " + allowedIVA.value}{" "}
                 <span
                   className={
-                    allowedIVA.status === IVAStatus[IVAStatus.Verified]
+                    allowedIVA.status === IVAStatus.Verified
                       ? "text-success"
                       : "text-secondary"
                   }
                 >
-                  ({allowedIVA.status})
+                  ({IVAStatus[allowedIVA.status].split(/(?=[A-Z])/).join(" ")})
                 </span>
               </Col>
             </Row>

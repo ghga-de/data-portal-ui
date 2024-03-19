@@ -55,7 +55,7 @@ const DataRequestFormModal = (props: DataRequestFormModalProps) => {
     const { details, from, until, email, cancelButton, submitButton } =
       e.target as typeof e.target & FormData;
 
-    const url = new URL('access-requests', ARS_URL);
+    const url = new URL("access-requests", ARS_URL);
     submitButton.disabled = "true";
     try {
       const response = await fetchJson(url, "POST", {
@@ -101,7 +101,7 @@ const DataRequestFormModal = (props: DataRequestFormModalProps) => {
         onHide={() => setShowConfirmation(false)}
         centered
       >
-        <Modal.Header>
+        <Modal.Header closeButton>
           <Modal.Title>
             Requesting access to dataset {props.accession}
           </Modal.Title>
@@ -259,7 +259,8 @@ const DataRequestFormModal = (props: DataRequestFormModalProps) => {
                     <Form.Control
                       type="date"
                       name="from"
-                      disabled readOnly
+                      disabled
+                      readOnly
                       defaultValue={new Date().toISOString().split("T")[0]}
                     ></Form.Control>
                   </Col>
@@ -270,7 +271,8 @@ const DataRequestFormModal = (props: DataRequestFormModalProps) => {
                     <Form.Control
                       type="date"
                       name="until"
-                      disabled readOnly
+                      disabled
+                      readOnly
                       defaultValue={
                         new Date(new Date().getTime() + MILLISECONDS_TO_ADD)
                           .toISOString()

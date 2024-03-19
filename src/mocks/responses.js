@@ -24,6 +24,9 @@ export const responses = {
   // User IVAs
   "GET /api/wps/users/:user_id/ivas": IVAs,
 
+  // New IVA
+  "POST /api/wps/users/:user_id/ivas": "TEST1234566789",
+
   // Work packages
   // example key for input: MTIzNDU2Nzg5MDEyMzQ1Njc4OTAxMjM0NTY3ODkwMTI
   "POST /api/wps/work-packages": workPackageToken,

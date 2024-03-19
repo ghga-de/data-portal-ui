@@ -5,20 +5,26 @@ export const user = {
   ext_id: "aacaffeecaffeecaffeecaffeecaffeecaffeeaad@lifescience-ri.eu",
   name: "John Doe",
   title: "Dr.",
-  email: "j.jdoe@home.org",
+  email: "j.jdoe@home.org"
 };
 
-export const IVAs = [/*{
+export const IVAs = [{
   id: "TEST00014000001",
   type: "Phone",
   value: "+441234567890004",
   status: "Verified"
-},*/
+},
 {
   id: "TEST00014000002",
   type: "Fax",
   value: "+491234567890000",
   status: "Unverified"
+},
+{
+  id: "TEST00014000003",
+  type: "PostalAddress",
+  value: "Willhelmstr. 123",
+  status: "CodeTransmitted"
 }]
 
 export const accessRequests = [
