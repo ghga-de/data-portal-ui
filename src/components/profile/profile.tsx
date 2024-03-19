@@ -207,7 +207,7 @@ const Profile = () => {
               : "Your session has expired!"}
           </Alert>
         </div>
-        <Card className="mb-2">
+        <Card className="mb-3">
           <Card.Header>e-Mail</Card.Header>
           <Card.Body>
             <div>
