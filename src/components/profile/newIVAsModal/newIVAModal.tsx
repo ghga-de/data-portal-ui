@@ -58,11 +58,11 @@ const NewIVAModal = (props: NewIVAModalProps) => {
       size="lg"
     >
       <Modal.Header closeButton>
-        <Modal.Title>New verification address</Modal.Title>
+        <Modal.Title>New contact address</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <div className="mb-4">
-          <p>Please select one of the following verification addresses:</p>
+          <p>Please select one of the following contact addresses:</p>
           <Row>
             <Col>
               <Button

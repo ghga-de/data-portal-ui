@@ -307,7 +307,7 @@ const Profile = () => {
               className="text-white"
               onClick={() => setShowNewIVAModal(true)}
             >
-              <FontAwesomeIcon icon={faPlus} /> New verification address
+              <FontAwesomeIcon icon={faPlus} /> New contact address
             </Button>
           </Card.Body>
         </Card>

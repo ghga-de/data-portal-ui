@@ -57,7 +57,7 @@ const ConfirmVerificationModal = (props: ConfirmVerificationModalProps) => {
           }}
         >
           <Modal.Header closeButton>
-            <Modal.Title>Verification Address Confirmation</Modal.Title>
+            <Modal.Title>Contact Address Confirmation</Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <Form
