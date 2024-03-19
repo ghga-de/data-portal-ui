@@ -1,5 +1,13 @@
 import { useEffect, useState } from "react";
-import { Alert, Button, Container, Row, Col, Modal } from "react-bootstrap";
+import {
+  Alert,
+  Button,
+  Container,
+  Row,
+  Col,
+  Modal,
+  Card,
+} from "react-bootstrap";
 import { useNavigate, NavLink } from "react-router-dom";
 import { useMessages } from "../messages/usage";
 import { getIVAs, useAuth } from "../../services/auth";
@@ -46,9 +54,23 @@ const Profile = () => {
           <Modal.Title>Confirm deletion of contact address</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          Confirm deleting the{" "}
-          <em>{toDeleteIVA ? IVAStatus[toDeleteIVA.status] + " " : ""}</em>
-          contact address <em>{toDeleteIVA?.value}</em>
+          <p>
+            Confirm deleting the{" "}
+            <em>
+              {toDeleteIVA
+                ? IVAType[toDeleteIVA.type].split(/(?=[A-Z])/).join(" ") + " "
+                : ""}
+            </em>
+            contact address <em>{toDeleteIVA?.value}.</em>
+          </p>
+          {toDeleteIVA && toDeleteIVA.status === IVAStatus.Verified ? (
+            <p>
+              Deleting a verified address will mean losing access to any
+              datasets linked to it. Are you sure you want to continue?
+            </p>
+          ) : (
+            ""
+          )}
         </Modal.Body>
         <Modal.Footer className="justify-content-between">
           <Button
@@ -185,91 +207,129 @@ const Profile = () => {
               : "Your session has expired!"}
           </Alert>
         </div>
-        <div style={{ margin: "1em 0" }}>
-          <p>
-            We will communicate with you via this email address: &nbsp;
-            <strong>{user.email}</strong>
-          </p>
-          <p>
-            You can change this email address in your &nbsp;
-            <a
-              href="https://profile.aai.lifescience-ri.eu/profile"
-              target="_blank"
-              rel="noreferrer"
+        <Card className="mb-2">
+          <Card.Header>e-Mail</Card.Header>
+          <Card.Body>
+            <div>
+              <p>
+                We will communicate with you via this email address: &nbsp;
+                <strong>{user.email}</strong>
+              </p>
+              <p className="mb-0">
+                You can change this email address in your &nbsp;
+                <a
+                  href="https://profile.aai.lifescience-ri.eu/profile"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  LS Login profile
+                </a>
+                .
+              </p>
+            </div>
+          </Card.Body>
+        </Card>
+        <Card className="mb-3">
+          <Card.Header>Contact addresses</Card.Header>
+          <Card.Body>
+            <div className="mb-3">
+              {userIVAs.length > 0 ? (
+                userIVAs.map((x, index) => {
+                  return (
+                    <Row key={x.id + index} className="mb-1">
+                      <Col xs={3}>
+                        {IVAType[x.type].split(/(?=[A-Z])/).join(" ")}:{" "}
+                        {x.value}
+                      </Col>
+                      <Col
+                        xs={2}
+                        className={
+                          x.status === IVAStatus.Verified
+                            ? "text-success fw-bold"
+                            : ""
+                        }
+                      >
+                        {x.status === IVAStatus.Unverified ? (
+                          <Button
+                            id={"del_" + x.id}
+                            variant="secondary"
+                            className="p-0 px-1 text-white"
+                            onClick={(e) => {
+                              let button = e.target as HTMLButtonElement;
+                              HandleRequestVerification(button.id.substring(4));
+                            }}
+                          >
+                            Request verification
+                          </Button>
+                        ) : x.status === IVAStatus.CodeTransmitted ? (
+                          <Button
+                            id={"con_" + x.id}
+                            variant="secondary"
+                            className="p-0 px-1 text-white"
+                            onClick={(e) => {
+                              let button = e.target as HTMLButtonElement;
+                              HandleConfirmVerification(button.id.substring(4));
+                            }}
+                          >
+                            Enter verification code
+                          </Button>
+                        ) : (
+                          IVAStatus[x.status].split(/(?=[A-Z])/).join(" ")
+                        )}
+                      </Col>
+                      <Col xs={1}>
+                        <Button
+                          variant="link"
+                          className="border-0 h-100 text-secondary p-0 d-flex align-items-center"
+                          onClick={() => {
+                            setToDeleteIVA(x);
+                            setShowDeletionConfirmationModal(true);
+                          }}
+                        >
+                          <FontAwesomeIcon
+                            icon={faCircleXmark}
+                            className="fa-lg"
+                          />
+                        </Button>
+                      </Col>
+                    </Row>
+                  );
+                })
+              ) : (
+                <p className="mb-3">
+                  You have not yet created any contact addresses. This is needed
+                  if you wish to download research data.
+                </p>
+              )}
+            </div>
+            <Button
+              variant="primary"
+              className="text-white"
+              onClick={() => setShowNewIVAModal(true)}
             >
-              LS Login profile
-            </a>
-            .
-          </p>
-        </div>
-        {userIVAs.length > 0
-          ? userIVAs.map((x, index) => {
-              return (
-                <Row key={x.id + index}>
-                  <Col xs={3}>
-                    {IVAType[x.type]}: {x.value}
-                  </Col>
-                  <Col xs={2}>
-                    {x.status === IVAStatus.Unverified ? (
-                      <Button
-                        id={"del_" + x.id}
-                        className="p-0 px-1 bg-quinary"
-                        onClick={(e) => {
-                          let button = e.target as HTMLButtonElement;
-                          HandleRequestVerification(button.id.substring(4));
-                        }}
-                      >
-                        Request verification
-                      </Button>
-                    ) : x.status === IVAStatus.CodeTransmitted ? (
-                      <Button
-                        id={"con_" + x.id}
-                        className="p-0 px-1 bg-quinary"
-                        onClick={(e) => {
-                          let button = e.target as HTMLButtonElement;
-                          HandleConfirmVerification(button.id.substring(4));
-                        }}
-                      >
-                        Enter verification code
-                      </Button>
-                    ) : (
-                      IVAStatus[x.status]
-                    )}
-                  </Col>
-                  <Col xs={1}>
-                    <Button
-                      variant="link"
-                      className="border-0 h-100 text-secondary p-0 d-flex align-items-center"
-                      onClick={() => {
-                        setToDeleteIVA(x);
-                        setShowDeletionConfirmationModal(true);
-                      }}
-                    >
-                      <FontAwesomeIcon icon={faCircleXmark} className="fa-lg" />
-                    </Button>
-                  </Col>
-                </Row>
-              );
-            })
-          : "You have not yet created any independent verification addresses. This is needed if you wish to download research data."}
-        <div style={{ margin: "1em 0" }}>
-          {numDatasets ? (
-            <NavLink to="/work-package">
-              You have access to
-              {numDatasets === 1 ? " one dataset" : ` ${numDatasets} datasets`}.
-            </NavLink>
-          ) : (
-            <span>You do not yet have access to any datasets.</span>
-          )}
-        </div>
-        <div className="d-flex justify-content-between mt-5">
-          <Button
-            variant="primary"
-            className="text-white"
-            onClick={() => setShowNewIVAModal(true)}
-          >
-            <FontAwesomeIcon icon={faPlus} /> New verification address
-          </Button>
+              <FontAwesomeIcon icon={faPlus} /> New verification address
+            </Button>
+          </Card.Body>
+        </Card>
+        <Card>
+          <Card.Header>Dataset access</Card.Header>
+          <Card.Body>
+            <div>
+              {numDatasets ? (
+                <NavLink to="/work-package">
+                  You have access to
+                  {numDatasets === 1
+                    ? " one dataset"
+                    : ` ${numDatasets} datasets`}
+                  .
+                </NavLink>
+              ) : (
+                <span>You do not yet have access to any datasets.</span>
+              )}
+            </div>
+          </Card.Body>
+        </Card>
+        <div className="text-end mt-3">
           <Button
             variant="secondary"
             className="text-white"

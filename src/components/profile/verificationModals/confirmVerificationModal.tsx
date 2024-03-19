@@ -74,23 +74,25 @@ const ConfirmVerificationModal = (props: ConfirmVerificationModalProps) => {
                 type="text"
                 name="verificationCode"
                 id="verificationCode"
-                className="fs-2 ps-4"
+                className="fs-2 text-center"
                 style={{ letterSpacing: "0.5em", paddingLeft: "0.5em" }}
                 required
                 minLength={6}
                 maxLength={6}
-                pattern="[0-9]{6}"
-                size={5}
+                pattern="[A-Z0-9]{6}"
+                size={6}
                 onKeyDown={(e) => {
                   if (
-                    e.key.match("^[^0-9]{1}$") &&
+                    e.key.match("^[^a-zA-Z0-9]{1}$") &&
                     e.ctrlKey === false &&
                     e.altKey === false
-                  )
+                  ) {
                     e.preventDefault();
+                  }
                 }}
                 onChange={(e) => {
-                  setInputtedCode(e.target.value);
+                  e.target.value = e.target.value.toUpperCase();
+                  setInputtedCode(e.target.value.toUpperCase());
                   if (e.target.value.length === 6) setDisabledButton(false);
                   else setDisabledButton(true);
                 }}

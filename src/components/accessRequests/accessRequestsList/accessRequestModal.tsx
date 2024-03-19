@@ -204,7 +204,8 @@ const AccessRequestModal = (props: AccessRequestModalProps) => {
                                     : ""
                                 }
                               >
-                                {IVAType[x.type]}: {x.value}
+                                {IVAType[x.type].split(/(?=[A-Z])/).join(" ")}:{" "}
+                                {x.value}
                               </label>
                             </Col>
                             <Col>
@@ -216,7 +217,9 @@ const AccessRequestModal = (props: AccessRequestModalProps) => {
                                     : "text-secondary"
                                 }
                               >
-                                {IVAStatus[x.status]}
+                                {IVAStatus[x.status]
+                                  .split(/(?=[A-Z])/)
+                                  .join(" ")}
                               </label>
                             </Col>
                           </Row>
@@ -245,7 +248,7 @@ const AccessRequestModal = (props: AccessRequestModalProps) => {
                       : "text-secondary"
                   }
                 >
-                  ({IVAStatus[allowedIVA.status]})
+                  ({IVAStatus[allowedIVA.status].split(/(?=[A-Z])/).join(" ")})
                 </span>
               </Col>
             </Row>

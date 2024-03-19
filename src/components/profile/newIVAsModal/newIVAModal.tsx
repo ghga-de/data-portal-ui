@@ -74,7 +74,7 @@ const NewIVAModal = (props: NewIVAModalProps) => {
                 onClick={() => {
                   setClickedButton("Phone");
                   setDisabledButton(false);
-                  setPromptText("mobile phone number");
+                  setPromptText("your mobile phone number");
                 }}
               >
                 SMS
@@ -90,7 +90,7 @@ const NewIVAModal = (props: NewIVAModalProps) => {
                 onClick={() => {
                   setClickedButton("Fax");
                   setDisabledButton(false);
-                  setPromptText("fax number");
+                  setPromptText("your fax number");
                 }}
               >
                 Fax
@@ -106,7 +106,7 @@ const NewIVAModal = (props: NewIVAModalProps) => {
                 onClick={() => {
                   setClickedButton("PostalAddress");
                   setDisabledButton(false);
-                  setPromptText("postal address");
+                  setPromptText("your postal address");
                 }}
               >
                 Letter
@@ -122,7 +122,7 @@ const NewIVAModal = (props: NewIVAModalProps) => {
                 onClick={() => {
                   setClickedButton("InPerson");
                   setDisabledButton(false);
-                  setPromptText("Where can we meet you?");
+                  setPromptText("where we can meet you");
                 }}
               >
                 In-Person
@@ -141,13 +141,13 @@ const NewIVAModal = (props: NewIVAModalProps) => {
             <p>
               {clickedButton === "In-Person"
                 ? promptText
-                : `Please enter your ${promptText}:`}
+                : `Please enter ${promptText}:`}
             </p>
             <input
               type="text"
               id="iva"
               name="iva"
-              className="mb-4"
+              className="mb-4 w-100"
               required={true}
             />
             <p>
