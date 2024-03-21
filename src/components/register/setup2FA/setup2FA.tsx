@@ -30,7 +30,7 @@ import {
   faCircleArrowRight,
   faPenToSquare,
 } from "@fortawesome/free-solid-svg-icons";
-import { LoginState, setUserState, useAuth } from "../../../services/auth";
+import { authService, useAuth } from "../../../services/auth";
 import { AUTH_URL, fetchJson } from "../../../utils/utils";
 
 const Setup2FA = () => {
@@ -84,7 +84,7 @@ const Setup2FA = () => {
       let method: string = "post",
         ok: number = 201;
       url = new URL(`totp-token`, url);
-      if (user.state === LoginState.LostTOTPToken) {
+      if (user.state === "LostTotpToken") {
         userData["force"] = true;
       }
       setTOTPRequests(TOTPRequests + 1);
@@ -168,8 +168,8 @@ const Setup2FA = () => {
           <div>
             <Button
               onClick={() => {
-                user.state = LoginState.HasTOTPToken;
-                setUserState(LoginState.HasTOTPToken);
+                user.state = "HasTotpToken";
+                authService.setUser(user);
                 unblock();
                 navigate("/confirm-2fa");
               }}

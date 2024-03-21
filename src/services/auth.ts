@@ -1,9 +1,8 @@
 import { Log, User as OidcUser, UserManager } from "oidc-client-ts";
 import type { OidcMetadata, UserManagerSettings } from "oidc-client-ts";
-import { fetchJson, AUTH_URL, WPS_URL } from "../utils/utils";
+import { fetchJson, AUTH_URL } from "../utils/utils";
 import { showMessage } from "../components/messages/usage";
 import { createStore, useStore } from "zustand";
-import { IVA, IVAStatus, IVAType } from "../models/ivas";
 
 /**
  * Interface for a full high-level user object.
@@ -11,17 +10,16 @@ import { IVA, IVAStatus, IVAType } from "../models/ivas";
  * which does not contain the user data from the backend.
  */
 
-export enum LoginState {
-  Identified,
-  NeedsRegistration,
-  NeedsReregistration,
-  Registered,
-  NeedsTOTPToken,
-  LostTOTPToken,
-  NewTOTPToken,
-  HasTOTPToken,
-  Authenticated,
-}
+export type LoginState =
+  | "Identified"
+  | "NeedsRegistration"
+  | "NeedsReRegistration"
+  | "Registered"
+  | "NeedsTotpToken"
+  | "LostTotpToken"
+  | "NewTotpToken"
+  | "HasTotpToken"
+  | "Authenticated";
 
 /** User session interface */
 export interface User {
@@ -32,6 +30,8 @@ export interface User {
   full_name: string;
   email: string;
   state: LoginState;
+  role?: string;
+  csrf: string;
   timeout?: number;
   extends?: number;
 }
@@ -58,71 +58,6 @@ const authStore = createStore<AuthStore>((set) => ({
 
 // for usage in components
 export const useAuth = () => useStore(authStore);
-
-// change user state in session cookie
-export const setUserState = (state: LoginState) => {
-  let userObj = parseUserCookie();
-  if (userObj) {
-    userObj.state = LoginState[state];
-    document.cookie = document.cookie.replace(
-      /((?:^|.*;\s*)user\s*=\s*)([^;]*)(.*$|^.*$)/,
-      `$1` + btoa(JSON.stringify(userObj)) + "$3"
-    );
-  }
-};
-
-// Get user IVAs
-export const getIVAs = async (userId: string, setUserIVAs: any) => {
-  let url = WPS_URL;
-  url = new URL(`users/${userId}/ivas`, WPS_URL);
-  let method: string = "GET",
-    ok: number = 200;
-  const response = await fetchJson(url, method).catch(() => null);
-  if (response && response.status === ok) {
-    try {
-      await response.json().then((x: any[]) => {
-        function parseIVAStatusAndType(userIVA: any) {
-          userIVA.status = IVAStatus[userIVA.status] as unknown as IVAStatus;
-          userIVA.type = IVAType[userIVA.type] as unknown as IVAType;
-        }
-        let IVAs: IVA[] = x;
-        IVAs.forEach(parseIVAStatusAndType);
-        setUserIVAs(IVAs);
-      });
-    } catch {
-      showMessage({
-        type: "error",
-        title:
-          "Could not obtain user's IVAs. Please try reopening this dialog again.",
-      });
-    }
-    return;
-  }
-  showMessage({
-    type: "error",
-    title:
-      "Could not obtain user's IVAs. Please try reopening this dialog again.",
-  });
-  return;
-};
-
-//parse user from cookie
-const parseUserCookie = () => {
-  const userJson = atob(
-    document.cookie.replace(/(?:(?:^|.*;\s*)user\s*=\s*([^;]*).*$)|^.*$/, "$1")
-  );
-  if (userJson) {
-    // get session state from session storage
-    try {
-      return JSON.parse(userJson);
-    } catch {
-      // preventing issues where the session cookie is malformed and persists because it is not replaced
-      document.cookie = `user=;max-age=0`;
-      console.error("Cannot parse user from session storage");
-    }
-  }
-  return null;
-};
 
 /** Authentication service (global object) */
 
@@ -178,7 +113,7 @@ class AuthService {
   /***
    * Set new user.
    */
-  private setUser(user: User | null): void {
+  setUser(user: User | null): void {
     authStore.getState().setUser(user);
     sessionStorage.setItem("user", JSON.stringify(user));
   }
@@ -225,7 +160,7 @@ class AuthService {
       return null;
     }
 
-    const user = this.parseUserFromResponse(response.headers.get("X-Session"));
+    const user = this.parseUserFromSession(response.headers.get("X-Session"));
     if (!user) {
       showMessage({ type: "error", title: "Login failed" });
     }
@@ -244,7 +179,6 @@ class AuthService {
          return this.userManager.revokeTokens();
        So we simply remove the user from the store instead.
     */
-    document.cookie = `user=;max-age=0`;
     await this.userManager.removeUser();
     this.setUser(null);
   }
@@ -268,15 +202,14 @@ class AuthService {
    * Return promise to load the User session for the currently authenticated user.
    */
   async getUser(): Promise<User | null> {
-    let user: User | null = null;
-    user = parseUserCookie();
-    if (!user) {
-      // get session state from backend
+    let session = sessionStorage.getItem("user");
+    if (!session) {
       const response = await fetchJson(new URL("rpc/login", AUTH_URL), "POST");
       if (response.status === 204) {
-        user = this.parseUserFromResponse(response.headers.get("X-Session"));
+        session = response.headers.get("X-Session");
       }
-    } else user.state = LoginState[user.state] as unknown as LoginState;
+    }
+    const user: User | null = this.parseUserFromSession(session);
     this.setUser(user);
     return user;
   }
@@ -284,27 +217,21 @@ class AuthService {
   /**
    * Return the deserialized user session from a JSON-formatted string.
    */
-  parseUserFromResponse(json: string | null): User | null {
+  parseUserFromSession(session: string | null): User | null {
     let user: User | null;
     try {
-      user = JSON.parse(json || "null");
-      if (
-        user &&
-        user.ext_id &&
-        typeof user.state == "string" &&
-        user.state in LoginState
-      ) {
-        if (user.name && user.title)
-          user.full_name = `${user.title} ${user.name}`;
-        else user.full_name = user.name;
-        user.state = LoginState[user.state] as unknown as LoginState;
-      } else {
-        user = null;
+      user = JSON.parse(session || "null");
+      if (!user) return null;
+      if (!(user.ext_id && user.name && user.email)) {
+        throw new Error("Missing properties in user session");
       }
-    } catch {
-      user = null;
+    } catch (error) {
+      console.error("Cannot parse user session:", session, error);
+      return null;
     }
-    if (!user) console.error("Cannot parse user session from backend");
+    if (!user.full_name) {
+      user.full_name = user.title ? user.title + " " : "" + user.name;
+    }
     return user;
   }
 }

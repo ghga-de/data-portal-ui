@@ -46,16 +46,19 @@ export function getLoginHeaders() {
     name: user.name,
     title: user.title,
     email: user.email,
-    state: "NeedsReregistration",  // the state after login
+    state: "NeedsReRegistration", // the state after login
     csrf: "test123",
     timeout: 3600,
     extends: 7200,
-  }
-  return { "X-Session": JSON.stringify(sessionObj), "Set-Cookie": "user=" + btoa(JSON.stringify(sessionObj)) };
+  };
+  return {
+    "X-Session": JSON.stringify(sessionObj),
+    "Set-Cookie": "user=" + btoa(JSON.stringify(sessionObj)),
+  };
 }
 
 // Get response headers for re-registered in user
-export function getReregistrationHeaders() {
+export function getReRegistrationHeaders() {
   if (!sessionStorage.getItem(USER_KEY)) {
     return null;
   }
@@ -65,10 +68,10 @@ export function getReregistrationHeaders() {
     name: user.name,
     title: user.title,
     email: user.email,
-    state: "Registered",  // the state after login
+    state: "Registered", // the state after login
     csrf: "test123",
     timeout: 3600,
     extends: 7200,
-  }
+  };
   return { "X-Session": JSON.stringify(sessionObj) };
 }

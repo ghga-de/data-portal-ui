@@ -1,6 +1,10 @@
 import { http, HttpResponse } from "msw";
 import { responses } from "./responses";
-import { setOidcUser, getLoginHeaders, getReregistrationHeaders } from "./login";
+import {
+  setOidcUser,
+  getLoginHeaders,
+  getReRegistrationHeaders,
+} from "./login";
 import { CLIENT_URL, OIDC_CONFIG_URL } from "../utils/utils";
 
 const fakeAuth = !!CLIENT_URL.href.match(/127\.|local/);
@@ -13,20 +17,29 @@ export const handlers = [
   http.get(OIDC_CONFIG_URL.href, () => {
     if (fakeAuth) {
       setOidcUser();
-      return HttpResponse.json({
-        authorization_endpoint: CLIENT_URL.href + "profile",
-      }, { status: 200 });
+      return HttpResponse.json(
+        {
+          authorization_endpoint: CLIENT_URL.href + "profile",
+        },
+        { status: 200 }
+      );
     }
   }),
   // intercept login request and return session header
   http.post("/api/auth/rpc/login", () => {
     const headers = getLoginHeaders();
-    return HttpResponse.json(undefined, headers ? { status: 204, headers } : { status: 401 });
+    return HttpResponse.json(
+      undefined,
+      headers ? { status: 204, headers } : { status: 401 }
+    );
   }),
   // intercept reregistration request and return session header
   http.put("/api/auth/users/:user_id", () => {
-    const headers = getReregistrationHeaders();
-    return HttpResponse.json(undefined, headers ? { status: 204, headers } : { status: 401 });
+    const headers = getReRegistrationHeaders();
+    return HttpResponse.json(
+      undefined,
+      headers ? { status: 204, headers } : { status: 401 }
+    );
   }),
   // intercept totp token request and return header
   http.post("/api/auth/totp-token", () => {
@@ -36,7 +49,10 @@ export const handlers = [
   http.post("/api/auth/rpc/verify-totp", async ({ request }) => {
     const data = await request.json();
     const token = data["token"];
-    return HttpResponse.json(undefined, token === "123456" ? { status: 204 } : { status: 401 });
+    return HttpResponse.json(
+      undefined,
+      token === "123456" ? { status: 204 } : { status: 401 }
+    );
   }),
   // intercept IVA deletion request
   http.delete("/api/wps/users/:id/ivas/:iva", () => {
@@ -50,7 +66,10 @@ export const handlers = [
   http.post("/api/auth/rpc/ivas/:iva/validate-code", async ({ request }) => {
     const data = await request.json();
     const code = data["verification_code"];
-    return HttpResponse.json(undefined, code === "123456" ? { status: 204 } : { status: 403 });
+    return HttpResponse.json(
+      undefined,
+      code === "123456" ? { status: 204 } : { status: 403 }
+    );
   }),
 ];
 
@@ -85,8 +104,9 @@ async function getMatchingParamString(request, responseMap) {
   const method = request.method.toLowerCase();
   if (method === "post" || method === "patch") {
     const bodyParams = await request.json();
-    Object.entries(bodyParams).forEach(
-      (key, value) => requestParams.set(key, value));
+    Object.entries(bodyParams).forEach((key, value) =>
+      requestParams.set(key, value)
+    );
   }
   // find the response with the most matching parameters
   let bestParamString = null;

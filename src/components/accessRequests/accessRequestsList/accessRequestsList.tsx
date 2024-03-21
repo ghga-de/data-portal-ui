@@ -17,12 +17,12 @@ import { useCallback, useEffect, useState } from "react";
 import { AccessRequest } from "../../../models/submissionsAndRequests";
 import { Col, Row, Table } from "react-bootstrap";
 import AccessRequestModal from "./accessRequestModal";
-import { User, getIVAs } from "../../../services/auth";
+import { User } from "../../../services/auth";
+import { IVA } from "../../../models/ivas";
+import { getIVAs } from "../../../services/ivas";
 import SortButton, { TableFields } from "../../../utils/sortButton";
 import { transposeTableForHTML } from "../../../utils/utils";
-import { IVA } from "../../../models/ivas";
 
-//
 interface AccessRequestListProps {
   requests: AccessRequest[];
   user: User;
