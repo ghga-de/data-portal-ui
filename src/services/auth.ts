@@ -4,6 +4,9 @@ import { fetchJson, AUTH_URL } from "../utils/utils";
 import { showMessage } from "../components/messages/usage";
 import { createStore, useStore } from "zustand";
 
+const LOGIN_URL = new URL("rpc/login", AUTH_URL);
+const LOGOUT_URL = new URL("rpc/logout", AUTH_URL);
+
 /**
  * Interface for a full high-level user object.
  * Note that this is different from the low-level OIDC user object,
@@ -146,12 +149,7 @@ class AuthService {
     const headers: Record<string, string> = {
       "X-Authorization": "Bearer " + oidcUser.access_token,
     };
-    const response = await fetchJson(
-      new URL("rpc/login", AUTH_URL),
-      "POST",
-      null,
-      headers
-    );
+    const response = await fetchJson(LOGIN_URL, "POST", null, headers);
 
     if (response.status !== 204) {
       const title = "Login failed";
@@ -179,6 +177,7 @@ class AuthService {
          return this.userManager.revokeTokens();
        So we simply remove the user from the store instead.
     */
+    await fetchJson(LOGOUT_URL);
     await this.userManager.removeUser();
     this.setUser(null);
   }
@@ -204,7 +203,7 @@ class AuthService {
   async getUser(): Promise<User | null> {
     let session = sessionStorage.getItem("user");
     if (!session) {
-      const response = await fetchJson(new URL("rpc/login", AUTH_URL), "POST");
+      const response = await fetchJson(LOGIN_URL, "POST");
       if (response.status === 204) {
         session = response.headers.get("X-Session");
       }
@@ -230,7 +229,7 @@ class AuthService {
       return null;
     }
     if (!user.full_name) {
-      user.full_name = user.title ? user.title + " " : "" + user.name;
+      user.full_name = (user.title ? user.title + " " : "") + user.name;
     }
     return user;
   }

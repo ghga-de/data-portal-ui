@@ -25,7 +25,7 @@ import Register from "./components/register/register";
 import Profile from "./components/profile/profile";
 import { MessageContainer } from "./components/messages/container";
 import { useMessages } from "./components/messages/usage";
-import { LoginState, authService } from "./services/auth";
+import { authService } from "./services/auth";
 import { useLayoutEffect } from "react";
 import AccessRequests from "./components/accessRequests/accessRequests";
 import Setup2FA from "./components/register/setup2FA/setup2FA";

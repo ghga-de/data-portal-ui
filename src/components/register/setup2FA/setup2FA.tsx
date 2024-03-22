@@ -107,7 +107,7 @@ const Setup2FA = () => {
   }
 
   let content;
-  if (user === undefined || (user !== null && twoFACode === "")) {
+  if (user === undefined) {
     content = "Loading user data...";
   } else if (user === null) {
     back();

@@ -175,7 +175,7 @@ const Profile = () => {
             type: "error",
             title: "Cannot retrieve your datasets.",
           });
-          console.log(error);
+          console.error(error);
         }
       }
     }

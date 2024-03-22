@@ -18,6 +18,11 @@ import {
 // Responses for local testing without backend
 
 export const responses = {
+  // Change context information
+  "PUT /api/auth/users/j.doe@ghga.de": 204,
+
+  "POST /api/auth/totp-token": {uri: "otpauth://totp/GHGA:John%20Doe?secret=TESTTOTPTOKEN&issuer=GHGA"},
+
   // Datasets requested by j.doe@ghga.de user
   "GET /api/wps/users/j.doe@ghga.de/datasets": datasets,
 
@@ -68,4 +73,5 @@ export const responses = {
 
   // webpack-hot-replace
   "GET http://127.0.0.1:8080/main.*": undefined,
+  "GET http://localhost:8080/main.*": undefined,
 };

@@ -51,7 +51,7 @@ export function WorkPackage() {
             type: "error",
             title: "Cannot retrieve your datasets.",
           });
-          console.log(error);
+          console.error(error);
         }
       }
     }
@@ -221,7 +221,7 @@ export function WorkPackage() {
         type: "error",
         title: "Cannot create token.",
       });
-      console.log(error);
+      console.error(error);
     }
   }
 
