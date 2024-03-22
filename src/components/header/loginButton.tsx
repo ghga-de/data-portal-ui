@@ -14,7 +14,7 @@ import {
   faArrowRightToBracket,
   faPenToSquare,
 } from "@fortawesome/free-solid-svg-icons";
-import { LoginState, useAuth } from "../../services/auth";
+import { useAuth } from "../../services/auth";
 
 const LoginButton = () => {
   const { user, loginUser, logoutUser } = useAuth();
@@ -39,12 +39,10 @@ const LoginButton = () => {
   };
 
   const getStatusString = () => {
-    console.log(user);
-    console.log(LoginState);
     switch (user?.state) {
-      case LoginState.NeedsRegistration:
+      case "NeedsRegistration":
         return "Registration";
-      case LoginState.NeedsReregistration:
+      case "NeedsReRegistration":
         return "Re-registration";
       default:
         return "2FA setup";
@@ -54,7 +52,7 @@ const LoginButton = () => {
   return (
     <div className="me-3 me-xxl-0">
       {user ? (
-        user.state !== LoginState.Authenticated ? (
+        user.state !== "Authenticated" ? (
           <>
             <OverlayTrigger
               trigger="click"

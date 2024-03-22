@@ -43,7 +43,7 @@ export const querySearchService: getDatasetsSearchRespType = async (
   limit = 20,
   documentType = "EmbeddedDataset"
 ) => {
-  let url = new URL('rpc/search', MASS_URL);
+  let url = new URL("rpc/search", MASS_URL);
   const payload = {
     class_name: documentType,
     query: searchKeyword,
@@ -57,7 +57,7 @@ export const querySearchService: getDatasetsSearchRespType = async (
     callbackFunc(data);
   } catch (error) {
     showFetchDataError();
-    console.log(error);
+    console.error(error);
     const errorData: SearchResponseModel = {
       count: -1,
       hits: [],
@@ -83,14 +83,17 @@ export const getDatasetDetails: getDatasetDetailsType = async (
   datasetAccession,
   callbackFunc
 ) => {
-  let url = new URL(`artifacts/embedded_public/classes/EmbeddedDataset/resources/${datasetAccession}`, METLDATA_URL);
+  let url = new URL(
+    `artifacts/embedded_public/classes/EmbeddedDataset/resources/${datasetAccession}`,
+    METLDATA_URL
+  );
   try {
     const response = await fetchJson(url);
     const data = await response.json();
     callbackFunc(data);
   } catch (error) {
     showFetchDataError();
-    console.log(error);
+    console.error(error);
   }
 };
 
@@ -110,14 +113,17 @@ export const getDatasetSummary: getDatasetSummaryType = async (
   datasetAccession,
   callbackFunc
 ) => {
-  const url = new URL(`artifacts/stats_public/classes/DatasetStats/resources/${datasetAccession}`, METLDATA_URL);
+  const url = new URL(
+    `artifacts/stats_public/classes/DatasetStats/resources/${datasetAccession}`,
+    METLDATA_URL
+  );
   try {
     const response = await fetchJson(url);
     const data = await response.json();
     callbackFunc(data);
   } catch (error) {
     showFetchDataError();
-    console.log(error);
+    console.error(error);
   }
 };
 
@@ -132,7 +138,7 @@ type getMetadataSummaryType = (
  * @returns Nothing
  */
 export const getMetadataSummary: getMetadataSummaryType = (callbackFunc) => {
-  fetch(new URL ('stats', METLDATA_URL), {
+  fetch(new URL("stats", METLDATA_URL), {
     method: "get",
   })
     .then((response) => response.json())
@@ -142,7 +148,7 @@ export const getMetadataSummary: getMetadataSummaryType = (callbackFunc) => {
       },
       (error) => {
         showFetchDataError();
-        console.log(error);
+        console.error(error);
       }
     );
 };

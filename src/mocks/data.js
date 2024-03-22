@@ -23,7 +23,7 @@ export const IVAs = [{
 {
   id: "TEST00014000003",
   type: "PostalAddress",
-  value: "Willhelmstr. 123",
+  value: "Wilhelmstr. 123",
   status: "CodeTransmitted"
 }]
 

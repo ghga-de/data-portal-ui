@@ -83,7 +83,6 @@ const AccessRequests = () => {
   }
 
   function onUpdate() {
-    console.log("update");
     if (filteredRequests) {
       filteredRequests = [...filteredRequests];
     }

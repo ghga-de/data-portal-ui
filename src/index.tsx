@@ -7,11 +7,11 @@ if (process.env.NODE_ENV === "development") {
   const host = document.location.host
   const useBackend = /ghga/.test(host);
   if (useBackend) {
-    console.log("Using real backend");
+    console.info("Using real backend");
     main();
   } else {
     // use mock API in development mode
-    console.log("Using mock backend");
+    console.info("Using mock backend");
     const { worker } = require("./mocks/browser");
     worker.start().then(main);
   }

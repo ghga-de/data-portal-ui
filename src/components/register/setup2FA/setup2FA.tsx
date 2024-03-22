@@ -30,7 +30,7 @@ import {
   faCircleArrowRight,
   faPenToSquare,
 } from "@fortawesome/free-solid-svg-icons";
-import { LoginState, setUserState, useAuth } from "../../../services/auth";
+import { authService, useAuth } from "../../../services/auth";
 import { AUTH_URL, fetchJson } from "../../../utils/utils";
 
 const Setup2FA = () => {
@@ -84,7 +84,7 @@ const Setup2FA = () => {
       let method: string = "post",
         ok: number = 201;
       url = new URL(`totp-token`, url);
-      if (user.state === LoginState.LostTOTPToken) {
+      if (user.state === "LostTotpToken") {
         userData["force"] = true;
       }
       setTOTPRequests(TOTPRequests + 1);
@@ -107,7 +107,7 @@ const Setup2FA = () => {
   }
 
   let content;
-  if (user === undefined || (user !== null && twoFACode === "")) {
+  if (user === undefined) {
     content = "Loading user data...";
   } else if (user === null) {
     back();
@@ -119,7 +119,8 @@ const Setup2FA = () => {
           <p>
             For additional security when accessing protected data with the GHGA
             data portal, we are using two-factor authentication and verification
-            of your identity via a contact address.
+            of your identity via a contact address that is separate from your
+            primary E-Mail contact address.
           </p>
           <p>
             The two-factor authentication means that we require you to enter an
@@ -168,8 +169,8 @@ const Setup2FA = () => {
           <div>
             <Button
               onClick={() => {
-                user.state = LoginState.HasTOTPToken;
-                setUserState(LoginState.HasTOTPToken);
+                user.state = "HasTotpToken";
+                authService.setUser(user);
                 unblock();
                 navigate("/confirm-2fa");
               }}

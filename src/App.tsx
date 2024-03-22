@@ -25,7 +25,7 @@ import Register from "./components/register/register";
 import Profile from "./components/profile/profile";
 import { MessageContainer } from "./components/messages/container";
 import { useMessages } from "./components/messages/usage";
-import { LoginState, authService } from "./services/auth";
+import { authService } from "./services/auth";
 import { useLayoutEffect } from "react";
 import AccessRequests from "./components/accessRequests/accessRequests";
 import Setup2FA from "./components/register/setup2FA/setup2FA";
@@ -94,12 +94,8 @@ function Layout() {
         }
         if (
           user &&
-          (user.state === LoginState.Registered ||
-            user.state === LoginState.NeedsTOTPToken ||
-            user.state === LoginState.LostTOTPToken ||
-            user.state === LoginState.NewTOTPToken) &&
-          location.pathname !== "/setup-2fa" &&
-          location.pathname !== "/confirm-2fa"
+          /Registered|(Needs|Lost|New)TotpToken/.test(user.state) &&
+          !/^\/(setup|confirm)-2fa/.test(location.pathname)
         ) {
           // user is new (needs to register)
           // or her data changed (needs to confirm)
@@ -107,15 +103,14 @@ function Layout() {
         }
         if (
           user &&
-          user.state === LoginState.HasTOTPToken &&
+          user.state === "HasTotpToken" &&
           location.pathname !== "/confirm-2fa"
         ) {
           navigate("/confirm-2fa");
         }
         if (
           user &&
-          (user.state === LoginState.NeedsRegistration ||
-            user.state === LoginState.NeedsReregistration) &&
+          /NeedsRegistration|NeedsReRegistration/.test(user.state) &&
           location.pathname !== "/register"
         ) {
           // user is new (needs to register)

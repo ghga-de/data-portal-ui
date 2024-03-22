@@ -8,25 +8,24 @@
 export const urlWithEndSlash = (url: string) =>
   url.endsWith("/") ? url : url + "/";
 
-const getParsedUrl = (varName: string) =>
-  new URL(urlWithEndSlash(process.env[`REACT_APP_${varName}`]!), CLIENT_URL);
+const getUrl = (path: string) => new URL(path, CLIENT_URL);
+
+const getConfiguredUrl = (varName: string) =>
+  getUrl(urlWithEndSlash(process.env[`REACT_APP_${varName}`]!));
 
 export const CLIENT_URL = new URL(
   urlWithEndSlash(process.env.REACT_APP_CLIENT_URL!)
 );
 
-export const ARS_URL = getParsedUrl("ARS_URL");
+export const AUTH_URL = getConfiguredUrl("AUTH_URL");
+export const ARS_URL = getConfiguredUrl("ARS_URL");
+export const MASS_URL = getConfiguredUrl("MASS_URL");
+export const METLDATA_URL = getConfiguredUrl("METLDATA_URL");
+export const WPS_URL = getConfiguredUrl("WPS_URL");
 
-export const AUTH_URL = getParsedUrl("AUTH_URL");
-
-export const OIDC_AUTHORITY_URL = getParsedUrl("OIDC_AUTHORITY_URL");
+export const OIDC_AUTHORITY_URL = getConfiguredUrl("OIDC_AUTHORITY_URL");
 export const OIDC_CONFIG_PATH = "/.well-known/openid-configuration";
 export const OIDC_CONFIG_URL = new URL(OIDC_CONFIG_PATH, OIDC_AUTHORITY_URL);
-
-export const MASS_URL = getParsedUrl("MASS_URL");
-export const METLDATA_URL = getParsedUrl("METLDATA_URL");
-
-export const WPS_URL = getParsedUrl("WPS_URL");
 
 /**
  * Scroll page smoothly to 0 pixels below the top
