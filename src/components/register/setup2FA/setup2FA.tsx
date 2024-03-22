@@ -119,7 +119,8 @@ const Setup2FA = () => {
           <p>
             For additional security when accessing protected data with the GHGA
             data portal, we are using two-factor authentication and verification
-            of your identity via a contact address.
+            of your identity via a contact address that is separate from your
+            primary E-Mail contact address.
           </p>
           <p>
             The two-factor authentication means that we require you to enter an
