@@ -136,6 +136,26 @@ export const transposeTableForHTML = (data: any[]) => {
   return [];
 };
 
+export const FILTER_MIN_YEAR = 2000;
+export const FILTER_MAX_YEAR = 2199;
+export const FILTER_MIN_ISO: string = FILTER_MIN_YEAR + "-01-01T00:00:00.000Z";
+export const FILTER_MAX_ISO: string = FILTER_MAX_YEAR + "-12-31T23:59:59.999Z";
+
+export function parseDate(value: string, force: boolean = false) {
+  if (
+    Date.parse(value) < Date.parse(FILTER_MIN_ISO) &&
+    (Date.parse(value) > 999 || force)
+  )
+    value =
+      FILTER_MIN_YEAR.toString() + "-" + value.split("-").slice(1).join("-");
+
+  if (Date.parse(value) > Date.parse(FILTER_MAX_ISO))
+    value =
+      FILTER_MAX_YEAR.toString() + "-" + value.split("-").slice(1).join("-");
+
+  return value;
+}
+
 export const STATIC_PAGE_MAIN_DIV_CLASSES = "mx-auto px-2 px-md-5 my-5";
 export const STATIC_PAGE_IMG_ROW_CLASSES =
   "text-center w-100 mx-0 px-0 mb-4 mb-sm-5 justify-content-center";

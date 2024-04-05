@@ -35,6 +35,7 @@ const NewIVAModal = (props: NewIVAModalProps) => {
           id: id,
           type: userData.type as unknown as IVAType,
           value: userData.value,
+          lastChange: new Date().toISOString(),
           status: IVAStatus.Unverified,
         };
         props.newUserIVA(newIVA);

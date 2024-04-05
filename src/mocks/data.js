@@ -5,6 +5,7 @@ export const user = {
   ext_id: "aacaffeecaffeecaffeecaffeecaffeecaffeeaad@lifescience-ri.eu",
   name: "John Doe",
   title: "Dr.",
+  full_name: "Dr. John Doe",
   email: "j.jdoe@home.org"
 };
 
@@ -12,18 +13,21 @@ export const IVAs = [{
   id: "TEST00014000001",
   type: "Phone",
   value: "+441234567890004",
+  lastChange: "2024-02-01T00:00:00",
   status: "Verified"
 },
 {
   id: "TEST00014000002",
   type: "Fax",
   value: "+491234567890000",
+  lastChange: "2024-03-01T00:00:00",
   status: "Unverified"
 },
 {
   id: "TEST00014000003",
   type: "PostalAddress",
-  value: "Willhelmstr. 123",
+  value: "Wilhelmstr. 123",
+  lastChange: "2024-04-01T00:00:00",
   status: "CodeTransmitted"
 }]
 

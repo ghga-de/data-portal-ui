@@ -19,16 +19,16 @@ import { AccessRequest } from "../../models/submissionsAndRequests";
 import { useMessages } from "../messages/usage";
 import { useAuth } from "../../services/auth";
 import { useEffect, useState } from "react";
-import { ARS_URL, fetchJson } from "../../utils/utils";
+import {
+  ARS_URL,
+  FILTER_MAX_ISO,
+  FILTER_MIN_ISO,
+  fetchJson,
+} from "../../utils/utils";
 import AccessRequestsList from "./accessRequestsList/accessRequestsList";
 import AccessRequestsFilter from "./accessRequestsFilter/accessRequestsFilter";
 
 const AccessRequests = () => {
-  const MIN_YEAR = 2000;
-  const MAX_YEAR = 2199;
-  const MIN_ISO: string = MIN_YEAR + "-01-01T00:00:00.000Z";
-  const MAX_ISO: string = MAX_YEAR + "-12-31T23:59:59.999Z";
-
   const [requests, setRequests] = useState<AccessRequest[] | null | undefined>(
     undefined
   );
@@ -40,8 +40,8 @@ const AccessRequests = () => {
   const [filterObj, setFilterObj] = useState({
     datasetFilter: "",
     userFilter: "",
-    fromFilter: MIN_ISO,
-    untilFilter: MAX_ISO,
+    fromFilter: FILTER_MIN_ISO,
+    untilFilter: FILTER_MAX_ISO,
     statusFilter: "pending",
   });
 
@@ -65,12 +65,12 @@ const AccessRequests = () => {
         status !== undefined ? status : filterObj["statusFilter"];
 
       let fromDate = Date.parse(fromString);
-      if (fromDate < Date.parse(MIN_ISO) || !fromString)
-        fromDate = Date.parse(MIN_ISO);
+      if (fromDate < Date.parse(FILTER_MIN_ISO) || !fromString)
+        fromDate = Date.parse(FILTER_MIN_ISO);
 
       let untilDate = Date.parse(untilString);
-      if (untilDate > Date.parse(MAX_ISO) || !untilString)
-        untilDate = Date.parse(MAX_ISO);
+      if (untilDate > Date.parse(FILTER_MAX_ISO) || !untilString)
+        untilDate = Date.parse(FILTER_MAX_ISO);
 
       setFilterObj({
         datasetFilter: datasetString,
@@ -93,7 +93,7 @@ const AccessRequests = () => {
     async function fetchData() {
       let accessRequests: AccessRequest[] | null = null;
       if (user?.id) {
-        const url = new URL('access-requests', ARS_URL);
+        const url = new URL("access-requests", ARS_URL);
         try {
           const response = await fetchJson(url);
           if (response.ok) {
@@ -157,19 +157,6 @@ const AccessRequests = () => {
     );
   }
 
-  function parseDate(value: string, force: boolean = false) {
-    if (
-      Date.parse(value) < Date.parse(MIN_ISO) &&
-      (Date.parse(value) > 999 || force)
-    )
-      value = MIN_YEAR.toString() + "-" + value.split("-").slice(1).join("-");
-
-    if (Date.parse(value) > Date.parse(MAX_ISO))
-      value = MAX_YEAR.toString() + "-" + value.split("-").slice(1).join("-");
-
-    return value;
-  }
-
   return (
     <Container className="pb-4">
       <Row>
@@ -177,10 +164,7 @@ const AccessRequests = () => {
           <h3 style={{ margin: "1em 0" }}>Access Requests Management</h3>
           <AccessRequestsFilter
             handleFilter={handleFilter}
-            MIN_ISO={MIN_ISO}
-            MAX_ISO={MAX_ISO}
             filterObj={filterObj}
-            parseDate={parseDate}
           />
           <AccessRequestsList
             requests={filteredRequests ? filteredRequests : []}

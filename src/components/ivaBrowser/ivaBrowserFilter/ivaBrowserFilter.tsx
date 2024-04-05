@@ -1,18 +1,3 @@
-// Copyright 2021 - 2023 Universität Tübingen, DKFZ, EMBL, and Universität zu Köln
-// for the German Human Genome-Phenome Archive (GHGA)
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//     http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
-//
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFilter } from "@fortawesome/free-solid-svg-icons";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
@@ -22,10 +7,9 @@ import {
   parseDate,
 } from "../../../utils/utils";
 
-interface AccessRequestsFilterProps {
+interface IVABrowserFilterProps {
   handleFilter: any;
   filterObj: {
-    datasetFilter: string;
     userFilter: string;
     fromFilter: string;
     untilFilter: string;
@@ -33,7 +17,7 @@ interface AccessRequestsFilterProps {
   };
 }
 
-const AccessRequestsFilter = (props: AccessRequestsFilterProps) => {
+const IVABrowserFilter = (props: IVABrowserFilterProps) => {
   const FORM_GROUP_ROW_CLASS_NAMES = "row mb-3";
   const LABEL_COL_CLASS_NAMES = "col-4 col-form-label";
 
@@ -51,17 +35,6 @@ const AccessRequestsFilter = (props: AccessRequestsFilterProps) => {
             }}
           >
             <Form.Group className={FORM_GROUP_ROW_CLASS_NAMES}>
-              <Form.Label className={LABEL_COL_CLASS_NAMES}>Dataset</Form.Label>
-              <Col>
-                <Form.Control
-                  type="text"
-                  onChange={(event) => {
-                    props.handleFilter(event.target.value);
-                  }}
-                ></Form.Control>
-              </Col>
-            </Form.Group>
-            <Form.Group className={FORM_GROUP_ROW_CLASS_NAMES}>
               <Form.Label className={LABEL_COL_CLASS_NAMES}>User</Form.Label>
               <Col>
                 <Form.Control
@@ -74,7 +47,7 @@ const AccessRequestsFilter = (props: AccessRequestsFilterProps) => {
             </Form.Group>
             <Form.Group className={FORM_GROUP_ROW_CLASS_NAMES}>
               <Form.Label className={LABEL_COL_CLASS_NAMES}>
-                Requested date from
+                Last changed from
               </Form.Label>
               <Col>
                 <Form.Control
@@ -103,7 +76,7 @@ const AccessRequestsFilter = (props: AccessRequestsFilterProps) => {
             </Form.Group>
             <Form.Group className={FORM_GROUP_ROW_CLASS_NAMES}>
               <Form.Label className={LABEL_COL_CLASS_NAMES}>
-                Requested date until
+                Last changed until
               </Form.Label>
               <Col>
                 <Form.Control
@@ -145,12 +118,9 @@ const AccessRequestsFilter = (props: AccessRequestsFilterProps) => {
                       event.target.value
                     );
                   }}
-                  defaultValue={"pending"}
+                  defaultValue={""}
                 >
                   <option value="">No filter</option>
-                  <option value="pending">Pending</option>
-                  <option value="allowed">Allowed</option>
-                  <option value="denied">Denied</option>
                 </Form.Select>
               </Col>
             </Form.Group>
@@ -164,4 +134,4 @@ const AccessRequestsFilter = (props: AccessRequestsFilterProps) => {
   );
 };
 
-export default AccessRequestsFilter;
+export default IVABrowserFilter;

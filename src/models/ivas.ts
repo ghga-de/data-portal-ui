@@ -30,5 +30,6 @@ export interface IVA {
   id: string;
   type: IVAType;
   value: string;
+  lastChange: string;
   status: IVAStatus;
 }
