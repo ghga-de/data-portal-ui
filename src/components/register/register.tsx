@@ -11,7 +11,7 @@ import {
   faPenToSquare,
 } from "@fortawesome/free-solid-svg-icons";
 import { useMessages } from "../messages/usage";
-import { LoginState, setUserState, useAuth } from "../../services/auth";
+import { authService, useAuth } from "../../services/auth";
 
 /** User registration form */
 
@@ -50,7 +50,7 @@ const Register = () => {
 
   const prompt = () =>
     user?.id
-      ? (user.state === LoginState.NeedsReregistration
+      ? (user.state === "NeedsReRegistration"
           ? "Your contact information has changed since you last registered. "
           : "") + "Please confirm that the information given below is correct."
       : "Since you haven't used our data portal before, " +
@@ -81,8 +81,8 @@ const Register = () => {
     const response = await fetchJson(url, method, userData).catch(() => null);
     if (response && response.status === ok) {
       showMessage({ type: "success", title: "Registration successful" });
-      user.state = LoginState.Registered;
-      setUserState(LoginState.Registered);
+      user.state = "Registered";
+      authService.setUser(user);
       showMessage({
         type: "success",
         title: `Registration successful`,

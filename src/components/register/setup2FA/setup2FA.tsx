@@ -30,14 +30,14 @@ import {
   faCircleArrowRight,
   faPenToSquare,
 } from "@fortawesome/free-solid-svg-icons";
-import { LoginState, setUserState, useAuth } from "../../../services/auth";
+import { authService, useAuth } from "../../../services/auth";
 import { AUTH_URL, fetchJson } from "../../../utils/utils";
 
 const Setup2FA = () => {
   useEffect(() => {});
   const navigate = useNavigate();
 
-  const [twoFACode, setTwoFACode] = useState<string>("");
+  const [twoFAURI, setTwoFAURI] = useState<string>("");
 
   const [showManual, setShowManual] = useState<string>("d-none");
   const [buttonText, setButtonText] = useState<string>("Setup manually");
@@ -84,16 +84,16 @@ const Setup2FA = () => {
       let method: string = "post",
         ok: number = 201;
       url = new URL(`totp-token`, url);
-      if (user.state === LoginState.LostTOTPToken) {
+      if (user.state === "LostTotpToken") {
         userData["force"] = true;
       }
       setTOTPRequests(TOTPRequests + 1);
       const response = await fetchJson(url, method, userData).catch(() => null);
       if (response && response.status === ok) {
         try {
-          const { text: token } = await response.json();
+          const { uri: token } = await response.json();
           if (token) {
-            setTwoFACode(token);
+            setTwoFAURI(token);
           }
         } catch {
           logoutUser();
@@ -107,11 +107,11 @@ const Setup2FA = () => {
   }
 
   let content;
-  if (user === undefined || (user !== null && twoFACode === "")) {
+  if (user === null) {
+    back(); // not authenticated
+  } else if (!(user && twoFAURI)) {
     content = "Loading user data...";
-  } else if (user === null) {
-    back();
-  } else
+  } else {
     content = (
       <>
         <h2>Set up two-factor authentication</h2>
@@ -119,7 +119,8 @@ const Setup2FA = () => {
           <p>
             For additional security when accessing protected data with the GHGA
             data portal, we are using two-factor authentication and verification
-            of your identity via a contact address.
+            of your identity via a contact address that is separate from your
+            primary E-Mail contact address.
           </p>
           <p>
             The two-factor authentication means that we require you to enter an
@@ -136,7 +137,7 @@ const Setup2FA = () => {
           <div>
             <QRCode
               size={128}
-              value={twoFACode}
+              value={twoFAURI}
               viewBox={`0 0 128 128`}
               className="mb-3"
             />
@@ -156,10 +157,18 @@ const Setup2FA = () => {
                 <input
                   type="text"
                   readOnly
-                  value={twoFACode}
+                  value={
+                    new URLSearchParams(
+                      twoFAURI.substring(twoFAURI.indexOf("?"))
+                    ).get("secret")!
+                  }
                   className="text-center"
                   onClick={() => {
-                    navigator.clipboard.writeText(twoFACode);
+                    navigator.clipboard.writeText(
+                      new URLSearchParams(
+                        twoFAURI.substring(twoFAURI.indexOf("?"))
+                      ).get("secret")!
+                    );
                   }}
                 />
               </OverlayTrigger>
@@ -168,8 +177,8 @@ const Setup2FA = () => {
           <div>
             <Button
               onClick={() => {
-                user.state = LoginState.HasTOTPToken;
-                setUserState(LoginState.HasTOTPToken);
+                user.state = "HasTotpToken";
+                authService.setUser(user);
                 unblock();
                 navigate("/confirm-2fa");
               }}
@@ -232,6 +241,7 @@ const Setup2FA = () => {
         </Modal>
       </>
     );
+  }
 
   return <Container className="mt-4">{content}</Container>;
 };

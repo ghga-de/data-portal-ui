@@ -29,7 +29,7 @@ import {
   Tooltip,
 } from "react-bootstrap";
 import { useBlocker, useNavigate } from "react-router-dom";
-import { LoginState, setUserState, useAuth } from "../../services/auth";
+import { authService, useAuth } from "../../services/auth";
 import { AUTH_URL, fetchJson } from "../../utils/utils";
 import { showMessage } from "../messages/usage";
 
@@ -84,8 +84,8 @@ const Confirm2FA = () => {
     const response = await fetchJson(url, method, userData).catch(() => null);
     if (response && response.status === ok) {
       showMessage({ type: "success", title: "Login successful" });
-      user.state = LoginState.Authenticated;
-      setUserState(LoginState.Authenticated);
+      user.state = "Authenticated";
+      authService.setUser(user);
       unblock();
       back();
       return;
@@ -135,8 +135,8 @@ const Confirm2FA = () => {
             <Button
               disabled={disabledNew2FAButton}
               onClick={() => {
-                user.state = LoginState.LostTOTPToken;
-                setUserState(LoginState.LostTOTPToken);
+                user.state = "LostTotpToken";
+                authService.setUser(user);
                 unblock();
                 navigate("/setup-2fa");
               }}
@@ -181,7 +181,7 @@ const Confirm2FA = () => {
                 type="text"
                 className="text-center fs-2"
                 name="totpInput"
-                style={{ letterSpacing: "0.5em", paddingLeft: "0.5em" }}
+                style={{ letterSpacing: "0.5em", paddingLeft: "0.5em", width: "7em" }}
                 required
                 minLength={6}
                 maxLength={6}

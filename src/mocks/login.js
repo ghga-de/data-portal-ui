@@ -4,7 +4,8 @@ import { user } from "./data";
 const SCOPE = process.env.REACT_APP_OIDC_SCOPE;
 const CLIENT_ID = process.env.REACT_APP_OIDC_CLIENT_ID;
 
-const USER_KEY = `oidc.user:${OIDC_AUTHORITY_URL}:${CLIENT_ID}`;
+const OIDC_USER_KEY = `oidc.user:${OIDC_AUTHORITY_URL}:${CLIENT_ID}`;
+const USER_KEY = 'user';
 
 // Simulate login with dummy user via OIDC
 export function setOidcUser() {
@@ -32,12 +33,13 @@ export function setOidcUser() {
     },
     expires_at: exp,
   };
-  sessionStorage.setItem(USER_KEY, JSON.stringify(userObj));
+  sessionStorage.setItem(OIDC_USER_KEY, JSON.stringify(userObj));
+  sessionStorage.removeItem(USER_KEY);
 }
 
 // Get response headers for logged in user
 export function getLoginHeaders() {
-  if (!sessionStorage.getItem(USER_KEY)) {
+  if (!sessionStorage.getItem(OIDC_USER_KEY)) {
     return null;
   }
   const sessionObj = {
@@ -46,29 +48,13 @@ export function getLoginHeaders() {
     name: user.name,
     title: user.title,
     email: user.email,
-    state: "NeedsReregistration",  // the state after login
-    csrf: "test123",
+    state: "NeedsReRegistration", // the state after login
+    csrf: "mock-csrf-token",
     timeout: 3600,
     extends: 7200,
-  }
-  return { "X-Session": JSON.stringify(sessionObj), "Set-Cookie": "user=" + btoa(JSON.stringify(sessionObj)) };
-}
-
-// Get response headers for re-registered in user
-export function getReregistrationHeaders() {
-  if (!sessionStorage.getItem(USER_KEY)) {
-    return null;
-  }
-  const sessionObj = {
-    id: user.id,
-    ext_id: user.ext_id,
-    name: user.name,
-    title: user.title,
-    email: user.email,
-    state: "Registered",  // the state after login
-    csrf: "test123",
-    timeout: 3600,
-    extends: 7200,
-  }
-  return { "X-Session": JSON.stringify(sessionObj) };
+  };
+  return {
+    "X-Session": JSON.stringify(sessionObj),
+    "Set-Cookie": "session=test-session; HttpOnly; SameSite=lax"
+  };
 }

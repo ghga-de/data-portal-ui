@@ -77,7 +77,7 @@ const DataRequestFormModal = (props: DataRequestFormModalProps) => {
         submitButton.innerHTML = "Request sent!";
       } else throw new Error("PUSH failed: " + response.text);
     } catch (error) {
-      console.log(error);
+      console.error(error);
       submitButton.disabled = "false";
       showMessage({
         type: "error",
