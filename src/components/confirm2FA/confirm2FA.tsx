@@ -181,7 +181,7 @@ const Confirm2FA = () => {
                 type="text"
                 className="text-center fs-2"
                 name="totpInput"
-                style={{ letterSpacing: "0.5em", paddingLeft: "0.5em" }}
+                style={{ letterSpacing: "0.5em", paddingLeft: "0.5em", width: "7em" }}
                 required
                 minLength={6}
                 maxLength={6}
