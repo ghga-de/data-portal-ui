@@ -2,7 +2,6 @@ import { http, HttpResponse } from "msw";
 import { responses } from "./responses";
 import { setOidcUser, getLoginHeaders } from "./login";
 import { AUTH_URL, CLIENT_URL, OIDC_CONFIG_URL } from "../utils/utils";
-import { } from "../services/auth";
 
 const fakeAuth = !!CLIENT_URL.href.match(/127\.|local/);
 
