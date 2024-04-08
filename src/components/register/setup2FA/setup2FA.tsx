@@ -91,7 +91,7 @@ const Setup2FA = () => {
       const response = await fetchJson(url, method, userData).catch(() => null);
       if (response && response.status === ok) {
         try {
-          const { text: token } = await response.json();
+          const { uri: token } = await response.json();
           if (token) {
             setTwoFACode(token);
           }
@@ -107,11 +107,11 @@ const Setup2FA = () => {
   }
 
   let content;
-  if (user === undefined) {
+  if (user === null) {
+    back();  // not authenticated
+  } else if (!(user && twoFACode)) {
     content = "Loading user data...";
-  } else if (user === null) {
-    back();
-  } else
+  } else {
     content = (
       <>
         <h2>Set up two-factor authentication</h2>
@@ -233,6 +233,7 @@ const Setup2FA = () => {
         </Modal>
       </>
     );
+  }
 
   return <Container className="mt-4">{content}</Container>;
 };
