@@ -37,7 +37,7 @@ const Setup2FA = () => {
   useEffect(() => {});
   const navigate = useNavigate();
 
-  const [twoFACode, setTwoFACode] = useState<string>("");
+  const [twoFAURI, setTwoFAURI] = useState<string>("");
 
   const [showManual, setShowManual] = useState<string>("d-none");
   const [buttonText, setButtonText] = useState<string>("Setup manually");
@@ -93,7 +93,7 @@ const Setup2FA = () => {
         try {
           const { uri: token } = await response.json();
           if (token) {
-            setTwoFACode(token);
+            setTwoFAURI(token);
           }
         } catch {
           logoutUser();
@@ -108,8 +108,8 @@ const Setup2FA = () => {
 
   let content;
   if (user === null) {
-    back();  // not authenticated
-  } else if (!(user && twoFACode)) {
+    back(); // not authenticated
+  } else if (!(user && twoFAURI)) {
     content = "Loading user data...";
   } else {
     content = (
@@ -137,7 +137,7 @@ const Setup2FA = () => {
           <div>
             <QRCode
               size={128}
-              value={twoFACode}
+              value={twoFAURI}
               viewBox={`0 0 128 128`}
               className="mb-3"
             />
@@ -157,10 +157,18 @@ const Setup2FA = () => {
                 <input
                   type="text"
                   readOnly
-                  value={twoFACode}
+                  value={
+                    new URLSearchParams(
+                      twoFAURI.substring(twoFAURI.indexOf("?"))
+                    ).get("secret")!
+                  }
                   className="text-center"
                   onClick={() => {
-                    navigator.clipboard.writeText(twoFACode);
+                    navigator.clipboard.writeText(
+                      new URLSearchParams(
+                        twoFAURI.substring(twoFAURI.indexOf("?"))
+                      ).get("secret")!
+                    );
                   }}
                 />
               </OverlayTrigger>
