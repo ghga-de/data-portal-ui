@@ -2,6 +2,7 @@ import { http, HttpResponse } from "msw";
 import { responses } from "./responses";
 import { setOidcUser, getLoginHeaders } from "./login";
 import { AUTH_URL, CLIENT_URL, OIDC_CONFIG_URL } from "../utils/utils";
+import { } from "../services/auth";
 
 const fakeAuth = !!CLIENT_URL.href.match(/127\.|local/);
 
@@ -17,9 +18,10 @@ export const handlers = [
   http.get(OIDC_CONFIG_URL.href, () => {
     if (fakeAuth) {
       setOidcUser();
+      setTimeout(() => window.location.href=CLIENT_URL.href + "profile", 500);
       return HttpResponse.json(
         {
-          authorization_endpoint: CLIENT_URL.href + "profile",
+          authorization_endpoint: CLIENT_URL.href,
         },
         { status: 200 }
       );
