@@ -17,31 +17,35 @@ import { Button, Form, Modal } from "react-bootstrap";
 import { ARS_URL, fetchJson } from "../../../utils/utils";
 import { showMessage } from "../../messages/usage";
 import { useState } from "react";
-import { IVA } from "../../../models/ivas";
-import { User } from "../../../services/auth";
+import { EmbeddedIVA } from "../../../models/ivas";
 
-interface AccessRequestModalProps {
+interface IVABrowserListCreateCodeModalProps {
   show: boolean;
   setShow: React.Dispatch<React.SetStateAction<boolean>>;
-  user: User;
   handleClose: any;
   handleShow: any;
-  iva: IVA | undefined;
+  selectedIVA: EmbeddedIVA | undefined;
+  setSelectedIVA: any;
+  ConfirmTransmissionModal: any;
+  showConfirmTransmissionModal: boolean;
+  setShowConfirmTransmissionModal: any;
   onUpdate: any;
 }
 
 //
-const IVABrowserListModal = (props: AccessRequestModalProps) => {
+const IVABrowserListCreateCodeModal = (
+  props: IVABrowserListCreateCodeModalProps
+) => {
   const [disabledButtons, setDisabledButtons] = useState(false);
 
   async function handleButtonConfirm() {
-    if (props.iva === undefined || props.user.id === undefined) {
+    if (props.selectedIVA === undefined) {
       return null;
     }
     setDisabledButtons(true);
-    const url = new URL(`access-requests/${props.iva?.id}`, ARS_URL);
+    const url = new URL(`access-requests/${props.selectedIVA?.id}`, ARS_URL);
     try {
-      const response = await fetchJson(url, "PATCH", { status: status });
+      const response = await fetchJson(url, "PATCH");
       if (response.ok) {
         showMessage({
           type: "success",
@@ -59,49 +63,6 @@ const IVABrowserListModal = (props: AccessRequestModalProps) => {
     }
   }
 
-  const [showConfirmation, setShowConfirmation] = useState<boolean>(false);
-  const [status, setStatus] = useState<"allowed" | "denied">("denied");
-
-  const ConfirmationModal = () => {
-    return (
-      <Modal
-        show={showConfirmation && props.show}
-        onHide={() => {
-          setShowConfirmation(false);
-        }}
-        centered
-      >
-        <Modal.Header closeButton>
-          <Modal.Title>Confirm IVA verification code has been sent</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          Confirm sending the verification code for the selected user's IVA
-        </Modal.Body>
-        <Modal.Footer className="justify-content-between">
-          <Button
-            variant="dark-3"
-            onClick={() => {
-              setShowConfirmation(false);
-            }}
-          >
-            Cancel
-          </Button>
-          <Button
-            variant={"quinary"}
-            className="text-white"
-            onClick={() => {
-              handleButtonConfirm();
-              setDisabledButtons(true);
-              setShowConfirmation(false);
-            }}
-          >
-            Confirm
-          </Button>
-        </Modal.Footer>
-      </Modal>
-    );
-  };
-
   return (
     <>
       <Modal
@@ -115,16 +76,25 @@ const IVABrowserListModal = (props: AccessRequestModalProps) => {
         </Modal.Header>
 
         <Modal.Body>
-          <Form>
+          <Form
+            onSubmit={(e) => {
+              e.preventDefault();
+              props.setShowConfirmTransmissionModal(true);
+            }}
+          >
             <p>Please send the following verification code to:</p>
             <p>
-              Name: {props.user.full_name || props.user.name}
+              Name: {props.selectedIVA?.user_name}
               <br />
-              E-Mail: {props.user.email}
+              E-Mail: {props.selectedIVA?.user_email}
               <br />
-              Via: {props.iva ? props.iva?.type : ""}
+              Via:{" "}
+              {props.selectedIVA?.type
+                .toString()
+                .split(/(?=[A-Z])/)
+                .join(" ")}
               <br />
-              Address: {props.iva?.value}
+              Address: {props.selectedIVA?.value}
             </p>
             <div className="mb-3">
               <label htmlFor="verification_code">
@@ -140,16 +110,23 @@ const IVABrowserListModal = (props: AccessRequestModalProps) => {
               >
                 Confirm transmission
               </Button>
-              <Button className="ms-2 text-white" variant="gray">
+              <Button
+                className="ms-2 text-white"
+                variant="warning"
+                onClick={() => {
+                  props.setShow(false);
+                  props.setSelectedIVA(undefined);
+                }}
+              >
                 Send later
               </Button>
             </div>
           </Form>
         </Modal.Body>
       </Modal>
-      <ConfirmationModal />
+      <props.ConfirmTransmissionModal />
     </>
   );
 };
 
-export default IVABrowserListModal;
+export default IVABrowserListCreateCodeModal;

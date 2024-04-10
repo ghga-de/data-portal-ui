@@ -1,10 +1,10 @@
 import { useCallback, useEffect, useState } from "react";
 import { EmbeddedIVA, IVAStatus } from "../../../models/ivas";
 import { User } from "../../../services/auth";
-import { Button, Col, Row, Table } from "react-bootstrap";
+import { Button, Col, Modal, Row, Table } from "react-bootstrap";
 import SortButton, { TableFields } from "../../../utils/sortButton";
 import { transposeTableForHTML } from "../../../utils/utils";
-import IVABrowserListModal from "./ivaBrowserListModal";
+import IVABrowserListCreateCodeModal from "./IVABrowserListCreateCodeModal";
 
 interface IVABrowserListProps {
   ivas: EmbeddedIVA[];
@@ -13,6 +13,136 @@ interface IVABrowserListProps {
 }
 
 const IVABrowserList = (props: IVABrowserListProps) => {
+  const ConfirmInvalidateModal = () => {
+    return (
+      <Modal
+        show={showConfirmInvalidateModal}
+        onHide={() => {
+          setShowConfirmInvalidateModal(false);
+          setSelectedIVA(undefined);
+        }}
+      >
+        <Modal.Header closeButton>
+          <Modal.Title>Confirm invalidation of IVA</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <p>
+            Do you really wish to invalidate the{" "}
+            <em>
+              {selectedIVA?.type
+                .toString()
+                .split(/(?=[A-Z])/)
+                .join(" ")}
+            </em>{" "}
+            IVA for user <em>{selectedIVA?.user_name}</em> with address{" "}
+            <em>{selectedIVA?.value}</em>?
+          </p>
+          <div>
+            <Button variant="danger">Invalidate</Button>
+            <Button
+              variant="gray"
+              className="ms-2 text-white"
+              onClick={() => {
+                setShowConfirmInvalidateModal(false);
+                setSelectedIVA(undefined);
+              }}
+            >
+              Cancel
+            </Button>
+          </div>
+        </Modal.Body>
+      </Modal>
+    );
+  };
+  const [showConfirmInvalidateModal, setShowConfirmInvalidateModal] =
+    useState(false);
+
+  const ConfirmTransmissionModal = () => {
+    return (
+      <Modal
+        show={showConfirmTransmissionModal}
+        onHide={() => {
+          setShowConfirmTransmissionModal(false);
+          setSelectedIVA(undefined);
+        }}
+      >
+        <Modal.Header closeButton>
+          <Modal.Title>Confirm code transmission</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <p>
+            Please confirm the transmission of the verification code for the{" "}
+            <em>
+              {selectedIVA?.type
+                .toString()
+                .split(/(?=[A-Z])/)
+                .join(" ")}
+            </em>{" "}
+            IVA for user <em>{selectedIVA?.user_name}</em> with address{" "}
+            <em>{selectedIVA?.value}</em>.
+          </p>
+          <div>
+            <Button variant="quaternary">Confirm</Button>
+            <Button
+              variant="gray"
+              className="ms-2 text-white"
+              onClick={() => {
+                setShowConfirmTransmissionModal(false);
+                setSelectedIVA(undefined);
+              }}
+            >
+              Cancel
+            </Button>
+          </div>
+        </Modal.Body>
+      </Modal>
+    );
+  };
+  const [showConfirmTransmissionModal, setShowConfirmTransmissionModal] =
+    useState(false);
+
+  const InvalidateButton = (InvalidateButtonProps: { x: EmbeddedIVA }) => {
+    return (
+      <Button
+        key={InvalidateButtonProps.x.id + "_invalidate_button"}
+        className="py-0 text-white"
+        variant="danger"
+        onClick={() => {
+          setSelectedIVA(InvalidateButtonProps.x);
+          setShowConfirmInvalidateModal(true);
+        }}
+      >
+        Invalidate
+      </Button>
+    );
+  };
+
+  const CreateCodeButton = (CreateCodeButtonProps: { x: EmbeddedIVA }) => {
+    return (
+      <Button
+        key={`${CreateCodeButtonProps.x.id}_
+            ${
+              CreateCodeButtonProps.x.status.toString() ===
+              IVAStatus[IVAStatus.CodeCreated]
+                ? "re"
+                : ""
+            }create_code_button`}
+        className="py-0 text-white ms-1"
+        variant="quaternary"
+        onClick={() => {
+          setSelectedIVA(CreateCodeButtonProps.x);
+          setCreateCodeModal(true);
+        }}
+      >
+        {CreateCodeButtonProps.x.status.toString() ===
+        IVAStatus[IVAStatus.CodeCreated]
+          ? "Rec"
+          : "C"}
+        reate code
+      </Button>
+    );
+  };
+
   const buildInnerTable = useCallback(() => {
     return [
       {
@@ -67,65 +197,38 @@ const IVABrowserList = (props: IVABrowserListProps) => {
       },
       {
         header: "Actions",
-        data: props.ivas.map((x) => {
+        data: props.ivas.map((x: EmbeddedIVA) => {
           if (x.status.toString() === IVAStatus[IVAStatus.CodeRequested]) {
             return (
               <>
-                <Button
-                  key={x.id + "_invalidate_button"}
-                  className="py-0 text-white"
-                  variant="danger"
-                >
-                  Invalidate
-                </Button>
-                <Button
-                  key={x.id + "_create_code_button"}
-                  className="py-0 text-white ms-1"
-                  variant="quaternary"
-                >
-                  Create code
-                </Button>
+                <InvalidateButton x={x} />
+                <CreateCodeButton x={x} />
               </>
             );
           }
           if (x.status.toString() === IVAStatus[IVAStatus.CodeCreated]) {
             return (
               <>
-                <Button
-                  key={x.id + "_invalidate_button"}
-                  className="py-0 text-white"
-                  variant="danger"
-                >
-                  Invalidate
-                </Button>
+                <InvalidateButton x={x} />
                 <Button
                   key={x.id + "_confirm_transmission_button"}
                   className="py-0 text-white ms-1"
                   variant="quaternary"
+                  onClick={() => {
+                    setSelectedIVA(x);
+                    setShowConfirmTransmissionModal(true);
+                  }}
                 >
                   Confirm transmission
                 </Button>
-                <Button
-                  key={x.id + "_recreate_code_button"}
-                  className="py-0 text-white ms-1"
-                  variant="quaternary"
-                >
-                  Recreate code
-                </Button>
+                <CreateCodeButton x={x} />
               </>
             );
           }
           if (x.status.toString() !== IVAStatus[IVAStatus.Unverified]) {
-            return (
-              <Button
-                key={x.id + "_invalidate_button"}
-                className="py-0 text-white"
-                variant="danger"
-              >
-                Invalidate
-              </Button>
-            );
+            return <InvalidateButton x={x} />;
           }
+          return <></>;
         }),
       },
     ];
@@ -172,30 +275,35 @@ const IVABrowserList = (props: IVABrowserListProps) => {
     }
   }
 
-  const [showModal, setShowModal] = useState(false);
+  const [showModal, setCreateCodeModal] = useState(false);
 
   const handleCloseModal = () => {
-    setShowModal(false);
+    setCreateCodeModal(false);
     setSelectedIVA(undefined);
   };
   const handleShowModal = (accessRequest: EmbeddedIVA) => {
     setSelectedIVA(accessRequest);
-    setShowModal(true);
+    setCreateCodeModal(true);
   };
 
   const [selectedIVA, setSelectedIVA] = useState<EmbeddedIVA | undefined>();
 
   return (
     <div>
-      <IVABrowserListModal
+      <IVABrowserListCreateCodeModal
         show={showModal}
-        setShow={setShowModal}
-        user={props.user}
+        setShow={setCreateCodeModal}
         handleClose={handleCloseModal}
         handleShow={handleShowModal}
-        iva={selectedIVA}
+        selectedIVA={selectedIVA}
+        setSelectedIVA={setSelectedIVA}
+        ConfirmTransmissionModal={ConfirmTransmissionModal}
+        showConfirmTransmissionModal={showConfirmTransmissionModal}
+        setShowConfirmTransmissionModal={setShowConfirmTransmissionModal}
         onUpdate={onUpdate}
       />
+      <ConfirmInvalidateModal />
+      <ConfirmTransmissionModal />
       <Table className="w-lg-100" style={{ minWidth: "800px" }}>
         <thead className="border-light-3 border-1">
           <tr>
