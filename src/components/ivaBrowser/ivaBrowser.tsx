@@ -1,6 +1,6 @@
 import { Alert, Col, Container, Row, Spinner } from "react-bootstrap";
 import { useAuth } from "../../services/auth";
-import { IVA } from "../../models/ivas";
+import { EmbeddedIVA } from "../../models/ivas";
 import { useEffect, useState } from "react";
 import { useMessages } from "../messages/usage";
 import {
@@ -13,12 +13,12 @@ import IVABrowserList from "./ivaBrowserList/ivaBrowserList";
 import IVABrowserFilter from "./ivaBrowserFilter/ivaBrowserFilter";
 
 const IVABrowser = () => {
-  const [ivas, setIVAs] = useState<IVA[] | null | undefined>(undefined);
+  const [ivas, setIVAs] = useState<EmbeddedIVA[] | null | undefined>(undefined);
 
   const { showMessage } = useMessages();
   const { user } = useAuth();
 
-  let filteredIVAs: IVA[] | undefined = undefined;
+  let filteredIVAs: EmbeddedIVA[] | undefined = undefined;
 
   const [filterObj, setFilterObj] = useState({
     userFilter: "",
@@ -69,9 +69,9 @@ const IVABrowser = () => {
 
   useEffect(() => {
     async function fetchData() {
-      let accessRequests: IVA[] | null = null;
+      let accessRequests: EmbeddedIVA[] | null = null;
       if (user?.id) {
-        const url = new URL(`users/${user?.ext_id}/ivas`, WPS_URL);
+        const url = new URL(`ivas`, WPS_URL);
         try {
           const response = await fetchJson(url);
           if (response.ok) {
@@ -95,8 +95,13 @@ const IVABrowser = () => {
 
   filteredIVAs = ivas?.filter(
     (x) =>
-      Date.parse(x.lastChange) > Date.parse(filterObj["fromFilter"]) &&
-      Date.parse(x.lastChange) < Date.parse(filterObj["untilFilter"])
+      x.user_name?.includes(filterObj["userFilter"]) &&
+      (filterObj["fromFilter"] === "" ||
+        Date.parse(x.changed) > Date.parse(filterObj["fromFilter"])) &&
+      (filterObj["untilFilter"] === "" ||
+        Date.parse(x.changed) < Date.parse(filterObj["untilFilter"])) &&
+      (filterObj["statusFilter"] === "" ||
+        x.status.toString() === filterObj["statusFilter"])
   );
 
   if (!user) {

@@ -16,7 +16,8 @@
 
 export enum IVAStatus {
   Unverified,
-  VerificationRequested,
+  CodeRequested,
+  CodeCreated,
   CodeTransmitted,
   Verified,
 }
@@ -30,6 +31,17 @@ export interface IVA {
   id: string;
   type: IVAType;
   value: string;
-  lastChange: string;
+  changed: string;
   status: IVAStatus;
+}
+
+export interface EmbeddedIVA {
+  id: string;
+  type: IVAType;
+  value: string;
+  changed: string;
+  status: IVAStatus;
+  user_id: string;
+  user_name: string;
+  user_email: string;
 }

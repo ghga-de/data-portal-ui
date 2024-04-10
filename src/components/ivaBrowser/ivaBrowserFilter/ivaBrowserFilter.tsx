@@ -6,6 +6,7 @@ import {
   FILTER_MIN_ISO,
   parseDate,
 } from "../../../utils/utils";
+import { IVAStatus } from "../../../models/ivas";
 
 interface IVABrowserFilterProps {
   handleFilter: any;
@@ -40,7 +41,7 @@ const IVABrowserFilter = (props: IVABrowserFilterProps) => {
                 <Form.Control
                   type="text"
                   onChange={(event) => {
-                    props.handleFilter(undefined, event.target.value);
+                    props.handleFilter(event.target.value);
                   }}
                 ></Form.Control>
               </Col>
@@ -54,22 +55,13 @@ const IVABrowserFilter = (props: IVABrowserFilterProps) => {
                   type="date"
                   min={FILTER_MIN_ISO.split("T")[0]}
                   max={new Date().toISOString().split("T")[0]}
-                  value={props.filterObj["fromFilter"].split("T")[0]}
                   onBlur={(event) => {
                     event.target.value = parseDate(event.target.value, true);
-                    props.handleFilter(
-                      undefined,
-                      undefined,
-                      event.target.value
-                    );
+                    props.handleFilter(undefined, event.target.value);
                   }}
                   onChange={(event) => {
                     event.target.value = parseDate(event.target.value);
-                    props.handleFilter(
-                      undefined,
-                      undefined,
-                      event.target.value
-                    );
+                    props.handleFilter(undefined, event.target.value);
                   }}
                 ></Form.Control>
               </Col>
@@ -83,11 +75,9 @@ const IVABrowserFilter = (props: IVABrowserFilterProps) => {
                   type="date"
                   min={FILTER_MIN_ISO.split("T")[0]}
                   max={FILTER_MAX_ISO.split("T")[0]}
-                  value={props.filterObj["untilFilter"].split("T")[0]}
                   onBlur={(event) => {
                     event.target.value = parseDate(event.target.value, true);
                     props.handleFilter(
-                      undefined,
                       undefined,
                       undefined,
                       event.target.value
@@ -96,7 +86,6 @@ const IVABrowserFilter = (props: IVABrowserFilterProps) => {
                   onChange={(event) => {
                     event.target.value = parseDate(event.target.value);
                     props.handleFilter(
-                      undefined,
                       undefined,
                       undefined,
                       event.target.value
@@ -114,13 +103,22 @@ const IVABrowserFilter = (props: IVABrowserFilterProps) => {
                       undefined,
                       undefined,
                       undefined,
-                      undefined,
                       event.target.value
                     );
                   }}
                   defaultValue={""}
                 >
                   <option value="">No filter</option>
+                  {Object.values(IVAStatus)
+                    .filter((x) => isNaN(Number(x)))
+                    .map((x) => (
+                      <option value={x} key={x}>
+                        {x
+                          .toString()
+                          .split(/(?=[A-Z])/)
+                          .join(" ")}
+                      </option>
+                    ))}
                 </Form.Select>
               </Col>
             </Form.Group>

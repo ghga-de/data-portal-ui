@@ -1,13 +1,13 @@
 import { useCallback, useEffect, useState } from "react";
-import { IVA } from "../../../models/ivas";
+import { EmbeddedIVA, IVAStatus } from "../../../models/ivas";
 import { User } from "../../../services/auth";
-import { Col, Row, Table } from "react-bootstrap";
+import { Button, Col, Row, Table } from "react-bootstrap";
 import SortButton, { TableFields } from "../../../utils/sortButton";
 import { transposeTableForHTML } from "../../../utils/utils";
 import IVABrowserListModal from "./ivaBrowserListModal";
 
 interface IVABrowserListProps {
-  ivas: IVA[];
+  ivas: EmbeddedIVA[];
   user: User;
   onUpdate: any;
 }
@@ -22,30 +22,114 @@ const IVABrowserList = (props: IVABrowserListProps) => {
       },
       {
         header: "User",
-        data: props.ivas.map((x) => props.user.full_name || props.user.name),
+        data: props.ivas.map((x) => x.user_name),
       },
       {
         header: "Type",
-        data: props.ivas.map((x) => x.type),
+        data: props.ivas.map((x) =>
+          x.type
+            .toString()
+            .split(/(?=[A-Z])/)
+            .join(" ")
+        ),
       },
       {
         header: "Address",
         data: props.ivas.map((x) => x.value),
       },
       {
-        header: "Last Changed Date",
-        data: props.ivas.map((x) => x.lastChange.split("T")[0]),
+        header: "Last Changed",
+        data: props.ivas.map((x) => x.changed.split("T")[0]),
       },
       {
         header: "Status",
-        data: props.ivas.map((x) => x.status),
+        data: props.ivas.map((x) => (
+          <span
+            className={
+              x.status.toString() === IVAStatus[IVAStatus.Verified]
+                ? "text-success"
+                : x.status.toString() === IVAStatus[IVAStatus.Unverified]
+                ? "text-secondary"
+                : x.status.toString() === IVAStatus[IVAStatus.CodeTransmitted]
+                ? "text-quaternary"
+                : x.status.toString() === IVAStatus[IVAStatus.CodeCreated] ||
+                  x.status.toString() === IVAStatus[IVAStatus.CodeRequested]
+                ? "text-warning"
+                : ""
+            }
+          >
+            {x.status
+              .toString()
+              .split(/(?=[A-Z])/)
+              .join(" ")}
+          </span>
+        )),
       },
       {
         header: "Actions",
-        data: props.ivas.map((x) => ""),
+        data: props.ivas.map((x) => {
+          if (x.status.toString() === IVAStatus[IVAStatus.CodeRequested]) {
+            return (
+              <>
+                <Button
+                  key={x.id + "_invalidate_button"}
+                  className="py-0 text-white"
+                  variant="danger"
+                >
+                  Invalidate
+                </Button>
+                <Button
+                  key={x.id + "_create_code_button"}
+                  className="py-0 text-white ms-1"
+                  variant="quaternary"
+                >
+                  Create code
+                </Button>
+              </>
+            );
+          }
+          if (x.status.toString() === IVAStatus[IVAStatus.CodeCreated]) {
+            return (
+              <>
+                <Button
+                  key={x.id + "_invalidate_button"}
+                  className="py-0 text-white"
+                  variant="danger"
+                >
+                  Invalidate
+                </Button>
+                <Button
+                  key={x.id + "_confirm_transmission_button"}
+                  className="py-0 text-white ms-1"
+                  variant="quaternary"
+                >
+                  Confirm transmission
+                </Button>
+                <Button
+                  key={x.id + "_recreate_code_button"}
+                  className="py-0 text-white ms-1"
+                  variant="quaternary"
+                >
+                  Recreate code
+                </Button>
+              </>
+            );
+          }
+          if (x.status.toString() !== IVAStatus[IVAStatus.Unverified]) {
+            return (
+              <Button
+                key={x.id + "_invalidate_button"}
+                className="py-0 text-white"
+                variant="danger"
+              >
+                Invalidate
+              </Button>
+            );
+          }
+        }),
       },
     ];
-  }, [props.ivas, props.user.full_name, props.user.name]);
+  }, [props.ivas]);
 
   const [innerTable, setInnerTable] = useState<TableFields[]>(
     buildInnerTable()
@@ -94,12 +178,12 @@ const IVABrowserList = (props: IVABrowserListProps) => {
     setShowModal(false);
     setSelectedIVA(undefined);
   };
-  const handleShowModal = (accessRequest: IVA) => {
+  const handleShowModal = (accessRequest: EmbeddedIVA) => {
     setSelectedIVA(accessRequest);
     setShowModal(true);
   };
 
-  const [selectedIVA, setSelectedIVA] = useState<IVA | undefined>();
+  const [selectedIVA, setSelectedIVA] = useState<EmbeddedIVA | undefined>();
 
   return (
     <div>
@@ -120,8 +204,7 @@ const IVABrowserList = (props: IVABrowserListProps) => {
                 return (
                   <th
                     className={
-                      y.cssClasses +
-                      " align-middle bg-secondary text-white lh-1"
+                      y.cssClasses + " align-middle bg-quinary text-white lh-1"
                     }
                     key={"table_th_" + idy}
                     style={{ position: "sticky", top: "0px" }}
@@ -146,27 +229,7 @@ const IVABrowserList = (props: IVABrowserListProps) => {
         <tbody>
           {sortedData.map((y: any, idy: number) => {
             return (
-              <tr
-                role="button"
-                title={"View access request"}
-                key={"row_" + idy}
-                className={
-                  y.find((x: any) => x === "allowed")
-                    ? "text-success"
-                    : y.find((x: any) => x === "denied")
-                    ? "text-danger"
-                    : ""
-                }
-                onClick={() =>
-                  handleShowModal(
-                    props.ivas.filter(
-                      (x) =>
-                        x.id ===
-                        y[innerTable.findIndex((x) => x.header === "ID")]
-                    )[0]
-                  )
-                }
-              >
+              <tr key={"row_" + idy}>
                 {y.map((z: any, idz: any) => {
                   if (idz !== 0) {
                     return (

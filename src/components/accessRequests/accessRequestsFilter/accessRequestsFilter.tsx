@@ -81,7 +81,6 @@ const AccessRequestsFilter = (props: AccessRequestsFilterProps) => {
                   type="date"
                   min={FILTER_MIN_ISO.split("T")[0]}
                   max={new Date().toISOString().split("T")[0]}
-                  value={props.filterObj["fromFilter"].split("T")[0]}
                   onBlur={(event) => {
                     event.target.value = parseDate(event.target.value, true);
                     props.handleFilter(
@@ -110,7 +109,6 @@ const AccessRequestsFilter = (props: AccessRequestsFilterProps) => {
                   type="date"
                   min={FILTER_MIN_ISO.split("T")[0]}
                   max={FILTER_MAX_ISO.split("T")[0]}
-                  value={props.filterObj["untilFilter"].split("T")[0]}
                   onBlur={(event) => {
                     event.target.value = parseDate(event.target.value, true);
                     props.handleFilter(

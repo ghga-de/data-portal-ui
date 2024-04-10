@@ -6,7 +6,8 @@ import {
   metadataSummary,
   workPackageToken,
   searchResults,
-  IVAs,
+  userIVAs,
+  allIVAs,
 } from "./data";
 
 // Responses to be returned for various endpoints.
@@ -21,16 +22,19 @@ export const responses = {
   // Change context information
   "PUT /api/auth/users/j.doe@ghga.de": 204,
 
-  "POST /api/auth/totp-token": {uri: "otpauth://totp/GHGA:John%20Doe?secret=TESTTOTPTOKEN&issuer=GHGA"},
+  "POST /api/auth/totp-token": { uri: "otpauth://totp/GHGA:John%20Doe?secret=TESTTOTPTOKEN&issuer=GHGA" },
 
   // Datasets requested by j.doe@ghga.de user
   "GET /api/wps/users/j.doe@ghga.de/datasets": datasets,
 
   // User IVAs
-  "GET /api/wps/users/:user_id/ivas": IVAs,
+  "GET /api/wps/users/:user_id/ivas": userIVAs,
 
   // New IVA
   "POST /api/wps/users/:user_id/ivas": "TEST1234566789",
+
+  // Get all IVAs
+  "GET /api/wps/ivas": allIVAs,
 
   // Work packages
   // example key for input: MTIzNDU2Nzg5MDEyMzQ1Njc4OTAxMjM0NTY3ODkwMTI

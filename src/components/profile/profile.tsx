@@ -137,8 +137,7 @@ const Profile = () => {
     const response = await fetchJson(url, method).catch(() => null);
     if (response && response.status === ok) {
       setShowRequestVerificationModal(true);
-      userIVAs.find((x) => idIVA === x.id)!.status =
-        IVAStatus.VerificationRequested;
+      userIVAs.find((x) => idIVA === x.id)!.status = IVAStatus.CodeRequested;
     } else {
       showMessage({
         type: "error",

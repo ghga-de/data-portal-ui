@@ -17,7 +17,7 @@ import { Button, Form, Modal } from "react-bootstrap";
 import { ARS_URL, fetchJson } from "../../../utils/utils";
 import { showMessage } from "../../messages/usage";
 import { useState } from "react";
-import { IVA, IVAType } from "../../../models/ivas";
+import { IVA } from "../../../models/ivas";
 import { User } from "../../../services/auth";
 
 interface AccessRequestModalProps {

@@ -124,8 +124,10 @@ const AccessRequests = () => {
       x.full_user_name
         .toLowerCase()
         .includes(filterObj["userFilter"].toLowerCase()) &&
-      Date.parse(x.request_created) > Date.parse(filterObj["fromFilter"]) &&
-      Date.parse(x.request_created) < Date.parse(filterObj["untilFilter"]) &&
+      (filterObj["fromFilter"] === "" ||
+        Date.parse(x.request_created) > Date.parse(filterObj["fromFilter"])) &&
+      (filterObj["untilFilter"] === "" ||
+        Date.parse(x.request_created) < Date.parse(filterObj["untilFilter"])) &&
       x.status.toLowerCase().includes(filterObj["statusFilter"].toLowerCase())
   );
 
