@@ -1,56 +1,56 @@
 import { http, HttpResponse } from "msw";
 import { responses } from "./responses";
-import { setOidcUser, getLoginHeaders, getReregistrationHeaders } from "./login";
-import { CLIENT_URL, OIDC_CONFIG_URL } from "../utils/utils";
+import { setOidcUser, getLoginHeaders } from "./login";
+import { AUTH_URL, CLIENT_URL, OIDC_CONFIG_URL } from "../utils/utils";
 
 const fakeAuth = !!CLIENT_URL.href.match(/127\.|local/);
+
+const LOGIN_URL = new URL("rpc/login", AUTH_URL);
+const VERIFY_TOTP_URL = new URL("rpc/verify-totp", AUTH_URL)
+const VALIDATE_CODE_URL = new URL("rpc/ivas/:iva/validate-code", AUTH_URL);
 
 // this module converts the responses with static fake data to response handlers
 
 // handlers for REST endpoints
 export const handlers = [
-  // intercept OIDC configuration request and redirect to profile page
+  // intercept OIDC configuration request and redirect authorization to profile page
   http.get(OIDC_CONFIG_URL.href, () => {
     if (fakeAuth) {
       setOidcUser();
-      return HttpResponse.json({
-        authorization_endpoint: CLIENT_URL.href + "profile",
-      }, { status: 200 });
+      setTimeout(() => window.location.href=CLIENT_URL.href + "profile", 500);
+      return HttpResponse.json(
+        {
+          authorization_endpoint: CLIENT_URL.href,
+        },
+        { status: 200 }
+      );
     }
   }),
   // intercept login request and return session header
-  http.post("/api/auth/rpc/login", () => {
+  http.post(LOGIN_URL.href, () => {
     const headers = getLoginHeaders();
-    return HttpResponse.json(undefined, headers ? { status: 204, headers } : { status: 401 });
+    return HttpResponse.json(
+      undefined,
+      headers ? { status: 204, headers } : { status: 401 }
+    );
   }),
-  // intercept reregistration request and return session header
-  http.put("/api/auth/users/:user_id", () => {
-    const headers = getReregistrationHeaders();
-    return HttpResponse.json(undefined, headers ? { status: 204, headers } : { status: 401 });
-  }),
-  // intercept totp token request and return header
-  http.post("/api/auth/totp-token", () => {
-    return HttpResponse.json({ text: "123456789ABCDEFGHI" }, { status: 201 });
-  }),
-  // intercept totp token request and return header
-  http.post("/api/auth/rpc/verify-totp", async ({ request }) => {
+  // intercept TOTP token request and return header
+  http.post(VERIFY_TOTP_URL.href, async ({ request }) => {
     const data = await request.json();
     const token = data["token"];
-    return HttpResponse.json(undefined, token === "123456" ? { status: 204 } : { status: 401 });
-  }),
-  // intercept IVA deletion request
-  http.delete("/api/wps/users/:id/ivas/:iva", () => {
-    return HttpResponse.json(undefined, { status: 204 });
-  }),
-  // intercept IVA verification request and return header
-  http.post("/api/auth/rpc/ivas/:iva/request-code", () => {
-    return HttpResponse.json(undefined, { status: 200 });
+    return HttpResponse.json(
+      undefined,
+      token === "123456" ? { status: 204 } : { status: 401 }
+    );
   }),
   // intercept IVA confirmation request and return header
-  http.post("/api/auth/rpc/ivas/:iva/validate-code", async ({ request }) => {
+  http.post(VALIDATE_CODE_URL.href, async ({ request }) => {
     const data = await request.json();
     const code = data["verification_code"];
-    return HttpResponse.json(undefined, code === "123456" ? { status: 204 } : { status: 403 });
+    return HttpResponse.json(
+      undefined,
+      code === "123456" ? { status: 204 } : { status: 401 }
+    );
   }),
 ];
 
@@ -61,7 +61,7 @@ Object.keys(responses).forEach((endpoint) => {
   let method, url, params;
   [method, url] = endpoint.split(" ");
   method = method.toLowerCase();
-  if (!["get", "post", "patch"].includes(method)) {
+  if (!/^(get|post|patch|put)$/.test(method)) {
     console.error("Invalid endpoint in fake data:", endpoint);
     return;
   }
@@ -83,10 +83,11 @@ async function getMatchingParamString(request, responseMap) {
   // combine parameters from query string and body
   const requestParams = new URL(request.url).searchParams;
   const method = request.method.toLowerCase();
-  if (method === "post" || method === "patch") {
+  if (/post|path|put/.test(method)) {
     const bodyParams = await request.json();
-    Object.entries(bodyParams).forEach(
-      (key, value) => requestParams.set(key, value));
+    Object.entries(bodyParams).forEach((key, value) =>
+      requestParams.set(key, value)
+    );
   }
   // find the response with the most matching parameters
   let bestParamString = null;
@@ -131,7 +132,7 @@ Object.keys(groupedResponses).forEach((endpoint) => {
     if (typeof response === "number") {
       status = response;
       response = undefined;
-    } else if (method === "post" || method === "patch") {
+    } else if (/post|path|put/.test(method)) {
       status = response ? 201 : 204;
     }
     return HttpResponse.json(response || undefined, { status });

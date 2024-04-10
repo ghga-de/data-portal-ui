@@ -9,11 +9,12 @@ import {
   Card,
 } from "react-bootstrap";
 import { useNavigate, NavLink } from "react-router-dom";
-import { useMessages } from "../messages/usage";
-import { getIVAs, useAuth } from "../../services/auth";
 import { AUTH_URL, WPS_URL, fetchJson } from "../../utils/utils";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleXmark, faPlus } from "@fortawesome/free-solid-svg-icons";
+import { useMessages } from "../messages/usage";
+import { useAuth } from "../../services/auth";
+import { getIVAs } from "../../services/ivas";
 import { IVA, IVAStatus, IVAType } from "../../models/ivas";
 import NewIVAModal from "./newIVAsModal/newIVAModal";
 import ConfirmVerificationModal from "./verificationModals/confirmVerificationModal";
@@ -174,7 +175,7 @@ const Profile = () => {
             type: "error",
             title: "Cannot retrieve your datasets.",
           });
-          console.log(error);
+          console.error(error);
         }
       }
     }
