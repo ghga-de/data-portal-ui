@@ -175,13 +175,6 @@ const AccessRequestsList = (props: AccessRequestListProps) => {
                 role="button"
                 title={"View access request"}
                 key={"row_" + idy}
-                className={
-                  y.find((x: any) => x === "allowed")
-                    ? "text-success"
-                    : y.find((x: any) => x === "denied")
-                    ? "text-danger"
-                    : ""
-                }
                 onClick={() =>
                   handleShowModal(
                     props.requests.filter(
@@ -196,7 +189,14 @@ const AccessRequestsList = (props: AccessRequestListProps) => {
                   if (idz !== 0) {
                     return (
                       <td
-                        className={innerTable[idz].cssClasses}
+                        className={
+                          innerTable[idz].cssClasses +
+                          y.find((x: any) => x === "allowed")
+                            ? "text-success"
+                            : y.find((x: any) => x === "denied")
+                            ? "text-danger"
+                            : ""
+                        }
                         key={"cell_" + idz + "_row_" + idy}
                       >
                         {z}

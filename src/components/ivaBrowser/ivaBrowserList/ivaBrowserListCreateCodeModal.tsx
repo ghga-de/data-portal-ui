@@ -13,21 +13,17 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import { Button, Form, Modal } from "react-bootstrap";
-import { ARS_URL, fetchJson } from "../../../utils/utils";
+import { Button, Form, Modal, OverlayTrigger, Tooltip } from "react-bootstrap";
+import { WPS_URL, fetchJson } from "../../../utils/utils";
 import { showMessage } from "../../messages/usage";
-import { useState } from "react";
-import { EmbeddedIVA } from "../../../models/ivas";
+import { useEffect, useState } from "react";
+import { EmbeddedIVA, IVAStatus } from "../../../models/ivas";
 
 interface IVABrowserListCreateCodeModalProps {
   show: boolean;
   setShow: React.Dispatch<React.SetStateAction<boolean>>;
-  handleClose: any;
-  handleShow: any;
   selectedIVA: EmbeddedIVA | undefined;
   setSelectedIVA: any;
-  ConfirmTransmissionModal: any;
-  showConfirmTransmissionModal: boolean;
   setShowConfirmTransmissionModal: any;
   onUpdate: any;
 }
@@ -37,38 +33,46 @@ const IVABrowserListCreateCodeModal = (
   props: IVABrowserListCreateCodeModalProps
 ) => {
   const [disabledButtons, setDisabledButtons] = useState(false);
+  const [code, setCode] = useState("");
 
-  async function handleButtonConfirm() {
-    if (props.selectedIVA === undefined) {
-      return null;
+  useEffect(() => {
+    async function fetchData() {
+      if (props.selectedIVA !== undefined) {
+        setDisabledButtons(true);
+        const url = new URL(
+          `rpc/ivas/${props.selectedIVA?.id}/create-code`,
+          WPS_URL
+        );
+        let method = "POST",
+          ok = 201;
+        try {
+          const response = await fetchJson(url, method, {});
+          if (response && response.status === ok) {
+            const code = await response.json();
+            setCode(code);
+            props.selectedIVA.status = IVAStatus.CodeCreated;
+            props.onUpdate();
+            setDisabledButtons(false);
+          } else throw new Error("POST failed: " + response.text);
+        } catch (error) {
+          console.log(error);
+          showMessage({
+            type: "error",
+            title: "Could not obtain verification code.",
+          });
+        }
+      }
     }
-    setDisabledButtons(true);
-    const url = new URL(`access-requests/${props.selectedIVA?.id}`, ARS_URL);
-    try {
-      const response = await fetchJson(url, "PATCH");
-      if (response.ok) {
-        showMessage({
-          type: "success",
-          title: "IVA status changed",
-        });
-        props.onUpdate();
-      } else throw new Error("PATCH failed: " + response.text);
-    } catch (error) {
-      console.log(error);
-      setDisabledButtons(false);
-      showMessage({
-        type: "error",
-        title: "Could not change status of request.",
-      });
-    }
-  }
+    fetchData();
+  }, [props.selectedIVA]);
 
   return (
     <>
       <Modal
         show={props.show}
         onHide={() => {
-          props.handleClose();
+          props.setShow(false);
+          props.setSelectedIVA(undefined);
         }}
       >
         <Modal.Header closeButton>
@@ -100,13 +104,29 @@ const IVABrowserListCreateCodeModal = (
               <label htmlFor="verification_code">
                 Verification code:&nbsp;
               </label>
-              <input type="text" name="verification_code" />
+              <OverlayTrigger
+                placement="top"
+                delay={{ show: 250, hide: 400 }}
+                overlay={<Tooltip>Code copied to clipboard</Tooltip>}
+                trigger={"click"}
+                rootClose={true}
+              >
+                <input
+                  type="text"
+                  readOnly
+                  value={code}
+                  className="text-center"
+                  onClick={() => {
+                    navigator.clipboard.writeText(code);
+                  }}
+                />
+              </OverlayTrigger>
             </div>
-            <div className="text-end">
+            <div>
               <Button
                 disabled={disabledButtons}
                 type="submit"
-                variant="quinary"
+                variant="quaternary"
               >
                 Confirm transmission
               </Button>
@@ -118,13 +138,12 @@ const IVABrowserListCreateCodeModal = (
                   props.setSelectedIVA(undefined);
                 }}
               >
-                Send later
+                Close and send later
               </Button>
             </div>
           </Form>
         </Modal.Body>
       </Modal>
-      <props.ConfirmTransmissionModal />
     </>
   );
 };

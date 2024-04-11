@@ -61,7 +61,6 @@ const IVABrowser = () => {
   }
 
   function onUpdate() {
-    console.log("update");
     if (filteredIVAs) {
       filteredIVAs = [...filteredIVAs];
     }

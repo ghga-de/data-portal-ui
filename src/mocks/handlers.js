@@ -17,7 +17,7 @@ export const handlers = [
   http.get(OIDC_CONFIG_URL.href, () => {
     if (fakeAuth) {
       setOidcUser();
-      setTimeout(() => window.location.href=CLIENT_URL.href + "profile", 500);
+      setTimeout(() => window.location.href = CLIENT_URL.href + "profile", 500);
       return HttpResponse.json(
         {
           authorization_endpoint: CLIENT_URL.href,
@@ -61,7 +61,7 @@ Object.keys(responses).forEach((endpoint) => {
   let method, url, params;
   [method, url] = endpoint.split(" ");
   method = method.toLowerCase();
-  if (!/^(get|post|patch|put)$/.test(method)) {
+  if (!/^(get|post|patch|put|delete)$/.test(method)) {
     console.error("Invalid endpoint in fake data:", endpoint);
     return;
   }
@@ -132,7 +132,7 @@ Object.keys(groupedResponses).forEach((endpoint) => {
     if (typeof response === "number") {
       status = response;
       response = undefined;
-    } else if (/post|path|put/.test(method)) {
+    } else if (/post|path|put|delete/.test(method)) {
       status = response ? 201 : 204;
     }
     return HttpResponse.json(response || undefined, { status });

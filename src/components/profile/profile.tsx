@@ -130,11 +130,11 @@ const Profile = () => {
     setShowRequestVerificationModal(false);
     setShowDeletionConfirmationModal(false);
     setShowConfirmVerificationModal(false);
-    let url = AUTH_URL;
+    let url = WPS_URL;
     url = new URL(`rpc/ivas/${idIVA}/request-code`, url);
     let method: string = "POST",
-      ok: number = 200;
-    const response = await fetchJson(url, method).catch(() => null);
+      ok: number = 204;
+    const response = await fetchJson(url, method, {}).catch(() => null);
     if (response && response.status === ok) {
       setShowRequestVerificationModal(true);
       userIVAs.find((x) => idIVA === x.id)!.status = IVAStatus.CodeRequested;

@@ -15,17 +15,17 @@
 //
 
 export enum IVAStatus {
-  Unverified,
-  CodeRequested,
-  CodeCreated,
-  CodeTransmitted,
-  Verified,
+  Unverified = "Unverified",
+  CodeRequested = "CodeRequested",
+  CodeCreated = "CodeCreated",
+  CodeTransmitted = "CodeTransmitted",
+  Verified = "Verified",
 }
 export enum IVAType {
-  Phone,
-  Fax,
-  PostalAddress,
-  InPerson,
+  Phone = "Phone",
+  Fax = "Fax",
+  PostalAddress = "PostalAddress",
+  InPerson = "InPerson",
 }
 export interface IVA {
   id: string;

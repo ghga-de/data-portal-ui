@@ -1,10 +1,12 @@
 import { useCallback, useEffect, useState } from "react";
 import { EmbeddedIVA, IVAStatus } from "../../../models/ivas";
 import { User } from "../../../services/auth";
-import { Button, Col, Modal, Row, Table } from "react-bootstrap";
+import { Button, Col, Row, Table } from "react-bootstrap";
 import SortButton, { TableFields } from "../../../utils/sortButton";
 import { transposeTableForHTML } from "../../../utils/utils";
-import IVABrowserListCreateCodeModal from "./IVABrowserListCreateCodeModal";
+import IVABrowserListCreateCodeModal from "./ivaBrowserListCreateCodeModal";
+import IVABrowserListConfirmInvalidateModal from "./ivaBrowserListConfirmInvalidateModal";
+import IVABrowserListConfirmTransmissionModal from "./ivaBrowserListConfirmTransmissionModal";
 
 interface IVABrowserListProps {
   ivas: EmbeddedIVA[];
@@ -13,93 +15,13 @@ interface IVABrowserListProps {
 }
 
 const IVABrowserList = (props: IVABrowserListProps) => {
-  const ConfirmInvalidateModal = () => {
-    return (
-      <Modal
-        show={showConfirmInvalidateModal}
-        onHide={() => {
-          setShowConfirmInvalidateModal(false);
-          setSelectedIVA(undefined);
-        }}
-      >
-        <Modal.Header closeButton>
-          <Modal.Title>Confirm invalidation of IVA</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <p>
-            Do you really wish to invalidate the{" "}
-            <em>
-              {selectedIVA?.type
-                .toString()
-                .split(/(?=[A-Z])/)
-                .join(" ")}
-            </em>{" "}
-            IVA for user <em>{selectedIVA?.user_name}</em> with address{" "}
-            <em>{selectedIVA?.value}</em>?
-          </p>
-          <div>
-            <Button variant="danger">Invalidate</Button>
-            <Button
-              variant="gray"
-              className="ms-2 text-white"
-              onClick={() => {
-                setShowConfirmInvalidateModal(false);
-                setSelectedIVA(undefined);
-              }}
-            >
-              Cancel
-            </Button>
-          </div>
-        </Modal.Body>
-      </Modal>
-    );
-  };
   const [showConfirmInvalidateModal, setShowConfirmInvalidateModal] =
     useState(false);
 
-  const ConfirmTransmissionModal = () => {
-    return (
-      <Modal
-        show={showConfirmTransmissionModal}
-        onHide={() => {
-          setShowConfirmTransmissionModal(false);
-          setSelectedIVA(undefined);
-        }}
-      >
-        <Modal.Header closeButton>
-          <Modal.Title>Confirm code transmission</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <p>
-            Please confirm the transmission of the verification code for the{" "}
-            <em>
-              {selectedIVA?.type
-                .toString()
-                .split(/(?=[A-Z])/)
-                .join(" ")}
-            </em>{" "}
-            IVA for user <em>{selectedIVA?.user_name}</em> with address{" "}
-            <em>{selectedIVA?.value}</em>.
-          </p>
-          <div>
-            <Button variant="quaternary">Confirm</Button>
-            <Button
-              variant="gray"
-              className="ms-2 text-white"
-              onClick={() => {
-                setShowConfirmTransmissionModal(false);
-                setSelectedIVA(undefined);
-              }}
-            >
-              Cancel
-            </Button>
-          </div>
-        </Modal.Body>
-      </Modal>
-    );
-  };
   const [showConfirmTransmissionModal, setShowConfirmTransmissionModal] =
     useState(false);
+
+  const [showCreateCodeModal, setShowCreateCodeModal] = useState(false);
 
   const InvalidateButton = (InvalidateButtonProps: { x: EmbeddedIVA }) => {
     return (
@@ -122,8 +44,7 @@ const IVABrowserList = (props: IVABrowserListProps) => {
       <Button
         key={`${CreateCodeButtonProps.x.id}_
             ${
-              CreateCodeButtonProps.x.status.toString() ===
-              IVAStatus[IVAStatus.CodeCreated]
+              CreateCodeButtonProps.x.status === IVAStatus.CodeCreated
                 ? "re"
                 : ""
             }create_code_button`}
@@ -131,13 +52,10 @@ const IVABrowserList = (props: IVABrowserListProps) => {
         variant="quaternary"
         onClick={() => {
           setSelectedIVA(CreateCodeButtonProps.x);
-          setCreateCodeModal(true);
+          setShowCreateCodeModal(true);
         }}
       >
-        {CreateCodeButtonProps.x.status.toString() ===
-        IVAStatus[IVAStatus.CodeCreated]
-          ? "Rec"
-          : "C"}
+        {CreateCodeButtonProps.x.status === IVAStatus.CodeCreated ? "Rec" : "C"}
         reate code
       </Button>
     );
@@ -176,14 +94,14 @@ const IVABrowserList = (props: IVABrowserListProps) => {
         data: props.ivas.map((x) => (
           <span
             className={
-              x.status.toString() === IVAStatus[IVAStatus.Verified]
+              x.status === IVAStatus.Verified
                 ? "text-success"
-                : x.status.toString() === IVAStatus[IVAStatus.Unverified]
+                : x.status === IVAStatus.Unverified
                 ? "text-secondary"
-                : x.status.toString() === IVAStatus[IVAStatus.CodeTransmitted]
+                : x.status === IVAStatus.CodeTransmitted
                 ? "text-quaternary"
-                : x.status.toString() === IVAStatus[IVAStatus.CodeCreated] ||
-                  x.status.toString() === IVAStatus[IVAStatus.CodeRequested]
+                : x.status === IVAStatus.CodeCreated ||
+                  x.status === IVAStatus.CodeRequested
                 ? "text-warning"
                 : ""
             }
@@ -198,7 +116,7 @@ const IVABrowserList = (props: IVABrowserListProps) => {
       {
         header: "Actions",
         data: props.ivas.map((x: EmbeddedIVA) => {
-          if (x.status.toString() === IVAStatus[IVAStatus.CodeRequested]) {
+          if (x.status === IVAStatus.CodeRequested) {
             return (
               <>
                 <InvalidateButton x={x} />
@@ -206,7 +124,7 @@ const IVABrowserList = (props: IVABrowserListProps) => {
               </>
             );
           }
-          if (x.status.toString() === IVAStatus[IVAStatus.CodeCreated]) {
+          if (x.status === IVAStatus.CodeCreated) {
             return (
               <>
                 <InvalidateButton x={x} />
@@ -225,7 +143,7 @@ const IVABrowserList = (props: IVABrowserListProps) => {
               </>
             );
           }
-          if (x.status.toString() !== IVAStatus[IVAStatus.Unverified]) {
+          if (x.status !== IVAStatus.Unverified) {
             return <InvalidateButton x={x} />;
           }
           return <></>;
@@ -273,37 +191,38 @@ const IVABrowserList = (props: IVABrowserListProps) => {
       )[innerTable.findIndex((x) => x.header === "Status")] =
         selectedIVA.status;
     }
+    let table: TableFields[] = buildInnerTable();
+    setInnerTable(table);
+    setSortedData(transposeTableForHTML(table.map((x) => x.data)));
   }
-
-  const [showModal, setCreateCodeModal] = useState(false);
-
-  const handleCloseModal = () => {
-    setCreateCodeModal(false);
-    setSelectedIVA(undefined);
-  };
-  const handleShowModal = (accessRequest: EmbeddedIVA) => {
-    setSelectedIVA(accessRequest);
-    setCreateCodeModal(true);
-  };
 
   const [selectedIVA, setSelectedIVA] = useState<EmbeddedIVA | undefined>();
 
   return (
     <div>
       <IVABrowserListCreateCodeModal
-        show={showModal}
-        setShow={setCreateCodeModal}
-        handleClose={handleCloseModal}
-        handleShow={handleShowModal}
+        show={showCreateCodeModal}
+        setShow={setShowCreateCodeModal}
         selectedIVA={selectedIVA}
         setSelectedIVA={setSelectedIVA}
-        ConfirmTransmissionModal={ConfirmTransmissionModal}
-        showConfirmTransmissionModal={showConfirmTransmissionModal}
         setShowConfirmTransmissionModal={setShowConfirmTransmissionModal}
         onUpdate={onUpdate}
       />
-      <ConfirmInvalidateModal />
-      <ConfirmTransmissionModal />
+      <IVABrowserListConfirmInvalidateModal
+        show={showConfirmInvalidateModal}
+        setShow={setShowConfirmInvalidateModal}
+        selectedIVA={selectedIVA}
+        setSelectedIVA={setSelectedIVA}
+        onUpdate={onUpdate}
+      />
+      <IVABrowserListConfirmTransmissionModal
+        show={showConfirmTransmissionModal}
+        setShow={setShowConfirmTransmissionModal}
+        setShowCreateCodeModal={setShowCreateCodeModal}
+        selectedIVA={selectedIVA}
+        setSelectedIVA={setSelectedIVA}
+        onUpdate={onUpdate}
+      />
       <Table className="w-lg-100" style={{ minWidth: "800px" }}>
         <thead className="border-light-3 border-1">
           <tr>

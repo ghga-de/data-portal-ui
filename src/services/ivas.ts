@@ -28,8 +28,8 @@ export const getIVAs = async (userId: string, setUserIVAs: any) => {
     try {
       await response.json().then((x: any[]) => {
         function parseIVAStatusAndType(userIVA: any) {
-          userIVA.status = IVAStatus[userIVA.status] as unknown as IVAStatus;
-          userIVA.type = IVAType[userIVA.type] as unknown as IVAType;
+          userIVA.status = userIVA.status as unknown as IVAStatus;
+          userIVA.type = userIVA.type as unknown as IVAType;
         }
         let IVAs: IVA[] = x;
         IVAs.forEach(parseIVAStatusAndType);

@@ -57,6 +57,7 @@ const AccessRequestModal = (props: AccessRequestModalProps) => {
         props.accessRequest.changed_by = props.userId;
         props.accessRequest.iva_id = selectedIVA;
         props.onUpdate();
+        setDisabledButtons(false);
       } else throw new Error("PATCH failed: " + response.text);
     } catch (error) {
       console.error(error);
