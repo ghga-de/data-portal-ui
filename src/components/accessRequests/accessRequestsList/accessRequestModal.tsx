@@ -18,7 +18,13 @@ import { ARS_URL, fetchJson } from "../../../utils/utils";
 import { showMessage } from "../../messages/usage";
 import { AccessRequest } from "../../../models/submissionsAndRequests";
 import { useState } from "react";
-import { IVA, IVAStatus, IVAType } from "../../../models/ivas";
+import {
+  IVA,
+  IVAStatus,
+  IVAStatusPrintable,
+  IVAType,
+  IVATypePrintable,
+} from "../../../models/ivas";
 
 interface AccessRequestModalProps {
   show: boolean;
@@ -57,6 +63,7 @@ const AccessRequestModal = (props: AccessRequestModalProps) => {
         props.accessRequest.changed_by = props.userId;
         props.accessRequest.iva_id = selectedIVA;
         props.onUpdate();
+        setDisabledButtons(false);
       } else throw new Error("PATCH failed: " + response.text);
     } catch (error) {
       console.error(error);
@@ -204,8 +211,7 @@ const AccessRequestModal = (props: AccessRequestModalProps) => {
                                     : ""
                                 }
                               >
-                                {IVAType[x.type].split(/(?=[A-Z])/).join(" ")}:{" "}
-                                {x.value}
+                                {IVATypePrintable[x.type]}: {x.value}
                               </label>
                             </Col>
                             <Col>
@@ -217,9 +223,7 @@ const AccessRequestModal = (props: AccessRequestModalProps) => {
                                     : "text-secondary"
                                 }
                               >
-                                {IVAStatus[x.status]
-                                  .split(/(?=[A-Z])/)
-                                  .join(" ")}
+                                {IVAStatusPrintable[x.status]}
                               </label>
                             </Col>
                           </Row>
@@ -248,7 +252,7 @@ const AccessRequestModal = (props: AccessRequestModalProps) => {
                       : "text-secondary"
                   }
                 >
-                  ({IVAStatus[allowedIVA.status].split(/(?=[A-Z])/).join(" ")})
+                  ({IVAStatusPrintable[allowedIVA.status]})
                 </span>
               </Col>
             </Row>

@@ -15,20 +15,46 @@
 //
 
 export enum IVAStatus {
-  Unverified,
-  VerificationRequested,
-  CodeTransmitted,
-  Verified,
+  Unverified = "Unverified",
+  CodeRequested = "CodeRequested",
+  CodeCreated = "CodeCreated",
+  CodeTransmitted = "CodeTransmitted",
+  Verified = "Verified",
+}
+export enum IVAStatusPrintable {
+  Unverified = "Unverified",
+  CodeRequested = "Code Requested",
+  CodeCreated = "Code Created",
+  CodeTransmitted = "Code Transmitted",
+  Verified = "Verified",
 }
 export enum IVAType {
-  Phone,
-  Fax,
-  PostalAddress,
-  InPerson,
+  Phone = "Phone",
+  Fax = "Fax",
+  PostalAddress = "PostalAddress",
+  InPerson = "InPerson",
+}
+export enum IVATypePrintable {
+  Phone = "Phone",
+  Fax = "Fax",
+  PostalAddress = "Postal Address",
+  InPerson = "In Person",
 }
 export interface IVA {
   id: string;
   type: IVAType;
   value: string;
+  changed: string;
   status: IVAStatus;
+}
+
+export interface EmbeddedIVA {
+  id: string;
+  type: IVAType;
+  value: string;
+  changed: string;
+  status: IVAStatus;
+  user_id: string;
+  user_name: string;
+  user_email: string;
 }

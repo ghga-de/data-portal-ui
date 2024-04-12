@@ -5,27 +5,77 @@ export const user = {
   ext_id: "aacaffeecaffeecaffeecaffeecaffeecaffeeaad@lifescience-ri.eu",
   name: "John Doe",
   title: "Dr.",
-  email: "j.jdoe@home.org"
+  full_name: "Dr. John Doe",
+  email: "j.jdoe@home.org",
+  role: "data_steward"
 };
 
-export const IVAs = [{
+export const userIVAs = [{
   id: "TEST00014000001",
   type: "Phone",
   value: "+441234567890004",
+  changed: "2024-02-01T00:00:00",
   status: "Verified"
 },
 {
   id: "TEST00014000002",
   type: "Fax",
   value: "+491234567890000",
+  changed: "2024-03-01T00:00:00",
   status: "Unverified"
 },
 {
   id: "TEST00014000003",
   type: "PostalAddress",
   value: "Wilhelmstr. 123",
+  changed: "2024-04-01T00:00:00",
   status: "CodeTransmitted"
 }]
+
+export const allIVAs = [
+  {
+    id: "TEST00014000000",
+    type: "InPerson",
+    value: "Hauptstr. 321",
+    changed: "2024-01-01T00:00:00",
+    status: "CodeRequested",
+    user_name: "Prof. Jean Doe",
+    user_email: "j2.jdoe@home.org"
+  }, {
+    id: "TEST00014000001",
+    type: "Phone",
+    value: "+441234567890004",
+    changed: "2024-02-01T00:00:00",
+    status: "Verified",
+    user_name: "Dr. John Doe",
+    user_email: "j.jdoe@home.org"
+  },
+  {
+    id: "TEST00014000002",
+    type: "Fax",
+    value: "+491234567890000",
+    changed: "2024-03-01T00:00:00",
+    status: "Unverified",
+    user_name: "Dr. John Doe",
+    user_email: "j.jdoe@home.org"
+  },
+  {
+    id: "TEST00014000003",
+    type: "PostalAddress",
+    value: "Wilhelmstr. 123",
+    changed: "2024-04-01T00:00:00",
+    status: "CodeTransmitted",
+    user_name: "Dr. John Doe",
+    user_email: "j.jdoe@home.org"
+  }, {
+    id: "TEST00014000004",
+    type: "InPerson",
+    value: "Mathematikon",
+    changed: "2024-05-01T00:00:00",
+    status: "CodeCreated",
+    user_name: "Prof. Jean Doe",
+    user_email: "j2.jdoe@home.org"
+  }]
 
 export const accessRequests = [
   {
@@ -44,7 +94,7 @@ export const accessRequests = [
   },
 
   {
-    id: "TEST00005000001",
+    id: "TEST00005000002",
     user_id: "j.doe@ghga.de",
     dataset_id: "TEST00002000001",
     full_user_name: "Dr. John Doe",
@@ -60,20 +110,36 @@ export const accessRequests = [
   },
 
   {
-    id: "TEST00006000001",
+    id: "TEST00006000003",
     user_id: "j.doe@ghga.de",
     dataset_id: "TEST00001000001",
     full_user_name: "Dr. John Doe",
     email: "j.jdoe@home.org",
     request_text: "This is a test request for dataset TEST00001000001.",
-    access_starts: "2023-05-52T15:00:00.000Z",
-    access_ends: "2024-05-52T14:59:59.000Z",
+    access_starts: "2023-05-25T15:00:00.000Z",
+    access_ends: "2024-05-25T14:59:59.000Z",
     request_created: "2023-05-18T12:04:03.000Z",
     status: "denied",
     status_changed: "2023-05-19T12:04:02.000Z",
     changed_by: "j.doe@ghga.de",
   },
-];
+
+
+
+  {
+    id: "TEST00006000004",
+    user_id: "j.doe@ghga.de",
+    dataset_id: "TEST00001000001",
+    full_user_name: "Dr. John Doe",
+    email: "j.jdoe@home.org",
+    request_text: "This is a test request for dataset TEST00001000001.",
+    access_starts: "2023-05-25T15:00:00.000Z",
+    access_ends: "2024-05-25T14:59:59.000Z",
+    request_created: "2023-05-18T12:04:03.000Z",
+    status: "pending",
+    status_changed: "2023-05-19T12:04:02.000Z",
+    changed_by: "j.doe@ghga.de",
+  }]
 
 export const datasets = [
   {

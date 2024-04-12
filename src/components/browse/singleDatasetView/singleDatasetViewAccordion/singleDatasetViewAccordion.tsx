@@ -52,42 +52,47 @@ const SingleDatasetViewAccordion = (props: SingleDatasetViewAccordionProps) => {
             >
               <thead className="border-light-3 border-1 bg-white">
                 <tr>
-                  {x.table.map((y: any, idy: number) => (
+                  {x.table.map((row: any, rowIdx: number) => (
                     <th
                       className={
-                        y.className + " align-middle bg-white pt-3 lh-1"
+                        row.className + " align-middle bg-white pt-3 lh-1"
                       }
-                      key={"table_sdsv_th_" + idy}
+                      key={"table_sdsv_th_" + rowIdx}
                       style={{ position: "sticky", top: "0px" }}
                     >
                       <Row className="flex-nowrap align-items-center">
                         <Col xs={"auto"} className="pe-0 ps-2">
                           <SortButton
                             tableDefinition={x}
-                            index={idy}
+                            index={rowIdx}
                             buttonVariant="outline-secondary"
                           />
                         </Col>
-                        <Col className="ps-0">{y.header}</Col>
+                        <Col className="ps-0">{row.header}</Col>
                       </Row>
                     </th>
                   ))}
                 </tr>
               </thead>
               <tbody>
-                {x.sortedData.map((y: any, idy: number) => (
-                  <tr key={"row_" + idy + "_table_sdsv_" + idx}>
-                    {y.map((z: any, idz: any) => (
+                {x.sortedData.map((row: any, rowIdx: number) => (
+                  <tr key={"row_" + rowIdx + "_table_sdsv_" + idx}>
+                    {row.map((cell: any, cell_idx: any) => (
                       <td
-                        className={x.table[idz]?.cssClasses}
+                        className={x.table[cell_idx]?.cssClasses}
                         key={
-                          "cell_" + idz + "_row_" + idy + "_table_sdsv_" + idx
+                          "cell_" +
+                          cell_idx +
+                          "_row_" +
+                          rowIdx +
+                          "_table_sdsv_" +
+                          idx
                         }
                       >
-                        {typeof z === "number" &&
+                        {typeof cell === "number" &&
                         x.buttonText.includes("File Summary")
-                          ? parseBytes(z)
-                          : z}
+                          ? parseBytes(cell)
+                          : cell}
                       </td>
                     ))}
                   </tr>

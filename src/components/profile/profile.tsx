@@ -15,7 +15,12 @@ import { faCircleXmark, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { useMessages } from "../messages/usage";
 import { useAuth } from "../../services/auth";
 import { getIVAs } from "../../services/ivas";
-import { IVA, IVAStatus, IVAType } from "../../models/ivas";
+import {
+  IVA,
+  IVAStatus,
+  IVAStatusPrintable,
+  IVATypePrintable,
+} from "../../models/ivas";
 import NewIVAModal from "./newIVAsModal/newIVAModal";
 import ConfirmVerificationModal from "./verificationModals/confirmVerificationModal";
 import RequestVerificationModal from "./verificationModals/requestVerificationModal";
@@ -56,13 +61,11 @@ const Profile = () => {
         </Modal.Header>
         <Modal.Body>
           <p>
-            Confirm deleting the{" "}
+            Confirm deleting the contact address of type{" "}
             <em>
-              {toDeleteIVA
-                ? IVAType[toDeleteIVA.type].split(/(?=[A-Z])/).join(" ") + " "
-                : ""}
+              {toDeleteIVA ? IVATypePrintable[toDeleteIVA.type] + " " : ""}
             </em>
-            contact address <em>{toDeleteIVA?.value}.</em>
+            and value <em>{toDeleteIVA?.value}.</em>
           </p>
           {toDeleteIVA && toDeleteIVA.status === IVAStatus.Verified ? (
             <p>
@@ -101,8 +104,8 @@ const Profile = () => {
   };
 
   const deleteUserIVA = async () => {
-    let url = WPS_URL;
-    url = new URL(`users/${user?.ext_id}/ivas/${toDeleteIVA!.id}`, WPS_URL);
+    let url = AUTH_URL;
+    url = new URL(`users/${user?.ext_id}/ivas/${toDeleteIVA!.id}`, url);
     let method: string = "DELETE",
       ok: number = 204;
     const response = await fetchJson(url, method).catch(() => null);
@@ -133,12 +136,11 @@ const Profile = () => {
     let url = AUTH_URL;
     url = new URL(`rpc/ivas/${idIVA}/request-code`, url);
     let method: string = "POST",
-      ok: number = 200;
+      ok: number = 204;
     const response = await fetchJson(url, method).catch(() => null);
     if (response && response.status === ok) {
       setShowRequestVerificationModal(true);
-      userIVAs.find((x) => idIVA === x.id)!.status =
-        IVAStatus.VerificationRequested;
+      userIVAs.find((x) => idIVA === x.id)!.status = IVAStatus.CodeRequested;
     } else {
       showMessage({
         type: "error",
@@ -239,8 +241,7 @@ const Profile = () => {
                   return (
                     <Row key={x.id + index} className="mb-1">
                       <Col xs={3}>
-                        {IVAType[x.type].split(/(?=[A-Z])/).join(" ")}:{" "}
-                        {x.value}
+                        {IVATypePrintable[x.type]}: {x.value}
                       </Col>
                       <Col
                         xs={2}
@@ -275,7 +276,7 @@ const Profile = () => {
                             Enter verification code
                           </Button>
                         ) : (
-                          IVAStatus[x.status].split(/(?=[A-Z])/).join(" ")
+                          IVAStatusPrintable[x.status]
                         )}
                       </Col>
                       <Col xs={1}>

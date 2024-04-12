@@ -6,7 +6,8 @@ import {
   metadataSummary,
   workPackageToken,
   searchResults,
-  IVAs,
+  userIVAs,
+  allIVAs,
 } from "./data";
 
 // Responses to be returned for various endpoints.
@@ -21,16 +22,46 @@ export const responses = {
   // Change context information
   "PUT /api/auth/users/j.doe@ghga.de": 204,
 
-  "POST /api/auth/totp-token": {uri: "otpauth://totp/GHGA:John%20Doe?secret=TESTTOTPTOKEN&issuer=GHGA"},
+  "POST /api/auth/totp-token": { uri: "otpauth://totp/GHGA:John%20Doe?secret=TESTTOTPTOKEN&issuer=GHGA" },
 
   // Datasets requested by j.doe@ghga.de user
   "GET /api/wps/users/j.doe@ghga.de/datasets": datasets,
 
   // User IVAs
-  "GET /api/wps/users/:user_id/ivas": IVAs,
+  "GET /api/auth/users/:user_id/ivas": userIVAs,
 
   // New IVA
-  "POST /api/wps/users/:user_id/ivas": "TEST1234566789",
+  "POST /api/auth/users/:user_id/ivas": "TEST1234566789",
+
+  // Delete IVA
+  "DELETE /api/auth/users/:user_id/ivas/:iva_id": 204,
+
+  // Request IVA verification
+  "POST /api/auth/rpc/ivas/:iva_id/request-code": 204,
+
+  // Create IVA verification code
+  "POST /api/auth/rpc/ivas/:iva_id/create-code": "TEST1234566789",
+
+  // Request IVA verification
+  "POST /api/auth/rpc/ivas/:iva_id/code-transmitted": 204,
+
+  // Request IVA verification with correct code
+  "POST /api/auth/rpc/ivas/:iva_id/validate-code?verification_code=ABC123": 204,
+
+  // Request IVA verification with others codes
+  "POST /api/auth/rpc/ivas/:iva_id/validate-code": 401,
+
+  // Request TOTP verification with correct code
+  "POST /api/auth/rpc/verify-totp?token=123456": 204,
+
+  // Request TOTP verification with others codes
+  "POST /api/auth/rpc/verify-totp": 401,
+
+  // Get all IVAs
+  "GET /api/auth/ivas": allIVAs,
+
+  // Invalidate an access request
+  "POST /api/auth/rpc/ivas/:iva_id/unverify": 204,
 
   // Work packages
   // example key for input: MTIzNDU2Nzg5MDEyMzQ1Njc4OTAxMjM0NTY3ODkwMTI

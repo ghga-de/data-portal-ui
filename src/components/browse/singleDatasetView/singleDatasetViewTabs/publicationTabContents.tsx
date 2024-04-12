@@ -18,17 +18,17 @@ const PublicationTabContents = (props: PublicationTabContentsProps) => {
   return (
     <Tab.Pane eventKey="2" className="h-100">
       <PerfectScrollbar>
-        {props.details.studies?.map((y) => {
-          if (y.publications?.length > 0) {
-            return y.publications?.map((x) => {
+        {props.details.studies?.map((study) => {
+          if (study.publications?.length > 0) {
+            return study.publications?.map((pub) => {
               num_publications += 1;
               return (
-                <div key={x.accession} className="text-break">
+                <div key={pub.accession} className="text-break">
                   <Row className="flex-row-reverse w-100">
-                    {x.doi !== null ? (
+                    {pub.doi !== null ? (
                       <Col xs={12} sm={"auto"} className="mb-2 mb-sm-0">
                         <Button
-                          href={"https://doi.org/" + x.doi}
+                          href={"https://doi.org/" + pub.doi}
                           target="_blank"
                           variant="white"
                           className="fs-7 py-2 mb-2 text-secondary shadow-md-dark border-secondary"
@@ -65,21 +65,21 @@ const PublicationTabContents = (props: PublicationTabContentsProps) => {
                   </Row>
                   <p>
                     <strong>Title: </strong>
-                    {x.title}
+                    {pub.title}
                   </p>
                   <p>
                     <strong>Author: </strong>
-                    {x.author}
+                    {pub.author}
                     &nbsp;
                     <strong>Journal: </strong>
-                    {x.journal}
+                    {pub.journal}
                     &nbsp;
                     <strong>Year: </strong>
-                    {x.year}
+                    {pub.year}
                   </p>
                   <p>
                     <strong>Abstract: </strong>
-                    {(x.abstract || "").split("\n").map((x, idx) => (
+                    {(pub.abstract || "").split("\n").map((x, idx) => (
                       <span key={"pub_abstract_" + idx}>
                         {x}
                         <br />
@@ -90,7 +90,7 @@ const PublicationTabContents = (props: PublicationTabContentsProps) => {
               );
             });
           } else {
-            return <span key={y.accession}></span>;
+            return <span key={study.accession}></span>;
           }
         })}
         {num_publications === 0 ? (

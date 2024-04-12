@@ -6,8 +6,6 @@ import { AUTH_URL, CLIENT_URL, OIDC_CONFIG_URL } from "../utils/utils";
 const fakeAuth = !!CLIENT_URL.href.match(/127\.|local/);
 
 const LOGIN_URL = new URL("rpc/login", AUTH_URL);
-const VERIFY_TOTP_URL = new URL("rpc/verify-totp", AUTH_URL)
-const VALIDATE_CODE_URL = new URL("rpc/ivas/:iva/validate-code", AUTH_URL);
 
 // this module converts the responses with static fake data to response handlers
 
@@ -17,7 +15,7 @@ export const handlers = [
   http.get(OIDC_CONFIG_URL.href, () => {
     if (fakeAuth) {
       setOidcUser();
-      setTimeout(() => window.location.href=CLIENT_URL.href + "profile", 500);
+      setTimeout(() => window.location.href = CLIENT_URL.href + "profile", 500);
       return HttpResponse.json(
         {
           authorization_endpoint: CLIENT_URL.href,
@@ -34,24 +32,6 @@ export const handlers = [
       headers ? { status: 204, headers } : { status: 401 }
     );
   }),
-  // intercept TOTP token request and return header
-  http.post(VERIFY_TOTP_URL.href, async ({ request }) => {
-    const data = await request.json();
-    const token = data["token"];
-    return HttpResponse.json(
-      undefined,
-      token === "123456" ? { status: 204 } : { status: 401 }
-    );
-  }),
-  // intercept IVA confirmation request and return header
-  http.post(VALIDATE_CODE_URL.href, async ({ request }) => {
-    const data = await request.json();
-    const code = data["verification_code"];
-    return HttpResponse.json(
-      undefined,
-      code === "123456" ? { status: 204 } : { status: 401 }
-    );
-  }),
 ];
 
 const groupedResponses = {};
@@ -61,7 +41,7 @@ Object.keys(responses).forEach((endpoint) => {
   let method, url, params;
   [method, url] = endpoint.split(" ");
   method = method.toLowerCase();
-  if (!/^(get|post|patch|put)$/.test(method)) {
+  if (!/^(get|post|patch|put|delete)$/.test(method)) {
     console.error("Invalid endpoint in fake data:", endpoint);
     return;
   }
@@ -83,11 +63,13 @@ async function getMatchingParamString(request, responseMap) {
   // combine parameters from query string and body
   const requestParams = new URL(request.url).searchParams;
   const method = request.method.toLowerCase();
-  if (/post|path|put/.test(method)) {
-    const bodyParams = await request.json();
-    Object.entries(bodyParams).forEach((key, value) =>
-      requestParams.set(key, value)
-    );
+  if (/post|patch|put|delete/.test(method)) {
+    try {
+      const bodyParams = await request.json();
+      Object.entries(bodyParams).forEach(([key, value]) => {
+        requestParams.set(key, value);
+      })
+    } catch { }
   }
   // find the response with the most matching parameters
   let bestParamString = null;
@@ -132,7 +114,7 @@ Object.keys(groupedResponses).forEach((endpoint) => {
     if (typeof response === "number") {
       status = response;
       response = undefined;
-    } else if (/post|path|put/.test(method)) {
+    } else if (/post|patch|put|delete/.test(method)) {
       status = response ? 201 : 204;
     }
     return HttpResponse.json(response || undefined, { status });

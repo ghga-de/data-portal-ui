@@ -30,6 +30,7 @@ import { useLayoutEffect } from "react";
 import AccessRequests from "./components/accessRequests/accessRequests";
 import Setup2FA from "./components/register/setup2FA/setup2FA";
 import Confirm2FA from "./components/confirm2FA/confirm2FA";
+import IvaManager from "./components/ivaManager/ivaManager";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -54,6 +55,7 @@ const router = createBrowserRouter(
       <Route path="/profile" element={<Profile />} />
       <Route path="/setup-2fa" element={<Setup2FA />} />
       <Route path="/access-requests" element={<AccessRequests />} />
+      <Route path="/ivas" element={<IvaManager />} />
       <Route path="/confirm-2fa" element={<Confirm2FA />} />
       <Route path="*" element={<PageNotFound />} />
     </Route>
