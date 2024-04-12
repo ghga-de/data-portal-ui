@@ -6,8 +6,6 @@ import { AUTH_URL, CLIENT_URL, OIDC_CONFIG_URL } from "../utils/utils";
 const fakeAuth = !!CLIENT_URL.href.match(/127\.|local/);
 
 const LOGIN_URL = new URL("rpc/login", AUTH_URL);
-const VERIFY_TOTP_URL = new URL("rpc/verify-totp", AUTH_URL)
-const VALIDATE_CODE_URL = new URL("rpc/ivas/:iva/validate-code", AUTH_URL);
 
 // this module converts the responses with static fake data to response handlers
 
@@ -32,24 +30,6 @@ export const handlers = [
     return HttpResponse.json(
       undefined,
       headers ? { status: 204, headers } : { status: 401 }
-    );
-  }),
-  // intercept TOTP token request and return header
-  http.post(VERIFY_TOTP_URL.href, async ({ request }) => {
-    const data = await request.json();
-    const token = data["token"];
-    return HttpResponse.json(
-      undefined,
-      token === "123456" ? { status: 204 } : { status: 401 }
-    );
-  }),
-  // intercept IVA confirmation request and return header
-  http.post(VALIDATE_CODE_URL.href, async ({ request }) => {
-    const data = await request.json();
-    const code = data["verification_code"];
-    return HttpResponse.json(
-      undefined,
-      code === "123456" ? { status: 204 } : { status: 401 }
     );
   }),
 ];

@@ -45,6 +45,18 @@ export const responses = {
   // Request IVA verification
   "POST /api/auth/rpc/ivas/:iva_id/code-transmitted": 204,
 
+  // Request IVA verification with correct code
+  "POST /api/auth/rpc/ivas/:iva_id/validate-code?verification_code=ABC123": 204,
+
+  // Request IVA verification with others codes
+  "POST /api/auth/rpc/ivas/:iva_id/validate-code": 401,
+
+  // Request TOTP verification with correct code
+  "POST /api/auth/rpc/verify-totp?token=123456": 204,
+
+  // Request TOTP verification with others codes
+  "POST /api/auth/rpc/verify-totp": 401,
+
   // Get all IVAs
   "GET /api/auth/ivas": allIVAs,
 

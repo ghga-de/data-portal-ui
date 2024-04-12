@@ -35,12 +35,14 @@ const IVABrowserListCreateCodeModal = (
   const [disabledButtons, setDisabledButtons] = useState(false);
   const [code, setCode] = useState("");
 
+  let { selectedIVA, show, onUpdate } = props;
+
   useEffect(() => {
     async function fetchData() {
-      if (props.selectedIVA !== undefined && props.show) {
+      if (selectedIVA !== undefined && show === true) {
         setDisabledButtons(true);
         const url = new URL(
-          `rpc/ivas/${props.selectedIVA?.id}/create-code`,
+          `rpc/ivas/${selectedIVA?.id}/create-code`,
           AUTH_URL
         );
         let method = "POST",
@@ -50,8 +52,8 @@ const IVABrowserListCreateCodeModal = (
           if (response && response.status === ok) {
             const code = await response.json();
             setCode(code);
-            props.selectedIVA.status = IVAStatus.CodeCreated;
-            props.onUpdate();
+            selectedIVA.status = IVAStatus.CodeCreated;
+            onUpdate();
             setDisabledButtons(false);
           } else throw new Error("POST failed: " + response.text);
         } catch (error) {
@@ -64,7 +66,7 @@ const IVABrowserListCreateCodeModal = (
       }
     }
     fetchData();
-  }, [props.selectedIVA, props.show]);
+  }, [selectedIVA, show, onUpdate]);
 
   return (
     <>

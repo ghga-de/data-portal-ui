@@ -19,7 +19,6 @@ import {
   IVA,
   IVAStatus,
   IVAStatusPrintable,
-  IVAType,
   IVATypePrintable,
 } from "../../models/ivas";
 import NewIVAModal from "./newIVAsModal/newIVAModal";
