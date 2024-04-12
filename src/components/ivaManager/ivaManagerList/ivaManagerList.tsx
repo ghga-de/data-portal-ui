@@ -9,17 +9,17 @@ import { User } from "../../../services/auth";
 import { Button, Col, Row, Table } from "react-bootstrap";
 import SortButton, { TableFields } from "../../../utils/sortButton";
 import { transposeTableForHTML } from "../../../utils/utils";
-import IVABrowserListCreateCodeModal from "./ivaBrowserListCreateCodeModal";
-import IVABrowserListConfirmInvalidateModal from "./ivaBrowserListConfirmInvalidateModal";
-import IVABrowserListConfirmTransmissionModal from "./ivaBrowserListConfirmTransmissionModal";
+import IvaManagerListCreateCodeModal from "./ivaManagerListCreateCodeModal";
+import IvaManagerListConfirmInvalidateModal from "./ivaManagerListConfirmInvalidateModal";
+import IvaManagerListConfirmTransmissionModal from "./ivaManagerListConfirmTransmissionModal";
 
-interface IVABrowserListProps {
+interface IvaManagerListProps {
   ivas: EmbeddedIVA[];
   user: User;
   onUpdate: any;
 }
 
-const IVABrowserList = (props: IVABrowserListProps) => {
+const IvaManagerList = (props: IvaManagerListProps) => {
   const [showConfirmInvalidateModal, setShowConfirmInvalidateModal] =
     useState(false);
 
@@ -195,7 +195,7 @@ const IVABrowserList = (props: IVABrowserListProps) => {
 
   return (
     <div>
-      <IVABrowserListCreateCodeModal
+      <IvaManagerListCreateCodeModal
         show={showCreateCodeModal}
         setShow={setShowCreateCodeModal}
         selectedIVA={selectedIVA}
@@ -203,14 +203,14 @@ const IVABrowserList = (props: IVABrowserListProps) => {
         setShowConfirmTransmissionModal={setShowConfirmTransmissionModal}
         onUpdate={onUpdate}
       />
-      <IVABrowserListConfirmInvalidateModal
+      <IvaManagerListConfirmInvalidateModal
         show={showConfirmInvalidateModal}
         setShow={setShowConfirmInvalidateModal}
         selectedIVA={selectedIVA}
         setSelectedIVA={setSelectedIVA}
         onUpdate={onUpdate}
       />
-      <IVABrowserListConfirmTransmissionModal
+      <IvaManagerListConfirmTransmissionModal
         show={showConfirmTransmissionModal}
         setShow={setShowConfirmTransmissionModal}
         setShowCreateCodeModal={setShowCreateCodeModal}
@@ -280,4 +280,4 @@ const IVABrowserList = (props: IVABrowserListProps) => {
   );
 };
 
-export default IVABrowserList;
+export default IvaManagerList;

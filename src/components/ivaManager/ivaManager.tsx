@@ -9,10 +9,10 @@ import {
   AUTH_URL,
   fetchJson,
 } from "../../utils/utils";
-import IVABrowserList from "./ivaBrowserList/ivaBrowserList";
-import IVABrowserFilter from "./ivaBrowserFilter/ivaBrowserFilter";
+import IvaManagerList from "./ivaManagerList/ivaManagerList";
+import IvaManagerFilter from "./ivaManagerFilter/ivaManagerFilter";
 
-const IVABrowser = () => {
+const IvaManager = () => {
   const [ivas, setIVAs] = useState<EmbeddedIVA[] | null | undefined>(undefined);
 
   const { showMessage } = useMessages();
@@ -138,8 +138,8 @@ const IVABrowser = () => {
           <h3 style={{ margin: "1em 0" }}>
             Independent Verification Address Management
           </h3>
-          <IVABrowserFilter handleFilter={handleFilter} filterObj={filterObj} />
-          <IVABrowserList
+          <IvaManagerFilter handleFilter={handleFilter} filterObj={filterObj} />
+          <IvaManagerList
             ivas={filteredIVAs ? filteredIVAs : []}
             user={user}
             onUpdate={onUpdate}
@@ -150,4 +150,4 @@ const IVABrowser = () => {
   );
 };
 
-export default IVABrowser;
+export default IvaManager;

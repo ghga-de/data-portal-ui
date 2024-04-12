@@ -19,7 +19,7 @@ import { showMessage } from "../../messages/usage";
 import { useEffect, useState } from "react";
 import { EmbeddedIVA, IVAStatus, IVATypePrintable } from "../../../models/ivas";
 
-interface IVABrowserListCreateCodeModalProps {
+interface IvaManagerListCreateCodeModalProps {
   show: boolean;
   setShow: React.Dispatch<React.SetStateAction<boolean>>;
   selectedIVA: EmbeddedIVA | undefined;
@@ -29,8 +29,8 @@ interface IVABrowserListCreateCodeModalProps {
 }
 
 //
-const IVABrowserListCreateCodeModal = (
-  props: IVABrowserListCreateCodeModalProps
+const IvaManagerListCreateCodeModal = (
+  props: IvaManagerListCreateCodeModalProps
 ) => {
   const [disabledButtons, setDisabledButtons] = useState(false);
   const [code, setCode] = useState("");
@@ -149,4 +149,4 @@ const IVABrowserListCreateCodeModal = (
   );
 };
 
-export default IVABrowserListCreateCodeModal;
+export default IvaManagerListCreateCodeModal;

@@ -4,7 +4,7 @@ import { useState } from "react";
 import { AUTH_URL, fetchJson } from "../../../utils/utils";
 import { showMessage } from "../../messages/usage";
 
-interface IVABrowserListConfirmTransmissionModalProps {
+interface IvaManagerListConfirmTransmissionModalProps {
   show: boolean;
   setShow: any;
   setShowCreateCodeModal: any;
@@ -13,8 +13,8 @@ interface IVABrowserListConfirmTransmissionModalProps {
   onUpdate: any;
 }
 
-const IVABrowserListConfirmTransmissionModal = (
-  props: IVABrowserListConfirmTransmissionModalProps
+const IvaManagerListConfirmTransmissionModal = (
+  props: IvaManagerListConfirmTransmissionModalProps
 ) => {
   const [disabledButtons, setDisabledButtons] = useState(false);
 
@@ -95,4 +95,4 @@ const IVABrowserListConfirmTransmissionModal = (
   );
 };
 
-export default IVABrowserListConfirmTransmissionModal;
+export default IvaManagerListConfirmTransmissionModal;

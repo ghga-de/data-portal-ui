@@ -4,7 +4,7 @@ import { useState } from "react";
 import { AUTH_URL, fetchJson } from "../../../utils/utils";
 import { showMessage } from "../../messages/usage";
 
-interface IVABrowserListConfirmInvalidateModalProps {
+interface IvaManagerListConfirmInvalidateModalProps {
   show: boolean;
   setShow: any;
   selectedIVA: EmbeddedIVA | undefined;
@@ -12,8 +12,8 @@ interface IVABrowserListConfirmInvalidateModalProps {
   onUpdate: any;
 }
 
-const IVABrowserListConfirmInvalidateModal = (
-  props: IVABrowserListConfirmInvalidateModalProps
+const IvaManagerListConfirmInvalidateModal = (
+  props: IvaManagerListConfirmInvalidateModalProps
 ) => {
   const [disabledButtons, setDisabledButtons] = useState(false);
 
@@ -98,4 +98,4 @@ const IVABrowserListConfirmInvalidateModal = (
   );
 };
 
-export default IVABrowserListConfirmInvalidateModal;
+export default IvaManagerListConfirmInvalidateModal;

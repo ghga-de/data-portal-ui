@@ -8,7 +8,7 @@ import {
 } from "../../../utils/utils";
 import { IVAStatus, IVAStatusPrintable } from "../../../models/ivas";
 
-interface IVABrowserFilterProps {
+interface IvaManagerFilterProps {
   handleFilter: any;
   filterObj: {
     userFilter: string;
@@ -18,7 +18,7 @@ interface IVABrowserFilterProps {
   };
 }
 
-const IVABrowserFilter = (props: IVABrowserFilterProps) => {
+const IvaManagerFilter = (props: IvaManagerFilterProps) => {
   const FORM_GROUP_ROW_CLASS_NAMES = "row mb-3";
   const LABEL_COL_CLASS_NAMES = "col-4 col-form-label";
 
@@ -129,4 +129,4 @@ const IVABrowserFilter = (props: IVABrowserFilterProps) => {
   );
 };
 
-export default IVABrowserFilter;
+export default IvaManagerFilter;
