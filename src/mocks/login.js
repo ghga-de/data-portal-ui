@@ -17,6 +17,7 @@ export function setOidcUser() {
     access_token: "test123",
     token_type: "Bearer",
     scope: SCOPE.href,
+    role: "data_steward",
     profile: {
       sub: user.ext_id,
       sid: null,
@@ -48,6 +49,7 @@ export function getLoginHeaders() {
     name: user.name,
     title: user.title,
     email: user.email,
+    role: "data_steward",
     state: "NeedsReRegistration", // the state after login
     csrf: "mock-csrf-token",
     timeout: 3600,

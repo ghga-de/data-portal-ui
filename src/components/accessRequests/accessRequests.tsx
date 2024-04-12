@@ -131,11 +131,11 @@ const AccessRequests = () => {
       x.status.toLowerCase().includes(filterObj["statusFilter"].toLowerCase())
   );
 
-  if (!user) {
+  if (!user || user.role !== "data_steward") {
     return (
       <Container className="p-4">
         <Alert variant="danger">
-          Please log in to manage inbound access requests.
+          Please log in as a data steward to manage inbound access requests.
         </Alert>
       </Container>
     );

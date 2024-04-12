@@ -2,7 +2,7 @@ import { faCheck, faX } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
 import { Button, Col, Modal, Row } from "react-bootstrap";
-import { WPS_URL, fetchJson } from "../../../utils/utils";
+import { AUTH_URL, fetchJson } from "../../../utils/utils";
 import { IVA, IVAStatus, IVAType } from "../../../models/ivas";
 
 interface NewIVAModalProps {
@@ -19,8 +19,8 @@ const NewIVAModal = (props: NewIVAModalProps) => {
 
   const handleSubmit = async (value: string) => {
     setDisabledButton(true);
-    let url = WPS_URL;
-    url = new URL(`users/${props.userId}/ivas`, WPS_URL);
+    let url = AUTH_URL;
+    url = new URL(`users/${props.userId}/ivas`, url);
     let userData: { type: IVAType; value: string } = {
         type: clickedButton as unknown as IVAType,
         value: value,

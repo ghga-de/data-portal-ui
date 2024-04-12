@@ -1,7 +1,7 @@
 import { Button, Modal } from "react-bootstrap";
-import { EmbeddedIVA, IVAStatus } from "../../../models/ivas";
+import { EmbeddedIVA, IVAStatus, IVATypePrintable } from "../../../models/ivas";
 import { useState } from "react";
-import { WPS_URL, fetchJson } from "../../../utils/utils";
+import { AUTH_URL, fetchJson } from "../../../utils/utils";
 import { showMessage } from "../../messages/usage";
 
 interface IVABrowserListConfirmTransmissionModalProps {
@@ -17,15 +17,16 @@ const IVABrowserListConfirmTransmissionModal = (
   props: IVABrowserListConfirmTransmissionModalProps
 ) => {
   const [disabledButtons, setDisabledButtons] = useState(false);
+
   async function handleTransmitted() {
     if (props.selectedIVA !== undefined) {
       setDisabledButtons(true);
-      let url = new URL(WPS_URL);
+      let url = new URL(AUTH_URL);
       let method = "POST",
         ok = 204;
       url = new URL(`rpc/ivas/${props.selectedIVA.id}/code-transmitted`, url);
       try {
-        const response = await fetchJson(url, method, {});
+        const response = await fetchJson(url, method);
         if (response && response.status === ok) {
           showMessage({
             type: "success",
@@ -63,10 +64,7 @@ const IVABrowserListConfirmTransmissionModal = (
         <p>
           Please confirm the transmission of the verification code for the{" "}
           <em>
-            {props.selectedIVA?.type
-              .toString()
-              .split(/(?=[A-Z])/)
-              .join(" ")}
+            {props.selectedIVA ? IVATypePrintable[props.selectedIVA.type] : ""}
           </em>{" "}
           IVA for user <em>{props.selectedIVA?.user_name}</em> with address{" "}
           <em>{props.selectedIVA?.value}</em>.

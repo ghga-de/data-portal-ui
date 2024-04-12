@@ -90,7 +90,9 @@ const SortButton = (props: SortButtonProps) => {
           props.tableDefinition.setSortedData,
 
           transposeTableForHTML(
-            props.tableDefinition.table.map((y: any) => y.data)
+            props.tableDefinition.table.map(
+              (tableFields: any) => tableFields.data
+            )
           ),
           props.index,
           props.tableDefinition.sortDefinition.key === props.index

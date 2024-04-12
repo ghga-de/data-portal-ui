@@ -6,7 +6,8 @@ export const user = {
   name: "John Doe",
   title: "Dr.",
   full_name: "Dr. John Doe",
-  email: "j.jdoe@home.org"
+  email: "j.jdoe@home.org",
+  role: "data_steward"
 };
 
 export const userIVAs = [{

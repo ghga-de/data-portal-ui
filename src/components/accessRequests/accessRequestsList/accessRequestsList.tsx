@@ -140,72 +140,72 @@ const AccessRequestsList = (props: AccessRequestListProps) => {
       <Table className="w-lg-100" style={{ minWidth: "800px" }}>
         <thead className="border-light-3 border-1">
           <tr>
-            {innerTable.map((y: any, idy: number) => {
-              if (y.header !== "ID") {
+            {innerTable.map((row: any, rowIdx: number) => {
+              if (row.header !== "ID") {
                 return (
                   <th
                     className={
-                      y.cssClasses +
+                      row.cssClasses +
                       " align-middle bg-secondary text-white lh-1"
                     }
-                    key={"table_th_" + idy}
+                    key={"table_th_" + rowIdx}
                     style={{ position: "sticky", top: "0px" }}
                   >
                     <Row className="flex-nowrap align-items-center">
                       <Col xs={"auto"} className="pe-0 ps-2">
                         <SortButton
                           tableDefinition={tableDefinition}
-                          index={idy}
+                          index={rowIdx}
                           buttonVariant="outline-white"
                         />
                       </Col>
-                      <Col className="ps-0">{y.header}</Col>
+                      <Col className="ps-0">{row.header}</Col>
                     </Row>
                   </th>
                 );
               } else
-                return <th key={"table_th_" + idy} className="d-none"></th>;
+                return <th key={"table_th_" + rowIdx} className="d-none"></th>;
             })}
           </tr>
         </thead>
         <tbody>
-          {sortedData.map((y: any, idy: number) => {
+          {sortedData.map((row: any, rowIdx: number) => {
             return (
               <tr
                 role="button"
                 title={"View access request"}
-                key={"row_" + idy}
+                key={"row_" + rowIdx}
                 onClick={() =>
                   handleShowModal(
                     props.requests.filter(
                       (x) =>
                         x.id ===
-                        y[innerTable.findIndex((x) => x.header === "ID")]
+                        row[innerTable.findIndex((x) => x.header === "ID")]
                     )[0]
                   )
                 }
               >
-                {y.map((z: any, idz: any) => {
-                  if (idz !== 0) {
+                {row.map((cell: any, cellIdx: any) => {
+                  if (cellIdx !== 0) {
                     return (
                       <td
                         className={
-                          innerTable[idz].cssClasses +
-                          y.find((x: any) => x === "allowed")
+                          innerTable[cellIdx].cssClasses +
+                          row.find((x: any) => x === "allowed")
                             ? "text-success"
-                            : y.find((x: any) => x === "denied")
+                            : row.find((x: any) => x === "denied")
                             ? "text-danger"
                             : ""
                         }
-                        key={"cell_" + idz + "_row_" + idy}
+                        key={"cell_" + cellIdx + "_row_" + rowIdx}
                       >
-                        {z}
+                        {cell}
                       </td>
                     );
                   } else
                     return (
                       <td
-                        key={"cell_" + idz + "_row_" + idy}
+                        key={"cell_" + cellIdx + "_row_" + rowIdx}
                         className="d-none"
                       ></td>
                     );

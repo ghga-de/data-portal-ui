@@ -55,7 +55,7 @@ const router = createBrowserRouter(
       <Route path="/profile" element={<Profile />} />
       <Route path="/setup-2fa" element={<Setup2FA />} />
       <Route path="/access-requests" element={<AccessRequests />} />
-      <Route path="/iva-browser" element={<IVABrowser />} />
+      <Route path="/ivas" element={<IVABrowser />} />
       <Route path="/confirm-2fa" element={<Confirm2FA />} />
       <Route path="*" element={<PageNotFound />} />
     </Route>

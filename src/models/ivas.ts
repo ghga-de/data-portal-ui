@@ -21,11 +21,24 @@ export enum IVAStatus {
   CodeTransmitted = "CodeTransmitted",
   Verified = "Verified",
 }
+export enum IVAStatusPrintable {
+  Unverified = "Unverified",
+  CodeRequested = "Code Requested",
+  CodeCreated = "Code Created",
+  CodeTransmitted = "Code Transmitted",
+  Verified = "Verified",
+}
 export enum IVAType {
   Phone = "Phone",
   Fax = "Fax",
   PostalAddress = "PostalAddress",
   InPerson = "InPerson",
+}
+export enum IVATypePrintable {
+  Phone = "Phone",
+  Fax = "Fax",
+  PostalAddress = "Postal Address",
+  InPerson = "In Person",
 }
 export interface IVA {
   id: string;

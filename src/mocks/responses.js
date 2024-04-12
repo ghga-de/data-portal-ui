@@ -28,28 +28,28 @@ export const responses = {
   "GET /api/wps/users/j.doe@ghga.de/datasets": datasets,
 
   // User IVAs
-  "GET /api/wps/users/:user_id/ivas": userIVAs,
+  "GET /api/auth/users/:user_id/ivas": userIVAs,
 
   // New IVA
-  "POST /api/wps/users/:user_id/ivas": "TEST1234566789",
+  "POST /api/auth/users/:user_id/ivas": "TEST1234566789",
 
   // Delete IVA
-  "DELETE /api/wps/users/:user_id/ivas/:iva_id": 204,
+  "DELETE /api/auth/users/:user_id/ivas/:iva_id": 204,
 
   // Request IVA verification
-  "POST /api/wps/rpc/ivas/:iva_id/request-code": 204,
+  "POST /api/auth/rpc/ivas/:iva_id/request-code": 204,
 
   // Create IVA verification code
-  "POST /api/wps/rpc/ivas/:iva_id/create-code": "TEST1234566789",
+  "POST /api/auth/rpc/ivas/:iva_id/create-code": "TEST1234566789",
 
   // Request IVA verification
-  "POST /api/wps/rpc/ivas/:iva_id/code-transmitted": 204,
+  "POST /api/auth/rpc/ivas/:iva_id/code-transmitted": 204,
 
   // Get all IVAs
-  "GET /api/wps/ivas": allIVAs,
+  "GET /api/auth/ivas": allIVAs,
 
   // Invalidate an access request
-  "POST /api/wps/rpc/ivas/:iva_id/unverify": 204,
+  "POST /api/auth/rpc/ivas/:iva_id/unverify": 204,
 
   // Work packages
   // example key for input: MTIzNDU2Nzg5MDEyMzQ1Njc4OTAxMjM0NTY3ODkwMTI

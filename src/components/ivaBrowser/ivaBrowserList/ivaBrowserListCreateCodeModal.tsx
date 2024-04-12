@@ -14,10 +14,10 @@
 // limitations under the License.
 
 import { Button, Form, Modal, OverlayTrigger, Tooltip } from "react-bootstrap";
-import { WPS_URL, fetchJson } from "../../../utils/utils";
+import { AUTH_URL, fetchJson } from "../../../utils/utils";
 import { showMessage } from "../../messages/usage";
 import { useEffect, useState } from "react";
-import { EmbeddedIVA, IVAStatus } from "../../../models/ivas";
+import { EmbeddedIVA, IVAStatus, IVATypePrintable } from "../../../models/ivas";
 
 interface IVABrowserListCreateCodeModalProps {
   show: boolean;
@@ -37,16 +37,16 @@ const IVABrowserListCreateCodeModal = (
 
   useEffect(() => {
     async function fetchData() {
-      if (props.selectedIVA !== undefined) {
+      if (props.selectedIVA !== undefined && props.show) {
         setDisabledButtons(true);
         const url = new URL(
           `rpc/ivas/${props.selectedIVA?.id}/create-code`,
-          WPS_URL
+          AUTH_URL
         );
         let method = "POST",
           ok = 201;
         try {
-          const response = await fetchJson(url, method, {});
+          const response = await fetchJson(url, method);
           if (response && response.status === ok) {
             const code = await response.json();
             setCode(code);
@@ -64,7 +64,7 @@ const IVABrowserListCreateCodeModal = (
       }
     }
     fetchData();
-  }, [props.selectedIVA]);
+  }, [props.selectedIVA, props.show]);
 
   return (
     <>
@@ -93,10 +93,9 @@ const IVABrowserListCreateCodeModal = (
               E-Mail: {props.selectedIVA?.user_email}
               <br />
               Via:{" "}
-              {props.selectedIVA?.type
-                .toString()
-                .split(/(?=[A-Z])/)
-                .join(" ")}
+              {props.selectedIVA
+                ? IVATypePrintable[props.selectedIVA?.type]
+                : ""}
               <br />
               Address: {props.selectedIVA?.value}
             </p>

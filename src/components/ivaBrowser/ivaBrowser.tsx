@@ -6,7 +6,7 @@ import { useMessages } from "../messages/usage";
 import {
   FILTER_MAX_ISO,
   FILTER_MIN_ISO,
-  WPS_URL,
+  AUTH_URL,
   fetchJson,
 } from "../../utils/utils";
 import IVABrowserList from "./ivaBrowserList/ivaBrowserList";
@@ -68,13 +68,13 @@ const IVABrowser = () => {
 
   useEffect(() => {
     async function fetchData() {
-      let accessRequests: EmbeddedIVA[] | null = null;
+      let ivas: EmbeddedIVA[] | null = null;
       if (user?.id) {
-        const url = new URL(`ivas`, WPS_URL);
+        const url = new URL(`ivas`, AUTH_URL);
         try {
           const response = await fetchJson(url);
           if (response.ok) {
-            accessRequests = await response.json();
+            ivas = await response.json();
           } else {
             throw new Error("Failed to retrieve IVAs: " + response.text);
           }
@@ -85,29 +85,32 @@ const IVABrowser = () => {
           });
         }
       }
-      if (accessRequests !== null) {
-        setIVAs(accessRequests);
+      if (ivas !== null) {
+        setIVAs(ivas);
       }
     }
     if (ivas === null || ivas === undefined) fetchData();
   }, [ivas, showMessage, user]);
 
   filteredIVAs = ivas?.filter(
-    (x) =>
-      x.user_name?.includes(filterObj["userFilter"]) &&
+    (iva) =>
+      iva.user_name
+        ?.toLowerCase()
+        .includes(filterObj["userFilter"].toLowerCase()) &&
       (filterObj["fromFilter"] === "" ||
-        Date.parse(x.changed) > Date.parse(filterObj["fromFilter"])) &&
+        Date.parse(iva.changed) > Date.parse(filterObj["fromFilter"])) &&
       (filterObj["untilFilter"] === "" ||
-        Date.parse(x.changed) < Date.parse(filterObj["untilFilter"])) &&
+        Date.parse(iva.changed) < Date.parse(filterObj["untilFilter"])) &&
       (filterObj["statusFilter"] === "" ||
-        x.status.toString() === filterObj["statusFilter"])
+        iva.status.toString() === filterObj["statusFilter"])
   );
 
-  if (!user) {
+  if (!user || user.role !== "data_steward") {
     return (
       <Container className="p-4">
         <Alert variant="danger">
-          Please log in to manage independent verification addresses.
+          Please log in as a data steward to manage independent verification
+          addresses.
         </Alert>
       </Container>
     );

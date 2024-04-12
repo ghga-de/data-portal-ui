@@ -83,11 +83,13 @@ async function getMatchingParamString(request, responseMap) {
   // combine parameters from query string and body
   const requestParams = new URL(request.url).searchParams;
   const method = request.method.toLowerCase();
-  if (/post|path|put/.test(method)) {
-    const bodyParams = await request.json();
-    Object.entries(bodyParams).forEach((key, value) =>
-      requestParams.set(key, value)
-    );
+  if (/post|patch|put|delete/.test(method)) {
+    try {
+      const bodyParams = await request.json();
+      Object.entries(bodyParams).forEach(([key, value]) => {
+        requestParams.set(key, value);
+      })
+    } catch { }
   }
   // find the response with the most matching parameters
   let bestParamString = null;
@@ -132,7 +134,7 @@ Object.keys(groupedResponses).forEach((endpoint) => {
     if (typeof response === "number") {
       status = response;
       response = undefined;
-    } else if (/post|path|put|delete/.test(method)) {
+    } else if (/post|patch|put|delete/.test(method)) {
       status = response ? 201 : 204;
     }
     return HttpResponse.json(response || undefined, { status });

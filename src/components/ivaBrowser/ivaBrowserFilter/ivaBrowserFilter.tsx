@@ -6,7 +6,7 @@ import {
   FILTER_MIN_ISO,
   parseDate,
 } from "../../../utils/utils";
-import { IVAStatus } from "../../../models/ivas";
+import { IVAStatus, IVAStatusPrintable } from "../../../models/ivas";
 
 interface IVABrowserFilterProps {
   handleFilter: any;
@@ -113,10 +113,7 @@ const IVABrowserFilter = (props: IVABrowserFilterProps) => {
                     .filter((x) => isNaN(Number(x)))
                     .map((x) => (
                       <option value={x} key={x}>
-                        {x
-                          .toString()
-                          .split(/(?=[A-Z])/)
-                          .join(" ")}
+                        {IVAStatusPrintable[x]}
                       </option>
                     ))}
                 </Form.Select>
