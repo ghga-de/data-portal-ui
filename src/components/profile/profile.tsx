@@ -240,9 +240,8 @@ const Profile = () => {
                 userIVAs.map((x, index) => {
                   return (
                     <Row key={x.id + index} className="mb-1">
-                      <Col xs={3}>
-                        {IVATypePrintable[x.type]}: {x.value}
-                      </Col>
+                      <Col xs={2}>{IVATypePrintable[x.type]}:</Col>
+                      <Col xs={3}>{x.value}</Col>
                       <Col
                         xs={2}
                         className={
@@ -255,7 +254,7 @@ const Profile = () => {
                           <Button
                             id={"del_" + x.id}
                             variant="secondary"
-                            className="p-0 px-1 text-white"
+                            className="p-0 px-1 text-white w-100 text-start"
                             onClick={(e) => {
                               let button = e.target as HTMLButtonElement;
                               HandleRequestVerification(button.id.substring(4));
@@ -267,7 +266,7 @@ const Profile = () => {
                           <Button
                             id={"con_" + x.id}
                             variant="secondary"
-                            className="p-0 px-1 text-white"
+                            className="p-0 px-1 text-white w-100 text-start"
                             onClick={(e) => {
                               let button = e.target as HTMLButtonElement;
                               HandleConfirmVerification(button.id.substring(4));

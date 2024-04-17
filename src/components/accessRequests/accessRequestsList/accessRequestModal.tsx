@@ -135,6 +135,7 @@ const AccessRequestModal = (props: AccessRequestModalProps) => {
           setSelectedIVA("");
           props.handleClose();
         }}
+        size="lg"
       >
         <Modal.Header closeButton>
           <Modal.Title>Access Request Detail</Modal.Title>
@@ -189,8 +190,8 @@ const AccessRequestModal = (props: AccessRequestModalProps) => {
                     {props.userIVAs.map((x: IVA) => {
                       return (
                         <div key={x.id}>
-                          <Row className="mb-1">
-                            <Col xs={7}>
+                          <Row className="mb-1 align-items-center">
+                            <Col xs={"auto"} className="pe-0 me-0">
                               <input
                                 type="radio"
                                 className="me-2"
@@ -202,21 +203,26 @@ const AccessRequestModal = (props: AccessRequestModalProps) => {
                                   props.userIVAs.length === 1 ? true : false
                                 }
                               />
+                            </Col>
+                            <Col className="ps-0">
                               <label
                                 htmlFor={"iva_" + x.id}
                                 className={
                                   selectedIVA === x.id ||
                                   props.userIVAs.length === 1
-                                    ? "fw-bold"
-                                    : ""
+                                    ? "fw-bold w-100"
+                                    : "w-100"
                                 }
                               >
-                                {IVATypePrintable[x.type]}: {x.value}
+                                <Row className="align-items-center">
+                                  <Col xs={4}>{IVATypePrintable[x.type]}:</Col>
+                                  <Col>{x.value}</Col>
+                                </Row>
                               </label>
                             </Col>
-                            <Col>
+                            <Col xs={3} className="">
                               <label
-                                htmlFor={x.id}
+                                htmlFor={"iva_" + x.id}
                                 className={
                                   x.status === IVAStatus.Verified
                                     ? "text-success"

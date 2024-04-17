@@ -63,7 +63,7 @@ const NewIVAModal = (props: NewIVAModalProps) => {
       </Modal.Header>
       <Modal.Body>
         <div className="mb-4">
-          <p>Please select one of the following contact addresses:</p>
+          <p>Please select one of the following contact address types:</p>
           <Row>
             <Col>
               <Button
