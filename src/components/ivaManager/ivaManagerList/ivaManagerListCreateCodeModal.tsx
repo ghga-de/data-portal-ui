@@ -57,7 +57,7 @@ const IvaManagerListCreateCodeModal = (
             setDisabledButtons(false);
           } else throw new Error("POST failed: " + response.text);
         } catch (error) {
-          console.log(error);
+          console.error(error);
           showMessage({
             type: "error",
             title: "Could not obtain verification code.",
