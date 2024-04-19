@@ -7,10 +7,9 @@ const CLIENT_ID = process.env.REACT_APP_OIDC_CLIENT_ID;
 const OIDC_USER_KEY = `oidc.user:${OIDC_AUTHORITY_URL}:${CLIENT_ID}`;
 const USER_KEY = 'user';
 
-// The following state should be set after login:
-const LOGIN_STATE = "NeedsReRegistration"
-// The user should have the following role:
-const LOGIN_ROLE = "data_steward"
+// The following state should be set after login
+// (set to "NeedsRegistration" to test registration flow)
+const LOGIN_STATE = "Authenticated"
 
 // Simulate login with dummy user via OIDC
 export function setOidcUser() {
@@ -22,7 +21,7 @@ export function setOidcUser() {
     access_token: "test123",
     token_type: "Bearer",
     scope: SCOPE.href,
-    role: "data_steward",
+    role: user.role,
     profile: {
       sub: user.ext_id,
       sid: null,
@@ -70,7 +69,7 @@ export function getLoginHeaders() {
     name: user.name,
     title: user.title,
     email: user.email,
-    role: LOGIN_ROLE,
+    role: user.role,
     state: LOGIN_STATE, // the state after login
     csrf: "mock-csrf-token",
     timeout: 3600,
