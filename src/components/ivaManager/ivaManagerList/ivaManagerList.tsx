@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 import {
-  EmbeddedIVA,
+  UserWithIVA,
   IVAStatus,
   IVAStatusPrintable,
   IVATypePrintable,
@@ -14,7 +14,7 @@ import IvaManagerListConfirmInvalidateModal from "./ivaManagerListConfirmInvalid
 import IvaManagerListConfirmTransmissionModal from "./ivaManagerListConfirmTransmissionModal";
 
 interface IvaManagerListProps {
-  ivas: EmbeddedIVA[];
+  ivas: UserWithIVA[];
   user: User;
   onUpdate: any;
 }
@@ -28,7 +28,7 @@ const IvaManagerList = (props: IvaManagerListProps) => {
 
   const [showCreateCodeModal, setShowCreateCodeModal] = useState(false);
 
-  const InvalidateButton = (InvalidateButtonProps: { x: EmbeddedIVA }) => {
+  const InvalidateButton = (InvalidateButtonProps: { x: UserWithIVA }) => {
     return (
       <Button
         key={InvalidateButtonProps.x.id + "_invalidate_button"}
@@ -44,7 +44,7 @@ const IvaManagerList = (props: IvaManagerListProps) => {
     );
   };
 
-  const CreateCodeButton = (CreateCodeButtonProps: { x: EmbeddedIVA }) => {
+  const CreateCodeButton = (CreateCodeButtonProps: { x: UserWithIVA }) => {
     return (
       <Button
         key={`${CreateCodeButtonProps.x.id}_
@@ -112,7 +112,7 @@ const IvaManagerList = (props: IvaManagerListProps) => {
       },
       {
         header: "Actions",
-        data: props.ivas.map((x: EmbeddedIVA) => {
+        data: props.ivas.map((x: UserWithIVA) => {
           if (x.status === IVAStatus.CodeRequested) {
             return (
               <>
@@ -191,7 +191,7 @@ const IvaManagerList = (props: IvaManagerListProps) => {
     setSortedData(transposeTableForHTML(table.map((x) => x.data)));
   }
 
-  const [selectedIVA, setSelectedIVA] = useState<EmbeddedIVA | undefined>();
+  const [selectedIVA, setSelectedIVA] = useState<UserWithIVA | undefined>();
 
   return (
     <div>

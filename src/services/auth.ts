@@ -181,9 +181,14 @@ class AuthService {
          return this.userManager.revokeTokens();
        So we simply remove the user from the store instead.
     */
-    await fetchJson(LOGOUT_URL, "POST");
+    const response = await fetchJson(LOGOUT_URL, "GET");
     await this.userManager.removeUser();
     this.setUser(null);
+    if (response.status !== 204) {
+      const title =  "Logout failed"
+      showMessage({ type: "error", title });
+      console.error(title, response.statusText);
+    }
   }
 
   /**
@@ -208,8 +213,11 @@ class AuthService {
     let session = sessionStorage.getItem("user");
     if (!session) {
       const response = await fetchJson(LOGIN_URL, "POST");
-      if (response.status === 204) {
+      const status = response.status;
+      if (status === 204) {
         session = response.headers.get("X-Session");
+      } else if (status !== 401 && status !== 403) {
+        console.error("Cannot get user session:", response.statusText);
       }
     }
     const user: User | null = this.parseUserFromSession(session);

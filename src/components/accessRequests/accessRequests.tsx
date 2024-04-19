@@ -131,7 +131,7 @@ const AccessRequests = () => {
       x.status.toLowerCase().includes(filterObj["statusFilter"].toLowerCase())
   );
 
-  if (!user || user.role !== "data_steward") {
+  if (user?.role !== "data_steward") {
     return (
       <Container className="p-4">
         <Alert variant="danger">

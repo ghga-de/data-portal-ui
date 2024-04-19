@@ -1,5 +1,5 @@
 import { Button, Modal } from "react-bootstrap";
-import { EmbeddedIVA, IVAStatus, IVATypePrintable } from "../../../models/ivas";
+import { UserWithIVA, IVAStatus, IVATypePrintable } from "../../../models/ivas";
 import { useState } from "react";
 import { AUTH_URL, fetchJson } from "../../../utils/utils";
 import { showMessage } from "../../messages/usage";
@@ -7,7 +7,7 @@ import { showMessage } from "../../messages/usage";
 interface IvaManagerListConfirmInvalidateModalProps {
   show: boolean;
   setShow: any;
-  selectedIVA: EmbeddedIVA | undefined;
+  selectedIVA: UserWithIVA | undefined;
   setSelectedIVA: any;
   onUpdate: any;
 }

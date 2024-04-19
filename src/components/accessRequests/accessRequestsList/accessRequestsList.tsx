@@ -19,7 +19,7 @@ import { Col, Row, Table } from "react-bootstrap";
 import AccessRequestModal from "./accessRequestModal";
 import { User } from "../../../services/auth";
 import { IVA } from "../../../models/ivas";
-import { getIVAs } from "../../../services/ivas";
+import { getUserIVAs } from "../../../services/ivas";
 import SortButton, { TableFields } from "../../../utils/sortButton";
 import { transposeTableForHTML } from "../../../utils/utils";
 
@@ -115,10 +115,13 @@ const AccessRequestsList = (props: AccessRequestListProps) => {
     setSelectedAccessRequest(undefined);
     setUserIVAs([]);
   };
-  const handleShowModal = (accessRequest: AccessRequest) => {
+  const handleShowModal = async (accessRequest: AccessRequest) => {
     setSelectedAccessRequest(accessRequest);
-    getIVAs(props.user.ext_id, setUserIVAs);
-    setShowModal(true);
+    const ivas = await getUserIVAs(props.user.ext_id);
+    if (ivas) {
+      setUserIVAs(ivas);
+      setShowModal(true);
+    }
   };
 
   const [selectedAccessRequest, setSelectedAccessRequest] = useState<

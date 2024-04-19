@@ -17,12 +17,12 @@ import { Button, Form, Modal, OverlayTrigger, Tooltip } from "react-bootstrap";
 import { AUTH_URL, fetchJson } from "../../../utils/utils";
 import { showMessage } from "../../messages/usage";
 import { useEffect, useState } from "react";
-import { EmbeddedIVA, IVAStatus, IVATypePrintable } from "../../../models/ivas";
+import { UserWithIVA, IVAStatus, IVATypePrintable } from "../../../models/ivas";
 
 interface IvaManagerListCreateCodeModalProps {
   show: boolean;
   setShow: React.Dispatch<React.SetStateAction<boolean>>;
-  selectedIVA: EmbeddedIVA | undefined;
+  selectedIVA: UserWithIVA | undefined;
   setSelectedIVA: any;
   setShowConfirmTransmissionModal: any;
   onUpdate: any;
