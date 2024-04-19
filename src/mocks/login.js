@@ -9,8 +9,7 @@ const USER_KEY = 'user';
 
 // The following state should be set after login
 // (set to "NeedsRegistration" to test registration flow)
-//const LOGIN_STATE = "Authenticated"
-const LOGIN_STATE = "NeedsRegistration";
+const LOGIN_STATE = "Authenticated"
 
 // Simulate login with dummy user via OIDC
 export function setOidcUser() {
