@@ -32,6 +32,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { authService, useAuth } from "../../../services/auth";
 import { AUTH_URL, fetchJson } from "../../../utils/utils";
+import { showMessage } from "../../messages/usage";
 
 const Setup2FA = () => {
   useEffect(() => {});
@@ -80,24 +81,26 @@ const Setup2FA = () => {
         id,
         force: false,
       };
-      let url = AUTH_URL;
-      let method: string = "post",
-        ok: number = 201;
-      url = new URL(`totp-token`, url);
       if (user.state === "LostTotpToken") {
         userData["force"] = true;
       }
       setTOTPRequests(TOTPRequests + 1);
-      const response = await fetchJson(url, method, userData).catch(() => null);
-      if (response && response.status === ok) {
-        try {
-          const { uri: token } = await response.json();
-          if (token) {
-            setTwoFAURI(token);
-          }
-        } catch {
-          logoutUser();
+      const url = new URL(`totp-token`, AUTH_URL);
+      try {
+        const response = await fetchJson(url, "POST", userData);
+        if (response?.status !== 201) {
+          throw Error(response.statusText);
         }
+        const { uri: token } = await response.json();
+        if (token) {
+          setTwoFAURI(token);
+        }
+      } catch (error) {
+        console.error("Cannot get TOTP code:", error);
+        showMessage({
+          type: "error",
+          title: "Cannot get 2FA code. Please try again later.",
+        });
       }
     }
   };
