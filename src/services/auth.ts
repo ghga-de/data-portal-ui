@@ -181,7 +181,7 @@ class AuthService {
          return this.userManager.revokeTokens();
        So we simply remove the user from the store instead.
     */
-    await fetchJson(LOGOUT_URL);
+    await fetchJson(LOGOUT_URL, "POST");
     await this.userManager.removeUser();
     this.setUser(null);
   }

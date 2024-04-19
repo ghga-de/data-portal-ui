@@ -8,7 +8,7 @@ const OIDC_USER_KEY = `oidc.user:${OIDC_AUTHORITY_URL}:${CLIENT_ID}`;
 const USER_KEY = 'user';
 
 // The following state should be set after login:
-const LOGIN_STATE  = "NeedsReRegistration"
+const LOGIN_STATE = "NeedsReRegistration"
 // The user should have the following role:
 const LOGIN_ROLE = "data_steward"
 
@@ -43,15 +43,25 @@ export function setOidcUser() {
   sessionStorage.removeItem(USER_KEY);
 }
 
+// Remove the dummy user set for OIDC
+export function clearOidcUser() {
+  sessionStorage.removeItem(OIDC_USER_KEY);
+}
+
+// Remove the session cookie (to mock logout properly)
+export function clearSessionCookie() {
+  document.cookie = 'session=';
+}
+
 // Check if the user has a session cookie (to mock login properly)
 function hasSessionCookie() {
   const cookie = document.cookie;
-  return cookie && cookie.indexOf("session=") >= 0;
+  return cookie && cookie.includes("session=test-session");
 }
 
 // Get response headers for logged in user
 export function getLoginHeaders() {
-  if (!hasSessionCookie() && !sessionStorage.getItem(OIDC_USER_KEY))  {
+  if (!hasSessionCookie() && !sessionStorage.getItem(OIDC_USER_KEY)) {
     return null;
   }
   const sessionObj = {

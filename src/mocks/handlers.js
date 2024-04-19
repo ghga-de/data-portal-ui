@@ -1,11 +1,12 @@
 import { http, HttpResponse } from "msw";
 import { responses } from "./responses";
-import { setOidcUser, getLoginHeaders } from "./login";
+import { setOidcUser, getLoginHeaders, clearSessionCookie, clearOidcUser } from "./login";
 import { AUTH_URL, CLIENT_URL, OIDC_CONFIG_URL } from "../utils/utils";
 
 const fakeAuth = !!CLIENT_URL.href.match(/127\.|local/);
 
 const LOGIN_URL = new URL("rpc/login", AUTH_URL);
+const LOGOUT_URL = new URL("rpc/logout", AUTH_URL);
 
 // this module converts the responses with static fake data to response handlers
 
@@ -31,6 +32,12 @@ export const handlers = [
       undefined,
       headers ? { status: 204, headers } : { status: 401 }
     );
+  }),
+  // intercept logout request
+  http.post(LOGOUT_URL.href, () => {
+    clearSessionCookie();
+    clearOidcUser();
+    return HttpResponse.json(undefined, { status: 204 });
   }),
 ];
 
