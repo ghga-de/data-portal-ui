@@ -23,7 +23,7 @@ const IvaManagerFilter = (props: IvaManagerFilterProps) => {
   const LABEL_COL_CLASS_NAMES = "col-4 col-form-label";
 
   return (
-    <Container className="mb-4 border rounded shadow p-2 mx-0 w-50">
+    <Container className="mb-4 border rounded shadow p-2 mx-0 w-lg-75 w-xl-50">
       <Row>
         <Col className="fs-1" xs={"auto"}>
           <FontAwesomeIcon icon={faFilter} />

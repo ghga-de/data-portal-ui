@@ -67,6 +67,12 @@ export const responses = {
   // example key for input: MTIzNDU2Nzg5MDEyMzQ1Njc4OTAxMjM0NTY3ODkwMTI
   "POST /api/wps/work-packages": workPackageToken,
 
+  // Specific dataset and user access requests
+  "GET /api/ars/access-requests?dataset_id=:ds_id&user_id=:user_id": accessRequests.filter((x) => x.dataset_id === "GHGA:TEST588887987" && x.user_id === "j.doe@ghga.de"),
+
+  // Specific dataset and user access requests
+  "GET /api/ars/access-requests?user_id=:user_id&state=pending": accessRequests.filter((x) => x.user_id === "j.doe@ghga.de" && x.status === "pending"),
+
   // All access requests
   "GET /api/ars/access-requests": accessRequests,
 

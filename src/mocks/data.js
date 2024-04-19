@@ -81,10 +81,10 @@ export const accessRequests = [
   {
     id: "TEST00004000001",
     user_id: "j.doe@ghga.de",
-    dataset_id: "TEST00003000001",
+    dataset_id: "GHGA:TEST588887987",
     full_user_name: "Dr. John Doe",
     email: "j.jdoe@home.org",
-    request_text: "This is a test request for dataset TEST00003000001.",
+    request_text: "This is a test request for dataset GHGA:TEST588887987.",
     access_starts: "2023-05-11T15:00:00.000Z",
     access_ends: "2024-05-11T14:59:59.000Z",
     request_created: "2023-05-09T12:04:02.000Z",

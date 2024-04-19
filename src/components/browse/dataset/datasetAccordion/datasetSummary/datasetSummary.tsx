@@ -46,7 +46,11 @@ const DatasetSummary = (props: DataSetDetailsProps) => {
         <div className="float-end ps-0 ps-md-4 ms-1">
           {props.summary !== null && props.summary !== undefined ? (
             <>
-              <RequestAccessButton handleOpen={handleOpen} classes="d-block" />
+              <RequestAccessButton
+                accession={props.hit.content.accession}
+                handleOpen={handleOpen}
+                classes="d-block"
+              />
               <Button
                 href={"browse/" + props.hit.content.accession}
                 variant="secondary"

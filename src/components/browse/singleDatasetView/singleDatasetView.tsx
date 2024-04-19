@@ -127,6 +127,7 @@ const SingleDatasetView = () => {
             </Col>
             <Col className="px-0">
               <RequestAccessButton
+                accession={accessionId}
                 handleOpen={handleOpen}
                 classes="float-end ms-2 ms-sm-4 "
               />
