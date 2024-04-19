@@ -35,7 +35,7 @@ const IvaManagerListCreateCodeModal = (
   const [disabledButtons, setDisabledButtons] = useState(false);
   const [code, setCode] = useState("");
 
-  let { selectedIVA, show, onUpdate } = props;
+  const { selectedIVA, show, onUpdate } = props;
 
   useEffect(() => {
     async function fetchData() {
@@ -66,7 +66,8 @@ const IvaManagerListCreateCodeModal = (
       }
     }
     fetchData();
-  }, [selectedIVA, show, onUpdate]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedIVA, show]);
 
   return (
     <>

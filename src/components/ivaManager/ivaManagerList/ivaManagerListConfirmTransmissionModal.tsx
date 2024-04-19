@@ -30,7 +30,7 @@ const IvaManagerListConfirmTransmissionModal = (
         if (response && response.status === ok) {
           showMessage({
             type: "success",
-            title: "IVA successfully invalidated!",
+            title: "Transmission of code successfully confirmed!",
           });
           props.selectedIVA.status = IVAStatus.CodeTransmitted;
           props.onUpdate();
@@ -44,7 +44,8 @@ const IvaManagerListConfirmTransmissionModal = (
         setDisabledButtons(false);
         showMessage({
           type: "error",
-          title: "Could not invalidate IVA.",
+          title:
+            "Could not confirm transmission of code. Please try again later",
         });
       }
     }
