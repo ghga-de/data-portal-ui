@@ -17,8 +17,6 @@ const IvaManagerListConfirmInvalidateModal = (
 ) => {
   const [disabledButtons, setDisabledButtons] = useState(false);
 
-  console.log(props.selectedIVA);
-
   async function handleInvalidate() {
     if (props.selectedIVA !== undefined) {
       setDisabledButtons(true);

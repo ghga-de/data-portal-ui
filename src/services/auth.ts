@@ -118,7 +118,11 @@ class AuthService {
    */
   setUser(user: User | null): void {
     authStore.getState().setUser(user);
-    sessionStorage.setItem("user", JSON.stringify(user));
+    if (user) {
+      sessionStorage.setItem("user", JSON.stringify(user));
+    } else {
+      sessionStorage.removeItem("user");
+    }
   }
 
   /**

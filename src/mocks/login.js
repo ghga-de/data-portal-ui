@@ -7,6 +7,11 @@ const CLIENT_ID = process.env.REACT_APP_OIDC_CLIENT_ID;
 const OIDC_USER_KEY = `oidc.user:${OIDC_AUTHORITY_URL}:${CLIENT_ID}`;
 const USER_KEY = 'user';
 
+// The following state should be set after login:
+const LOGIN_STATE  = "NeedsReRegistration"
+// The user should have the following role:
+const LOGIN_ROLE = "data_steward"
+
 // Simulate login with dummy user via OIDC
 export function setOidcUser() {
   const iat = Math.round(new Date() / 1000);
@@ -38,9 +43,15 @@ export function setOidcUser() {
   sessionStorage.removeItem(USER_KEY);
 }
 
+// Check if the user has a session cookie (to mock login properly)
+function hasSessionCookie() {
+  const cookie = document.cookie;
+  return cookie && cookie.indexOf("session=") >= 0;
+}
+
 // Get response headers for logged in user
 export function getLoginHeaders() {
-  if (!sessionStorage.getItem(OIDC_USER_KEY)) {
+  if (!hasSessionCookie() && !sessionStorage.getItem(OIDC_USER_KEY))  {
     return null;
   }
   const sessionObj = {
@@ -49,14 +60,15 @@ export function getLoginHeaders() {
     name: user.name,
     title: user.title,
     email: user.email,
-    role: "data_steward",
-    state: "NeedsReRegistration", // the state after login
+    role: LOGIN_ROLE,
+    state: LOGIN_STATE, // the state after login
     csrf: "mock-csrf-token",
     timeout: 3600,
     extends: 7200,
   };
   return {
     "X-Session": JSON.stringify(sessionObj),
-    "Set-Cookie": "session=test-session; HttpOnly; SameSite=lax"
+    // this should be actually HttpOnly, but this doesn't work with MSW
+    "Set-Cookie": "session=test-session; SameSite=lax"
   };
 }
