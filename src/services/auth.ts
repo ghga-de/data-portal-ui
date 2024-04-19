@@ -181,11 +181,11 @@ class AuthService {
          return this.userManager.revokeTokens();
        So we simply remove the user from the store instead.
     */
-    const response = await fetchJson(LOGOUT_URL, "GET");
+    const response = await fetchJson(LOGOUT_URL, "POST");
     await this.userManager.removeUser();
     this.setUser(null);
     if (response.status !== 204) {
-      const title =  "Logout failed"
+      const title = "Logout failed";
       showMessage({ type: "error", title });
       console.error(title, response.statusText);
     }
