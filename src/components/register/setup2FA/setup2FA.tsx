@@ -57,9 +57,13 @@ const Setup2FA = () => {
     );
   };
 
+  const stay = () => {
+    blocker.reset?.();
+  };
+
   const unblock = () => {
     if (blocked) {
-      blocker.proceed?.();
+      stay();
       setBlocked(false);
     }
   };
@@ -68,10 +72,6 @@ const Setup2FA = () => {
     await logoutUser();
     unblock();
     back();
-  };
-
-  const proceed = async () => {
-    blocker.reset?.();
   };
 
   const getTOTPCode = async () => {
@@ -181,9 +181,9 @@ const Setup2FA = () => {
             <Button
               onClick={() => {
                 user.state = "HasTotpToken";
-                authService.setUser(user);
                 unblock();
-                navigate("/confirm-2fa");
+                authService.setUser(user);
+                setTimeout(() => navigate("/confirm-2fa"), 0);
               }}
             >
               <FontAwesomeIcon icon={faCircleArrowRight} />
@@ -206,7 +206,7 @@ const Setup2FA = () => {
             </Button>
           </div>
         </div>
-        <Modal show={blocked && blocker.state === "blocked"} onHide={proceed}>
+        <Modal show={blocked && blocker.state === "blocked"} onHide={stay}>
           <Modal.Header closeButton>
             <Modal.Title>You have not setup 2FA yet!</Modal.Title>
           </Modal.Header>
@@ -232,11 +232,7 @@ const Setup2FA = () => {
               />
               Cancel and log out
             </Button>
-            <Button
-              variant="secondary"
-              onClick={proceed}
-              className="text-white"
-            >
+            <Button variant="secondary" onClick={stay} className="text-white">
               <FontAwesomeIcon icon={faPenToSquare} className="me-2" />
               Complete 2FA setup
             </Button>
