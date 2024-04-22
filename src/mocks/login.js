@@ -2,7 +2,7 @@ import { OIDC_AUTHORITY_URL } from "../utils/utils";
 import { user } from "./data";
 
 const SCOPE = process.env.REACT_APP_OIDC_SCOPE;
-const CLIENT_ID = process.env.REACT_APP// (set this to "NeedsRegistration" to test the full registration and 2FA flow)_OIDC_CLIENT_ID;
+const CLIENT_ID = process.env.REACT_APP_OIDC_CLIENT_ID;
 
 const OIDC_USER_KEY = `oidc.user:${OIDC_AUTHORITY_URL}:${CLIENT_ID}`;
 const USER_KEY = 'user';
