@@ -5,12 +5,9 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useState } from "react";
 import { Button, Col, Row, Spinner } from "react-bootstrap";
-import { useNavigate, useParams } from "react-router-dom";
-import { getDatasetDetails, querySearchService } from "../../../api/browse";
-import {
-  DatasetEmbeddedModel,
-  SearchResponseModel,
-} from "../../../models/dataset";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { getDatasetDetails } from "../../../api/browse";
+import { DatasetEmbeddedModel } from "../../../models/dataset";
 import DataRequestFormModal from "../../../utils/dataRequestFormModal";
 import SingleDatasetViewAccordion from "./singleDatasetViewAccordion/singleDatasetViewAccordion";
 import SingleDatasetViewSummary from "./singleDatasetViewSummary/singleDatasetViewSummary";
@@ -23,49 +20,30 @@ const SingleDatasetView = () => {
   const { id } = useParams();
   accessionId = id;
 
-  let paramId: string | null | undefined = null;
+  const location = useLocation();
 
-  const [searchResults, setSearchResults] =
-    useState<SearchResponseModel | null>(null);
+  let paramId: string = location.pathname.split("/")[2];
+
   const [queried, setQueried] = useState<boolean>(false);
 
-  const [details, setDetails] = useState<DatasetEmbeddedModel | null>(null);
+  const [details, setDetails] = useState<
+    DatasetEmbeddedModel | null | undefined
+  >(undefined);
 
   useEffect(() => {
-    const getHits = (accessionId: string | null | undefined, key: string) => {
-      if (accessionId && accessionId !== null && !queried) {
+    const getDetails = (datasetAccession: string) => {
+      if (!queried) {
         setQueried(true);
-        querySearchService(
-          setSearchResults,
-          [{ key: key, value: accessionId }],
-          "",
-          0,
-          1,
-          "EmbeddedDataset"
-        );
-      }
-    };
-    const getDetails = (datasetAccession: string | undefined) => {
-      if (datasetAccession && paramId) {
         getDatasetDetails(datasetAccession, setDetails);
+        if (details === undefined) {
+          setDetails(null);
+        }
       }
     };
-    const processHits = (searchResults: SearchResponseModel | null) => {
-      if (searchResults && searchResults !== null && searchResults.count >= 1) {
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-        paramId = searchResults.hits[0].content.accession;
-        getDetails(paramId);
-      } else if (searchResults?.count === -1) {
-        paramId = undefined;
-      }
-    };
-    getHits(accessionId, "accession");
-    if (searchResults?.count === 0) {
-      getHits(accessionId, "accession");
+    if (!queried) {
+      getDetails(paramId!);
     }
-    processHits(searchResults);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [searchResults, paramId]);
+  }, [paramId, details, queried]);
 
   const [show, setShow] = useState(false);
   const [copyEmail, setCopyEmail] = useState<string>("helpdesk@ghga.de");
@@ -86,27 +64,15 @@ const SingleDatasetView = () => {
 
   return (
     <div className="py-2 py-sm-4 mx-auto px-2 px-sm-5">
-      {searchResults === null ? (
+      {details === undefined ? (
         <div className="fs-5">
           <Spinner animation="border" variant="primary" size="sm" />
           &nbsp;Dataset details loading, please wait...
         </div>
-      ) : searchResults.count === -1 ||
-        accessionId === undefined ||
-        paramId === undefined ? (
+      ) : details === null ? (
         <div className="fs-4 fw-bold">
           <FontAwesomeIcon icon={faCircleExclamation} className="text-danger" />
           &nbsp; Error loading dataset details!
-        </div>
-      ) : searchResults.count === 0 ? (
-        <div className="fs-4 fw-bold">
-          <FontAwesomeIcon icon={faCircleExclamation} className="text-danger" />
-          &nbsp; Dataset not found!
-        </div>
-      ) : details === null ? (
-        <div className="fs-5">
-          <Spinner animation="border" variant="primary" size="sm" />
-          &nbsp;Dataset details loading, please wait...
         </div>
       ) : (
         <>
@@ -127,7 +93,7 @@ const SingleDatasetView = () => {
             </Col>
             <Col className="px-0">
               <RequestAccessButton
-                accession={accessionId}
+                accession={accessionId!}
                 handleOpen={handleOpen}
                 classes="float-end ms-2 ms-sm-4 "
               />

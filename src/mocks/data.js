@@ -10,28 +10,6 @@ export const user = {
   role: "data_steward"
 };
 
-export const userIVAs = [{
-  id: "TEST00014000001",
-  type: "Phone",
-  value: "+441234567890004",
-  changed: "2024-02-01T00:00:00",
-  status: "Verified"
-},
-{
-  id: "TEST00014000002",
-  type: "Fax",
-  value: "+491234567890000",
-  changed: "2024-03-01T00:00:00",
-  status: "Unverified"
-},
-{
-  id: "TEST00014000003",
-  type: "PostalAddress",
-  value: "Wilhelmstr. 123",
-  changed: "2024-04-01T00:00:00",
-  status: "CodeTransmitted"
-}]
-
 export const allIVAs = [
   {
     id: "TEST00014000000",
@@ -81,10 +59,10 @@ export const accessRequests = [
   {
     id: "TEST00004000001",
     user_id: "j.doe@ghga.de",
-    dataset_id: "GHGA:TEST588887987",
+    dataset_id: "GHGATEST588887987",
     full_user_name: "Dr. John Doe",
     email: "j.jdoe@home.org",
-    request_text: "This is a test request for dataset GHGA:TEST588887987.",
+    request_text: "This is a test request for dataset GHGATEST588887987.",
     access_starts: "2023-05-11T15:00:00.000Z",
     access_ends: "2024-05-11T14:59:59.000Z",
     request_created: "2023-05-09T12:04:02.000Z",
@@ -96,7 +74,7 @@ export const accessRequests = [
   {
     id: "TEST00005000002",
     user_id: "j.doe@ghga.de",
-    dataset_id: "TEST00002000001",
+    dataset_id: "GHGATEST588887988",
     full_user_name: "Dr. John Doe",
     email: "j.jdoe@home.org",
     request_text: "This is a test request for dataset TEST00002000001.",
@@ -112,7 +90,7 @@ export const accessRequests = [
   {
     id: "TEST00006000003",
     user_id: "j.doe@ghga.de",
-    dataset_id: "TEST00001000001",
+    dataset_id: "GHGATEST588887989",
     full_user_name: "Dr. John Doe",
     email: "j.jdoe@home.org",
     request_text: "This is a test request for dataset TEST00001000001.",
@@ -143,29 +121,13 @@ export const accessRequests = [
 
 export const datasets = [
   {
-    id: "TEST00001000001",
+    id: "GHGATEST588887988",
     title: "Some dataset for testing",
     description:
       "This is just a dataset with five dummy files that can be used" +
       " for testing the work package functionality of the Data Portal." +
       " Note that the description can be longer than the title.",
     stage: "download",
-  },
-  {
-    id: "TEST00002000001",
-    title: "Another dataset for testing",
-    description:
-      "This is another a dataset with three dummy files" +
-      " and a shorter description.",
-    stage: "download",
-  },
-  {
-    id: "TEST00003000001",
-    title: "A third dataset for testing",
-    description:
-      "This is another a dataset that is awaiting upload." +
-      " Note that currently uploading data is not yet supported in the portal",
-    stage: "upload",
   },
 ];
 
@@ -174,8 +136,8 @@ export const workPackageToken = {
   token: "MTIzNDU2Nzg5MDEyMzQ1Njc4OTAxMjM0",
 };
 
-export const embeddedDataset = {
-  accession: "GHGA:TEST588887987",
+export const embeddedDataset = [{
+  accession: "GHGATEST588887987",
   types: ["Test Type"],
   title: "Test dataset for details",
   description:
@@ -247,10 +209,10 @@ export const embeddedDataset = {
   sample_files: [],
   sequencing_process_files: [],
   analysis_process_output_files: []
-};
+}];
 
-export const datasetSummary = {
-  accession: "GHGA:TEST588887987",
+export const datasetSummary = [{
+  accession: "GHGATEST588887987",
   description:
     "Test dataset for Metadata Repository get dataset details call. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Vel risus commodo viverra maecenas accumsan lacus vel. Sit amet risus nullam eget felis eget nunc lobortis mattis. Iaculis at erat pellentesque adipiscing commodo. Volutpat consequat mauris nunc congue. At lectus urna duis convallis convallis tellus id interdum velit. Gravida cum sociis natoque penatibus et. Mauris in aliquam sem fringilla ut morbi. Ultrices gravida dictum fusce ut. At consectetur lorem donec massa sapien faucibus et molestie.",
   type: ["Test Type"],
@@ -287,7 +249,7 @@ export const datasetSummary = {
       size: 434543980,
     },
   },
-};
+}];
 
 export const metadataSummary = {
   resource_stats: {
@@ -344,7 +306,23 @@ export const searchResults = {
   hits: [
     {
       content: {
-        accession: "GHGA:TEST588887987",
+        accession: "GHGATEST588887987",
+        title: "Test dataset for details",
+        description:
+          "Test dataset for Metadata Repository get dataset details call. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Vel risus commodo viverra maecenas accumsan lacus vel. Sit amet risus nullam eget felis eget nunc lobortis mattis. Iaculis at erat pellentesque adipiscing commodo. Volutpat consequat mauris nunc congue. At lectus urna duis convallis convallis tellus id interdum velit. Gravida cum sociis natoque penatibus et. Mauris in aliquam sem fringilla ut morbi. Ultrices gravida dictum fusce ut. At consectetur lorem donec massa sapien faucibus et molestie.",
+        types: ["Test dataset type 1"],
+      }
+    }, {
+      content: {
+        accession: "GHGATEST588887988",
+        title: "Test dataset for details",
+        description:
+          "Test dataset for Metadata Repository get dataset details call. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Vel risus commodo viverra maecenas accumsan lacus vel. Sit amet risus nullam eget felis eget nunc lobortis mattis. Iaculis at erat pellentesque adipiscing commodo. Volutpat consequat mauris nunc congue. At lectus urna duis convallis convallis tellus id interdum velit. Gravida cum sociis natoque penatibus et. Mauris in aliquam sem fringilla ut morbi. Ultrices gravida dictum fusce ut. At consectetur lorem donec massa sapien faucibus et molestie.",
+        types: ["Test dataset type 1"],
+      }
+    }, {
+      content: {
+        accession: "GHGATEST588887989",
         title: "Test dataset for details",
         description:
           "Test dataset for Metadata Repository get dataset details call. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Vel risus commodo viverra maecenas accumsan lacus vel. Sit amet risus nullam eget felis eget nunc lobortis mattis. Iaculis at erat pellentesque adipiscing commodo. Volutpat consequat mauris nunc congue. At lectus urna duis convallis convallis tellus id interdum velit. Gravida cum sociis natoque penatibus et. Mauris in aliquam sem fringilla ut morbi. Ultrices gravida dictum fusce ut. At consectetur lorem donec massa sapien faucibus et molestie.",

@@ -8,7 +8,7 @@ import {
   Modal,
   Card,
 } from "react-bootstrap";
-import { useNavigate, NavLink, Link } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { ARS_URL, AUTH_URL, WPS_URL, fetchJson } from "../../utils/utils";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleXmark, faPlus } from "@fortawesome/free-solid-svg-icons";
@@ -40,7 +40,10 @@ const Profile = () => {
   const { user, logoutUser } = useAuth();
 
   const [userIVAs, setUserIVAs] = useState<IVA[]>([]);
-  const [userRequests, setUserRequests] = useState<
+  const [pendingUserRequests, setPendingUserRequests] = useState<
+    AccessRequest[] | null | undefined
+  >(undefined);
+  const [allowedUserRequests, setAllowedUserRequests] = useState<
     AccessRequest[] | null | undefined
   >(undefined);
 
@@ -197,15 +200,21 @@ const Profile = () => {
         }
 
         let accessRequests: AccessRequest[] | null = null;
-        url = new URL(
-          `access-requests?user_id=${user.id}&state=pending`,
-          ARS_URL
-        );
+        url = new URL(`access-requests?user_id=${user.id}`, ARS_URL);
         try {
           const response = await fetchJson(url);
           if (response.ok) {
             accessRequests = await response.json();
-            setUserRequests(accessRequests);
+            setPendingUserRequests(
+              accessRequests?.filter((x) => x.status === "pending")
+            );
+            setAllowedUserRequests(
+              accessRequests?.filter(
+                (x) =>
+                  x.status === "allowed" &&
+                  Date.parse(x.access_ends) > Date.now()
+              )
+            );
           }
         } catch (error) {
           showMessage({
@@ -253,16 +262,16 @@ const Profile = () => {
             </Card.Header>
             <Card.Body>
               <p>
-                <Link to={"/ivas"}>
+                <Button href={"/ivas"}>
                   <FontAwesomeIcon icon={faAddressBook} /> Independent
                   Verification Addresses Manager
-                </Link>
+                </Button>
               </p>
               <p>
-                <Link to={"/access-requests"}>
+                <Button href={"/access-requests"}>
                   <FontAwesomeIcon icon={faPenToSquare} /> Access Requests
                   Management
-                </Link>
+                </Button>
               </p>
             </Card.Body>
           </Card>
@@ -382,30 +391,49 @@ const Profile = () => {
         <Card className="mb-3">
           <Card.Header>Dataset access</Card.Header>
           <Card.Body>
-            <p>
+            <div>
               {numDatasets ? (
-                <NavLink to="/work-package">
-                  You have access to
-                  {numDatasets === 1
-                    ? " one dataset"
-                    : ` ${numDatasets} datasets`}
-                  .<br />
-                  Click here to set up your download tokens.
-                </NavLink>
+                <>
+                  <p className="mb-1">
+                    You have access to the following datasets:
+                  </p>
+                  <ul>
+                    {allowedUserRequests?.map((x) => (
+                      <li key={x.id} className="mb-0">
+                        <Row>
+                          <Col md={6} lg={4} xxl={3}>
+                            For dataset{" "}
+                            <Link to={`/browse/${x.dataset_id}`}>
+                              {x.dataset_id}
+                            </Link>{" "}
+                          </Col>
+                          <Col md={3} xl={2}>
+                            from {x.access_starts.slice(0, 10)}
+                          </Col>
+                          <Col>to {x.access_ends.slice(0, 10)}</Col>
+                        </Row>
+                      </li>
+                    ))}
+                  </ul>
+                  <Button href="/work-package">
+                    Click here to set up your download tokens.
+                  </Button>
+                </>
               ) : (
                 <p>You do not yet have access to any datasets.</p>
               )}
-            </p>
+            </div>
           </Card.Body>
         </Card>
         <Card>
           <Card.Header>Pending access requests</Card.Header>
           <Card.Body>
             <div>
-              You have the following pending access requests:
-              <br />
+              <p className="mb-1">
+                You have the following pending access requests:
+              </p>
               <ul>
-                {userRequests?.map((x) => (
+                {pendingUserRequests?.map((x) => (
                   <li key={x.id} className="mb-0">
                     <Row>
                       <Col md={6} lg={4} xxl={3}>
