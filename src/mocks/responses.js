@@ -67,10 +67,10 @@ export const responses = {
   "POST /api/wps/work-packages": workPackageToken,
 
   // Specific dataset and user access requests
-  "GET /api/ars/access-requests?dataset_id=GHGATEST588887987&user_id=*": accessRequests.filter((x) => x.dataset_id === "GHGATEST588887987" && x.user_id === "j.doe@ghga.de"),
+  "GET /api/ars/access-requests?dataset_id=GHGATEST588887987&*": accessRequests.filter((x) => x.dataset_id === "GHGATEST588887987" && x.user_id === "j.doe@ghga.de"),
 
   // Specific dataset and user access requests
-  "GET /api/ars/access-requests?user_id=*": accessRequests.filter((x) => x.user_id === "j.doe@ghga.de"),
+  "GET /api/ars/access-requests?*": accessRequests.filter((x) => x.user_id === "j.doe@ghga.de"),
 
   // All access requests
   "GET /api/ars/access-requests": accessRequests,
