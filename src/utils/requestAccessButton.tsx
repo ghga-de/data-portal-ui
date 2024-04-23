@@ -74,15 +74,6 @@ const RequestAccessButton = (props: RequestAccessButtonProps) => {
                   Date.now() <= Date.parse(x.access_ends)
               )
             );
-            console.log(
-              accessRequests?.filter(
-                (x) =>
-                  x.dataset_id === props.accession &&
-                  x.user_id === user.id &&
-                  x.status === "pending" &&
-                  Date.now() <= Date.parse(x.access_ends)
-              )
-            );
           } else {
             throw new Error(
               "Failed to retrieve access requests: " + response.text

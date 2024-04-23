@@ -68,7 +68,7 @@ export const responses = {
   "POST /api/wps/work-packages": workPackageToken,
 
   // Specific dataset and user access requests
-  "GET /api/ars/access-requests?dataset_id=:ds_id&user_id=:user_id": accessRequests.filter((x) => x.dataset_id === "GHGA:TEST588887987" && x.user_id === "j.doe@ghga.de"),
+  "GET /api/ars/access-requests?dataset_id=GHGA%3ATEST588887987&user_id=:user_id": accessRequests.filter((x) => x.dataset_id === "GHGA:TEST588887987" && x.user_id === "j.doe@ghga.de"),
 
   // Specific dataset and user access requests
   "GET /api/ars/access-requests?user_id=:user_id&state=pending": accessRequests.filter((x) => x.user_id === "j.doe@ghga.de" && x.status === "pending"),
@@ -89,7 +89,7 @@ export const responses = {
   "GET /api/metldata/artifacts/embedded_public/classes/EmbeddedDataset/resources/*": embeddedDataset,
 
   // Get summary data from a single dataset
-  "GET /api/metldata/artifacts/stats_public/classes/DatasetStats/resources/*": datasetSummary,
+  "GET /api/metldata/artifacts/stats_public/classes/DatasetStats/resources/:ds_id": datasetSummary,
 
   // Get summary data from entire metadata database
   "GET /api/metldata/stats": metadataSummary,
