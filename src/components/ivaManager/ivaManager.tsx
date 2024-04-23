@@ -2,7 +2,6 @@ import { Alert, Col, Container, Row, Spinner } from "react-bootstrap";
 import { useAuth } from "../../services/auth";
 import { UserWithIVA } from "../../models/ivas";
 import { useEffect, useState } from "react";
-import { useMessages } from "../messages/usage";
 import { FILTER_MAX_ISO, FILTER_MIN_ISO } from "../../utils/utils";
 import IvaManagerList from "./ivaManagerList/ivaManagerList";
 import IvaManagerFilter from "./ivaManagerFilter/ivaManagerFilter";
@@ -10,8 +9,6 @@ import { getAllIVAs } from "../../services/ivas";
 
 const IvaManager = () => {
   const [ivas, setIVAs] = useState<UserWithIVA[] | null | undefined>(undefined);
-
-  const { showMessage } = useMessages();
   const { user } = useAuth();
 
   let filteredIVAs: UserWithIVA[] | undefined = undefined;

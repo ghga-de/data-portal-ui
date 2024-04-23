@@ -8,8 +8,8 @@ import {
   Modal,
   Card,
 } from "react-bootstrap";
-import { useNavigate, NavLink } from "react-router-dom";
-import { AUTH_URL, WPS_URL, fetchJson } from "../../utils/utils";
+import { useNavigate, Link } from "react-router-dom";
+import { ARS_URL, AUTH_URL, WPS_URL, fetchJson } from "../../utils/utils";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleXmark, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { useMessages } from "../messages/usage";
@@ -24,6 +24,11 @@ import {
 import NewIVAModal from "./newIVAsModal/newIVAModal";
 import ConfirmVerificationModal from "./verificationModals/confirmVerificationModal";
 import RequestVerificationModal from "./verificationModals/requestVerificationModal";
+import {
+  faAddressBook,
+  faPenToSquare,
+} from "@fortawesome/free-regular-svg-icons";
+import { AccessRequest } from "../../models/submissionsAndRequests";
 
 /** Display user profile */
 
@@ -35,6 +40,12 @@ const Profile = () => {
   const { user, logoutUser } = useAuth();
 
   const [userIVAs, setUserIVAs] = useState<IVA[]>([]);
+  const [pendingUserRequests, setPendingUserRequests] = useState<
+    AccessRequest[] | null | undefined
+  >(undefined);
+  const [allowedUserRequests, setAllowedUserRequests] = useState<
+    AccessRequest[] | null | undefined
+  >(undefined);
 
   const [toDeleteIVA, setToDeleteIVA] = useState<IVA | null>(null);
   const [toConfirmIVA, setToConfirmIVA] = useState<IVA | null>(null);
@@ -165,7 +176,7 @@ const Profile = () => {
   useEffect(() => {
     async function fetchData() {
       if (user && user.id) {
-        const url = new URL(`users/${user.id}/datasets`, WPS_URL);
+        let url = new URL(`users/${user.id}/datasets`, WPS_URL);
         try {
           const response = await fetchJson(url);
           const datasets = await response.json();
@@ -177,9 +188,40 @@ const Profile = () => {
           });
           console.error(error);
         }
-        const ivas = await getUserIVAs(user.ext_id);
-        if (ivas) {
-          setUserIVAs(ivas);
+
+        try {
+          getUserIVAs(user.ext_id);
+        } catch (error) {
+          showMessage({
+            type: "error",
+            title: "Cannot retrieve your contact addresses.",
+          });
+          console.error(error);
+        }
+
+        let accessRequests: AccessRequest[] | null = null;
+        url = new URL(`access-requests?user_id=${user.id}`, ARS_URL);
+        try {
+          const response = await fetchJson(url);
+          if (response.ok) {
+            accessRequests = await response.json();
+            setPendingUserRequests(
+              accessRequests?.filter((x) => x.status === "pending")
+            );
+            setAllowedUserRequests(
+              accessRequests?.filter(
+                (x) =>
+                  x.status === "allowed" &&
+                  Date.parse(x.access_ends) > Date.now()
+              )
+            );
+          }
+        } catch (error) {
+          showMessage({
+            type: "error",
+            title: "Cannot retrieve your access requests.",
+          });
+          console.error(error);
         }
       }
     }
@@ -212,6 +254,30 @@ const Profile = () => {
               : "Your session has expired!"}
           </Alert>
         </div>
+
+        {user.role === "data_steward" ? (
+          <Card className="mb-3">
+            <Card.Header>
+              <strong>Data Steward Pages</strong>
+            </Card.Header>
+            <Card.Body>
+              <p>
+                <Button href={"/ivas"}>
+                  <FontAwesomeIcon icon={faAddressBook} /> Independent
+                  Verification Addresses Manager
+                </Button>
+              </p>
+              <p>
+                <Button href={"/access-requests"}>
+                  <FontAwesomeIcon icon={faPenToSquare} /> Access Requests
+                  Management
+                </Button>
+              </p>
+            </Card.Body>
+          </Card>
+        ) : (
+          <></>
+        )}
         <Card className="mb-3">
           <Card.Header>E-Mail address</Card.Header>
           <Card.Body>
@@ -242,10 +308,18 @@ const Profile = () => {
                 userIVAs.map((x, index) => {
                   return (
                     <Row key={x.id + index} className="mb-1">
-                      <Col xs={2}>{IVATypePrintable[x.type]}:</Col>
-                      <Col xs={3}>{x.value}</Col>
+                      <Col xs={3} md={2}>
+                        {IVATypePrintable[x.type]}:
+                      </Col>
+                      <Col xs={5} md={4} lg={4} xl={3}>
+                        {x.value}
+                      </Col>
                       <Col
-                        xs={2}
+                        xs={3}
+                        md={4}
+                        lg={3}
+                        xl={3}
+                        xxl={2}
                         className={
                           x.status === IVAStatus.Verified
                             ? "text-success fw-bold"
@@ -314,21 +388,68 @@ const Profile = () => {
             </Button>
           </Card.Body>
         </Card>
-        <Card>
+        <Card className="mb-3">
           <Card.Header>Dataset access</Card.Header>
           <Card.Body>
             <div>
               {numDatasets ? (
-                <NavLink to="/work-package">
-                  You have access to
-                  {numDatasets === 1
-                    ? " one dataset"
-                    : ` ${numDatasets} datasets`}
-                  .
-                </NavLink>
+                <>
+                  <p className="mb-1">
+                    You have access to the following datasets:
+                  </p>
+                  <ul>
+                    {allowedUserRequests?.map((x) => (
+                      <li key={x.id} className="mb-0">
+                        <Row>
+                          <Col md={6} lg={4} xxl={3}>
+                            For dataset{" "}
+                            <Link to={`/browse/${x.dataset_id}`}>
+                              {x.dataset_id}
+                            </Link>{" "}
+                          </Col>
+                          <Col md={3} xl={2}>
+                            from {x.access_starts.slice(0, 10)}
+                          </Col>
+                          <Col>to {x.access_ends.slice(0, 10)}</Col>
+                        </Row>
+                      </li>
+                    ))}
+                  </ul>
+                  <Button href="/work-package">
+                    Click here to set up your download tokens.
+                  </Button>
+                </>
               ) : (
-                <span>You do not yet have access to any datasets.</span>
+                <p>You do not yet have access to any datasets.</p>
               )}
+            </div>
+          </Card.Body>
+        </Card>
+        <Card>
+          <Card.Header>Pending access requests</Card.Header>
+          <Card.Body>
+            <div>
+              <p className="mb-1">
+                You have the following pending access requests:
+              </p>
+              <ul>
+                {pendingUserRequests?.map((x) => (
+                  <li key={x.id} className="mb-0">
+                    <Row>
+                      <Col md={6} lg={4} xxl={3}>
+                        For dataset{" "}
+                        <Link to={`/browse/${x.dataset_id}`}>
+                          {x.dataset_id}
+                        </Link>{" "}
+                      </Col>
+                      <Col md={3} xl={2}>
+                        from {x.access_starts.slice(0, 10)}
+                      </Col>
+                      <Col>to {x.access_ends.slice(0, 10)}</Col>
+                    </Row>
+                  </li>
+                ))}
+              </ul>
             </div>
           </Card.Body>
         </Card>

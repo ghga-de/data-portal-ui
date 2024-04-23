@@ -6,7 +6,6 @@ import {
   metadataSummary,
   workPackageToken,
   searchResults,
-  userIVAs,
   allIVAs,
 } from "./data";
 
@@ -28,28 +27,28 @@ export const responses = {
   "GET /api/wps/users/j.doe@ghga.de/datasets": datasets,
 
   // User IVAs
-  "GET /api/auth/users/:user_id/ivas": userIVAs,
+  "GET /api/auth/users/*/ivas": allIVAs.slice(1, 4),
 
   // New IVA
-  "POST /api/auth/users/:user_id/ivas": "TEST1234566789",
+  "POST /api/auth/users/*/ivas": "TEST1234566789",
 
   // Delete IVA
-  "DELETE /api/auth/users/:user_id/ivas/:iva_id": 204,
+  "DELETE /api/auth/users/*/ivas/*": 204,
 
   // Request IVA verification
-  "POST /api/auth/rpc/ivas/:iva_id/request-code": 204,
+  "POST /api/auth/rpc/ivas/*/request-code": 204,
 
   // Create IVA verification code
-  "POST /api/auth/rpc/ivas/:iva_id/create-code": "TEST1234566789",
+  "POST /api/auth/rpc/ivas/*/create-code": "TEST1234566789",
 
   // Request IVA verification
-  "POST /api/auth/rpc/ivas/:iva_id/code-transmitted": 204,
+  "POST /api/auth/rpc/ivas/*/code-transmitted": 204,
 
   // Request IVA verification with correct code
-  "POST /api/auth/rpc/ivas/:iva_id/validate-code?verification_code=ABC123": 204,
+  "POST /api/auth/rpc/ivas/*/validate-code?verification_code=ABC123": 204,
 
   // Request IVA verification with others codes
-  "POST /api/auth/rpc/ivas/:iva_id/validate-code": 401,
+  "POST /api/auth/rpc/ivas/*/validate-code": 401,
 
   // Request TOTP verification with correct code
   "POST /api/auth/rpc/verify-totp?token=123456": 204,
@@ -61,11 +60,17 @@ export const responses = {
   "GET /api/auth/ivas": allIVAs,
 
   // Invalidate an access request
-  "POST /api/auth/rpc/ivas/:iva_id/unverify": 204,
+  "POST /api/auth/rpc/ivas/*/unverify": 204,
 
   // Work packages
   // example key for input: MTIzNDU2Nzg5MDEyMzQ1Njc4OTAxMjM0NTY3ODkwMTI
   "POST /api/wps/work-packages": workPackageToken,
+
+  // Specific dataset and user access requests
+  "GET /api/ars/access-requests?dataset_id=GHGATEST588887987&*": accessRequests.filter((x) => x.dataset_id === "GHGATEST588887987" && x.user_id === "j.doe@ghga.de"),
+
+  // Specific dataset and user access requests
+  "GET /api/ars/access-requests?*": accessRequests.filter((x) => x.user_id === "j.doe@ghga.de"),
 
   // All access requests
   "GET /api/ars/access-requests": accessRequests,
@@ -80,10 +85,18 @@ export const responses = {
   "GET /static/*": undefined,
 
   // Get Dataset details (embedded) Metadata Repository Service
-  "GET /api/metldata/artifacts/embedded_public/classes/EmbeddedDataset/resources/*": embeddedDataset,
+  "GET /api/metldata/artifacts/embedded_public/classes/EmbeddedDataset/resources/GHGATEST588887987": embeddedDataset[0],
+  // Get Dataset details (embedded) Metadata Repository Service
+  "GET /api/metldata/artifacts/embedded_public/classes/EmbeddedDataset/resources/GHGATEST588887988": embeddedDataset.map((x) => { let y = { ...x }; y.accession = "GHGATEST588887988"; return y })[0],
+  // Get Dataset details (embedded) Metadata Repository Service
+  "GET /api/metldata/artifacts/embedded_public/classes/EmbeddedDataset/resources/GHGATEST588887989": embeddedDataset.map((x) => { let y = { ...x }; y.accession = "GHGATEST588887989"; return y })[0],
 
   // Get summary data from a single dataset
-  "GET /api/metldata/artifacts/stats_public/classes/DatasetStats/resources/*": datasetSummary,
+  "GET /api/metldata/artifacts/stats_public/classes/DatasetStats/resources/GHGATEST588887987": datasetSummary[0],
+  // Get summary data from a single dataset
+  "GET /api/metldata/artifacts/stats_public/classes/DatasetStats/resources/GHGATEST588887988": datasetSummary.map((x) => { let y = { ...x }; y.accession = "GHGATEST588887988"; return y })[0],
+  // Get summary data from a single dataset
+  "GET /api/metldata/artifacts/stats_public/classes/DatasetStats/resources/GHGATEST588887989": datasetSummary.map((x) => { let y = { ...x }; y.accession = "GHGATEST588887989"; return y })[0],
 
   // Get summary data from entire metadata database
   "GET /api/metldata/stats": metadataSummary,
@@ -93,13 +106,6 @@ export const responses = {
     facets: searchResults.facets,
     count: searchResults.count,
     hits: searchResults.hits,
-  },
-
-  // Metadata Search Service single result
-  "POST /api/mass/rpc/search?limit=1": {
-    facets: searchResults.facets,
-    count: searchResults.count,
-    hits: searchResults.hits.slice(0, 1),
   },
 
   // webpack-hot-replace
