@@ -14,40 +14,43 @@
 // limitations under the License.
 
 import { fetchJson, AUTH_URL } from "../utils/utils";
-import { IVA, IVAStatus, IVAType } from "../models/ivas";
+import { IVA, UserWithIVA } from "../models/ivas";
 import { showMessage } from "../components/messages/usage";
 
-// Get user IVAs
-export const getIVAs = async (userId: string, setUserIVAs: any) => {
-  let url = AUTH_URL;
-  url = new URL(`users/${userId}/ivas`, url);
-  let method: string = "GET",
-    ok: number = 200;
-  const response = await fetchJson(url, method).catch(() => null);
-  if (response && response.status === ok) {
-    try {
-      await response.json().then((x: any[]) => {
-        function parseIVAStatusAndType(userIVA: any) {
-          userIVA.status = userIVA.status as unknown as IVAStatus;
-          userIVA.type = userIVA.type as unknown as IVAType;
-        }
-        let IVAs: IVA[] = x;
-        IVAs.forEach(parseIVAStatusAndType);
-        setUserIVAs(IVAs);
-      });
-    } catch {
-      showMessage({
-        type: "error",
-        title:
-          "Could not obtain user's IVAs. Please try reopening this dialog again.",
-      });
+// Get IVAs of a given user
+export async function getUserIVAs(userId: string): Promise<IVA[] | null> {
+  const url = new URL(`users/${userId}/ivas`, AUTH_URL);
+  try {
+    const response = await fetchJson(url)
+    if (!response || response.status !== 200) {
+      throw new Error(response.statusText);
     }
-    return;
+    return await response.json() as any as IVA[];
+  } catch(error) {
+    console.error(error);
+    showMessage({
+      type: "error",
+      title:
+        "Could not obtain user's IVAs. Please try reopening this dialog again.",
+    });
+    return null;
   }
-  showMessage({
-    type: "error",
-    title:
-      "Could not obtain user's IVAs. Please try reopening this dialog again.",
-  });
-  return;
 };
+
+// Get all IVAs with the corresponding user data
+export async function getAllIVAs(): Promise<UserWithIVA[] | null> {
+  const url = new URL(`ivas`, AUTH_URL);
+  try {
+    const response = await fetchJson(url);
+    if (!response || response.status !== 200) {
+      throw new Error(response.statusText);
+    }
+    return await response.json() as any as UserWithIVA[];
+  } catch (error) {
+    console.error(error);
+    showMessage({
+      type: "error", title: "Cannot retrieve IVAs.",
+    });
+    return null;
+  }
+}

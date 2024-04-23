@@ -1,24 +1,17 @@
 import { Alert, Col, Container, Row, Spinner } from "react-bootstrap";
 import { useAuth } from "../../services/auth";
-import { EmbeddedIVA } from "../../models/ivas";
+import { UserWithIVA } from "../../models/ivas";
 import { useEffect, useState } from "react";
-import { useMessages } from "../messages/usage";
-import {
-  FILTER_MAX_ISO,
-  FILTER_MIN_ISO,
-  AUTH_URL,
-  fetchJson,
-} from "../../utils/utils";
+import { FILTER_MAX_ISO, FILTER_MIN_ISO } from "../../utils/utils";
 import IvaManagerList from "./ivaManagerList/ivaManagerList";
 import IvaManagerFilter from "./ivaManagerFilter/ivaManagerFilter";
+import { getAllIVAs } from "../../services/ivas";
 
 const IvaManager = () => {
-  const [ivas, setIVAs] = useState<EmbeddedIVA[] | null | undefined>(undefined);
-
-  const { showMessage } = useMessages();
+  const [ivas, setIVAs] = useState<UserWithIVA[] | null | undefined>(undefined);
   const { user } = useAuth();
 
-  let filteredIVAs: EmbeddedIVA[] | undefined = undefined;
+  let filteredIVAs: UserWithIVA[] | undefined = undefined;
 
   const [filterObj, setFilterObj] = useState({
     userFilter: "",
@@ -68,29 +61,13 @@ const IvaManager = () => {
 
   useEffect(() => {
     async function fetchData() {
-      let ivas: EmbeddedIVA[] | null = null;
-      if (user?.id) {
-        const url = new URL(`ivas`, AUTH_URL);
-        try {
-          const response = await fetchJson(url);
-          if (response.ok) {
-            ivas = await response.json();
-          } else {
-            throw new Error("Failed to retrieve IVAs: " + response.text);
-          }
-        } catch (error) {
-          showMessage({
-            type: "error",
-            title: "Cannot retrieve IVAs.",
-          });
-        }
-      }
-      if (ivas !== null) {
+      const ivas = await getAllIVAs();
+      if (ivas != null) {
         setIVAs(ivas);
       }
     }
-    if (ivas === null || ivas === undefined) fetchData();
-  }, [ivas, showMessage, user]);
+    if (!ivas && user?.role === "data_steward") fetchData();
+  }, [ivas, user]);
 
   filteredIVAs = ivas?.filter(
     (iva) =>
@@ -105,7 +82,7 @@ const IvaManager = () => {
         iva.status.toString() === filterObj["statusFilter"])
   );
 
-  if (!user || user.role !== "data_steward") {
+  if (user?.role !== "data_steward") {
     return (
       <Container className="p-4">
         <Alert variant="danger">

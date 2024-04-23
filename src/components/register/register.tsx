@@ -31,9 +31,13 @@ const Register = () => {
     );
   };
 
+  const stay = () => {
+    blocker.reset?.();
+  };
+
   const unblock = () => {
     if (blocked) {
-      blocker.proceed?.();
+      stay();
       setBlocked(false);
     }
   };
@@ -42,10 +46,6 @@ const Register = () => {
     await logoutUser();
     unblock();
     back();
-  };
-
-  const proceed = async () => {
-    blocker.reset?.();
   };
 
   const prompt = () =>
@@ -225,7 +225,7 @@ const Register = () => {
             </Button>
           </div>
         </form>
-        <Modal show={blocked && blocker.state === "blocked"} onHide={proceed}>
+        <Modal show={blocked && blocker.state === "blocked"} onHide={stay}>
           <Modal.Header closeButton>
             <Modal.Title>You have not registered yet!</Modal.Title>
           </Modal.Header>
@@ -251,11 +251,7 @@ const Register = () => {
               />
               Cancel and log out
             </Button>
-            <Button
-              variant="secondary"
-              onClick={proceed}
-              className="text-white"
-            >
+            <Button variant="secondary" onClick={stay} className="text-white">
               <FontAwesomeIcon icon={faPenToSquare} className="me-2" />
               Complete registration
             </Button>

@@ -14,7 +14,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleXmark, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { useMessages } from "../messages/usage";
 import { useAuth } from "../../services/auth";
-import { getIVAs } from "../../services/ivas";
+import { getUserIVAs } from "../../services/ivas";
 import {
   IVA,
   IVAStatus,
@@ -190,7 +190,7 @@ const Profile = () => {
         }
 
         try {
-          getIVAs(user.ext_id, setUserIVAs);
+          getUserIVAs(user.ext_id);
         } catch (error) {
           showMessage({
             type: "error",

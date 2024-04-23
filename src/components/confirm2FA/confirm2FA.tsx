@@ -52,9 +52,13 @@ const Confirm2FA = () => {
     );
   };
 
+  const stay = () => {
+    blocker.reset?.();
+  };
+
   const unblock = () => {
     if (blocked) {
-      blocker.proceed?.();
+      stay();
       setBlocked(false);
     }
   };
@@ -63,10 +67,6 @@ const Confirm2FA = () => {
     await logoutUser();
     unblock();
     back();
-  };
-
-  const proceed = async () => {
-    blocker.reset?.();
   };
 
   const submitToken = async (token: string) => {
@@ -85,9 +85,9 @@ const Confirm2FA = () => {
     if (response && response.status === ok) {
       showMessage({ type: "success", title: "Login successful" });
       user.state = "Authenticated";
-      authService.setUser(user);
       unblock();
-      back();
+      authService.setUser(user);
+      setTimeout(() => back(), 0);
       return;
     }
     setShowError(true);
@@ -136,9 +136,9 @@ const Confirm2FA = () => {
               disabled={disabledNew2FAButton}
               onClick={() => {
                 user.state = "LostTotpToken";
-                authService.setUser(user);
                 unblock();
-                navigate("/setup-2fa");
+                authService.setUser(user);
+                setTimeout(() => navigate("/setup-2fa"), 0);
               }}
             >
               <FontAwesomeIcon icon={faCircleArrowRight} />
@@ -181,7 +181,11 @@ const Confirm2FA = () => {
                 type="text"
                 className="text-center fs-2"
                 name="totpInput"
-                style={{ letterSpacing: "0.5em", paddingLeft: "0.5em", width: "7em" }}
+                style={{
+                  letterSpacing: "0.5em",
+                  paddingLeft: "0.5em",
+                  width: "7em",
+                }}
                 required
                 minLength={6}
                 maxLength={6}
@@ -222,7 +226,7 @@ const Confirm2FA = () => {
             </div>
           </form>
         </div>
-        <Modal show={blocked && blocker.state === "blocked"} onHide={proceed}>
+        <Modal show={blocked && blocker.state === "blocked"} onHide={stay}>
           <Modal.Header closeButton>
             <Modal.Title>You have not setup 2FA yet!</Modal.Title>
           </Modal.Header>
@@ -248,11 +252,7 @@ const Confirm2FA = () => {
               />
               Cancel and log out
             </Button>
-            <Button
-              variant="secondary"
-              onClick={proceed}
-              className="text-white"
-            >
+            <Button variant="secondary" onClick={stay} className="text-white">
               <FontAwesomeIcon icon={faPenToSquare} className="me-2" />
               Complete 2FA setup
             </Button>

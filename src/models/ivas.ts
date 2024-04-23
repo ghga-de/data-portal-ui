@@ -48,7 +48,7 @@ export interface IVA {
   status: IVAStatus;
 }
 
-export interface EmbeddedIVA {
+export interface UserWithIVA {
   id: string;
   type: IVAType;
   value: string;
