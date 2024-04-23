@@ -14,7 +14,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleXmark, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { useMessages } from "../messages/usage";
 import { useAuth } from "../../services/auth";
-import { getIVAs } from "../../services/ivas";
+import { getUserIVAs } from "../../services/ivas";
 import {
   IVA,
   IVAStatus,
@@ -170,14 +170,16 @@ const Profile = () => {
           const response = await fetchJson(url);
           const datasets = await response.json();
           setNumDatasets(datasets.length);
-
-          getIVAs(user.ext_id, setUserIVAs);
         } catch (error) {
           showMessage({
             type: "error",
             title: "Cannot retrieve your datasets.",
           });
           console.error(error);
+        }
+        const ivas = await getUserIVAs(user.ext_id);
+        if (ivas) {
+          setUserIVAs(ivas);
         }
       }
     }

@@ -32,6 +32,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { authService, useAuth } from "../../../services/auth";
 import { AUTH_URL, fetchJson } from "../../../utils/utils";
+import { showMessage } from "../../messages/usage";
 
 const Setup2FA = () => {
   useEffect(() => {});
@@ -56,9 +57,13 @@ const Setup2FA = () => {
     );
   };
 
+  const stay = () => {
+    blocker.reset?.();
+  };
+
   const unblock = () => {
     if (blocked) {
-      blocker.proceed?.();
+      stay();
       setBlocked(false);
     }
   };
@@ -69,10 +74,6 @@ const Setup2FA = () => {
     back();
   };
 
-  const proceed = async () => {
-    blocker.reset?.();
-  };
-
   const getTOTPCode = async () => {
     if (user && TOTPRequests === 0) {
       const { id } = user;
@@ -80,24 +81,26 @@ const Setup2FA = () => {
         id,
         force: false,
       };
-      let url = AUTH_URL;
-      let method: string = "post",
-        ok: number = 201;
-      url = new URL(`totp-token`, url);
       if (user.state === "LostTotpToken") {
         userData["force"] = true;
       }
       setTOTPRequests(TOTPRequests + 1);
-      const response = await fetchJson(url, method, userData).catch(() => null);
-      if (response && response.status === ok) {
-        try {
-          const { uri: token } = await response.json();
-          if (token) {
-            setTwoFAURI(token);
-          }
-        } catch {
-          logoutUser();
+      const url = new URL(`totp-token`, AUTH_URL);
+      try {
+        const response = await fetchJson(url, "POST", userData);
+        if (response?.status !== 201) {
+          throw Error(response.statusText);
         }
+        const { uri: token } = await response.json();
+        if (token) {
+          setTwoFAURI(token);
+        }
+      } catch (error) {
+        console.error("Cannot get TOTP code:", error);
+        showMessage({
+          type: "error",
+          title: "Cannot get 2FA code. Please try again later.",
+        });
       }
     }
   };
@@ -178,9 +181,9 @@ const Setup2FA = () => {
             <Button
               onClick={() => {
                 user.state = "HasTotpToken";
-                authService.setUser(user);
                 unblock();
-                navigate("/confirm-2fa");
+                authService.setUser(user);
+                setTimeout(() => navigate("/confirm-2fa"), 0);
               }}
             >
               <FontAwesomeIcon icon={faCircleArrowRight} />
@@ -203,7 +206,7 @@ const Setup2FA = () => {
             </Button>
           </div>
         </div>
-        <Modal show={blocked && blocker.state === "blocked"} onHide={proceed}>
+        <Modal show={blocked && blocker.state === "blocked"} onHide={stay}>
           <Modal.Header closeButton>
             <Modal.Title>You have not setup 2FA yet!</Modal.Title>
           </Modal.Header>
@@ -229,11 +232,7 @@ const Setup2FA = () => {
               />
               Cancel and log out
             </Button>
-            <Button
-              variant="secondary"
-              onClick={proceed}
-              className="text-white"
-            >
+            <Button variant="secondary" onClick={stay} className="text-white">
               <FontAwesomeIcon icon={faPenToSquare} className="me-2" />
               Complete 2FA setup
             </Button>

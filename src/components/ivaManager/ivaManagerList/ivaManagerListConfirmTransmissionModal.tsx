@@ -1,5 +1,5 @@
 import { Button, Modal } from "react-bootstrap";
-import { EmbeddedIVA, IVAStatus, IVATypePrintable } from "../../../models/ivas";
+import { UserWithIVA, IVAStatus, IVATypePrintable } from "../../../models/ivas";
 import { useState } from "react";
 import { AUTH_URL, fetchJson } from "../../../utils/utils";
 import { showMessage } from "../../messages/usage";
@@ -8,7 +8,7 @@ interface IvaManagerListConfirmTransmissionModalProps {
   show: boolean;
   setShow: any;
   setShowCreateCodeModal: any;
-  selectedIVA: EmbeddedIVA | undefined;
+  selectedIVA: UserWithIVA | undefined;
   setSelectedIVA: any;
   onUpdate: any;
 }
@@ -30,7 +30,7 @@ const IvaManagerListConfirmTransmissionModal = (
         if (response && response.status === ok) {
           showMessage({
             type: "success",
-            title: "IVA successfully invalidated!",
+            title: "Verification code has been confirmed as transmitted!",
           });
           props.selectedIVA.status = IVAStatus.CodeTransmitted;
           props.onUpdate();
@@ -44,7 +44,7 @@ const IvaManagerListConfirmTransmissionModal = (
         setDisabledButtons(false);
         showMessage({
           type: "error",
-          title: "Could not invalidate IVA.",
+          title: "Could not cofirm verification code as transmitted.",
         });
       }
     }
