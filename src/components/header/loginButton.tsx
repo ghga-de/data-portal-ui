@@ -174,7 +174,6 @@ const LoginButton = () => {
                         <br />
                         LS Login account
                       </a>
-                      .
                     </p>
                     <Button
                       variant="danger"
