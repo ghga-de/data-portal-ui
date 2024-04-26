@@ -1,4 +1,5 @@
 import { Row, Button, Spinner, Col, Badge } from "react-bootstrap";
+import { Link } from "react-router-dom";
 import {
   DatasetDetailsSummaryModel,
   HitModel,
@@ -51,22 +52,23 @@ const DatasetSummary = (props: DataSetDetailsProps) => {
                 handleOpen={handleOpen}
                 classes="d-block"
               />
-              <Button
-                href={"browse/" + props.hit.content.accession}
-                variant="quinary"
-                className="text-white mb-3 fs-7 shadow-md-dark d-block"
-                title="Dataset Details"
-                style={{ width: "115px" }}
-              >
-                <Row className="p-0 m-0 align-items-center text-start">
-                  <Col className="p-0 m-0 col-3 ">
-                    <FontAwesomeIcon icon={faUpRightFromSquare} />
-                  </Col>
-                  <Col className="p-0 m-0 lh-1">
-                    <strong>Dataset Details</strong>
-                  </Col>
-                </Row>
-              </Button>
+              <Link to={props.hit.content.accession}>
+                <Button
+                  variant="quinary"
+                  className="text-white mb-3 fs-7 shadow-md-dark d-block"
+                  title="Dataset Details"
+                  style={{ width: "115px" }}
+                >
+                  <Row className="p-0 m-0 align-items-center text-start">
+                    <Col className="p-0 m-0 col-3 ">
+                      <FontAwesomeIcon icon={faUpRightFromSquare} />
+                    </Col>
+                    <Col className="p-0 m-0 lh-1">
+                      <strong>Dataset Details</strong>
+                    </Col>
+                  </Row>
+                </Button>
+              </Link>
             </>
           ) : (
             <Button
