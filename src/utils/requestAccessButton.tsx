@@ -95,8 +95,8 @@ const RequestAccessButton = (props: RequestAccessButtonProps) => {
 
   return (
     <Button
-      className={"fs-7 mb-3 text-white shadow-md-dark " + props.classes}
-      variant="secondary"
+      className={"fs-7 mb-3 shadow-md-dark " + props.classes}
+      variant="quinary"
       onClick={() => {
         allowedRequests && allowedRequests?.length > 0
           ? navigate("/work-package")

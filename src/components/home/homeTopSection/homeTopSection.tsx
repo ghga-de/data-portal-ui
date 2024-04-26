@@ -57,7 +57,7 @@ const HomeTopSection = () => {
           <div className="text-center">
             <NavLink to="/browse">
               <Button
-                variant="secondary"
+                variant="quinary"
                 className="py-1 fs-5 mt-4 text-white shadow-md-dark"
               >
                 <span className="text-uppercase">Get started</span>

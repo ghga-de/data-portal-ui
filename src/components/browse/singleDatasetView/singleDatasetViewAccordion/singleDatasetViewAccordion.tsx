@@ -50,7 +50,7 @@ const SingleDatasetViewAccordion = (props: SingleDatasetViewAccordionProps) => {
               size="sm"
               style={{ minWidth: "800px" }}
             >
-              <thead className="border-light-3 border-1 bg-white">
+              <thead className="bg-white">
                 <tr>
                   {x.table.map((row: any, rowIdx: number) => (
                     <th

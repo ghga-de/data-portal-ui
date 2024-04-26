@@ -104,7 +104,7 @@ const Sidebar = (props: SidebarProps) => {
         <Col>
           <Button
             className="w-100 rounded border-2 shadow-md-dark"
-            variant="outline-secondary"
+            variant="outline-quinary"
             onClick={() => {
               props.setOpenFilter(false);
               handleClear();
@@ -116,7 +116,7 @@ const Sidebar = (props: SidebarProps) => {
         </Col>
         <Col>
           <Button
-            variant="secondary"
+            variant="quinary"
             className="w-100 rounded text-white border-2 shadow-md-dark"
             onClick={() => {
               props.setOpenFilter(false);
@@ -141,7 +141,7 @@ const Sidebar = (props: SidebarProps) => {
         </Col>
         <Col xs={12} className="d-flex d-lg-none">
           <Button
-            variant="outline-gray"
+            variant="outline-dark-3"
             className="w-100 rounded mt-3"
             onClick={() => {
               props.setOpenFilter(false);

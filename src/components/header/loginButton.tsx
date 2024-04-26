@@ -71,7 +71,7 @@ const LoginButton = () => {
                       Portal before you can start using your LS Login account.
                     </p>
                     <Button
-                      variant="secondary"
+                      variant="quinary"
                       className="text-white fs-7"
                       onClick={() => {
                         setShowPopover(false);
@@ -82,7 +82,7 @@ const LoginButton = () => {
                       Complete {getStatusString()}
                     </Button>
                     <Button
-                      variant="quaternary"
+                      variant="danger"
                       className="text-white mt-3 fs-7"
                       onClick={() => logout()}
                     >
@@ -138,7 +138,7 @@ const LoginButton = () => {
             >
               {(props) => (
                 <Tooltip id="registertooltip" {...props}>
-                  {getStatusString().toLowerCase()} required
+                  {getStatusString()} required
                 </Tooltip>
               )}
             </Overlay>
@@ -177,7 +177,7 @@ const LoginButton = () => {
                       .
                     </p>
                     <Button
-                      variant="secondary"
+                      variant="danger"
                       className="text-white mt-4"
                       onClick={logout}
                     >

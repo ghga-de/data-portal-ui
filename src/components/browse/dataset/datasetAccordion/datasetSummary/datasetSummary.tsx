@@ -53,7 +53,7 @@ const DatasetSummary = (props: DataSetDetailsProps) => {
               />
               <Button
                 href={"browse/" + props.hit.content.accession}
-                variant="secondary"
+                variant="quinary"
                 className="text-white mb-3 fs-7 shadow-md-dark d-block"
                 title="Dataset Details"
                 style={{ width: "115px" }}
@@ -71,7 +71,7 @@ const DatasetSummary = (props: DataSetDetailsProps) => {
           ) : (
             <Button
               className="fs-7 mb-3 py-2 text-white shadow-md-dark"
-              variant="secondary"
+              variant="quinary"
               disabled
               style={{ width: "115px" }}
             >

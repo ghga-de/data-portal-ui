@@ -128,13 +128,14 @@ const IvaManagerListCreateCodeModal = (
               <Button
                 disabled={disabledButtons}
                 type="submit"
-                variant="quaternary"
+                variant="warning"
+                className="text-white"
               >
                 Confirm transmission
               </Button>
               <Button
                 className="ms-2 text-white"
-                variant="warning"
+                variant="dark-3"
                 onClick={() => {
                   props.setShow(false);
                   props.setSelectedIVA(undefined);

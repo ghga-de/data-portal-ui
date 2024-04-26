@@ -130,7 +130,7 @@ const DataRequestFormModal = (props: DataRequestFormModalProps) => {
         </Modal.Body>
         <Modal.Footer className="justify-content-between">
           <Button
-            variant="outline-dark"
+            variant="outline-dark-3"
             onClick={() => {
               setShowConfirmation(false);
             }}
@@ -138,7 +138,7 @@ const DataRequestFormModal = (props: DataRequestFormModalProps) => {
             Cancel
           </Button>
           <Button
-            variant="primary"
+            variant="quinary"
             className="text-white"
             onClick={() => {
               handleDataAccessRequestSubmission(formEvent);
@@ -178,7 +178,7 @@ const DataRequestFormModal = (props: DataRequestFormModalProps) => {
         <Modal.Footer className="border-0">
           <Col className="px-4">
             <Button
-              variant="outline-dark"
+              variant="outline-dark-3"
               onClick={props.handleClose}
               className="w-100"
             >
@@ -298,7 +298,7 @@ const DataRequestFormModal = (props: DataRequestFormModalProps) => {
             <Modal.Footer className="border-0">
               <Col className="px-4">
                 <Button
-                  variant="outline-dark"
+                  variant="outline-dark-3"
                   name="cancelButton"
                   form="request_access_form"
                   onClick={props.handleClose}
@@ -313,6 +313,7 @@ const DataRequestFormModal = (props: DataRequestFormModalProps) => {
                   name="submitButton"
                   form="request_access_form"
                   className="w-100 text-white"
+                  variant="quinary"
                 >
                   Send request
                 </Button>
@@ -332,7 +333,7 @@ const DataRequestFormModal = (props: DataRequestFormModalProps) => {
             <Modal.Footer className="border-0">
               <Col className="px-4">
                 <Button
-                  variant="outline-dark"
+                  variant="outline-dark-3"
                   onClick={props.handleClose}
                   className="w-100"
                 >

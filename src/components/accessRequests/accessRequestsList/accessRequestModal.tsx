@@ -96,6 +96,7 @@ const AccessRequestModal = (props: AccessRequestModalProps) => {
         <Modal.Footer className="justify-content-between">
           <Button
             variant="dark-3"
+            className="text-white"
             onClick={() => {
               setShowConfirmation(false);
             }}
@@ -103,7 +104,7 @@ const AccessRequestModal = (props: AccessRequestModalProps) => {
             Cancel
           </Button>
           <Button
-            variant={"quinary"}
+            variant="quaternary"
             className="text-white"
             onClick={() => {
               handleButtonClickAccess(status);
@@ -226,7 +227,7 @@ const AccessRequestModal = (props: AccessRequestModalProps) => {
                                 className={
                                   x.status === IVAStatus.Verified
                                     ? "text-success"
-                                    : "text-secondary"
+                                    : "text-danger"
                                 }
                               >
                                 {IVAStatusPrintable[x.status]}
@@ -286,7 +287,8 @@ const AccessRequestModal = (props: AccessRequestModalProps) => {
               Cancel
             </Button>
             <Button
-              variant="quaternary"
+              variant="success"
+              className="text-white"
               onClick={() => {
                 setShowConfirmation(true);
                 setStatus("allowed");
@@ -300,7 +302,7 @@ const AccessRequestModal = (props: AccessRequestModalProps) => {
               Allow
             </Button>
             <Button
-              variant="secondary"
+              variant="danger"
               className="text-white ms-3"
               onClick={() => {
                 setShowConfirmation(true);

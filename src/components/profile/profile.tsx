@@ -89,13 +89,13 @@ const Profile = () => {
         </Modal.Body>
         <Modal.Footer className="justify-content-between">
           <Button
-            variant={"quinary"}
+            variant="danger"
             className="text-white"
             onClick={() => {
               deleteUserIVA();
             }}
           >
-            Confirm
+            Confirm deletion
           </Button>
           <Button
             variant="dark-3"
@@ -190,7 +190,10 @@ const Profile = () => {
         }
 
         try {
-          getUserIVAs(user.ext_id);
+          const ivas = await getUserIVAs(user.ext_id);
+          if (ivas) {
+            setUserIVAs(ivas);
+          }
         } catch (error) {
           showMessage({
             type: "error",
@@ -262,13 +265,13 @@ const Profile = () => {
             </Card.Header>
             <Card.Body>
               <p>
-                <Button href={"/ivas"}>
+                <Button href={"/ivas"} variant="quinary">
                   <FontAwesomeIcon icon={faAddressBook} /> Independent
                   Verification Addresses Manager
                 </Button>
               </p>
               <p>
-                <Button href={"/access-requests"}>
+                <Button href={"/access-requests"} variant="quinary">
                   <FontAwesomeIcon icon={faPenToSquare} /> Access Requests
                   Management
                 </Button>
@@ -329,7 +332,7 @@ const Profile = () => {
                         {x.status === IVAStatus.Unverified ? (
                           <Button
                             id={"del_" + x.id}
-                            variant="secondary"
+                            variant="warning"
                             className="p-0 px-1 text-white w-100 text-start"
                             onClick={(e) => {
                               let button = e.target as HTMLButtonElement;
@@ -341,7 +344,7 @@ const Profile = () => {
                         ) : x.status === IVAStatus.CodeTransmitted ? (
                           <Button
                             id={"con_" + x.id}
-                            variant="secondary"
+                            variant="warning"
                             className="p-0 px-1 text-white w-100 text-start"
                             onClick={(e) => {
                               let button = e.target as HTMLButtonElement;
@@ -357,7 +360,7 @@ const Profile = () => {
                       <Col xs={1}>
                         <Button
                           variant="link"
-                          className="border-0 h-100 text-secondary p-0 d-flex align-items-center"
+                          className="border-0 h-100 text-danger p-0 d-flex align-items-center"
                           onClick={() => {
                             setToDeleteIVA(x);
                             setShowDeletionConfirmationModal(true);
@@ -379,11 +382,7 @@ const Profile = () => {
                 </p>
               )}
             </div>
-            <Button
-              variant="primary"
-              className="text-white"
-              onClick={() => setShowNewIVAModal(true)}
-            >
+            <Button variant="quinary" onClick={() => setShowNewIVAModal(true)}>
               <FontAwesomeIcon icon={faPlus} /> New contact address
             </Button>
           </Card.Body>
@@ -415,7 +414,7 @@ const Profile = () => {
                       </li>
                     ))}
                   </ul>
-                  <Button href="/work-package">
+                  <Button href="/work-package" variant="quinary">
                     Click here to set up your download tokens.
                   </Button>
                 </>
@@ -454,11 +453,7 @@ const Profile = () => {
           </Card.Body>
         </Card>
         <div className="text-end mt-3">
-          <Button
-            variant="secondary"
-            className="text-white"
-            onClick={logoutUser}
-          >
+          <Button variant="danger" className="text-white" onClick={logoutUser}>
             Logout
           </Button>
         </div>

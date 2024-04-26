@@ -23,46 +23,43 @@ const PublicationTabContents = (props: PublicationTabContentsProps) => {
             return study.publications?.map((pub) => {
               num_publications += 1;
               return (
-                <div key={pub.accession} className="text-break">
-                  <Row className="flex-row-reverse w-100">
-                    {pub.doi !== null ? (
-                      <Col xs={12} sm={"auto"} className="mb-2 mb-sm-0">
-                        <Button
-                          href={"https://doi.org/" + pub.doi}
-                          target="_blank"
-                          variant="white"
-                          className="fs-7 py-2 mb-2 text-secondary shadow-md-dark border-secondary"
-                        >
-                          <Row className="p-0 m-0 align-items-center text-start">
-                            <Col className="p-0 m-0 col-3 ">
-                              <FontAwesomeIcon icon={faLink} />
-                            </Col>
-                            <Col className="p-0 m-0 lh-1">
-                              <strong>Visit Publication</strong>
-                            </Col>
-                          </Row>
-                        </Button>
-                      </Col>
-                    ) : (
-                      <></>
-                    )}
-                    <Col className="pe-0">
-                      <h5 className="mb-4 d-flex align-items-center">
-                        <FontAwesomeIcon
-                          icon={faBookOpen}
-                          pull="left"
-                          style={{
-                            width: "30px",
-                            height: "30px",
-                            backgroundColor: "rgba(214,95,48,0.2)",
-                            padding: "8px",
-                          }}
-                          className="text-secondary me-3 fs-4 rounded"
-                        />
-                        <strong>Publication</strong>
-                      </h5>
-                    </Col>
-                  </Row>
+                <div
+                  key={pub.accession}
+                  className="text-break overflow-auto h-100"
+                >
+                  {pub.doi !== null ? (
+                    <Button
+                      href={"https://doi.org/" + pub.doi}
+                      target="_blank"
+                      variant="outline-quinary"
+                      className="float-end fs-7 py-2 mb-2 ms-4 me-3 shadow-md-dark"
+                    >
+                      <Row className="p-0 m-0 align-items-center text-start">
+                        <Col xs={"auto"} className="ps-0 pe-1 m-0">
+                          <FontAwesomeIcon icon={faLink} />
+                        </Col>
+                        <Col className="px-0 m-0 lh-1">
+                          <strong>Visit Publication</strong>
+                        </Col>
+                      </Row>
+                    </Button>
+                  ) : (
+                    <></>
+                  )}
+                  <h5 className="mb-4 d-flex align-items-center">
+                    <FontAwesomeIcon
+                      icon={faBookOpen}
+                      pull="left"
+                      style={{
+                        width: "30px",
+                        height: "30px",
+                        backgroundColor: "rgba(214,95,48,0.2)",
+                        padding: "8px",
+                      }}
+                      className="text-secondary me-3 fs-4 rounded"
+                    />
+                    <strong>Publication</strong>
+                  </h5>
                   <p>
                     <strong>Title: </strong>
                     {pub.title}

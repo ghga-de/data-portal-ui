@@ -107,37 +107,42 @@ const DatasetHeader = (props: DatasetHeaderProps) => {
           props.searchParams.get("q") !== null ? (
             <Badge
               key={props.searchParams.get("q")}
-              className="py-1 m-0 me-2 overflow-hidden fs-7 bg-white text-black border border-secondary fw-normal"
+              className="py-1 m-0 me-2 fs-7 bg-white text-black border border-secondary fw-normal"
               style={{
-                maxWidth: "200px",
                 whiteSpace: "nowrap",
                 textOverflow: "ellipsis",
               }}
             >
-              <span>
-                <CloseButton
-                  className="pt-2"
-                  onClick={() => {
-                    props.setSearchKeyword("");
-                    navigate(
-                      handleFilterAndSearch(
-                        props.setSearchResults,
-                        props.filterDict,
-                        "",
-                        props.limit,
-                        0,
-                        0,
-                        props.setPage,
-                        props.setFilterDict,
-                        null
-                      )
-                    );
-                  }}
-                />
-                <span className="px-1 mb-0">
-                  Keyword: {props.searchParams.get("q")}
-                </span>
-              </span>
+              <div className="lh-1">
+                <Row className="flex-nowrap">
+                  <Col xs={"auto"} className="pe-0 align-items-center d-flex">
+                    <CloseButton
+                      onClick={() => {
+                        props.setSearchKeyword("");
+                        navigate(
+                          handleFilterAndSearch(
+                            props.setSearchResults,
+                            props.filterDict,
+                            "",
+                            props.limit,
+                            0,
+                            0,
+                            props.setPage,
+                            props.setFilterDict,
+                            null
+                          )
+                        );
+                      }}
+                      className="fs-8"
+                    />
+                  </Col>
+                  <Col className="ps-0 align-items-center d-flex">
+                    <span className="px-1 mb-0">
+                      Keyword: {props.searchParams.get("q")}
+                    </span>
+                  </Col>
+                </Row>
+              </div>
             </Badge>
           ) : (
             <></>
@@ -145,21 +150,26 @@ const DatasetHeader = (props: DatasetHeaderProps) => {
           {getFilterParamsList().map((item, idx) => (
             <Badge
               key={item.split("|")[1]}
-              className="py-1 m-0 me-2 overflow-hidden text-black fs-7 border text-capitalize bg-white border-secondary fw-normal"
+              className="py-1 m-0 me-2 text-black fs-7 border text-capitalize bg-white border-secondary fw-normal"
               style={{
-                maxWidth: "200px",
                 whiteSpace: "nowrap",
                 textOverflow: "ellipsis",
               }}
               title={item.split("|")[1]}
             >
-              <span>
-                <CloseButton
-                  onClick={() => clearFilter(idx, item)}
-                  className="pt-2"
-                />
-                <span className="px-1 mb-0">{item.split("|")[1]}</span>
-              </span>
+              <div className="lh-1">
+                <Row className="flex-nowrap">
+                  <Col xs={"auto"} className="pe-0 align-items-center d-flex">
+                    <CloseButton
+                      onClick={() => clearFilter(idx, item)}
+                      className="fs-8"
+                    />
+                  </Col>
+                  <Col className="ps-0 align-items-center d-flex">
+                    <span className="px-1 mb-0">{item.split("|")[1]}</span>
+                  </Col>
+                </Row>
+              </div>
             </Badge>
           ))}
         </div>

@@ -185,13 +185,14 @@ const Setup2FA = () => {
                 authService.setUser(user);
                 setTimeout(() => navigate("/confirm-2fa"), 0);
               }}
+              variant="quinary"
             >
               <FontAwesomeIcon icon={faCircleArrowRight} />
               &nbsp; Continue
             </Button>
             <Button
-              variant="secondary"
-              className="ms-2 text-white"
+              variant="outline-quinary"
+              className="ms-2"
               onClick={() => {
                 if (showManual === "") {
                   setShowManual("d-none");
@@ -221,18 +222,14 @@ const Setup2FA = () => {
             </p>
           </Modal.Body>
           <Modal.Footer>
-            <Button
-              variant="quaternary"
-              onClick={logout}
-              className="text-white"
-            >
+            <Button variant="dark-3" onClick={logout} className="text-white">
               <FontAwesomeIcon
                 icon={faArrowRightFromBracket}
                 className="me-2"
               />
               Cancel and log out
             </Button>
-            <Button variant="secondary" onClick={stay} className="text-white">
+            <Button variant="quinary" onClick={stay}>
               <FontAwesomeIcon icon={faPenToSquare} className="me-2" />
               Complete 2FA setup
             </Button>

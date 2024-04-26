@@ -194,7 +194,7 @@ const Register = () => {
           </div>
           <div className="d-flex justify-content-end">
             <Button
-              variant="quaternary"
+              variant="danger"
               className="text-white me-4"
               onClick={logout}
             >
@@ -210,7 +210,7 @@ const Register = () => {
             </Button>
             <Button
               type="submit"
-              variant="secondary"
+              variant="quinary"
               className="text-white"
               disabled={!accepted}
             >
@@ -240,18 +240,14 @@ const Register = () => {
             </p>
           </Modal.Body>
           <Modal.Footer>
-            <Button
-              variant="quaternary"
-              onClick={logout}
-              className="text-white"
-            >
+            <Button variant="danger" onClick={logout} className="text-white">
               <FontAwesomeIcon
                 icon={faArrowRightFromBracket}
                 className="me-2"
               />
               Cancel and log out
             </Button>
-            <Button variant="secondary" onClick={stay} className="text-white">
+            <Button variant="quinary" onClick={stay} className="text-white">
               <FontAwesomeIcon icon={faPenToSquare} className="me-2" />
               Complete registration
             </Button>
