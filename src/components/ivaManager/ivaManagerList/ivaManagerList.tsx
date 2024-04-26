@@ -54,7 +54,7 @@ const IvaManagerList = (props: IvaManagerListProps) => {
                 : ""
             }create_code_button`}
         className="py-0 text-white ms-1"
-        variant="quaternary"
+        variant="quinary"
         onClick={() => {
           setSelectedIVA(CreateCodeButtonProps.x);
           setShowCreateCodeModal(true);
@@ -127,7 +127,7 @@ const IvaManagerList = (props: IvaManagerListProps) => {
                 <Button
                   key={x.id + "_confirm_transmission_button"}
                   className="py-0 text-white ms-1"
-                  variant="quaternary"
+                  variant="warning"
                   onClick={() => {
                     setSelectedIVA(x);
                     setShowConfirmTransmissionModal(true);

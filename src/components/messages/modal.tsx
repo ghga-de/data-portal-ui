@@ -59,7 +59,7 @@ export function ModalMessage(props: ModalMessageProps) {
     handleClose();
   };
   const button1 = (
-    <Button variant="primary" onClick={handleButton1}>
+    <Button variant="quinary" onClick={handleButton1}>
       {props.label1 || "OK"}
     </Button>
   );
@@ -70,11 +70,7 @@ export function ModalMessage(props: ModalMessageProps) {
       handleClose();
     };
     button2 = (
-      <Button
-        variant="secondary"
-        className="text-white"
-        onClick={handleButton2}
-      >
+      <Button variant="dark-3" className="text-white" onClick={handleButton2}>
         {props.label2 || "Cancel"}
       </Button>
     );

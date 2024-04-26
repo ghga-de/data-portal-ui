@@ -17,8 +17,12 @@ const RequestVerificationModal = (props: RequestVerificationModalProps) => {
           some time for processing your request. When the verification code has
           been transmitted, you will also be notified via e-mail.
         </p>
-        <Button className="float-end" onClick={() => props.setShow(false)}>
-          Ok
+        <Button
+          variant="quinary"
+          className="float-end"
+          onClick={() => props.setShow(false)}
+        >
+          Close
         </Button>
       </Modal.Body>
     </Modal>

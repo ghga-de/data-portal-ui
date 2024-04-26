@@ -81,8 +81,8 @@ const HomeBottomSection = () => {
                       <Button
                         as="a"
                         target="_blank"
-                        variant="white"
-                        className="shadow-md-dark border-secondary text-secondary my-4"
+                        variant="quinary"
+                        className="shadow-md-dark my-4"
                         href={x.learn_more_href}
                       >
                         Learn more...

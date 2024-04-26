@@ -102,7 +102,7 @@ export function WorkPackage() {
         <div className="mt-4">
           <Button
             type="button"
-            variant="primary"
+            variant="quinary"
             className="text-white"
             onClick={() => setToken(undefined)}
           >
@@ -127,11 +127,7 @@ export function WorkPackage() {
           </Form.Text>
           <InputGroup className="mb-3">
             <Form.Control value={token} readOnly></Form.Control>
-            <Button
-              variant="primary"
-              className="text-white"
-              onClick={copyToken}
-            >
+            <Button variant="quinary" onClick={copyToken}>
               <FontAwesomeIcon icon={faCopy} className="me-1 ms-1" />
             </Button>
           </InputGroup>
@@ -139,7 +135,7 @@ export function WorkPackage() {
         <div className="mt-4">
           <Button
             type="button"
-            variant="primary"
+            variant="quinary"
             className="text-white"
             onClick={() => setToken(undefined)}
           >
@@ -201,7 +197,7 @@ export function WorkPackage() {
       !(user?.id && dataset?.id && dataset.stage && userKey && !errors.userKey)
     )
       return;
-    const url = new URL('work-packages',WPS_URL);
+    const url = new URL("work-packages", WPS_URL);
     const fileIds = (files || "").split(/[,\s]+/).filter((file) => file);
     const data = {
       dataset_id: dataset.id,
@@ -302,11 +298,7 @@ export function WorkPackage() {
             </Form.Group>
             {!userKey || errors.userKey ? null : (
               <div className="mt-4">
-                <Button
-                  type="submit"
-                  variant="secondary"
-                  className="text-white"
-                >
+                <Button type="submit" variant="quinary" className="text-white">
                   <FontAwesomeIcon
                     icon={dataset.stage === "upload" ? faUpload : faDownload}
                     className="me-2 ms-3"

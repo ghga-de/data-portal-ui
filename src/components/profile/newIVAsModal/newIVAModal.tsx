@@ -67,10 +67,11 @@ const NewIVAModal = (props: NewIVAModalProps) => {
           <Row>
             <Col>
               <Button
-                className={
+                className={clickedButton === IVAType.Phone ? "w-100" : "w-100"}
+                variant={
                   clickedButton === IVAType.Phone
-                    ? "w-100 bg-quaternary"
-                    : "w-100 bg-quinary"
+                    ? "quinary"
+                    : "outline-quinary"
                 }
                 onClick={() => {
                   setClickedButton(IVAType.Phone);
@@ -83,10 +84,9 @@ const NewIVAModal = (props: NewIVAModalProps) => {
             </Col>
             <Col>
               <Button
-                className={
-                  clickedButton === IVAType.Fax
-                    ? "w-100 bg-quaternary"
-                    : "w-100 bg-quinary"
+                className={clickedButton === IVAType.Fax ? "w-100" : "w-100"}
+                variant={
+                  clickedButton === IVAType.Fax ? "quinary" : "outline-quinary"
                 }
                 onClick={() => {
                   setClickedButton(IVAType.Fax);
@@ -100,9 +100,12 @@ const NewIVAModal = (props: NewIVAModalProps) => {
             <Col>
               <Button
                 className={
+                  clickedButton === IVAType.PostalAddress ? "w-100" : "w-100"
+                }
+                variant={
                   clickedButton === IVAType.PostalAddress
-                    ? "w-100 bg-quaternary"
-                    : "w-100 bg-quinary"
+                    ? "quinary"
+                    : "outline-quinary"
                 }
                 onClick={() => {
                   setClickedButton(IVAType.PostalAddress);
@@ -116,9 +119,12 @@ const NewIVAModal = (props: NewIVAModalProps) => {
             <Col>
               <Button
                 className={
+                  clickedButton === IVAType.InPerson ? "w-100" : "w-100"
+                }
+                variant={
                   clickedButton === IVAType.InPerson
-                    ? "w-100 bg-quaternary"
-                    : "w-100 bg-quinary"
+                    ? "quinary"
+                    : "outline-quinary"
                 }
                 onClick={() => {
                   setClickedButton(IVAType.InPerson);
@@ -158,8 +164,8 @@ const NewIVAModal = (props: NewIVAModalProps) => {
             <div className="d-flex justify-content-between mt-4">
               <Col xs={2}>
                 <Button
-                  variant="primary"
-                  className="text-white w-100"
+                  variant="quinary"
+                  className="w-100"
                   type="submit"
                   disabled={disabledButton}
                 >
@@ -169,7 +175,7 @@ const NewIVAModal = (props: NewIVAModalProps) => {
 
               <Col xs={2}>
                 <Button
-                  variant="gray"
+                  variant="dark-3"
                   className="text-white w-100"
                   onClick={() => {
                     props.setShow(false);

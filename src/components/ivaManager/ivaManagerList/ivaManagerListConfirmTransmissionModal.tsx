@@ -72,20 +72,20 @@ const IvaManagerListConfirmTransmissionModal = (
         </p>
         <div>
           <Button
-            variant="quaternary"
+            variant="warning"
             onClick={() => {
               handleTransmitted();
             }}
             disabled={disabledButtons}
+            className="text-white"
           >
-            Confirm
+            Confirm transmission
           </Button>
           <Button
-            variant="gray"
+            variant="dark-3"
             className="ms-2 text-white"
             onClick={() => {
               props.setShow(false);
-              props.setSelectedIVA(undefined);
             }}
           >
             Cancel

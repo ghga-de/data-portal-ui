@@ -107,7 +107,7 @@ const ConfirmVerificationModal = (props: ConfirmVerificationModalProps) => {
                 </Button>
                 <Button
                   className="text-white"
-                  variant="gray"
+                  variant="dark-3"
                   onClick={() => {
                     props.setShow(false);
                   }}

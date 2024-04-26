@@ -31,14 +31,14 @@ const DapTabContents = (props: DapTabContentsProps) => {
               <Button
                 href={props.details.data_access_policy.policy_url}
                 target="_blank"
-                variant="white"
-                className="float-end fs-7 py-2 mb-2 ms-4 text-secondary shadow-md-dark border-secondary"
+                variant="outline-quinary"
+                className="float-end fs-7 py-2 mb-2 ms-4 me-3 shadow-md-dark"
               >
                 <Row className="p-0 m-0 align-items-center text-start">
-                  <Col className="p-0 m-0 col-3 ">
+                  <Col xs={"auto"} className="ps-0 pe-1 m-0">
                     <FontAwesomeIcon icon={faLink} />
                   </Col>
-                  <Col className="p-0 m-0 lh-1">
+                  <Col className="px-0 m-0 lh-1">
                     <strong>Data Access Info Form</strong>
                   </Col>
                 </Row>

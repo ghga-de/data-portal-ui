@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFilter } from "@fortawesome/free-solid-svg-icons";
-import { Button, Col, Container, Form, Row } from "react-bootstrap";
+import { Col, Container, Form, Row } from "react-bootstrap";
 import {
   FILTER_MAX_ISO,
   FILTER_MIN_ISO,
@@ -119,9 +119,6 @@ const IvaManagerFilter = (props: IvaManagerFilterProps) => {
                 </Form.Select>
               </Col>
             </Form.Group>
-            <Button type="submit" className="d-none">
-              Submit
-            </Button>
           </Form>
         </Col>
       </Row>
