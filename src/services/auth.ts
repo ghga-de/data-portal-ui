@@ -44,14 +44,16 @@ export interface User {
  */
 
 type AuthStore = {
-  user: User | null; // null = not logged in
+  // undefined = user state not yet determined
+  // null = user is not logged in (no user session)
+  user: User | null | undefined;
   setUser: (user: User | null) => void;
   loginUser: () => Promise<void>;
   logoutUser: () => Promise<void>;
 };
 
 const authStore = createStore<AuthStore>((set) => ({
-  user: null,
+  user: undefined,
   setUser: (user) => {
     set(() => ({ user }));
   },

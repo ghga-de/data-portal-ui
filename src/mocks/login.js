@@ -7,8 +7,9 @@ const CLIENT_ID = process.env.REACT_APP_OIDC_CLIENT_ID;
 const OIDC_USER_KEY = `oidc.user:${OIDC_AUTHORITY_URL}:${CLIENT_ID}`;
 const USER_KEY = 'user';
 
-// The following state should be set after login
-// (set this to "NeedsRegistration" to test the full registration and 2FA flow)
+// The following state should be set after login:
+// - set this to "NeedsRegistration" to test the full registration and 2FA flow
+// - set this to "Authenticated" to immediately have a fully authenticated user
 const LOGIN_STATE = "Authenticated";
 
 // Simulate login with dummy user via OIDC
