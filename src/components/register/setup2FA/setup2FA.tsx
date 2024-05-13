@@ -76,18 +76,13 @@ const Setup2FA = () => {
 
   const getTOTPCode = async () => {
     if (user && TOTPRequests === 0) {
-      const { id } = user;
-      const userData: any = {
-        id,
-        force: false,
-      };
-      if (user.state === "LostTotpToken") {
-        userData["force"] = true;
-      }
       setTOTPRequests(TOTPRequests + 1);
-      const url = new URL(`totp-token`, AUTH_URL);
+      const url = new URL("totp-token", AUTH_URL);
+      if (user.state === "LostTotpToken") {
+        url.search = "?force=true";
+      }
       try {
-        const response = await fetchJson(url, "POST", userData);
+        const response = await fetchJson(url, "POST");
         if (response?.status !== 201) {
           throw Error(response.statusText);
         }

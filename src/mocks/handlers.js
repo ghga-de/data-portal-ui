@@ -7,6 +7,9 @@ const fakeAuth = !!CLIENT_URL.href.match(/127\.|local/);
 
 const LOGIN_URL = new URL("rpc/login", AUTH_URL);
 const LOGOUT_URL = new URL("rpc/logout", AUTH_URL);
+const TOTP_VALIDATON_URL = new URL("rpc/verify-totp", AUTH_URL);
+
+const VALID_TOTP_CODE = "123456";
 
 // this module converts the responses with static fake data to response handlers
 
@@ -38,6 +41,14 @@ export const handlers = [
     clearSessionCookie();
     clearOidcUser();
     return HttpResponse.json(undefined, { status: 204 });
+  }),
+  // intercept TOTP verification request
+  http.post(TOTP_VALIDATON_URL.href, ({request}) => {
+    // the code is passed in the X-Authorization header in this case
+    let token = request.headers.get("X-Authorization");
+    if (token.startsWith("Bearer TOTP:")) token=token.substring(12);
+    const status = token === VALID_TOTP_CODE ? 204 : 401;
+    return HttpResponse.json(undefined, { status });
   }),
 ];
 
