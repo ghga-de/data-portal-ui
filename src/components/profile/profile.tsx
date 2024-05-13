@@ -232,10 +232,7 @@ const Profile = () => {
   }, [showMessage, user]);
 
   const back = () => {
-    const lastUrl = sessionStorage.getItem("lastUrl");
-    setTimeout(() =>
-      lastUrl ? (window.location.href = lastUrl) : navigate("/")
-    );
+    setTimeout(() => navigate(sessionStorage.getItem("lastPath") || "/"));
   };
 
   let content;

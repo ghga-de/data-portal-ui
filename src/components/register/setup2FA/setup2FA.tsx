@@ -51,10 +51,7 @@ const Setup2FA = () => {
   const { user, logoutUser } = useAuth();
 
   const back = () => {
-    const lastUrl = sessionStorage.getItem("lastUrl");
-    setTimeout(() =>
-      lastUrl ? (window.location.href = lastUrl) : navigate("/")
-    );
+    setTimeout(() => navigate(sessionStorage.getItem("lastPath") || "/"));
   };
 
   const stay = () => {
