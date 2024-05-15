@@ -122,48 +122,6 @@ const HeaderNavbar = () => {
                       onClick={() => handleCloseOffCanvas()}
                     >
                       <NavLink
-                        to="/download"
-                        className={({ isActive }) =>
-                          isActive ? activePageStyle : inactivePageStyle
-                        }
-                      >
-                        Access Data
-                      </NavLink>
-                    </Col>
-                    <Col
-                      xs={navColsSpanXS}
-                      className={navColsClasses}
-                      onClick={() => handleCloseOffCanvas()}
-                    >
-                      <NavLink
-                        to="/upload"
-                        className={({ isActive }) =>
-                          isActive ? activePageStyle : inactivePageStyle
-                        }
-                      >
-                        Submit Data
-                      </NavLink>
-                    </Col>
-                    <Col
-                      xs={navColsSpanXS}
-                      className={navColsClasses}
-                      onClick={() => handleCloseOffCanvas()}
-                    >
-                      <NavLink
-                        to="/metadata-model"
-                        className={({ isActive }) =>
-                          isActive ? activePageStyle : inactivePageStyle
-                        }
-                      >
-                        Metadata Model
-                      </NavLink>
-                    </Col>
-                    <Col
-                      xs={navColsSpanXS}
-                      className={navColsClasses}
-                      onClick={() => handleCloseOffCanvas()}
-                    >
-                      <NavLink
                         to="/faq"
                         className={({ isActive }) =>
                           isActive ? activePageStyle : inactivePageStyle

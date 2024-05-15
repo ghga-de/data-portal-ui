@@ -23,16 +23,8 @@ const HomeTopSection = () => {
             comprehensive data archival services for human omics data.
           </p>
           <p className={PARAGRAPH_CLASS}>
-            The datasets within are annotated following the&nbsp;
-            <Link
-              to="/metadata-model"
-              target="_blank"
-              rel="noreferrer"
-              className={LINK_CLASS}
-            >
-              GHGA Metadata Model
-            </Link>
-            , which is compatible with the metadata model of the EGA.
+            The datasets within are annotated following the GHGA Metadata Model,
+            which is compatible with the metadata model of the EGA.
           </p>
           <p className={PARAGRAPH_CLASS}>
             Please also see further documentation under&nbsp;

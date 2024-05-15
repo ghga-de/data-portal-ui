@@ -75,7 +75,11 @@ const ConfirmVerificationModal = (props: ConfirmVerificationModalProps) => {
                 name="verificationCode"
                 id="verificationCode"
                 className="fs-2 text-center"
-                style={{ letterSpacing: "0.5em", paddingLeft: "0.5em" }}
+                style={{
+                  letterSpacing: "0.5em",
+                  paddingLeft: "0.5em",
+                  width: "8em",
+                }}
                 required
                 minLength={6}
                 maxLength={6}

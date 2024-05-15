@@ -28,7 +28,7 @@ export const FilesTable = (props: FilesTableProps, fileSize: number) => {
   let filesTable: TableFields[] = [
     {
       header: "File name",
-      data: props.all_files.map((x) => x.alias),
+      data: props.all_files.map((x) => x.name),
       cssClasses: "text-break",
     },
     {

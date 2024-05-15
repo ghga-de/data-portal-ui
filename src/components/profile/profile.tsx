@@ -261,13 +261,18 @@ const Profile = () => {
         {user.role === "data_steward" ? (
           <Card className="mb-3">
             <Card.Header>
-              <strong>Data Steward Pages</strong>
+              <strong>
+                Data Steward Pages&nbsp;
+                <abbr title="Pages available to data stewards for managing verification addresses and access requests">
+                  &#9432;
+                </abbr>
+              </strong>
             </Card.Header>
             <Card.Body>
               <p>
                 <Button href={"/ivas"} variant="quinary">
                   <FontAwesomeIcon icon={faAddressBook} /> Independent
-                  Verification Addresses Manager
+                  Verification Addresses Management
                 </Button>
               </p>
               <p>
@@ -282,7 +287,12 @@ const Profile = () => {
           <></>
         )}
         <Card className="mb-3">
-          <Card.Header>E-Mail address</Card.Header>
+          <Card.Header>
+            E-Mail address&nbsp;
+            <abbr title="Contact e-mail address used by your account">
+              &#9432;
+            </abbr>
+          </Card.Header>
           <Card.Body>
             <div>
               <p>
@@ -304,13 +314,18 @@ const Profile = () => {
           </Card.Body>
         </Card>
         <Card className="mb-3">
-          <Card.Header>Contact addresses for account verification</Card.Header>
+          <Card.Header>
+            Contact addresses for account verification&nbsp;
+            <abbr title="Addresses used to verify your account's identity in order to access and request access to datasets">
+              &#9432;
+            </abbr>
+          </Card.Header>
           <Card.Body>
             <div className="mb-3">
               {userIVAs.length > 0 ? (
                 userIVAs.map((x, index) => {
                   return (
-                    <Row key={x.id + index} className="mb-1">
+                    <Row key={x.id + index} className="mb-1 border-bottom">
                       <Col xs={3} md={2}>
                         {IVATypePrintable[x.type]}:
                       </Col>
@@ -344,7 +359,7 @@ const Profile = () => {
                         ) : x.status === IVAStatus.CodeTransmitted ? (
                           <Button
                             id={"con_" + x.id}
-                            variant="warning"
+                            variant="quinary"
                             className="p-0 px-1 text-white w-100 text-start"
                             onClick={(e) => {
                               let button = e.target as HTMLButtonElement;
@@ -388,7 +403,12 @@ const Profile = () => {
           </Card.Body>
         </Card>
         <Card className="mb-3">
-          <Card.Header>Dataset access</Card.Header>
+          <Card.Header>
+            Dataset access&nbsp;
+            <abbr title="If you have been granted access to any datasets, these will appear below">
+              &#9432;
+            </abbr>
+          </Card.Header>
           <Card.Body>
             <div>
               {numDatasets ? (
@@ -415,7 +435,7 @@ const Profile = () => {
                     ))}
                   </ul>
                   <Button href="/work-package" variant="quinary">
-                    Click here to set up your download tokens.
+                    Set up your download tokens
                   </Button>
                 </>
               ) : (
@@ -425,7 +445,12 @@ const Profile = () => {
           </Card.Body>
         </Card>
         <Card>
-          <Card.Header>Pending access requests</Card.Header>
+          <Card.Header>
+            Pending access requests&nbsp;
+            <abbr title="If you have any pending access requests to any datasets, these will appear below">
+              &#9432;
+            </abbr>
+          </Card.Header>
           <Card.Body>
             <div>
               <p className="mb-1">

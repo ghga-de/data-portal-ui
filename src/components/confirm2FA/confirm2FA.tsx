@@ -90,8 +90,12 @@ const Confirm2FA = () => {
       setTimeout(() => back(), 0);
       return;
     }
+    setDisabledContinueButton(true);
     setShowError(true);
-    setTimeout(() => setDisabledContinueButton(false), 2000);
+    setTimeout(() => {
+      setDisabledContinueButton(false);
+      setShowError(false);
+    }, 2000);
   };
 
   let content;
@@ -176,7 +180,6 @@ const Confirm2FA = () => {
             <OverlayTrigger
               placement="right"
               overlay={<Tooltip>Invalid code entered.</Tooltip>}
-              rootClose={true}
               show={showError}
             >
               <input
@@ -223,7 +226,10 @@ const Confirm2FA = () => {
               <Button
                 variant="danger"
                 className="ms-2 text-white"
-                onClick={() => setShowModal(true)}
+                onClick={() => {
+                  setShowModal(true);
+                  setShowError(false);
+                }}
               >
                 I lost my authenticator setup
               </Button>

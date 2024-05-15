@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { NavLink, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { useRef, useState } from "react";
 import {
   Button,
@@ -162,7 +162,9 @@ const LoginButton = () => {
                       {user.title} {user.name}
                     </p>
                     <p className="mt-4">
-                      <NavLink to="/profile">View profile</NavLink>
+                      <Button href={"/profile"} variant="quinary">
+                        View profile
+                      </Button>
                     </p>
                     <p className="mt-3">
                       <a

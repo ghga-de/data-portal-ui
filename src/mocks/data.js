@@ -30,7 +30,7 @@ export const allIVAs = [
   },
   {
     id: "TEST00014000002",
-    type: "Fax",
+    type: "Phone",
     value: "+491234567890000",
     changed: "2024-03-01T00:00:00",
     status: "Unverified",
@@ -200,7 +200,7 @@ export const embeddedDataset = [{
   ],
   study_files: [
     {
-      alias: "Test file 1",
+      name: "Test file 1",
       format: "FASTQ",
       size: 586156,
       checksum: "15117b282328146ac6afebaa8acd80e7",
