@@ -51,10 +51,7 @@ const Setup2FA = () => {
   const { user, logoutUser } = useAuth();
 
   const back = () => {
-    const lastUrl = sessionStorage.getItem("lastUrl");
-    setTimeout(() =>
-      lastUrl ? (window.location.href = lastUrl) : navigate("/")
-    );
+    setTimeout(() => navigate(sessionStorage.getItem("lastPath") || "/"));
   };
 
   const stay = () => {
@@ -76,18 +73,13 @@ const Setup2FA = () => {
 
   const getTOTPCode = async () => {
     if (user && TOTPRequests === 0) {
-      const { id } = user;
-      const userData: any = {
-        id,
-        force: false,
-      };
-      if (user.state === "LostTotpToken") {
-        userData["force"] = true;
-      }
       setTOTPRequests(TOTPRequests + 1);
-      const url = new URL(`totp-token`, AUTH_URL);
+      const url = new URL("totp-token", AUTH_URL);
+      if (user.state === "LostTotpToken") {
+        url.search = "?force=true";
+      }
       try {
-        const response = await fetchJson(url, "POST", userData);
+        const response = await fetchJson(url, "POST");
         if (response?.status !== 201) {
           throw Error(response.statusText);
         }

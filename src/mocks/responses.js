@@ -50,12 +50,6 @@ export const responses = {
   // Request IVA verification with others codes
   "POST /api/auth/rpc/ivas/*/validate-code": 401,
 
-  // Request TOTP verification with correct code
-  "POST /api/auth/rpc/verify-totp?token=123456": 204,
-
-  // Request TOTP verification with others codes
-  "POST /api/auth/rpc/verify-totp": 401,
-
   // Get all IVAs
   "GET /api/auth/ivas": allIVAs,
 

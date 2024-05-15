@@ -23,8 +23,9 @@ const LoginButton = () => {
 
   const login = async () => {
     // memorize the last URL when the login button was clicked
-    if (location.pathname !== "/register")
-      sessionStorage.setItem("lastUrl", window.location.href);
+    if (location.pathname !== "/register") {
+      sessionStorage.setItem("lastPath", location.pathname);
+    }
     await loginUser();
   };
 

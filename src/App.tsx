@@ -78,8 +78,9 @@ function Layout() {
               callback1: () => {},
               label1: "Continue unauthenticated",
               callback2: () => {
-                if (location.pathname !== "/register")
-                  sessionStorage.setItem("lastUrl", window.location.href);
+                if (location.pathname !== "/register") {
+                  sessionStorage.setItem("lastPath", location.pathname);
+                }
                 authService.login();
               },
               label2: "Log in again",

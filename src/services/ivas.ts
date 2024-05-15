@@ -39,7 +39,7 @@ export async function getUserIVAs(userId: string): Promise<IVA[] | null> {
 
 // Get all IVAs with the corresponding user data
 export async function getAllIVAs(): Promise<UserWithIVA[] | null> {
-  const url = new URL(`ivas`, AUTH_URL);
+  const url = new URL("ivas", AUTH_URL);
   try {
     const response = await fetchJson(url);
     if (!response || response.status !== 200) {
