@@ -22,8 +22,7 @@ const Callback = () => {
 
     const handleError = () => {
       showMessage({ type: "error", title: "Could not log in" });
-      const lastUrl = sessionStorage.getItem("lastUrl");
-      lastUrl ? (window.location.href = lastUrl) : navigate("/");
+      navigate(sessionStorage.getItem("lastPath") || "/");
     };
 
     // in case the user tries to access without a state

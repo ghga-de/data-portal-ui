@@ -25,10 +25,7 @@ const Register = () => {
   const { user, logoutUser } = useAuth();
 
   const back = () => {
-    const lastUrl = sessionStorage.getItem("lastUrl");
-    setTimeout(() =>
-      lastUrl ? (window.location.href = lastUrl) : navigate("/")
-    );
+    setTimeout(() => navigate(sessionStorage.getItem("lastPath") || "/"));
   };
 
   const stay = () => {
@@ -71,11 +68,11 @@ const Register = () => {
     let method: string, ok: number;
     if (id) {
       url = new URL(`users/${id}`, url);
-      method = "put";
+      method = "PUT";
       ok = 204;
     } else {
       userData["ext_id"] = ext_id;
-      method = "post";
+      method = "POST";
       ok = 201;
     }
     const response = await fetchJson(url, method, userData).catch(() => null);

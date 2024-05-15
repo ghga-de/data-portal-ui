@@ -46,10 +46,7 @@ const Confirm2FA = () => {
   const { user, logoutUser } = useAuth();
 
   const back = () => {
-    const lastUrl = sessionStorage.getItem("lastUrl");
-    setTimeout(() =>
-      lastUrl ? (window.location.href = lastUrl) : navigate("/")
-    );
+    setTimeout(() => navigate(sessionStorage.getItem("lastPath") || "/"));
   };
 
   const stay = () => {
@@ -69,20 +66,14 @@ const Confirm2FA = () => {
     back();
   };
 
-  const submitToken = async (token: string) => {
+  const submitCode = async (code: string) => {
     if (!user || !AUTH_URL) return;
     unblock();
-    const { id } = user;
-    const userData: any = {
-      id,
-      token,
-    };
     let url = AUTH_URL;
-    let method: string = "post",
-      ok: number = 204;
-    url = new URL(`rpc/verify-totp`, url);
-    const response = await fetchJson(url, method, userData).catch(() => null);
-    if (response && response.status === ok) {
+    url = new URL("rpc/verify-totp", url);
+    const addHeaders = {"X-Authorization": `Bearer TOTP:${code}`};
+    const response = await fetchJson(url, "POST", null, addHeaders).catch(() => null);
+    if (response && response.status === 204) {
       showMessage({ type: "success", title: "Login successful" });
       user.state = "Authenticated";
       unblock();
@@ -170,7 +161,7 @@ const Confirm2FA = () => {
           <form
             onSubmit={(e) => {
               e.preventDefault();
-              submitToken(inputted2FA);
+              submitCode(inputted2FA);
             }}
           >
             <OverlayTrigger
