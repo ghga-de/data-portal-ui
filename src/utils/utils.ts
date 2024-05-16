@@ -24,7 +24,7 @@ export const METLDATA_URL = getConfiguredUrl("METLDATA_URL");
 export const WPS_URL = getConfiguredUrl("WPS_URL");
 
 export const OIDC_AUTHORITY_URL = getConfiguredUrl("OIDC_AUTHORITY_URL");
-export const OIDC_CONFIG_PATH = "/.well-known/openid-configuration";
+export const OIDC_CONFIG_PATH = ".well-known/openid-configuration";
 export const OIDC_CONFIG_URL = new URL(OIDC_CONFIG_PATH, OIDC_AUTHORITY_URL);
 
 /**
