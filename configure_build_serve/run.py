@@ -43,10 +43,10 @@ class Config(BaseSettings):
     oidc_client_id: str = "ghga-client"
     oidc_redirect_url: str = f"{client_url}oauth/callback"
     oidc_scope: str = "openid profile email"
-    oidc_authority_url: str = "https://proxy.aai.lifescience-ri.eu/"
-    oidc_authorization_url: str = f"{oidc_authority_url}saml2sp/OIDC/authorization"
-    oidc_token_url: str = f"{oidc_authority_url}OIDC/token"
-    oidc_userinfo_url: str = f"{oidc_authority_url}OIDC/userinfo"
+    oidc_authority_url: str = "https://login.aai.lifescience-ri.eu/oidc/"
+    oidc_authorization_url: str = "authorize"
+    oidc_token_url: str = "token"
+    oidc_userinfo_url: str = "userinfo"
     oidc_use_discovery: bool = True
     default_data_access_duration_days: int = 365
 
