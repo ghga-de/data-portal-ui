@@ -95,11 +95,17 @@ class AuthService {
       automaticSilentRenew: false,
     };
 
+    const issuer = env("authority_url");
+    const getEndpoint = (name: string) =>
+      new URL(env(name + "_url"), issuer).href;
+    const authorization_endpoint = getEndpoint("authorization");
+    const token_endpoint = getEndpoint("token");
+    const userinfo_endpoint = getEndpoint("userinfo");
     const metadata: Partial<OidcMetadata> = {
-      issuer: env("authority_url"),
-      authorization_endpoint: env("authorization_url"),
-      token_endpoint: env("token_url"),
-      userinfo_endpoint: env("userinfo_url"),
+      issuer,
+      authorization_endpoint,
+      token_endpoint,
+      userinfo_endpoint,
     };
 
     /* If the "use_discovery" flag is set, we use the OIDC discovery mechanism
