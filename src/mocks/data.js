@@ -12,7 +12,7 @@ export const user = {
 
 export const allIVAs = [
   {
-    id: "TEST00014000000",
+    id: "0063effb-2c43-4948-ba6f-f15425cb72d7",
     type: "InPerson",
     value: "Hauptstr. 321",
     changed: "2024-01-01T00:00:00",
@@ -20,7 +20,7 @@ export const allIVAs = [
     user_name: "Prof. Jean Doe",
     user_email: "j2.jdoe@home.org"
   }, {
-    id: "TEST00014000001",
+    id: "783d9682-d5e5-4ce7-9157-9eeb53a1e9ba",
     type: "Phone",
     value: "+441234567890004",
     changed: "2024-02-01T00:00:00",
@@ -29,7 +29,7 @@ export const allIVAs = [
     user_email: "j.jdoe@home.org"
   },
   {
-    id: "TEST00014000002",
+    id: "32b50c92-489f-4418-ace8-e7552e3cf36d",
     type: "Phone",
     value: "+491234567890000",
     changed: "2024-03-01T00:00:00",
@@ -38,7 +38,7 @@ export const allIVAs = [
     user_email: "j.jdoe@home.org"
   },
   {
-    id: "TEST00014000003",
+    id: "fc3c0ad8-01a4-4eb1-b8f3-40b04bb4bcb2",
     type: "PostalAddress",
     value: "Wilhelmstr. 123",
     changed: "2024-04-01T00:00:00",
@@ -46,7 +46,7 @@ export const allIVAs = [
     user_name: "Dr. John Doe",
     user_email: "j.jdoe@home.org"
   }, {
-    id: "TEST00014000004",
+    id: "347368b5-718e-49ba-80ad-bc128e83b609",
     type: "InPerson",
     value: "Mathematikon",
     changed: "2024-05-01T00:00:00",
@@ -57,7 +57,7 @@ export const allIVAs = [
 
 export const accessRequests = [
   {
-    id: "TEST00004000001",
+    id: "62bcc452-a70b-47c1-9870-55da40d8e45f",
     user_id: "j.doe@ghga.de",
     dataset_id: "GHGATEST588887987",
     full_user_name: "Dr. John Doe",
@@ -72,7 +72,7 @@ export const accessRequests = [
   },
 
   {
-    id: "TEST00005000002",
+    id: "4ef4ccac-6c0a-4be6-9637-b33925178cea",
     user_id: "j.doe@ghga.de",
     dataset_id: "GHGATEST588887988",
     full_user_name: "Dr. John Doe",
@@ -88,7 +88,7 @@ export const accessRequests = [
   },
 
   {
-    id: "TEST00006000003",
+    id: "a787d591-4264-4f48-8827-598585db868e",
     user_id: "j.doe@ghga.de",
     dataset_id: "GHGATEST588887989",
     full_user_name: "Dr. John Doe",
@@ -102,10 +102,8 @@ export const accessRequests = [
     changed_by: "j.doe@ghga.de",
   },
 
-
-
   {
-    id: "TEST00006000004",
+    id: "9409db13-e23e-433e-9afa-544d8f25b720",
     user_id: "j.doe@ghga.de",
     dataset_id: "TEST00001000001",
     full_user_name: "Dr. John Doe",
@@ -132,7 +130,7 @@ export const datasets = [
 ];
 
 export const workPackageToken = {
-  id: "WPKG00000000001",
+  id: "7f562eb5-a0a5-427d-b40f-f91198d27309",
   token: "MTIzNDU2Nzg5MDEyMzQ1Njc4OTAxMjM0",
 };
 
@@ -200,6 +198,7 @@ export const embeddedDataset = [{
   ],
   study_files: [
     {
+      accession: "TEST956121331",
       name: "Test file 1",
       format: "FASTQ",
       size: 586156,

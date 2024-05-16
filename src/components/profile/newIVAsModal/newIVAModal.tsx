@@ -76,7 +76,7 @@ const NewIVAModal = (props: NewIVAModalProps) => {
                 onClick={() => {
                   setClickedButton(IVAType.Phone);
                   setDisabledButton(false);
-                  setPromptText("number to receive SMS messages");
+                  setPromptText("phone number to receive SMS messages");
                 }}
               >
                 SMS

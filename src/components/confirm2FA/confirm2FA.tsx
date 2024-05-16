@@ -71,8 +71,10 @@ const Confirm2FA = () => {
     unblock();
     let url = AUTH_URL;
     url = new URL("rpc/verify-totp", url);
-    const addHeaders = {"X-Authorization": `Bearer TOTP:${code}`};
-    const response = await fetchJson(url, "POST", null, addHeaders).catch(() => null);
+    const addHeaders = { "X-Authorization": `Bearer TOTP:${code}` };
+    const response = await fetchJson(url, "POST", null, addHeaders).catch(
+      () => null
+    );
     if (response && response.status === 204) {
       showMessage({ type: "success", title: "Login successful" });
       user.state = "Authenticated";
@@ -85,7 +87,6 @@ const Confirm2FA = () => {
     setShowError(true);
     setTimeout(() => {
       setDisabledContinueButton(false);
-      setShowError(false);
     }, 2000);
   };
 
@@ -180,7 +181,7 @@ const Confirm2FA = () => {
                 style={{
                   letterSpacing: "0.5em",
                   paddingLeft: "0.5em",
-                  width: "7em",
+                  width: "8em",
                 }}
                 required
                 minLength={6}
@@ -200,6 +201,7 @@ const Confirm2FA = () => {
                   if (e.target.value.length === 6)
                     setDisabledContinueButton(false);
                   else setDisabledContinueButton(true);
+                  setShowError(false);
                 }}
               />
             </OverlayTrigger>

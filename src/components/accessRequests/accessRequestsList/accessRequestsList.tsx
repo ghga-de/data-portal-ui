@@ -35,6 +35,7 @@ const AccessRequestsList = (props: AccessRequestListProps) => {
       {
         header: "ID",
         data: props.requests.map((x) => x.id),
+        cssClasses: "d-none",
       },
       {
         header: "Dataset",
@@ -143,26 +144,30 @@ const AccessRequestsList = (props: AccessRequestListProps) => {
         <thead className="border-light-3 border-1">
           <tr>
             {innerTable.map((row: any, rowIdx: number) => {
-              return (
-                <th
-                  className={
-                    row.cssClasses + " align-middle bg-quinary text-white lh-1"
-                  }
-                  key={"table_th_" + rowIdx}
-                  style={{ position: "sticky", top: "0px" }}
-                >
-                  <Row className="flex-nowrap align-items-center">
-                    <Col xs={"auto"} className="pe-0 ps-2">
-                      <SortButton
-                        tableDefinition={tableDefinition}
-                        index={rowIdx}
-                        buttonVariant="outline-white"
-                      />
-                    </Col>
-                    <Col className="ps-0">{row.header}</Col>
-                  </Row>
-                </th>
-              );
+              if (row.header !== "ID") {
+                return (
+                  <th
+                    className={
+                      row.cssClasses +
+                      " align-middle bg-quinary text-white lh-1"
+                    }
+                    key={"table_th_" + rowIdx}
+                    style={{ position: "sticky", top: "0px" }}
+                  >
+                    <Row className="flex-nowrap align-items-center">
+                      <Col xs={"auto"} className="pe-0 ps-2">
+                        <SortButton
+                          tableDefinition={tableDefinition}
+                          index={rowIdx}
+                          buttonVariant="outline-white"
+                        />
+                      </Col>
+                      <Col className="ps-0">{row.header}</Col>
+                    </Row>
+                  </th>
+                );
+              } else
+                return <th key={"table_th_" + rowIdx} className="d-none"></th>;
             })}
           </tr>
         </thead>
@@ -184,21 +189,29 @@ const AccessRequestsList = (props: AccessRequestListProps) => {
                 }
               >
                 {row.map((cell: any, cellIdx: any) => {
-                  return (
-                    <td
-                      className={
-                        innerTable[cellIdx].cssClasses +
-                        row.find((x: any) => x === "allowed")
-                          ? "text-success"
-                          : row.find((x: any) => x === "denied")
-                          ? "text-danger"
-                          : ""
-                      }
-                      key={"cell_" + cellIdx + "_row_" + rowIdx}
-                    >
-                      {cell}
-                    </td>
-                  );
+                  if (cellIdx !== 0) {
+                    return (
+                      <td
+                        className={
+                          innerTable[cellIdx].cssClasses +
+                          row.find((x: any) => x === "allowed")
+                            ? "text-success"
+                            : row.find((x: any) => x === "denied")
+                            ? "text-danger"
+                            : ""
+                        }
+                        key={"cell_" + cellIdx + "_row_" + rowIdx}
+                      >
+                        {cell}
+                      </td>
+                    );
+                  } else
+                    return (
+                      <td
+                        key={"cell_" + cellIdx + "_row_" + rowIdx}
+                        className="d-none"
+                      ></td>
+                    );
                 })}
               </tr>
             );

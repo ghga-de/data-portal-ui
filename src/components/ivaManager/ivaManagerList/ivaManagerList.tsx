@@ -32,7 +32,7 @@ const IvaManagerList = (props: IvaManagerListProps) => {
     return (
       <Button
         key={InvalidateButtonProps.x.id + "_invalidate_button"}
-        className="py-0 text-white px-1"
+        className="py-0 text-white"
         variant="danger"
         onClick={() => {
           setSelectedIVA(InvalidateButtonProps.x);
@@ -53,7 +53,7 @@ const IvaManagerList = (props: IvaManagerListProps) => {
                 ? "re"
                 : ""
             }create_code_button`}
-        className="py-0 text-white ms-1 px-1"
+        className="py-0 text-white ms-1"
         variant="quinary"
         onClick={() => {
           setSelectedIVA(CreateCodeButtonProps.x);
@@ -71,6 +71,7 @@ const IvaManagerList = (props: IvaManagerListProps) => {
       {
         header: "ID",
         data: props.ivas.map((x) => x.id),
+        cssClasses: "d-none",
       },
       {
         header: "User",
@@ -221,26 +222,30 @@ const IvaManagerList = (props: IvaManagerListProps) => {
         <thead className="border-light-3 border-1">
           <tr>
             {innerTable.map((row: any, rowIdx: number) => {
-              return (
-                <th
-                  className={
-                    row.cssClasses + " align-middle bg-quinary text-white lh-1"
-                  }
-                  key={"table_th_" + rowIdx}
-                  style={{ position: "sticky", top: "0px" }}
-                >
-                  <Row className="flex-nowrap align-items-center">
-                    <Col xs={"auto"} className="pe-0 ps-2">
-                      <SortButton
-                        tableDefinition={tableDefinition}
-                        index={rowIdx}
-                        buttonVariant="outline-white"
-                      />
-                    </Col>
-                    <Col className="ps-0">{row.header}</Col>
-                  </Row>
-                </th>
-              );
+              if (row.header !== "ID") {
+                return (
+                  <th
+                    className={
+                      row.cssClasses +
+                      " align-middle bg-quinary text-white lh-1"
+                    }
+                    key={"table_th_" + rowIdx}
+                    style={{ position: "sticky", top: "0px" }}
+                  >
+                    <Row className="flex-nowrap align-items-center">
+                      <Col xs={"auto"} className="pe-0 ps-2">
+                        <SortButton
+                          tableDefinition={tableDefinition}
+                          index={rowIdx}
+                          buttonVariant="outline-white"
+                        />
+                      </Col>
+                      <Col className="ps-0">{row.header}</Col>
+                    </Row>
+                  </th>
+                );
+              } else
+                return <th key={"table_th_" + rowIdx} className="d-none"></th>;
             })}
           </tr>
         </thead>
@@ -249,14 +254,22 @@ const IvaManagerList = (props: IvaManagerListProps) => {
             return (
               <tr key={"row_" + rowIdx}>
                 {row.map((cell: any, cellIdx: any) => {
-                  return (
-                    <td
-                      className={innerTable[cellIdx].cssClasses}
-                      key={"cell_" + cellIdx + "_row_" + rowIdx}
-                    >
-                      {cell}
-                    </td>
-                  );
+                  if (cellIdx !== 0) {
+                    return (
+                      <td
+                        className={innerTable[cellIdx].cssClasses}
+                        key={"cell_" + cellIdx + "_row_" + rowIdx}
+                      >
+                        {cell}
+                      </td>
+                    );
+                  } else
+                    return (
+                      <td
+                        key={"cell_" + cellIdx + "_row_" + rowIdx}
+                        className="d-none"
+                      ></td>
+                    );
                 })}
               </tr>
             );

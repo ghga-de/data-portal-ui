@@ -267,16 +267,20 @@ const Profile = () => {
             </Card.Header>
             <Card.Body>
               <p>
-                <Button href={"/ivas"} variant="quinary">
-                  <FontAwesomeIcon icon={faAddressBook} /> Independent
-                  Verification Addresses Management
-                </Button>
+                <Link to="/ivas">
+                  <Button variant="quinary">
+                    <FontAwesomeIcon icon={faAddressBook} /> Independent
+                    Verification Addresses Management
+                  </Button>
+                </Link>
               </p>
               <p>
-                <Button href={"/access-requests"} variant="quinary">
-                  <FontAwesomeIcon icon={faPenToSquare} /> Access Requests
-                  Management
-                </Button>
+                <Link to="/access-requests">
+                  <Button variant="quinary">
+                    <FontAwesomeIcon icon={faPenToSquare} /> Access Requests
+                    Management
+                  </Button>
+                </Link>
               </p>
             </Card.Body>
           </Card>
@@ -431,9 +435,12 @@ const Profile = () => {
                       </li>
                     ))}
                   </ul>
-                  <Button href="/work-package" variant="quinary">
-                    Set up your download tokens
-                  </Button>
+
+                  <Link to="/work-package">
+                    <Button variant="quinary">
+                      Set up your download tokens
+                    </Button>
+                  </Link>
                 </>
               ) : (
                 <p>You do not yet have access to any datasets.</p>
