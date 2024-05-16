@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { NavLink, useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useRef, useState } from "react";
 import {
   Button,
@@ -49,6 +49,8 @@ const LoginButton = () => {
         return "2FA setup";
     }
   };
+
+  const [show, setShow] = useState(false);
 
   return (
     <div className="me-3 me-xxl-0">
@@ -151,6 +153,8 @@ const LoginButton = () => {
               key="profile"
               placement="bottom-end"
               rootClose
+              onToggle={() => setShow(!show)}
+              show={show}
               overlay={
                 <Popover
                   id={"ProfilePopover"}
@@ -163,7 +167,16 @@ const LoginButton = () => {
                       {user.title} {user.name}
                     </p>
                     <p className="mt-4">
-                      <NavLink to="/profile">View profile</NavLink>
+                      <Link to={"/profile"}>
+                        <Button
+                          variant="quinary"
+                          onClick={() => {
+                            setShow(false);
+                          }}
+                        >
+                          View profile
+                        </Button>
+                      </Link>
                     </p>
                     <p className="mt-3">
                       <a

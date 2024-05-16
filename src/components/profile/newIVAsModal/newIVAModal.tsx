@@ -76,7 +76,7 @@ const NewIVAModal = (props: NewIVAModalProps) => {
                 onClick={() => {
                   setClickedButton(IVAType.Phone);
                   setDisabledButton(false);
-                  setPromptText("mobile phone number");
+                  setPromptText("phone number to receive SMS messages");
                 }}
               >
                 SMS
@@ -151,25 +151,32 @@ const NewIVAModal = (props: NewIVAModalProps) => {
                 : `Please enter your ${promptText}:`}
             </p>
             <input
-              type="text"
+              type={
+                clickedButton === IVAType.Fax || clickedButton === IVAType.Phone
+                  ? "tel"
+                  : "text"
+              }
               id="iva"
               name="iva"
               className="mb-4 w-100"
               required={true}
             />
             <p>
-              We will send a verification code to this address after you request
-              verification on your profile page.
+              <strong>
+                In order to verify your address, you will need to request
+                verification from your profile page.
+              </strong>
             </p>
             <div className="d-flex justify-content-between mt-4">
-              <Col xs={2}>
+              <Col xs={5}>
                 <Button
                   variant="quinary"
-                  className="w-100"
+                  className="w-100 px-1"
                   type="submit"
                   disabled={disabledButton}
                 >
-                  <FontAwesomeIcon icon={faCheck} /> Ok
+                  <FontAwesomeIcon icon={faCheck} /> Add unverified contact
+                  address
                 </Button>
               </Col>
 

@@ -126,7 +126,7 @@ const IvaManagerList = (props: IvaManagerListProps) => {
                 <InvalidateButton x={x} />
                 <Button
                   key={x.id + "_confirm_transmission_button"}
-                  className="py-0 text-white ms-1"
+                  className="py-0 text-white ms-1 px-1"
                   variant="warning"
                   onClick={() => {
                     setSelectedIVA(x);

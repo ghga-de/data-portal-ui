@@ -149,7 +149,7 @@ const AccessRequestsList = (props: AccessRequestListProps) => {
                   <th
                     className={
                       row.cssClasses +
-                      " align-middle bg-secondary text-white lh-1"
+                      " align-middle bg-quinary text-white lh-1"
                     }
                     key={"table_th_" + rowIdx}
                     style={{ position: "sticky", top: "0px" }}

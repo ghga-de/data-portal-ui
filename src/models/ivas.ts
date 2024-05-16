@@ -35,7 +35,7 @@ export enum IVAType {
   InPerson = "InPerson",
 }
 export enum IVATypePrintable {
-  Phone = "Phone",
+  Phone = "SMS",
   Fax = "Fax",
   PostalAddress = "Postal Address",
   InPerson = "In Person",

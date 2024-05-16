@@ -15,9 +15,6 @@ import {
 import Home from "./components/home/home";
 import FAQ from "./components/faq/faq";
 import SingleDatasetView from "./components/browse/singleDatasetView/singleDatasetView";
-import Download from "./components/download/download";
-import Upload from "./components/upload/upload";
-import MetadataModel from "./components/metadataModel/metadataModel";
 import TermsOfUse from "./components/termsOfUse/termsOfUse";
 import WorkPackage from "./components/workPackage/workPackage";
 import Callback from "./components/profile/callback";
@@ -45,9 +42,6 @@ const router = createBrowserRouter(
         <Route path="?q=:search&f=:filter&p=:page" element={<Browse />} />
       </Route>
       <Route path="/browse/:id" element={<SingleDatasetView />} />
-      <Route path="/download" element={<Download />} />
-      <Route path="/upload" element={<Upload />} />
-      <Route path="/metadata-model" element={<MetadataModel />} />
       <Route path="/terms-of-use" element={<TermsOfUse />} />
       <Route path="/work-package" element={<WorkPackage />} />
       <Route path="/oauth/callback" element={<Callback />} />
