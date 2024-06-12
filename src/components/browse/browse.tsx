@@ -63,7 +63,7 @@ const Browse = () => {
   var dsCount: number = 0;
 
   if (searchResults !== null) {
-    if (searchResults.hits.length > 0 || searchResults.count === -1) {
+    if ((searchResults.hits && searchResults.hits.length > 0) || searchResults.count === -1) {
       dsList = searchResults.hits;
       facetList = searchResults.facets;
       dsCount = searchResults.count;

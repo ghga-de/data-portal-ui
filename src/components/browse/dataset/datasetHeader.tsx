@@ -38,7 +38,7 @@ const DatasetHeader = (props: DatasetHeaderProps) => {
 
   var listOfAllFacets: FacetModel[] | null = null;
   if (searchResults !== null) {
-    if (searchResults.hits.length > 0 || searchResults.count === -1) {
+    if ((searchResults.hits && searchResults.hits.length > 0) || searchResults.count === -1) {
       listOfAllFacets = searchResults.facets;
     } else {
       listOfAllFacets = [];
