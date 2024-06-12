@@ -65,7 +65,7 @@ def set_react_app_env_vars(config: Config):
 
     simplelog("Setting env vars for use in React App:")
     # pass the version as env var
-    package = json.load(open("../package.json"))
+    package = json.load(open(ROOT_DIR / "package.json"))
     os.environ["REACT_APP_VERSION"] = package["version"]
     # pass config params as env vars
     for name, value in config.model_dump().items():
