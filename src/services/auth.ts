@@ -174,6 +174,7 @@ class AuthService {
     if (!user) {
       showMessage({ type: "error", title: "Login failed" });
     }
+    this.setUser(user);
     return user;
   }
 
