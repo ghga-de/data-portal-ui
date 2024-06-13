@@ -249,8 +249,7 @@ const Profile = () => {
     content = (
       <div>
         <h3 style={{ margin: "1em 0" }}>
-          Welcome, {user.title + " "}
-          {user.name}!
+          Welcome, {user.full_name}!
         </h3>
         <div style={{ margin: "1em 0" }}>
           <Alert variant={user?.timeout ? "success" : "danger"}>
