@@ -30,18 +30,21 @@ const NewIVAModal = (props: NewIVAModalProps) => {
     const response = await fetchJson(url, method, userData).catch(() => null);
     if (response && response.status === ok) {
       try {
-        const id = await response.text();
-        const newIVA: IVA = {
-          id: id,
-          type: userData.type as unknown as IVAType,
-          value: userData.value,
-          changed: new Date().toISOString(),
-          status: IVAStatus.Unverified,
-        };
-        props.newUserIVA(newIVA);
-        setPromptText("");
-        setClickedButton(null);
-        props.setShow(false);
+        const iva = await response.json();
+        const id = iva.id;
+        if (id) {
+          const newIVA: IVA = {
+            id,
+            type: userData.type as unknown as IVAType,
+            value: userData.value,
+            changed: new Date().toISOString(),
+            status: IVAStatus.Unverified,
+          };
+          props.newUserIVA(newIVA);
+          setPromptText("");
+          setClickedButton(null);
+          props.setShow(false);
+        }
       } catch {}
     }
     setDisabledButton(false);
