@@ -30,7 +30,7 @@ export const responses = {
   "GET /api/auth/users/*/ivas": allIVAs.slice(1, 4),
 
   // New IVA
-  "POST /api/auth/users/*/ivas": "TEST1234566789",
+  "POST /api/auth/users/*/ivas": {id: "TEST1234566789"},
 
   // Delete IVA
   "DELETE /api/auth/users/*/ivas/*": 204,
