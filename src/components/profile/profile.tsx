@@ -180,7 +180,7 @@ const Profile = () => {
 
   useEffect(() => {
     async function fetchData() {
-      if (user && user.id) {
+      if (user?.id && user.state === "Authenticated") {
         let url = new URL(`users/${user.id}/datasets`, WPS_URL);
         try {
           const response = await fetchJson(url);
@@ -242,7 +242,7 @@ const Profile = () => {
 
   let content;
   if (user === undefined) content = "Loading user data...";
-  else if (!user?.id) {
+  else if (!user?.id || user.state !== "Authenticated") {
     content = "Not logged in!";
     back();
   } else
