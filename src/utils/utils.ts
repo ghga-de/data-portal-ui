@@ -101,9 +101,8 @@ export const fetchJson = async (
   if (CLIENT_URL) {
     headers["Origin"] = CLIENT_URL.hostname;
   }
-  if (method.match(/^POST|PUT|PATCH|DELETE$/) &&
-      !additionalHeaders?.hasOwnProperty("X-Authorization")) {
-    const user = await authService.getUser();
+  if (method.match(/^POST|PUT|PATCH|DELETE$/)) {
+    const user = authService.getCurrentUser();
     const csrf = user?.csrf;
     if (csrf) {
       headers["X-CSRF-Token"] = csrf;
