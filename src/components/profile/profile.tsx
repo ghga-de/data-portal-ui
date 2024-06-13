@@ -116,7 +116,12 @@ const Profile = () => {
 
   const deleteUserIVA = async () => {
     let url = AUTH_URL;
-    url = new URL(`users/${user?.id}/ivas/${toDeleteIVA!.id}`, url);
+    const userId = user?.id;
+    const ivaId = toDeleteIVA?.id;
+    if (!userId || !ivaId) {
+      return;
+    }
+    url = new URL(`users/${userId}/ivas/${ivaId}`, url);
     let method: string = "DELETE",
       ok: number = 204;
     const response = await fetchJson(url, method).catch(() => null);
@@ -125,7 +130,7 @@ const Profile = () => {
         type: "success",
         title: "Contact address deleted successfully!",
       });
-      setUserIVAs(userIVAs.filter((x) => x.id !== toDeleteIVA!.id));
+      setUserIVAs(userIVAs.filter((x) => x.id !== ivaId));
       setToDeleteIVA(null);
       setShowDeletionConfirmationModal(false);
     } else {
@@ -237,7 +242,7 @@ const Profile = () => {
 
   let content;
   if (user === undefined) content = "Loading user data...";
-  else if (user === null) {
+  else if (!user?.id) {
     content = "Not logged in!";
     back();
   } else
