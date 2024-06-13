@@ -101,11 +101,9 @@ export const fetchJson = async (
   if (CLIENT_URL) {
     headers["Origin"] = CLIENT_URL.hostname;
   }
-  const urlObject = typeof url === 'string' ? new URL(url) : url;
-  if (method.match(/^POST|PUT|PATCH|DELETE$/) &&
-      (!additionalHeaders?.hasOwnProperty("X-Authorization") || 
-      (urlObject)?.pathname.includes("verify-totp"))) {
-    const csrf = await authService.getCsrfToken();
+  if (method.match(/^POST|PUT|PATCH|DELETE$/)) {
+    const user = authService.getCurrentUser();
+    const csrf = user?.csrf;
     if (csrf) {
       headers["X-CSRF-Token"] = csrf;
     }

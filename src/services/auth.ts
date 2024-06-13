@@ -235,6 +235,15 @@ class AuthService {
   }
 
   /**
+   * Return the current User session from the session storage.
+   */
+  getCurrentUser(): User | null {
+    const session = sessionStorage.getItem("user");
+    const user: User | null = this.parseUserFromSession(session);
+    return user;
+  }
+
+  /**
    * Return the deserialized user session from a JSON-formatted string.
    */
   parseUserFromSession(session: string | null): User | null {
@@ -255,13 +264,6 @@ class AuthService {
     return user;
   }
 
-  /**
-   * Return the CSRF token from the user session.
-   */
-  async getCsrfToken(): Promise<string | undefined> {
-    const user = JSON.parse(sessionStorage.getItem("user") || '{}');
-    return user?.csrf;
-  }
 
 }
 
