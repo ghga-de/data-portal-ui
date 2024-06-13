@@ -117,7 +117,7 @@ const AccessRequestsList = (props: AccessRequestListProps) => {
   };
   const handleShowModal = async (accessRequest: AccessRequest) => {
     setSelectedAccessRequest(accessRequest);
-    const ivas = await getUserIVAs(props.user.ext_id);
+    const ivas = await getUserIVAs(props.user?.id);
     if (ivas) {
       setUserIVAs(ivas);
       setShowModal(true);

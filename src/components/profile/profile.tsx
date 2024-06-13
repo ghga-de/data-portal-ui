@@ -116,7 +116,7 @@ const Profile = () => {
 
   const deleteUserIVA = async () => {
     let url = AUTH_URL;
-    url = new URL(`users/${user?.ext_id}/ivas/${toDeleteIVA!.id}`, url);
+    url = new URL(`users/${user?.id}/ivas/${toDeleteIVA!.id}`, url);
     let method: string = "DELETE",
       ok: number = 204;
     const response = await fetchJson(url, method).catch(() => null);
@@ -190,7 +190,7 @@ const Profile = () => {
         }
 
         try {
-          const ivas = await getUserIVAs(user.ext_id);
+          const ivas = await getUserIVAs(user.id);
           if (ivas) {
             setUserIVAs(ivas);
           }
@@ -489,7 +489,7 @@ const Profile = () => {
         <NewIVAModal
           show={showNewIVAModal}
           setShow={setShowNewIVAModal}
-          userId={user.ext_id}
+          userId={user.id}
           newUserIVA={newUserIVA}
         />
         <DeletionConfirmationModal />

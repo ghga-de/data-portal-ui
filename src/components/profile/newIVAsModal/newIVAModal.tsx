@@ -8,7 +8,7 @@ import { IVA, IVAStatus, IVAType } from "../../../models/ivas";
 interface NewIVAModalProps {
   show: boolean;
   setShow: any;
-  userId: string;
+  userId: string | undefined;
   newUserIVA: any;
 }
 
