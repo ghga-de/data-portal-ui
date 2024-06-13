@@ -1,3 +1,5 @@
+import { authService } from "../services/auth";
+
 /**
  * Checks and cleans up URL if last character is or is not forward slash
  * Duplicate of utils version because of infinite recursion error, needs refactoring
@@ -98,6 +100,14 @@ export const fetchJson = async (
   }
   if (CLIENT_URL) {
     headers["Origin"] = CLIENT_URL.hostname;
+  }
+  if (method.match(/^POST|PUT|PATCH|DELETE$/) &&
+      !additionalHeaders?.hasOwnProperty("X-Authorization")) {
+    const user = await authService.getUser();
+    const csrf = user?.csrf;
+    if (csrf) {
+      headers["X-CSRF-Token"] = csrf;
+    }
   }
   if (additionalHeaders) Object.assign(headers, additionalHeaders);
   const body = payload ? JSON.stringify(payload) : undefined;

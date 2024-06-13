@@ -54,6 +54,9 @@ export const querySearchService: getDatasetsSearchRespType = async (
   try {
     const response = await fetchJson(url, "POST", payload);
     const data = await response.json();
+    if (response.status !== 200) {
+      throw new Error(`Status code ${response.status} in search response`);
+    }
     callbackFunc(data);
   } catch (error) {
     showFetchDataError();
