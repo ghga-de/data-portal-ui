@@ -254,6 +254,15 @@ class AuthService {
     }
     return user;
   }
+
+  /**
+   * Return the CSRF token from the user session.
+   */
+  async getCsrfToken(): Promise<string | undefined> {
+    const user = JSON.parse(sessionStorage.getItem("user") || '{}');
+    return user?.csrf;
+  }
+
 }
 
 export const authService = new AuthService();

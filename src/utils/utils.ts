@@ -103,8 +103,7 @@ export const fetchJson = async (
   }
   if (method.match(/^POST|PUT|PATCH|DELETE$/) &&
       !additionalHeaders?.hasOwnProperty("X-Authorization")) {
-    const user = await authService.getUser();
-    const csrf = user?.csrf;
+    const csrf = await authService.getCsrfToken();
     if (csrf) {
       headers["X-CSRF-Token"] = csrf;
     }
