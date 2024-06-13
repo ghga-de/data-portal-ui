@@ -18,7 +18,10 @@ import { IVA, UserWithIVA } from "../models/ivas";
 import { showMessage } from "../components/messages/usage";
 
 // Get IVAs of a given user
-export async function getUserIVAs(userId: string): Promise<IVA[] | null> {
+export async function getUserIVAs(userId: string | undefined): Promise<IVA[] | null> {
+  if (!userId) {
+    return null;
+  }
   const url = new URL(`users/${userId}/ivas`, AUTH_URL);
   try {
     const response = await fetchJson(url)
