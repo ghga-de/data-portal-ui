@@ -95,9 +95,6 @@ const Register = () => {
       back();
       return;
     }
-    showMessage({ type: "success", title: "Registration successful" });
-    user.state = "Registered";
-    authService.setUser(user);
     showMessage({
       type: "success",
       title: `Registration successful`,
