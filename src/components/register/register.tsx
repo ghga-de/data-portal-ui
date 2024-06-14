@@ -48,10 +48,10 @@ const Register = () => {
   const prompt = () =>
     user?.id
       ? (user.state === "NeedsReRegistration"
-          ? "Your contact information has changed since you last registered. "
-          : "") + "Please confirm that the information given below is correct."
+        ? "Your contact information has changed since you last registered. "
+        : "") + "Please confirm that the information given below is correct."
       : "Since you haven't used our data portal before, " +
-        "we ask you to confirm your user data and register with us.";
+      "we ask you to confirm your user data and register with us.";
 
   const buttonText = () => (user?.id ? "Confirm" : "Register");
 
@@ -64,10 +64,10 @@ const Register = () => {
       email,
       title: title || null,
     };
-    let url = AUTH_URL;
+    let url = new URL('users', AUTH_URL);
     let method: string, ok: number;
     if (id) {
-      url = new URL(`users/${id}`, url);
+      url = new URL(id, url);
       method = "PUT";
       ok = 204;
     } else {
