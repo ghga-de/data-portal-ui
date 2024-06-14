@@ -1,8 +1,8 @@
 import { useCallback, useEffect, useState } from "react";
 import {
   UserWithIVA,
-  IVAStatus,
-  IVAStatusPrintable,
+  IVAState,
+  IVAStatePrintable,
   IVATypePrintable,
 } from "../../../models/ivas";
 import { User } from "../../../services/auth";
@@ -49,7 +49,7 @@ const IvaManagerList = (props: IvaManagerListProps) => {
       <Button
         key={`${CreateCodeButtonProps.x.id}_
             ${
-              CreateCodeButtonProps.x.status === IVAStatus.CodeCreated
+              CreateCodeButtonProps.x.state === IVAState.CodeCreated
                 ? "re"
                 : ""
             }create_code_button`}
@@ -60,7 +60,7 @@ const IvaManagerList = (props: IvaManagerListProps) => {
           setShowCreateCodeModal(true);
         }}
       >
-        {CreateCodeButtonProps.x.status === IVAStatus.CodeCreated ? "Rec" : "C"}
+        {CreateCodeButtonProps.x.state === IVAState.CodeCreated ? "Rec" : "C"}
         reate code
       </Button>
     );
@@ -94,33 +94,33 @@ const IvaManagerList = (props: IvaManagerListProps) => {
         data: props.ivas.map((x) => (
           <span
             className={
-              x.status === IVAStatus.Verified
+              x.state === IVAState.Verified
                 ? "text-success"
-                : x.status === IVAStatus.Unverified
+                : x.state === IVAState.Unverified
                 ? "text-secondary"
-                : x.status === IVAStatus.CodeTransmitted
+                : x.state === IVAState.CodeTransmitted
                 ? "text-quaternary"
-                : x.status === IVAStatus.CodeCreated ||
-                  x.status === IVAStatus.CodeRequested
+                : x.state === IVAState.CodeCreated ||
+                  x.state === IVAState.CodeRequested
                 ? "text-warning"
                 : ""
             }
           >
-            {IVAStatusPrintable[x.status]}
+            {IVAStatePrintable[x.state]}
           </span>
         )),
       },
       {
         header: "Actions",
         data: props.ivas.map((x: UserWithIVA) => {
-          if (x.status === IVAStatus.CodeRequested) {
+          if (x.state === IVAState.CodeRequested) {
             return (
               <>
                 <InvalidateButton x={x} />
                 <CreateCodeButton x={x} />
               </>
             );
-          } else if (x.status === IVAStatus.CodeCreated) {
+          } else if (x.state === IVAState.CodeCreated) {
             return (
               <>
                 <InvalidateButton x={x} />
@@ -138,7 +138,7 @@ const IvaManagerList = (props: IvaManagerListProps) => {
                 <CreateCodeButton x={x} />
               </>
             );
-          } else if (x.status !== IVAStatus.Unverified) {
+          } else if (x.state !== IVAState.Unverified) {
             return <InvalidateButton x={x} />;
           }
           return <></>;
@@ -184,7 +184,7 @@ const IvaManagerList = (props: IvaManagerListProps) => {
         (x: any) =>
           x[innerTable.findIndex((x) => x.header === "ID")] === selectedIVA.id
       )[innerTable.findIndex((x) => x.header === "Status")] =
-        selectedIVA.status;
+        selectedIVA.state;
     }
     let table: TableFields[] = buildInnerTable();
     setInnerTable(table);

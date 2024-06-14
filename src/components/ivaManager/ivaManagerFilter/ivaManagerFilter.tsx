@@ -6,7 +6,7 @@ import {
   FILTER_MIN_ISO,
   parseDate,
 } from "../../../utils/utils";
-import { IVAStatus, IVAStatusPrintable } from "../../../models/ivas";
+import { IVAState, IVAStatePrintable } from "../../../models/ivas";
 
 interface IvaManagerFilterProps {
   handleFilter: any;
@@ -14,7 +14,7 @@ interface IvaManagerFilterProps {
     userFilter: string;
     fromFilter: string;
     untilFilter: string;
-    statusFilter: string;
+    stateFilter: string;
   };
 }
 
@@ -109,11 +109,11 @@ const IvaManagerFilter = (props: IvaManagerFilterProps) => {
                   defaultValue={""}
                 >
                   <option value="">No filter</option>
-                  {Object.values(IVAStatus)
+                  {Object.values(IVAState)
                     .filter((x) => isNaN(Number(x)))
                     .map((x) => (
                       <option value={x} key={x}>
-                        {IVAStatusPrintable[x]}
+                        {IVAStatePrintable[x]}
                       </option>
                     ))}
                 </Form.Select>

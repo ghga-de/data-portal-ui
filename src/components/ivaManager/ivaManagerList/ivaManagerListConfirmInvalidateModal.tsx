@@ -1,5 +1,5 @@
 import { Button, Modal } from "react-bootstrap";
-import { UserWithIVA, IVAStatus, IVATypePrintable } from "../../../models/ivas";
+import { UserWithIVA, IVAState, IVATypePrintable } from "../../../models/ivas";
 import { useState } from "react";
 import { AUTH_URL, fetchJson } from "../../../utils/utils";
 import { showMessage } from "../../messages/usage";
@@ -31,7 +31,7 @@ const IvaManagerListConfirmInvalidateModal = (
             type: "success",
             title: "IVA successfully invalidated!",
           });
-          props.selectedIVA.status = IVAStatus.Unverified;
+          props.selectedIVA.state = IVAState.Unverified;
           props.onUpdate();
           props.setSelectedIVA(undefined);
           props.setShow(false);

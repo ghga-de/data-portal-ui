@@ -1,5 +1,5 @@
 import { Button, Modal } from "react-bootstrap";
-import { UserWithIVA, IVAStatus, IVATypePrintable } from "../../../models/ivas";
+import { UserWithIVA, IVAState, IVATypePrintable } from "../../../models/ivas";
 import { useState } from "react";
 import { AUTH_URL, fetchJson } from "../../../utils/utils";
 import { showMessage } from "../../messages/usage";
@@ -32,7 +32,7 @@ const IvaManagerListConfirmTransmissionModal = (
             type: "success",
             title: "Transmission of code successfully confirmed!",
           });
-          props.selectedIVA.status = IVAStatus.CodeTransmitted;
+          props.selectedIVA.state = IVAState.CodeTransmitted;
           props.onUpdate();
           props.setSelectedIVA(undefined);
           props.setShow(false);

@@ -17,8 +17,8 @@ import { useAuth } from "../../services/auth";
 import { getUserIVAs } from "../../services/ivas";
 import {
   IVA,
-  IVAStatus,
-  IVAStatusPrintable,
+  IVAState,
+  IVAStatePrintable,
   IVATypePrintable,
 } from "../../models/ivas";
 import NewIVAModal from "./newIVAsModal/newIVAModal";
@@ -78,7 +78,7 @@ const Profile = () => {
             </em>
             and value <em>{toDeleteIVA?.value}.</em>
           </p>
-          {toDeleteIVA && toDeleteIVA.status === IVAStatus.Verified ? (
+          {toDeleteIVA && toDeleteIVA.state === IVAState.Verified ? (
             <p>
               Deleting a verified address will mean losing access to any
               datasets linked to it. Are you sure you want to continue?
@@ -156,7 +156,7 @@ const Profile = () => {
     const response = await fetchJson(url, method).catch(() => null);
     if (response && response.status === ok) {
       setShowRequestVerificationModal(true);
-      userIVAs.find((x) => idIVA === x.id)!.status = IVAStatus.CodeRequested;
+      userIVAs.find((x) => idIVA === x.id)!.state = IVAState.CodeRequested;
     } else {
       showMessage({
         type: "error",
@@ -344,12 +344,12 @@ const Profile = () => {
                         xl={3}
                         xxl={2}
                         className={
-                          x.status === IVAStatus.Verified
+                          x.state === IVAState.Verified
                             ? "text-success fw-bold"
                             : ""
                         }
                       >
-                        {x.status === IVAStatus.Unverified ? (
+                        {x.state === IVAState.Unverified ? (
                           <Button
                             id={"del_" + x.id}
                             variant="warning"
@@ -361,7 +361,7 @@ const Profile = () => {
                           >
                             Request verification
                           </Button>
-                        ) : x.status === IVAStatus.CodeTransmitted ? (
+                        ) : x.state === IVAState.CodeTransmitted ? (
                           <Button
                             id={"con_" + x.id}
                             variant="quinary"
@@ -374,7 +374,7 @@ const Profile = () => {
                             Enter verification code
                           </Button>
                         ) : (
-                          IVAStatusPrintable[x.status]
+                          IVAStatePrintable[x.state]
                         )}
                       </Col>
                       <Col xs={1}>
