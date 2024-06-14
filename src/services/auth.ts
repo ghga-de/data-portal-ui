@@ -218,9 +218,9 @@ class AuthService {
   /**
    * Return promise to load the User session for the currently authenticated user.
    */
-  async getUser(): Promise<User | null> {
+  async getUser(force = false): Promise<User | null> {
     let session = sessionStorage.getItem("user");
-    if (!session) {
+    if (!session || force) {
       const response = await fetchJson(LOGIN_URL, "POST");
       const status = response.status;
       if (status === 204) {
@@ -263,8 +263,6 @@ class AuthService {
     }
     return user;
   }
-
-
 }
 
 export const authService = new AuthService();

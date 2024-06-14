@@ -48,10 +48,10 @@ const Register = () => {
   const prompt = () =>
     user?.id
       ? (user.state === "NeedsReRegistration"
-          ? "Your contact information has changed since you last registered. "
-          : "") + "Please confirm that the information given below is correct."
+        ? "Your contact information has changed since you last registered. "
+        : "") + "Please confirm that the information given below is correct."
       : "Since you haven't used our data portal before, " +
-        "we ask you to confirm your user data and register with us.";
+      "we ask you to confirm your user data and register with us.";
 
   const buttonText = () => (user?.id ? "Confirm" : "Register");
 
@@ -64,10 +64,10 @@ const Register = () => {
       email,
       title: title || null,
     };
-    let url = AUTH_URL;
+    let url = new URL('users', AUTH_URL);
     let method: string, ok: number;
     if (id) {
-      url = new URL(`users/${id}`, url);
+      url = new URL(id, url);
       method = "PUT";
       ok = 204;
     } else {
@@ -76,25 +76,36 @@ const Register = () => {
       ok = 201;
     }
     const response = await fetchJson(url, method, userData).catch(() => null);
+    let registered = false;
     if (response && response.status === ok) {
-      showMessage({ type: "success", title: "Registration successful" });
-      user.state = "Registered";
-      authService.setUser(user);
-      showMessage({
-        type: "success",
-        title: `Registration successful`,
-        detail:
-          "You have been successfully registered. To be able to login, you will need to setup two-factor authentication in the next page.",
-        label1: "Continue",
-        callback1: () => {
-          navigate("/setup-2fa");
-        },
-        modal: true,
-      });
+      // The state should has changed and the user should now have an internal ID.
+      // We need to check that and give a hint to the backend to reload the session.
+      for (let attempt = 0; attempt < 5; attempt++) {
+        const wait = (1 << attempt) * 50;
+        await new Promise(r => setTimeout(r, wait));
+        const user = await authService.getUser(true);
+        if (user?.id && user.state === 'Registered') {
+          registered = true;
+          break;
+        }
+      }
+    }
+    if (!registered) {
+      showMessage({ type: "error", title: "Could not register" });
+      back();
       return;
     }
-    showMessage({ type: "error", title: "Could not register" });
-    back();
+    showMessage({
+      type: "success",
+      title: `Registration successful`,
+      detail:
+        "You have been successfully registered. To be able to login, you will need to setup two-factor authentication in the next page.",
+      label1: "Continue",
+      callback1: () => {
+        navigate("/setup-2fa");
+      },
+      modal: true,
+    });
   };
 
   const handleTitle = (event: ChangeEvent<HTMLSelectElement>) => {
