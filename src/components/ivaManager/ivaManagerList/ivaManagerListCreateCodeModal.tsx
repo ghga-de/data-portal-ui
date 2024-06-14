@@ -50,12 +50,18 @@ const IvaManagerListCreateCodeModal = (
         try {
           const response = await fetchJson(url, method);
           if (response && response.status === ok) {
-            const code = await response.json();
+            const responseObj = await response.json();
+            const code = responseObj.verification_code;
+            if (!code) {
+              throw new Error("No verification code returned");
+            }
             setCode(code);
             selectedIVA.state = IVAState.CodeCreated;
             onUpdate();
             setDisabledButtons(false);
-          } else throw new Error("POST failed: " + response.text);
+          } else {
+            throw new Error("Verification code could not be created: " + response.text);
+          }
         } catch (error) {
           console.error(error);
           showMessage({

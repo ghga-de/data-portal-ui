@@ -39,7 +39,7 @@ export const responses = {
   "POST /api/auth/rpc/ivas/*/request-code": 204,
 
   // Create IVA verification code
-  "POST /api/auth/rpc/ivas/*/create-code": "TEST1234566789",
+  "POST /api/auth/rpc/ivas/*/create-code": {verification_code: "TEST1234566789"},
 
   // Request IVA verification
   "POST /api/auth/rpc/ivas/*/code-transmitted": 204,
