@@ -64,13 +64,14 @@ const Register = () => {
       email,
       title: title || null,
     };
-    let url = new URL('users', AUTH_URL);
+    let url = AUTH_URL;
     let method: string, ok: number;
     if (id) {
-      url = new URL(id, url);
+      url = new URL(`users/${id}`, url);
       method = "PUT";
       ok = 204;
     } else {
+      url = new URL("users", url);
       userData["ext_id"] = ext_id;
       method = "POST";
       ok = 201;
