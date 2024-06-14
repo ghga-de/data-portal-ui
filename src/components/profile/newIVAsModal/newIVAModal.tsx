@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
 import { Button, Col, Modal, Row } from "react-bootstrap";
 import { AUTH_URL, fetchJson } from "../../../utils/utils";
-import { IVA, IVAStatus, IVAType } from "../../../models/ivas";
+import { IVA, IVAState, IVAType } from "../../../models/ivas";
 
 interface NewIVAModalProps {
   show: boolean;
@@ -38,7 +38,7 @@ const NewIVAModal = (props: NewIVAModalProps) => {
             type: userData.type as unknown as IVAType,
             value: userData.value,
             changed: new Date().toISOString(),
-            status: IVAStatus.Unverified,
+            state: IVAState.Unverified,
           };
           props.newUserIVA(newIVA);
           setPromptText("");

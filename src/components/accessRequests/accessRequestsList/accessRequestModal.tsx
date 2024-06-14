@@ -20,8 +20,8 @@ import { AccessRequest } from "../../../models/submissionsAndRequests";
 import { useState } from "react";
 import {
   IVA,
-  IVAStatus,
-  IVAStatusPrintable,
+  IVAState,
+  IVAStatePrintable,
   IVAType,
   IVATypePrintable,
 } from "../../../models/ivas";
@@ -225,12 +225,12 @@ const AccessRequestModal = (props: AccessRequestModalProps) => {
                               <label
                                 htmlFor={"iva_" + x.id}
                                 className={
-                                  x.status === IVAStatus.Verified
+                                  x.state === IVAState.Verified
                                     ? "text-success"
                                     : "text-danger"
                                 }
                               >
-                                {IVAStatusPrintable[x.status]}
+                                {IVAStatePrintable[x.state]}
                               </label>
                             </Col>
                           </Row>
@@ -254,12 +254,12 @@ const AccessRequestModal = (props: AccessRequestModalProps) => {
                 {IVAType[allowedIVA.type] + ": " + allowedIVA.value}{" "}
                 <span
                   className={
-                    allowedIVA.status === IVAStatus.Verified
+                    allowedIVA.state === IVAState.Verified
                       ? "text-success"
                       : "text-secondary"
                   }
                 >
-                  ({IVAStatusPrintable[allowedIVA.status]})
+                  ({IVAStatePrintable[allowedIVA.state]})
                 </span>
               </Col>
             </Row>

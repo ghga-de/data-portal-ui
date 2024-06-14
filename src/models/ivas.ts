@@ -14,14 +14,14 @@
 // limitations under the License.
 //
 
-export enum IVAStatus {
+export enum IVAState {
   Unverified = "Unverified",
   CodeRequested = "CodeRequested",
   CodeCreated = "CodeCreated",
   CodeTransmitted = "CodeTransmitted",
   Verified = "Verified",
 }
-export enum IVAStatusPrintable {
+export enum IVAStatePrintable {
   Unverified = "Unverified",
   CodeRequested = "Code Requested",
   CodeCreated = "Code Created",
@@ -45,7 +45,7 @@ export interface IVA {
   type: IVAType;
   value: string;
   changed: string;
-  status: IVAStatus;
+  state: IVAState;
 }
 
 export interface UserWithIVA {
@@ -53,7 +53,7 @@ export interface UserWithIVA {
   type: IVAType;
   value: string;
   changed: string;
-  status: IVAStatus;
+  state: IVAState;
   user_id: string;
   user_name: string;
   user_email: string;

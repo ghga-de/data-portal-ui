@@ -1,5 +1,5 @@
 import { Button, Form, Modal } from "react-bootstrap";
-import { IVA, IVAStatus } from "../../../models/ivas";
+import { IVA, IVAState } from "../../../models/ivas";
 import { useState } from "react";
 import { AUTH_URL, fetchJson } from "../../../utils/utils";
 import { showMessage } from "../../messages/usage";
@@ -21,7 +21,7 @@ const ConfirmVerificationModal = (props: ConfirmVerificationModalProps) => {
       userData = { verification_code: verificationCode };
     const response = await fetchJson(url, method, userData).catch(() => null);
     if (response && response.status === ok) {
-      props.toConfirmIVA!.status = IVAStatus.Verified;
+      props.toConfirmIVA!.state = IVAState.Verified;
       props.setShow(false);
       props.setToConfirmIVA(null);
       showMessage({
@@ -29,7 +29,7 @@ const ConfirmVerificationModal = (props: ConfirmVerificationModalProps) => {
         title: "Contact address verified successfully",
       });
     } else if (response && response.status === 429) {
-      props.toConfirmIVA!.status = IVAStatus.Unverified;
+      props.toConfirmIVA!.state = IVAState.Unverified;
       showMessage({
         type: "error",
         title:

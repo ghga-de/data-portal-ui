@@ -16,7 +16,7 @@ export const allIVAs = [
     type: "InPerson",
     value: "Hauptstr. 321",
     changed: "2024-01-01T00:00:00",
-    status: "CodeRequested",
+    state: "CodeRequested",
     user_name: "Prof. Jean Doe",
     user_email: "j2.jdoe@home.org"
   }, {
@@ -24,7 +24,7 @@ export const allIVAs = [
     type: "Phone",
     value: "+441234567890004",
     changed: "2024-02-01T00:00:00",
-    status: "Verified",
+    state: "Verified",
     user_name: "Dr. John Doe",
     user_email: "j.jdoe@home.org"
   },
@@ -33,7 +33,7 @@ export const allIVAs = [
     type: "Phone",
     value: "+491234567890000",
     changed: "2024-03-01T00:00:00",
-    status: "Unverified",
+    state: "Unverified",
     user_name: "Dr. John Doe",
     user_email: "j.jdoe@home.org"
   },
@@ -42,7 +42,7 @@ export const allIVAs = [
     type: "PostalAddress",
     value: "Wilhelmstr. 123",
     changed: "2024-04-01T00:00:00",
-    status: "CodeTransmitted",
+    state: "CodeTransmitted",
     user_name: "Dr. John Doe",
     user_email: "j.jdoe@home.org"
   }, {
@@ -50,7 +50,7 @@ export const allIVAs = [
     type: "InPerson",
     value: "Mathematikon",
     changed: "2024-05-01T00:00:00",
-    status: "CodeCreated",
+    state: "CodeCreated",
     user_name: "Prof. Jean Doe",
     user_email: "j2.jdoe@home.org"
   }]

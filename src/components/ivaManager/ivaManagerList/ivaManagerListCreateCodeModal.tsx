@@ -17,7 +17,7 @@ import { Button, Form, Modal, OverlayTrigger, Tooltip } from "react-bootstrap";
 import { AUTH_URL, fetchJson } from "../../../utils/utils";
 import { showMessage } from "../../messages/usage";
 import { useEffect, useState } from "react";
-import { UserWithIVA, IVAStatus, IVATypePrintable } from "../../../models/ivas";
+import { UserWithIVA, IVAState, IVATypePrintable } from "../../../models/ivas";
 
 interface IvaManagerListCreateCodeModalProps {
   show: boolean;
@@ -52,7 +52,7 @@ const IvaManagerListCreateCodeModal = (
           if (response && response.status === ok) {
             const code = await response.json();
             setCode(code);
-            selectedIVA.status = IVAStatus.CodeCreated;
+            selectedIVA.state = IVAState.CodeCreated;
             onUpdate();
             setDisabledButtons(false);
           } else throw new Error("POST failed: " + response.text);

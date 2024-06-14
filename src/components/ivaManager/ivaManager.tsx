@@ -17,14 +17,14 @@ const IvaManager = () => {
     userFilter: "",
     fromFilter: FILTER_MIN_ISO,
     untilFilter: FILTER_MAX_ISO,
-    statusFilter: "",
+    stateFilter: "",
   });
 
   function handleFilter(
     user?: string,
     from?: string,
     until?: string,
-    status?: string
+    state?: string
   ) {
     if (ivas) {
       let userString: string =
@@ -33,8 +33,8 @@ const IvaManager = () => {
         from !== undefined ? from : filterObj["fromFilter"];
       let untilString: string =
         until !== undefined ? until : filterObj["untilFilter"];
-      let statusString: string =
-        status !== undefined ? status : filterObj["statusFilter"];
+      let stateString: string =
+        state !== undefined ? state : filterObj["stateFilter"];
 
       let fromDate = Date.parse(fromString);
       if (fromDate < Date.parse(FILTER_MIN_ISO) || !fromString)
@@ -48,7 +48,7 @@ const IvaManager = () => {
         userFilter: userString,
         fromFilter: fromString,
         untilFilter: untilString,
-        statusFilter: statusString,
+        stateFilter: stateString,
       });
     }
   }
@@ -78,8 +78,8 @@ const IvaManager = () => {
         Date.parse(iva.changed) > Date.parse(filterObj["fromFilter"])) &&
       (filterObj["untilFilter"] === "" ||
         Date.parse(iva.changed) < Date.parse(filterObj["untilFilter"])) &&
-      (filterObj["statusFilter"] === "" ||
-        iva.status.toString() === filterObj["statusFilter"])
+      (filterObj["stateFilter"] === "" ||
+        iva.state.toString() === filterObj["stateFilter"])
   );
 
   if (user?.role !== "data_steward") {
