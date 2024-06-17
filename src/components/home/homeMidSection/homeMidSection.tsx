@@ -103,33 +103,28 @@ const HomeMidSection = () => {
       badgeDark: true,
     });
 
+    const protocolTypes =
+      summary?.resource_stats?.SequencingProtocol?.stats?.type || [];
     Badges.push({
-      badgeTitle: BadgeTitleGen(
-        faDna,
-        "Platforms: " +
-        (summary?.resource_stats?.SequencingProtocol?.stats?.type?.length || 0)
-      ),
-      badgeBody: summary.resource_stats.SequencingProtocol?.stats.type.map(
-        (x: any) => (
-          <Row key={x.value} className="text-capitalize ms-0 ps-0 mb-2 w-100">
-            <Col className="ms-0 ps-0">{x.value}:</Col>
-            <Col className="col-auto text-end fw-bold pe-0">{x.count}</Col>
-          </Row>
-        )
-      ),
+      badgeTitle: BadgeTitleGen(faDna, "Platforms: " + protocolTypes.length),
+      badgeBody: protocolTypes.map((x: any) => (
+        <Row key={x.value} className="text-capitalize ms-0 ps-0 mb-2 w-100">
+          <Col className="ms-0 ps-0">{x.value}:</Col>
+          <Col className="col-auto text-end fw-bold pe-0">{x.count}</Col>
+        </Row>
+      )),
       bodyRowClasses: "pt-3 fs-7",
     });
 
+    const individuals = summary?.resource_stats?.Individual;
+    const numIndividuals = individuals?.count || 0;
+    const individualSexes = individuals?.stats?.sex || [];
     Badges.push({
-      badgeTitle: BadgeTitleGen(
-        faUser,
-        "Individuals: " + (summary?.resource_stats?.Individual?.count || 0),
-        true
-      ),
+      badgeTitle: BadgeTitleGen(faUser, "Individuals: " + numIndividuals, true),
       badgeBody: (
         <div>
           <Row className="pt-4 mt-3 w-100 px-0 mx-0">
-            {summary.resource_stats.Individual?.stats.sex.map((x, i) => {
+            {individualSexes.map((x, i) => {
               const sex = /FEMALE/.test(x.value) ? "Female" : "Male";
               return (
                 <Col key={i} className="text-center mb-4 ps-1 text-capitalize">
@@ -145,30 +140,27 @@ const HomeMidSection = () => {
       badgeDark: true,
     });
 
+    const processFiles = summary?.resource_stats?.SequencingProcessFile;
+    const numProcessFiles = processFiles?.count || 0;
+    const processFileFormats = processFiles?.stats?.format || [];
     Badges.push({
-      badgeTitle: BadgeTitleGen(
-        faChartColumn,
-        "Files: " +
-          (summary?.resource_stats?.SequencingProcessFile?.count || 0)
-      ),
+      badgeTitle: BadgeTitleGen(faChartColumn, "Files: " + numProcessFiles),
       badgeBody: (
         <table>
           <tbody>
-            {summary.resource_stats.SequencingProcessFile?.stats.format.map(
-              (x) => {
-                return (
-                  <tr key={x.value} className="text-uppercase ms-0 ps-0 mb-2">
-                    <td
-                      className="ms-0 ps-3 pe-4"
-                      style={{ width: "1px", whiteSpace: "nowrap" }}
-                    >
-                      {x.value}:
-                    </td>
-                    <td className="fw-bold">{x.count}</td>
-                  </tr>
-                );
-              }
-            )}
+            {processFileFormats.map((x) => {
+              return (
+                <tr key={x.value} className="text-uppercase ms-0 ps-0 mb-2">
+                  <td
+                    className="ms-0 ps-3 pe-4"
+                    style={{ width: "1px", whiteSpace: "nowrap" }}
+                  >
+                    {x.value}:
+                  </td>
+                  <td className="fw-bold">{x.count}</td>
+                </tr>
+              );
+            })}
           </tbody>
         </table>
       ),
