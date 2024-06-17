@@ -52,7 +52,10 @@ const AccessRequestModal = (props: AccessRequestModalProps) => {
     setDisabledButtons(true);
     const url = new URL(`access-requests/${props.accessRequest?.id}`, ARS_URL);
     try {
-      const response = await fetchJson(url, "PATCH", { status: status });
+      const response = await fetchJson(url, "PATCH", {
+        status: status,
+        iva_id: selectedIVA,
+      });
       if (response.ok) {
         showMessage({
           type: "success",
