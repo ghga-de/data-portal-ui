@@ -94,6 +94,8 @@ const Confirm2FA = () => {
   if (user === undefined) {
     content = "Loading user data...";
   } else if (user === null) {
+    // user is not logged in
+    unblock();
     back();
   } else {
     const Lost2FAModal = (props: any) => {

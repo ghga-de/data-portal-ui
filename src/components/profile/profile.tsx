@@ -244,13 +244,14 @@ const Profile = () => {
   if (user === undefined) content = "Loading user data...";
   else if (!user?.id || user.state !== "Authenticated") {
     content = "Not logged in!";
+    if (sessionStorage.getItem("lastPath") === "/profile") {
+      sessionStorage.removeItem("lastPath");
+    }
     back();
   } else
     content = (
       <div>
-        <h3 style={{ margin: "1em 0" }}>
-          Welcome, {user.full_name}!
-        </h3>
+        <h3 style={{ margin: "1em 0" }}>Welcome, {user.full_name}!</h3>
         <div style={{ margin: "1em 0" }}>
           <Alert variant={user?.timeout ? "success" : "danger"}>
             {user.timeout

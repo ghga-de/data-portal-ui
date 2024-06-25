@@ -78,7 +78,9 @@ function Layout() {
               callback1: () => {},
               label1: "Continue unauthenticated",
               callback2: () => {
-                if (!location.pathname.match("/(register|confirm-2fa|setup-2fa)")) {
+                if (
+                  !location.pathname.match("/(register|confirm-2fa|setup-2fa)")
+                ) {
                   sessionStorage.setItem("lastPath", location.pathname);
                 }
                 authService.login();

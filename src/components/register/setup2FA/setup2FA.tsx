@@ -103,7 +103,9 @@ const Setup2FA = () => {
 
   let content;
   if (user === null) {
-    back(); // not authenticated
+    // user is not logged in
+    unblock();
+    back();
   } else if (!(user && twoFAURI)) {
     content = "Loading user data...";
   } else {

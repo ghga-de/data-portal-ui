@@ -48,10 +48,10 @@ const Register = () => {
   const prompt = () =>
     user?.id
       ? (user.state === "NeedsReRegistration"
-        ? "Your contact information has changed since you last registered. "
-        : "") + "Please confirm that the information given below is correct."
+          ? "Your contact information has changed since you last registered. "
+          : "") + "Please confirm that the information given below is correct."
       : "Since you haven't used our data portal before, " +
-      "we ask you to confirm your user data and register with us.";
+        "we ask you to confirm your user data and register with us.";
 
   const buttonText = () => (user?.id ? "Confirm" : "Register");
 
@@ -83,9 +83,9 @@ const Register = () => {
       // We need to check that and give a hint to the backend to reload the session.
       for (let attempt = 0; attempt < 5; attempt++) {
         const wait = (1 << attempt) * 50;
-        await new Promise(r => setTimeout(r, wait));
+        await new Promise((r) => setTimeout(r, wait));
         const user = await authService.getUser(true);
-        if (user?.id && user.state === 'Registered') {
+        if (user?.id && user.state === "Registered") {
           registered = true;
           break;
         }
