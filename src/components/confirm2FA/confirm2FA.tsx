@@ -31,7 +31,7 @@ import {
 import { useBlocker, useNavigate } from "react-router-dom";
 import { authService, useAuth } from "../../services/auth";
 import { AUTH_URL, fetchJson } from "../../utils/utils";
-import { showMessage } from "../messages/usage";
+import { useMessages } from "../messages/usage";
 
 const Confirm2FA = () => {
   const navigate = useNavigate();
@@ -45,8 +45,16 @@ const Confirm2FA = () => {
 
   const { user, logoutUser } = useAuth();
 
+  const { showMessage } = useMessages();
+
   const back = () => {
-    setTimeout(() => navigate(sessionStorage.getItem("lastPath") || "/"));
+    let path = sessionStorage.getItem("lastPath");
+    if (path) {
+      sessionStorage.removeItem("lastPath");
+    } else {
+      path = "/";
+    }
+    setTimeout(() => navigate(path!));
   };
 
   const stay = () => {
@@ -93,8 +101,8 @@ const Confirm2FA = () => {
   let content;
   if (user === undefined) {
     content = "Loading user data...";
-  } else if (user === null) {
-    // user is not logged in
+  } else if (!user || user.state !== "HasTotpToken") {
+    console.warn("Unexpected state:", user?.state);
     unblock();
     back();
   } else {

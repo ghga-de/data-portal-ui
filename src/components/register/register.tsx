@@ -25,7 +25,13 @@ const Register = () => {
   const { user, logoutUser } = useAuth();
 
   const back = () => {
-    setTimeout(() => navigate(sessionStorage.getItem("lastPath") || "/"));
+    let path = sessionStorage.getItem("lastPath");
+    if (path) {
+      sessionStorage.removeItem("lastPath");
+    } else {
+      path = "/";
+    }
+    setTimeout(() => navigate(path!));
   };
 
   const stay = () => {
@@ -53,9 +59,14 @@ const Register = () => {
       : "Since you haven't used our data portal before, " +
         "we ask you to confirm your user data and register with us.";
 
-  const buttonText = () => (user?.id ? "Confirm" : "Register");
+  const buttonText = () =>
+    blocked ? (user?.id ? "Confirm" : "Register") : "Continue";
 
   const submitUserData = async () => {
+    if (!blocked) {
+      navigate("/setup-2fa");
+      return;
+    }
     if (!user || !AUTH_URL) return;
     unblock();
     const { id, ext_id, name, email } = user;
@@ -125,8 +136,12 @@ const Register = () => {
   const dataDivClasses = "col-md-10 col-sm-9 text-break";
 
   let content;
-  if (user === undefined) content = "Loading user data...";
-  else if (user === null) {
+  if (user === undefined) {
+    content = "Loading user data...";
+  } else if (
+    !(user && /NeedsRegistration|NeedsReRegistration/.test(user.state)) &&
+    !(user?.state === "Registered" && !blocked)
+  ) {
     unblock();
     back();
   } else
@@ -176,31 +191,33 @@ const Register = () => {
               </select>
             </div>
           </div>
-          <div className="row g-3 mb-3">
-            <div className="col-md-12">
-              <input
-                type="checkbox"
-                onChange={handleToS}
-                className="me-3"
-                id="tos"
-              />
-              <label htmlFor="tos">
-                I accept the{" "}
-                <Link to="/terms-of-use" target="_blank" rel="noreferrer">
-                  terms of use
-                </Link>{" "}
-                and the{" "}
-                <a
-                  href="https://www.ghga.de/data-protection"
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  privacy policy
-                </a>
-                .
-              </label>
+          {blocked ? (
+            <div className="row g-3 mb-3">
+              <div className="col-md-12">
+                <input
+                  type="checkbox"
+                  onChange={handleToS}
+                  className="me-3"
+                  id="tos"
+                />
+                <label htmlFor="tos">
+                  I accept the{" "}
+                  <Link to="/terms-of-use" target="_blank" rel="noreferrer">
+                    terms of use
+                  </Link>{" "}
+                  and the{" "}
+                  <a
+                    href="https://www.ghga.de/data-protection"
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    privacy policy
+                  </a>
+                  .
+                </label>
+              </div>
             </div>
-          </div>
+          ) : null}
           <div className="d-flex justify-content-end">
             <Button
               variant="danger"

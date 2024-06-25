@@ -15,7 +15,7 @@
 
 import { Button, Col, Modal, Row } from "react-bootstrap";
 import { ARS_URL, fetchJson } from "../../../utils/utils";
-import { showMessage } from "../../messages/usage";
+import { useMessages } from "../../messages/usage";
 import { AccessRequest } from "../../../models/submissionsAndRequests";
 import { useState } from "react";
 import {
@@ -44,6 +44,7 @@ const ROW_CLASSES = "mb-3";
 const AccessRequestModal = (props: AccessRequestModalProps) => {
   const [disabledButtons, setDisabledButtons] = useState(false);
   const [selectedIVA, setSelectedIVA] = useState("");
+  const { showMessage } = useMessages();
 
   async function handleButtonClickAccess(status: "allowed" | "denied") {
     if (props.accessRequest === undefined || props.userId === undefined) {

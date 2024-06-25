@@ -96,8 +96,6 @@ function Layout() {
           /Registered|(Needs|Lost|New)TotpToken/.test(user.state) &&
           !/^\/(setup|confirm)-2fa/.test(location.pathname)
         ) {
-          // user is new (needs to register)
-          // or her data changed (needs to confirm)
           navigate("/setup-2fa");
         }
         if (

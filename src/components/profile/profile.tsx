@@ -237,7 +237,13 @@ const Profile = () => {
   }, [showMessage, user]);
 
   const back = () => {
-    setTimeout(() => navigate(sessionStorage.getItem("lastPath") || "/"));
+    let path = sessionStorage.getItem("lastPath");
+    if (path) {
+      sessionStorage.removeItem("lastPath");
+    } else {
+      path = "/";
+    }
+    setTimeout(() => navigate(path!));
   };
 
   let content;

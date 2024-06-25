@@ -15,7 +15,7 @@
 
 import { Button, Form, Modal, OverlayTrigger, Tooltip } from "react-bootstrap";
 import { AUTH_URL, fetchJson } from "../../../utils/utils";
-import { showMessage } from "../../messages/usage";
+import { useMessages } from "../../messages/usage";
 import { useEffect, useState } from "react";
 import { UserWithIVA, IVAState, IVATypePrintable } from "../../../models/ivas";
 
@@ -36,6 +36,8 @@ const IvaManagerListCreateCodeModal = (
   const [code, setCode] = useState("");
 
   const { selectedIVA, show, onUpdate } = props;
+
+  const { showMessage } = useMessages();
 
   useEffect(() => {
     async function fetchData() {
@@ -60,7 +62,9 @@ const IvaManagerListCreateCodeModal = (
             onUpdate();
             setDisabledButtons(false);
           } else {
-            throw new Error("Verification code could not be created: " + response.text);
+            throw new Error(
+              "Verification code could not be created: " + response.text
+            );
           }
         } catch (error) {
           console.error(error);
