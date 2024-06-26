@@ -240,8 +240,10 @@ export interface ProtocolSummaryModel {
 export interface MetadataSummaryModel {
   resource_stats: {
     Dataset: DatasetSummaryModel;
-    SequencingProcessFile: FileSummaryModel;
     Individual: IndividualSummaryModel;
     SequencingProtocol: ProtocolSummaryModel;
+    AnalysisProcessOutputFile: FileSummaryModel;
+    SequencingProcessFile: FileSummaryModel;
+    StudyFile: FileSummaryModel;
   };
 }

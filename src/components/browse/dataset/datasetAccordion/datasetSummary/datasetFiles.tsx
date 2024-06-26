@@ -36,8 +36,8 @@ const DatasetFiles = (props: DataSetFilesProps) => {
                 })}
               </ul>
               <p className="mb-0">
-                <strong>{parseBytes(props.files.stats?.size)}</strong> total
-                size
+                <strong>{parseBytes(props.files.stats?.size || 0)}</strong>{" "}
+                total size
               </p>
             </div>
           ) : (

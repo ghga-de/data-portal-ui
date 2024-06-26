@@ -10,6 +10,7 @@ import { Col, Row } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
 import { getMetadataSummary } from "../../../api/browse";
 import { MetadataSummaryModel } from "../../../models/dataset";
+import { aggregateFileStats } from "../fileStats";
 import HomeMidSectionBadge from "./homeMidSectionBadge";
 
 /** Section on the home  page where Statistics are listed in cards (badges). */
@@ -140,15 +141,13 @@ const HomeMidSection = () => {
       badgeDark: true,
     });
 
-    const processFiles = summary?.resource_stats?.SequencingProcessFile;
-    const numProcessFiles = processFiles?.count || 0;
-    const processFileFormats = processFiles?.stats?.format || [];
+    const fileStats = aggregateFileStats(summary);
     Badges.push({
-      badgeTitle: BadgeTitleGen(faChartColumn, "Files: " + numProcessFiles),
+      badgeTitle: BadgeTitleGen(faChartColumn, "Files: " + fileStats.count),
       badgeBody: (
         <table>
           <tbody>
-            {processFileFormats.map((x) => {
+            {fileStats.stats.format.map((x) => {
               return (
                 <tr key={x.value} className="text-uppercase ms-0 ps-0 mb-2">
                   <td
