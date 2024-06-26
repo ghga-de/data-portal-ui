@@ -62,11 +62,9 @@ const IvaManager = () => {
   useEffect(() => {
     async function fetchData() {
       const ivas = await getAllIVAs();
-      if (ivas != null) {
-        setIVAs(ivas);
-      }
+      setIVAs(ivas);
     }
-    if (!ivas && user?.role === "data_steward") fetchData();
+    if (ivas === undefined && user?.role === "data_steward") fetchData();
   }, [ivas, user]);
 
   filteredIVAs = ivas?.filter(
