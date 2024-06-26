@@ -22,7 +22,13 @@ const Callback = () => {
 
     const handleError = () => {
       showMessage({ type: "error", title: "Could not log in" });
-      navigate(sessionStorage.getItem("lastPath") || "/");
+      let path = sessionStorage.getItem("lastPath");
+      if (path) {
+        sessionStorage.removeItem("lastPath");
+      } else {
+        path = "/";
+      }
+      setTimeout(() => navigate(path!));
     };
 
     // in case the user tries to access without a state

@@ -2,7 +2,7 @@ import { Button, Form, Modal } from "react-bootstrap";
 import { IVA, IVAState } from "../../../models/ivas";
 import { useState } from "react";
 import { AUTH_URL, fetchJson } from "../../../utils/utils";
-import { showMessage } from "../../messages/usage";
+import { useMessages } from "../../messages/usage";
 
 interface ConfirmVerificationModalProps {
   show: boolean;
@@ -12,6 +12,10 @@ interface ConfirmVerificationModalProps {
 }
 
 const ConfirmVerificationModal = (props: ConfirmVerificationModalProps) => {
+  const [disabledButton, setDisabledButton] = useState(true);
+  const [inputtedCode, setInputtedCode] = useState("");
+  const { showMessage } = useMessages();
+
   const HandleSubmit = async (verificationCode: string) => {
     setDisabledButton(true);
     let url = AUTH_URL;
@@ -43,9 +47,6 @@ const ConfirmVerificationModal = (props: ConfirmVerificationModalProps) => {
       setTimeout(() => setDisabledButton(false), 2000);
     }
   };
-
-  const [disabledButton, setDisabledButton] = useState(true);
-  const [inputtedCode, setInputtedCode] = useState("");
 
   return (
     <>

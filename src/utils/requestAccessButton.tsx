@@ -21,7 +21,7 @@ import { useAuth } from "../services/auth";
 import { AccessRequest } from "../models/submissionsAndRequests";
 import { useEffect, useState } from "react";
 import { ARS_URL, fetchJson } from "./utils";
-import { showMessage } from "../components/messages/usage";
+import { useMessages } from "../components/messages/usage";
 import { useNavigate } from "react-router-dom";
 
 interface RequestAccessButtonProps {
@@ -43,6 +43,8 @@ const RequestAccessButton = (props: RequestAccessButtonProps) => {
   >(undefined);
 
   const navigate = useNavigate();
+
+  const { showMessage } = useMessages();
 
   useEffect(() => {
     async function fetchData() {
@@ -91,7 +93,7 @@ const RequestAccessButton = (props: RequestAccessButtonProps) => {
       }
     }
     if (requests === null || requests === undefined) fetchData();
-  }, [props.accession, requests, user]);
+  }, [props.accession, requests, user, showMessage]);
 
   return (
     <Button

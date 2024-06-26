@@ -2,7 +2,7 @@ import { Button, Modal } from "react-bootstrap";
 import { UserWithIVA, IVAState, IVATypePrintable } from "../../../models/ivas";
 import { useState } from "react";
 import { AUTH_URL, fetchJson } from "../../../utils/utils";
-import { showMessage } from "../../messages/usage";
+import { useMessages } from "../../messages/usage";
 
 interface IvaManagerListConfirmInvalidateModalProps {
   show: boolean;
@@ -16,6 +16,7 @@ const IvaManagerListConfirmInvalidateModal = (
   props: IvaManagerListConfirmInvalidateModalProps
 ) => {
   const [disabledButtons, setDisabledButtons] = useState(false);
+  const { showMessage } = useMessages();
 
   async function handleInvalidate() {
     if (props.selectedIVA !== undefined) {

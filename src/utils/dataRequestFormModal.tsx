@@ -5,7 +5,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Modal, Row, Col, Button, Form } from "react-bootstrap";
-import { showMessage } from "../components/messages/usage";
+import { useMessages } from "../components/messages/usage";
 import { ARS_URL, fetchJson } from "./utils";
 import { useAuth } from "../services/auth";
 import { FormEvent, useState } from "react";
@@ -19,6 +19,8 @@ interface DataRequestFormModalProps {
 
 /** Modal that guides the user on how to access the dataset of interest. */
 const DataRequestFormModal = (props: DataRequestFormModalProps) => {
+  const { showMessage } = useMessages();
+
   const cleanEmail = (email: string) => {
     let clean_email: string = email;
     clean_email = clean_email.replace("[at]", "@");

@@ -32,7 +32,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { authService, useAuth } from "../../../services/auth";
 import { AUTH_URL, fetchJson } from "../../../utils/utils";
-import { showMessage } from "../../messages/usage";
+import { useMessages } from "../../messages/usage";
 
 const Setup2FA = () => {
   useEffect(() => {});
@@ -50,8 +50,16 @@ const Setup2FA = () => {
 
   const { user, logoutUser } = useAuth();
 
+  const { showMessage } = useMessages();
+
   const back = () => {
-    setTimeout(() => navigate(sessionStorage.getItem("lastPath") || "/"));
+    let path = sessionStorage.getItem("lastPath");
+    if (path) {
+      sessionStorage.removeItem("lastPath");
+    } else {
+      path = "/";
+    }
+    setTimeout(() => navigate(path!));
   };
 
   const stay = () => {
@@ -72,40 +80,44 @@ const Setup2FA = () => {
   };
 
   const getTOTPCode = async () => {
-    if (user && TOTPRequests === 0) {
-      setTOTPRequests(TOTPRequests + 1);
-      const url = new URL("totp-token", AUTH_URL);
-      if (user.state === "LostTotpToken") {
-        url.search = "?force=true";
+    if (!user || TOTPRequests) return;
+    setTOTPRequests(TOTPRequests + 1);
+    const url = new URL("totp-token", AUTH_URL);
+    if (user.state === "LostTotpToken") {
+      url.search = "?force=true";
+    }
+    try {
+      const response = await fetchJson(url, "POST");
+      if (response?.status !== 201) {
+        throw Error(response.statusText);
       }
-      try {
-        const response = await fetchJson(url, "POST");
-        if (response?.status !== 201) {
-          throw Error(response.statusText);
-        }
-        const { uri: token } = await response.json();
-        if (token) {
-          setTwoFAURI(token);
-        }
-      } catch (error) {
-        console.error("Cannot get TOTP code:", error);
-        showMessage({
-          type: "error",
-          title: "Cannot get 2FA code. Please try again later.",
-        });
+      const { uri: token } = await response.json();
+      if (token) {
+        setTwoFAURI(token);
       }
+    } catch (error) {
+      console.error("Cannot get TOTP code:", error);
+      showMessage({
+        type: "error",
+        title: "Cannot get 2FA code. Please try again later.",
+      });
     }
   };
 
-  if (TOTPRequests === 0) {
-    getTOTPCode();
-  }
-
   let content;
-  if (user === null) {
-    back(); // not authenticated
-  } else if (!(user && twoFAURI)) {
+  if (user === undefined) {
     content = "Loading user data...";
+  } else if (
+    !user ||
+    !/Registered|(Needs|Lost|New)TotpToken/.test(user.state)
+  ) {
+    unblock();
+    back();
+  } else if (!twoFAURI) {
+    if (!TOTPRequests) {
+      getTOTPCode();
+    }
+    content = "Creating second factor...";
   } else {
     content = (
       <>
