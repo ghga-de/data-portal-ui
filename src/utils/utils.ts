@@ -1,4 +1,5 @@
-import { authService } from "../services/auth";
+import { showMessage } from "../components/messages/usage";
+import { authService, LOGIN_URL, LOGOUT_URL } from "../services/auth";
 
 /**
  * Checks and cleans up URL if last character is or is not forward slash
@@ -111,7 +112,18 @@ export const fetchJson = async (
   if (additionalHeaders) Object.assign(headers, additionalHeaders);
   const body = payload ? JSON.stringify(payload) : undefined;
   try {
-    return await fetch(url, { method, headers, body });
+    const response = await fetch(url, { method, headers, body });
+    if (response.status === 403 && url !== LOGIN_URL && url !== LOGOUT_URL) {
+      // authentication error, check if session has expired
+      if (authService.getCurrentUser() && !(await authService.getUser(true))) {
+        showMessage({
+          type: "error",
+          title: "You are not logged in anymore.",
+        });
+        console.warn("User session has expired.");
+      }
+    }
+    return response;
   } catch (error) {
     console.error(error);
     return new Response(null, {
