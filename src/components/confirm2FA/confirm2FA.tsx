@@ -101,7 +101,10 @@ const Confirm2FA = () => {
   let content;
   if (user === undefined) {
     content = "Loading user data...";
-  } else if (!user || user.state !== "HasTotpToken") {
+  } else if (
+    user?.state !== "HasTotpToken" &&
+    !(user?.state === "Authenticated" && !blocked)
+  ) {
     console.warn("Unexpected state:", user?.state);
     unblock();
     back();

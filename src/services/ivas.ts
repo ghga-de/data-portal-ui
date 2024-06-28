@@ -18,18 +18,20 @@ import { IVA, UserWithIVA } from "../models/ivas";
 import { showMessage } from "../components/messages/usage";
 
 // Get IVAs of a given user
-export async function getUserIVAs(userId: string | undefined): Promise<IVA[] | null> {
+export async function getUserIVAs(
+  userId: string | undefined
+): Promise<IVA[] | null> {
   if (!userId) {
     return null;
   }
   const url = new URL(`users/${userId}/ivas`, AUTH_URL);
   try {
-    const response = await fetchJson(url)
+    const response = await fetchJson(url);
     if (!response || response.status !== 200) {
       throw new Error(response.statusText);
     }
-    return await response.json() as any as IVA[];
-  } catch(error) {
+    return (await response.json()) as any as IVA[];
+  } catch (error) {
     console.error(error);
     showMessage({
       type: "error",
@@ -38,7 +40,7 @@ export async function getUserIVAs(userId: string | undefined): Promise<IVA[] | n
     });
     return null;
   }
-};
+}
 
 // Get all IVAs with the corresponding user data
 export async function getAllIVAs(): Promise<UserWithIVA[] | null> {
@@ -48,11 +50,12 @@ export async function getAllIVAs(): Promise<UserWithIVA[] | null> {
     if (!response || response.status !== 200) {
       throw new Error(response.statusText);
     }
-    return await response.json() as any as UserWithIVA[];
+    return (await response.json()) as any as UserWithIVA[];
   } catch (error) {
     console.error(error);
     showMessage({
-      type: "error", title: "Cannot retrieve IVAs.",
+      type: "error",
+      title: "Cannot retrieve IVAs.",
     });
     return null;
   }

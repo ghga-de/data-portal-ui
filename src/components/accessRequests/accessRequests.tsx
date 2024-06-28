@@ -91,29 +91,25 @@ const AccessRequests = () => {
   useEffect(() => {
     async function fetchData() {
       let accessRequests: AccessRequest[] | null = null;
-      if (user?.id) {
-        const url = new URL("access-requests", ARS_URL);
-        try {
-          const response = await fetchJson(url);
-          if (response.ok) {
-            accessRequests = await response.json();
-          } else {
-            throw new Error(
-              "Failed to retrieve access requests: " + response.text
-            );
-          }
-        } catch (error) {
-          showMessage({
-            type: "error",
-            title: "Cannot retrieve your access requests.",
-          });
+      const url = new URL("access-requests", ARS_URL);
+      try {
+        const response = await fetchJson(url);
+        if (response.ok) {
+          accessRequests = await response.json();
+        } else {
+          throw new Error(
+            "Failed to retrieve access requests: " + response.text
+          );
         }
+      } catch (error) {
+        showMessage({
+          type: "error",
+          title: "Cannot retrieve your access requests.",
+        });
       }
-      if (accessRequests !== null) {
-        setRequests(accessRequests);
-      }
+      setRequests(accessRequests);
     }
-    if (requests === null || requests === undefined) fetchData();
+    if (requests === undefined && user?.id) fetchData();
   }, [requests, showMessage, user]);
 
   filteredRequests = requests?.filter(
