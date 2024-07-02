@@ -130,6 +130,19 @@ const HeaderNavbar = () => {
                         FAQ
                       </NavLink>
                     </Col>
+                    <Col
+                      xs={navColsSpanXS}
+                      className={navColsClasses}
+                      onClick={() => handleCloseOffCanvas()}
+                    >
+                      <NavLink
+                        to="https://docs.ghga.de/"
+                        target="_blank"
+                        className={inactivePageStyle}
+                      >
+                        Docs
+                      </NavLink>
+                    </Col>
                   </Nav>
                 </Col>
                 <Col
