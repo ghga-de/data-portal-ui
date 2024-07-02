@@ -11,22 +11,31 @@
 // Note that this currently works only as a CommonJS module
 const { createProxyMiddleware } = require("http-proxy-middleware");
 
+const CLIENT_URL = new URL(urlWithEndSlash(process.env.REACT_APP_CLIENT_URL));
+const BASIC_AUTH = process.env.REACT_APP_BASIC_AUTH;
+
 function urlWithEndSlash(url) {
   const lastCharSlash = url.endsWith("/");
   return lastCharSlash ? url : url + "/"
 }
 
-const CLIENT_URL = new URL(urlWithEndSlash(process.env.REACT_APP_CLIENT_URL));
-const BASIC_AUTH = process.env.REACT_APP_BASIC_AUTH;
+function filterHeaders(headers) {
+  return Object.entries(headers).reduce((acc, [key, value]) => {
+    if (!/ua-platform/.test(key)) return acc;
+    acc[key] = value;
+    return acc;
+  }, {});
+}
 
 const logOptions = {
   onProxyReq: (proxyReq, req, res) => {
-    console.log("\n", req.method, "request to", req.url);
-    console.log("with headers", JSON.stringify(proxyReq.getHeaders()));
+    console.log("\n", "==>", req.method, req.url);
+    console.log("request headers", JSON.stringify(filterHeaders(proxyReq.getHeaders())));
   },
   onProxyRes: (proxyRes, req, res) => {
-    console.log("response status", proxyRes.statusCode, proxyRes.statusMessage);
-    console.log("with headers", JSON.stringify(proxyRes.headers));
+    console.log("\n", "<==", req.method, req.url);
+    console.log("status", proxyRes.statusCode, proxyRes.statusMessage);
+    console.log("response headers", JSON.stringify(proxyRes.headers));
   },
 };
 
