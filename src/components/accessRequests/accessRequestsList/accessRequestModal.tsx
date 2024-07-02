@@ -52,7 +52,7 @@ const AccessRequestModal = (props: AccessRequestModalProps) => {
       return null;
     }
     setDisabledButtons(true);
-    const url = new URL(`access-requests/${accessRequest?.id}`, ARS_URL);
+    const url = new URL(`access-requests/${accessRequest.id}`, ARS_URL);
     try {
       const response = await fetchJson(url, "PATCH", {
         status: status,
