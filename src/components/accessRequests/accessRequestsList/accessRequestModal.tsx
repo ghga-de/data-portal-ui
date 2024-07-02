@@ -148,6 +148,10 @@ const AccessRequestModal = (props: AccessRequestModalProps) => {
 
         <Modal.Body>
           <Row className={ROW_CLASSES}>
+            <Col className={COL_CLASSES}>Dataset:</Col>
+            <Col>{props.accessRequest?.dataset_id}</Col>
+          </Row>
+          <Row className={ROW_CLASSES}>
             <Col className={COL_CLASSES}>Requester:</Col>
             <Col>{props.accessRequest?.full_user_name}</Col>
           </Row>
