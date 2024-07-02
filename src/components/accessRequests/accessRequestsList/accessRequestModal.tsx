@@ -45,13 +45,14 @@ const AccessRequestModal = (props: AccessRequestModalProps) => {
   const [disabledButtons, setDisabledButtons] = useState(false);
   const [selectedIVA, setSelectedIVA] = useState("");
   const { showMessage } = useMessages();
+  const accessRequest = props.accessRequest;
 
   async function handleButtonClickAccess(status: "allowed" | "denied") {
-    if (props.accessRequest === undefined || props.userId === undefined) {
+    if (accessRequest === undefined || props.userId === undefined) {
       return null;
     }
     setDisabledButtons(true);
-    const url = new URL(`access-requests/${props.accessRequest?.id}`, ARS_URL);
+    const url = new URL(`access-requests/${accessRequest?.id}`, ARS_URL);
     try {
       const response = await fetchJson(url, "PATCH", {
         status: status,
@@ -62,10 +63,10 @@ const AccessRequestModal = (props: AccessRequestModalProps) => {
           type: "success",
           title: "Access successfully " + status + "!",
         });
-        props.accessRequest.status = status;
-        props.accessRequest.status_changed = new Date().toISOString();
-        props.accessRequest.changed_by = props.userId;
-        props.accessRequest.iva_id = selectedIVA;
+        accessRequest.status = status;
+        accessRequest.status_changed = new Date().toISOString();
+        accessRequest.changed_by = props.userId;
+        accessRequest.iva_id = selectedIVA;
         props.onUpdate();
         setDisabledButtons(false);
       } else throw new Error("PATCH failed: " + response.text);
@@ -124,9 +125,9 @@ const AccessRequestModal = (props: AccessRequestModalProps) => {
   };
 
   let allowedIVA: IVA | undefined | null = null;
-  if (props.accessRequest?.status === "allowed") {
+  if (accessRequest?.status === "allowed") {
     allowedIVA = props.userIVAs.find(
-      (x: IVA) => x.id === props.accessRequest?.iva_id
+      (x: IVA) => x.id === accessRequest?.iva_id
     );
   }
   if (props.userIVAs.length === 1 && selectedIVA === "")
@@ -149,44 +150,44 @@ const AccessRequestModal = (props: AccessRequestModalProps) => {
         <Modal.Body>
           <Row className={ROW_CLASSES}>
             <Col className={COL_CLASSES}>Dataset:</Col>
-            <Col>{props.accessRequest?.dataset_id}</Col>
+            <Col>{accessRequest?.dataset_id}</Col>
           </Row>
           <Row className={ROW_CLASSES}>
             <Col className={COL_CLASSES}>Requester:</Col>
-            <Col>{props.accessRequest?.full_user_name}</Col>
+            <Col>{accessRequest?.full_user_name}</Col>
           </Row>
           <Row className={ROW_CLASSES}>
             <Col className={COL_CLASSES}>Contact e-Mail:</Col>
-            <Col>{props.accessRequest?.email}</Col>
+            <Col>{accessRequest?.email}</Col>
           </Row>
           <Row className={ROW_CLASSES}>
             <Col className={COL_CLASSES}>Request Text:</Col>
-            <Col>{props.accessRequest?.request_text}</Col>
+            <Col>{accessRequest?.request_text}</Col>
           </Row>
           <Row className={ROW_CLASSES}>
             <Col>
               Request has been made on{" "}
-              {props.accessRequest?.request_created.split("T")[0]}
+              {accessRequest?.request_created.split("T")[0]}
             </Col>
           </Row>
           <Row className={ROW_CLASSES}>
             <Col>
               Access has been requested from{" "}
-              {props.accessRequest?.access_starts.split("T")[0]}
-              &nbsp;until {props.accessRequest?.access_ends.split("T")[0]}{" "}
+              {accessRequest?.access_starts.split("T")[0]}
+              &nbsp;until {accessRequest?.access_ends.split("T")[0]}{" "}
             </Col>
           </Row>
           <Row className={ROW_CLASSES}>
             <Col>
-              {props.accessRequest?.status_changed
+              {accessRequest?.status_changed
                 ? "Access has been " +
-                  props.accessRequest?.status +
+                  accessRequest?.status +
                   " on " +
-                  props.accessRequest?.status_changed.split("T")[0]
+                  accessRequest?.status_changed.split("T")[0]
                 : "Access request is pending"}
             </Col>
           </Row>
-          {props.accessRequest?.status === "pending" ? (
+          {accessRequest?.status === "pending" ? (
             <Row className={ROW_CLASSES}>
               <Col className="mt-3">
                 {props.userIVAs.length > 0 ? (
@@ -254,7 +255,7 @@ const AccessRequestModal = (props: AccessRequestModalProps) => {
           ) : (
             <></>
           )}
-          {props.accessRequest?.status === "allowed" && allowedIVA ? (
+          {accessRequest?.status === "allowed" && allowedIVA ? (
             <Row className={ROW_CLASSES}>
               <Col>
                 Verification address used:
@@ -271,7 +272,7 @@ const AccessRequestModal = (props: AccessRequestModalProps) => {
                 </span>
               </Col>
             </Row>
-          ) : props.accessRequest?.status === "allowed" &&
+          ) : accessRequest?.status === "allowed" &&
             allowedIVA === undefined ? (
             <>
               <span className="text-secondary fw-bold">
@@ -284,7 +285,7 @@ const AccessRequestModal = (props: AccessRequestModalProps) => {
           )}
         </Modal.Body>
 
-        {props.accessRequest?.status === "pending" ? (
+        {accessRequest?.status === "pending" ? (
           <Modal.Footer className="d-block text-start">
             <Button
               variant="dark-3"
