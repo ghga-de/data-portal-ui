@@ -9,8 +9,8 @@ $error: #eb5757;
 $carousel-control-width: 3%;
 
 @for $i from 1 through 6 {
-  $zIndexBackdrop: #{1000 + (5 * $i)};
-  $zIndexContent: #{1000 + (5 * $i) + 2};
+  $zIndexBackdrop: #{1048 + $i * 2};
+  $zIndexContent: #{1048 + $i * 2 + 1};
   .modal-backdrop.show:nth-of-type(#{$i}) {
     z-index: $zIndexBackdrop;
   }

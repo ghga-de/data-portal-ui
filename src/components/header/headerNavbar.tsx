@@ -68,7 +68,6 @@ const HeaderNavbar = () => {
             placement="end"
             show={showOffCanvas}
             onHide={handleCloseOffCanvas}
-            style={{ zIndex: 1051 }}
           >
             <Offcanvas.Header
               closeButton
