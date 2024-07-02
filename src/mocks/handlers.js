@@ -133,7 +133,7 @@ Object.keys(groupedResponses).forEach((endpoint) => {
       status = response;
       response = undefined;
     } else if (/post|patch|put|delete/.test(method)) {
-      status = response ? 200 : 204;
+      status = response ? (response.hits ? 200 : 201) : 204;
     }
     return HttpResponse.json(response || undefined, { status });
   };
