@@ -8,15 +8,17 @@ $error: #eb5757;
 
 $carousel-control-width: 3%;
 
+// default z-index for modal backdrops in bootstrap
+$zIndex: 1040;
 @for $i from 1 through 6 {
-  $zIndexBackdrop: #{1000 + (5 * $i)};
-  $zIndexContent: #{1000 + (5 * $i) + 2};
   .modal-backdrop.show:nth-of-type(#{$i}) {
-    z-index: $zIndexBackdrop;
+    z-index: $zIndex;
   }
+  $zIndex: $zIndex + 1;
   div[role="dialog"][aria-modal="true"]:nth-of-type(#{$i}) {
-    z-index: $zIndexContent;
+    z-index: $zIndex;
   }
+  $zIndex: $zIndex + 1;
 }
 
 div.version-ribbon {

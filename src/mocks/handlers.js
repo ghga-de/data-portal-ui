@@ -43,10 +43,10 @@ export const handlers = [
     return HttpResponse.json(undefined, { status: 204 });
   }),
   // intercept TOTP verification request
-  http.post(TOTP_VALIDATON_URL.href, ({request}) => {
+  http.post(TOTP_VALIDATON_URL.href, ({ request }) => {
     // the code is passed in the X-Authorization header in this case
     let token = request.headers.get("X-Authorization");
-    if (token.startsWith("Bearer TOTP:")) token=token.substring(12);
+    if (token.startsWith("Bearer TOTP:")) token = token.substring(12);
     const status = token === VALID_TOTP_CODE ? 204 : 401;
     return HttpResponse.json(undefined, { status });
   }),
@@ -133,7 +133,7 @@ Object.keys(groupedResponses).forEach((endpoint) => {
       status = response;
       response = undefined;
     } else if (/post|patch|put|delete/.test(method)) {
-      status = response ? 201 : 204;
+      status = response ? (response.hits ? 200 : 201) : 204;
     }
     return HttpResponse.json(response || undefined, { status });
   };
