@@ -61,6 +61,7 @@
   ],
   // Use 'postCreateCommand' to run commands after the container is created.
   "postCreateCommand": "dev_install",
+  "postStartCommand": "sudo -E python .devcontainer/setup_hosts.py",
   // Comment out connect as root instead. More info: https://aka.ms/vscode-remote/containers/non-root.
   "remoteUser": "vscode",
   "features": {}
