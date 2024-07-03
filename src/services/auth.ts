@@ -4,8 +4,8 @@ import { fetchJson, AUTH_URL } from "../utils/utils";
 import { showMessage } from "../components/messages/usage";
 import { createStore, useStore } from "zustand";
 
-const LOGIN_URL = new URL("rpc/login", AUTH_URL);
-const LOGOUT_URL = new URL("rpc/logout", AUTH_URL);
+export const LOGIN_URL = new URL("rpc/login", AUTH_URL);
+export const LOGOUT_URL = new URL("rpc/logout", AUTH_URL);
 
 /**
  * Interface for a full high-level user object.
@@ -161,7 +161,22 @@ class AuthService {
     const headers: Record<string, string> = {
       "X-Authorization": "Bearer " + oidcUser.access_token,
     };
-    const response = await fetchJson(LOGIN_URL, "POST", null, headers);
+    let response = await fetchJson(LOGIN_URL, "POST", null, headers);
+
+    if (response.status === 401) {
+      let detail;
+      try {
+        detail = (await response.json()).detail;
+      } catch {
+        detail = null;
+      }
+      if (detail && detail.includes("CSRF")) {
+        /* Probably we still have a session cookie,
+           try again after logging out and thereby removing the cookie. */
+        await this.logout(true);
+        response = await fetchJson(LOGIN_URL, "POST", null, headers);
+      }
+    }
 
     if (response.status !== 204) {
       const title = "Login failed";
@@ -172,6 +187,7 @@ class AuthService {
 
     const user = this.parseUserFromSession(response.headers.get("X-Session"));
     if (!user) {
+      await this.userManager.removeUser();
       showMessage({ type: "error", title: "Login failed" });
     }
     this.setUser(user);
@@ -181,19 +197,11 @@ class AuthService {
   /**
    * Log out (forget the stored user)
    */
-  async logout(): Promise<void> {
-    /* This would be the proper way to do it,
-       but LS Login does not support end session endpoint:
-         return this.userManager.signoutRedirect();
-       This does not work either,
-       since LS Login does not provide a revocation endpoint:
-         return this.userManager.revokeTokens();
-       So we simply remove the user from the store instead.
-    */
+  async logout(silent = false): Promise<void> {
     const response = await fetchJson(LOGOUT_URL, "POST");
     await this.userManager.removeUser();
     this.setUser(null);
-    if (response.status !== 204) {
+    if (!silent && response.status !== 204) {
       const title = "Logout failed";
       showMessage({ type: "error", title });
       console.error(title, response.statusText);
@@ -225,7 +233,10 @@ class AuthService {
       const status = response.status;
       if (status === 204) {
         session = response.headers.get("X-Session");
-      } else if (status !== 401 && status !== 403) {
+      } else if (status === 401 || status === 403) {
+        session = null;
+        await this.userManager.removeUser();
+      } else {
         console.error("Cannot get user session:", response.statusText);
       }
     }
