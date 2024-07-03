@@ -163,7 +163,7 @@ class AuthService {
     };
     let response = await fetchJson(LOGIN_URL, "POST", null, headers);
 
-    if (response.status === 401) {
+    if (response.status === 401 || response.status === 403) {
       let detail;
       try {
         detail = (await response.json()).detail;
