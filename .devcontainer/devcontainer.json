@@ -61,6 +61,8 @@
   ],
   // Use 'postCreateCommand' to run commands after the container is created.
   "postCreateCommand": "dev_install",
+  // Use 'postStartCommand' to run commands after the container is started.
+  // Since the hosts file is reset by Docker on start, we need to always re-do that setup.
   "postStartCommand": "sudo -E python .devcontainer/setup_hosts.py",
   // Comment out connect as root instead. More info: https://aka.ms/vscode-remote/containers/non-root.
   "remoteUser": "vscode",
