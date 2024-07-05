@@ -113,8 +113,11 @@ export const fetchJson = async (
   const body = payload ? JSON.stringify(payload) : undefined;
   try {
     const response = await fetch(url, { method, headers, body });
-    if (response.status === 403 && url !== LOGIN_URL && url !== LOGOUT_URL) {
-      // authentication error, check if session has expired
+    if (
+      (response.status === 401 || response.status === 403) &&
+      !(url === LOGIN_URL || url === LOGOUT_URL)
+    ) {
+      // authentication error: check if session has expired
       if (authService.getCurrentUser() && !(await authService.getUser(true))) {
         showMessage({
           type: "error",
