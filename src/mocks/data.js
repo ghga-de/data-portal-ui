@@ -78,13 +78,13 @@ export const accessRequests = [
     full_user_name: "Dr. John Doe",
     email: "j.jdoe@home.org",
     request_text: "This is a test request for dataset TEST00002000001.",
-    access_starts: "2023-05-12T15:00:00.000Z",
-    access_ends: "2024-05-12T14:59:59.000Z",
+    access_starts: "2024-05-12T15:00:00.000Z",
+    access_ends: "2025-05-12T14:59:59.000Z",
     request_created: "2023-05-11T12:04:02.000Z",
     status: "allowed",
     status_changed: "2023-05-19T12:04:03.000Z",
     changed_by: "j.doe@ghga.de",
-    iva_id: "TEST00014000001",
+    iva_id: "783d9682-d5e5-4ce7-9157-9eeb53a1e9ba",
   },
 
   {

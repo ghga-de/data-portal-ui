@@ -7,11 +7,17 @@ import {
   Col,
   Modal,
   Card,
+  OverlayTrigger,
+  Tooltip,
 } from "react-bootstrap";
 import { useNavigate, Link } from "react-router-dom";
 import { ARS_URL, AUTH_URL, WPS_URL, fetchJson } from "../../utils/utils";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCircleXmark, faPlus } from "@fortawesome/free-solid-svg-icons";
+import {
+  faCircleInfo,
+  faCircleXmark,
+  faPlus,
+} from "@fortawesome/free-solid-svg-icons";
 import { useMessages } from "../messages/usage";
 import { useAuth } from "../../services/auth";
 import { getUserIVAs } from "../../services/ivas";
@@ -269,12 +275,20 @@ const Profile = () => {
         {user.role === "data_steward" ? (
           <Card className="mb-3">
             <Card.Header>
-              <strong>
-                Data Steward Pages&nbsp;
-                <abbr title="Pages available to data stewards for managing verification addresses and access requests">
-                  &#9432;
-                </abbr>
-              </strong>
+              <strong>Data Steward Pages&nbsp;</strong>
+              <OverlayTrigger
+                overlay={
+                  <Tooltip id={"dsp"}>
+                    Pages available to data stewards for managing independent
+                    verification addresses (verifying, unverifying) and access
+                    requests (allowing, denying).
+                  </Tooltip>
+                }
+              >
+                <span className="float-end">
+                  <FontAwesomeIcon icon={faCircleInfo} />
+                </span>
+              </OverlayTrigger>
             </Card.Header>
             <Card.Body>
               <p>
@@ -301,9 +315,18 @@ const Profile = () => {
         <Card className="mb-3">
           <Card.Header>
             E-Mail address&nbsp;
-            <abbr title="Contact e-mail address used by your account">
-              &#9432;
-            </abbr>
+            <OverlayTrigger
+              overlay={
+                <Tooltip id={"ema"}>
+                  Contact e-mail address taken from the LS Login account logged
+                  in with.
+                </Tooltip>
+              }
+            >
+              <span className="float-end">
+                <FontAwesomeIcon icon={faCircleInfo} />
+              </span>
+            </OverlayTrigger>
           </Card.Header>
           <Card.Body>
             <div>
@@ -328,9 +351,24 @@ const Profile = () => {
         <Card className="mb-3">
           <Card.Header>
             Contact addresses for account verification&nbsp;
-            <abbr title="Addresses used to verify your account's identity in order to access and request access to datasets">
-              &#9432;
-            </abbr>
+            <OverlayTrigger
+              overlay={
+                <Tooltip id={"ivas"}>
+                  Addresses used to verify your account's identity in order to
+                  access and request access to datasets. Adding new contact
+                  address is done via the relevant button at the end of this
+                  section. After a new address is added, verification of this
+                  address via the data steward must be manually requested.
+                  Removing a contact address is done through the red button to
+                  the right, but you will lose access to any datasets whose
+                  access was linked to that address.
+                </Tooltip>
+              }
+            >
+              <span className="float-end">
+                <FontAwesomeIcon icon={faCircleInfo} />
+              </span>
+            </OverlayTrigger>
           </Card.Header>
           <Card.Body>
             <div className="mb-3">
@@ -417,13 +455,27 @@ const Profile = () => {
         <Card className="mb-3">
           <Card.Header>
             Dataset access&nbsp;
-            <abbr title="If you have been granted access to any datasets, these will appear below">
-              &#9432;
-            </abbr>
+            <OverlayTrigger
+              overlay={
+                <Tooltip id={"dsd"}>
+                  If you have been granted access to any datasets, these will
+                  appear below. In order to download data from these datasets
+                  (if you have been granted access to one), you will need to
+                  create download tokens through the respective button, which
+                  will take you to the download token management page.
+                </Tooltip>
+              }
+            >
+              <span className="float-end">
+                <FontAwesomeIcon icon={faCircleInfo} />
+              </span>
+            </OverlayTrigger>
           </Card.Header>
           <Card.Body>
             <div>
-              {numDatasets ? (
+              {numDatasets &&
+              allowedUserRequests &&
+              allowedUserRequests.length > 0 ? (
                 <>
                   <p className="mb-1">
                     You have access to the following datasets:
@@ -462,9 +514,21 @@ const Profile = () => {
         <Card>
           <Card.Header>
             Pending access requests&nbsp;
-            <abbr title="If you have any pending access requests to any datasets, these will appear below">
-              &#9432;
-            </abbr>
+            <OverlayTrigger
+              overlay={
+                <Tooltip id={"par"}>
+                  If you have any pending access requests to any datasets, these
+                  will appear below. Any request that is granted will be moved
+                  to the section above (Dataset access). If an access request is
+                  denied, it will no longer be displayed here, and a new access
+                  request can be created by going to the desired dataset.
+                </Tooltip>
+              }
+            >
+              <span className="float-end">
+                <FontAwesomeIcon icon={faCircleInfo} />
+              </span>
+            </OverlayTrigger>
           </Card.Header>
           <Card.Body>
             <div>
