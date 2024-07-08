@@ -19,8 +19,6 @@ import {
 
 export const responses = {
   // Change context information
-  "PUT /api/auth/users/j.doe@ghga.de": 204,
-
   "POST /api/auth/totp-token": { uri: "otpauth://totp/GHGA:John%20Doe?secret=TESTTOTPTOKEN&issuer=GHGA" },
 
   // Datasets requested by j.doe@ghga.de user
