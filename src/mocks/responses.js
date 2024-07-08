@@ -30,7 +30,7 @@ export const responses = {
   "GET /api/auth/users/*/ivas": allIVAs.slice(1, 4),
 
   // New IVA
-  "POST /api/auth/users/*/ivas": {id: "TEST1234566789"},
+  "POST /api/auth/users/*/ivas": { id: "TEST1234566789" },
 
   // Delete IVA
   "DELETE /api/auth/users/*/ivas/*": 204,
@@ -39,7 +39,7 @@ export const responses = {
   "POST /api/auth/rpc/ivas/*/request-code": 204,
 
   // Create IVA verification code
-  "POST /api/auth/rpc/ivas/*/create-code": {verification_code: "TEST1234566789"},
+  "POST /api/auth/rpc/ivas/*/create-code": { verification_code: "TEST1234566789" },
 
   // Request IVA verification
   "POST /api/auth/rpc/ivas/*/code-transmitted": 204,
@@ -61,7 +61,7 @@ export const responses = {
   "POST /api/wps/work-packages": workPackageToken,
 
   // Specific dataset and user access requests
-  "GET /api/ars/access-requests?dataset_id=GHGATEST588887987&*": accessRequests.filter((x) => x.dataset_id === "GHGATEST588887987" && x.user_id === "j.doe@ghga.de"),
+  "GET /api/ars/access-requests?dataset_id=GHGAD588887987&*": accessRequests.filter((x) => x.dataset_id === "GHGAD588887987" && x.user_id === "j.doe@ghga.de"),
 
   // Specific dataset and user access requests
   "GET /api/ars/access-requests?*": accessRequests.filter((x) => x.user_id === "j.doe@ghga.de"),
@@ -79,18 +79,18 @@ export const responses = {
   "GET /static/*": undefined,
 
   // Get Dataset details (embedded) Metadata Repository Service
-  "GET /api/metldata/artifacts/embedded_public/classes/EmbeddedDataset/resources/GHGATEST588887987": embeddedDataset[0],
+  "GET /api/metldata/artifacts/embedded_public/classes/EmbeddedDataset/resources/GHGAD588887987": embeddedDataset[0],
   // Get Dataset details (embedded) Metadata Repository Service
-  "GET /api/metldata/artifacts/embedded_public/classes/EmbeddedDataset/resources/GHGATEST588887988": embeddedDataset.map((x) => { let y = { ...x }; y.accession = "GHGATEST588887988"; return y })[0],
+  "GET /api/metldata/artifacts/embedded_public/classes/EmbeddedDataset/resources/GHGAD588887988": embeddedDataset.map((x) => { let y = { ...x }; y.accession = "GHGAD588887988"; return y })[0],
   // Get Dataset details (embedded) Metadata Repository Service
-  "GET /api/metldata/artifacts/embedded_public/classes/EmbeddedDataset/resources/GHGATEST588887989": embeddedDataset.map((x) => { let y = { ...x }; y.accession = "GHGATEST588887989"; return y })[0],
+  "GET /api/metldata/artifacts/embedded_public/classes/EmbeddedDataset/resources/GHGAD588887989": embeddedDataset.map((x) => { let y = { ...x }; y.accession = "GHGAD588887989"; return y })[0],
 
   // Get summary data from a single dataset
-  "GET /api/metldata/artifacts/stats_public/classes/DatasetStats/resources/GHGATEST588887987": datasetSummary[0],
+  "GET /api/metldata/artifacts/stats_public/classes/DatasetStats/resources/GHGAD588887987": datasetSummary[0],
   // Get summary data from a single dataset
-  "GET /api/metldata/artifacts/stats_public/classes/DatasetStats/resources/GHGATEST588887988": datasetSummary.map((x) => { let y = { ...x }; y.accession = "GHGATEST588887988"; return y })[0],
+  "GET /api/metldata/artifacts/stats_public/classes/DatasetStats/resources/GHGAD588887988": datasetSummary.map((x) => { let y = { ...x }; y.accession = "GHGAD588887988"; return y })[0],
   // Get summary data from a single dataset
-  "GET /api/metldata/artifacts/stats_public/classes/DatasetStats/resources/GHGATEST588887989": datasetSummary.map((x) => { let y = { ...x }; y.accession = "GHGATEST588887989"; return y })[0],
+  "GET /api/metldata/artifacts/stats_public/classes/DatasetStats/resources/GHGAD588887989": datasetSummary.map((x) => { let y = { ...x }; y.accession = "GHGAD588887989"; return y })[0],
 
   // Get summary data from entire metadata database
   "GET /api/metldata/stats": metadataSummary,

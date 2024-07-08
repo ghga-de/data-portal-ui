@@ -64,6 +64,11 @@ const Profile = () => {
   const [showConfirmVerificationModal, setShowConfirmVerificationModal] =
     useState(false);
 
+  // Has to be managed with the content so there's no hanging words in certain tooltips that have line breaks for readability
+  const wideTooltips = `.tooltip .tooltip-inner {
+    max-width: 52em !important;
+}`;
+
   const DeletionConfirmationModal = () => {
     return (
       <Modal
@@ -263,6 +268,7 @@ const Profile = () => {
   } else
     content = (
       <div>
+        <style lang="css">{wideTooltips}</style>
         <h3 style={{ margin: "1em 0" }}>Welcome, {user.full_name}!</h3>
         <div style={{ margin: "1em 0" }}>
           <Alert variant={user?.timeout ? "success" : "danger"}>
@@ -355,10 +361,14 @@ const Profile = () => {
               overlay={
                 <Tooltip id={"ivas"}>
                   Addresses used to verify your account's identity in order to
-                  access and request access to datasets. Adding new contact
-                  address is done via the relevant button at the end of this
-                  section. After a new address is added, verification of this
-                  address via the data steward must be manually requested.
+                  access and request access to datasets.
+                  <br />
+                  Adding new contact address is done via the relevant button at
+                  the end of this section.
+                  <br />
+                  After a new address is added, you must request verification of
+                  the address using the provided button.
+                  <br />
                   Removing a contact address is done through the red button to
                   the right, but you will lose access to any datasets whose
                   access was linked to that address.
