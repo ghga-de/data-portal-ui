@@ -1,5 +1,14 @@
 import logo from "../../assets/GHGA_logo_clean.png";
-import { Navbar, Nav, Button, Row, Col, Offcanvas } from "react-bootstrap";
+import {
+  Navbar,
+  Nav,
+  Button,
+  Row,
+  Col,
+  Offcanvas,
+  DropdownButton,
+  Dropdown,
+} from "react-bootstrap";
 import { NavLink } from "react-router-dom";
 import LoginButton from "./loginButton";
 import { useState } from "react";
@@ -8,6 +17,10 @@ import {
   faArrowUpRightFromSquare,
   faUser,
 } from "@fortawesome/free-solid-svg-icons";
+import {
+  faAddressBook,
+  faPenToSquare,
+} from "@fortawesome/free-regular-svg-icons";
 import { useAuth } from "../../services/auth";
 
 /** Navigation bar in the main header */
@@ -148,40 +161,53 @@ const HeaderNavbar = () => {
                         target="_blank"
                         className={inactivePageStyle}
                       >
-                        <FontAwesomeIcon icon={faArrowUpRightFromSquare} /> Docs
+                        <span className="fs-7">
+                          <FontAwesomeIcon icon={faArrowUpRightFromSquare} />
+                        </span>{" "}
+                        Docs
                       </NavLink>
                     </Col>
                     {user && user.role === "data_steward" ? (
                       <>
-                        <Col
-                          xs={navColsSpanXS}
-                          className={navColsClasses}
-                          onClick={() => handleCloseOffCanvas()}
-                        >
-                          <NavLink
-                            to="/ivas"
-                            className={({ isActive }) =>
-                              isActive ? activePageStyle : inactivePageStyle
+                        <Dropdown>
+                          <DropdownButton
+                            title={
+                              <>
+                                <span className="fs-7">
+                                  <FontAwesomeIcon
+                                    icon={faUser}
+                                    transform={"up-1"}
+                                  />
+                                </span>{" "}
+                                Admin
+                              </>
                             }
+                            className={navColsClasses + " col-" + navColsSpanXS}
                           >
-                            <FontAwesomeIcon icon={faUser} /> IVA Manager
-                          </NavLink>
-                        </Col>
-                        <Col
-                          xs={navColsSpanXS}
-                          className={navColsClasses}
-                          onClick={() => handleCloseOffCanvas()}
-                        >
-                          <NavLink
-                            to="/access-requests"
-                            className={({ isActive }) =>
-                              isActive ? activePageStyle : inactivePageStyle
-                            }
-                          >
-                            <FontAwesomeIcon icon={faUser} /> Access Requests
-                            Manager
-                          </NavLink>
-                        </Col>
+                            <Dropdown.Item>
+                              <NavLink
+                                to="/ivas"
+                                className={({ isActive }) =>
+                                  isActive ? "text-secondary" : ""
+                                }
+                              >
+                                <FontAwesomeIcon icon={faAddressBook} /> IVA
+                                Manager
+                              </NavLink>
+                            </Dropdown.Item>
+                            <Dropdown.Item>
+                              <NavLink
+                                to="/access-requests"
+                                className={({ isActive }) =>
+                                  isActive ? "text-secondary" : ""
+                                }
+                              >
+                                <FontAwesomeIcon icon={faPenToSquare} /> Access
+                                Requests Manager
+                              </NavLink>
+                            </Dropdown.Item>
+                          </DropdownButton>
+                        </Dropdown>
                       </>
                     ) : (
                       <></>
