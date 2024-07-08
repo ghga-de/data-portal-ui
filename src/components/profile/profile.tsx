@@ -67,6 +67,7 @@ const Profile = () => {
   // Has to be managed with the content so there's no hanging words in certain tooltips that have line breaks for readability
   const wideTooltips = `.tooltip .tooltip-inner {
     max-width: 52em !important;
+    text-align: left;
 }`;
 
   const DeletionConfirmationModal = () => {
