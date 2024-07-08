@@ -3,6 +3,12 @@ import { Navbar, Nav, Button, Row, Col, Offcanvas } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
 import LoginButton from "./loginButton";
 import { useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faArrowUpRightFromSquare,
+  faUser,
+} from "@fortawesome/free-solid-svg-icons";
+import { useAuth } from "../../services/auth";
 
 /** Navigation bar in the main header */
 const HeaderNavbar = () => {
@@ -18,6 +24,8 @@ const HeaderNavbar = () => {
   const [showOffCanvas, setShowOffCanvas] = useState(false);
   const handleCloseOffCanvas = () => setShowOffCanvas(false);
   const handleShowOffCanvas = () => setShowOffCanvas(true);
+
+  const { user } = useAuth();
 
   return (
     <Navbar expand="lg" bg="primary" variant="dark" className="p-0">
@@ -140,9 +148,44 @@ const HeaderNavbar = () => {
                         target="_blank"
                         className={inactivePageStyle}
                       >
-                        Docs
+                        <FontAwesomeIcon icon={faArrowUpRightFromSquare} /> Docs
                       </NavLink>
                     </Col>
+                    {user && user.role === "data_steward" ? (
+                      <>
+                        <Col
+                          xs={navColsSpanXS}
+                          className={navColsClasses}
+                          onClick={() => handleCloseOffCanvas()}
+                        >
+                          <NavLink
+                            to="/ivas"
+                            className={({ isActive }) =>
+                              isActive ? activePageStyle : inactivePageStyle
+                            }
+                          >
+                            <FontAwesomeIcon icon={faUser} /> IVA Manager
+                          </NavLink>
+                        </Col>
+                        <Col
+                          xs={navColsSpanXS}
+                          className={navColsClasses}
+                          onClick={() => handleCloseOffCanvas()}
+                        >
+                          <NavLink
+                            to="/access-requests"
+                            className={({ isActive }) =>
+                              isActive ? activePageStyle : inactivePageStyle
+                            }
+                          >
+                            <FontAwesomeIcon icon={faUser} /> Access Requests
+                            Manager
+                          </NavLink>
+                        </Col>
+                      </>
+                    ) : (
+                      <></>
+                    )}
                   </Nav>
                 </Col>
                 <Col
