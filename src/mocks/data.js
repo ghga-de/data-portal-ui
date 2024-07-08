@@ -1,4 +1,8 @@
-// Static fake data for mocking the backend
+const startDate = new Date();
+const endDate = new Date(startDate);
+endDate.setFullYear(endDate.getFullYear() + 1);
+const access_starts = startDate.toISOString();
+const access_ends = endDate.toISOString();// Static fake data for mocking the backend
 
 export const user = {
   id: "j.doe@ghga.de",
@@ -59,12 +63,12 @@ export const accessRequests = [
   {
     id: "62bcc452-a70b-47c1-9870-55da40d8e45f",
     user_id: "j.doe@ghga.de",
-    dataset_id: "GHGATEST588887987",
+    dataset_id: "GHGAD588887987",
     full_user_name: "Dr. John Doe",
     email: "j.jdoe@home.org",
-    request_text: "This is a test request for dataset GHGATEST588887987.",
-    access_starts: "2023-05-11T15:00:00.000Z",
-    access_ends: "2024-05-11T14:59:59.000Z",
+    request_text: "This is a test request for dataset GHGAD588887987.",
+    access_starts: access_starts,
+    access_ends: access_ends,
     request_created: "2023-05-09T12:04:02.000Z",
     status: "pending",
     status_changed: null,
@@ -74,28 +78,28 @@ export const accessRequests = [
   {
     id: "4ef4ccac-6c0a-4be6-9637-b33925178cea",
     user_id: "j.doe@ghga.de",
-    dataset_id: "GHGATEST588887988",
+    dataset_id: "GHGAD588887988",
     full_user_name: "Dr. John Doe",
     email: "j.jdoe@home.org",
-    request_text: "This is a test request for dataset TEST00002000001.",
-    access_starts: "2023-05-12T15:00:00.000Z",
-    access_ends: "2024-05-12T14:59:59.000Z",
+    request_text: "This is a test request for dataset GHGAD588887988.",
+    access_starts: access_starts,
+    access_ends: access_ends,
     request_created: "2023-05-11T12:04:02.000Z",
     status: "allowed",
     status_changed: "2023-05-19T12:04:03.000Z",
     changed_by: "j.doe@ghga.de",
-    iva_id: "TEST00014000001",
+    iva_id: "783d9682-d5e5-4ce7-9157-9eeb53a1e9ba",
   },
 
   {
     id: "a787d591-4264-4f48-8827-598585db868e",
     user_id: "j.doe@ghga.de",
-    dataset_id: "GHGATEST588887989",
+    dataset_id: "GHGAD588887989",
     full_user_name: "Dr. John Doe",
     email: "j.jdoe@home.org",
-    request_text: "This is a test request for dataset TEST00001000001.",
-    access_starts: "2023-05-25T15:00:00.000Z",
-    access_ends: "2024-05-25T14:59:59.000Z",
+    request_text: "This is a test request for dataset GHGAD588887989.",
+    access_starts: access_starts,
+    access_ends: access_ends,
     request_created: "2023-05-18T12:04:03.000Z",
     status: "denied",
     status_changed: "2023-05-19T12:04:02.000Z",
@@ -105,12 +109,12 @@ export const accessRequests = [
   {
     id: "9409db13-e23e-433e-9afa-544d8f25b720",
     user_id: "j.doe@ghga.de",
-    dataset_id: "TEST00001000001",
+    dataset_id: "GHGAD588887989",
     full_user_name: "Dr. John Doe",
     email: "j.jdoe@home.org",
-    request_text: "This is a test request for dataset TEST00001000001.",
-    access_starts: "2023-05-25T15:00:00.000Z",
-    access_ends: "2024-05-25T14:59:59.000Z",
+    request_text: "This is a test request for dataset GHGAD588887989.",
+    access_starts: access_starts,
+    access_ends: access_ends,
     request_created: "2023-05-18T12:04:03.000Z",
     status: "pending",
     status_changed: "2023-05-19T12:04:02.000Z",
@@ -119,7 +123,7 @@ export const accessRequests = [
 
 export const datasets = [
   {
-    id: "GHGATEST588887988",
+    id: "GHGAD588887988",
     title: "Some dataset for testing",
     description:
       "This is just a dataset with five dummy files that can be used" +
@@ -135,7 +139,7 @@ export const workPackageToken = {
 };
 
 export const embeddedDataset = [{
-  accession: "GHGATEST588887987",
+  accession: "GHGAD588887987",
   types: ["Test Type"],
   title: "Test dataset for details",
   description:
@@ -212,7 +216,7 @@ export const embeddedDataset = [{
 }];
 
 export const datasetSummary = [{
-  accession: "GHGATEST588887987",
+  accession: "GHGAD588887987",
   description:
     "Test dataset for Metadata Repository get dataset details call. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Vel risus commodo viverra maecenas accumsan lacus vel. Sit amet risus nullam eget felis eget nunc lobortis mattis. Iaculis at erat pellentesque adipiscing commodo. Volutpat consequat mauris nunc congue. At lectus urna duis convallis convallis tellus id interdum velit. Gravida cum sociis natoque penatibus et. Mauris in aliquam sem fringilla ut morbi. Ultrices gravida dictum fusce ut. At consectetur lorem donec massa sapien faucibus et molestie.",
   type: ["Test Type"],
@@ -306,7 +310,7 @@ export const searchResults = {
   hits: [
     {
       content: {
-        accession: "GHGATEST588887987",
+        accession: "GHGAD588887987",
         title: "Test dataset for details",
         description:
           "Test dataset for Metadata Repository get dataset details call. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Vel risus commodo viverra maecenas accumsan lacus vel. Sit amet risus nullam eget felis eget nunc lobortis mattis. Iaculis at erat pellentesque adipiscing commodo. Volutpat consequat mauris nunc congue. At lectus urna duis convallis convallis tellus id interdum velit. Gravida cum sociis natoque penatibus et. Mauris in aliquam sem fringilla ut morbi. Ultrices gravida dictum fusce ut. At consectetur lorem donec massa sapien faucibus et molestie.",
@@ -314,7 +318,7 @@ export const searchResults = {
       }
     }, {
       content: {
-        accession: "GHGATEST588887988",
+        accession: "GHGAD588887988",
         title: "Test dataset for details",
         description:
           "Test dataset for Metadata Repository get dataset details call. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Vel risus commodo viverra maecenas accumsan lacus vel. Sit amet risus nullam eget felis eget nunc lobortis mattis. Iaculis at erat pellentesque adipiscing commodo. Volutpat consequat mauris nunc congue. At lectus urna duis convallis convallis tellus id interdum velit. Gravida cum sociis natoque penatibus et. Mauris in aliquam sem fringilla ut morbi. Ultrices gravida dictum fusce ut. At consectetur lorem donec massa sapien faucibus et molestie.",
@@ -322,7 +326,7 @@ export const searchResults = {
       }
     }, {
       content: {
-        accession: "GHGATEST588887989",
+        accession: "GHGAD588887989",
         title: "Test dataset for details",
         description:
           "Test dataset for Metadata Repository get dataset details call. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Vel risus commodo viverra maecenas accumsan lacus vel. Sit amet risus nullam eget felis eget nunc lobortis mattis. Iaculis at erat pellentesque adipiscing commodo. Volutpat consequat mauris nunc congue. At lectus urna duis convallis convallis tellus id interdum velit. Gravida cum sociis natoque penatibus et. Mauris in aliquam sem fringilla ut morbi. Ultrices gravida dictum fusce ut. At consectetur lorem donec massa sapien faucibus et molestie.",
