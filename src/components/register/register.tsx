@@ -90,7 +90,7 @@ const Register = () => {
     const response = await fetchJson(url, method, userData).catch(() => null);
     let registered = false;
     if (response && response.status === ok) {
-      // The state should has changed and the user should now have an internal ID.
+      // The state should have changed and the user should now have an internal ID.
       // We need to check that and give a hint to the backend to reload the session.
       for (let attempt = 0; attempt < 5; attempt++) {
         const wait = (1 << attempt) * 50;

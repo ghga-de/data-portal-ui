@@ -1,13 +1,21 @@
 import { http, HttpResponse } from "msw";
 import { responses } from "./responses";
-import { setOidcUser, getLoginHeaders, clearSessionCookie, clearOidcUser } from "./login";
+import {
+  setOidcUser,
+  getLoginHeaders,
+  clearSessionCookie,
+  clearOidcUser,
+  session,
+} from "./login";
 import { AUTH_URL, CLIENT_URL, OIDC_CONFIG_URL } from "../utils/utils";
+import { user } from "./data";
 
 const fakeAuth = !!CLIENT_URL.href.match(/127\.|local/);
 
 const LOGIN_URL = new URL("rpc/login", AUTH_URL);
 const LOGOUT_URL = new URL("rpc/logout", AUTH_URL);
 const TOTP_VALIDATON_URL = new URL("rpc/verify-totp", AUTH_URL);
+const USERS_URL = new URL("users", AUTH_URL);
 
 const VALID_TOTP_CODE = "123456";
 
@@ -19,7 +27,10 @@ export const handlers = [
   http.get(OIDC_CONFIG_URL.href, () => {
     if (fakeAuth) {
       setOidcUser();
-      setTimeout(() => window.location.href = CLIENT_URL.href + "profile", 500);
+      setTimeout(
+        () => (window.location.href = CLIENT_URL.href + "profile"),
+        500
+      );
       return HttpResponse.json(
         {
           authorization_endpoint: CLIENT_URL.href,
@@ -49,6 +60,13 @@ export const handlers = [
     if (token.startsWith("Bearer TOTP:")) token = token.substring(12);
     const status = token === VALID_TOTP_CODE ? 204 : 401;
     return HttpResponse.json(undefined, { status });
+  }),
+  // intercept user creation request
+  http.post(USERS_URL.href, () => {
+    console.log("registered called")
+    session.id = user.id;
+    session.state = "Registered";
+    return HttpResponse.json(undefined, { status: 201 });
   }),
 ];
 
@@ -86,7 +104,7 @@ async function getMatchingParamString(request, responseMap) {
       const bodyParams = await request.json();
       Object.entries(bodyParams).forEach(([key, value]) => {
         requestParams.set(key, value);
-      })
+      });
     } catch { }
   }
   // find the response with the most matching parameters

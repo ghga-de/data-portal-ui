@@ -12,6 +12,20 @@ const USER_KEY = 'user';
 // - set this to "Authenticated" to immediately have a fully authenticated user
 const LOGIN_STATE = "Authenticated";
 
+// The current session (is modified after login)
+export const session = {
+  id: LOGIN_STATE === "NeedsRegistration" ? null : user.id,
+  ext_id: user.ext_id,
+  name: user.name,
+  title: user.title,
+  email: user.email,
+  role: user.role,
+  state: LOGIN_STATE, // the state after login
+  csrf: "mock-csrf-token",
+  timeout: 3600,
+  extends: 7200,
+};
+
 // Simulate login with dummy user via OIDC
 export function setOidcUser() {
   const iat = Math.round(new Date() / 1000);
@@ -64,20 +78,8 @@ export function getLoginHeaders() {
   if (!hasSessionCookie() && !sessionStorage.getItem(OIDC_USER_KEY)) {
     return null;
   }
-  const sessionObj = {
-    id: user.id,
-    ext_id: user.ext_id,
-    name: user.name,
-    title: user.title,
-    email: user.email,
-    role: user.role,
-    state: LOGIN_STATE, // the state after login
-    csrf: "mock-csrf-token",
-    timeout: 3600,
-    extends: 7200,
-  };
   return {
-    "X-Session": JSON.stringify(sessionObj),
+    "X-Session": JSON.stringify(session),
     // this should be actually HttpOnly, but this doesn't work with MSW
     "Set-Cookie": "session=test-session; SameSite=lax"
   };
