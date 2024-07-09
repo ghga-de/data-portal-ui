@@ -15,7 +15,7 @@ import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faArrowUpRightFromSquare,
-  faUserGear,
+  faUsersGear,
 } from "@fortawesome/free-solid-svg-icons";
 import {
   faAddressBook,
@@ -174,7 +174,7 @@ const HeaderNavbar = () => {
                             title={
                               <>
                                 <FontAwesomeIcon
-                                  icon={faUserGear}
+                                  icon={faUsersGear}
                                   transform={"up-1"}
                                 />{" "}
                                 Admin
