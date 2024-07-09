@@ -12,6 +12,7 @@ import lsLogin from "../../assets/loginLS/ls-login.png";
 import {
   faArrowRightFromBracket,
   faArrowRightToBracket,
+  faArrowUpRightFromSquare,
   faPenToSquare,
 } from "@fortawesome/free-solid-svg-icons";
 import { useAuth } from "../../services/auth";
@@ -185,9 +186,10 @@ const LoginButton = () => {
                         rel="noreferrer"
                       >
                         <Button
-                          variant="outline-quinary"
-                          className="bg-white text-quinary"
+                          variant="outline-tertiary"
+                          className="text-quinary border-quinary"
                         >
+                          <FontAwesomeIcon icon={faArrowUpRightFromSquare} />{" "}
                           Manage your
                           <br />
                           LS Login account

@@ -14,6 +14,7 @@ import { useNavigate, Link } from "react-router-dom";
 import { ARS_URL, AUTH_URL, WPS_URL, fetchJson } from "../../utils/utils";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
+  faArrowUpRightFromSquare,
   faCircleInfo,
   faCircleXmark,
   faPlus,
@@ -266,7 +267,8 @@ const Profile = () => {
     content = (
       <div>
         <style lang="css">{wideTooltips}</style>
-        <h3 style={{ margin: "1em 0" }}>{user.full_name}</h3>
+        <h3 style={{ margin: "1em 0 0" }}>User profile</h3>
+        <h5 style={{ margin: "0.5em 0" }}>{user.full_name}</h5>
         <div style={{ margin: "1em 0" }}>
           <Alert variant={user?.timeout ? "success" : "danger"}>
             {user.timeout
@@ -305,6 +307,12 @@ const Profile = () => {
                   target="_blank"
                   rel="noreferrer"
                 >
+                  <u>
+                    <FontAwesomeIcon
+                      icon={faArrowUpRightFromSquare}
+                      transform={"shrink-5"}
+                    />
+                  </u>
                   LS Login profile
                 </a>
                 .
@@ -499,27 +507,29 @@ const Profile = () => {
           <Card.Body>
             <div>
               <p className="mb-1">
-                {pendingUserRequests && pendingUserRequests?.length > 0
+                {pendingUserRequests && pendingUserRequests.length > 0
                   ? "You have the following pending access requests:"
-                  : "You have no pending access requests:"}
+                  : "You have no pending access requests."}
               </p>
               <ul>
-                {pendingUserRequests?.map((x) => (
-                  <li key={x.id} className="mb-0">
-                    <Row>
-                      <Col md={6} lg={4} xxl={3}>
-                        For dataset{" "}
-                        <Link to={`/browse/${x.dataset_id}`}>
-                          {x.dataset_id}
-                        </Link>{" "}
-                      </Col>
-                      <Col md={3} xl={2}>
-                        from {x.access_starts.slice(0, 10)}
-                      </Col>
-                      <Col>to {x.access_ends.slice(0, 10)}</Col>
-                    </Row>
-                  </li>
-                ))}
+                {pendingUserRequests && pendingUserRequests.length > 0
+                  ? pendingUserRequests?.map((x) => (
+                      <li key={x.id} className="mb-0">
+                        <Row>
+                          <Col md={6} lg={4} xxl={3}>
+                            For dataset{" "}
+                            <Link to={`/browse/${x.dataset_id}`}>
+                              {x.dataset_id}
+                            </Link>{" "}
+                          </Col>
+                          <Col md={3} xl={2}>
+                            from {x.access_starts.slice(0, 10)}
+                          </Col>
+                          <Col>to {x.access_ends.slice(0, 10)}</Col>
+                        </Row>
+                      </li>
+                    ))
+                  : ""}
               </ul>
             </div>
           </Card.Body>
