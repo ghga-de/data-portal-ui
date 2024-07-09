@@ -179,15 +179,20 @@ const LoginButton = () => {
                       </Link>
                     </p>
                     <p className="mt-3">
-                      <a
-                        href="https://profile.aai.lifescience-ri.eu/profile"
+                      <Link
+                        to="https://profile.aai.lifescience-ri.eu/profile"
                         target="_blank"
                         rel="noreferrer"
                       >
-                        Manage your
-                        <br />
-                        LS Login account
-                      </a>
+                        <Button
+                          variant="outline-quinary"
+                          className="bg-white text-quinary"
+                        >
+                          Manage your
+                          <br />
+                          LS Login account
+                        </Button>
+                      </Link>
                     </p>
                     <Button
                       variant="danger"

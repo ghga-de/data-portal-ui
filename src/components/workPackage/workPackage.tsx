@@ -139,7 +139,7 @@ export function WorkPackage() {
             className="text-white"
             onClick={() => setToken(undefined)}
           >
-            Create another access token
+            Create another download token
           </Button>
         </div>
       </Container>
