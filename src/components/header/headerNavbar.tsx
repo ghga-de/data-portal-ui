@@ -1,8 +1,27 @@
 import logo from "../../assets/GHGA_logo_clean.png";
-import { Navbar, Nav, Button, Row, Col, Offcanvas } from "react-bootstrap";
+import {
+  Navbar,
+  Nav,
+  Button,
+  Row,
+  Col,
+  Offcanvas,
+  DropdownButton,
+  Dropdown,
+} from "react-bootstrap";
 import { NavLink } from "react-router-dom";
 import LoginButton from "./loginButton";
 import { useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faArrowUpRightFromSquare,
+  faUsersGear,
+} from "@fortawesome/free-solid-svg-icons";
+import {
+  faAddressBook,
+  faPenToSquare,
+} from "@fortawesome/free-regular-svg-icons";
+import { useAuth } from "../../services/auth";
 
 /** Navigation bar in the main header */
 const HeaderNavbar = () => {
@@ -18,6 +37,8 @@ const HeaderNavbar = () => {
   const [showOffCanvas, setShowOffCanvas] = useState(false);
   const handleCloseOffCanvas = () => setShowOffCanvas(false);
   const handleShowOffCanvas = () => setShowOffCanvas(true);
+
+  const { user } = useAuth();
 
   return (
     <Navbar expand="lg" bg="primary" variant="dark" className="p-0">
@@ -140,9 +161,55 @@ const HeaderNavbar = () => {
                         target="_blank"
                         className={inactivePageStyle}
                       >
+                        <span className="fs-7">
+                          <FontAwesomeIcon icon={faArrowUpRightFromSquare} />
+                        </span>{" "}
                         Docs
                       </NavLink>
                     </Col>
+                    {user && user.role === "data_steward" ? (
+                      <>
+                        <Dropdown>
+                          <DropdownButton
+                            title={
+                              <>
+                                <FontAwesomeIcon
+                                  icon={faUsersGear}
+                                  transform={"up-1"}
+                                />{" "}
+                                Admin
+                              </>
+                            }
+                            className={navColsClasses + " col-" + navColsSpanXS}
+                          >
+                            <Dropdown.Item>
+                              <NavLink
+                                to="/ivas"
+                                className={({ isActive }) =>
+                                  isActive ? "text-secondary" : ""
+                                }
+                              >
+                                <FontAwesomeIcon icon={faAddressBook} /> IVA
+                                Manager
+                              </NavLink>
+                            </Dropdown.Item>
+                            <Dropdown.Item>
+                              <NavLink
+                                to="/access-requests"
+                                className={({ isActive }) =>
+                                  isActive ? "text-secondary" : ""
+                                }
+                              >
+                                <FontAwesomeIcon icon={faPenToSquare} /> Access
+                                Requests Manager
+                              </NavLink>
+                            </Dropdown.Item>
+                          </DropdownButton>
+                        </Dropdown>
+                      </>
+                    ) : (
+                      <></>
+                    )}
                   </Nav>
                 </Col>
                 <Col
