@@ -15,7 +15,7 @@ import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faArrowUpRightFromSquare,
-  faUser,
+  faUserGear,
 } from "@fortawesome/free-solid-svg-icons";
 import {
   faAddressBook,
@@ -173,12 +173,10 @@ const HeaderNavbar = () => {
                           <DropdownButton
                             title={
                               <>
-                                <span className="fs-7">
-                                  <FontAwesomeIcon
-                                    icon={faUser}
-                                    transform={"up-1"}
-                                  />
-                                </span>{" "}
+                                <FontAwesomeIcon
+                                  icon={faUserGear}
+                                  transform={"up-1"}
+                                />{" "}
                                 Admin
                               </>
                             }

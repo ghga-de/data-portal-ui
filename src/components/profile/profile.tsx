@@ -30,10 +30,6 @@ import {
 import NewIVAModal from "./newIVAsModal/newIVAModal";
 import ConfirmVerificationModal from "./verificationModals/confirmVerificationModal";
 import RequestVerificationModal from "./verificationModals/requestVerificationModal";
-import {
-  faAddressBook,
-  faPenToSquare,
-} from "@fortawesome/free-regular-svg-icons";
 import { AccessRequest } from "../../models/submissionsAndRequests";
 
 /** Display user profile */
@@ -278,47 +274,6 @@ const Profile = () => {
               : "Your session has expired!"}
           </Alert>
         </div>
-
-        {user.role === "data_steward" ? (
-          <Card className="mb-3">
-            <Card.Header>
-              <strong>Data Steward Pages&nbsp;</strong>
-              <OverlayTrigger
-                overlay={
-                  <Tooltip id={"dsp"}>
-                    Pages available to data stewards for managing independent
-                    verification addresses (verifying, unverifying) and access
-                    requests (allowing, denying).
-                  </Tooltip>
-                }
-              >
-                <span className="float-end">
-                  <FontAwesomeIcon icon={faCircleInfo} />
-                </span>
-              </OverlayTrigger>
-            </Card.Header>
-            <Card.Body>
-              <p>
-                <Link to="/ivas">
-                  <Button variant="quinary">
-                    <FontAwesomeIcon icon={faAddressBook} /> Independent
-                    Verification Addresses Management
-                  </Button>
-                </Link>
-              </p>
-              <p>
-                <Link to="/access-requests">
-                  <Button variant="quinary">
-                    <FontAwesomeIcon icon={faPenToSquare} /> Access Requests
-                    Management
-                  </Button>
-                </Link>
-              </p>
-            </Card.Body>
-          </Card>
-        ) : (
-          <></>
-        )}
         <Card className="mb-3">
           <Card.Header>
             E-Mail address&nbsp;
