@@ -12,6 +12,7 @@ import lsLogin from "../../assets/loginLS/ls-login.png";
 import {
   faArrowRightFromBracket,
   faArrowRightToBracket,
+  faArrowUpRightFromSquare,
   faPenToSquare,
 } from "@fortawesome/free-solid-svg-icons";
 import { useAuth } from "../../services/auth";
@@ -179,15 +180,21 @@ const LoginButton = () => {
                       </Link>
                     </p>
                     <p className="mt-3">
-                      <a
-                        href="https://profile.aai.lifescience-ri.eu/profile"
+                      <Link
+                        to="https://profile.aai.lifescience-ri.eu/profile"
                         target="_blank"
                         rel="noreferrer"
                       >
-                        Manage your
-                        <br />
-                        LS Login account
-                      </a>
+                        <Button
+                          variant="outline-tertiary"
+                          className="text-quinary border-quinary"
+                        >
+                          <FontAwesomeIcon icon={faArrowUpRightFromSquare} />{" "}
+                          Manage your
+                          <br />
+                          LS Login account
+                        </Button>
+                      </Link>
                     </p>
                     <Button
                       variant="danger"
