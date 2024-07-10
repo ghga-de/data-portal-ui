@@ -346,27 +346,30 @@ const Profile = () => {
               </span>
             </OverlayTrigger>
           </Card.Header>
-          <Card.Body>
+          <Card.Body className="pt-1 pt-md-3">
             <div className="mb-3">
               {userIVAs.length > 0 ? (
                 userIVAs.map((x, index) => {
                   return (
-                    <Row key={x.id + index} className="mb-1 border-bottom">
-                      <Col xs={3} md={2}>
-                        {IVATypePrintable[x.type]}:
-                      </Col>
-                      <Col xs={5} md={4} lg={4} xl={3}>
-                        {x.value}
+                    <Row
+                      key={x.id + index}
+                      className="pb-1 mt-1 border-bottom align-items-stretch"
+                    >
+                      <Col xs={6} md={6} xl={5}>
+                        <Row>
+                          <Col md={5}>{IVATypePrintable[x.type]}:</Col>
+                          <Col md={7}>{x.value}</Col>
+                        </Row>
                       </Col>
                       <Col
-                        xs={3}
+                        xs={5}
                         md={4}
                         lg={3}
                         xl={3}
                         xxl={2}
                         className={
                           x.state === IVAState.Verified
-                            ? "text-success fw-bold"
+                            ? "text-success fw-bold align-self-center"
                             : ""
                         }
                       >
@@ -374,7 +377,7 @@ const Profile = () => {
                           <Button
                             id={"del_" + x.id}
                             variant="warning"
-                            className="p-0 px-1 text-white w-100 text-start"
+                            className="p-0 px-2 px-md-1 text-white w-100 text-start h-100"
                             onClick={(e) => {
                               let button = e.target as HTMLButtonElement;
                               HandleRequestVerification(button.id.substring(4));
@@ -386,7 +389,7 @@ const Profile = () => {
                           <Button
                             id={"con_" + x.id}
                             variant="quinary"
-                            className="p-0 px-1 text-white w-100 text-start"
+                            className="p-0 px-2 px-md-1 text-white w-100 text-start h-100"
                             onClick={(e) => {
                               let button = e.target as HTMLButtonElement;
                               HandleConfirmVerification(button.id.substring(4));
@@ -398,7 +401,7 @@ const Profile = () => {
                           IVAStatePrintable[x.state]
                         )}
                       </Col>
-                      <Col xs={1}>
+                      <Col xs={1} className="px-0">
                         <Button
                           variant="link"
                           className="border-0 h-100 text-danger p-0 d-flex align-items-center"
