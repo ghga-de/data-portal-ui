@@ -60,12 +60,12 @@ const LoginButton = () => {
           <>
             <OverlayTrigger
               trigger="click"
-              key="profile"
+              key="account"
               placement="bottom-end"
               rootClose
               overlay={
                 <Popover
-                  id={"ProfilePopover"}
+                  id={"LoginPopover"}
                   className="border border-2 border-tertiary"
                 >
                   <Popover.Body className="text-center fs-6 px-4">
@@ -151,14 +151,14 @@ const LoginButton = () => {
           <>
             <OverlayTrigger
               trigger="click"
-              key="profile"
+              key="account"
               placement="bottom-end"
               rootClose
               onToggle={() => setShow(!show)}
               show={show}
               overlay={
                 <Popover
-                  id={"ProfilePopover"}
+                  id={"LoginPopover"}
                   className="border border-2 border-tertiary"
                 >
                   <Popover.Body className="text-center fs-6 px-4">
@@ -175,7 +175,7 @@ const LoginButton = () => {
                             setShow(false);
                           }}
                         >
-                          View profile
+                          View account page
                         </Button>
                       </Link>
                     </p>

@@ -167,7 +167,7 @@ const NewIVAModal = (props: NewIVAModalProps) => {
             <p>
               <strong>
                 In order to verify your address, you will need to request
-                verification from your profile page.
+                verification from your account page.
               </strong>
             </p>
             <div className="d-flex justify-content-between mt-4">

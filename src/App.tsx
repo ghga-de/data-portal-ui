@@ -17,9 +17,9 @@ import FAQ from "./components/faq/faq";
 import SingleDatasetView from "./components/browse/singleDatasetView/singleDatasetView";
 import TermsOfUse from "./components/termsOfUse/termsOfUse";
 import WorkPackage from "./components/workPackage/workPackage";
-import Callback from "./components/profile/callback";
+import Callback from "./components/account/callback";
 import Register from "./components/register/register";
-import Profile from "./components/profile/profile";
+import Account from "./components/account/account";
 import { MessageContainer } from "./components/messages/container";
 import { useMessages } from "./components/messages/usage";
 import { authService } from "./services/auth";
@@ -46,7 +46,7 @@ const router = createBrowserRouter(
       <Route path="/work-package" element={<WorkPackage />} />
       <Route path="/oauth/callback" element={<Callback />} />
       <Route path="/register" element={<Register />} />
-      <Route path="/profile" element={<Profile />} />
+      <Route path="/profile" element={<Account />} />
       <Route path="/setup-2fa" element={<Setup2FA />} />
       <Route path="/access-requests" element={<AccessRequests />} />
       <Route path="/ivas" element={<IvaManager />} />

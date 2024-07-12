@@ -35,7 +35,7 @@ import { AccessRequest } from "../../models/submissionsAndRequests";
 
 /** Display user profile */
 
-const Profile = () => {
+const Account = () => {
   const navigate = useNavigate();
 
   const [numDatasets, setNumDatasets] = useState<number>(0);
@@ -259,7 +259,7 @@ const Profile = () => {
   if (user === undefined) content = "Loading user data...";
   else if (!user?.id || user.state !== "Authenticated") {
     content = "Not logged in!";
-    if (sessionStorage.getItem("lastPath") === "/profile") {
+    if (sessionStorage.getItem("lastPath") === "/account") {
       sessionStorage.removeItem("lastPath");
     }
     back();
@@ -267,7 +267,7 @@ const Profile = () => {
     content = (
       <div>
         <style lang="css">{wideTooltips}</style>
-        <h3 style={{ margin: "1em 0 0" }}>User profile</h3>
+        <h3 style={{ margin: "1em 0 0" }}>User account</h3>
         <h5 style={{ margin: "0.5em 0" }}>{user.full_name}</h5>
         <div style={{ margin: "1em 0" }}>
           <Alert variant={user?.timeout ? "success" : "danger"}>
@@ -566,4 +566,4 @@ const Profile = () => {
   );
 };
 
-export default Profile;
+export default Account;

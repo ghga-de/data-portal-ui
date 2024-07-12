@@ -52,7 +52,7 @@ const Callback = () => {
             navigate("/setup-2fa");
           } else {
             // this is a well-known, registered user
-            navigate("/profile");
+            navigate("/account");
           }
         })
         .catch((error) => {
