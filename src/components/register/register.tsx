@@ -87,7 +87,8 @@ const Register = () => {
       method = "POST";
       ok = 201;
     }
-    const response = await fetchJson(url, method, userData).catch(() => null);
+    const response = await fetchJson(url, method, userData).catch(
+      (e) => console.error(e));
     let registered = false;
     if (response && response.status === ok) {
       // The state should have changed and the user should now have an internal ID.
@@ -96,7 +97,7 @@ const Register = () => {
         const wait = (1 << attempt) * 50;
         await new Promise((r) => setTimeout(r, wait));
         const user = await authService.getUser(true);
-        if (user?.id && user.state === "Registered") {
+        if (user?.id && user.state !== 'NeedsReRegistration') {
           registered = true;
           break;
         }
