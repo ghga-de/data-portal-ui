@@ -87,8 +87,9 @@ const Register = () => {
       method = "POST";
       ok = 201;
     }
-    const response = await fetchJson(url, method, userData).catch(
-      (e) => console.error(e));
+    const response = await fetchJson(url, method, userData).catch((e) =>
+      console.error(e)
+    );
     let registered = false;
     if (response && response.status === ok) {
       // The state should have changed and the user should now have an internal ID.
@@ -97,7 +98,7 @@ const Register = () => {
         const wait = (1 << attempt) * 50;
         await new Promise((r) => setTimeout(r, wait));
         const user = await authService.getUser(true);
-        if (user?.id && user.state !== 'NeedsReRegistration') {
+        if (user?.id && user.state !== "NeedsReRegistration") {
           registered = true;
           break;
         }
@@ -108,17 +109,20 @@ const Register = () => {
       back();
       return;
     }
-    showMessage({
-      type: "success",
-      title: `Registration successful`,
-      detail:
-        "You have been successfully registered. To be able to login, you will need to setup two-factor authentication in the next page.",
-      label1: "Continue",
-      callback1: () => {
-        navigate("/setup-2fa");
-      },
-      modal: true,
-    });
+    if (user.state === "Registered") {
+      // show only when newly registered, not when re-registered
+      showMessage({
+        type: "success",
+        title: `Registration successful`,
+        detail:
+          "You have been successfully registered. To be able to login, you will need to setup two-factor authentication in the next page.",
+        label1: "Continue",
+        callback1: () => {
+          navigate("/setup-2fa");
+        },
+        modal: true,
+      });
+    }
   };
 
   const handleTitle = (event: ChangeEvent<HTMLSelectElement>) => {
