@@ -23,6 +23,9 @@ const Register = () => {
   const blocker = useBlocker(blocked);
   const { showMessage } = useMessages();
   const { user, logoutUser } = useAuth();
+  const [disabledButton, setDisabledButton] = useState<boolean>(false);
+
+  const oldState = user?.state
 
   const back = () => {
     let path = sessionStorage.getItem("lastPath");
@@ -61,7 +64,7 @@ const Register = () => {
 
   const buttonText = () =>
     blocked ? (user?.id ? "Confirm" : "Register") : "Continue";
-
+  
   const submitUserData = async () => {
     if (!blocked) {
       navigate("/setup-2fa");
@@ -69,6 +72,7 @@ const Register = () => {
     }
     if (!user || !AUTH_URL) return;
     unblock();
+    setDisabledButton(true);
     const { id, ext_id, name, email } = user;
     const userData: any = {
       name,
@@ -87,7 +91,9 @@ const Register = () => {
       method = "POST";
       ok = 201;
     }
-    const response = await fetchJson(url, method, userData).catch(() => null);
+    const response = await fetchJson(url, method, userData).catch((e) =>
+      console.error(e)
+    );
     let registered = false;
     if (response && response.status === ok) {
       // The state should have changed and the user should now have an internal ID.
@@ -96,7 +102,7 @@ const Register = () => {
         const wait = (1 << attempt) * 50;
         await new Promise((r) => setTimeout(r, wait));
         const user = await authService.getUser(true);
-        if (user?.id && user.state === "Registered") {
+        if (user?.id && !/Needs(Re)?Registration/.test(user.state)) {
           registered = true;
           break;
         }
@@ -104,20 +110,34 @@ const Register = () => {
     }
     if (!registered) {
       showMessage({ type: "error", title: "Could not register" });
+      setDisabledButton(false);
       back();
       return;
     }
-    showMessage({
-      type: "success",
-      title: `Registration successful`,
-      detail:
-        "You have been successfully registered. To be able to login, you will need to setup two-factor authentication in the next page.",
-      label1: "Continue",
-      callback1: () => {
-        navigate("/setup-2fa");
-      },
-      modal: true,
-    });
+    if (oldState === "NeedsRegistration") {
+      // show only when newly registered, not when re-registered
+      showMessage({
+        type: "success",
+        title: `Registration successful`,
+        detail:
+          "You have been successfully registered. To be able to login, you will need to setup two-factor authentication in the next page.",
+        label1: "Continue",
+        callback1: () => {
+          navigate("/setup-2fa");
+        },
+        modal: true,
+      });
+    }
+    else {
+      showMessage({
+        type: "success",
+        title: `Re-registration successful`,
+        detail:
+          "You have been successfully re-registered.",
+        label1: "Continue",
+        modal: true,
+      });
+    }
   };
 
   const handleTitle = (event: ChangeEvent<HTMLSelectElement>) => {
@@ -223,6 +243,7 @@ const Register = () => {
               variant="danger"
               className="text-white me-4"
               onClick={logout}
+              disabled={disabledButton}
             >
               <Row className="flex-nowrap align-items-center">
                 <Col xs={"auto"} className="pe-0">
@@ -238,7 +259,7 @@ const Register = () => {
               type="submit"
               variant="quinary"
               className="text-white"
-              disabled={!accepted}
+              disabled={!accepted || disabledButton}
             >
               <Row className="flex-nowrap">
                 <Col xs={"auto"} className="pe-0">

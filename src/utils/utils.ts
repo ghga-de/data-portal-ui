@@ -104,7 +104,7 @@ export const fetchJson = async (
   }
   if (method.match(/^POST|PUT|PATCH|DELETE$/)) {
     const user = authService.getCurrentUser();
-    const csrf = user?.csrf;
+    const csrf = user?.csrf || sessionStorage.getItem("csrf");
     if (csrf) {
       headers["X-CSRF-Token"] = csrf;
     }

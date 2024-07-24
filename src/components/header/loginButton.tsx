@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useRef, useState } from "react";
 import {
   Button,
@@ -18,6 +18,7 @@ import {
 import { useAuth } from "../../services/auth";
 
 const LoginButton = () => {
+  const navigate = useNavigate();
   const { user, loginUser, logoutUser } = useAuth();
 
   let location = useLocation();
@@ -51,6 +52,17 @@ const LoginButton = () => {
     }
   };
 
+  const getPageNavigation = () => {
+    switch (user?.state) {
+      case "NeedsRegistration":
+        return "/register";
+      case "NeedsReRegistration":
+        return "/register";
+      default:
+        return "/setup-2fa";
+    }
+  };
+
   const [show, setShow] = useState(false);
 
   return (
@@ -71,15 +83,16 @@ const LoginButton = () => {
                   <Popover.Body className="text-center fs-6 px-4">
                     <p>
                       You need to complete your{" "}
-                      {getStatusString().toLowerCase()} with the GHGA Data
+                      {getStatusString()} with the GHGA Data
                       Portal before you can start using your LS Login account.
                     </p>
                     <Button
                       variant="quinary"
                       className="text-white fs-7"
                       onClick={() => {
-                        setShowPopover(false);
-                        document.body.click();
+                        navigate(getPageNavigation())
+                        // setShowPopover(false);
+                        // document.body.click();
                       }}
                     >
                       <FontAwesomeIcon icon={faPenToSquare} className="me-2" />

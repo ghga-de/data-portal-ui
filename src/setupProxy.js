@@ -7,16 +7,16 @@
   and changes the URL of the requests to use the real backend.
 */
 
-
 // Note that this currently works only as a CommonJS module
 const { createProxyMiddleware } = require("http-proxy-middleware");
 
 const CLIENT_URL = new URL(urlWithEndSlash(process.env.REACT_APP_CLIENT_URL));
 const BASIC_AUTH = process.env.REACT_APP_BASIC_AUTH;
+const CHECK_CERT = !process.env.REACT_APP_IGNORE_CERT;
 
 function urlWithEndSlash(url) {
   const lastCharSlash = url.endsWith("/");
-  return lastCharSlash ? url : url + "/"
+  return lastCharSlash ? url : url + "/";
 }
 
 function filterHeaders(headers) {
@@ -30,7 +30,10 @@ function filterHeaders(headers) {
 const logOptions = {
   onProxyReq: (proxyReq, req, res) => {
     console.log("\n", "==>", req.method, req.url);
-    console.log("request headers", JSON.stringify(filterHeaders(proxyReq.getHeaders())));
+    console.log(
+      "request headers",
+      JSON.stringify(filterHeaders(proxyReq.getHeaders()))
+    );
   },
   onProxyRes: (proxyRes, req, res) => {
     console.log("\n", "<==", req.method, req.url);
@@ -42,7 +45,7 @@ const logOptions = {
 const authServiceProxy = {
   target: CLIENT_URL.href,
   changeOrigin: true,
-  secure: true,
+  secure: CHECK_CERT,
   auth: BASIC_AUTH,
   ...logOptions,
 };

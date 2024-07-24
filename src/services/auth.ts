@@ -241,6 +241,7 @@ class AuthService {
       }
     }
     const user: User | null = this.parseUserFromSession(session);
+    if (user?.csrf) sessionStorage.setItem("csrf", user.csrf);
     this.setUser(user);
     return user;
   }
