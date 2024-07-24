@@ -9,7 +9,7 @@ export function aggregateFileStats(
   } = summary.resource_stats as any;
   const formats: { [format: string]: number } = {};
   let count = 0;
-  let size = 0;
+  // let size = 0;
   for (const statsName of Object.keys(stats).filter((key) =>
     key.endsWith("File")
   )) {
