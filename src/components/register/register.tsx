@@ -98,7 +98,7 @@ const Register = () => {
         const wait = (1 << attempt) * 50;
         await new Promise((r) => setTimeout(r, wait));
         const user = await authService.getUser(true);
-        if (user?.id && user.state !== "NeedsReRegistration") {
+        if (user?.id && !/Needs(Re)?Registration/.test(user.state)) {
           registered = true;
           break;
         }
