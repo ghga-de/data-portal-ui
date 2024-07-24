@@ -23,6 +23,9 @@ const Register = () => {
   const blocker = useBlocker(blocked);
   const { showMessage } = useMessages();
   const { user, logoutUser } = useAuth();
+  const [disabledButton, setDisabledButton] = useState<boolean>(false);
+
+  const oldState = user?.state
 
   const back = () => {
     let path = sessionStorage.getItem("lastPath");
@@ -61,7 +64,7 @@ const Register = () => {
 
   const buttonText = () =>
     blocked ? (user?.id ? "Confirm" : "Register") : "Continue";
-
+  
   const submitUserData = async () => {
     if (!blocked) {
       navigate("/setup-2fa");
@@ -69,6 +72,7 @@ const Register = () => {
     }
     if (!user || !AUTH_URL) return;
     unblock();
+    setDisabledButton(true);
     const { id, ext_id, name, email } = user;
     const userData: any = {
       name,
@@ -106,10 +110,11 @@ const Register = () => {
     }
     if (!registered) {
       showMessage({ type: "error", title: "Could not register" });
+      setDisabledButton(false);
       back();
       return;
     }
-    if (user.state === "Registered") {
+    if (oldState === "NeedsRegistration") {
       // show only when newly registered, not when re-registered
       showMessage({
         type: "success",
@@ -120,6 +125,16 @@ const Register = () => {
         callback1: () => {
           navigate("/setup-2fa");
         },
+        modal: true,
+      });
+    }
+    else {
+      showMessage({
+        type: "success",
+        title: `Re-registration successful`,
+        detail:
+          "You have been successfully re-registered.",
+        label1: "Continue",
         modal: true,
       });
     }
@@ -228,6 +243,7 @@ const Register = () => {
               variant="danger"
               className="text-white me-4"
               onClick={logout}
+              disabled={disabledButton}
             >
               <Row className="flex-nowrap align-items-center">
                 <Col xs={"auto"} className="pe-0">
@@ -243,7 +259,7 @@ const Register = () => {
               type="submit"
               variant="quinary"
               className="text-white"
-              disabled={!accepted}
+              disabled={!accepted || disabledButton}
             >
               <Row className="flex-nowrap">
                 <Col xs={"auto"} className="pe-0">

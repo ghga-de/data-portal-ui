@@ -163,6 +163,7 @@ const Setup2FA = () => {
               >
                 <input
                   type="text"
+                  size={35}
                   readOnly
                   value={
                     new URLSearchParams(
