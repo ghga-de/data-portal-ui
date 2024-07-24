@@ -43,9 +43,6 @@ export interface FileModel {
   alias: string;
   name: string;
   format: string;
-  size: number;
-  checksum: string;
-  checksum_type: string;
 }
 
 export interface SequencingExperimentEmbeddedModel {
@@ -219,7 +216,6 @@ export interface FileSummaryModel {
   count: number;
   stats: {
     format: { value: string; count: number }[];
-    size: number;
   };
 }
 

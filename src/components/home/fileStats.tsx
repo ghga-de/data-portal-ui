@@ -15,7 +15,7 @@ export function aggregateFileStats(
   )) {
     const fileSummary = stats[statsName];
     count += fileSummary.count || 0;
-    size += fileSummary.stats?.size || 0;
+    // size += fileSummary.stats?.size || 0;
     for (const format of fileSummary.stats?.format || []) {
       formats[format.value] = (formats[format.value] || 0) + format.count;
     }
@@ -27,7 +27,7 @@ export function aggregateFileStats(
         value,
         count,
       })),
-      size,
+      // size,
     },
   };
 }
