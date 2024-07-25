@@ -4,7 +4,6 @@ import DatasetDetailsLayout from "./datasetDetailsLayout/datasetDetailsLayout";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFileLines } from "@fortawesome/free-regular-svg-icons";
 import { FileSummaryModel } from "../../../../../models/dataset";
-import { parseBytes } from "../../../../../utils/utils";
 import BoldenedSummaryDetails from "./boldenedSummaryDetails/boldenedSummaryDetails";
 
 interface DataSetFilesProps {
@@ -35,10 +34,6 @@ const DatasetFiles = (props: DataSetFilesProps) => {
                   );
                 })}
               </ul>
-              <p className="mb-0">
-                <strong>{parseBytes(props.files.stats?.size || 0)}</strong>{" "}
-                total size
-              </p>
             </div>
           ) : (
             <p className="mb-0">0 Files</p>

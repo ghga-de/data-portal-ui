@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { parseBytes, transposeTableForHTML } from "../../../../../utils/utils";
+import { transposeTableForHTML } from "../../../../../utils/utils";
 import {
   SDSVTableDefinition,
   TableFields,
@@ -42,16 +42,6 @@ export const FilesTable = (props: FilesTableProps, fileSize: number) => {
       cssClasses: "",
     },
     {
-      header: "Size",
-      data: props.all_files.map((x) => parseBytes(x.size)),
-      cssClasses: "",
-    },
-    {
-      header: "Checksum",
-      data: props.all_files.map((x) => x.checksum_type + ": " + x.checksum),
-      cssClasses: "",
-    },
-    {
       header: "File Origin",
       data: props.all_files.map((x) => x.file_category),
       cssClasses: "",
@@ -66,11 +56,7 @@ export const FilesTable = (props: FilesTableProps, fileSize: number) => {
     table: filesTable,
     buttonText:
       props.all_files !== null
-        ? "File Summary (" +
-          props.all_files.length +
-          " files: " +
-          parseBytes(fileSize) +
-          ")"
+        ? "File Summary (" + props.all_files.length + " files)"
         : "File Summary",
     sortDefinition: sortDefinition,
     setSortDefinition: setSortDefinition,
