@@ -9,6 +9,7 @@ interface SingleDatasetViewSummaryProps {
 
 /** Section at the top of dataset details page where the summary of dataset displayed. */
 const SingleDatasetViewSummary = (props: SingleDatasetViewSummaryProps) => {
+  const study = props.details.study;
   return (
     <div>
       <h5>
@@ -21,16 +22,16 @@ const SingleDatasetViewSummary = (props: SingleDatasetViewSummaryProps) => {
             Study Type |{" "}
           </Col>
           <Col className="ps-1 pe-0">
-            {props.details.studies?.map((x) => {
-              return (
-                <Badge
-                  key={x.type}
-                  className="py-1 px-2 fw-normal text-capitalize me-2"
-                >
-                  {x.type}
-                </Badge>
-              );
-            })}
+            {study ? (
+              <Badge
+                key={study.type}
+                className="py-1 px-2 fw-normal text-capitalize me-2"
+              >
+                {study.type}
+              </Badge>
+            ) : (
+              ""
+            )}
           </Col>
         </Row>
         <Row className="me-0 mb-3 w-100 mx-0">

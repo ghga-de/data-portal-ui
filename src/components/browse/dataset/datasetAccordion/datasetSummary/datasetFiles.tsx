@@ -20,7 +20,7 @@ const DatasetFiles = (props: DataSetFilesProps) => {
           <p className="mb-0">
             <strong>File summary</strong>
           </p>
-          {props.files !== null ? (
+          {props.files ? (
             <div>
               <p className="mb-0">
                 <strong>{props.files.count}</strong> Files

@@ -46,7 +46,7 @@ export const SamplesTable = (props: SamplesTableProps) => {
     {
       header: "Phenotype",
       data: samples.map((x) =>
-        x.biospecimen.individual.phenotypic_features !== null
+        x.biospecimen.individual.phenotypic_features
           ? x.biospecimen.individual.phenotypic_features[0]
           : "N/A"
       ),
@@ -54,9 +54,7 @@ export const SamplesTable = (props: SamplesTableProps) => {
     },
     {
       header: "Tissue",
-      data: samples.map((x) =>
-        x.biospecimen !== null ? x.biospecimen.tissue : "N/A"
-      ),
+      data: samples.map((x) => x.biospecimen || "N/A"),
       cssClasses: "text-capitalize",
     },
   ];

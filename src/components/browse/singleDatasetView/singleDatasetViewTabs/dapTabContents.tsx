@@ -23,10 +23,10 @@ const DapTabContents = (props: DapTabContentsProps) => {
 
   return (
     <Tab.Pane eventKey="3" className="h-100">
-      {props.details.data_access_policy !== null ? (
+      {props.details.data_access_policy ? (
         <div className="text-break overflow-auto h-100">
           <PerfectScrollbar>
-            {props.details.data_access_policy.policy_url !== null &&
+            {props.details.data_access_policy.policy_url &&
             isValidHttpUrl(props.details.data_access_policy.policy_url) ? (
               <Button
                 href={props.details.data_access_policy.policy_url}

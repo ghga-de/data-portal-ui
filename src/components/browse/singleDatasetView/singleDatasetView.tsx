@@ -55,9 +55,8 @@ const SingleDatasetView = () => {
 
   const handleOpen = () => {
     setCopyEmail(
-      details !== null && details
-        ? details.data_access_policy.data_access_committee.email
-        : "helpdesk@ghga.de"
+      details?.data_access_policy?.data_access_committee?.email ||
+        "helpdesk@ghga.de"
     );
     setShow(true);
   };

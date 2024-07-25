@@ -36,30 +36,28 @@ const DatasetHeader = (props: DatasetHeaderProps) => {
     getData();
   }, []);
 
-  var listOfAllFacets: FacetModel[] | null = null;
-  if (searchResults !== null) {
-    if ((searchResults.hits && searchResults.hits.length > 0) || searchResults.count === -1) {
-      listOfAllFacets = searchResults.facets;
-    } else {
-      listOfAllFacets = [];
-    }
-  }
+  const listOfAllFacets: FacetModel[] =
+    searchResults &&
+    ((searchResults.hits && searchResults.hits.length > 0) ||
+      searchResults.count === -1)
+      ? searchResults.facets
+      : [];
 
   const getFilterParamsList = () => {
     let filterParamsList = [];
     let searchParams = props.searchParams.get("f");
-    if (searchParams !== undefined && searchParams !== null) {
+    if (searchParams) {
       let searchParamsList = searchParams.split(";");
       for (var item of searchParamsList) {
         const itemKey = item.split(":")[0];
         var itemPretty = itemKey + "|" + item.replace(":", ": ");
-        if (listOfAllFacets !== null) {
+        if (listOfAllFacets) {
           const findResult: FacetModel | undefined = listOfAllFacets.find(
             (x) => x.key === itemKey
           );
-          if (findResult !== undefined) {
+          if (findResult) {
             var facetName = findResult.name;
-            if (facetName !== undefined) {
+            if (facetName) {
               itemPretty =
                 findResult.key + "|" + facetName + ": " + item.split(":")[1];
             }

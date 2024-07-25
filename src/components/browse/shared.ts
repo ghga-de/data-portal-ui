@@ -26,7 +26,7 @@ import { querySearchService } from "../../api/browse";
  */
 export const getFilterParams = (filterString: string | null) => {
   let facetFilterModelList: FacetFilterModel[] = [];
-  if (filterString != null) {
+  if (filterString) {
     let filterStringList = filterString.split(";");
     for (var item of filterStringList) {
       let filterItem: FacetFilterModel = {

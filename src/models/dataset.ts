@@ -145,7 +145,7 @@ export interface DatasetEmbeddedModel {
   sequencing_process_files: FileModel[];
   analysis_process_output_files: FileModel[];
   samples: SampleModel[];
-  studies: StudyEmbeddedModel[];
+  study: StudyEmbeddedModel;
   data_access_policy: DataAccessPolicyModel;
 }
 
