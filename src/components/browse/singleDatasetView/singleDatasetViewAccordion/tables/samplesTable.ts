@@ -54,7 +54,7 @@ export const SamplesTable = (props: SamplesTableProps) => {
     },
     {
       header: "Tissue",
-      data: props.details.samples?.map((x) =>
+      data: samples.map((x) =>
         x.biospecimen !== null ? x.biospecimen.tissue : "N/A"
       ),
       cssClasses: "text-capitalize",
