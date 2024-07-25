@@ -20,16 +20,12 @@
         "python.languageServer": "Pylance",
         "python.analysis.typeCheckingMode": "basic",
         "python.testing.pytestPath": "/usr/local/py-utils/bin/pytest",
-        "python.testing.pytestArgs": [
-          "--profile"
-        ],
+        "python.testing.pytestArgs": ["--profile"],
         "python.testing.unittestEnabled": false,
         "python.testing.pytestEnabled": true,
         "editor.formatOnSave": true,
         "editor.renderWhitespace": "all",
-        "editor.rulers": [
-          88
-        ],
+        "editor.rulers": [88],
         "editor.defaultFormatter": "charliermarsh.ruff",
         "licenser.license": "Custom",
         "licenser.customHeaderFile": "/workspace/.devcontainer/license_header.txt"
@@ -50,15 +46,13 @@
         "yzhang.markdown-all-in-one",
         "visualstudioexptteam.vscodeintellicode",
         "ymotongpoo.licenser",
-        "charliermarsh.ruff"
+        "charliermarsh.ruff",
+        "esbenp.prettier-vscode"
       ]
     }
   },
   // Use 'forwardPorts' to make a list of ports inside the container available locally.
-  "forwardPorts": [
-    8080,
-    443
-  ],
+  "forwardPorts": [8080, 443],
   // Use 'postCreateCommand' to run commands after the container is created.
   "postCreateCommand": "dev_install",
   // Use 'postStartCommand' to run commands after the container is started.
