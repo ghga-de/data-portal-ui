@@ -5,33 +5,30 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBook } from "@fortawesome/free-solid-svg-icons";
 
 interface DataSetStudiesProps {
-  study: StudySummaryModel | null;
+  studies: StudySummaryModel | null;
 }
 
 /** Dataset summary section displays the studies of which the dataset is a part. */
 const DatasetStudies = (props: DataSetStudiesProps) => {
+  const stats = props.studies?.stats || { title: [], accession: [] };
   return (
     <DatasetDetailsLayout
       icon={<FontAwesomeIcon icon={faBook} />}
       content={
-        props.study !== null ? (
+        stats ? (
           <div>
             <p className="mb-0">
               <strong>Part of studies:&nbsp;</strong>
-              {props.study.stats.title !== null
-                ? props.study.stats.title.map((x) => (
-                    <span key={x}>{x}.&nbsp;</span>
-                  ))
-                : props.study.stats.accession.map((x) => (
-                    <span key={x}>{x}.&nbsp;</span>
-                  ))}
+              {stats.title
+                ? stats.title.map((x) => <span key={x}>{x}.&nbsp;</span>)
+                : stats.accession.map((x) => <span key={x}>{x}.&nbsp;</span>)}
             </p>
             <p className="mb-0">
               <strong>
                 Accession ID
-                {props.study.stats?.accession?.length > 1 ? "s" : ""}:
+                {stats.accession.length > 1 ? "s" : ""}:
               </strong>
-              {props.study.stats?.accession?.map((x) => (
+              {stats.accession.map((x) => (
                 <span className="mb-0 d-block" key={x}>
                   {x}
                 </span>

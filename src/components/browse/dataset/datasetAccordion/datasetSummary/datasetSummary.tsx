@@ -26,16 +26,9 @@ const DatasetSummary = (props: DataSetDetailsProps) => {
   const handleClose = () => setShow(false);
 
   var dacFormLink: string | null = null;
-  /*if (props.details && props.details.has_data_access_policy.data_request_form) {
-    dacFormLink = props.details.has_data_access_policy.data_request_form;
-  }*/
 
   const handleOpen = () => {
-    setCopyEmail(
-      props.summary !== null && props.summary
-        ? props.summary.dac_email
-        : "helpdesk@ghga.de"
-    );
+    setCopyEmail(props.summary?.dac_email || "helpdesk@ghga.de");
     setShow(true);
   };
 
@@ -45,7 +38,7 @@ const DatasetSummary = (props: DataSetDetailsProps) => {
     <div className="fs-7">
       <div className="pe-0 px-0 px-md-2 pt-md-1">
         <div className="float-end ps-0 ps-md-4 ms-1">
-          {props.summary !== null && props.summary !== undefined ? (
+          {props.summary ? (
             <>
               <RequestAccessButton
                 accession={props.hit.content.accession}
@@ -112,11 +105,11 @@ const DatasetSummary = (props: DataSetDetailsProps) => {
             ))}
           </p>
         </div>
-        {props.summary !== null && props.summary !== undefined ? (
+        {props.summary ? (
           <div>
             <Row className="pt-3">
               <Col xs={12} md={6} lg={12} xl={6}>
-                <DatasetStudies study={props.summary.studies_summary} />
+                <DatasetStudies studies={props.summary.studies_summary} />
                 <DatasetSamples samples={props.summary.samples_summary} />
               </Col>
               <Col>

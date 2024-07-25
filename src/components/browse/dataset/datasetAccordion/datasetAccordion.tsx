@@ -26,11 +26,7 @@ const DatasetAccordion = (props: DataSetListProps) => {
     }
   };
 
-  if (
-    summary !== null &&
-    summary !== undefined &&
-    summaryMap.get(summary.accession) === null
-  ) {
+  if (summary && summaryMap.get(summary.accession) === null) {
     setSummaryMap(summaryMap.set(summary.accession, summary));
   }
 

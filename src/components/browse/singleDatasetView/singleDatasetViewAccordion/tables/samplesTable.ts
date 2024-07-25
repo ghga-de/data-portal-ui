@@ -25,36 +25,47 @@ export const SamplesTable = (props: SamplesTableProps) => {
     order: 0,
   });
 
+  const samples = props.details.samples || [];
+
   const samplesTable: TableFields[] = [
     {
       header: "Sample ID",
-      data: props.details.samples.map((x) => x.alias),
+      data: samples.map((x) => x.accession),
       cssClasses: "",
     },
     {
       header: "Description",
-      data: props.details.samples.map((x) => x.description),
+      data: samples.map((x) => x.description),
       cssClasses: "text-wrap text-break",
     },
     {
       header: "Status",
-      data: props.details.samples.map((x) => x.condition.case_control_status),
+      data: samples.map(
+        (x) => (x.case_control_status || "").toLowerCase() || "N/A"
+      ),
+      cssClasses: "text-capitalize",
+    },
+    {
+      header: "Sex",
+      data: samples.map((x) => (x.individual.sex || "").toLowerCase() || "N/A"),
       cssClasses: "text-capitalize",
     },
     {
       header: "Phenotype",
-      data: props.details.samples.map((x) =>
-        x.biospecimen.individual.phenotypic_features !== null
-          ? x.biospecimen.individual.phenotypic_features[0]
-          : "N/A"
+      data: samples.map(
+        (x) =>
+          (x.individual.phenotypic_features_terms || []).join(", ") || "N/A"
       ),
+      cssClasses: "text-wrap text-break",
+    },
+    {
+      header: "Biospecimen type",
+      data: samples.map((x) => x.biospecimen_type || "N/A"),
       cssClasses: "",
     },
     {
       header: "Tissue",
-      data: props.details.samples.map((x) =>
-        x.biospecimen !== null ? x.biospecimen.tissue : "N/A"
-      ),
+      data: samples.map((x) => x.biospecimen_tissue_term || "N/A"),
       cssClasses: "text-capitalize",
     },
   ];
@@ -65,10 +76,9 @@ export const SamplesTable = (props: SamplesTableProps) => {
 
   const samplesTableDef: SDSVTableDefinition = {
     table: samplesTable,
-    buttonText:
-      props.details.samples !== null
-        ? "Sample Summary (" + props.details.samples.length + " samples)"
-        : "Sample Summary",
+    buttonText: samples
+      ? "Sample Summary (" + samples.length + " samples)"
+      : "Sample Summary (0 samples)",
     sortDefinition: sortDefinition,
     setSortDefinition: setSortDefinition,
     sortedData: sortedData,

@@ -72,17 +72,17 @@ export interface SampleModel {
   name: string;
   description: string;
   alias: string;
-  biospecimen: {
-    individual: {
-      sex: string;
-      phenotypic_features: string[];
-    };
-    tissue: string;
+  individual: {
+    accession: string;
+    alias: string;
+    phenotypic_features_terms: string[];
+    diagnosis_terms: string[];
+    sex: string;
+    geographical_region_term: string;
   };
-  condition: {
-    name: string;
-    case_control_status: string;
-  };
+  case_control_status: string;
+  biospecimen_type: string;
+  biospecimen_tissue_term: string;
 }
 
 export interface ProjectModel {
@@ -100,7 +100,8 @@ export interface StudyEmbeddedModel {
   alias: string;
   title: string;
   description: string;
-  type: string;
+  types: string[];
+  affiliations: string[];
   attributes: AttributeModel[];
   publications: PublicationModel[];
 }
@@ -145,7 +146,7 @@ export interface DatasetEmbeddedModel {
   sequencing_process_files: FileModel[];
   analysis_process_output_files: FileModel[];
   samples: SampleModel[];
-  studies: StudyEmbeddedModel[];
+  study: StudyEmbeddedModel;
   data_access_policy: DataAccessPolicyModel;
 }
 

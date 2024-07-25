@@ -12,7 +12,7 @@ interface SingleDatasetViewAccordionProps {
 
 /** Section at the end of dataset details page consisting of three collapsible summary tables. */
 const SingleDatasetViewAccordion = (props: SingleDatasetViewAccordionProps) => {
-  const all_files = Object.keys(props.details)
+  const allFiles = Object.keys(props.details)
     .filter((key) => key.endsWith("_files"))
     .flatMap((key: string) => {
       const files = (props.details as any)[key];
@@ -21,12 +21,10 @@ const SingleDatasetViewAccordion = (props: SingleDatasetViewAccordionProps) => {
       return files.map((file: any) => ({ ...file, file_category }));
     });
 
-  const fileSize = all_files.reduce((a, c) => a + c.size, 0);
-
   let Tables: SDSVTableDefinition[] = [
     ExperimentsTable(props),
     SamplesTable(props),
-    FilesTable({ all_files }, fileSize),
+    FilesTable({ allFiles }),
   ];
 
   return (
