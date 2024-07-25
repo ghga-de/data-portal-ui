@@ -4,27 +4,31 @@ import { MetadataSummaryModel, FileSummaryModel } from "../../models/dataset";
 export function aggregateFileStats(
   summary: MetadataSummaryModel
 ): FileSummaryModel {
-  const stats: {
-    [key: string]: FileSummaryModel;
-  } = summary.resource_stats as any;
-  const formats: { [format: string]: number } = {};
-  let count = 0;
-  for (const statsName of Object.keys(stats).filter((key) =>
-    key.endsWith("File")
-  )) {
-    const fileSummary = stats[statsName];
-    count += fileSummary.count || 0;
-    for (const format of fileSummary.stats?.format || []) {
-      formats[format.value] = (formats[format.value] || 0) + format.count;
+  if (summary.resource_stats) {
+    const stats: {
+      [key: string]: FileSummaryModel;
+    } = summary.resource_stats as any;
+    const formats: { [format: string]: number } = {};
+    let count = 0;
+    for (const statsName of Object.keys(stats).filter((key) =>
+      key.endsWith("File")
+    )) {
+      const fileSummary = stats[statsName];
+      count += fileSummary.count || 0;
+      for (const format of fileSummary.stats?.format || []) {
+        formats[format.value] = (formats[format.value] || 0) + format.count;
+      }
     }
+    return {
+      count,
+      stats: {
+        format: Object.entries(formats).map(([value, count]) => ({
+          value,
+          count,
+        })),
+      },
+    };
+  } else {
+    return { count: 0, stats: { format: [] } };
   }
-  return {
-    count,
-    stats: {
-      format: Object.entries(formats).map(([value, count]) => ({
-        value,
-        count,
-      })),
-    },
-  };
 }
