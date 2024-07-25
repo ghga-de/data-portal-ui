@@ -25,19 +25,17 @@ export const ExperimentsTable = (props: ExperimentsTableProps) => {
     order: 0,
   });
 
+  const experiments = props.details.sequencing_experiments || [];
+
   const experimentsTable: TableFields[] = [
     {
       header: "Experiment ID",
-      data: props.details.sequencing_experiments
-        ? props.details.sequencing_experiments?.map((x) => x.alias)
-        : [],
+      data: experiments.map((x) => x.alias),
       cssClasses: "w-25 text-wrap text-break",
     },
     {
       header: "Description",
-      data: props.details.sequencing_experiments
-        ? props.details.sequencing_experiments?.map((x) => x.description)
-        : [],
+      data: experiments?.map((x) => x.description),
       cssClasses: "text-wrap text-break",
     },
   ];
@@ -48,10 +46,8 @@ export const ExperimentsTable = (props: ExperimentsTableProps) => {
 
   const experimentsTableDef: SDSVTableDefinition = {
     table: experimentsTable,
-    buttonText: props.details.sequencing_experiments
-      ? "Experiment Summary (" +
-        props.details.sequencing_experiments.length +
-        " experiments)"
+    buttonText: experiments
+      ? "Experiment Summary (" + experiments.length + " experiments)"
       : "Experiment Summary (0 experiments)",
     sortDefinition: sortDefinition,
     setSortDefinition: setSortDefinition,
