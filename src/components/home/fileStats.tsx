@@ -9,13 +9,11 @@ export function aggregateFileStats(
   } = summary.resource_stats as any;
   const formats: { [format: string]: number } = {};
   let count = 0;
-  // let size = 0;
   for (const statsName of Object.keys(stats).filter((key) =>
     key.endsWith("File")
   )) {
     const fileSummary = stats[statsName];
     count += fileSummary.count || 0;
-    // size += fileSummary.stats?.size || 0;
     for (const format of fileSummary.stats?.format || []) {
       formats[format.value] = (formats[format.value] || 0) + format.count;
     }
@@ -27,7 +25,6 @@ export function aggregateFileStats(
         value,
         count,
       })),
-      // size,
     },
   };
 }

@@ -41,16 +41,6 @@ export const FilesTable = (props: FilesTableProps, fileSize: number) => {
       data: props.all_files.map((x) => x.format?.toUpperCase()),
       cssClasses: "",
     },
-    // {
-    //   header: "Size",
-    //   data: props.all_files.map((x) => parseBytes(x.size)),
-    //   cssClasses: "",
-    // },
-    // {
-    //   header: "Checksum",
-    //   data: props.all_files.map((x) => x.checksum_type + ": " + x.checksum),
-    //   cssClasses: "",
-    // },
     {
       header: "File Origin",
       data: props.all_files.map((x) => x.file_category),
@@ -66,10 +56,7 @@ export const FilesTable = (props: FilesTableProps, fileSize: number) => {
     table: filesTable,
     buttonText:
       props.all_files !== null
-        ? "File Summary (" +
-          props.all_files.length +
-          " files" +
-          ")"
+        ? "File Summary (" + props.all_files.length + " files" + ")"
         : "File Summary",
     sortDefinition: sortDefinition,
     setSortDefinition: setSortDefinition,
