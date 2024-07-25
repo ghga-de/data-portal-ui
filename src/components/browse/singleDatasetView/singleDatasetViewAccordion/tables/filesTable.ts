@@ -56,7 +56,7 @@ export const FilesTable = (props: FilesTableProps, fileSize: number) => {
     table: filesTable,
     buttonText:
       props.all_files !== null
-        ? "File Summary (" + props.all_files.length + " files" + ")"
+        ? "File Summary (" + props.all_files.length + " files)"
         : "File Summary",
     sortDefinition: sortDefinition,
     setSortDefinition: setSortDefinition,
