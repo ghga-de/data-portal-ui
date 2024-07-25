@@ -72,17 +72,17 @@ export interface SampleModel {
   name: string;
   description: string;
   alias: string;
-  biospecimen: {
-    individual: {
-      sex: string;
-      phenotypic_features: string[];
-    };
-    tissue: string;
+  individual: {
+    accession: string;
+    alias: string;
+    phenotypic_features_terms: string[];
+    diagnosis_terms: string[];
+    sex: string;
+    geographical_region_term: string;
   };
-  condition: {
-    name: string;
-    case_control_status: string;
-  };
+  case_control_status: string;
+  biospecimen_type: string;
+  biospecimen_tissue_term: string;
 }
 
 export interface ProjectModel {

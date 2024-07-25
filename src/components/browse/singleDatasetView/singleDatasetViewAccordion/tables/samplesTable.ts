@@ -40,21 +40,30 @@ export const SamplesTable = (props: SamplesTableProps) => {
     },
     {
       header: "Status",
-      data: samples.map((x) => x.condition.case_control_status),
+      data: samples.map((x) => x.case_control_status),
+      cssClasses: "text-capitalize",
+    },
+    {
+      header: "Sex",
+      data: samples.map((x) => x.individual.sex || "N/A"),
       cssClasses: "text-capitalize",
     },
     {
       header: "Phenotype",
-      data: samples.map((x) =>
-        x.biospecimen.individual.phenotypic_features
-          ? x.biospecimen.individual.phenotypic_features[0]
-          : "N/A"
+      data: samples.map(
+        (x) =>
+          (x.individual.phenotypic_features_terms || []).join(", ") || "N/A"
       ),
+      cssClasses: "text-wrap text-break",
+    },
+    {
+      header: "Biospecimen type",
+      data: samples.map((x) => x.biospecimen_type || "N/A"),
       cssClasses: "",
     },
     {
       header: "Tissue",
-      data: samples.map((x) => x.biospecimen || "N/A"),
+      data: samples.map((x) => x.biospecimen_tissue_term || "N/A"),
       cssClasses: "text-capitalize",
     },
   ];
