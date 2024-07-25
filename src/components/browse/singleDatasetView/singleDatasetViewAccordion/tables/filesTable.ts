@@ -28,22 +28,22 @@ export const FilesTable = (props: FilesTableProps, fileSize: number) => {
   let filesTable: TableFields[] = [
     {
       header: "File ID",
-      data: props.all_files.map((x) => x.accession),
+      data: props.all_files?.map((x) => x.accession),
       cssClasses: "text-break",
     },
     {
       header: "File name",
-      data: props.all_files.map((x) => x.name),
+      data: props.all_files?.map((x) => x.name),
       cssClasses: "text-break",
     },
     {
       header: "File Type",
-      data: props.all_files.map((x) => x.format?.toUpperCase()),
+      data: props.all_files?.map((x) => x.format?.toUpperCase()),
       cssClasses: "",
     },
     {
       header: "File Origin",
-      data: props.all_files.map((x) => x.file_category),
+      data: props.all_files?.map((x) => x.file_category),
       cssClasses: "",
     },
   ];
@@ -55,9 +55,9 @@ export const FilesTable = (props: FilesTableProps, fileSize: number) => {
   const filesTableDef: SDSVTableDefinition = {
     table: filesTable,
     buttonText:
-      props.all_files !== null
+      props.all_files !== null && props.all_files !== undefined
         ? "File Summary (" + props.all_files.length + " files)"
-        : "File Summary",
+        : "File Summary (0 files)",
     sortDefinition: sortDefinition,
     setSortDefinition: setSortDefinition,
     sortedData: sortedData,

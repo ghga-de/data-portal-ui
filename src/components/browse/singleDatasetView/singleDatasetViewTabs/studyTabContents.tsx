@@ -13,7 +13,7 @@ const StudyTabContents = (props: StudyTabContentsProps) => {
   return (
     <Tab.Pane eventKey="0" className="h-100">
       <PerfectScrollbar>
-        {props.details.studies !== null ? (
+        {props.details.studies ? (
           props.details.studies.map((x) => {
             return (
               <div key={x.accession} className="text-break pb-4">

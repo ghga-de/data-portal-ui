@@ -51,13 +51,12 @@ export const ExperimentsTable = (props: ExperimentsTableProps) => {
   const experimentsTableDef: SDSVTableDefinition = {
     table: experimentsTable,
     buttonText:
-      props.details.sequencing_experiments !== null
+      props.details.sequencing_experiments !== null &&
+      props.details.sequencing_experiments !== undefined
         ? "Experiment Summary (" +
-          (props.details.sequencing_experiments !== undefined
-            ? props.details.sequencing_experiments.length
-            : 0) +
+          props.details.sequencing_experiments.length +
           " experiments)"
-        : "Experiment Summary",
+        : "Experiment Summary (0 experiments)",
     sortDefinition: sortDefinition,
     setSortDefinition: setSortDefinition,
     sortedData: sortedData,
