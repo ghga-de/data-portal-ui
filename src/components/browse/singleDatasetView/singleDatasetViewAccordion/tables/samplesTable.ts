@@ -68,7 +68,7 @@ export const SamplesTable = (props: SamplesTableProps) => {
   const samplesTableDef: SDSVTableDefinition = {
     table: samplesTable,
     buttonText: samples
-      ? "Sample Summary (" + props.details.samples.length + " samples)"
+      ? "Sample Summary (" + samples.length + " samples)"
       : "Sample Summary (0 samples)",
     sortDefinition: sortDefinition,
     setSortDefinition: setSortDefinition,
