@@ -25,25 +25,27 @@ export const SamplesTable = (props: SamplesTableProps) => {
     order: 0,
   });
 
+  const samples = props.details.samples || [];
+
   const samplesTable: TableFields[] = [
     {
       header: "Sample ID",
-      data: props.details.samples?.map((x) => x.alias),
+      data: samples.map((x) => x.alias),
       cssClasses: "",
     },
     {
       header: "Description",
-      data: props.details.samples?.map((x) => x.description),
+      data: samples.map((x) => x.description),
       cssClasses: "text-wrap text-break",
     },
     {
       header: "Status",
-      data: props.details.samples?.map((x) => x.condition.case_control_status),
+      data: samples.map((x) => x.condition.case_control_status),
       cssClasses: "text-capitalize",
     },
     {
       header: "Phenotype",
-      data: props.details.samples?.map((x) =>
+      data: samples.map((x) =>
         x.biospecimen.individual.phenotypic_features !== null
           ? x.biospecimen.individual.phenotypic_features[0]
           : "N/A"
@@ -65,10 +67,9 @@ export const SamplesTable = (props: SamplesTableProps) => {
 
   const samplesTableDef: SDSVTableDefinition = {
     table: samplesTable,
-    buttonText:
-      props.details.samples !== null && props.details.samples !== undefined
-        ? "Sample Summary (" + props.details.samples.length + " samples)"
-        : "Sample Summary (0 samples)",
+    buttonText: samples
+      ? "Sample Summary (" + props.details.samples.length + " samples)"
+      : "Sample Summary (0 samples)",
     sortDefinition: sortDefinition,
     setSortDefinition: setSortDefinition,
     sortedData: sortedData,

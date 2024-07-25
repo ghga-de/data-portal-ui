@@ -24,32 +24,30 @@ export const FilesTable = (props: FilesTableProps) => {
     order: 0,
   });
 
-  const allFiles = props.allFiles;
+  const allFiles = props.allFiles || [];
 
-  let filesTable: TableFields[] = allFiles
-    ? [
-        {
-          header: "File ID",
-          data: allFiles.map((x) => x.accession),
-          cssClasses: "text-break",
-        },
-        {
-          header: "File name",
-          data: allFiles.map((x) => x.name),
-          cssClasses: "text-break",
-        },
-        {
-          header: "File Type",
-          data: allFiles.map((x) => x.format?.toUpperCase()),
-          cssClasses: "",
-        },
-        {
-          header: "File Origin",
-          data: allFiles.map((x) => x.file_category),
-          cssClasses: "",
-        },
-      ]
-    : [];
+  let filesTable: TableFields[] = [
+    {
+      header: "File ID",
+      data: allFiles.map((x) => x.accession),
+      cssClasses: "text-break",
+    },
+    {
+      header: "File name",
+      data: allFiles.map((x) => x.name),
+      cssClasses: "text-break",
+    },
+    {
+      header: "File Type",
+      data: allFiles.map((x) => x.format?.toUpperCase()),
+      cssClasses: "",
+    },
+    {
+      header: "File Origin",
+      data: allFiles.map((x) => x.file_category),
+      cssClasses: "",
+    },
+  ];
 
   const [sortedData, setSortedData] = useState<any>(
     transposeTableForHTML(filesTable.map((x) => x.data))
