@@ -48,8 +48,12 @@ const StudyTabContents = (props: StudyTabContentsProps) => {
               {study.description}
             </p>
             <p className="mb-4">
-              <strong>Type: </strong>
-              <span className="text-capitalize">{study.type}</span>
+              <strong>Types: </strong>
+              <span className="text-capitalize">
+                {(study.types || [])
+                  .map((x) => x.toLowerCase().replace(/_/g, " "))
+                  .join(", ")}
+              </span>
             </p>
           </div>
         ) : (

@@ -30,7 +30,7 @@ export const SamplesTable = (props: SamplesTableProps) => {
   const samplesTable: TableFields[] = [
     {
       header: "Sample ID",
-      data: samples.map((x) => x.alias),
+      data: samples.map((x) => x.accession),
       cssClasses: "",
     },
     {
@@ -40,12 +40,14 @@ export const SamplesTable = (props: SamplesTableProps) => {
     },
     {
       header: "Status",
-      data: samples.map((x) => x.case_control_status),
+      data: samples.map(
+        (x) => (x.case_control_status || "").toLowerCase() || "N/A"
+      ),
       cssClasses: "text-capitalize",
     },
     {
       header: "Sex",
-      data: samples.map((x) => x.individual.sex || "N/A"),
+      data: samples.map((x) => (x.individual.sex || "").toLowerCase() || "N/A"),
       cssClasses: "text-capitalize",
     },
     {

@@ -100,7 +100,8 @@ export interface StudyEmbeddedModel {
   alias: string;
   title: string;
   description: string;
-  type: string;
+  types: string[];
+  affiliations: string[];
   attributes: AttributeModel[];
   publications: PublicationModel[];
 }
