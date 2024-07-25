@@ -187,20 +187,20 @@ def get_target_files(
     exclude_normalized = [(abs_target_dir / excl).absolute() for excl in exclude]
 
     # get all files:
-    allFiles = [
+    all_files = [
         file_.absolute() for file_ in Path(abs_target_dir).rglob("*") if file_.is_file()
     ]
 
-    targetFiles = [
+    target_files = [
         file_
-        for file_ in allFiles
+        for file_ in all_files
         if not (
             any([file_.is_relative_to(excl) for excl in exclude_normalized])
             or any([str(file_).endswith(ending) for ending in exclude_endings])
             or any([re.match(pattern, str(file_)) for pattern in exclude_pattern])
         )
     ]
-    return targetFiles
+    return target_files
 
 
 def normalized_line(line: str, chars_to_trim: list[str] = COMMENT_CHARS) -> str:
