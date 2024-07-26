@@ -104,16 +104,20 @@ const HomeMidSection = () => {
       badgeDark: true,
     });
 
-    const protocolTypes =
-      summary?.resource_stats?.ExperimentMethod?.stats?.instrument_model || [];
+    const experimentMethods = summary?.resource_stats?.ExperimentMethod;
+    const protocolTypes = experimentMethods?.stats?.instrument_model || [];
     Badges.push({
       badgeTitle: BadgeTitleGen(faDna, "Platforms: " + protocolTypes.length),
-      badgeBody: protocolTypes.map((x: any) => (
-        <Row key={x.value} className="text-capitalize ms-0 ps-0 mb-2 w-100">
-          <Col>{x.value}:</Col>
-          <Col className="col-auto">{x.count}</Col>
-        </Row>
-      )),
+      badgeBody: (
+        <table className="mx-auto w-auto">
+          {protocolTypes.map((x) => (
+            <tr>
+              <th className="text-end pe-2">{x.count}</th>
+              <td>{x.value}</td>
+            </tr>
+          ))}
+        </table>
+      ),
       bodyColClasses: "pt-3 fs-7 align-items-center",
     });
 
@@ -122,15 +126,16 @@ const HomeMidSection = () => {
     const individualSexes = individuals?.stats?.sex || [];
     Badges.push({
       badgeTitle: BadgeTitleGen(faUser, "Individuals: " + numIndividuals, true),
-      badgeBody: individualSexes.map((x, i) => {
-        const sex = /FEMALE/.test(x.value) ? "Female" : "Male";
-        return (
-          <Row key={x.value} className="text-capitalize ms-0 ps-0 mb-2 w-100">
-            <Col>{sex}:</Col>
-            <Col className="col-auto">{x.count}</Col>
-          </Row>
-        );
-      }),
+      badgeBody: (
+        <table className="mx-auto w-auto">
+          {individualSexes.map((x) => (
+            <tr>
+              <th className="text-end pe-2">{x.count}</th>
+              <td className="text-capitalize">{x.value.toLowerCase()}</td>
+            </tr>
+          ))}
+        </table>
+      ),
       badgeDark: true,
       bodyColClasses: "pt-3 fs-7 align-items-center",
     });
@@ -138,12 +143,16 @@ const HomeMidSection = () => {
     const fileStats = aggregateFileStats(summary);
     Badges.push({
       badgeTitle: BadgeTitleGen(faChartColumn, "Files: " + fileStats.count),
-      badgeBody: fileStats.stats.format.map((x) => (
-        <Row key={x.value} className="text-capitalize ms-0 ps-0 mb-2 w-100">
-          <Col>{x.value}:</Col>
-          <Col className="col-auto">{x.count}</Col>
-        </Row>
-      )),
+      badgeBody: (
+        <table className="mx-auto w-auto">
+          {fileStats.stats.format.map((x) => (
+            <tr>
+              <th className="text-end pe-2">{x.count}</th>
+              <td>{x.value}</td>
+            </tr>
+          ))}
+        </table>
+      ),
       bodyColClasses: "pt-3 fs-7 align-items-center",
     });
   }

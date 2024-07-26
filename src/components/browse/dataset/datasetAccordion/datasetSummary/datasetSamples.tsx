@@ -31,8 +31,8 @@ const DatasetSamples = (props: DataSetSamplesProps) => {
                 {stats.sex.length > 0 ? (
                   <>
                     (Sex:&nbsp;
-                    {stats.sex.map((x, idx, arr) => {
-                      const sex = /FEMALE/.test(x.value) ? "Female" : "Male";
+                    {stats.sex.map((x, idx) => {
+                      const sex = x.value.toLowerCase();
                       return (
                         <span title={sex} key={sex}>
                           {`${idx ? ", " : ""} ${x.count} ${sex}`}
