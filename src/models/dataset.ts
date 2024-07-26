@@ -156,7 +156,7 @@ export interface HitContentModel {
   description: string;
   types: string[];
   study_files: string[];
-  studies: string[];
+  study: StudyEmbeddedModel;
   samples: string[];
   sequencing_experiments: string[];
 }
@@ -181,7 +181,7 @@ export interface DatasetDetailsSummaryModel {
   dac_email: string;
   samples_summary: SampleSummaryModel;
   studies_summary: StudySummaryModel;
-  sequencing_experiments_summary: ExperimentSummaryModel;
+  experiments_summary: ExperimentSummaryModel;
   files_summary: FileSummaryModel;
 }
 
@@ -209,7 +209,7 @@ export interface StudySummaryModel {
 export interface ExperimentSummaryModel {
   count: number;
   stats: {
-    sequencing_protocols: { value: string; count: number }[];
+    experiment_methods: { value: string; count: number }[];
   };
 }
 
