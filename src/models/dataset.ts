@@ -49,13 +49,18 @@ export interface FileModel {
 export interface ExperimentEmbeddedModel {
   accession: string;
   ega_accession: string;
-  title: string;
-  sequencing_protocol: {
-    instrument_model: string;
-  };
-  description: string;
   alias: string;
   type: string;
+  title: string;
+  description: string;
+  experiment_method: {
+    accession: string;
+    alias: string;
+    name: string;
+    description: string;
+    type: string;
+    instrument_model: string;
+  };
 }
 
 export interface PublicationModel {

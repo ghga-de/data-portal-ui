@@ -12,31 +12,28 @@ interface DataSetExperimentsProps {
 
 /** Dataset summary section displays the experimental information. */
 const DatasetExperiments = (props: DataSetExperimentsProps) => {
+  const experiments = props.experiments || {
+    count: 0,
+    stats: { experiment_methods: [] },
+  };
   return (
     <DatasetDetailsLayout
       icon={<FontAwesomeIcon icon={faFlask} />}
       content={
         <Row>
           <p className="mb-0">
-            <strong>Sequencing experiments</strong>
+            <strong>Experiment summary</strong>
           </p>
-          <p className="mb-0">
-            Experiments: <strong>{props.experiments?.count}</strong>{" "}
-          </p>
-          <div className="mb-0">
-            Platforms:&nbsp;
-            {props.experiments?.stats.experiment_methods ? (
-              <strong>
-                {
-                  Object.keys(props.experiments?.stats.experiment_methods)
-                    .length
-                }
-              </strong>
-            ) : (
-              ""
-            )}
+          <div>
+            <p className="mb-0">
+              <strong>{experiments.count}</strong> Experiments
+            </p>
+            <p className="mb-0">
+              <strong>{experiments.stats.experiment_methods.length}</strong>{" "}
+              Platforms
+            </p>
             <ul>
-              {props.experiments?.stats.experiment_methods.map((x) => {
+              {experiments.stats.experiment_methods.map((x) => {
                 return (
                   <li key={x.value}>{<BoldenedSummaryDetails x={x} />}</li>
                 );

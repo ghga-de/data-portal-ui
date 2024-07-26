@@ -30,18 +30,36 @@ export const ExperimentsTable = (props: ExperimentsTableProps) => {
   const experimentsTable: TableFields[] = [
     {
       header: "Experiment ID",
-      data: experiments.map((x) => x.alias),
-      cssClasses: "text-wrap text-break",
+
+      data: experiments.map((x) => x.accession),
+      cssClasses: "",
     },
     {
       header: "EGA ID",
       data: experiments.map((x) => x.ega_accession),
+      cssClasses: "",
+    },
+    {
+      header: "Title",
+      data: experiments?.map((x) => x.title),
       cssClasses: "text-wrap text-break",
     },
     {
       header: "Description",
       data: experiments?.map((x) => x.description),
       cssClasses: "text-wrap text-break",
+    },
+    {
+      header: "Method",
+      data: experiments?.map((x) => x.experiment_method.type || "N/A"),
+      cssClasses: "",
+    },
+    {
+      header: "Platform",
+      data: experiments?.map(
+        (x) => x.experiment_method.instrument_model || "N/A"
+      ),
+      cssClasses: "",
     },
   ];
 

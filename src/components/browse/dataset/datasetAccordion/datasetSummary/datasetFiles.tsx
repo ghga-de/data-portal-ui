@@ -12,6 +12,7 @@ interface DataSetFilesProps {
 
 /** Dataset summary section displays the summary of files. */
 const DatasetFiles = (props: DataSetFilesProps) => {
+  const files = props.files || { count: 0, stats: { format: [] } };
   return (
     <DatasetDetailsLayout
       icon={<FontAwesomeIcon icon={faFileLines} />}
@@ -20,24 +21,20 @@ const DatasetFiles = (props: DataSetFilesProps) => {
           <p className="mb-0">
             <strong>File summary</strong>
           </p>
-          {props.files ? (
-            <div>
-              <p className="mb-0">
-                <strong>{props.files.count}</strong> Files
-              </p>
-              <ul className="mb-0">
-                {props.files.stats?.format.map((x) => {
-                  return (
-                    <li key={x.value} className="text-uppercase">
-                      {<BoldenedSummaryDetails x={x} />}
-                    </li>
-                  );
-                })}
-              </ul>
-            </div>
-          ) : (
-            <p className="mb-0">0 Files</p>
-          )}
+          <div>
+            <p className="mb-0">
+              <strong>{files.count}</strong> Files
+            </p>
+            <ul className="mb-0">
+              {files.stats.format.map((x) => {
+                return (
+                  <li key={x.value} className="text-uppercase">
+                    {<BoldenedSummaryDetails x={x} />}
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
         </Row>
       }
     />
