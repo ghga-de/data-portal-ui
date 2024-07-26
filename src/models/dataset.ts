@@ -1,43 +1,5 @@
 import { FacetModel } from "./facets";
 
-export interface DatasetSampleModel {
-  id: string;
-  tissue: string;
-}
-
-export interface DatasetFileModel {
-  accession: string;
-  format: string;
-}
-
-export interface DatasetPublicationModel {
-  id: string;
-  title: string;
-}
-
-export interface DatasetExperimentModel {
-  id: string;
-  type: string;
-  has_sample: DatasetSampleModel[];
-  has_file: DatasetFileModel[];
-}
-
-export interface DatasetModel {
-  document_type: string;
-  id: string;
-  accession: string;
-  title: string;
-  description: string;
-  type: string[];
-  has_file: DatasetFileModel[];
-  has_study: string;
-  has_publication: DatasetPublicationModel[];
-  has_experiment: DatasetExperimentModel[];
-  status: string;
-  creation_date: string;
-  update_date: string;
-}
-
 export interface FileModel {
   accession: string;
   ega_accession: string;
@@ -93,16 +55,6 @@ export interface SampleModel {
   biospecimen_tissue_term: string;
 }
 
-export interface ProjectModel {
-  id: string;
-  title: string;
-  alias: string;
-  has_attribute: AttributeModel[];
-  description: string;
-  accession: string;
-  ega_accession: string;
-}
-
 export interface StudyEmbeddedModel {
   accession: string;
   ega_accession: string;
@@ -130,12 +82,6 @@ export interface DataAccessCommitteeModel {
   alias: string;
   email: string;
   institute: string;
-}
-
-export interface DataAccessCommitteeMemberModel {
-  email: string;
-  id: string;
-  organization: string;
 }
 
 export interface AttributeModel {
