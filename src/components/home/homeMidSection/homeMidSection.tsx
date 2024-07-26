@@ -110,11 +110,11 @@ const HomeMidSection = () => {
       badgeTitle: BadgeTitleGen(faDna, "Platforms: " + protocolTypes.length),
       badgeBody: protocolTypes.map((x: any) => (
         <Row key={x.value} className="text-capitalize ms-0 ps-0 mb-2 w-100">
-          <Col className="ms-0 ps-0">{x.value}:</Col>
-          <Col className="col-auto text-end fw-bold pe-0">{x.count}</Col>
+          <Col>{x.value}:</Col>
+          <Col className="col-auto">{x.count}</Col>
         </Row>
       )),
-      bodyRowClasses: "pt-3 fs-7",
+      bodyColClasses: "pt-3 fs-7 align-items-center",
     });
 
     const individuals = summary?.resource_stats?.Individual;
@@ -122,47 +122,28 @@ const HomeMidSection = () => {
     const individualSexes = individuals?.stats?.sex || [];
     Badges.push({
       badgeTitle: BadgeTitleGen(faUser, "Individuals: " + numIndividuals, true),
-      badgeBody: (
-        <div>
-          <Row className="mt-3 w-100 px-0 mx-0">
-            {individualSexes.map((x, i) => {
-              const sex = /FEMALE/.test(x.value) ? "Female" : "Male";
-              return (
-                <Col key={i} className="text-center mb-4 ps-1 text-capitalize">
-                  {sex}
-                  :&nbsp;
-                  <strong>{x.count}</strong>
-                </Col>
-              );
-            })}
+      badgeBody: individualSexes.map((x, i) => {
+        const sex = /FEMALE/.test(x.value) ? "Female" : "Male";
+        return (
+          <Row key={x.value} className="text-capitalize ms-0 ps-0 mb-2 w-100">
+            <Col>{sex}:</Col>
+            <Col className="col-auto">{x.count}</Col>
           </Row>
-        </div>
-      ),
+        );
+      }),
       badgeDark: true,
+      bodyColClasses: "pt-3 fs-7 align-items-center",
     });
 
     const fileStats = aggregateFileStats(summary);
     Badges.push({
       badgeTitle: BadgeTitleGen(faChartColumn, "Files: " + fileStats.count),
-      badgeBody: (
-        <table>
-          <tbody>
-            {fileStats.stats.format.map((x) => {
-              return (
-                <tr key={x.value} className="text-uppercase ms-0 ps-0">
-                  <td
-                    className="ms-0 ps-3 pe-4"
-                    style={{ width: "1px", whiteSpace: "nowrap" }}
-                  >
-                    {x.value}:
-                  </td>
-                  <td className="fw-bold">{x.count}</td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
-      ),
+      badgeBody: fileStats.stats.format.map((x) => (
+        <Row key={x.value} className="text-capitalize ms-0 ps-0 mb-2 w-100">
+          <Col>{x.value}:</Col>
+          <Col className="col-auto">{x.count}</Col>
+        </Row>
+      )),
       bodyColClasses: "pt-3 fs-7 align-items-center",
     });
   }
