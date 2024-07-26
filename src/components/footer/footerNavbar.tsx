@@ -1,8 +1,8 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Col, Row, Button } from "react-bootstrap";
 import {
-  faCloudDownload,
-  faCloudUpload,
+  faDatabase,
+  faEarthEurope,
   faFileLines,
 } from "@fortawesome/free-solid-svg-icons";
 import { faQuestionCircle } from "@fortawesome/free-regular-svg-icons";
@@ -20,53 +20,39 @@ const FooterNavbar = () => {
         <Row style={{ marginBottom: "-50px" }}>
           <Col className="order-lg-1 mb-4 mb-lg-0">
             <Row className="border-start-sm">
-              <NavLink to="/download" end={true} className={LEFT_LINK_CLASSES}>
-                <Button className="w-100 h-100 rounded-0 py-0 px-3 m-0 border-0">
-                  <FontAwesomeIcon
-                    icon={faCloudDownload}
-                    size="4x"
-                    className="text-white mt-3 mb-3"
-                  />
-                  <p className="text-white text-decoration-none">
-                    How to Get Data Access
-                    <br />
-                    &nbsp;
-                  </p>
-                </Button>
-              </NavLink>
-              <NavLink to="/upload" end={true} className={RIGHT_LINK_CLASSES}>
-                <Button className="w-100 h-100 rounded-0 py-0 px-3 m-0 border-0">
-                  <FontAwesomeIcon
-                    icon={faCloudUpload}
-                    size="4x"
-                    className="text-white mt-3 mb-3"
-                  />
-                  <p className="text-white text-decoration-none">
-                    How to Submit Data
-                    <br />
-                    &nbsp;
-                  </p>
-                </Button>
-              </NavLink>
               <NavLink
-                to="/metadata-model"
+                to="https://www.ghga.de"
                 end={true}
                 className={LEFT_LINK_CLASSES}
               >
                 <Button className="w-100 h-100 rounded-0 py-0 px-3 m-0 border-0">
                   <FontAwesomeIcon
-                    icon={faFileLines}
+                    icon={faEarthEurope}
                     size="4x"
                     className="text-white mt-3 mb-3"
                   />
                   <p className="text-white text-decoration-none">
-                    About the GHGA
+                    GHGA Website
                     <br />
-                    Metadata Model
+                    &nbsp;
                   </p>
                 </Button>
               </NavLink>
-              <NavLink to="/faq" end={true} className={RIGHT_LINK_CLASSES}>
+              <NavLink to="/browse" end={true} className={RIGHT_LINK_CLASSES}>
+                <Button className="w-100 h-100 rounded-0 py-0 px-3 m-0 border-0">
+                  <FontAwesomeIcon
+                    icon={faDatabase}
+                    size="4x"
+                    className="text-white mt-3 mb-3"
+                  />
+                  <p className="text-white text-decoration-none">
+                    Browse Data
+                    <br />
+                    &nbsp;
+                  </p>
+                </Button>
+              </NavLink>
+              <NavLink to="/faq" end={true} className={LEFT_LINK_CLASSES}>
                 <Button className="w-100 h-100 rounded-0 py-0 px-3 m-0 border-0">
                   <FontAwesomeIcon
                     icon={faQuestionCircle}
@@ -77,6 +63,24 @@ const FooterNavbar = () => {
                     FAQ
                     <br />
                     &nbsp;
+                  </p>
+                </Button>
+              </NavLink>
+              <NavLink
+                to="https://docs.ghga.de/"
+                end={true}
+                className={RIGHT_LINK_CLASSES}
+              >
+                <Button className="w-100 h-100 rounded-0 py-0 px-3 m-0 border-0">
+                  <FontAwesomeIcon
+                    icon={faFileLines}
+                    size="4x"
+                    className="text-white mt-3 mb-3"
+                  />
+                  <p className="text-white text-decoration-none">
+                    GHGA User
+                    <br />
+                    Documentation
                   </p>
                 </Button>
               </NavLink>

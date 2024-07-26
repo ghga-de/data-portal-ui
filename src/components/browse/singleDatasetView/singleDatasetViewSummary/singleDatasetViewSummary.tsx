@@ -15,8 +15,13 @@ const SingleDatasetViewSummary = (props: SingleDatasetViewSummaryProps) => {
       <h5>
         <strong>{props.details.title}</strong>
       </h5>
-      <p>Dataset ID | {props.details.accession}</p>
-      <div className="fs-7">
+      <p className="mb-0">Dataset ID | {props.details.accession}</p>
+      {props.details.ega_accession ? (
+        <p className="mb-0">EGA ID | {props.details.ega_accession}</p>
+      ) : (
+        <></>
+      )}
+      <div className="fs-7 mt-3">
         <Row className="me-0 mb-2 w-100 mx-0">
           <Col xs={"auto"} className="px-0">
             Study Type |{" "}

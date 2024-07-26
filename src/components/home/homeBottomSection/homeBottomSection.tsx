@@ -2,6 +2,8 @@ import { Button, Carousel, Col, Row } from "react-bootstrap";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import "react-perfect-scrollbar/dist/css/styles.css";
 import standards from "./standards.json";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowUpRightFromSquare } from "@fortawesome/free-solid-svg-icons";
 
 /**
  * Section on the home page where Standards are displayed in carousel.
@@ -85,7 +87,8 @@ const HomeBottomSection = () => {
                         className="shadow-md-dark my-4"
                         href={x.learn_more_href}
                       >
-                        Learn more...
+                        <FontAwesomeIcon icon={faArrowUpRightFromSquare} />
+                        &nbsp;Learn more...
                       </Button>
                     ) : (
                       <Button
