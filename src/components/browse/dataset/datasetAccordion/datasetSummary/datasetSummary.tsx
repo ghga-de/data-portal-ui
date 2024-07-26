@@ -115,7 +115,7 @@ const DatasetSummary = (props: DataSetDetailsProps) => {
               <Col>
                 <DatasetFiles files={props.summary.files_summary} />
                 <DatasetExperiments
-                  experiments={props.summary.sequencing_experiments_summary}
+                  experiments={props.summary.experiments_summary}
                 />
               </Col>
             </Row>

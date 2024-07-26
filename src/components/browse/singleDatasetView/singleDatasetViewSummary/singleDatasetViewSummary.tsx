@@ -10,7 +10,6 @@ interface SingleDatasetViewSummaryProps {
 /** Section at the top of dataset details page where the summary of dataset displayed. */
 const SingleDatasetViewSummary = (props: SingleDatasetViewSummaryProps) => {
   const study = props.details.study;
-  console.log("STUDY", study);
   return (
     <div>
       <h5>

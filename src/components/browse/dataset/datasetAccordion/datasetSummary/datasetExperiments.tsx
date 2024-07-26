@@ -25,10 +25,10 @@ const DatasetExperiments = (props: DataSetExperimentsProps) => {
           </p>
           <div className="mb-0">
             Platforms:&nbsp;
-            {props.experiments?.stats.sequencing_protocols ? (
+            {props.experiments?.stats.experiment_methods ? (
               <strong>
                 {
-                  Object.keys(props.experiments?.stats.sequencing_protocols)
+                  Object.keys(props.experiments?.stats.experiment_methods)
                     .length
                 }
               </strong>
@@ -36,7 +36,7 @@ const DatasetExperiments = (props: DataSetExperimentsProps) => {
               ""
             )}
             <ul>
-              {props.experiments?.stats.sequencing_protocols.map((x) => {
+              {props.experiments?.stats.experiment_methods.map((x) => {
                 return (
                   <li key={x.value}>{<BoldenedSummaryDetails x={x} />}</li>
                 );

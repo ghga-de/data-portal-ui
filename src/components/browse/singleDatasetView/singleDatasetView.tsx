@@ -35,9 +35,6 @@ const SingleDatasetView = () => {
       if (!queried) {
         setQueried(true);
         getDatasetDetails(datasetAccession, setDetails);
-        if (details === undefined) {
-          setDetails(null);
-        }
       }
     };
     if (!queried) {

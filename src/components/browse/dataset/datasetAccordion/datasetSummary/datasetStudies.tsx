@@ -18,7 +18,7 @@ const DatasetStudies = (props: DataSetStudiesProps) => {
         stats ? (
           <div>
             <p className="mb-0">
-              <strong>Part of studies:&nbsp;</strong>
+              <strong>Part of study:&nbsp;</strong>
               {stats.title
                 ? stats.title.map((x) => <span key={x}>{x}.&nbsp;</span>)
                 : stats.accession.map((x) => <span key={x}>{x}.&nbsp;</span>)}
