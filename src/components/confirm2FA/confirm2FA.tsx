@@ -109,6 +109,8 @@ const Confirm2FA = () => {
     unblock();
     back();
   } else {
+    const has2fa = /HasTotpToken|Authenticated/.test(user?.state);
+
     const Lost2FAModal = (props: any) => {
       const [disabledNew2FAButton, setDisabledNew2FAButton] = useState(true);
       return (
@@ -242,7 +244,10 @@ const Confirm2FA = () => {
             </div>
           </form>
         </div>
-        <Modal show={blocked && blocker.state === "blocked"} onHide={stay}>
+        <Modal
+          show={!has2fa && blocked && blocker.state === "blocked"}
+          onHide={stay}
+        >
           <Modal.Header closeButton>
             <Modal.Title>You have not setup 2FA yet!</Modal.Title>
           </Modal.Header>

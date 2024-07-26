@@ -73,6 +73,10 @@ class AuthService {
     const settings = this.settings;
     this.userManager = new UserManager(settings);
 
+    // reset the user to force-fetch it via the session
+    // (may have been logged out in another session or due to timeout)
+    this.setUser(null);
+
     Log.setLogger(console);
     Log.setLevel(Log.INFO); // set to DEBUG for more output
   }
