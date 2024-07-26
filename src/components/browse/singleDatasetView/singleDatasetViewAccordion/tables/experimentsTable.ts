@@ -31,7 +31,12 @@ export const ExperimentsTable = (props: ExperimentsTableProps) => {
     {
       header: "Experiment ID",
       data: experiments.map((x) => x.alias),
-      cssClasses: "w-25 text-wrap text-break",
+      cssClasses: "text-wrap text-break",
+    },
+    {
+      header: "EGA ID",
+      data: experiments.map((x) => x.ega_accession),
+      cssClasses: "text-wrap text-break",
     },
     {
       header: "Description",

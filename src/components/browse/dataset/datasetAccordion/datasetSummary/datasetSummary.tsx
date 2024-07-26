@@ -11,7 +11,10 @@ import DatasetStudies from "./datasetStudies";
 import DataRequestFormModal from "../../../../../utils/dataRequestFormModal";
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUpRightFromSquare } from "@fortawesome/free-solid-svg-icons";
+import {
+  faDatabase,
+  faUpRightFromSquare,
+} from "@fortawesome/free-solid-svg-icons";
 import RequestAccessButton from "../../../../../utils/requestAccessButton";
 
 interface DataSetDetailsProps {
@@ -54,7 +57,7 @@ const DatasetSummary = (props: DataSetDetailsProps) => {
                 >
                   <Row className="p-0 m-0 align-items-center text-start">
                     <Col className="p-0 m-0 col-3 ">
-                      <FontAwesomeIcon icon={faUpRightFromSquare} />
+                      <FontAwesomeIcon icon={faDatabase} />
                     </Col>
                     <Col className="p-0 m-0 lh-1">
                       <strong>Dataset Details</strong>
@@ -62,6 +65,30 @@ const DatasetSummary = (props: DataSetDetailsProps) => {
                   </Row>
                 </Button>
               </Link>
+              {props.hit.content.ega_accession ? (
+                <Button
+                  variant="outline-quinary"
+                  href={
+                    "https://ega-archive.org/datasets/" +
+                    props.hit.content.ega_accession
+                  }
+                  className="mb-3 fs-7 shadow-md-dark d-block"
+                  title="EGA Dataset page"
+                  style={{ width: "115px" }}
+                  target="_blank"
+                >
+                  <Row className="p-0 m-0 align-items-center text-start">
+                    <Col className="p-0 m-0 col-3 ">
+                      <FontAwesomeIcon icon={faUpRightFromSquare} />
+                    </Col>
+                    <Col className="p-0 m-0 lh-1">
+                      <strong>EGA Dataset</strong>
+                    </Col>
+                  </Row>
+                </Button>
+              ) : (
+                <></>
+              )}
             </>
           ) : (
             <Button
@@ -85,6 +112,14 @@ const DatasetSummary = (props: DataSetDetailsProps) => {
             <strong>Dataset ID:&nbsp;</strong>
             {props.hit.content.accession}
           </p>
+          {props.hit.content.ega_accession ? (
+            <p className={pClass}>
+              <strong>EGA ID:&nbsp;</strong>
+              {props.hit.content.ega_accession}
+            </p>
+          ) : (
+            <></>
+          )}
           <p className={pClass}>
             <strong>Full title:&nbsp;</strong>
             {props.hit.content.title}

@@ -34,6 +34,11 @@ export const SamplesTable = (props: SamplesTableProps) => {
       cssClasses: "",
     },
     {
+      header: "EGA ID",
+      data: samples.map((x) => x.ega_accession),
+      cssClasses: "",
+    },
+    {
       header: "Description",
       data: samples.map((x) => x.description),
       cssClasses: "text-wrap text-break",
