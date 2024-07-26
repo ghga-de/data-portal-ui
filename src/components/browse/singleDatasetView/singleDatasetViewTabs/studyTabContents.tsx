@@ -63,6 +63,14 @@ const StudyTabContents = (props: StudyTabContentsProps) => {
               <strong>ID: </strong>
               {study.accession}
             </p>
+            {study.ega_accession ? (
+              <p className="mb-4">
+                <strong>EGA ID: </strong>
+                {study.ega_accession}
+              </p>
+            ) : (
+              <></>
+            )}
             <p className="mb-4">
               <strong>Title: </strong>
               {study.title}

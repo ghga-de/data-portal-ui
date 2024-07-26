@@ -43,28 +43,6 @@ const DatasetSummary = (props: DataSetDetailsProps) => {
         <div className="float-end ps-0 ps-md-4 ms-1">
           {props.summary ? (
             <>
-              <RequestAccessButton
-                accession={props.hit.content.accession}
-                handleOpen={handleOpen}
-                classes="d-block"
-              />
-              <Link to={props.hit.content.accession}>
-                <Button
-                  variant="quinary"
-                  className="text-white mb-3 fs-7 shadow-md-dark d-block"
-                  title="Dataset Details"
-                  style={{ width: "115px" }}
-                >
-                  <Row className="p-0 m-0 align-items-center text-start">
-                    <Col className="p-0 m-0 col-3 ">
-                      <FontAwesomeIcon icon={faDatabase} />
-                    </Col>
-                    <Col className="p-0 m-0 lh-1">
-                      <strong>Dataset Details</strong>
-                    </Col>
-                  </Row>
-                </Button>
-              </Link>
               {props.hit.content.ega_accession ? (
                 <Button
                   variant="outline-quinary"
@@ -89,6 +67,28 @@ const DatasetSummary = (props: DataSetDetailsProps) => {
               ) : (
                 <></>
               )}
+              <RequestAccessButton
+                accession={props.hit.content.accession}
+                handleOpen={handleOpen}
+                classes="d-block"
+              />
+              <Link to={props.hit.content.accession}>
+                <Button
+                  variant="quinary"
+                  className="text-white mb-3 fs-7 shadow-md-dark d-block"
+                  title="Dataset Details"
+                  style={{ width: "115px" }}
+                >
+                  <Row className="p-0 m-0 align-items-center text-start">
+                    <Col className="p-0 m-0 col-3 ">
+                      <FontAwesomeIcon icon={faDatabase} />
+                    </Col>
+                    <Col className="p-0 m-0 lh-1">
+                      <strong>Dataset Details</strong>
+                    </Col>
+                  </Row>
+                </Button>
+              </Link>
             </>
           ) : (
             <Button
