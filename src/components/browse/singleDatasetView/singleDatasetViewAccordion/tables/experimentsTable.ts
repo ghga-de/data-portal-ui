@@ -30,7 +30,13 @@ export const ExperimentsTable = (props: ExperimentsTableProps) => {
   const experimentsTable: TableFields[] = [
     {
       header: "Experiment ID",
+
       data: experiments.map((x) => x.accession),
+      cssClasses: "",
+    },
+    {
+      header: "EGA ID",
+      data: experiments.map((x) => x.ega_accession),
       cssClasses: "",
     },
     {

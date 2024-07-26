@@ -21,11 +21,15 @@ const PublicationTabContents = (props: PublicationTabContentsProps) => {
       <PerfectScrollbar>
         {publications ? (
           <div>
-            {publications.map((pub) => {
+            {publications.map((pub, idx) => {
               return (
                 <div
                   key={pub.accession + "_pub"}
-                  className="text-break overflow-auto h-100 mb-5"
+                  className={
+                    idx < publications.length - 1
+                      ? "text-break overflow-auto h-100 mb-5"
+                      : "text-break overflow-auto h-100"
+                  }
                 >
                   {pub.doi !== null ? (
                     <Button
@@ -39,7 +43,7 @@ const PublicationTabContents = (props: PublicationTabContentsProps) => {
                           <FontAwesomeIcon icon={faLink} />
                         </Col>
                         <Col className="px-0 m-0 lh-1">
-                          <strong>Visit Publication</strong>
+                          <strong>View Publication</strong>
                         </Col>
                       </Row>
                     </Button>
@@ -67,10 +71,10 @@ const PublicationTabContents = (props: PublicationTabContentsProps) => {
                   <p>
                     <strong>Author: </strong>
                     {pub.author}
-                    &nbsp;
+                    <br />
                     <strong>Journal: </strong>
                     {pub.journal}
-                    &nbsp;
+                    <br />
                     <strong>Year: </strong>
                     {pub.year}
                   </p>

@@ -33,6 +33,11 @@ export const FilesTable = (props: FilesTableProps) => {
       cssClasses: "",
     },
     {
+      header: "EGA ID",
+      data: allFiles.map((x) => x.ega_accession),
+      cssClasses: "",
+    },
+    {
       header: "File name",
       data: allFiles.map((x) => x.name),
       cssClasses: "text-break",

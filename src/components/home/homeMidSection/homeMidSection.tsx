@@ -124,7 +124,7 @@ const HomeMidSection = () => {
       badgeTitle: BadgeTitleGen(faUser, "Individuals: " + numIndividuals, true),
       badgeBody: (
         <div>
-          <Row className="pt-4 mt-3 w-100 px-0 mx-0">
+          <Row className="mt-3 w-100 px-0 mx-0">
             {individualSexes.map((x, i) => {
               const sex = /FEMALE/.test(x.value) ? "Female" : "Male";
               return (
@@ -149,7 +149,7 @@ const HomeMidSection = () => {
           <tbody>
             {fileStats.stats.format.map((x) => {
               return (
-                <tr key={x.value} className="text-uppercase ms-0 ps-0 mb-2">
+                <tr key={x.value} className="text-uppercase ms-0 ps-0">
                   <td
                     className="ms-0 ps-3 pe-4"
                     style={{ width: "1px", whiteSpace: "nowrap" }}
@@ -163,7 +163,7 @@ const HomeMidSection = () => {
           </tbody>
         </table>
       ),
-      bodyColClasses: "mt-4 pt-3 fs-7 align-items-center",
+      bodyColClasses: "pt-3 fs-7 align-items-center",
     });
   }
 

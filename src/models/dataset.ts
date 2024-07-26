@@ -40,6 +40,7 @@ export interface DatasetModel {
 
 export interface FileModel {
   accession: string;
+  ega_accession: string;
   alias: string;
   name: string;
   format: string;
@@ -47,6 +48,7 @@ export interface FileModel {
 
 export interface ExperimentEmbeddedModel {
   accession: string;
+  ega_accession: string;
   alias: string;
   type: string;
   title: string;
@@ -74,6 +76,7 @@ export interface PublicationModel {
 
 export interface SampleModel {
   accession: string;
+  ega_accession: string;
   name: string;
   description: string;
   alias: string;
@@ -102,6 +105,7 @@ export interface ProjectModel {
 
 export interface StudyEmbeddedModel {
   accession: string;
+  ega_accession: string;
   alias: string;
   title: string;
   description: string;
@@ -141,6 +145,7 @@ export interface AttributeModel {
 
 export interface DatasetEmbeddedModel {
   accession: string;
+  ega_accession: string;
   alias: string;
   title: string;
   description: string;
@@ -157,6 +162,7 @@ export interface DatasetEmbeddedModel {
 
 export interface HitContentModel {
   accession: string;
+  ega_accession: string;
   title: string;
   description: string;
   types: string[];
