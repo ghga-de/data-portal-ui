@@ -182,28 +182,34 @@ const HeaderNavbar = () => {
                             }
                             className={navColsClasses + " col-" + navColsSpanXS}
                           >
-                            <Dropdown.Item>
-                              <NavLink
-                                to="/ivas"
-                                className={({ isActive }) =>
-                                  isActive ? "text-secondary" : ""
-                                }
+                            <NavLink
+                              to="/ivas"
+                              className={({ isActive }) =>
+                                isActive ? "text-secondary" : ""
+                              }
+                            >
+                              <Dropdown.Item
+                                as={"span"}
+                                style={{ color: "inherit" }}
                               >
                                 <FontAwesomeIcon icon={faAddressBook} /> IVA
                                 Manager
-                              </NavLink>
-                            </Dropdown.Item>
-                            <Dropdown.Item>
-                              <NavLink
-                                to="/access-requests"
-                                className={({ isActive }) =>
-                                  isActive ? "text-secondary" : ""
-                                }
+                              </Dropdown.Item>
+                            </NavLink>
+                            <NavLink
+                              to="/access-requests"
+                              className={({ isActive }) =>
+                                isActive ? "text-secondary" : ""
+                              }
+                            >
+                              <Dropdown.Item
+                                as={"span"}
+                                style={{ color: "inherit" }}
                               >
                                 <FontAwesomeIcon icon={faPenToSquare} /> Access
                                 Requests Manager
-                              </NavLink>
-                            </Dropdown.Item>
+                              </Dropdown.Item>
+                            </NavLink>
                           </DropdownButton>
                         </Dropdown>
                       </>
