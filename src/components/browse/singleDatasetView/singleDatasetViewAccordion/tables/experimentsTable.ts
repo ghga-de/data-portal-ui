@@ -25,7 +25,7 @@ export const ExperimentsTable = (props: ExperimentsTableProps) => {
     order: 0,
   });
 
-  const experiments = props.details.sequencing_experiments || [];
+  const experiments = props.details.experiments || [];
 
   const experimentsTable: TableFields[] = [
     {

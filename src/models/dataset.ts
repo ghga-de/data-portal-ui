@@ -45,7 +45,7 @@ export interface FileModel {
   format: string;
 }
 
-export interface SequencingExperimentEmbeddedModel {
+export interface ExperimentEmbeddedModel {
   title: string;
   sequencing_protocol: {
     instrument_model: string;
@@ -140,7 +140,7 @@ export interface DatasetEmbeddedModel {
   title: string;
   description: string;
   types: string[];
-  sequencing_experiments: SequencingExperimentEmbeddedModel[] | undefined;
+  experiments: ExperimentEmbeddedModel[] | undefined;
   study_files: FileModel[];
   sample_files: FileModel[];
   sequencing_process_files: FileModel[];
@@ -227,10 +227,10 @@ export interface IndividualSummaryModel {
   };
 }
 
-export interface ProtocolSummaryModel {
+export interface ExperimentMethodSummaryModel {
   count: number;
   stats: {
-    type: { value: string; count: number }[];
+    instrument_model: { value: string; count: number }[];
   };
 }
 
@@ -238,7 +238,7 @@ export interface MetadataSummaryModel {
   resource_stats: {
     Dataset: DatasetSummaryModel;
     Individual: IndividualSummaryModel;
-    SequencingProtocol: ProtocolSummaryModel;
+    ExperimentMethod: ExperimentMethodSummaryModel;
     AnalysisProcessOutputFile: FileSummaryModel;
     SequencingProcessFile: FileSummaryModel;
     StudyFile: FileSummaryModel;

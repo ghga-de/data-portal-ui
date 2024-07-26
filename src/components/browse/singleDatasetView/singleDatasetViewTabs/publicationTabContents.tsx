@@ -25,7 +25,7 @@ const PublicationTabContents = (props: PublicationTabContentsProps) => {
               return (
                 <div
                   key={pub.accession + "_pub"}
-                  className="text-break overflow-auto h-100"
+                  className="text-break overflow-auto h-100 mb-5"
                 >
                   {pub.doi !== null ? (
                     <Button

@@ -105,7 +105,7 @@ const HomeMidSection = () => {
     });
 
     const protocolTypes =
-      summary?.resource_stats?.SequencingProtocol?.stats?.type || [];
+      summary?.resource_stats?.ExperimentMethod?.stats?.instrument_model || [];
     Badges.push({
       badgeTitle: BadgeTitleGen(faDna, "Platforms: " + protocolTypes.length),
       badgeBody: protocolTypes.map((x: any) => (
