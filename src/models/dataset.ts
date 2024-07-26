@@ -46,14 +46,19 @@ export interface FileModel {
 }
 
 export interface ExperimentEmbeddedModel {
-  title: string;
-  sequencing_protocol: {
-    instrument_model: string;
-  };
-  description: string;
   accession: string;
   alias: string;
   type: string;
+  title: string;
+  description: string;
+  experiment_method: {
+    accession: string;
+    alias: string;
+    name: string;
+    description: string;
+    type: string;
+    instrument_model: string;
+  };
 }
 
 export interface PublicationModel {
