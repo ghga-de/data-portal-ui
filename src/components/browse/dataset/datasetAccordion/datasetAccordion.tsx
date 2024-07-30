@@ -49,6 +49,14 @@ const DatasetAccordion = (props: DataSetListProps) => {
             >
               <Col xs={5} sm={4} xl={3}>
                 {hit.content.accession}
+                {hit.content.ega_accession ? (
+                  <>
+                    <br />
+                    {hit.content.ega_accession}
+                  </>
+                ) : (
+                  ""
+                )}
               </Col>
               <Col className="pe-2" style={{ height: "42px" }}>
                 <div
