@@ -79,16 +79,16 @@ export const responses = {
   // Get Dataset details (embedded) Metadata Repository Service
   "GET /api/metldata/artifacts/embedded_public/classes/EmbeddedDataset/resources/GHGAD588887987": embeddedDataset[0],
   // Get Dataset details (embedded) Metadata Repository Service
-  "GET /api/metldata/artifacts/embedded_public/classes/EmbeddedDataset/resources/GHGAD588887988": embeddedDataset.map((x) => { let y = { ...x }; y.accession = "GHGAD588887988"; return y })[0],
+  "GET /api/metldata/artifacts/embedded_public/classes/EmbeddedDataset/resources/GHGAD588887988": embeddedDataset.map((x) => { let y = { ...x }; y.accession = "GHGAD588887988"; y.ega_accession = "EGAD588887988"; return y })[0],
   // Get Dataset details (embedded) Metadata Repository Service
-  "GET /api/metldata/artifacts/embedded_public/classes/EmbeddedDataset/resources/GHGAD588887989": embeddedDataset.map((x) => { let y = { ...x }; y.accession = "GHGAD588887989"; return y })[0],
+  "GET /api/metldata/artifacts/embedded_public/classes/EmbeddedDataset/resources/GHGAD588887989": embeddedDataset.map((x) => { let y = { ...x }; y.accession = "GHGAD588887989"; y.ega_accession = "EGAD588887989"; return y })[0],
 
   // Get summary data from a single dataset
   "GET /api/metldata/artifacts/stats_public/classes/DatasetStats/resources/GHGAD588887987": datasetSummary[0],
   // Get summary data from a single dataset
-  "GET /api/metldata/artifacts/stats_public/classes/DatasetStats/resources/GHGAD588887988": datasetSummary.map((x) => { let y = { ...x }; y.accession = "GHGAD588887988"; return y })[0],
+  "GET /api/metldata/artifacts/stats_public/classes/DatasetStats/resources/GHGAD588887988": datasetSummary.map((x) => { let y = { ...x }; y.accession = "GHGAD588887988"; y.ega_accession = "EGAD588887989"; return y })[0],
   // Get summary data from a single dataset
-  "GET /api/metldata/artifacts/stats_public/classes/DatasetStats/resources/GHGAD588887989": datasetSummary.map((x) => { let y = { ...x }; y.accession = "GHGAD588887989"; return y })[0],
+  "GET /api/metldata/artifacts/stats_public/classes/DatasetStats/resources/GHGAD588887989": datasetSummary.map((x) => { let y = { ...x }; y.accession = "GHGAD588887989"; y.ega_accession = "EGAD588887989"; return y })[0],
 
   // Get summary data from entire metadata database
   "GET /api/metldata/stats": metadataSummary,

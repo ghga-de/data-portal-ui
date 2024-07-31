@@ -3,11 +3,11 @@ import { Row } from "react-bootstrap";
 import DatasetDetailsLayout from "./datasetDetailsLayout/datasetDetailsLayout";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFlask } from "@fortawesome/free-solid-svg-icons";
-import { ExperimentSummaryModel } from "../../../../../models/dataset";
+import { ExperimentsSummaryModel } from "../../../../../models/dataset";
 import BoldenedSummaryDetails from "./boldenedSummaryDetails/boldenedSummaryDetails";
 
 interface DataSetExperimentsProps {
-  experiments: ExperimentSummaryModel | null;
+  experiments: ExperimentsSummaryModel | null;
 }
 
 /** Dataset summary section displays the experimental information. */
