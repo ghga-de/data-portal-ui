@@ -94,31 +94,13 @@ const DatasetList = (props: DataSetProps) => {
               <PaginatedDataset />
             </Col>
             <Col xs={4} md={2} className="ps-0 ps-lg-4 pe-0">
-              {(props.page - 1) * 50 <= props.dsCount ? (
-                <Form.Select
-                  value={props.limit}
-                  onChange={(event) => handleSelect(event)}
-                >
-                  <option value="10">10</option>
-                  <option value="25">25</option>
-                  <option value="50">50</option>
-                </Form.Select>
-              ) : (props.page - 1) * 25 <= props.dsCount ? (
-                <Form.Select
-                  value={props.limit}
-                  onChange={(event) => handleSelect(event)}
-                >
-                  <option value="10">10</option>
-                  <option value="25">25</option>
-                </Form.Select>
-              ) : (
-                <Form.Select
-                  value={props.limit}
-                  onChange={(event) => handleSelect(event)}
-                >
-                  <option value="10">10</option>
-                </Form.Select>
-              )}
+              <Form.Select
+                value={props.limit}
+                onChange={(event) => handleSelect(event)}
+              >
+                <option value="10">10</option>
+                {props.dsCount >= 25 ? <option value="25">25</option> : ""}
+              </Form.Select>
             </Col>
           </Row>
         </>
