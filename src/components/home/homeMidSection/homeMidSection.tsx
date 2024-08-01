@@ -109,13 +109,15 @@ const HomeMidSection = () => {
     Badges.push({
       badgeTitle: BadgeTitleGen(faDna, "Platforms: " + protocolTypes.length),
       badgeBody: (
-        <table className="mx-auto w-auto">
-          {protocolTypes.map((x) => (
-            <tr>
-              <th className="text-end pe-2">{x.count}</th>
-              <td>{x.value}</td>
-            </tr>
-          ))}
+        <table>
+          <tbody>
+            {protocolTypes.map((x) => (
+              <tr key={x.value}>
+                <th className="text-end pe-2">{x.count}</th>
+                <td>{x.value}</td>
+              </tr>
+            ))}
+          </tbody>
         </table>
       ),
       bodyColClasses: "pt-3 fs-7 align-items-center",
@@ -127,13 +129,17 @@ const HomeMidSection = () => {
     Badges.push({
       badgeTitle: BadgeTitleGen(faUser, "Individuals: " + numIndividuals, true),
       badgeBody: (
-        <table className="mx-auto w-auto">
-          {individualSexes.map((x) => (
-            <tr>
-              <th className="text-end pe-2">{x.count}</th>
-              <td className="text-capitalize">{x.value.toLowerCase()}</td>
-            </tr>
-          ))}
+        <table>
+          <tbody>
+            {individualSexes.map((x) => {
+              return (
+                <tr key={x.value}>
+                  <th className="text-end pe-2">{x.count}</th>
+                  <td className="text-capitalize">{x.value.toLowerCase()}</td>
+                </tr>
+              );
+            })}
+          </tbody>
         </table>
       ),
       badgeDark: true,
@@ -144,13 +150,15 @@ const HomeMidSection = () => {
     Badges.push({
       badgeTitle: BadgeTitleGen(faChartColumn, "Files: " + fileStats.count),
       badgeBody: (
-        <table className="mx-auto w-auto">
-          {fileStats.stats.format.map((x) => (
-            <tr>
-              <th className="text-end pe-2">{x.count}</th>
-              <td>{x.value}</td>
-            </tr>
-          ))}
+        <table>
+          <tbody>
+            {fileStats.stats.format.map((x) => (
+              <tr key={x.value}>
+                <th className="text-end pe-2">{x.count}</th>
+                <td>{x.value}</td>
+              </tr>
+            ))}
+          </tbody>
         </table>
       ),
       bodyColClasses: "pt-3 fs-7 align-items-center",

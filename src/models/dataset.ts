@@ -138,7 +138,7 @@ export interface DatasetDetailsSummaryModel {
   dac_email: string;
   samples_summary: SampleSummaryModel;
   studies_summary: StudySummaryModel;
-  experiments_summary: ExperimentSummaryModel;
+  experiments_summary: ExperimentsSummaryModel;
   files_summary: FileSummaryModel;
 }
 
@@ -163,7 +163,7 @@ export interface StudySummaryModel {
   };
 }
 
-export interface ExperimentSummaryModel {
+export interface ExperimentsSummaryModel {
   count: number;
   stats: {
     experiment_methods: { value: string; count: number }[];
