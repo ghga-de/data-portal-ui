@@ -79,7 +79,7 @@ export const responses = {
   // Get Dataset details (embedded) Metadata Repository Service
   "GET /api/metldata/artifacts/embedded_public/classes/EmbeddedDataset/resources/GHGAD588887987": embeddedDataset[0],
   // Get Dataset details (embedded) Metadata Repository Service
-  "GET /api/metldata/artifacts/embedded_public/classes/EmbeddedDataset/resources/GHGAD588887988": embeddedDataset.map((x) => { let y = { ...x }; y.accession = "GHGAD588887988"; y.ega_accession = "EGAD588887988"; return y })[0],
+  "GET /api/metldata/artifacts/embedded_public/classes/EmbeddedDataset/resources/GHGAD588887988": embeddedDataset.map((x) => { {...x, accession: "GHGAD588887988", ega_accession: "EGAD588887988"})[0],
   // Get Dataset details (embedded) Metadata Repository Service
   "GET /api/metldata/artifacts/embedded_public/classes/EmbeddedDataset/resources/GHGAD588887989": embeddedDataset.map((x) => { let y = { ...x }; y.accession = "GHGAD588887989"; y.ega_accession = "EGAD588887989"; return y })[0],
 
