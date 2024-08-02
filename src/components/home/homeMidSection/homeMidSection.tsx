@@ -114,7 +114,7 @@ const HomeMidSection = () => {
             {protocolTypes.map((x) => (
               <tr key={x.value}>
                 <th className="text-end pe-2">{x.count}</th>
-                <td>{x.value}</td>
+                <td>{x.value.replace(/_/g, " ")}</td>
               </tr>
             ))}
           </tbody>
