@@ -105,7 +105,7 @@ export const responses = {
   "GET /api/metldata/stats": metadataSummary,
 
   // Metadata Search Service
-  "POST /api/mass/rpc/search*": {
+  "GET /api/mass/search*": {
     facets: searchResults.facets,
     count: searchResults.count,
     hits: searchResults.hits,
