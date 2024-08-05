@@ -99,14 +99,14 @@ const FooterNavbar = () => {
                   <div style={{ fontFamily: "Lexend" }}>
                     <span
                       className="position-relative"
-                      style={{ fontSize: "45px", top: "-15px" }}
+                      style={{ fontSize: "54px", top: "-30px" }}
                     >
                       DATA
                     </span>
                     <br />
                     <span
                       className="position-relative"
-                      style={{ fontSize: "51px", top: "-45px" }}
+                      style={{ fontSize: "36px", top: "-57px" }}
                     >
                       PORTAL
                     </span>
