@@ -50,24 +50,24 @@ const HeaderNavbar = () => {
                 <div className="d-flex align-items-center">
                   <div
                     style={{ width: "80%" }}
-                    className="flex-fill pe-2 me-2 border-end border-tertiary"
+                    className="flex-fill pe-1 me-1 border-end border-tertiary"
                   >
                     <img src={logo} alt="GHGA logo" height="35px" />
                   </div>
                   <div
-                    className="text-tertiary h-100"
+                    className="text-tertiary text-start h-100"
                     style={{ fontFamily: "Lexend" }}
                   >
                     <span
                       className="position-relative"
-                      style={{ fontSize: "18px", top: "5px" }}
+                      style={{ fontSize: "23px", top: "4px" }}
                     >
                       DATA
                     </span>
                     <br />
                     <span
-                      className="fs-5 position-relative"
-                      style={{ top: "-5px" }}
+                      className="fs-6 position-relative"
+                      style={{ top: "-6px" }}
                     >
                       PORTAL
                     </span>
