@@ -6,7 +6,7 @@ interface BoldenedProps {
 const BoldenedSummaryDetails = (props: BoldenedProps) => {
   return (
     <div>
-      {props.x.value} <strong>{props.x.count}</strong>
+      {props.x.value.replace(/_/g, " ")} <strong>{props.x.count}</strong>
     </div>
   );
 };

@@ -43,16 +43,18 @@ export const querySearchService: getDatasetsSearchRespType = async (
   limit = 20,
   documentType = "EmbeddedDataset"
 ) => {
-  let url = new URL("rpc/search", MASS_URL);
-  const payload = {
-    class_name: documentType,
-    query: searchKeyword,
-    filters: filterQuery,
-    skip: skip,
-    limit: limit,
-  };
+  let url = new URL("search", MASS_URL);
+  const params = url.searchParams;
+  params.append("class_name", documentType);
+  if (searchKeyword) params.append("query", searchKeyword);
+  filterQuery.forEach((filter) => {
+    params.append("filter_by", filter.key);
+    params.append("value", filter.value);
+  });
+  if (skip) params.append("skip", skip.toString());
+  params.append("limit", limit.toString());
   try {
-    const response = await fetchJson(url, "POST", payload);
+    const response = await fetchJson(url, "GET");
     const data = await response.json();
     if (response.status !== 200) {
       throw new Error(`Status code ${response.status} in search response`);
