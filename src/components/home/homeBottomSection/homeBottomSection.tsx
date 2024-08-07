@@ -12,11 +12,15 @@ import { faArrowUpRightFromSquare } from "@fortawesome/free-solid-svg-icons";
  */
 const HomeBottomSection = () => {
   return (
-    <Row className="mx-2 mb-3">
-      <Col>
-        <h4 className="fw-bold fs-3 p-3 pb-1">Our Standards</h4>
-        <hr className="mx-3 border-tertiary mb-5 opacity-100" />
-        <Carousel indicators={false} variant="dark" interval={null}>
+    <Row className="mx-2 mb-3 mt-4 bg-tertiary rounded">
+      <Col style={{ height: "450px" }}>
+        <h4 className="fw-bold fs-3 p-3 pb-2 mb-4">Our Standards</h4>
+        <Carousel
+          indicators={false}
+          variant="dark"
+          interval={null}
+          style={{ height: "320px" }}
+        >
           {standards
             .map((value) => ({ value, sort: Math.random() }))
             .sort((a, b) => a.sort - b.sort)
@@ -29,30 +33,30 @@ const HomeBottomSection = () => {
                     {x.img_location === "" ? (
                       <Col
                         className="overflow-auto"
-                        style={{ height: "200px" }}
+                        style={{ maxHeight: "220px" }}
                       >
                         <PerfectScrollbar>
-                          <p style={{ textAlign: "justify" }}>
-                            {x.description.split("\n").map((z, idz) => (
-                              <span
-                                key={
-                                  "homepage_span_" +
-                                  x.name +
-                                  "_description_" +
-                                  idz
-                                }
-                              >
-                                {z}
-                              </span>
-                            ))}
-                          </p>
+                          {x.description.split("\n").map((z, idz) => (
+                            <p
+                              className="mb-0"
+                              style={{ textAlign: "justify" }}
+                              key={
+                                "homepage_span_" +
+                                x.name +
+                                "_description_" +
+                                idz
+                              }
+                            >
+                              {z}
+                            </p>
+                          ))}
                         </PerfectScrollbar>
                       </Col>
                     ) : (
                       <>
                         <Col
                           className="col-7 overflow-auto"
-                          style={{ height: "200px" }}
+                          style={{ maxHeight: "220px" }}
                         >
                           <PerfectScrollbar>
                             <p style={{ textAlign: "justify" }}>
@@ -84,20 +88,14 @@ const HomeBottomSection = () => {
                         as="a"
                         target="_blank"
                         variant="quinary"
-                        className="shadow-md-dark my-4"
+                        className="shadow-md-dark my-3"
                         href={x.learn_more_href}
                       >
                         <FontAwesomeIcon icon={faArrowUpRightFromSquare} />
                         &nbsp;Learn more...
                       </Button>
                     ) : (
-                      <Button
-                        variant="white"
-                        className="my-4 bg-white pe-none"
-                        href={x.learn_more_href}
-                      >
-                        &nbsp;
-                      </Button>
+                      ""
                     )}
                   </div>
                 </div>
