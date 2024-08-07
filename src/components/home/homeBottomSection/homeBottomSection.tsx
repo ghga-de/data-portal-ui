@@ -12,15 +12,14 @@ import { faArrowUpRightFromSquare } from "@fortawesome/free-solid-svg-icons";
  */
 const HomeBottomSection = () => {
   return (
-    <Row className="mx-2 mb-3">
-      <Col style={{ height: "425px" }}>
-        <h4 className="fw-bold fs-3 p-3 pb-1">Our Standards</h4>
-        <hr className="mx-3 border-tertiary mb-5 opacity-100" />
+    <Row className="mx-2 mb-3 mt-4 bg-tertiary rounded">
+      <Col style={{ height: "450px" }}>
+        <h4 className="fw-bold fs-3 p-3 pb-2 mb-4">Our Standards</h4>
         <Carousel
           indicators={false}
           variant="dark"
           interval={null}
-          className="h-100"
+          style={{ height: "320px" }}
         >
           {standards
             .map((value) => ({ value, sort: Math.random() }))
@@ -28,13 +27,13 @@ const HomeBottomSection = () => {
             .map(({ value }) => value)
             .map((x, idx) => (
               <Carousel.Item key={"homepage_projects_" + idx}>
-                <div className="px-3 px-sm-3 px-lg-5 mx-0 mx-sm-3 mx-lg-5 h-100">
+                <div className="px-3 px-sm-3 px-lg-5 mx-0 mx-sm-3 mx-lg-5">
                   <h4 className="fw-bold">{x.name}</h4>
                   <Row>
                     {x.img_location === "" ? (
                       <Col
                         className="overflow-auto"
-                        style={{ maxHeight: "240px" }}
+                        style={{ maxHeight: "220px" }}
                       >
                         <PerfectScrollbar>
                           {x.description.split("\n").map((z, idz) => (
@@ -57,7 +56,7 @@ const HomeBottomSection = () => {
                       <>
                         <Col
                           className="col-7 overflow-auto"
-                          style={{ maxHeight: "240px" }}
+                          style={{ maxHeight: "220px" }}
                         >
                           <PerfectScrollbar>
                             <p style={{ textAlign: "justify" }}>
