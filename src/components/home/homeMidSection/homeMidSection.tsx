@@ -169,13 +169,13 @@ const HomeMidSection = () => {
     <Col className="px-2">
       <Row className="rounded bg-primary w-100 mx-0 mb-3 pb-lg-5">
         <h4 className="fw-bold fs-2 text-white p-4 pb-4 mx-2">Statistics</h4>
-        <div className="px-sm-3 px-xl-5 d-flex justify-content-evenly">
+        <div className="px-sm-3 px-xl-5 d-flex justify-content-evenly flex-wrap">
           {Badges.map((x, idx) => (
             <Col
               xs={12}
               sm={6}
               lg={3}
-              className="mb-4 mb-lg-0 px-xl-4 px-xxl-5"
+              className="mb-4 mb-lg-0 px-2 px-xl-4 px-xxl-5"
               key={"home_page_badge_" + idx}
             >
               <HomeMidSectionBadge
