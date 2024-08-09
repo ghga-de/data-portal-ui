@@ -109,7 +109,7 @@ const HomeMidSection = () => {
     Badges.push({
       badgeTitle: BadgeTitleGen(faDna, "Platforms: " + protocolTypes.length),
       badgeBody: (
-        <table>
+        <table className="mx-auto w-auto">
           <tbody>
             {protocolTypes.map((x) => (
               <tr key={x.value}>
@@ -129,7 +129,7 @@ const HomeMidSection = () => {
     Badges.push({
       badgeTitle: BadgeTitleGen(faUser, "Individuals: " + numIndividuals, true),
       badgeBody: (
-        <table>
+        <table className="mx-auto w-auto">
           <tbody>
             {individualSexes.map((x) => {
               return (
@@ -150,7 +150,7 @@ const HomeMidSection = () => {
     Badges.push({
       badgeTitle: BadgeTitleGen(faChartColumn, "Files: " + fileStats.count),
       badgeBody: (
-        <table>
+        <table className="mx-auto w-auto">
           <tbody>
             {fileStats.stats.format.map((x) => (
               <tr key={x.value}>
