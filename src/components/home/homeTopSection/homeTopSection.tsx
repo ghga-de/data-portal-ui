@@ -10,19 +10,27 @@ const HomeTopSection = () => {
       <Row className="w-100 mx-0 mb-2 pb-4 pe-lg-4">
         <Col className="p-2 p-lg-4">
           <p className={PARAGRAPH_CLASS}>
-            The GHGA Data Portal is a secure national infrastructure for human omics
-            data available under controlled access. Access to the archived data can
-            be requested from the data controllers who are responsible for evaluating
-            your data access request.
+            The GHGA Data Portal is a secure national infrastructure for human
+            omics data available under controlled access. Access to the archived
+            data can be requested from the data controllers who are responsible
+            for evaluating your data access request.
           </p>
           <p className={PARAGRAPH_CLASS}>
             The datasets within are annotated following the{" "}
-            <a className={LINK_CLASS} href="https://docs.ghga.de/metadata/overview/">GHGA Metadata Model</a>,
-            which is compatible with the metadata model of the EGA.
+            <a
+              className={LINK_CLASS}
+              href="https://docs.ghga.de/metadata/overview/"
+            >
+              GHGA Metadata Model
+            </a>
+            , which is compatible with the metadata model of the EGA.
           </p>
           <p className={PARAGRAPH_CLASS}>
             For further documentation, please visit the{" "}
-            <a className={LINK_CLASS} href="https://docs.ghga.de/">GHGA User Documentation</a>.
+            <a className={LINK_CLASS} href="https://docs.ghga.de/">
+              GHGA User Documentation
+            </a>
+            .
           </p>
           <div className="text-center">
             <NavLink to="/browse">
@@ -30,7 +38,7 @@ const HomeTopSection = () => {
                 variant="quinary"
                 className="py-1 fs-5 mt-4 text-white shadow-md-dark"
               >
-                <span className="text-uppercase">Browse data</span>
+                <span>Browse data</span>
               </Button>
             </NavLink>
           </div>

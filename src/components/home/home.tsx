@@ -11,7 +11,7 @@ const Home = () => {
         The German Human Genome-Phenome Archive
       </h2>
       <Row className="w-100">
-        <Col lg={{ offset: 6 }}>
+        <Col className="text-center">
           <h3 className="fw-bold pb-2 text-quaternary">Data Portal</h3>
         </Col>
       </Row>
