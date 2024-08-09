@@ -8,7 +8,7 @@ import {
   faYoutube,
 } from "@fortawesome/free-brands-svg-icons";
 import { Container } from "react-bootstrap";
-import { faContactCard, faEnvelope } from "@fortawesome/free-solid-svg-icons";
+import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
 
 const FooterIcons = () => {
   const year = new Date().getFullYear();
