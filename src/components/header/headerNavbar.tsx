@@ -143,11 +143,13 @@ const HeaderNavbar = () => {
                       onClick={() => handleCloseOffCanvas()}
                     >
                       <NavLink
-                        to="/faq"
-                        className={({ isActive }) =>
-                          isActive ? activePageStyle : inactivePageStyle
-                        }
+                        to="https://docs.ghga.de/faq"
+                        target="_blank"
+                        className={inactivePageStyle}
                       >
+                        <span className="fs-7 pe-2">
+                          <FontAwesomeIcon icon={faArrowUpRightFromSquare} />
+                        </span>
                         FAQ
                       </NavLink>
                     </Col>
@@ -161,9 +163,9 @@ const HeaderNavbar = () => {
                         target="_blank"
                         className={inactivePageStyle}
                       >
-                        <span className="fs-7">
+                        <span className="fs-7 pe-2">
                           <FontAwesomeIcon icon={faArrowUpRightFromSquare} />
-                        </span>{" "}
+                        </span>
                         Docs
                       </NavLink>
                     </Col>
