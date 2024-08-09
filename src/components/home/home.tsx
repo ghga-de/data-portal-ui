@@ -1,7 +1,6 @@
 import HomeBottomSection from "./homeBottomSection/homeBottomSection";
 import HomeMidSection from "./homeMidSection/homeMidSection";
 import HomeTopSection from "./homeTopSection/homeTopSection";
-import HomePartnersCarousel from "./homePartners/homePartnersCarousel";
 import { Col, Row } from "react-bootstrap";
 
 /** Home page */
@@ -20,7 +19,6 @@ const Home = () => {
       <HomeTopSection />
       <HomeMidSection />
       <HomeBottomSection />
-      <HomePartnersCarousel />
     </div>
   );
 };
