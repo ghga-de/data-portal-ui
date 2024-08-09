@@ -52,7 +52,11 @@ const FooterNavbar = () => {
                   </p>
                 </Button>
               </NavLink>
-              <NavLink to="/faq" end={true} className={LEFT_LINK_CLASSES}>
+              <NavLink
+                to="https://docs.ghga.de/faq"
+                end={true}
+                className={LEFT_LINK_CLASSES}
+              >
                 <Button className="w-100 h-100 rounded-0 py-0 px-3 m-0 border-0">
                   <FontAwesomeIcon
                     icon={faQuestionCircle}
