@@ -5,6 +5,7 @@ import { SearchResponseModel } from "../../../models/dataset";
 import { useNavigate } from "react-router-dom";
 import { querySearchService } from "../../../api/browse";
 import { handleFilterAndSearch } from "../shared";
+import { renderFacetOption } from "../sidebar/filter";
 
 interface DatasetHeaderProps {
   dsCount: number;
@@ -21,6 +22,12 @@ interface DatasetHeaderProps {
   appliedFilterDict: FacetFilterModel[];
   check: Map<string, boolean>;
   setPage: Dispatch<SetStateAction<number>>;
+}
+
+function renderItem(item: string): string {
+  let facetAndValue = item.split("|", 2)[1];
+  let [facet, value] = facetAndValue.split(": ", 2);
+  return facet + ": " + renderFacetOption(value, facet);
 }
 
 /** Section at the top of Browse page. It contains search keywords, applied filters and datasets count found. */
@@ -147,13 +154,13 @@ const DatasetHeader = (props: DatasetHeaderProps) => {
           )}
           {getFilterParamsList().map((item, idx) => (
             <Badge
-              key={item.split("|")[1]}
+              key={item.split("|", 2)[1]}
               className="py-1 m-0 me-2 text-black fs-7 border text-capitalize bg-white border-secondary fw-normal"
               style={{
                 whiteSpace: "nowrap",
                 textOverflow: "ellipsis",
               }}
-              title={item.split("|")[1]}
+              title={renderItem(item)}
             >
               <div className="lh-1">
                 <Row className="flex-nowrap">
@@ -164,7 +171,7 @@ const DatasetHeader = (props: DatasetHeaderProps) => {
                     />
                   </Col>
                   <Col className="ps-0 align-items-center d-flex">
-                    <span className="px-1 mb-0">{item.split("|")[1]}</span>
+                    <span className="px-1 mb-0">{renderItem(item)}</span>
                   </Col>
                 </Row>
               </div>

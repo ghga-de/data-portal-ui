@@ -63,7 +63,6 @@ export const handlers = [
   }),
   // intercept user creation request
   http.post(USERS_URL.href, () => {
-    console.log("registered called")
     session.id = user.id;
     session.state = "Registered";
     return HttpResponse.json(undefined, { status: 201 });
@@ -105,7 +104,7 @@ async function getMatchingParamString(request, responseMap) {
       Object.entries(bodyParams).forEach(([key, value]) => {
         requestParams.set(key, value);
       });
-    } catch { }
+    } catch {}
   }
   // find the response with the most matching parameters
   let bestParamString = null;

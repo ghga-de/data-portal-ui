@@ -11,6 +11,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
 import { handleFilterAndSearch } from "../shared";
 
+const MAX_FACET_OPTIONS = 5;
+
 interface SidebarProps {
   facetList: FacetModel[] | null;
   setSearchResults: Dispatch<SetStateAction<SearchResponseModel | null>>;
@@ -86,6 +88,7 @@ const Sidebar = (props: SidebarProps) => {
       {props.facetList === null || props.facetList.length === 0 ? null : (
         <Row className="position-relative w-100 px-1 mx-0">
           {props.facetList
+            .filter((facet) => facet.options.length <= MAX_FACET_OPTIONS)
             .sort((a, b) => (b.key < a.key ? 1 : -1))
             .map((facet, index) => (
               <Filter
