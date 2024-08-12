@@ -43,12 +43,12 @@ const DatasetSummary = (props: DataSetDetailsProps) => {
         <div className="float-end ps-0 ps-md-4 ms-1">
           {props.summary ? (
             <>
-              {props.hit.content.ega_accession ? (
+              {props.hit.content.alias ? (
                 <Button
                   variant="outline-quinary"
                   href={
                     "https://ega-archive.org/datasets/" +
-                    props.hit.content.ega_accession
+                    props.hit.content.alias
                   }
                   className="mb-3 fs-7 shadow-md-dark d-block"
                   title="EGA Dataset page"
@@ -68,11 +68,11 @@ const DatasetSummary = (props: DataSetDetailsProps) => {
                 <></>
               )}
               <RequestAccessButton
-                accession={props.hit.content.accession}
+                accession={props.hit.id_}
                 handleOpen={handleOpen}
                 classes="d-block"
               />
-              <Link to={props.hit.content.accession}>
+              <Link to={props.hit.id_}>
                 <Button
                   variant="quinary"
                   className="text-white mb-3 fs-7 shadow-md-dark d-block"
@@ -110,12 +110,12 @@ const DatasetSummary = (props: DataSetDetailsProps) => {
         <div className="text-break mb-3">
           <p className={pClass}>
             <strong>Dataset ID:&nbsp;</strong>
-            {props.hit.content.accession}
+            {props.hit.id_}
           </p>
-          {props.hit.content.ega_accession ? (
+          {props.hit.content.alias ? (
             <p className={pClass}>
               <strong>EGA ID:&nbsp;</strong>
-              {props.hit.content.ega_accession}
+              {props.hit.content.alias}
             </p>
           ) : (
             <></>
@@ -124,21 +124,31 @@ const DatasetSummary = (props: DataSetDetailsProps) => {
             <strong>Full title:&nbsp;</strong>
             {props.hit.content.title}
           </p>
-          <p className={pClass}>
-            <strong>Description:&nbsp;</strong>
-            {props.hit.content.description}
-          </p>
-          <p className={pClass}>
-            <strong>Types:&nbsp;</strong>
-            {props.hit.content.types.map((x) => (
-              <Badge
-                className="me-1 bg-white text-black border-primary border px-1 fw-normal"
-                key={x}
-              >
-                {x}
-              </Badge>
-            ))}
-          </p>
+          {props.hit.content.description || props.summary?.description ? (
+            <p className={pClass}>
+              <strong>Description:&nbsp;</strong>
+              {props.hit.content.description || props.summary?.description}
+            </p>
+          ) : (
+            <></>
+          )}
+          {(props.hit.content.types || props.summary?.types || []).length ? (
+            <p className={pClass}>
+              <strong>Types:&nbsp;</strong>
+              {(props.hit.content.types || props.summary?.types || []).map(
+                (x) => (
+                  <Badge
+                    className="me-1 bg-white text-black border-primary border px-1 fw-normal"
+                    key={x}
+                  >
+                    {x}
+                  </Badge>
+                )
+              )}
+            </p>
+          ) : (
+            <></>
+          )}
         </div>
         {props.summary ? (
           <div>
@@ -163,7 +173,7 @@ const DatasetSummary = (props: DataSetDetailsProps) => {
         )}
       </div>
       <DataRequestFormModal
-        accession={props.hit.content.accession}
+        accession={props.hit.id_}
         copyEmail={copyEmail}
         show={show}
         handleClose={handleClose}

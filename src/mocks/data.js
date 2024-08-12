@@ -2,7 +2,7 @@ const startDate = new Date();
 const endDate = new Date(startDate);
 endDate.setFullYear(endDate.getFullYear() + 1);
 const access_starts = startDate.toISOString();
-const access_ends = endDate.toISOString();// Static fake data for mocking the backend
+const access_ends = endDate.toISOString(); // Static fake data for mocking the backend
 
 export const user = {
   id: "j.doe@ghga.de",
@@ -11,7 +11,7 @@ export const user = {
   title: "Dr.",
   full_name: "Dr. John Doe",
   email: "j.jdoe@home.org",
-  role: "data_steward"
+  role: "data_steward",
 };
 
 export const allIVAs = [
@@ -22,15 +22,16 @@ export const allIVAs = [
     changed: "2024-01-01T00:00:00",
     state: "CodeRequested",
     user_name: "Prof. Jean Doe",
-    user_email: "j2.jdoe@home.org"
-  }, {
+    user_email: "j2.jdoe@home.org",
+  },
+  {
     id: "783d9682-d5e5-4ce7-9157-9eeb53a1e9ba",
     type: "Phone",
     value: "+441234567890004",
     changed: "2024-02-01T00:00:00",
     state: "Verified",
     user_name: "Dr. John Doe",
-    user_email: "j.jdoe@home.org"
+    user_email: "j.jdoe@home.org",
   },
   {
     id: "32b50c92-489f-4418-ace8-e7552e3cf36d",
@@ -39,7 +40,7 @@ export const allIVAs = [
     changed: "2024-03-01T00:00:00",
     state: "Unverified",
     user_name: "Dr. John Doe",
-    user_email: "j.jdoe@home.org"
+    user_email: "j.jdoe@home.org",
   },
   {
     id: "fc3c0ad8-01a4-4eb1-b8f3-40b04bb4bcb2",
@@ -48,16 +49,18 @@ export const allIVAs = [
     changed: "2024-04-01T00:00:00",
     state: "CodeTransmitted",
     user_name: "Dr. John Doe",
-    user_email: "j.jdoe@home.org"
-  }, {
+    user_email: "j.jdoe@home.org",
+  },
+  {
     id: "347368b5-718e-49ba-80ad-bc128e83b609",
     type: "InPerson",
     value: "Mathematikon",
     changed: "2024-05-01T00:00:00",
     state: "CodeCreated",
     user_name: "Prof. Jean Doe",
-    user_email: "j2.jdoe@home.org"
-  }]
+    user_email: "j2.jdoe@home.org",
+  },
+];
 
 export const accessRequests = [
   {
@@ -119,7 +122,15 @@ export const accessRequests = [
     status: "pending",
     status_changed: "2023-05-19T12:04:02.000Z",
     changed_by: "j.doe@ghga.de",
-  }]
+  },
+];
+
+export const getAccessRequests = (user_id, dataset_id) =>
+  accessRequests.filter(
+    (x) =>
+      (!dataset_id || x.dataset_id === dataset_id) &&
+      (!user_id || x.user_id === user_id)
+  );
 
 export const datasets = [
   {
@@ -138,15 +149,14 @@ export const workPackageToken = {
   token: "MTIzNDU2Nzg5MDEyMzQ1Njc4OTAxMjM0",
 };
 
-export const embeddedDataset = [{
+export const embeddedDataset = {
   accession: "GHGAD588887987",
   ega_accession: "EGAD588887987",
   types: ["Test Type"],
   title: "Test dataset for details",
   description:
     "Test dataset for Metadata Repository get dataset details call. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Vel risus commodo viverra maecenas accumsan lacus vel. Sit amet risus nullam eget felis eget nunc lobortis mattis. Iaculis at erat pellentesque adipiscing commodo. Volutpat consequat mauris nunc congue. At lectus urna duis convallis convallis tellus id interdum velit. Gravida cum sociis natoque penatibus et. Mauris in aliquam sem fringilla ut morbi. Ultrices gravida dictum fusce ut. At consectetur lorem donec massa sapien faucibus et molestie.",
-  study:
-  {
+  study: {
     accession: "GHGAS21215636",
     ega_accession: "EGAS21215636",
     types: ["test_genomics"],
@@ -163,18 +173,18 @@ export const embeddedDataset = [{
         journal: "Test journal",
         year: "2023",
       },
-    ]
+    ],
   },
   data_access_policy: {
     data_access_committee: {
       alias: "Test DAC",
-      email: "test[at]test[dot]de"
+      email: "test[at]test[dot]de",
     },
     policy_text: `Test policy text. Neque volutpat ac tincidunt vitae semper quis. Mi eget mauris pharetra et ultrices neque ornare. Consectetur purus ut faucibus pulvinar elementum. Tortor at risus viverra adipiscing. Aliquam eleifend mi in nulla. Orci ac auctor augue mauris augue neque gravida. Rutrum tellus pellentesque eu tincidunt tortor aliquam nulla. Turpis massa tincidunt dui ut ornare lectus sit amet. Laoreet suspendisse interdum consectetur libero id faucibus nisl tincidunt. Auctor eu augue ut lectus arcu bibendum. Aenean et tortor at risus.\n
       Diam phasellus vestibulum lorem sed risus ultricies tristique nulla aliquet. Tempor orci eu lobortis elementum nibh. Tincidunt praesent semper feugiat nibh sed pulvinar proin gravida. Sed nisi lacus sed viverra tellus. Orci dapibus ultrices in iaculis nunc sed augue. Gravida dictum fusce ut placerat orci nulla pellentesque dignissim enim. Facilisi cras fermentum odio eu. Est placerat in egestas erat. At ultrices mi tempus imperdiet nulla malesuada. Tincidunt arcu non sodales neque. Mi bibendum neque egestas congue quisque.\n
       Pharetra vel turpis nunc eget lorem dolor sed. Commodo quis imperdiet massa tincidunt nunc pulvinar sapien et. Vel pretium lectus quam id leo. Ornare suspendisse sed nisi lacus sed viverra. Magna etiam tempor orci eu lobortis elementum. Aliquam nulla facilisi cras fermentum. Rutrum tellus pellentesque eu tincidunt tortor aliquam nulla facilisi cras. Nam at lectus urna duis. Nunc scelerisque viverra mauris in aliquam sem fringilla ut morbi. At elementum eu facilisis sed odio morbi quis commodo odio. Amet nisl purus in mollis nunc sed id. Tristique sollicitudin nibh sit amet. Arcu risus quis varius quam quisque id diam. Nisl tincidunt eget nullam non. Bibendum arcu vitae elementum curabitur vitae. Vitae aliquet nec ullamcorper sit amet risus nullam eget felis.\n
       Cum sociis natoque penatibus et magnis. Quam lacus suspendisse faucibus interdum. Lorem dolor sed viverra ipsum. Non pulvinar neque laoreet suspendisse interdum consectetur. Sit amet consectetur adipiscing elit ut aliquam. Mi ipsum faucibus vitae aliquet nec. Eget egestas purus viverra accumsan in nisl nisi scelerisque eu. Vel orci porta non pulvinar neque laoreet suspendisse interdum consectetur. Justo nec ultrices dui sapien eget mi proin sed. Lacus viverra vitae congue eu consequat. Purus viverra accumsan in nisl nisi scelerisque eu ultrices vitae. Pretium aenean pharetra magna ac placerat vestibulum lectus mauris. Consequat interdum varius sit amet mattis vulputate. Venenatis cras sed felis eget velit. Cursus metus aliquam eleifend mi in nulla posuere sollicitudin aliquam. Tristique senectus et netus et malesuada fames ac. Massa enim nec dui nunc mattis enim ut tellus elementum.`,
-    policy_url: "https://test.com"
+    policy_url: "https://test.com",
   },
   experiments: [
     {
@@ -187,7 +197,7 @@ export const embeddedDataset = [{
         accession: "GHGAEM654513213",
         type: "Experiment Method 1",
         instrument_model: "Experiment Platform 1",
-      }
+      },
     },
   ],
   samples: [
@@ -200,7 +210,7 @@ export const embeddedDataset = [{
       case_control_status: "Test control status",
       individual: {
         sex: "Female",
-        phenotypic_features_terms: ["Test phenotypic feature 1"]
+        phenotypic_features_terms: ["Test phenotypic feature 1"],
       },
       biospecimen_type: "Test biospeciment type 1",
       biospecimen_tissue_term: "Test tissue",
@@ -216,10 +226,17 @@ export const embeddedDataset = [{
   ],
   sample_files: [],
   sequencing_process_files: [],
-  analysis_process_output_files: []
-}];
+  analysis_process_output_files: [],
+};
 
-export const datasetSummary = [{
+// get embedded datasets with arbitrary accessions
+export const getEmbeddedDataset = (accession) => ({
+  ...embeddedDataset,
+  accession: accession,
+  ega_accession: accession.replace("GHGA", "EGA"),
+});
+
+export const datasetSummary = {
   accession: "GHGAD588887987",
   description:
     "Test dataset for Metadata Repository get dataset details call. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Vel risus commodo viverra maecenas accumsan lacus vel. Sit amet risus nullam eget felis eget nunc lobortis mattis. Iaculis at erat pellentesque adipiscing commodo. Volutpat consequat mauris nunc congue. At lectus urna duis convallis convallis tellus id interdum velit. Gravida cum sociis natoque penatibus et. Mauris in aliquam sem fringilla ut morbi. Ultrices gravida dictum fusce ut. At consectetur lorem donec massa sapien faucibus et molestie.",
@@ -229,9 +246,18 @@ export const datasetSummary = [{
   samples_summary: {
     count: 3,
     stats: {
-      sex: [{ value: "Female", count: 1 }, { value: "Male", count: 1 }],
-      tissues: [{ value: "metastasis", count: 1 }, { value: "tumor", count: 2 }],
-      phenotypic_features: [{ value: "Test Phenotype 1", count: 2 }, { value: "Test Phenotype 2", count: 1 }],
+      sex: [
+        { value: "Female", count: 1 },
+        { value: "Male", count: 1 },
+      ],
+      tissues: [
+        { value: "metastasis", count: 1 },
+        { value: "tumor", count: 2 },
+      ],
+      phenotypic_features: [
+        { value: "Test Phenotype 1", count: 2 },
+        { value: "Test Phenotype 2", count: 1 },
+      ],
     },
   },
   studies_summary: {
@@ -244,51 +270,73 @@ export const datasetSummary = [{
   experiments_summary: {
     count: 14,
     stats: {
-      experiment_methods: [{
-        value: "Ilumina test", count: 10
-      },
-      { value: "HiSeq test", count: 4 }],
+      experiment_methods: [
+        {
+          value: "Ilumina_test",
+          count: 10,
+        },
+        { value: "HiSeq_test", count: 4 },
+      ],
     },
   },
   files_summary: {
     count: 27,
     stats: {
-      format: [{ value: "fastq", count: 22 }, { value: "bam", count: 5 }],
+      format: [
+        { value: "FASTQ", count: 22 },
+        { value: "BAM", count: 5 },
+      ],
       size: 434543980,
     },
   },
-}];
+};
+
+// get dataset dummaries with arbitrary accessions
+export const getDatasetSummary = (accession) => ({
+  ...datasetSummary,
+  accession: accession,
+});
 
 export const metadataSummary = {
   resource_stats: {
     SequencingProcessFile: {
       count: 532,
       stats: {
-        format: [{ value: "fastq", count: 124 }, { value: "bam", count: 408 }]
+        format: [
+          { value: "fastq", count: 124 },
+          { value: "bam", count: 408 },
+        ],
       },
     },
     Individual: {
       count: 5432,
       stats: {
-        sex: [{ value: "Female", count: 1935 }, { value: "Male", count: 2358 }],
+        sex: [
+          { value: "Female", count: 1935 },
+          { value: "Male", count: 2358 },
+        ],
       },
     },
     ExperimentMethod: {
       count: 1400,
       stats: {
-        instrument_model: [{
-          value: "Ilumina test", count: 700
-        },
-        {
-          value: "HiSeq test", count: 700,
-        }],
+        instrument_model: [
+          {
+            value: "Ilumina_test",
+            count: 700,
+          },
+          {
+            value: "HiSeq_test",
+            count: 700,
+          },
+        ],
       },
     },
     Dataset: {
       count: 252,
       stats: {},
     },
-  }
+  },
 };
 
 export const searchResults = {
@@ -310,7 +358,7 @@ export const searchResults = {
       ],
     },
   ],
-  count: 25,
+  count: 25, // just to test the paginator
   hits: [
     {
       content: {
@@ -320,8 +368,9 @@ export const searchResults = {
         description:
           "Test dataset for Metadata Repository get dataset details call. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Vel risus commodo viverra maecenas accumsan lacus vel. Sit amet risus nullam eget felis eget nunc lobortis mattis. Iaculis at erat pellentesque adipiscing commodo. Volutpat consequat mauris nunc congue. At lectus urna duis convallis convallis tellus id interdum velit. Gravida cum sociis natoque penatibus et. Mauris in aliquam sem fringilla ut morbi. Ultrices gravida dictum fusce ut. At consectetur lorem donec massa sapien faucibus et molestie.",
         types: ["Test dataset type 1"],
-      }
-    }, {
+      },
+    },
+    {
       content: {
         accession: "GHGAD588887988",
         ega_accession: "EGAD588887988",
@@ -329,8 +378,9 @@ export const searchResults = {
         description:
           "Test dataset for Metadata Repository get dataset details call. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Vel risus commodo viverra maecenas accumsan lacus vel. Sit amet risus nullam eget felis eget nunc lobortis mattis. Iaculis at erat pellentesque adipiscing commodo. Volutpat consequat mauris nunc congue. At lectus urna duis convallis convallis tellus id interdum velit. Gravida cum sociis natoque penatibus et. Mauris in aliquam sem fringilla ut morbi. Ultrices gravida dictum fusce ut. At consectetur lorem donec massa sapien faucibus et molestie.",
         types: ["Test dataset type 1"],
-      }
-    }, {
+      },
+    },
+    {
       content: {
         accession: "GHGAD588887989",
         ega_accession: "EGAD588887989",
@@ -338,7 +388,7 @@ export const searchResults = {
         description:
           "Test dataset for Metadata Repository get dataset details call. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Vel risus commodo viverra maecenas accumsan lacus vel. Sit amet risus nullam eget felis eget nunc lobortis mattis. Iaculis at erat pellentesque adipiscing commodo. Volutpat consequat mauris nunc congue. At lectus urna duis convallis convallis tellus id interdum velit. Gravida cum sociis natoque penatibus et. Mauris in aliquam sem fringilla ut morbi. Ultrices gravida dictum fusce ut. At consectetur lorem donec massa sapien faucibus et molestie.",
         types: ["Test dataset type 1"],
-      }
+      },
     },
   ],
 };

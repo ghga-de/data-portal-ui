@@ -1,8 +1,8 @@
 import {
-  accessRequests,
+  getAccessRequests,
   datasets,
-  datasetSummary,
-  embeddedDataset,
+  getDatasetSummary,
+  getEmbeddedDataset,
   metadataSummary,
   workPackageToken,
   searchResults,
@@ -19,7 +19,9 @@ import {
 
 export const responses = {
   // Change context information
-  "POST /api/auth/totp-token": { uri: "otpauth://totp/GHGA:John%20Doe?secret=TESTTOTPTOKEN&issuer=GHGA" },
+  "POST /api/auth/totp-token": {
+    uri: "otpauth://totp/GHGA:John%20Doe?secret=TESTTOTPTOKEN&issuer=GHGA",
+  },
 
   // Datasets requested by j.doe@ghga.de user
   "GET /api/wps/users/j.doe@ghga.de/datasets": datasets,
@@ -37,7 +39,9 @@ export const responses = {
   "POST /api/auth/rpc/ivas/*/request-code": 204,
 
   // Create IVA verification code
-  "POST /api/auth/rpc/ivas/*/create-code": { verification_code: "TEST1234566789" },
+  "POST /api/auth/rpc/ivas/*/create-code": {
+    verification_code: "TEST1234566789",
+  },
 
   // Request IVA verification
   "POST /api/auth/rpc/ivas/*/code-transmitted": 204,
@@ -59,13 +63,16 @@ export const responses = {
   "POST /api/wps/work-packages": workPackageToken,
 
   // Specific dataset and user access requests
-  "GET /api/ars/access-requests?dataset_id=GHGAD588887987&*": accessRequests.filter((x) => x.dataset_id === "GHGAD588887987" && x.user_id === "j.doe@ghga.de"),
+  "GET /api/ars/access-requests?dataset_id=GHGAD588887987&*": getAccessRequests(
+    "j.doe@ghga.de",
+    "GHGAD588887987"
+  ),
 
   // Specific dataset and user access requests
-  "GET /api/ars/access-requests?*": accessRequests.filter((x) => x.user_id === "j.doe@ghga.de"),
+  "GET /api/ars/access-requests?*": getAccessRequests("j.doe@ghga.de"),
 
   // All access requests
-  "GET /api/ars/access-requests": accessRequests,
+  "GET /api/ars/access-requests": getAccessRequests(),
 
   // All access requests
   "POST /api/ars/access-requests": 204,
@@ -77,24 +84,28 @@ export const responses = {
   "GET /static/*": undefined,
 
   // Get Dataset details (embedded) Metadata Repository Service
-  "GET /api/metldata/artifacts/embedded_public/classes/EmbeddedDataset/resources/GHGAD588887987": embeddedDataset[0],
-  // Get Dataset details (embedded) Metadata Repository Service
-  "GET /api/metldata/artifacts/embedded_public/classes/EmbeddedDataset/resources/GHGAD588887988": embeddedDataset.map((x) => { return ({ ...x, accession: "GHGAD588887988", ega_accession: "EGAD588887988" }) })[0],
-  // Get Dataset details (embedded) Metadata Repository Service
-  "GET /api/metldata/artifacts/embedded_public/classes/EmbeddedDataset/resources/GHGAD588887989": embeddedDataset.map((x) => { return ({ ...x, accession: "GHGAD588887989", ega_accession: "EGAD588887989" }) })[0],
+  "GET /api/metldata/artifacts/embedded_public/classes/EmbeddedDataset/resources/GHGAD588887987":
+    getEmbeddedDataset("GHGAD588887987"),
+  "GET /api/metldata/artifacts/embedded_public/classes/EmbeddedDataset/resources/GHGAD588887988":
+    getEmbeddedDataset("GHGAD588887988"),
+  "GET /api/metldata/artifacts/embedded_public/classes/EmbeddedDataset/resources/GHGAD588887989":
+    getEmbeddedDataset("GHGAD588887989"),
 
   // Get summary data from a single dataset
-  "GET /api/metldata/artifacts/stats_public/classes/DatasetStats/resources/GHGAD588887987": datasetSummary[0],
+  "GET /api/metldata/artifacts/stats_public/classes/DatasetStats/resources/GHGAD588887987":
+    getDatasetSummary("GHGAD588887987"),
   // Get summary data from a single dataset
-  "GET /api/metldata/artifacts/stats_public/classes/DatasetStats/resources/GHGAD588887988": datasetSummary.map((x) => { return ({ ...x, accession: "GHGAD588887988", ega_accession: "EGAD588887988" }) })[0],
+  "GET /api/metldata/artifacts/stats_public/classes/DatasetStats/resources/GHGAD588887988":
+    getDatasetSummary("GHGAD588887988"),
   // Get summary data from a single dataset
-  "GET /api/metldata/artifacts/stats_public/classes/DatasetStats/resources/GHGAD588887989": datasetSummary.map((x) => { return ({ ...x, accession: "GHGAD588887989", ega_accession: "EGAD588887989" }) })[0],
+  "GET /api/metldata/artifacts/stats_public/classes/DatasetStats/resources/GHGAD588887989":
+    getDatasetSummary("GHGAD588887989"),
 
   // Get summary data from entire metadata database
   "GET /api/metldata/stats": metadataSummary,
 
   // Metadata Search Service
-  "POST /api/mass/rpc/search*": {
+  "GET /api/mass/search*": {
     facets: searchResults.facets,
     count: searchResults.count,
     hits: searchResults.hits,

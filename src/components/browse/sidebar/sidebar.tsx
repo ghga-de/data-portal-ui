@@ -54,7 +54,7 @@ const Sidebar = (props: SidebarProps) => {
     querySearchService(
       props.setSearchResults,
       [],
-      "*",
+      "",
       skip,
       props.limit,
       "EmbeddedDataset"
