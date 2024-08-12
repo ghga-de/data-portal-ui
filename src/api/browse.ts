@@ -29,7 +29,7 @@ type getDatasetsSearchRespType = (
  * function with search results, returns nothing.
  * @param callbackFunc - Function takes an argument conforms to the searchResponseModel.
  * @param filterQuery - Filters to be applied, array of objects that conform to the facetFilterModel.
- * @param searchKeyword - String representing the search keyword. Default: "*".
+ * @param searchKeyword - String representing the search keyword. Default: "".
  * @param skip - Number of results to skip in the search results. Default: 0.
  * @param limit - Maximum number of results to be returned by the search. Default: 20.
  * @param documentType - String representing the document type to search. Default: "Dataset".
