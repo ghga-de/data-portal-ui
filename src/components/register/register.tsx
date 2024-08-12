@@ -9,6 +9,7 @@ import {
   faIdCard,
   faArrowRightFromBracket,
   faPenToSquare,
+  faArrowUpRightFromSquare,
 } from "@fortawesome/free-solid-svg-icons";
 import { useMessages } from "../messages/usage";
 import { authService, useAuth } from "../../services/auth";
@@ -225,7 +226,8 @@ const Register = () => {
                     target="_blank"
                     rel="noreferrer"
                   >
-                    terms of use
+                    <FontAwesomeIcon icon={faArrowUpRightFromSquare} /> terms of
+                    use
                   </Link>{" "}
                   and the{" "}
                   <a
@@ -233,7 +235,8 @@ const Register = () => {
                     target="_blank"
                     rel="noreferrer"
                   >
-                    privacy policy
+                    <FontAwesomeIcon icon={faArrowUpRightFromSquare} /> privacy
+                    policy
                   </a>
                   .
                 </label>
