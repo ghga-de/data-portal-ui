@@ -82,6 +82,7 @@ const ConfirmVerificationModal = (props: ConfirmVerificationModalProps) => {
                   width: "8em",
                 }}
                 required
+                autoComplete="one-time-code"
                 minLength={6}
                 maxLength={6}
                 pattern="[A-Z0-9]{6}"

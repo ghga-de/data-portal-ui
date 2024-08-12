@@ -9,6 +9,7 @@ import {
   faIdCard,
   faArrowRightFromBracket,
   faPenToSquare,
+  faArrowUpRightFromSquare,
 } from "@fortawesome/free-solid-svg-icons";
 import { useMessages } from "../messages/usage";
 import { authService, useAuth } from "../../services/auth";
@@ -25,7 +26,7 @@ const Register = () => {
   const { user, logoutUser } = useAuth();
   const [disabledButton, setDisabledButton] = useState<boolean>(false);
 
-  const oldState = user?.state
+  const oldState = user?.state;
 
   const back = () => {
     let path = sessionStorage.getItem("lastPath");
@@ -64,7 +65,7 @@ const Register = () => {
 
   const buttonText = () =>
     blocked ? (user?.id ? "Confirm" : "Register") : "Continue";
-  
+
   const submitUserData = async () => {
     if (!blocked) {
       navigate("/setup-2fa");
@@ -127,13 +128,11 @@ const Register = () => {
         },
         modal: true,
       });
-    }
-    else {
+    } else {
       showMessage({
         type: "success",
         title: `Re-registration successful`,
-        detail:
-          "You have been successfully re-registered.",
+        detail: "You have been successfully re-registered.",
         label1: "Continue",
         modal: true,
       });
@@ -222,8 +221,13 @@ const Register = () => {
                 />
                 <label htmlFor="tos">
                   I accept the{" "}
-                  <Link to="/terms-of-use" target="_blank" rel="noreferrer">
-                    terms of use
+                  <Link
+                    to="https://www.ghga.de/Downloads/Terms_of_Use_-_GHGA_Data_Infrastructure_V1.0.pdf"
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    <FontAwesomeIcon icon={faArrowUpRightFromSquare} /> terms of
+                    use
                   </Link>{" "}
                   and the{" "}
                   <a
@@ -231,7 +235,8 @@ const Register = () => {
                     target="_blank"
                     rel="noreferrer"
                   >
-                    privacy policy
+                    <FontAwesomeIcon icon={faArrowUpRightFromSquare} /> privacy
+                    policy
                   </a>
                   .
                 </label>

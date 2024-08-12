@@ -199,6 +199,7 @@ const Confirm2FA = () => {
                   width: "8em",
                 }}
                 required
+                autoComplete="one-time-code"
                 minLength={6}
                 maxLength={6}
                 pattern="[0-9]{6}"

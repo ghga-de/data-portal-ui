@@ -1,109 +1,70 @@
-import { Button, Carousel, Col, Row } from "react-bootstrap";
-import PerfectScrollbar from "react-perfect-scrollbar";
+import { Col, Row } from "react-bootstrap";
 import "react-perfect-scrollbar/dist/css/styles.css";
-import standards from "./standards.json";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowUpRightFromSquare } from "@fortawesome/free-solid-svg-icons";
+import logo from "../../../assets/GHGA_full_Logo_orange.png";
 
 /**
- * Section on the home page where Standards are displayed in carousel.
- * @remarks
- * Its content comes from the "standards.json" file instead of server.
+ * Section on the home page where an "About us" section is displayed.
  */
 const HomeBottomSection = () => {
+  const PARAGRAPH_CLASS = "fs-5 text-md-justify";
+  const LINK_CLASS = "text-secondary";
   return (
-    <Row className="mx-2 mb-3 mt-4 bg-tertiary rounded">
-      <Col style={{ height: "450px" }}>
-        <h4 className="fw-bold fs-3 p-3 pb-2 mb-4">Our Standards</h4>
-        <Carousel
-          indicators={false}
-          variant="dark"
-          interval={null}
-          style={{ height: "320px" }}
-        >
-          {standards
-            .map((value) => ({ value, sort: Math.random() }))
-            .sort((a, b) => a.sort - b.sort)
-            .map(({ value }) => value)
-            .map((x, idx) => (
-              <Carousel.Item key={"homepage_projects_" + idx}>
-                <div className="px-3 px-sm-3 px-lg-5 mx-0 mx-sm-3 mx-lg-5">
-                  <h4 className="fw-bold">{x.name}</h4>
-                  <Row>
-                    {x.img_location === "" ? (
-                      <Col
-                        className="overflow-auto"
-                        style={{ maxHeight: "220px" }}
-                      >
-                        <PerfectScrollbar>
-                          {x.description.split("\n").map((z, idz) => (
-                            <p
-                              className="mb-0"
-                              style={{ textAlign: "justify" }}
-                              key={
-                                "homepage_span_" +
-                                x.name +
-                                "_description_" +
-                                idz
-                              }
-                            >
-                              {z}
-                            </p>
-                          ))}
-                        </PerfectScrollbar>
-                      </Col>
-                    ) : (
-                      <>
-                        <Col
-                          className="col-7 overflow-auto"
-                          style={{ maxHeight: "220px" }}
-                        >
-                          <PerfectScrollbar>
-                            <p style={{ textAlign: "justify" }}>
-                              {x.description.split("\n").map((z, idz) => (
-                                <span
-                                  key={
-                                    "homepage_span_" +
-                                    x.name +
-                                    "_description_" +
-                                    idz
-                                  }
-                                >
-                                  {z}
-                                  <br />
-                                </span>
-                              ))}
-                            </p>
-                          </PerfectScrollbar>
-                        </Col>
-                        <Col>
-                          <img src={x.img_location} alt={x.img_alt} />
-                        </Col>
-                      </>
-                    )}
-                  </Row>
-                  <div className="text-center">
-                    {x.learn_more_href !== "" ? (
-                      <Button
-                        as="a"
-                        target="_blank"
-                        variant="quinary"
-                        className="shadow-md-dark my-3"
-                        href={x.learn_more_href}
-                      >
-                        <FontAwesomeIcon icon={faArrowUpRightFromSquare} />
-                        &nbsp;Learn more...
-                      </Button>
-                    ) : (
-                      ""
-                    )}
-                  </div>
-                </div>
-              </Carousel.Item>
-            ))}
-        </Carousel>
-      </Col>
-    </Row>
+    <div className="pt-4">
+      <h3 className="fw-bold pb-2 px-4 mx-2">About GHGA</h3>
+      <hr className="mx-lg-3 border-tertiary opacity-100" />
+      <h4 className="px-4 mx-2 mb-0">
+        GHGA &ndash; The German Human Genome-Phenome Archive
+      </h4>
+      <Row className="p-2 p-lg-4 align-items-center">
+        <Col md={5} lg={4} xl={3}>
+          <img alt="GHGA Logo" src={logo} className="w-100" />
+        </Col>
+        <Col>
+          <p className={PARAGRAPH_CLASS}>
+            <a className={LINK_CLASS} href="https://www.ghga.de/">
+              GHGA
+            </a>{" "}
+            is a national infrastructure to enable the FAIR and secure sharing
+            of genetic and other human omics data. It is embedded into European
+            activities such as the federated European Genome-Phenome Archive (
+            <a
+              className={LINK_CLASS}
+              href="https://ega-archive.org/about/projects-and-funders/federated-ega/"
+            >
+              FEGA
+            </a>
+            ) and the European Genomic Data Infrastructure (
+            <a className={LINK_CLASS} href="https://gdi.onemilliongenomes.eu/">
+              GDI
+            </a>
+            ).
+          </p>
+          <p className={PARAGRAPH_CLASS}>
+            GHGA is funded by the Deutsche Forschungsgemeinschaft (DFG, German
+            Research Foundation, Grant Number{" "}
+            <a
+              className={LINK_CLASS}
+              href="https://gepris.dfg.de/gepris/projekt/441914366?context=projekt&task=showDetail&id=441914366&"
+            >
+              441914366
+            </a>{" "}
+            (NFDI 1/1)) as part of the National Research Data Infrastructure
+            initiative (
+            <a className={LINK_CLASS} href="https://www.nfdi.de/">
+              NFDI
+            </a>
+            ) and by the contributing institutions.
+          </p>
+          <p className={PARAGRAPH_CLASS}>
+            Further Information can be found at{" "}
+            <a className={LINK_CLASS} href="https://www.ghga.de">
+              www.ghga.de
+            </a>
+            .
+          </p>
+        </Col>
+      </Row>
+    </div>
   );
 };
 
