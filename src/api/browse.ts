@@ -29,7 +29,7 @@ type getDatasetsSearchRespType = (
  * function with search results, returns nothing.
  * @param callbackFunc - Function takes an argument conforms to the searchResponseModel.
  * @param filterQuery - Filters to be applied, array of objects that conform to the facetFilterModel.
- * @param searchKeyword - String representing the search keyword. Default: "*".
+ * @param searchKeyword - String representing the search keyword. Default: "".
  * @param skip - Number of results to skip in the search results. Default: 0.
  * @param limit - Maximum number of results to be returned by the search. Default: 20.
  * @param documentType - String representing the document type to search. Default: "Dataset".
@@ -43,16 +43,18 @@ export const querySearchService: getDatasetsSearchRespType = async (
   limit = 20,
   documentType = "EmbeddedDataset"
 ) => {
-  let url = new URL("rpc/search", MASS_URL);
-  const payload = {
-    class_name: documentType,
-    query: searchKeyword,
-    filters: filterQuery,
-    skip: skip,
-    limit: limit,
-  };
+  let url = new URL("search", MASS_URL);
+  const params = url.searchParams;
+  params.append("class_name", documentType);
+  if (searchKeyword) params.append("query", searchKeyword);
+  filterQuery.forEach((filter) => {
+    params.append("filter_by", filter.key);
+    params.append("value", filter.value);
+  });
+  if (skip) params.append("skip", skip.toString());
+  params.append("limit", limit.toString());
   try {
-    const response = await fetchJson(url, "POST", payload);
+    const response = await fetchJson(url, "GET");
     const data = await response.json();
     if (response.status !== 200) {
       throw new Error(`Status code ${response.status} in search response`);

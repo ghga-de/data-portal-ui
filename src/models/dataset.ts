@@ -107,20 +107,14 @@ export interface DatasetEmbeddedModel {
 }
 
 export interface HitContentModel {
-  accession: string;
-  ega_accession: string;
   title: string;
-  description: string;
-  types: string[];
-  study_files: string[];
-  study: StudyEmbeddedModel;
-  samples: string[];
-  sequencing_experiments: string[];
+  alias: string;
+  description?: string;
+  types?: string[];
 }
 
 export interface HitModel {
-  document_type: string;
-  context: string | null;
+  id_: string;
   content: HitContentModel;
 }
 
