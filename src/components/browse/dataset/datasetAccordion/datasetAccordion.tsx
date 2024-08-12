@@ -48,7 +48,7 @@ const DatasetAccordion = (props: DataSetListProps) => {
               onClick={() => getDetails(hit.id_)}
             >
               <Col xs={5} sm={4} xl={3}>
-                {hit.id_}{" "}
+                {hit.id_}
                 {hit.content.alias ? (
                   <>
                     <br />
