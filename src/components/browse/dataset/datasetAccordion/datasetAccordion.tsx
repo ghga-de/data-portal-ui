@@ -39,20 +39,21 @@ const DatasetAccordion = (props: DataSetListProps) => {
         {props.dsList.map((hit, index) => (
           <Accordion.Item
             key={index}
-            eventKey={hit.content.accession}
+            eventKey={hit.id_}
             className="mb-3 border border-1 rounded-0"
             title={hit.content.title}
           >
             <Accordion.Button
               className="bg-light align-items-start text-break py-2 px-1 px-lg-2 text-black"
-              onClick={() => getDetails(hit.content.accession)}
+              onClick={() => getDetails(hit.id_)}
             >
               <Col xs={5} sm={4} xl={3}>
-                {hit.content.accession}
-                {hit.content.ega_accession ? (
+                {hit.id_}
+                id_{" "}
+                {hit.content.alias ? (
                   <>
                     <br />
-                    {hit.content.ega_accession}
+                    {hit.content.alias}
                   </>
                 ) : (
                   ""
@@ -74,10 +75,7 @@ const DatasetAccordion = (props: DataSetListProps) => {
               </Col>
             </Accordion.Button>
             <Accordion.Body className="p-2">
-              <DatasetSummary
-                hit={hit}
-                summary={summaryMap.get(hit.content.accession)}
-              />
+              <DatasetSummary hit={hit} summary={summaryMap.get(hit.id_)} />
             </Accordion.Body>
           </Accordion.Item>
         ))}
