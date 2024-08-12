@@ -8,14 +8,16 @@ import {
   faYoutube,
 } from "@fortawesome/free-brands-svg-icons";
 import { Container } from "react-bootstrap";
-import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
+import {
+  faArrowUpRightFromSquare,
+  faEnvelope,
+} from "@fortawesome/free-solid-svg-icons";
 
 const FooterIcons = () => {
   const year = new Date().getFullYear();
   return (
     <Container className="mb-2 text-center fs-2">
       <a
-        target="_blank"
         rel="noreferrer"
         className="mx-2 text-muted"
         href="https://genomic.social/@ghga"
@@ -24,7 +26,6 @@ const FooterIcons = () => {
         <FontAwesomeIcon icon={faMastodon} />
       </a>
       <a
-        target="_blank"
         rel="noreferrer"
         className="mx-2 text-muted"
         href="https://www.linkedin.com/company/the-german-human-genome-phenome-archive/"
@@ -33,7 +34,6 @@ const FooterIcons = () => {
         <FontAwesomeIcon icon={faLinkedinIn} />
       </a>
       <a
-        target="_blank"
         rel="noreferrer"
         className="mx-2 text-muted"
         href="https://bsky.app/profile/ghga.bsky.social"
@@ -42,7 +42,6 @@ const FooterIcons = () => {
         <FontAwesomeIcon icon={faBluesky} />
       </a>
       <a
-        target="_blank"
         rel="noreferrer"
         className="mx-2 text-muted"
         href="https://github.com/ghga-de"
@@ -51,7 +50,6 @@ const FooterIcons = () => {
         <FontAwesomeIcon icon={faGithub} />
       </a>
       <a
-        target="_blank"
         rel="noreferrer"
         className="mx-2 text-muted"
         href="https://www.youtube.com/channel/UC7Yqi4gBl86drcUxwwEe6EA"
@@ -60,7 +58,6 @@ const FooterIcons = () => {
         <FontAwesomeIcon icon={faYoutube} />
       </a>
       <a
-        target="_blank"
         rel="noreferrer"
         className="mx-2 text-muted"
         href="https://www.ghga.de/about-us/contact"
@@ -72,7 +69,7 @@ const FooterIcons = () => {
         &#169;{year} GHGA. All Rights Reserved.
         <br />
         <a href="https://www.ghga.de/imprint" target="_blank" rel="noreferrer">
-          Imprint
+          <FontAwesomeIcon icon={faArrowUpRightFromSquare} /> Imprint
         </a>
         {" | "}
         <a
@@ -80,10 +77,16 @@ const FooterIcons = () => {
           target="_blank"
           rel="noreferrer"
         >
-          Data Protection
+          <FontAwesomeIcon icon={faArrowUpRightFromSquare} /> Data Protection
         </a>
         {" | "}
-        <Link to="/terms-of-use">Terms of Use</Link>
+        <Link
+          to="https://www.ghga.de/Downloads/Terms_of_Use_-_GHGA_Data_Infrastructure_V1.0.pdf"
+          target="_blank"
+          rel="noreferrer"
+        >
+          <FontAwesomeIcon icon={faArrowUpRightFromSquare} /> Terms of Use
+        </Link>
       </p>
     </Container>
   );

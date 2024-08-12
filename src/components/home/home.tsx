@@ -13,7 +13,7 @@ const Home = () => {
       <Col className="px-lg-2">
         <h3 className="fw-bold pb-2 px-4 mx-2 text-quaternary">Data Portal</h3>
       </Col>
-      <hr className="mx-lg-3 border-tertiary mb-3 opacity-100" />
+      <hr className="mx-lg-3 border-tertiary opacity-100" />
       <HomeTopSection />
       <HomeMidSection />
       <HomeBottomSection />

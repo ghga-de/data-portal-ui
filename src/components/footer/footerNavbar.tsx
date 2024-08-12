@@ -1,6 +1,7 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Col, Row, Button } from "react-bootstrap";
 import {
+  faArrowUpRightFromSquare,
   faDatabase,
   faEarthEurope,
   faFileLines,
@@ -54,6 +55,7 @@ const FooterNavbar = () => {
               </NavLink>
               <NavLink
                 to="https://docs.ghga.de/faq"
+                target="_blank"
                 end={true}
                 className={LEFT_LINK_CLASSES}
               >
@@ -64,7 +66,7 @@ const FooterNavbar = () => {
                     className="text-white mt-3 mb-3"
                   />
                   <p className="text-white text-decoration-none">
-                    FAQ
+                    <FontAwesomeIcon icon={faArrowUpRightFromSquare} /> FAQ
                     <br />
                     &nbsp;
                   </p>
@@ -72,6 +74,7 @@ const FooterNavbar = () => {
               </NavLink>
               <NavLink
                 to="https://docs.ghga.de/"
+                target="_blank"
                 end={true}
                 className={RIGHT_LINK_CLASSES}
               >
@@ -82,7 +85,8 @@ const FooterNavbar = () => {
                     className="text-white mt-3 mb-3"
                   />
                   <p className="text-white text-decoration-none">
-                    GHGA User
+                    <FontAwesomeIcon icon={faArrowUpRightFromSquare} /> GHGA
+                    User
                     <br />
                     Documentation
                   </p>

@@ -14,7 +14,6 @@ import {
 } from "react-router-dom";
 import Home from "./components/home/home";
 import SingleDatasetView from "./components/browse/singleDatasetView/singleDatasetView";
-import TermsOfUse from "./components/termsOfUse/termsOfUse";
 import WorkPackage from "./components/workPackage/workPackage";
 import Callback from "./components/account/callback";
 import Register from "./components/register/register";
@@ -40,7 +39,6 @@ const router = createBrowserRouter(
         <Route path="?q=:search&f=:filter&p=:page" element={<Browse />} />
       </Route>
       <Route path="/browse/:id" element={<SingleDatasetView />} />
-      <Route path="/terms-of-use" element={<TermsOfUse />} />
       <Route path="/work-package" element={<WorkPackage />} />
       <Route path="/oauth/callback" element={<Callback />} />
       <Route path="/register" element={<Register />} />
