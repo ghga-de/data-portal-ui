@@ -6,7 +6,7 @@ import { Col } from "react-bootstrap";
 /** Home page */
 const Home = () => {
   return (
-    <div className="mt-4 mx-auto px-2 px-lg-5">
+    <Col className="px-lg-2">
       <h2 className="fw-bold p-lg-3 pb-0 text-center">
         The German Human Genome-Phenome Archive
       </h2>
@@ -17,7 +17,7 @@ const Home = () => {
       <HomeTopSection />
       <HomeMidSection />
       <HomeBottomSection />
-    </div>
+    </Col>
   );
 };
 

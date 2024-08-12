@@ -9,12 +9,12 @@ const HomeBottomSection = () => {
   const PARAGRAPH_CLASS = "fs-5 text-md-justify";
   const LINK_CLASS = "text-secondary";
   return (
-    <Col className="px-2">
-      <h4 className="fw-bold fs-3 p-3 px-4 mx-2 pb-1">About GHGA</h4>
+    <div className="pt-4">
+      <h3 className="fw-bold pb-2 px-4 mx-2">About GHGA</h3>
       <hr className="mx-lg-3 border-tertiary opacity-100" />
-      <h5 className="fs-4 px-4 mx-2 mb-0">
+      <h4 className="px-4 mx-2 mb-0">
         GHGA &ndash; The German Human Genome-Phenome Archive
-      </h5>
+      </h4>
       <Row className="p-2 p-lg-4 align-items-center">
         <Col md={5} lg={4} xl={3}>
           <img alt="GHGA Logo" src={logo} className="w-100" />
@@ -64,7 +64,7 @@ const HomeBottomSection = () => {
           </p>
         </Col>
       </Row>
-    </Col>
+    </div>
   );
 };
 
