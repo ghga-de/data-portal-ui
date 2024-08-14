@@ -10,12 +10,12 @@ const HomeBottomSection = () => {
   const LINK_CLASS = "text-secondary";
   return (
     <div className="pt-4 px-lg-2">
-      <h3 className="fw-bold px-lg-4 pb-2 text-center text-lg-start">
+      <h2 className="fw-bold fs-3 px-lg-4 pb-2 text-center text-lg-start">
         About GHGA
-      </h3>
-      <h4 className="mb-0 px-lg-4 text-center text-lg-start">
+      </h2>
+      <h3 className="mb-0 fs-4 px-lg-4 text-center text-lg-start">
         GHGA &ndash; The German Human Genome&#8209;Phenome Archive
-      </h4>
+      </h3>
       <Row className="p-2 p-lg-4 align-items-center">
         <Col md={5} lg={4} xl={3}>
           <img alt="GHGA Logo" src={logo} className="w-100" />
