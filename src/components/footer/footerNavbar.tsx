@@ -17,7 +17,7 @@ const FooterNavbar = () => {
 
   return (
     <div className="mt-5 mt-sm-4 pb-2 mw-100 mx-0 bg-primary">
-      <div className="mw-100 mx-auto container pt-0 pt-sm-1 pb-lg-2 text-center">
+      <div className="mw-100 mx-auto container pt-0 pt-sm-1 pt-lg-3 pb-lg-2 text-center">
         <Row style={{ marginBottom: "-50px" }}>
           <Col className="order-lg-1 mb-4 mb-lg-0">
             <Row className="border-start-sm">

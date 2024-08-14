@@ -8,12 +8,12 @@ const Home = () => {
   return (
     <Row className="px-2 pt-4 pt-lg-0 mx-0 w-100">
       <Col className="mx-0 p-0 w-100">
-        <h2 className="fw-bold p-lg-3 pb-0 text-center">
+        <h2 className="fw-bold p-lg-3 pb-2 pb-lg-2 mb-0 text-center">
           The German Human Genome-Phenome Archive
         </h2>
-        <h3 className="fw-bold pb-2 px-4 text-quaternary text-center">
+        <h2 className="fw-bold pb-2 px-4 text-quaternary text-center">
           Data Portal
-        </h3>
+        </h2>
         <Row className="m-0 w-100">
           <div>
             <hr className="mx-lg-3 border-tertiary opacity-100" />

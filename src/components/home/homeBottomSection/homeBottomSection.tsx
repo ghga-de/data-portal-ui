@@ -13,7 +13,6 @@ const HomeBottomSection = () => {
       <h3 className="fw-bold px-lg-4 pb-2 text-center text-lg-start">
         About GHGA
       </h3>
-      <hr className="mx-lg-3 border-tertiary opacity-100" />
       <h4 className="mb-0 px-lg-4 text-center text-lg-start">
         GHGA &ndash; The German Human Genome&#8209;Phenome Archive
       </h4>
