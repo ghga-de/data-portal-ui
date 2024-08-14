@@ -6,14 +6,16 @@ import logo from "../../../assets/GHGA_full_Logo_orange.png";
  * Section on the home page where an "About us" section is displayed.
  */
 const HomeBottomSection = () => {
-  const PARAGRAPH_CLASS = "fs-5 text-md-justify";
+  const PARAGRAPH_CLASS = "fs-lg-5 text-md-justify";
   const LINK_CLASS = "text-secondary";
   return (
-    <div className="pt-4">
-      <h3 className="fw-bold pb-2 px-4 mx-2">About GHGA</h3>
+    <div className="pt-4 px-lg-2">
+      <h3 className="fw-bold px-lg-4 pb-2 text-center text-lg-start">
+        About GHGA
+      </h3>
       <hr className="mx-lg-3 border-tertiary opacity-100" />
-      <h4 className="px-4 mx-2 mb-0">
-        GHGA &ndash; The German Human Genome-Phenome Archive
+      <h4 className="mb-0 px-lg-4 text-center text-lg-start">
+        GHGA &ndash; The German Human Genome&#8209;Phenome Archive
       </h4>
       <Row className="p-2 p-lg-4 align-items-center">
         <Col md={5} lg={4} xl={3}>
@@ -21,12 +23,10 @@ const HomeBottomSection = () => {
         </Col>
         <Col>
           <p className={PARAGRAPH_CLASS}>
-            <a className={LINK_CLASS} href="https://www.ghga.de/">
-              GHGA
-            </a>{" "}
-            is a national infrastructure to enable the FAIR and secure sharing
-            of genetic and other human omics data. It is embedded into European
-            activities such as the federated European Genome-Phenome Archive (
+            GHGA is a national infrastructure to enable the FAIR and secure
+            sharing of genetic and other human omics data. It is embedded in
+            European activities such as the federated European Genome-Phenome
+            Archive (
             <a
               className={LINK_CLASS}
               href="https://ega-archive.org/about/projects-and-funders/federated-ega/"
@@ -47,16 +47,15 @@ const HomeBottomSection = () => {
               href="https://gepris.dfg.de/gepris/projekt/441914366?context=projekt&task=showDetail&id=441914366&"
             >
               441914366
-            </a>{" "}
-            (NFDI 1/1)) as part of the National Research Data Infrastructure
-            initiative (
-            <a className={LINK_CLASS} href="https://www.nfdi.de/">
+            </a>
+            ) as part of the National Research Data Infrastructure initiative (
+            <a className={LINK_CLASS} href="https://www.nfdi.de/?lang=en">
               NFDI
             </a>
             ) and by the contributing institutions.
           </p>
           <p className={PARAGRAPH_CLASS}>
-            Further Information can be found at{" "}
+            More at{" "}
             <a className={LINK_CLASS} href="https://www.ghga.de">
               www.ghga.de
             </a>

@@ -3,17 +3,17 @@ import { NavLink } from "react-router-dom";
 
 /** Section on top of the home page where general information is given about platform. */
 const HomeTopSection = () => {
-  const PARAGRAPH_CLASS = "fs-5 text-md-justify";
+  const PARAGRAPH_CLASS = "fs-lg-5 text-md-justify";
   const LINK_CLASS = "text-secondary";
   return (
     <Col className="px-lg-2">
-      <Row className="w-100 mx-0 mb-2 pb-4 pe-lg-4">
-        <Col className="p-2 p-lg-4">
+      <Row className="mb-2 px-2 pb-4 pe-lg-4">
+        <Col>
           <p className={PARAGRAPH_CLASS}>
             The GHGA Data Portal is a secure national infrastructure for human
             omics data available under controlled access. Access to the archived
             data can be requested from the data controllers who are responsible
-            for evaluating your data access request.
+            for evaluating the data access request.
           </p>
           <p className={PARAGRAPH_CLASS}>
             The datasets within are annotated following the{" "}
