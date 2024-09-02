@@ -13,17 +13,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-FROM node:lts-alpine3.18
+FROM node:lts-alpine3.20
 
-# update and install dependencies
-RUN apk update && apk upgrade
-RUN apk add --no-cache gcc
-RUN apk add --update alpine-sdk
-
-# install python
-RUN apk add --update --no-cache python3 && ln -sf python3 /usr/bin/python
-RUN python3 -m ensurepip
-RUN pip3 install --no-cache --upgrade pip setuptools
+# install Python and pip
+RUN apk add --no-cache python3 py3-pip
 
 # copy app source code
 WORKDIR /service
@@ -36,7 +29,7 @@ ENV NPM_CONFIG_PREFIX=/home/node/.npm-global
 ENV PATH=$PATH:/home/node/.npm-global/bin
 
 # install run script and npm modules
-RUN python3 -m pip install --user -r /service/configure_build_serve/requirements.txt
+RUN pip install --user --break-system-packages -r /service/configure_build_serve/requirements.txt
 RUN npm install
 RUN npm install -g serve
 
