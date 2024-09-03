@@ -226,8 +226,11 @@ const Register = () => {
                     target="_blank"
                     rel="noreferrer"
                   >
-                    <FontAwesomeIcon icon={faArrowUpRightFromSquare} /> terms of
-                    use
+                    <FontAwesomeIcon
+                      icon={faArrowUpRightFromSquare}
+                      transform={"shrink-6"}
+                    />
+                    terms of use
                   </Link>{" "}
                   and the{" "}
                   <a
@@ -235,8 +238,11 @@ const Register = () => {
                     target="_blank"
                     rel="noreferrer"
                   >
-                    <FontAwesomeIcon icon={faArrowUpRightFromSquare} /> privacy
-                    policy
+                    <FontAwesomeIcon
+                      icon={faArrowUpRightFromSquare}
+                      transform={"shrink-6"}
+                    />
+                    privacy policy
                   </a>
                   .
                 </label>

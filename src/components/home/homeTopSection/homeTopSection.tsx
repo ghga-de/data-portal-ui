@@ -1,3 +1,5 @@
+import { faArrowUpRightFromSquare } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Button, Col, Row } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
 
@@ -19,15 +21,34 @@ const HomeTopSection = () => {
             The datasets within are annotated following the{" "}
             <a
               className={LINK_CLASS}
+              target="_blank"
+              rel="noreferrer"
               href="https://docs.ghga.de/metadata/overview/"
+              style={{ whiteSpace: "nowrap" }}
             >
+              <FontAwesomeIcon
+                icon={faArrowUpRightFromSquare}
+                className="fs-9"
+                style={{ margin: "0 2px 2.5px 0" }}
+              />
               GHGA Metadata Model
             </a>
             , which is compatible with the metadata model of the EGA.
           </p>
           <p className={PARAGRAPH_CLASS}>
             For further documentation, please visit the{" "}
-            <a className={LINK_CLASS} href="https://docs.ghga.de/">
+            <a
+              className={LINK_CLASS}
+              target="_blank"
+              rel="noreferrer"
+              href="https://docs.ghga.de/"
+              style={{ whiteSpace: "nowrap" }}
+            >
+              <FontAwesomeIcon
+                icon={faArrowUpRightFromSquare}
+                className="fs-9"
+                style={{ margin: "0 2px 2.5px 0" }}
+              />
               GHGA User Documentation
             </a>
             .

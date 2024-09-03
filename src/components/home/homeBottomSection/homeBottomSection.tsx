@@ -1,6 +1,8 @@
 import { Col, Row } from "react-bootstrap";
 import "react-perfect-scrollbar/dist/css/styles.css";
 import logo from "../../../assets/GHGA_full_Logo_orange.png";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowUpRightFromSquare } from "@fortawesome/free-solid-svg-icons";
 
 /**
  * Section on the home page where an "About us" section is displayed.
@@ -28,12 +30,31 @@ const HomeBottomSection = () => {
             Archive (
             <a
               className={LINK_CLASS}
+              target="_blank"
+              rel="noreferrer"
               href="https://ega-archive.org/about/projects-and-funders/federated-ega/"
+              style={{ whiteSpace: "nowrap" }}
             >
+              <FontAwesomeIcon
+                icon={faArrowUpRightFromSquare}
+                className="fs-9"
+                style={{ margin: "0 2px 2.5px 0" }}
+              />
               FEGA
             </a>
             ) and the European Genomic Data Infrastructure (
-            <a className={LINK_CLASS} href="https://gdi.onemilliongenomes.eu/">
+            <a
+              className={LINK_CLASS}
+              target="_blank"
+              rel="noreferrer"
+              href="https://gdi.onemilliongenomes.eu/"
+              style={{ whiteSpace: "nowrap" }}
+            >
+              <FontAwesomeIcon
+                icon={faArrowUpRightFromSquare}
+                className="fs-9"
+                style={{ margin: "0 2px 2.5px 0" }}
+              />
               GDI
             </a>
             ).
@@ -43,19 +64,49 @@ const HomeBottomSection = () => {
             Research Foundation, Grant Number{" "}
             <a
               className={LINK_CLASS}
+              target="_blank"
+              rel="noreferrer"
               href="https://gepris.dfg.de/gepris/projekt/441914366?context=projekt&task=showDetail&id=441914366&"
+              style={{ whiteSpace: "nowrap" }}
             >
+              <FontAwesomeIcon
+                icon={faArrowUpRightFromSquare}
+                className="fs-9"
+                style={{ margin: "0 2px 2.5px 0" }}
+              />
               441914366
             </a>
             ) as part of the National Research Data Infrastructure initiative (
-            <a className={LINK_CLASS} href="https://www.nfdi.de/?lang=en">
+            <a
+              className={LINK_CLASS}
+              target="_blank"
+              rel="noreferrer"
+              href="https://www.nfdi.de/?lang=en"
+              style={{ whiteSpace: "nowrap" }}
+            >
+              <FontAwesomeIcon
+                icon={faArrowUpRightFromSquare}
+                className="fs-9"
+                style={{ margin: "0 2px 2.5px 0" }}
+              />
               NFDI
             </a>
             ) and by the contributing institutions.
           </p>
           <p className={PARAGRAPH_CLASS}>
             More at{" "}
-            <a className={LINK_CLASS} href="https://www.ghga.de">
+            <a
+              className={LINK_CLASS}
+              target="_blank"
+              rel="noreferrer"
+              href="https://www.ghga.de"
+              style={{ whiteSpace: "nowrap" }}
+            >
+              <FontAwesomeIcon
+                icon={faArrowUpRightFromSquare}
+                className="fs-9"
+                style={{ margin: "0 2px 2.5px 0" }}
+              />
               www.ghga.de
             </a>
             .

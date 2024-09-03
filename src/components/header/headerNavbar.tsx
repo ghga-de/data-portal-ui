@@ -147,9 +147,11 @@ const HeaderNavbar = () => {
                         target="_blank"
                         className={inactivePageStyle}
                       >
-                        <span className="fs-7 pe-2">
-                          <FontAwesomeIcon icon={faArrowUpRightFromSquare} />
-                        </span>
+                        <FontAwesomeIcon
+                          icon={faArrowUpRightFromSquare}
+                          transform={"shrink-6"}
+                          className="me-1"
+                        />
                         FAQ
                       </NavLink>
                     </Col>
@@ -163,9 +165,11 @@ const HeaderNavbar = () => {
                         target="_blank"
                         className={inactivePageStyle}
                       >
-                        <span className="fs-7 pe-2">
-                          <FontAwesomeIcon icon={faArrowUpRightFromSquare} />
-                        </span>
+                        <FontAwesomeIcon
+                          icon={faArrowUpRightFromSquare}
+                          transform={"shrink-6"}
+                          className="me-1"
+                        />
                         Docs
                       </NavLink>
                     </Col>

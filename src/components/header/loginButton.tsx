@@ -82,15 +82,15 @@ const LoginButton = () => {
                 >
                   <Popover.Body className="text-center fs-6 px-4">
                     <p>
-                      You need to complete your{" "}
-                      {getStatusString()} with the GHGA Data
-                      Portal before you can start using your LS Login account.
+                      You need to complete your {getStatusString()} with the
+                      GHGA Data Portal before you can start using your LS Login
+                      account.
                     </p>
                     <Button
                       variant="quinary"
                       className="text-white fs-7"
                       onClick={() => {
-                        navigate(getPageNavigation())
+                        navigate(getPageNavigation());
                         // setShowPopover(false);
                         // document.body.click();
                       }}
@@ -202,7 +202,10 @@ const LoginButton = () => {
                           variant="outline-tertiary"
                           className="text-quinary border-quinary"
                         >
-                          <FontAwesomeIcon icon={faArrowUpRightFromSquare} />{" "}
+                          <FontAwesomeIcon
+                            icon={faArrowUpRightFromSquare}
+                            transform={"shrink-6"}
+                          />
                           Manage your
                           <br />
                           LS Login account

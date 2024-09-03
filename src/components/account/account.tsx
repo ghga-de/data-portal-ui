@@ -307,12 +307,10 @@ const Account = () => {
                   target="_blank"
                   rel="noreferrer"
                 >
-                  <u>
-                    <FontAwesomeIcon
-                      icon={faArrowUpRightFromSquare}
-                      transform={"shrink-5"}
-                    />
-                  </u>
+                  <FontAwesomeIcon
+                    icon={faArrowUpRightFromSquare}
+                    transform={"shrink-6"}
+                  />
                   LS Login profile
                 </a>
                 .
