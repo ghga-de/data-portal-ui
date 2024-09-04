@@ -1,3 +1,18 @@
+// Copyright 2021 - 2024 Universität Tübingen, DKFZ and EMBL
+// for the German Human Genome-Phenome Archive (GHGA)
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
 import { OIDC_AUTHORITY_URL } from "../utils/utils";
 import { user } from "./data";
 
@@ -5,7 +20,7 @@ const SCOPE = process.env.REACT_APP_OIDC_SCOPE;
 const CLIENT_ID = process.env.REACT_APP_OIDC_CLIENT_ID;
 
 const OIDC_USER_KEY = `oidc.user:${OIDC_AUTHORITY_URL}:${CLIENT_ID}`;
-const USER_KEY = 'user';
+const USER_KEY = "user";
 
 // The following state should be set after login:
 // - set this to "NeedsRegistration" to test the full registration and 2FA flow
@@ -64,7 +79,7 @@ export function clearOidcUser() {
 
 // Remove the session cookie (to mock logout properly)
 export function clearSessionCookie() {
-  document.cookie = 'session=; SameSite=lax';
+  document.cookie = "session=; SameSite=lax";
 }
 
 // Check if the user has a session cookie (to mock login properly)
@@ -81,6 +96,6 @@ export function getLoginHeaders() {
   return {
     "X-Session": JSON.stringify(session),
     // this should be actually HttpOnly, but this doesn't work with MSW
-    "Set-Cookie": "session=test-session; SameSite=lax"
+    "Set-Cookie": "session=test-session; SameSite=lax",
   };
 }
