@@ -41,12 +41,12 @@ const HomeTopSection = () => {
               href="https://docs.ghga.de/metadata/overview/"
               style={{ whiteSpace: "nowrap" }}
             >
+              GHGA Metadata Model
               <FontAwesomeIcon
                 icon={faArrowUpRightFromSquare}
                 className="fs-9"
-                style={{ margin: "0 2px 2.5px 0" }}
+                style={{ margin: "0 0 2.5px 3.5px" }}
               />
-              GHGA Metadata Model
             </a>
             , which is compatible with the metadata model of the EGA.
           </p>
@@ -59,12 +59,12 @@ const HomeTopSection = () => {
               href="https://docs.ghga.de/"
               style={{ whiteSpace: "nowrap" }}
             >
+              GHGA User Documentation
               <FontAwesomeIcon
                 icon={faArrowUpRightFromSquare}
                 className="fs-9"
-                style={{ margin: "0 2px 2.5px 0" }}
+                style={{ margin: "0 0 2.5px 3.5px" }}
               />
-              GHGA User Documentation
             </a>
             .
           </p>

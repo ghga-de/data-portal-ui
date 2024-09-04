@@ -80,18 +80,11 @@ const FooterIcons = () => {
       <p className="mt-2 fs-7 text-muted mb-4">
         &#169;{year} GHGA. All Rights Reserved.
         <br />
-        <a href="https://www.ghga.de/imprint" target="_blank" rel="noreferrer">
-          Imprint
-        </a>
+        <a href="https://www.ghga.de/imprint">Imprint</a>
         {" | "}
-        <a href="https://www.ghga.de/data-protection" rel="noreferrer">
-          Data Protection
-        </a>
+        <a href="https://www.ghga.de/data-protection">Data Protection</a>
         {" | "}
-        <Link
-          to="https://www.ghga.de/Downloads/Terms_of_Use_-_GHGA_Data_Infrastructure_V1.0.pdf"
-          rel="noreferrer"
-        >
+        <Link to="https://www.ghga.de/Downloads/Terms_of_Use_-_GHGA_Data_Infrastructure_V1.0.pdf">
           Terms of Use
         </Link>
       </p>

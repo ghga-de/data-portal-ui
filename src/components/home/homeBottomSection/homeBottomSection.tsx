@@ -50,12 +50,12 @@ const HomeBottomSection = () => {
               href="https://ega-archive.org/about/projects-and-funders/federated-ega/"
               style={{ whiteSpace: "nowrap" }}
             >
+              FEGA
               <FontAwesomeIcon
                 icon={faArrowUpRightFromSquare}
                 className="fs-9"
-                style={{ margin: "0 2px 2.5px 0" }}
+                style={{ margin: "0 0 2.5px 3.5px" }}
               />
-              FEGA
             </a>
             ) and the European Genomic Data Infrastructure (
             <a
@@ -65,12 +65,12 @@ const HomeBottomSection = () => {
               href="https://gdi.onemilliongenomes.eu/"
               style={{ whiteSpace: "nowrap" }}
             >
+              GDI
               <FontAwesomeIcon
                 icon={faArrowUpRightFromSquare}
                 className="fs-9"
-                style={{ margin: "0 2px 2.5px 0" }}
+                style={{ margin: "0 0 2.5px 3.5px" }}
               />
-              GDI
             </a>
             ).
           </p>
@@ -84,12 +84,12 @@ const HomeBottomSection = () => {
               href="https://gepris.dfg.de/gepris/projekt/441914366?context=projekt&task=showDetail&id=441914366&"
               style={{ whiteSpace: "nowrap" }}
             >
+              441914366
               <FontAwesomeIcon
                 icon={faArrowUpRightFromSquare}
                 className="fs-9"
-                style={{ margin: "0 2px 2.5px 0" }}
+                style={{ margin: "0 0 2.5px 3.5px" }}
               />
-              441914366
             </a>
             ) as part of the National Research Data Infrastructure initiative (
             <a
@@ -99,12 +99,12 @@ const HomeBottomSection = () => {
               href="https://www.nfdi.de/?lang=en"
               style={{ whiteSpace: "nowrap" }}
             >
+              NFDI
               <FontAwesomeIcon
                 icon={faArrowUpRightFromSquare}
                 className="fs-9"
-                style={{ margin: "0 2px 2.5px 0" }}
+                style={{ margin: "0 0 2.5px 3.5px" }}
               />
-              NFDI
             </a>
             ) and by the contributing institutions.
           </p>
@@ -117,12 +117,12 @@ const HomeBottomSection = () => {
               href="https://www.ghga.de"
               style={{ whiteSpace: "nowrap" }}
             >
+              www.ghga.de
               <FontAwesomeIcon
                 icon={faArrowUpRightFromSquare}
                 className="fs-9"
-                style={{ margin: "0 2px 2.5px 0" }}
+                style={{ margin: "0 0 2.5px 3.5px" }}
               />
-              www.ghga.de
             </a>
             .
           </p>

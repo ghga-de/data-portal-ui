@@ -217,13 +217,14 @@ const LoginButton = () => {
                           variant="outline-tertiary"
                           className="text-quinary border-quinary"
                         >
-                          <FontAwesomeIcon
-                            icon={faArrowUpRightFromSquare}
-                            transform={"shrink-6"}
-                          />
                           Manage your
                           <br />
                           LS Login account
+                          <FontAwesomeIcon
+                            icon={faArrowUpRightFromSquare}
+                            transform={"shrink-7"}
+                            style={{ marginLeft: "1px" }}
+                          />
                         </Button>
                       </Link>
                     </p>

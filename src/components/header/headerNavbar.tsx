@@ -162,12 +162,12 @@ const HeaderNavbar = () => {
                         target="_blank"
                         className={inactivePageStyle}
                       >
+                        FAQ
                         <FontAwesomeIcon
                           icon={faArrowUpRightFromSquare}
                           transform={"shrink-6"}
-                          className="me-1"
+                          className="ms-1"
                         />
-                        FAQ
                       </NavLink>
                     </Col>
                     <Col
@@ -180,12 +180,12 @@ const HeaderNavbar = () => {
                         target="_blank"
                         className={inactivePageStyle}
                       >
+                        Docs
                         <FontAwesomeIcon
                           icon={faArrowUpRightFromSquare}
                           transform={"shrink-6"}
-                          className="me-1"
+                          className="ms-1"
                         />
-                        Docs
                       </NavLink>
                     </Col>
                     {user && user.role === "data_steward" ? (

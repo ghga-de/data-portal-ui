@@ -81,11 +81,11 @@ const FooterNavbar = () => {
                     className="text-white mt-3 mb-3"
                   />
                   <p className="text-white text-decoration-none">
+                    FAQ{" "}
                     <FontAwesomeIcon
                       icon={faArrowUpRightFromSquare}
                       transform={"shrink-5"}
-                    />{" "}
-                    FAQ
+                    />
                     <br />
                     &nbsp;
                   </p>
@@ -104,13 +104,13 @@ const FooterNavbar = () => {
                     className="text-white mt-3 mb-3"
                   />
                   <p className="text-white text-decoration-none">
+                    GHGA User
+                    <br />
+                    Documentation{" "}
                     <FontAwesomeIcon
                       icon={faArrowUpRightFromSquare}
                       transform={"shrink-5"}
-                    />{" "}
-                    GHGA User
-                    <br />
-                    Documentation
+                    />
                   </p>
                 </Button>
               </NavLink>
