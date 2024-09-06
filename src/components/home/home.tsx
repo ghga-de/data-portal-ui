@@ -16,23 +16,35 @@
 import HomeBottomSection from "./homeBottomSection/homeBottomSection";
 import HomeMidSection from "./homeMidSection/homeMidSection";
 import HomeTopSection from "./homeTopSection/homeTopSection";
-import { Col } from "react-bootstrap";
+import { Col, Row } from "react-bootstrap";
 
 /** Home page */
 const Home = () => {
   return (
-    <Col className="px-lg-2">
-      <h2 className="fw-bold p-lg-3 pb-0 text-center">
-        The German Human Genome-Phenome Archive
-      </h2>
-      <Col className="px-lg-2">
-        <h3 className="fw-bold pb-2 px-4 mx-2 text-quaternary">Data Portal</h3>
+    <Row className="px-2 pt-4 pt-lg-0 mx-0 w-100">
+      <Col className="mx-0 p-0 w-100">
+        <h1 className="fw-bold fs-2 p-lg-3 pb-2 pb-lg-2 mb-0 text-center">
+          <span className="fs-3 mb-1 d-block">
+            The German Human Genome-Phenome Archive
+          </span>
+          <span className="text-quaternary">Data Portal</span>
+        </h1>
+        <Row className="m-0 w-100">
+          <div>
+            <hr className="mx-lg-3 border-tertiary opacity-100" />
+          </div>
+        </Row>
+        <Row className="mx-0 w-100" as="section">
+          <HomeTopSection />
+        </Row>
+        <Row className="mx-0 w-100" as="section">
+          <HomeMidSection />
+        </Row>
+        <Row className="mx-0 w-100" as="aside">
+          <HomeBottomSection />
+        </Row>
       </Col>
-      <hr className="mx-lg-3 border-tertiary opacity-100" />
-      <HomeTopSection />
-      <HomeMidSection />
-      <HomeBottomSection />
-    </Col>
+    </Row>
   );
 };
 

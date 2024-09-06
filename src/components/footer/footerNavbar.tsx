@@ -32,7 +32,7 @@ const FooterNavbar = () => {
 
   return (
     <div className="mt-5 mt-sm-4 pb-2 mw-100 mx-0 bg-primary">
-      <div className="mx-auto container pt-0 pt-sm-3 pb-lg-2 text-center">
+      <div className="mw-100 mx-auto container pt-0 pt-sm-1 pt-lg-3 pb-lg-2 text-center">
         <Row style={{ marginBottom: "-50px" }}>
           <Col className="order-lg-1 mb-4 mb-lg-0">
             <Row className="border-start-sm">
@@ -81,7 +81,11 @@ const FooterNavbar = () => {
                     className="text-white mt-3 mb-3"
                   />
                   <p className="text-white text-decoration-none">
-                    <FontAwesomeIcon icon={faArrowUpRightFromSquare} /> FAQ
+                    FAQ{" "}
+                    <FontAwesomeIcon
+                      icon={faArrowUpRightFromSquare}
+                      transform={"shrink-5"}
+                    />
                     <br />
                     &nbsp;
                   </p>
@@ -100,16 +104,19 @@ const FooterNavbar = () => {
                     className="text-white mt-3 mb-3"
                   />
                   <p className="text-white text-decoration-none">
-                    <FontAwesomeIcon icon={faArrowUpRightFromSquare} /> GHGA
-                    User
+                    GHGA User
                     <br />
-                    Documentation
+                    Documentation{" "}
+                    <FontAwesomeIcon
+                      icon={faArrowUpRightFromSquare}
+                      transform={"shrink-5"}
+                    />
                   </p>
                 </Button>
               </NavLink>
             </Row>
           </Col>
-          <Col xs={12} lg={3} className="px-0 me-lg-2 order-lg-0">
+          <Col xs={12} lg={3} className="px-0 me-lg-2 order-lg-0 pt-md-2">
             <div className="px-xl-3 mx-0">
               <Link to="/" className="text-tertiary text-decoration-none h-100">
                 <div>

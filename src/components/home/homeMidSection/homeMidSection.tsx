@@ -183,7 +183,9 @@ const HomeMidSection = () => {
   return (
     <Col className="px-2">
       <Row className="rounded bg-primary w-100 mx-0 mb-3 pb-lg-5">
-        <h4 className="fw-bold fs-2 text-white p-4 pb-4 mx-2">Statistics</h4>
+        <h2 className="fw-bold fs-3 text-white p-4 pb-4 text-center text-lg-start">
+          Statistics
+        </h2>
         <div className="px-sm-3 px-xl-5 d-flex justify-content-evenly flex-wrap">
           {Badges.map((x, idx) => (
             <Col

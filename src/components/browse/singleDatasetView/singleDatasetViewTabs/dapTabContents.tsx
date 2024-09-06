@@ -13,7 +13,10 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import { faUsersRays, faLink } from "@fortawesome/free-solid-svg-icons";
+import {
+  faUsersRays,
+  faArrowUpRightFromSquare,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Tab, Button, Row, Col } from "react-bootstrap";
 import { DatasetEmbeddedModel } from "../../../../models/dataset";
@@ -51,7 +54,7 @@ const DapTabContents = (props: DapTabContentsProps) => {
               >
                 <Row className="p-0 m-0 align-items-center text-start">
                   <Col xs={"auto"} className="ps-0 pe-1 m-0">
-                    <FontAwesomeIcon icon={faLink} />
+                    <FontAwesomeIcon icon={faArrowUpRightFromSquare} />
                   </Col>
                   <Col className="px-0 m-0 lh-1">
                     <strong>Data Access Info Form</strong>
