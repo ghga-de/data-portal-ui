@@ -102,21 +102,6 @@ const NewIVAModal = (props: NewIVAModalProps) => {
             </Col>
             <Col>
               <Button
-                className={clickedButton === IVAType.Fax ? "w-100" : "w-100"}
-                variant={
-                  clickedButton === IVAType.Fax ? "quinary" : "outline-quinary"
-                }
-                onClick={() => {
-                  setClickedButton(IVAType.Fax);
-                  setDisabledButton(false);
-                  setPromptText("fax number");
-                }}
-              >
-                Fax
-              </Button>
-            </Col>
-            <Col>
-              <Button
                 className={
                   clickedButton === IVAType.PostalAddress ? "w-100" : "w-100"
                 }
