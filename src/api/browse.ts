@@ -20,8 +20,9 @@ import {
   MetadataSummaryModel,
 } from "../models/dataset";
 import { FacetFilterModel } from "../models/facets";
-import { MASS_URL, METLDATA_URL, fetchJson } from "../utils/utils";
+import { DIS_URL, MASS_URL, METLDATA_URL, fetchJson } from "../utils/utils";
 import { showMessage } from "../components/messages/usage";
+import { DatasetInformationFileSummaryModel } from "../models/files";
 
 const showFetchDataError = () => {
   showMessage({
@@ -137,6 +138,33 @@ export const getDatasetSummary: getDatasetSummaryType = async (
     `artifacts/stats_public/classes/DatasetStats/resources/${datasetAccession}`,
     METLDATA_URL
   );
+  try {
+    const response = await fetchJson(url);
+    const data = await response.json();
+    callbackFunc(data);
+  } catch (error) {
+    showFetchDataError();
+    console.error(error);
+  }
+};
+
+type getDatasetFilesType = (
+  datasetAccession: string,
+  callbackFunc: (dataset: DatasetInformationFileSummaryModel) => void
+) => void;
+
+/**
+ * Async function to retrieve the summary of specified dataset's files from API,
+ * calls the callbackFunc function with the response data, returns nothing.
+ * @param datasetAccession - ID of the dataset of interest.
+ * @param callbackFunc - Function used to process response data.
+ * @returns Nothing
+ */
+export const getDatasetFiles: getDatasetFilesType = async (
+  datasetAccession,
+  callbackFunc
+) => {
+  const url = new URL(`dataset_information/${datasetAccession}`, DIS_URL);
   try {
     const response = await fetchJson(url);
     const data = await response.json();

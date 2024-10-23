@@ -21,13 +21,14 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useState } from "react";
 import { Button, Col, Row, Spinner } from "react-bootstrap";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
-import { getDatasetDetails } from "../../../api/browse";
+import { getDatasetDetails, getDatasetFiles } from "../../../api/browse";
 import { DatasetEmbeddedModel } from "../../../models/dataset";
 import DataRequestFormModal from "../../../utils/dataRequestFormModal";
 import SingleDatasetViewAccordion from "./singleDatasetViewAccordion/singleDatasetViewAccordion";
 import SingleDatasetViewSummary from "./singleDatasetViewSummary/singleDatasetViewSummary";
 import SingleDatasetViewTabs from "./singleDatasetViewTabs/singleDatasetViewTabs";
 import RequestAccessButton from "../../../utils/requestAccessButton";
+import { DatasetInformationFileSummaryModel } from "../../../models/files";
 
 /** Single dataset details page */
 const SingleDatasetView = () => {
@@ -44,12 +45,16 @@ const SingleDatasetView = () => {
   const [details, setDetails] = useState<
     DatasetEmbeddedModel | null | undefined
   >(undefined);
+  const [datasetFiles, setDatasetFiles] = useState<
+    DatasetInformationFileSummaryModel | null | undefined
+  >(undefined);
 
   useEffect(() => {
     const getDetails = (datasetAccession: string) => {
       if (!queried) {
         setQueried(true);
         getDatasetDetails(datasetAccession, setDetails);
+        getDatasetFiles(datasetAccession, setDatasetFiles);
       }
     };
     if (!queried) {
@@ -75,12 +80,12 @@ const SingleDatasetView = () => {
 
   return (
     <div className="py-2 py-sm-4 mx-auto px-2 px-sm-5">
-      {details === undefined ? (
+      {details === undefined || datasetFiles === undefined ? (
         <div className="fs-5">
           <Spinner animation="border" variant="primary" size="sm" />
           &nbsp;Dataset details loading, please wait...
         </div>
-      ) : details === null ? (
+      ) : details === null || datasetFiles === null ? (
         <div className="fs-4 fw-bold">
           <FontAwesomeIcon icon={faCircleExclamation} className="text-danger" />
           &nbsp; Error loading dataset details!
@@ -119,7 +124,7 @@ const SingleDatasetView = () => {
           />
           <SingleDatasetViewSummary details={details} />
           <SingleDatasetViewTabs details={details} />
-          <SingleDatasetViewAccordion details={details} />
+          <SingleDatasetViewAccordion details={details} files={datasetFiles} />
         </>
       )}
     </div>

@@ -14,7 +14,7 @@
 // limitations under the License.
 
 import { useState } from "react";
-import { transposeTableForHTML } from "../../../../../utils/utils";
+import { parseBytes, transposeTableForHTML } from "../../../../../utils/utils";
 import {
   SDSVTableDefinition,
   TableFields,
@@ -67,16 +67,38 @@ export const FilesTable = (props: FilesTableProps) => {
       data: allFiles.map((x) => x.file_category),
       cssClasses: "",
     },
+    {
+      header: "File Size",
+      data: allFiles.map((x) => parseBytes(x.size)),
+      cssClasses: "",
+    },
+    {
+      header: "File Location",
+      data: allFiles.map((x) => x.storage_alias),
+      cssClasses: "",
+    },
+    {
+      header: "File Hash",
+      data: allFiles.map((x) => x.sha256_hash),
+      cssClasses: "",
+    },
   ];
 
   const [sortedData, setSortedData] = useState<any>(
     transposeTableForHTML(filesTable.map((x) => x.data))
   );
 
+  var totalSize = 0;
+  allFiles.map((x) => (totalSize += x.size));
+
   const filesTableDef: SDSVTableDefinition = {
     table: filesTable,
     buttonText: allFiles
-      ? "File Summary (" + allFiles.length + " files)"
+      ? "File Summary (" +
+        allFiles.length +
+        " files: " +
+        parseBytes(totalSize) +
+        ")"
       : "File Summary (0 files)",
     sortDefinition: sortDefinition,
     setSortDefinition: setSortDefinition,
