@@ -3,7 +3,7 @@ host: 0.0.0.0
 port: 8080
 mass_url: "api/mass"
 metldata_url: "api/metldata"
-dis_url: "api/dis"
+dis_url: "api/dins"
 ars_url: "api/ars"
 auth_url: "api/auth"
 wps_url: "api/wps"

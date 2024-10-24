@@ -39,13 +39,16 @@ const SingleDatasetViewAccordion = (props: SingleDatasetViewAccordionProps) => {
         const found_file = props.files.file_information.find(
           (y) => y.accession === x.accession
         );
+        var size = 0;
+        var sha256_hash = "";
+        var storage_alias = "";
         if (found_file !== undefined) {
           const file_information = found_file;
-          const size = file_information.size;
-          const sha256_hash = file_information.sha256_hash;
-          const storage_alias = file_information.storage_alias;
-          return { ...x, size, sha256_hash, storage_alias };
-        } else return x;
+          size = file_information.size;
+          sha256_hash = file_information.sha256_hash;
+          storage_alias = file_information.storage_alias;
+        }
+        return { ...x, size, sha256_hash, storage_alias };
       });
       return files_with_info.map((file: any) => ({ ...file, file_category }));
     });

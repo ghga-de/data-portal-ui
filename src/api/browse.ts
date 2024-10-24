@@ -31,15 +31,6 @@ const showFetchDataError = () => {
   });
 };
 
-type getDatasetsSearchRespType = (
-  callbackFunc: (hits: SearchResponseModel) => void,
-  filterQuery: FacetFilterModel[],
-  searchKeyword: string,
-  skip: number,
-  limit: number,
-  documentType: string
-) => void;
-
 /**
  * Async function to retrieve the search results from API, calls the callbackFunc
  * function with search results, returns nothing.
@@ -51,7 +42,7 @@ type getDatasetsSearchRespType = (
  * @param documentType - String representing the document type to search. Default: "Dataset".
  * @returns Nothing
  */
-export const querySearchService: getDatasetsSearchRespType = async (
+export const querySearchService = async (
   callbackFunc: (hits: SearchResponseModel) => void,
   filterQuery: FacetFilterModel[],
   searchKeyword = "",
@@ -88,11 +79,6 @@ export const querySearchService: getDatasetsSearchRespType = async (
   }
 };
 
-type getDatasetDetailsType = (
-  datasetAccession: string,
-  callbackFunc: (dataset: DatasetEmbeddedModel) => void
-) => void;
-
 /**
  * Async function to retrieve the details of specified dataset from API,
  * calls the callbackFunc function with the response data, returns nothing.
@@ -100,9 +86,9 @@ type getDatasetDetailsType = (
  * @param callbackFunc - Function used to process response data.
  * @returns Nothing
  */
-export const getDatasetDetails: getDatasetDetailsType = async (
-  datasetAccession,
-  callbackFunc
+export const getDatasetDetails = async (
+  datasetAccession: string,
+  callbackFunc: (dataset: DatasetEmbeddedModel) => void
 ) => {
   let url = new URL(
     `artifacts/embedded_public/classes/EmbeddedDataset/resources/${datasetAccession}`,
@@ -118,11 +104,6 @@ export const getDatasetDetails: getDatasetDetailsType = async (
   }
 };
 
-type getDatasetSummaryType = (
-  datasetAccession: string,
-  callbackFunc: (dataset: DatasetDetailsSummaryModel) => void
-) => void;
-
 /**
  * Async function to retrieve the summary of specified dataset from API,
  * calls the callbackFunc function with the response data, returns nothing.
@@ -130,9 +111,9 @@ type getDatasetSummaryType = (
  * @param callbackFunc - Function used to process response data.
  * @returns Nothing
  */
-export const getDatasetSummary: getDatasetSummaryType = async (
-  datasetAccession,
-  callbackFunc
+export const getDatasetSummary = async (
+  datasetAccession: string,
+  callbackFunc: (dataset: DatasetDetailsSummaryModel) => void
 ) => {
   const url = new URL(
     `artifacts/stats_public/classes/DatasetStats/resources/${datasetAccession}`,
@@ -148,11 +129,6 @@ export const getDatasetSummary: getDatasetSummaryType = async (
   }
 };
 
-type getDatasetFilesType = (
-  datasetAccession: string,
-  callbackFunc: (dataset: DatasetInformationFileSummaryModel) => void
-) => void;
-
 /**
  * Async function to retrieve the summary of specified dataset's files from API,
  * calls the callbackFunc function with the response data, returns nothing.
@@ -160,9 +136,9 @@ type getDatasetFilesType = (
  * @param callbackFunc - Function used to process response data.
  * @returns Nothing
  */
-export const getDatasetFiles: getDatasetFilesType = async (
-  datasetAccession,
-  callbackFunc
+export const getDatasetFiles = async (
+  datasetAccession: string,
+  callbackFunc: (dataset: DatasetInformationFileSummaryModel) => void
 ) => {
   const url = new URL(`dataset_information/${datasetAccession}`, DIS_URL);
   try {

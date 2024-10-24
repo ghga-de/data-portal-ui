@@ -121,7 +121,7 @@ export const responses = {
   "GET /api/metldata/stats": metadataSummary,
 
   // Get summary data from all files in a dataset
-  "GET /api/dis/dataset_information/*": filesSummary,
+  "GET /api/dins/dataset_information/*": filesSummary,
 
   // Metadata Search Service
   "GET /api/mass/search*": {

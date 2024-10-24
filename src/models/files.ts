@@ -14,12 +14,10 @@
 // limitations under the License.
 export interface DatasetInformationFileSummaryModel {
   accession: string;
-  file_information: [
-    {
-      accession: string;
-      sha256_hash: string;
-      size: number;
-      storage_alias: string;
-    }
-  ];
+  file_information: {
+    accession: string;
+    sha256_hash: string;
+    size: number;
+    storage_alias: string;
+  }[];
 }

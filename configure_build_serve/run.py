@@ -52,7 +52,7 @@ class Config(BaseSettings):
     ribbon_text: str = "Development v$v"
     mass_url: str = "/api/mass"
     metldata_url: str = "/api/metldata"
-    dis_url: str = "/api/dis"
+    dis_url: str = "/api/dins"
     ars_url: str = "/api/ars"
     auth_url: str = "/api/auth"
     wps_url: str = "/api/wps"
