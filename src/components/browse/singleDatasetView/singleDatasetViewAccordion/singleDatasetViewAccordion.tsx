@@ -35,22 +35,18 @@ const SingleDatasetViewAccordion = (props: SingleDatasetViewAccordionProps) => {
       const files = (props.details as any)[key];
       const file_category =
         key.charAt(0).toUpperCase() + key.slice(1, -1).replaceAll("_", " ");
-      const files_with_info = files.map((x: any) => {
-        const found_file = props.files.file_information.find(
-          (y) => y.accession === x.accession
-        );
-        var size = 0;
-        var sha256_hash = "";
-        var storage_alias = "";
-        if (found_file !== undefined) {
-          const file_information = found_file;
-          size = file_information.size;
-          sha256_hash = file_information.sha256_hash;
-          storage_alias = file_information.storage_alias;
-        }
-        return { ...x, size, sha256_hash, storage_alias };
+      const fileInfoMap = new Map();
+      props.files.file_information.forEach((fileInfo) =>
+        fileInfoMap.set(fileInfo.accession, fileInfo)
+      );
+      return files.map((file: any) => {
+        const fileInfo = fileInfoMap.get(file.accession) || {
+          size: 0,
+          sha256_hash: "",
+          storage_alias: "",
+        };
+        return { ...file, ...fileInfo, file_category };
       });
-      return files_with_info.map((file: any) => ({ ...file, file_category }));
     });
 
   let Tables: SDSVTableDefinition[] = [
