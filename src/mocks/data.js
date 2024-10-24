@@ -376,6 +376,7 @@ export const searchResults = {
   count: 25, // just to test the paginator
   hits: [
     {
+      id_: "GHGAD588887987",
       content: {
         accession: "GHGAD588887987",
         ega_accession: "EGAD588887987",
@@ -386,6 +387,7 @@ export const searchResults = {
       },
     },
     {
+      id_: "GHGAD588887988",
       content: {
         accession: "GHGAD588887988",
         ega_accession: "EGAD588887988",
@@ -396,6 +398,7 @@ export const searchResults = {
       },
     },
     {
+      id_: "GHGAD588887989",
       content: {
         accession: "GHGAD588887989",
         ega_accession: "EGAD588887989",
@@ -407,3 +410,13 @@ export const searchResults = {
     },
   ],
 };
+
+export const filesSummary = {
+  accession: "GHGAD588887988",
+  file_information: [{
+    accession: "GHGASF956121331",
+    sha256_hash: "58b2e5a09936322db4ab1b921847d0f3b83027e0255cd24d7e58c420845286dc",
+    size: 123456789,
+    storage_alias: "Tübingen"
+  }]
+}

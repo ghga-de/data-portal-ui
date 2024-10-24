@@ -39,6 +39,7 @@ export const AUTH_URL = getConfiguredUrl("AUTH_URL");
 export const ARS_URL = getConfiguredUrl("ARS_URL");
 export const MASS_URL = getConfiguredUrl("MASS_URL");
 export const METLDATA_URL = getConfiguredUrl("METLDATA_URL");
+export const DIS_URL = getConfiguredUrl("DIS_URL");
 export const WPS_URL = getConfiguredUrl("WPS_URL");
 
 export const OIDC_AUTHORITY_URL = getConfiguredUrl("OIDC_AUTHORITY_URL");
