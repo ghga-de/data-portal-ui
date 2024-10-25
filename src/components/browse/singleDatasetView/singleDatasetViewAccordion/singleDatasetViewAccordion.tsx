@@ -20,9 +20,11 @@ import { FilesTable } from "./tables/filesTable";
 import { SamplesTable } from "./tables/samplesTable";
 import SortButton, { SDSVTableDefinition } from "../../../../utils/sortButton";
 import { parseBytes } from "../../../../utils/utils";
+import { DatasetInformationFileSummaryModel } from "../../../../models/files";
 
 interface SingleDatasetViewAccordionProps {
   details: DatasetEmbeddedModel;
+  files: DatasetInformationFileSummaryModel;
 }
 
 /** Section at the end of dataset details page consisting of three collapsible summary tables. */
@@ -33,7 +35,18 @@ const SingleDatasetViewAccordion = (props: SingleDatasetViewAccordionProps) => {
       const files = (props.details as any)[key];
       const file_category =
         key.charAt(0).toUpperCase() + key.slice(1, -1).replaceAll("_", " ");
-      return files.map((file: any) => ({ ...file, file_category }));
+      const fileInfoMap = new Map();
+      props.files.file_information.forEach((fileInfo) =>
+        fileInfoMap.set(fileInfo.accession, fileInfo)
+      );
+      return files.map((file: any) => {
+        const fileInfo = fileInfoMap.get(file.accession) || {
+          size: 0,
+          sha256_hash: "",
+          storage_alias: "",
+        };
+        return { ...file, ...fileInfo, file_category };
+      });
     });
 
   let Tables: SDSVTableDefinition[] = [

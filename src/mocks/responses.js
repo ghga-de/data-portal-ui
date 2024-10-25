@@ -22,6 +22,7 @@ import {
   workPackageToken,
   searchResults,
   allIVAs,
+  filesSummary,
 } from "./data";
 
 // Responses to be returned for various endpoints.
@@ -118,6 +119,9 @@ export const responses = {
 
   // Get summary data from entire metadata database
   "GET /api/metldata/stats": metadataSummary,
+
+  // Get summary data from all files in a dataset
+  "GET /api/dins/dataset_information/*": filesSummary,
 
   // Metadata Search Service
   "GET /api/mass/search*": {
