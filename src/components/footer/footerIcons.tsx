@@ -84,9 +84,7 @@ const FooterIcons = () => {
         {" | "}
         <a href="https://www.ghga.de/data-protection">Data Protection</a>
         {" | "}
-        <Link to="https://www.ghga.de/Downloads/Terms_of_Use_-_GHGA_Data_Infrastructure_V1.0.pdf">
-          Terms of Use
-        </Link>
+        <Link to="https://zenodo.org/records/11146387">Terms of Use</Link>
       </p>
     </Container>
   );
