@@ -40,11 +40,7 @@ const SingleDatasetViewAccordion = (props: SingleDatasetViewAccordionProps) => {
         fileInfoMap.set(fileInfo.accession, fileInfo)
       );
       return files.map((file: any) => {
-        const fileInfo = fileInfoMap.get(file.accession) || {
-          size: 0,
-          sha256_hash: "",
-          storage_alias: "",
-        };
+        const fileInfo = fileInfoMap.get(file.accession);
         return { ...file, ...fileInfo, file_category };
       });
     });
