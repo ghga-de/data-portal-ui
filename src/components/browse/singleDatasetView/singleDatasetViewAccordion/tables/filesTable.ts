@@ -69,7 +69,7 @@ export const FilesTable = (props: FilesTableProps) => {
     },
     {
       header: "File Size",
-      data: allFiles.map((x) => parseBytes(x.size)),
+      data: allFiles.map((x) => x.size),
       cssClasses: "",
     },
     {

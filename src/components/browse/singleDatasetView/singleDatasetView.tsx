@@ -80,7 +80,7 @@ const SingleDatasetView = () => {
 
   return (
     <div className="py-2 py-sm-4 mx-auto px-2 px-sm-5">
-      {details === undefined ? (
+      {details === undefined || datasetFiles === undefined ? (
         <div className="fs-5">
           <Spinner animation="border" variant="primary" size="sm" />
           &nbsp;Dataset details loading, please wait...
