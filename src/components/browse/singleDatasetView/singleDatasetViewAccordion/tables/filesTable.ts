@@ -41,6 +41,11 @@ export const FilesTable = (props: FilesTableProps) => {
 
   const allFiles = props.allFiles || [];
 
+  const storageDict = [
+    { key: "TUE", value: "Tübingen" },
+    { key: "HD", value: "Heidelberg" },
+  ];
+
   let filesTable: TableFields[] = [
     {
       header: "File ID",
@@ -74,7 +79,13 @@ export const FilesTable = (props: FilesTableProps) => {
     },
     {
       header: "File Location",
-      data: allFiles.map((x) => x.storage_alias),
+      data: allFiles.map((x) =>
+        storageDict.map((y) => {
+          if (x.storage_alias.search(y.key) >= 0)
+            return x.storage_alias.replace(y.key, y.value + " ");
+          else return "";
+        })
+      ),
       cssClasses: "",
     },
     {
