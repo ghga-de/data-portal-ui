@@ -417,6 +417,6 @@ export const filesSummary = {
     accession: "GHGASF956121331",
     sha256_hash: "58b2e5a09936322db4ab1b921847d0f3b83027e0255cd24d7e58c420845286dc",
     size: 123456789,
-    storage_alias: "Tübingen"
+    storage_alias: "TUE01"
   }]
 }

@@ -24,6 +24,16 @@ interface FilesTableProps {
   allFiles: any[];
 }
 
+const STORAGE_LOCATIONS: { [key: string]: string } = {
+  B: "Berlin",
+  DD: "Dresden",
+  HD: "Heidelberg",
+  K: "Cologne",
+  KI: "Kiel",
+  M: "Munich",
+  TUE: "Tübingen",
+};
+
 /**
  * This function creates the schema for the file summary table,
  * which is one of three tables in the dataset details view.
@@ -74,7 +84,12 @@ export const FilesTable = (props: FilesTableProps) => {
     },
     {
       header: "File Location",
-      data: allFiles.map((x) => x.storage_alias),
+      data: allFiles.map((x) =>
+        x.storage_alias.replace(
+          /^[A-Z]+/,
+          (m: string) => (STORAGE_LOCATIONS[m] ?? m) + " "
+        )
+      ),
       cssClasses: "",
     },
     {
