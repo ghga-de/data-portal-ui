@@ -85,7 +85,7 @@ export const FilesTable = (props: FilesTableProps) => {
     {
       header: "File Location",
       data: allFiles.map((x) =>
-        x.storage_alias.replace(
+        x.storage_alias?.replace(
           /^[A-Z]+/,
           (m: string) => (STORAGE_LOCATIONS[m] ?? m) + " "
         )
