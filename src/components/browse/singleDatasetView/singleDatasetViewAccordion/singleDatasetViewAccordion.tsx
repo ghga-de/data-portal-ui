@@ -36,9 +36,12 @@ const SingleDatasetViewAccordion = (props: SingleDatasetViewAccordionProps) => {
       const file_category =
         key.charAt(0).toUpperCase() + key.slice(1, -1).replaceAll("_", " ");
       const fileInfoMap = new Map();
-      props.files.file_information.forEach((fileInfo) =>
-        fileInfoMap.set(fileInfo.accession, fileInfo)
-      );
+      const fileInformation = props.files.file_information;
+      if (fileInformation) {
+        fileInformation.forEach((fileInfo) =>
+          fileInfoMap.set(fileInfo.accession, fileInfo)
+        );
+      }
       return files.map((file: any) => {
         const fileInfo = fileInfoMap.get(file.accession);
         return { ...file, ...fileInfo, file_category };

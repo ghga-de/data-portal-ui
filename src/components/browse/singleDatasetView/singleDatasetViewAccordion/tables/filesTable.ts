@@ -103,7 +103,7 @@ export const FilesTable = (props: FilesTableProps) => {
     transposeTableForHTML(filesTable.map((x) => x.data))
   );
 
-  var totalSize = allFiles.reduce((a, x) => a + x.size, 0);
+  var totalSize = allFiles.reduce((a, x) => a + x?.size || 0, 0);
 
   const filesTableDef: SDSVTableDefinition = {
     table: filesTable,
