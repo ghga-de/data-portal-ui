@@ -1,5 +1,9 @@
 # GHGA Data Portal UI
 
+## Deprecation Notice
+
+This repository contains the code for the first version of the GHGA Data Portal frontend, based on React. Note that this version is no longer used and supported. It has been superseded with the second version of the Data Portal frontend, which is based on Angular and under active development in the [data-portal](https://github.com/ghga-de/data-portal) repository.
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
